@@ -1,0 +1,188 @@
+\select@language {english}
+\vskip -8pt
+\contentsline {schapter}{Acknowledgments}{ix}{chapter*.2}
+\vskip -8pt
+\contentsline {schapter}{Notations}{xi}{chapter*.3}
+\contentsline {chapter}{\numberline {1}Week1}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Wednesday}{1}{section.1.1}
+\contentsline {paragraph}{Recommended Reading}{1}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Introduction to Set}{1}{subsection.1.1.1}
+\contentsline {paragraph}{Firstly we have $\PazoBB {R}\sim (0,1)$}{2}{Item.7}
+\contentsline {paragraph}{Secondly, we show that $2^{\PazoBB {N}}\sim (0,1)$}{3}{Item.7}
+\contentsline {paragraph}{Defining Binary Form}{3}{Item.7}
+\contentsline {section}{\numberline {1.2}Quiz}{5}{section.1.2}
+\contentsline {section}{\numberline {1.3}Friday}{6}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Proof of Schroder-Bernstein Theorem}{6}{subsection.1.3.1}
+\contentsline {paragraph}{Intuition from Fig.(\ref {Fig:1:2})}{6}{subsection.1.3.1}
+\contentsline {paragraph}{$F$ is onto mapping}{8}{figure.1.2}
+\contentsline {paragraph}{$F$ is one-to-one mapping}{8}{Item.17}
+\contentsline {subsection}{\numberline {1.3.2}Connectedness of Real Numbers}{10}{subsection.1.3.2}
+\contentsline {chapter}{\numberline {2}Week2}{13}{chapter.2}
+\contentsline {section}{\numberline {2.1}Wednesday}{13}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Review and Announcement}{13}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Irrational Number Analysis}{13}{subsection.2.1.2}
+\contentsline {paragraph}{Continued Fraction Expansion}{18}{equation.2.1.3d}
+\contentsline {paragraph}{Observations from continued fraction expansion}{19}{equation.2.1.4}
+\contentsline {section}{\numberline {2.2}Friday}{21}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Set Analysis}{21}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Set Analysis Meets Sequence}{22}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Completeness of Real Numbers}{23}{subsection.2.2.3}
+\contentsline {chapter}{\numberline {3}Week3}{27}{chapter.3}
+\contentsline {section}{\numberline {3.1}Tuesday}{27}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Application of Heine-Borel Theorem}{27}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Set Structure Analysis}{29}{subsection.3.1.2}
+\contentsline {paragraph}{Metric Space}{30}{theoremeT.3.2}
+\contentsline {paragraph}{The Real Line}{30}{theoremeT.3.2}
+\contentsline {paragraph}{$n$-Cell Real Space}{30}{theoremeT.3.2}
+\contentsline {paragraph}{Bounded Sequences}{30}{theoremeT.3.2}
+\contentsline {paragraph}{Bounded Functions}{30}{theoremeT.3.2}
+\contentsline {subsection}{\numberline {3.1.3}Reviewing}{31}{subsection.3.1.3}
+\contentsline {section}{\numberline {3.2}Friday}{33}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Review}{33}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Continuity Analysis}{34}{subsection.3.2.2}
+\contentsline {chapter}{\numberline {4}Week4}{41}{chapter.4}
+\contentsline {section}{\numberline {4.1}Wednesday}{41}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Function Analysis}{41}{subsection.4.1.1}
+\contentsline {paragraph}{Verification}{43}{Item.42}
+\contentsline {paragraph}{Notations}{44}{Item.48}
+\contentsline {subsection}{\numberline {4.1.2}Continuity Analysis}{46}{subsection.4.1.2}
+\contentsline {paragraph}{Verification of Exercise}{49}{equation.4.1.1}
+\contentsline {section}{\numberline {4.2}Friday}{50}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Continuity Analysis}{50}{subsection.4.2.1}
+\contentsline {paragraph}{Holder Continuity for Differentiable Equation}{51}{definitionT.4.4}
+\contentsline {subsection}{\numberline {4.2.2}Monotone Analysis}{53}{subsection.4.2.2}
+\contentsline {paragraph}{Exercise}{54}{proposition.4.7}
+\contentsline {subsection}{\numberline {4.2.3}Cantor Set}{55}{subsection.4.2.3}
+\contentsline {paragraph}{Geometric description}{55}{subsection.4.2.3}
+\contentsline {paragraph}{Arithmetic description}{55}{subsection.4.2.3}
+\contentsline {chapter}{\numberline {5}Week5}{59}{chapter.5}
+\contentsline {section}{\numberline {5.1}Wednesdays}{59}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Differentiation}{59}{subsection.5.1.1}
+\contentsline {paragraph}{Notations and Conventions}{59}{subsection.5.1.1}
+\contentsline {paragraph}{Geometric Interpretation}{60}{definitionT.5.1}
+\contentsline {paragraph}{Arithmetic Insights of derivative}{60}{figure.5.1}
+\contentsline {subsection}{\numberline {5.1.2}Basic Rules of Differentiation}{61}{subsection.5.1.2}
+\contentsline {paragraph}{Comments}{62}{proposition.5.1}
+\contentsline {subsection}{\numberline {5.1.3}Analysis on Differential Calculus}{62}{subsection.5.1.3}
+\contentsline {paragraph}{Differentiablity implies continuity}{62}{subsection.5.1.3}
+\contentsline {paragraph}{Estimation on finite increments}{63}{theoremeT.5.1}
+\contentsline {paragraph}{Exercise Verification}{64}{corollaryT.5.1}
+\contentsline {paragraph}{Motivation of Continuosly differentiable}{65}{theoremeT.5.3}
+\contentsline {section}{\numberline {5.2}Friday}{67}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Analysis on Derivative}{67}{subsection.5.2.1}
+\contentsline {paragraph}{Criteria 1: The image of the derivative of any function should be continuous}{67}{subsection.5.2.1}
+\contentsline {paragraph}{Criteria 2: The derivative of any function should be continuous on a dense set}{68}{theoremeT.5.4}
+\contentsline {subsection}{\numberline {5.2.2}Analysis on Mean-Value Theorem}{68}{subsection.5.2.2}
+\contentsline {paragraph}{Plan for next week}{72}{exampleT.5.2}
+\contentsline {section}{\numberline {5.3}Saturday: Comments on Quiz 1}{73}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}First Question}{73}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Second Question}{73}{subsection.5.3.2}
+\contentsline {subsection}{\numberline {5.3.3}Third Question}{74}{subsection.5.3.3}
+\contentsline {subsection}{\numberline {5.3.4}Fourth Question}{75}{subsection.5.3.4}
+\contentsline {subsection}{\numberline {5.3.5}Fifth Question}{75}{subsection.5.3.5}
+\contentsline {subsection}{\numberline {5.3.6}Grading policy}{76}{subsection.5.3.6}
+\contentsline {chapter}{\numberline {6}Week6}{77}{chapter.6}
+\contentsline {section}{\numberline {6.1}Wednesday}{77}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Reviewing}{77}{subsection.6.1.1}
+\contentsline {paragraph}{Taylor's Formula}{77}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}Convergence Analysis}{78}{subsection.6.1.2}
+\contentsline {paragraph}{Power Series}{78}{subsection.6.1.2}
+\contentsline {section}{\numberline {6.2}Friday}{83}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Recap}{83}{subsection.6.2.1}
+\contentsline {paragraph}{Announcement}{83}{subsection.6.2.1}
+\contentsline {paragraph}{Summary about Taylor series}{83}{subsection.6.2.1}
+\contentsline {paragraph}{Exercise}{83}{proposition.6.4}
+\contentsline {subsection}{\numberline {6.2.2}Riemann Integration}{84}{subsection.6.2.2}
+\contentsline {paragraph}{Set Up}{84}{subsection.6.2.2}
+\contentsline {chapter}{\numberline {7}Week7}{89}{chapter.7}
+\contentsline {section}{\numberline {7.1}Wednesday}{89}{section.7.1}
+\contentsline {paragraph}{Announcement}{89}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}Integrable Analysis}{89}{subsection.7.1.1}
+\contentsline {paragraph}{Recap}{89}{subsection.7.1.1}
+\contentsline {subsection}{\numberline {7.1.2}Elementary Calculus Analysis}{92}{subsection.7.1.2}
+\contentsline {section}{\numberline {7.2}Friday}{97}{section.7.2}
+\contentsline {paragraph}{Announcement}{97}{section.7.2}
+\contentsline {subsection}{\numberline {7.2.1}Improper Intergrals}{97}{subsection.7.2.1}
+\contentsline {paragraph}{Motivation}{97}{subsection.7.2.1}
+\contentsline {paragraph}{Notations}{98}{Item.101}
+\contentsline {paragraph}{Graphic Interpretation of Proposition(\ref {Pro:7:4})}{99}{figure.7.1}
+\contentsline {chapter}{\numberline {8}Week8}{105}{chapter.8}
+\contentsline {section}{\numberline {8.1}Friday}{105}{section.8.1}
+\contentsline {subsection}{\numberline {8.1.1}Introduction to metric space}{105}{subsection.8.1.1}
+\contentsline {paragraph}{Generalization from $\PazoBB {R}$ to $\PazoBB {R}^2$}{105}{subsection.8.1.1}
+\contentsline {paragraph}{Local Properties}{108}{Item.117}
+\contentsline {paragraph}{Question}{110}{Item.129}
+\contentsline {chapter}{\numberline {9}Week9}{111}{chapter.9}
+\contentsline {section}{\numberline {9.1}Friday}{111}{section.9.1}
+\contentsline {paragraph}{Comments on question in last lecture}{111}{section.9.1}
+\contentsline {subsection}{\numberline {9.1.1}Preliminaries}{112}{subsection.9.1.1}
+\contentsline {paragraph}{Notations}{112}{subsection.9.1.1}
+\contentsline {subsection}{\numberline {9.1.2}Differentiation}{114}{subsection.9.1.2}
+\contentsline {paragraph}{Review for One-dimension}{114}{subsection.9.1.2}
+\contentsline {paragraph}{High-Dimension Derivative}{114}{subsection.9.1.2}
+\contentsline {paragraph}{Interpretation}{114}{equation.9.1.1}
+\contentsline {paragraph}{Sufficient Condition for differentiability}{117}{equation.9.1.2}
+\contentsline {paragraph}{Planning for following weeks}{119}{equation.9.1.9}
+\contentsline {chapter}{\numberline {10}Week10}{121}{chapter.10}
+\contentsline {section}{\numberline {10.1}Wednesday}{121}{section.10.1}
+\contentsline {subsection}{\numberline {10.1.1}Preliminaries on Notations}{121}{subsection.10.1.1}
+\contentsline {subsection}{\numberline {10.1.2}Analysis on multi-variate differentiation}{122}{subsection.10.1.2}
+\contentsline {paragraph}{Interpretation in one-dimension}{125}{proposition.10.2}
+\contentsline {section}{\numberline {10.2}Friday}{128}{section.10.2}
+\contentsline {subsection}{\numberline {10.2.1}Multi-variate Taylor's Theorem}{128}{subsection.10.2.1}
+\contentsline {paragraph}{Recap for one-dimension}{128}{subsection.10.2.1}
+\contentsline {paragraph}{Generalization into $m$-argument case}{128}{subsection.10.2.1}
+\contentsline {subsection}{\numberline {10.2.2}Application: Optimality Condition}{130}{subsection.10.2.2}
+\contentsline {paragraph}{Necessary optimal condition}{130}{subsection.10.2.2}
+\contentsline {paragraph}{Recap about Diagonalization}{131}{theoremeT.10.4}
+\contentsline {paragraph}{Sufficient Optimality Condition}{132}{theoremeT.10.5}
+\contentsline {chapter}{\numberline {11}Week11}{135}{chapter.11}
+\contentsline {section}{\numberline {11.1}Wednesday}{135}{section.11.1}
+\contentsline {paragraph}{Announcement}{135}{section.11.1}
+\contentsline {subsection}{\numberline {11.1.1}Recap}{135}{subsection.11.1.1}
+\contentsline {subsection}{\numberline {11.1.2}Introduction to Implicit Function Theorem}{137}{subsection.11.1.2}
+\contentsline {paragraph}{Motivation}{137}{subsection.11.1.2}
+\contentsline {paragraph}{Step 1: Applying the continuity of $F$}{139}{equation.11.1.3}
+\contentsline {paragraph}{Step 2: Show the continuity of $f$ on $I_x$}{140}{equation.11.1.7}
+\contentsline {paragraph}{Step3: Show the differentiability of $f$}{141}{equation.11.1.8}
+\contentsline {paragraph}{Alternative approach for evaluating the derivative of $f$}{141}{equation.11.1.12}
+\contentsline {paragraph}{Step4: Show that $f\in \mathcal {C}^p$}{141}{equation.11.1.12}
+\contentsline {section}{\numberline {11.2}Friday}{143}{section.11.2}
+\contentsline {subsection}{\numberline {11.2.1}Analysis on IFT}{143}{subsection.11.2.1}
+\contentsline {paragraph}{Elementrary Version}{143}{subsection.11.2.1}
+\contentsline {paragraph}{Generalized version}{143}{Item.157}
+\contentsline {paragraph}{Full Version}{144}{Item.159}
+\contentsline {subsection}{\numberline {11.2.2}Applications on IFT}{144}{subsection.11.2.2}
+\contentsline {paragraph}{When does a mapping has its inverse locally?}{144}{subsection.11.2.2}
+\contentsline {paragraph}{ When does a vector function admits its canonical form? }{146}{equation.11.2.17b}
+\contentsline {paragraph}{Notations and Conventions}{146}{Item.175}
+\contentsline {paragraph}{Step 1: Show that the $k$-th order principal minor of Jacobian matrix is non-singular on some neighborhood}{148}{figure.11.3}
+\contentsline {paragraph}{Step 2: Construct a $\mathcal {C}^p$-diffeomorphism $\phi $}{148}{figure.11.3}
+\contentsline {paragraph}{Step 3: Study the mapping $f\circ \phi ^{-1}$}{149}{equation.11.2.18}
+\contentsline {paragraph}{Step 4: Construct a $\mathcal {C}^p$-diffeomorphism $\psi $}{150}{equation.11.2.20}
+\contentsline {paragraph}{Step 5: Study the mapping $\psi \circ f\circ \phi ^{-1}$}{150}{equation.11.2.21}
+\contentsline {paragraph}{Application: What is the dimension of a sphere $\PazoBB {S}^2\subseteq \PazoBB {R}^3$?}{151}{equation.11.2.21}
+\contentsline {paragraph}{Comments on Quiz and Final}{151}{equation.11.2.21}
+\contentsline {chapter}{\numberline {12}Week12}{153}{chapter.12}
+\contentsline {section}{\numberline {12.1}Wednesday}{153}{section.12.1}
+\contentsline {subsection}{\numberline {12.1.1}Recap for Rank Theorem}{153}{subsection.12.1.1}
+\contentsline {paragraph}{Inverse Function Theorem}{153}{subsection.12.1.1}
+\contentsline {paragraph}{Rank Theorem}{153}{subsection.12.1.1}
+\contentsline {paragraph}{Outline of proof}{153}{subsection.12.1.1}
+\contentsline {subsection}{\numberline {12.1.2}Functional Dependence}{157}{subsection.12.1.2}
+\contentsline {chapter}{\numberline {13}Week13}{159}{chapter.13}
+\contentsline {section}{\numberline {13.1}Wednesday}{159}{section.13.1}
+\contentsline {paragraph}{Announcement}{159}{section.13.1}
+\contentsline {subsection}{\numberline {13.1.1}Morse Lemma}{159}{subsection.13.1.1}
+\contentsline {subsection}{\numberline {13.1.2}Equality Constrained Problem}{162}{subsection.13.1.2}
+\contentsline {paragraph}{Elementary Version}{162}{equation.13.1.7}
+\contentsline {section}{\numberline {13.2}Friday}{166}{section.13.2}
+\contentsline {subsection}{\numberline {13.2.1}Analysis on Constraint Optimization}{166}{subsection.13.2.1}
+\contentsline {subsection}{\numberline {13.2.2}Analysis on compactness}{169}{subsection.13.2.2}
+\contentsline {paragraph}{Notations}{169}{subsection.13.2.2}
+\contentsline {chapter}{\numberline {14}Week14}{171}{chapter.14}
+\contentsline {section}{\numberline {14.1}Wednesday}{171}{section.14.1}
+\contentsline {subsection}{\numberline {14.1.1}Analysis on Compactness}{171}{subsection.14.1.1}
+\contentsline {paragraph}{Step 1: Construct a desired subsequence}{172}{theoremeT.14.1}
+\contentsline {paragraph}{Step 2: Show the uniform convergence of $\{f_{11},f_{22},f_{33},\dots \}$}{173}{equation.14.1.1}
+\contentsfinish 

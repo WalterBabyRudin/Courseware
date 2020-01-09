@@ -1,0 +1,288 @@
+
+\chapter{Week2}
+\section{Wednesday}\index{week2_Tuesday_lecture}
+\subsection{Review and Announcement}
+The quiz results will not be posted.
+
+In this lecture we study the number theories.
+
+The office hour is 2 - 4pm, TC606 on Wednesday
+\subsection{Irrational Number Analysis}
+\begin{definition}[Algebraic Number]
+A number $x\in\mathbb{R}$ is said to be an \emph{algebraic number} if it satisfies the following equation:
+\begin{equation}
+a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0=0
+\end{equation}
+where $a_n,a_{n-1},\dots,a_0$ are integers and not all zero. We say $x$ is \emph{of degree $n$} if $a_n\ne0$ and $x$ is not the root of any polynomial with lower degree.
+\end{definition}
+\begin{definition}
+A number $x\in\mathbb{R}$ is \emph{transcendental} if it is not an algebraic number.
+\end{definition}
+
+The first example is that all rational numbers are algebraic, since rational number $\frac{p}{q}$ satisfies $qx-p=0$. Also, $\sqrt{2}$ is algebraic. We leave an exericse: show that $e$ and $\pi$ are all transcendental. In history Joseph Liouville (1844) have constructed the first transcendental number. Let's look at the insights of his construction in this lecture:
+
+\begin{proposition}
+The set of all algebraic numbers is countable.
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+\item
+Let $\mathcal{P}_n$ denote the set of all polynomials of degree $n$ (Here we assert polynomials have all integer coefficients by default.), i.e., 
+\[
+\mathcal{P}_n=\{a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0\mid a_j\in\mathbb{Z}\}
+\]
+The set $\mathcal{P}_n$ have the one-to-one onto mapping to the set $\{(a_n,a_{n-1},\dots,a_0)\mid a_j\in\mathbb{Z}\}\subseteq\mathbb{Z}^{n+1}$, which implies $\mathcal{P}_n$ is \emph{countable}.
+\item
+Let $\mathcal{R}_n$ denote the set of all real roots of polynomials in $\mathcal{P}_n$. Since each polynomial of degree $n$ has at most $n$ real roots, the set $\mathcal{R}_n$ is a countable union of finite sets, which is at most countable. It is easy to show $\mathcal{R}_n$ is infinite, and thus countable.
+\item
+Hence, we construct the set of all algebraic numbers $\bigcup_{n=1}^\infty\mathcal{R}_n$, which is countable since countably union of countable sets is also countable.
+\end{enumerate}
+\end{proof}
+
+How fast to approximate rational numbers using rational numbers? How fast to approximate irrational numbers using rational numbers? How fast to approximate transcendental numbers using rational numbers? We need the definition for the rate of approximation first to answer these questions.
+
+\begin{definition}
+A real number $\xi$ is \emph{approximable} by \emph{rational numbers to order $n$} if $\exists$ a constant $K = K(\xi)$ such that the inequality
+\[
+\left|\frac{p}{q} - \xi\right|\le\frac{K}{q^n}
+\]
+has \emph{infinitely many} solutions $\frac{p}{q}\in\mathbb{Q}$ with $q>0$ and $p,q$ are integers without any common divisors.
+\end{definition}
+
+Intuitively, a rational number is approximable by rational numbers. Now we study its rate of approximation by applying this definition.
+\begin{example}
+Suppose a rational number is approximable to oder $\alpha$ (which is a parameter). To calculate the value of $\alpha$, it suffices to choose $(p_k,q_k)$ such that
+\[
+\left|
+\frac{p_k}{q_k}-\frac{p}{q}
+\right|\le\frac{K}{q^\alpha}
+\]
+Note that
+\begin{align*}
+\left|
+\frac{p_k}{q_k}-\frac{p}{q}
+\right|=\left|
+\frac{p_kq-pq_k}{q_kq}
+\right|\ge\frac{1}{qq_k}=\frac{1/q}{q_k},
+\end{align*}
+\begin{itemize}
+\item
+$\frac{p}{q}$ is approximable by rational numbers to order $1$:
+
+If we construct $(p_k,q_k)=(kp-1,kq)$, it follows that
+\[
+\left|
+\frac{p_k}{q_k}-\frac{p}{q}
+\right|=\frac{1}{kq}=\frac{1}{q_k^1}
+\]
+\item
+$\frac{p}{q}$ is approximable by rational numbers to order no higher than $1$:
+
+Otherwise suppose it is approximable to order $n>1$. The inequality holds for infinitely many $(p_k,q_k)$:
+\begin{equation}
+\frac{1/q}{q_k}\le\left|
+\frac{p_k}{q_k}-\frac{p}{q}
+\right|\le\frac{K}{q^n_k}\implies
+\frac{1}{q}q_k^{n-1}\le K\label{Eq:2:2}
+\end{equation}
+Since infinite $(p_k,q_k)$ satisfy the inequality (\ref{Eq:2:2}), we can choose a solution such that $q_k$ is arbitrarily large, which falsify (\ref{Eq:2:2}).
+\end{itemize}
+In summary, any rational number $\frac{p}{q}$ is approximable by rational numbers to order $1$ and no higher than $1$. 
+\end{example}
+
+Liouville had shown that the transcendental number has the higher approxiamtion rate than rational and algebraic numbers, which is counter-intuitive. Let's review his process of proof:
+
+\begin{theorem}[Liouville, 1844]
+A real algebraic number $\xi$ of degree $n$ is not approximable by rational numbers to any order greater than $n$.
+\end{theorem}
+
+We can show some numbers is not algebraic, i.e., transcendental by applying this theorem: 
+\begin{example}[1st Constructed Transcendental Number]
+Given a number
+\[
+\xi:=\frac{1}{10^{1!}}+\frac{1}{10^{2!}}+\cdots,
+\]
+we aim to show it is transcendental. Assume that it is an algebraic number of order $n$, then we construct the first $n$ tails of $\xi$:
+\[
+\xi_n=\frac{1}{10^{1!}}+\frac{1}{10^{2!}}+\cdots+\frac{1}{10^{n!}}
+\]
+It follows that
+\begin{align*}
+|\xi_n-\xi|&=\frac{1}{10^{(n+1)!}}+\frac{1}{10^{(n+2)!}}+\cdots\\
+&=\frac{1}{10^{(n+1)!}}\left[1+\frac{1}{10^{n+2}}+\frac{1}{10^{(n+2)(n+3)}}+\cdots\right]\\
+&\le\frac{1}{10^{(n+1)!}}\cdot 2 = \frac{2}{(10^{n!})^{n+1}}=\frac{2}{q^{n+1}}
+\end{align*}
+which implies $|\xi-\frac{p}{q}|\le\frac{K}{q^{n+1}}$ has one solution $\xi_n$. 
+
+We can construct infinitely many solutions from this solution:
+\[
+\xi_{n,1} = \xi_n+\frac{1}{10^{n+2}},\quad
+\xi_{n,2} = \xi_n+\frac{1}{10^{(n+2)(n+3)}},\quad
+\cdots,\quad
+\]
+
+Hence, this number is approximable by rational numbers to order $n+1$, which contradicts the fact that it is an algebraic number of degree $n$.
+\end{example}
+
+\begin{proof}
+Given an algebraic number $\xi$ of degree $n$, there exists a polynomial whose roots contain $\xi$:
+\[
+f(x) \equiv a_nx^n+\cdots+a_1x+a_0=0.
+\]
+We fix an interval around $\xi$, i.e, $I_\lambda = [\xi-\lambda,\xi+\lambda]$ (with $\lambda=\lambda(\xi)\in(0,1)$) such that $I_\lambda$ contains no other root of $f$ except $\xi$.
+
+ Hence, the value of $f$ at any rational number $\frac{p}{q}$ inside $I_\lambda$ is given by:
+\[
+\left|f(\frac{p}{q})\right|=\left|a_n\frac{p^n}{q^n}+\cdots+a_1\frac{p}{q}+a_0\right|
+=\left|\frac{a_np^n+a_{n-1}p^{n-1}q+\cdots+a_0q^n}{q^n}\right|\ne0
+\]
+
+Hence, $\left|f(\frac{p}{q})\right|\ge\frac{1}{q^n}$, which implies that
+\begin{subequations}
+\begin{align}
+\frac{1}{q^n}&\le\left|f(\frac{p}{q})\right|\label{Eq:2:3:a} \\
+				&= \left|f(\frac{p}{q})-f(\xi)\right|\label{Eq:2:3:b}\\
+				&\le
+|f'(\eta)||\xi-\frac{p}{q}|\label{Eq:2:3:c}\\
+&\le M|\xi-\frac{p}{q}|\label{Eq:2:3:d}
+\end{align}
+\end{subequations}
+with $M:=\max_{\eta\in I_\lambda}f(\eta)$. Note that from (\ref{Eq:2:3:b}) to (\ref{Eq:2:3:c}) is due to mean value theorem.
+
+Or equivalently, $|\xi-\frac{p}{q}|\ge\frac{1/M}{q^n}$ applies for any rational number $\frac{p}{q}$ inside the interval $I_\lambda$. 
+\begin{itemize}
+\item
+Verify by yourself that $\xi$ is not approximable by rational numbers inside the interval $I_\lambda$ to any order greater than $n$.
+\item
+For any rational number $\frac{p}{q}\notin I_\lambda$, we have 
+\[
+\left|\frac{p}{q}-\xi\right|\ge\lambda(\xi)\ge\frac{\lambda(\xi)}{q^n}
+\]
+for $q\ge1,n\ge1$. It is obvious that $\xi$ is not approximable by rational numbers outside the interval $I_\lambda$ to any order greater than $n$.
+\end{itemize}
+The two cases above complete the proof.
+\end{proof}
+
+It's hard to determine which order the transcendental number is approximable by rational numbers. However, we can assrt that there is a ``fast'' approximation to transcendental numbers by applying countinued faction expansion.
+\paragraph{Continued Fraction Expansion}
+Let $x$ be irrational, then intuitively $x$ could be represented as an infinite continued fraction as below:
+\begin{equation}\label{Eq:2:4}
+a_0+\cfrac{1}{a_1+\cfrac{1}{a_2+\cfrac{1}{a_3+\cdots}}}
+\end{equation}
+We denote the continued fraction (\ref{Eq:2:4}) as $[a_0;a_1,a_2,\dots]$. Let's define the rigorous process of continued fraction expansion, i.e., how to find $a_i$:
+\begin{itemize}
+\item
+We set $a_0=\lfloor{x}\rfloor$, which implies that
+\[
+x:=a_0+\xi_0=a_0+\frac{1}{\frac{1}{\xi_0}}\qquad
+\mbox{for $0<\xi_0<1$.}
+\]
+\item
+We set $a_1=\lfloor{\frac{1}{\xi_0}}\rfloor$, which implies that
+\[
+x:=a_0+\frac{1}{a_1+\xi_1}=a_0+\frac{1}{a_1+\frac{1}{\frac{1}{\xi_1}}}
+\]
+\item
+After $n+1$ steps we obtain the continued fraction of $x$:
+\[
+[a_0;a_1,a_2,\dots,a_n+\xi_n]
+\]
+We continue this process iteratively with
+\[
+\frac{1}{\xi_n} = a_{n+1} +\xi_{n+1}
+\]
+with $\xi_{n+1}\in(0,1)$.
+\end{itemize}
+Such a process will continue without end as $x$ is irrational. After $n+1$ steps alternatively, we write
+\[
+\begin{array}{ll}
+x=[a_0;a_1,\dots,a_n,a_{n+1}']
+&
+\mbox{with }a_{n+1}':=a_{n+1}+\xi_{n+1}.
+\end{array}
+\]
+
+\paragraph{Observations from continued fraction expansion}
+\begin{enumerate}
+\item
+For $x=[a_0;a_1,\dots]\notin\mathbb{Q}$, consider its $n$th convergent term
+\[
+\begin{array}{ll}
+\frac{p_n}{q_n}:=[a_0;a_1,\dots,a_n],
+&
+n\ge0
+\end{array}
+\]
+note that $p_n$ and $q_n$ can be computed iteratively:
+\[
+\begin{aligned}
+p_0&=a\\
+p_1&=a_1a_0+1\\
+\vdots\\
+p_n&=a_np_{n-1}+p_{n-2}
+\end{aligned}
+\qquad\qquad
+\begin{aligned}
+q_0&=1\\
+q_1&=a_1\\
+\vdots\\
+q_n&=a_nq_{n-1}+q_{n-2}
+\end{aligned}
+\]
+Note that $(p_n,q_n)$ have no common divisors. (exercise)
+\begin{corollary}
+$q_n\ge n$ for $\forall n$.
+\end{corollary}
+\begin{proof}
+Note that $q_{n-1}\le q_n$ for $\forall n\ge1$; and that $q_{n-1}<q_n$ for $\forall n>1$.
+\end{proof}
+\item
+From the first observation, $x:=[a_0;a_1,\dots,a_{n+1}']$ can be written as
+\[
+x=\frac{p_{n+1}}{q_{n+1}}=\frac{a_{n+1}'p_n + p_{n-1}}{a_{n+1}'q_n+q_{n-1}}
+\]
+\begin{corollary}
+If $\frac{p_n}{q_n} (n\ge0)$ is the $n$th convergent term of $x$, then
+\[
+\left|
+x-\frac{p_n}{q_n}
+\right|<\frac{1}{q_{n}q_{n+1}}
+\]
+\end{corollary}
+\begin{proof}
+First note that for $k\ge2$,
+\begin{align*}
+p_{k-1}q_k-p_kq_{k-1}&=p_{k-1}(a_kq_{k-1}+q_{k-2})
+-(a_kp_{k-1}+p_{k-2})q_{k-1}\\
+&=-(p_{k-2}q_{k-1}-p_{k-1}q_{k-2})
+\end{align*}
+After computation,
+\begin{align*}
+\left|
+x-\frac{p_n}{q_n}
+\right|&=\left|\frac{p_{n+1}}{q_{n+1}}-\frac{p_n}{q_n}\right|\\
+&=\left|\frac{a_{n+1}'p_n + p_{n-1}}{a_{n+1}'q_n+q_{n-1}}-\frac{p_n}{q_n}\right|
+=\left|
+\frac{p_{n-1}q_n - p_nq_{n-1}}{q_n(a_{n+1}'q_n+q_{n-1})}\right|\\
+&=\left|\frac{(-1)^{n}
+p_1q_0-p_0q_1}{q_n(a_{n+1}'q_n+q_{n-1})}\right|
+=\frac{1}{q_n(a_{n+1}'q_n+q_{n-1})}\\
+&<\frac{1}{q_nq_{n+1}}
+\end{align*}
+\end{proof}
+\begin{corollary}
+Furthermore, for the convergent term $\frac{p_n}{q_n} (n\ge0)$ of $x$, we have
+\[
+\left|
+x-\frac{p_n}{q_n}
+\right|<\frac{1}{q_{n}^2}
+\]
+\end{corollary}
+\item
+The sequence $\{[a_0,a_1,\dots,a_n]\}$ is a Cauchy sequence. (Exercise)
+\end{enumerate}
+btw, $\pi$ is approximable by rational number of order 42.
+
+
+
+

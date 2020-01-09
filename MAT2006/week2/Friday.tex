@@ -1,0 +1,181 @@
+
+%\chapter{Week2}
+
+\section{Friday}\index{week2_Friday_lecture}
+\subsection{Set Analysis}
+This lecture will discuss different kinds of sets. Now recall our common sense:
+\begin{definition}[Interval]
+\begin{itemize}
+\item
+Open interval:
+\[
+(a,b) = \{x\in\mathbb{R}\mid a<x<b\}
+\]
+\item
+Closed interval:
+\[
+[a,b] = \{x\in\mathbb{R}\mid a\le x\le b\}
+\]
+\item
+Half open intervals:
+\[
+[a,b)=\{x\in\mathbb{R}\mid a\le x< b\}
+\]
+\[
+(a,b] = \{x\in\mathbb{R}\mid a< x\le b\}
+\]
+\end{itemize}
+\end{definition}
+\begin{definition}[Open sets]
+A set $\bm A$ is open if $\forall x\in\bm A$, there exists $(a,b)\subseteq\bm A$ such that $x\in(a,b)$.
+\end{definition}
+
+\begin{theorem}
+\begin{enumerate}
+\item
+An open set in $\mathbb{R}$ is a \emph{disjoint} union of finitely many or countably many open intervals.
+\item
+The union of any collection of open sets is open.
+\item
+The intersection of \emph{finitely} many open sets is open.
+\end{enumerate}
+\end{theorem}
+The proof is omitted, check Rudin's book for reference.
+\begin{remark}
+Note that the intersection of \emph{countably} many open sets may not be nessarily open.
+ \[
+ \bigcup_{n=1}^\infty\left(-\frac{1}{n},1+\frac{1}{n}\right)
+ =[0,1]
+ \]
+\end{remark}
+
+\begin{definition}[Neighborhood]
+A \emph{neighborhood} $N$ of a point $a\in\mathbb{R}$ is an open interval containing $a$.
+\end{definition}
+
+\begin{definition}[Limit Point]
+$x$ is a \emph{limit point} of the set $\bm A$ if for any neighborhood $N$ of $x$, $N$ contanins a point $a\in A$ such that $a\ne x$.
+\end{definition}
+
+\begin{definition}[Closed Set]
+A set $\bm A$ is \emph{closed} if $\bm A$ contains all of its limit points.
+\end{definition}
+
+\begin{proposition}
+$\bm A$ is \emph{closed} of and only if $\mathbb{R}\setminus \bm A$ is open.
+\end{proposition}
+
+
+\subsection{Set Analysis Meets Sequence}
+\begin{definition}[Limit Point of sequence]
+Given a sequence $\{a_n\}$, i.e., 
+\[
+a_1,a_2,a_3,\dots,
+\]
+a point $x$ is said to be the \emph{limit point} of $\{a_n\}$ if there exists a subsequence $\{x_{n_1,}x_{n_2},\dots\}$ converging to $x$.
+\end{definition}
+Does there exist a sequence of rational numbers such that  every irrational number is a limit point? Yes, and we use an example as illustration.
+\begin{example}
+$\{q_1,q_2,\dots\}$ is a sequence of all rational numbers. For example, to construct a subsequence with limit $\sqrt{2}$, we pick:
+\begin{align*}
+q_{m_1}&\in(\sqrt{2} - 1,\sqrt{2}+1)\setminus (\sqrt{2} - \frac{1}{2},\sqrt{2}+\frac{1}{2})\\
+q_{m_2}&\in(\sqrt{2} - \frac{1}{2},\sqrt{2}+\frac{1}{2})\setminus (\sqrt{2} - \frac{1}{3},\sqrt{2}+\frac{1}{3})\\
+\cdots\\
+q_{m_k}&\in(\sqrt{2} - \frac{1}{k},\sqrt{2}+\frac{1}{k})\setminus (\sqrt{2} - \frac{1}{k+1},\sqrt{2}+\frac{1}{k+1})\\
+\end{align*}
+The same argument works for all irrational numbers, also for all rational numbers.
+\end{example}
+
+\subsection{Completeness of Real Numbers}
+Now we use Cauchy sequence to construct the completeness of real numbers. First let's give a proof of three important theorems. Note that the proof and applications of these theorems are mandatory.
+\begin{theorem}[Bolzano-Weierstrass]\label{The:2:3}
+Every bounded sequence has a convergent subsequence.
+\end{theorem}
+\begin{theorem}[Cantor's Nested Interval Lemma]
+A sequence of nested closed bounded intervals $I_1\supseteq I_2\supseteq\cdots$ has a non-empty intersection, i.e., $\bigcap_{k=1}^\infty I_k \ne\emptyset$.
+\end{theorem}
+\begin{theorem}[Heine-Borel]
+Any open cover $\{\mathcal{U}\}$ of a bounded closed set $\bm E$ consists of a finite sub-cover, i.e, $\bm E\subseteq\mbox{the union of }\{\mathcal{U}\}$.
+\end{theorem}
+
+
+\begin{proof}[Proof for Bolzano-Weierstrass Theorem]
+\quad
+
+\begin{itemize}
+\item
+Suppose $\{a_1,a_2,\dots\}$ is a bounded sequence, w.l.o.g., $\{a_1,a_2,\dots\}\subseteq[-M,M]$. We pick $a_{n_1} = a_1$.
+\item
+w.l.o.g., assume that $[0,M]\bigcap\{a_1,a_2,\dots\}$ is infinite (otherwise $[-M,0]\bigcap\{a_1,a_2,\dots\}$ is infinite), then we pick $a_{n_2}\ne a_{n_1}$ such that $a_{n_2}\in[0,M]$.
+\item
+w.l.o.g., assume that $[0,\frac{M}{2}]\bigcap\{a_1,a_2,\dots\}$ is infinite, then we pick $a_{n_3}\ne a_{n_1},a_{n_2}$ such that $a_{n_3}\in[0,\frac{M}{2}]$.
+\end{itemize}
+In this case, $\{a_{n_1},a_{n_2},\dots\}$ is Cauchy (by showing $|a_{n_k}-a_{n_l}|<\epsilon$ for large $k,l$), hence converges.
+\end{proof}
+\begin{proof}[Proof for Cantor's Nested Interval Lemma]\quad
+
+\begin{enumerate}
+\item
+Pick $a_k\in I_k$ for $k=1,2,\dots$, thus the sequence $\{a_1,\dots,a_k,\dots\}$ is bounded. By Theorem (\ref{The:2:3}), there exists a convergent sub-sequence $\{a_{k_l}\}$ (with limit $a$). It suffices to show $a\in\bigcup_{m=1}^\infty I_k$. 
+\item
+For fiexed $m$, there exists index $j$ such that $a_{k_l}\in I_m$ for all $l\ge j$. Since $I_m$ is closed, it must contain $a_{k_l}$'s limit point, i.e., $a\in I_m$.
+\item
+Our choice is arbitrary $m$ and hence $a$ belongs to the intersection of all nested closed intervals. The proof is complete.
+\end{enumerate}
+
+\end{proof}
+Before the proof of third theorem, let's have a review for open cover definitions:
+\begin{definition}[Open Cover]
+Let $\bm E$ be a subset of a metric space $X$. An open cover $\{\mathcal{U}_\alpha\}_{\alpha\in A}$ of $\bm E$ is a collection of open sets in $X$ whose union contains $\bm E$, i.e., $\bm E\subseteq\bigcup_{\alpha\in A}\mathcal{U}_\alpha$. A finite \emph{subcover} of $\{\mathcal{U}_\alpha\}_{\alpha\in A}$ is a \emph{finite} sub-collection of $\{\mathcal{U}_\alpha\}_{\alpha\in A}$ whose union still contains $\bm E$.
+\end{definition}
+For example, consider $\bm E:=[\frac{1}{2},1)$ in metric space $\mathbb{R}$. Then the collection
+\[
+\{I_n\}_{n=3}^\infty,\qquad
+\mbox{where }I_n:=(\frac{1}{n},1-\frac{1}{n})
+\]
+is a open cover of $\bm E$. Note that the finite subcover may not necessarily exist. In this example, the finite subcover of $\{I_n\}_{n=3}^\infty$ does not exist.
+\begin{proof}[Proof for Heine-Borel Theorem]\quad
+
+Suppose $\bm E:=[0,M]$ is a bounded closed interval with an open cover $\{\mathcal{U}\}.$ The trick of this proof is to construct a sequence of nested closed bounded intervals. 
+\begin{itemize}
+\item\textbf{Base case }
+We choose $I_1 =\bm E=[0,M]$
+\item\textbf{Inductive step}
+For example, Assume that $\bm E$ cannot be covered by finitely many open sets from $\{\mathcal{U}\}$, then at least one sub-interval $[0,\frac{M}{2}]$ or $[\frac{M}{2},M]$ cannot be covered. Let $I_2$ be one of these sub-intervals that cannot be covered by finitely many elements of $\{\mathcal{U}\}$.
+\end{itemize}
+
+Repeating this process, we attain a nested bouned closed intervals $I_1\supseteq I_2\supseteq\cdots\supseteq$, which implies $\bigcap_{k=1}^\infty I_k \ne\emptyset$ (suppose $a\in \bigcap_{k=1}^\infty$), and $|I_k|=\frac{M}{2^k}\to0$.
+
+Note that $a\in\bm E$ implies that there exists an open set $\xi$ in $\{\mathcal{U}\}$ such that $a\in\xi$. Thus $(a-\epsilon,a+\epsilon)\in\xi$ for small $\epsilon$. Note that there exists sufficiently large $k$ such that $\frac{M}{2^k}<2\epsilon$, and $a\in I_k$, which implies $I_k\subseteq\xi$, which is a contradiction.
+\end{proof}
+
+
+
+
+These theorems have simple applications:
+\begin{proposition}
+Let $f(x) = \sum_{k=0}^\infty a_kx^k$ with the series convergent for $|x|<1$. If for $\forall x\in[0,1)$, there exists $n:=n(x)$ such that $\sum_{k=n}^\infty a_kx^k=0$, then $f$ is a polynomial (that is independent from $x$, i.e., $n$ does not depend on $x$.)
+\end{proposition}
+In next lecture we will continue to study the completeness of real numbers and will speed up.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

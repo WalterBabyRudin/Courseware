@@ -1,0 +1,195 @@
+%% Run LaTeX on this file several times to get Table of Contents,\
+\input{book_command}
+\usepackage{pdfpages}
+\newcommand{\upRiemannint}[2]{
+  \overline{\int_{#1}^{#2}}
+}
+\newcommand{\loRiemannint}[2]{
+  \underline{\int_{#1}^{#2}}
+}
+\usepackage[T1]{fontenc}
+%\includeonly{week14/Wednesday}
+\begin{document}
+%Hello
+%\includepdf[pages={1}]{book_cover/cover/FrontCover}
+\frontmatter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Setting up title pages, type in the appropriate names here:
+\booktitle{A First Course \\ In \\
+Analysis}
+
+\subtitle{MAT2006 Notebook}
+
+\AuAff{
+Lecturer\\
+Prof. Weiming Ni\\ The Chinese University of Hongkong, Shenzhen}
+\AuAff{
+Tex Written By\\
+Mr. Jie Wang\\ The Chinese University of Hongkong, Shenzhen}
+%% \\ will start a new line.
+
+
+%% Print Half Title and Title Page:
+\halftitlepage
+\titlepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright Page
+%\begin{copyrightpage}{year}
+%Title, etc
+%\end{copyrightpage}
+
+% Note, you must use \ to start indented lines, ie,
+% 
+% \begin{copyrightpage}{2004}
+% Survey Methodology / Robert M. Groves . . . [et al.].
+% \       p. cm.---(Wiley series in survey methodology)
+% \    ``Wiley-Interscience."
+% \    Includes bibliographical references and index.
+% \    ISBN 0-471-48348-6 (pbk.)
+% \    1. Surveys---Methodology.  2. Social 
+% \  sciences---Research---Statistical methods.  I. Groves, Robert M.  II. %
+% Series.\\
+%
+% HA31.2.S873 2004
+% 001.4'33---dc22                                             2004044064
+% \end{copyrightpage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Only Dedication (optional) 
+%\dedication{To my girlfriend Jianyu Yang}
+
+\tableofcontents
+
+%\listoffigures %optional
+%\listoftables  %optional
+
+
+
+% If your book has chapters written by different authors,
+% you'll need a Contributors page.
+
+% Use \begin{contributors}...\end{contributors} and
+% then enter each author with the \name{} command, followed
+% by the affiliation information.
+
+% \begin{contributors}
+% \name{Zhi-quan Luo,} Shenzhen Research Institute of Big Data, Lecturer
+%
+% \name{Ruoyu Sun,} Industrial and Enterprise Systems Engineering, Lecturer
+%
+% \name{Jie Wang,} The Chinese University of Hongkong, Shenzhen, Typer
+% \end{contributors}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Optional Preface:
+%\begin{preface}
+%\input{preface.tex}
+%\prefaceauthor{}
+%\where{CUHK(SZ)\\
+% \today}
+%\end{preface}
+% ie,
+% \begin{preface}
+% This is an example preface.
+% \prefaceauthor{R. K. Watts}
+% \where{Durham, North Carolina\\
+% September, 2004}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Optional Acknowledgments:
+
+\acknowledgments
+This book is taken notes from the MAT2006 in fall semester, 2018. These lecture notes were taken and compiled in \LaTeX~by Jie Wang, an undergraduate student in Fall 2018. Prof. Weiming Ni has not edited this document. Students taking this course may use the notes as part of their reading and reference materials. This version of the lecture notes were revised and extended for many times, but may still contain many mistakes and typos, including English grammatical and spelling errors, in the notes. It would be greatly appreciated if those students, who will use the notes as their reading or reference material, tell any mistakes and typos to Jie Wang for improving this notebook.
+%\authorinitials{CUHK(SZ)}  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Optional notations:
+\input{Notations}
+
+\mainmatter
+\setcounter{page}{1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Optional introduction:
+%\begin{introduction}
+%
+%The word \textit {traffic} becomes \textit {teletraffic} in telecommunications, as communications becomes telecommunications to indicate technology use, e.g., conversation from some distance through phones or Internet. The term teletraffic covers all kinds of computer communication traffic and telecom traffic.  This book includes teletraffic loss models.
+%\end{introduction}
+\include{week1/Tuesday}
+\include{week1/Quiz}
+%\include{week1/Thursday}
+\include{week1/Friday}
+%\include{week1/Assignment_One}
+%%\include{week2/Lecture_1}
+%%\include{week2/Lecture_2}
+\include{week2/Tuesday}
+%\include{week2/Wednesday}
+%
+%\include{week2/Assignment_Two}
+\include{week2/Friday}
+%\include{week2/Assignment_Three}
+%%\include{week3/Lecture_1}
+%%\include{week3/Lecture_2}
+\include{week3/Tuesday}
+%\include{week3/Thursday}
+\include{week3/Friday}
+%\include{week3/Assignment_1}
+%\include{week3/Assignment_Four}
+\include{week4/Wednesday}
+%%\include{week4/Lecture_2}
+%\include{exam/midterm/MAT2040_Sample_Exam}
+%\include{exam/midterm/MAT2040_Midterm_Exam}
+\include{week4/Friday}
+%\include{week4/Sunday}
+%\include{week4/Assignment_Five}
+\include{week5/Wednesday}
+%%\include{week5/Lecture_2}
+%\include{week5/Tuesday}
+\include{week5/Friday}
+\include{week5/Saturday}
+%\include{week5/Assignment_Six}
+%%\include{week6/Lecture_1}
+%%\include{week6/Lecture_2}
+\include{week6/Wednesday}
+%\include{week6/Thursday}
+\include{week6/Friday}
+%\include{week6/Assignment_Seven}
+%%\include{week7/Lecture_1}
+\include{week7/Wednesday}
+\include{week7/Friday}
+\include{week8/Friday}
+\include{week9/Friday}
+\include{week10/Wednesday}
+\include{week10/Friday}
+\include{week11/Wednesday}
+\include{week11/Friday}
+\include{week12/Wednesday}
+\include{week13/Wednesday}
+\include{week13/Friday}
+\include{week14/Wednesday}
+%\include{week7/Assignment_Eight}
+%\include{exam/final/MAT2040_Sample_Exam}
+%\include{exam/final/MAT2040_Final_Exam}
+%\include{Solution/Solution_to_assignment_one}
+%\include{Solution/Solution_to_assignment_two}
+%\include{Solution/Solution_to_assignment_three}
+%\include{Solution/Solution_to_assignment_four}
+%\include{Solution/Solution_to_assignment_five}
+%\include{Solution/Solution_to_assignment_six}
+%\include{Solution/Solution_to_assignment_seven}
+%\include{Solution/Solution_to_assignment_eight}
+%\include{Solution/Sample_midterm_solution}
+%\include{Solution/midterm_solution}
+%\include{Solution/Sample_final_solution}
+%\include{Solution/Final_solution}
+
+
+\backmatter
+%\include{app01}
+%\includegraphics{AuthorIcon}
+
+\latexprintindex
+
+\end{document} 

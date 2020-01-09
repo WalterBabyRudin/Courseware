@@ -1,0 +1,235 @@
+\section{Friday}\index{week8_Thursday_lecture}
+This lecture will talk about Taylor expansion and its applications, during which we will also have a brief review of linear algebra.
+\subsection{Multi-variate Taylor's Theorem}
+\paragraph{Recap for one-dimension}
+Given a function $f:\mathbb{R}\to\mathbb{R}$ with $f\in\mathcal{C}^n$, its Taylor's expansion is given by:
+\[
+f(x) = f(x_0)+f'(x_0)(x-x_0)+\frac{f''(x_0)}{2}(x-x_0)^2+
+\cdots
++\frac{f^{(n-1)}(x_0)}{(n-1)!}(x-x_0)^{n-1}+R_n(x;x_0),
+\]
+with 
+\[
+R_n(x;x_0)=\frac{1}{(n-1)}\int_{x_0}^xf^{(n)}(t)(x-t)^{n-1}\diff t
+\]
+
+\paragraph{Generalization into $m$-argument case}
+\begin{theorem}[Taylor's Theorem]
+Given a function $f:\mathbb{R}^m\to\mathbb{R}$ with $f\in\mathcal{C}^n$, for the fixed point $\bm x$, and $\bm h=(h_1,h_2,\dots,h_m)$, we have
+\begin{subequations}
+\begin{align}\label{Eq:10:3:a}
+f(\bm x+\bm h)=f(\bm x)+\sum_{k=1}^{n-1}\frac{1}{k!}\left(
+h_1\frac{\partial}{\partial x_1}+h_2\frac{\partial}{\partial x_2}+\cdots+h_m\frac{\partial}{\partial x_m}
+\right)^kf(\bm x)+R_n(\bm x;\bm h),
+\end{align}
+with
+\begin{equation}
+R_n(\bm x;\bm h)=\int_0^1\frac{(1-t)^{n-1}}{(n-1)!}
+\left(
+h_1\frac{\partial}{\partial x_1}+h_2\frac{\partial}{\partial x_2}+\cdots+h_m\frac{\partial}{\partial x_m}
+\right)^nf(\bm x+t\bm h)\diff t
+\end{equation}
+\end{subequations}
+\end{theorem}
+\begin{proof}
+We apply the Taylor's theorem in one-dimension case to finish he proof. Let
+\[
+\phi(t)=f(\bm x+t\bm h),
+\]
+which follows that
+\begin{subequations}
+\begin{align}
+\phi(\tau)&=\phi(0)+\phi'(0)\tau+
+\cdots
++
+\frac{\phi^{(n-1)}(0)}{(n-1)!}\tau^{n-1}+\frac{1}{(n-1)!}\int_0^\tau \phi^{(n)}(t)(\tau - t)^{n-1}\diff t\\
+\phi(\tau:=1)&=\phi(0)+\phi'(0)+\cdots+\frac{1}{(n-1)!}\int_0^1\phi^{(n)}(t)(1-t)^{n-1}\diff t\label{Eq:10:4:b}
+\end{align}
+Take $\phi'(0)$ as an example of computation:
+\[
+\begin{aligned}
+\phi'(0)&=\inp{\nabla f(\bm x+t\bm h)}{\bm h}|_{t=0}\\
+&=\inp{\nabla f(\bm x)}{\bm h}\\
+&=h_1\frac{\partial f}{\partial x_1}+\cdots+h_m\frac{\partial f}{\partial x_m}
+\\
+&=\left(h_1\frac{\partial}{\partial x_1}+\cdots+h_m\frac{\partial}{\partial x_m}\right)f
+\end{aligned}
+\]
+Taking such operator $k$ times, we obtain
+\begin{equation}\label{Eq:10:4:c}
+\phi^{(k)}(0)=\left(h_1\frac{\partial}{\partial x_1}+\cdots+h_m\frac{\partial}{\partial x_m}\right)^kf
+\end{equation}
+\end{subequations}
+Substituting (\ref{Eq:10:4:c}) into (\ref{Eq:10:4:b}), we obtain the desired result.
+
+\end{proof}
+\begin{remark}
+Let's abuse the notation to let $\partial_i$ denote $\frac{\partial}{\partial x_i}$; the term $\left(
+h_1\frac{\partial}{\partial x_1}+h_2\frac{\partial}{\partial x_2}+\cdots+h_m\frac{\partial}{\partial x_m}
+\right)^k$ denotes a kind of operator, e.g., 
+\[
+(h_1\partial_1+h_2\partial_2)^3
+=
+h_1^3(\partial_1)^3+3h_1^2(\partial_1)^2h_2\partial_2
++
+3h_1\partial_1h_2^2(\partial_2)^2
++
+h_2^3(\partial_2)^3
+\]
+\end{remark}
+
+
+
+
+\begin{remark}
+We introduce the multi-index expression for Taylor's Theorem. Let $\bm\alpha=(\alpha_1,\dots,\alpha_m)$ with $\alpha_j$'s are non-negative integers, with the operators
+\begin{subequations}
+\begin{align}
+|\bm\alpha|&=\alpha_1+\cdots+\alpha_m\\
+\bm\alpha!&=\alpha_1!\alpha_2!\cdots\alpha_m!
+\end{align}
+Let $\bm a=(a_1,\dots,a_m)$, with the operator  \emph{multiplication-combined component-wise} powers:
+\begin{equation}
+\bm a^{\bm\alpha}:=a_1^{\alpha_1}\cdots a_m^{\alpha_m}
+\end{equation}
+We can re-write the binomial equation with the terms defined above:
+\begin{equation}
+\begin{aligned}
+(a_1+a_2+\cdots+a_m)^k&=\sum_{|\bm\alpha|=k}\frac{k!}{\alpha_1!\cdots\alpha_m!}a_1^{\alpha_1}\cdots a_m^{\alpha_m}\\
+&=\sum_{|\bm\alpha|=k}\frac{k!}{\bm\alpha!}\bm a^{\bm\alpha}
+\end{aligned}
+\end{equation}
+Define the combinatorial derivatives:
+\begin{equation}\label{Eq:10:5:e}
+D^{\bm\alpha}f:=\frac{\partial^{|\bm\alpha|}f}{\partial^{\alpha_1}x_1\cdots\partial^{\alpha_m}x_m}
+\end{equation}
+and therefore the $k$-th sub-term for the summation term in (\ref{Eq:10:3:a}) can be expressed as:
+\begin{equation}\label{Eq:10:5:f}
+\sum_{i_1+\cdots+i_m=k}\frac{\partial^k}{\partial^{i_1}x_1\cdots\partial^{i_m}x_m}f(\bm x)h_1^{i_1}\cdots h_m^{i_m}
+=
+\sum_{|\bm\alpha|=k}\frac{k!}{\bm\alpha!}D^{\bm\alpha}f(\bm x)\bm h^{\bm\alpha}
+\end{equation}
+\end{subequations}
+Substituting (\ref{Eq:10:5:e}) and (\ref{Eq:10:5:f}) into (\ref{Eq:10:3:a}), we can express the Taylor's formula in multi-index form:
+\begin{equation}
+f(\bm x+\bm h)=\sum_{|\bm\alpha|=0}^{n-1}\frac{1}{\bm\alpha!}D^{\bm\alpha}f(\bm x)\bm h^{\bm\alpha}+\sum_{|\bm\alpha|=n}n\int_0^1\frac{(1-\bm\alpha)^{n-1}}{\bm\alpha!} D^{\bm\alpha}f(\bm x+t\bm h)\bm h^{\bm\alpha}\diff t
+\end{equation}
+\end{remark}
+\subsection{Application: Optimality Condition}
+\paragraph{Necessary optimal condition}
+\begin{theorem}\label{The:10:4}
+Given a function $f:U(\bm x_0) \subseteq\mathbb{R}^m\to\mathbb{R}^n$, where $U(\bm x_0)$ denotes a neighborhood of $\bm x_0$, suppose $f$ has all the partial derivatives at $\bm x_0$. If $f$ has a \emph{local extremum} (max or min) at $\bm x=\bm x_0$, then
+\[
+\frac{\partial f}{\partial x_1}(\bm x_0)=\cdots=\frac{\partial f}{\partial x_m}(\bm x_0),
+\]
+i.e., the local extremum of $\bm x_0$ implies the \emph{critical point} of $\bm x_0$.
+\end{theorem}
+\begin{proof}
+Let $\bm x_0=(x_1^0,\dots,x_m^0)$. To show $\partial_1f(\bm x_0)=0$, we fix all entries of $\bm x_0$ except for $x_1^0$, i.e., set $\phi(x_1)=f(x_1,x_2^0,\dots,x_m^0)$. For this one-variable function $\phi$, it has a local extremum at $x_1=x_1^0$ implies $\phi'(x_1^0)=0$, i.e., 
+\[
+\phi'(x_1^0)=\frac{\partial f}{\partial x_1}(x_1^0,\dots,x_m^0)
+\]
+The similar results hold for $\partial_2f(\bm x_0),\dots,\partial_mf(\bm x_0)$.
+\end{proof}
+Theorem(\ref{The:10:4}) is the necessary optimality condition. Before turning into the sufficient condition, let's have a brief review on linear algebra, or specifically, diagonalization.
+\paragraph{Recap about Diagonalization}
+\begin{definition}[Positive Definite]
+A $m\times m$ symmetric matrix $\bm A$ is said to be
+\begin{enumerate}
+\item
+\emph{positive definite} if $\bm x\trans\bm A\bm x>0$ for $\forall \bm x\in\mathbb{R}^m\setminus\{\bm0\}$; or equivalently, all its eigenvalues are strictly positive
+\item
+\emph{negative definite} if $-\bm A$ is positive definite.
+\end{enumerate}
+\end{definition}
+\begin{theorem}[Spectral Theorem]\label{The:10:6}
+Any \emph{real symmetric} matrix $\bm A\in\mathbb{S}^m$ admits the eigen-decomposition
+\[
+\bm A=\bm Q\bm D\bm Q\trans,
+\]
+with $\bm D\in\mathbb{R}^{m\times m}$ to be diagonal; $\bm Q\in\mathbb{R}^{n\times n}$ to be orthogonal.
+\end{theorem}
+\begin{remark}
+Theorem (\ref{The:10:6}) gives us the sufficient condition of diagonalization: real and symmetric. Since the Heessian matrix satisfies such a condition, we can diagonalize it without careful scrutiny.
+\end{remark}
+
+\paragraph{Sufficient Optimality Condition}
+
+
+\begin{theorem}
+Given a function $f:U(\bm x_0)\subseteq\mathbb{R}^m\to\mathbb{R}$ that is $\mathcal{C}^2$, suppose $\bm x_0$ is a critical point (i.e., $\nabla f(\bm x_0)=\bm0$).
+\begin{enumerate}
+\item
+If the matrix $(\frac{\partial^2f}{\partial x_i\partial x_j})_{m\times m}$ is positive definite, then $\bm x_0$ is a local minimum point
+\item
+If the matrix $(\frac{\partial^2f}{\partial x_i\partial x_j})_{m\times m}$ is negative definite, then $\bm x_0$ is a local maximum point
+\item
+Otherwise no further information.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+We show the case 1 first.
+
+Suppose $\bm h=(h_1,\dots,h_m)\in\mathbb{R}^m$, then apply second order Taylor expansion at $\bm x_0$:
+\begin{subequations}
+\begin{align}
+f(\bm x_0+\bm h)&=f(\bm x_0)+\frac{1}{2!}\sum_{i,j=1}^m\frac{\partial^2f}{\partial x_i\partial x_j}(\bm x_0)h_ih_j
++
+o(\|\bm h\|^2)\\
+&=f(\bm x_0)+\|\bm h\|^2\left[\frac{1}{2!}\sum_{i,j=1}^m\frac{\partial^2f}{\partial x_i\partial x_j}\frac{h_i}{\|\bm h\|}\frac{h_j}{\|\bm h\|}+o(1)\right]\label{Eq:10:7:b}
+\end{align}
+Define $a_{ij} = \frac{\partial^2f}{\partial x_i\partial x_j}$, $q_i=\frac{h_i}{\|h\|}$ with $\bm q$ to be a unit vector, we can rewrite the summation term in (\ref{Eq:10:7:b}) as the quadratic form:
+\begin{equation}\label{Eq:10:7:c}
+\sum_{i,j=1}^m\frac{\partial^2f}{\partial x_i\partial x_j}\frac{h_i}{\|\bm h\|}\frac{h_j}{\|\bm h\|}
+=
+\bm q\trans\bm A\bm q=\inp{\bm{Aq}}{\bm q}
+\end{equation}
+Furthermore, we can derive a strictly positive lower bound on (\ref{Eq:10:7:c}) by applying spectral theorem:
+\begin{align}
+\inp{\bm A\bm q}{\bm q}&=\inp{\bm Q\bm D\bm Q\trans\bm q}{\bm q}\label{Eq:10:7:d}\\
+&=\inp{\bm D\bm Q\bm q}{\underbrace{\bm Q\bm q}_{\bm y}}=\bm y\trans\bm D\bm y\\
+&=\sum_{i=1}^m\lambda_iy_i^2,
+\end{align}
+where $\lambda_i>0$ are the diagonal entries of $\bm D$, i.e., eigenvalues of $\bm A$; $y_i$ is the $i$-th entry of the unit vector $\bm y$. To give a bound on $\inp{\bm{Aq}}{\bm q}$, we set $y_i=0$ except for the smallest eigenvalues of $\bm A$, i.e.,
+\begin{equation}\label{Eq:10:7:g}
+\inp{\bm A\bm q}{\bm q}\ge\min_{\|\bm q\|=1}\inp{\bm A\bm q}{\bm q}
+=
+\min_{\|\bm y\|=1}\sum_{i=1}^m\lambda_iy_i^2=\lambda_{\min}(\bm A)>0
+\end{equation}
+Substituting (\ref{Eq:10:7:g}) into (\ref{Eq:10:7:b}), we imply that
+\begin{equation}
+f(\bm x_0+\bm h)
+\ge
+f(\bm x_0)+\|\bm h\|^2\left[\lambda_{\min}(\bm A)+o(1)\right]\ge f(\bm x_0),
+\end{equation}
+which shows that $\bm x_0$ is the local minimum point. The case 2 can be shown similarly.
+\end{subequations}
+\end{proof}
+Actually, we can simplify the messy steps from (\ref{Eq:10:7:d}) to (\ref{Eq:10:7:g}) with a simple fact in linear algebra:
+\begin{theorem}[Courant-Fischer Formula]
+Let $\bm A\in\mathbb{R}^m$ be a real symmetric matrix with $\lambda_{\max},\lambda_{\min}$ to be the max. and min. eigenvalues of $\bm A$, respectively. Then $\lambda_{\max},\lambda_{\min}$ can be characterized as:
+\[
+\begin{array}{ll}
+\lambda_{\max}=\max_{\bm x\in\mathbb{R}^m,\|\bm x\|_2=1}\bm x\trans\bm A\bm x,
+&
+\lambda_{\min}=\min_{\bm x\in\mathbb{R}^m,\|\bm x\|_2=1}\bm x\trans\bm A\bm x.
+\end{array}
+\]
+\end{theorem}
+We will study the implicit function theorem in next lecture with a wonderful proof.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

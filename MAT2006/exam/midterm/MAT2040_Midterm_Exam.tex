@@ -1,0 +1,125 @@
+\section{Midterm Exam}\index{Midterm Exam}
+DURATION OF EXAMINATION: 2 hours in-class\\
+\textit{This examination paper includes $6$ pages and $6$ problems. You are responsible for ensuring that
+your copy of the paper is complete. Bring any discrepancy to the attention of your invigilator.}\\
+\begin{enumerate}
+\item \textbf{(30 points)} \textit{Solving a linear system of equations}\\
+For the system
+\begin{align}
+x-y+3z&=1\\
+y&=-2x+5\\
+9z-x-5y+7&=0
+\end{align}
+do the following:
+\begin{enumerate}
+\item
+Write the system in the matrix form
+\[
+\bm{Ax}=\bm b\text{ for }\bm x=\begin{pmatrix}
+x\\y\\z
+\end{pmatrix}.
+\]
+\item
+Write out the \textit{augmented matrix} for this system and calculate its \textit{row-reduced echelon form}.\\
+\item
+Write out the complete set of solutions (if they exist) in \textit{vector form} using parameters if
+needed.\\
+\item
+Calculate the \textit{inverse} of the \textit{coefficient matrix} $\bm A$ you found in part $(a)$, if it exists, or show that $\bm A^{-1}$ doesn't exist.\\
+\item
+What is the rank of matrix $\bm A$? Justify your answer.
+\end{enumerate}
+
+
+\newpage
+\item \textbf{(20 points)} \textit{Vector space}\\
+Let $V$ be the subspace of $\mathbb{R}^4$ given by all solutions to the equation $2x_1-x_2+3x_3=0.$
+\begin{enumerate}
+\item
+Give the set of all solutions in terms of \textit{free variables}.\\
+\item
+What is the dimension of $V$? Justify your answer.\\
+\item
+Find a 4 by 3 matrix $\bm A$ such that the \textit{column space} of $\bm A$ is equal to $V$.\\
+\item
+Find a 1 by 4 matrix $\bm B$ such that the \textit{null space} of $\bm B$ is equal to $V$.\end{enumerate}
+
+
+
+
+
+\newpage
+\item \textbf{(15 points)} \textit{Matrix multiplications}\\
+If possible, find 3 by 3 matrices $\bm B$ such that
+\begin{enumerate}
+\item
+$\bm{BA}=2\bm A$ for every $\bm A$.\\
+\item
+$\bm{BA}=2\bm B$ for every $\bm A$.\\
+\item
+$\bm{BA}$ has the \textit{first} and \textit{last} rows of $\bm A$ reversed.\\
+\item
+$\bm{BA}$ has the \textit{first} and \textit{last} columns of $\bm A$ reversed.
+\end{enumerate}
+
+
+
+
+\newpage
+\item \textbf{(10 points)} \textit{Matrix Inverse}\\
+For an $m\x n$ matrix $\bm A$, we say an $n\x m$ matrix $\bm C$ is a \textit{right inverse} of $\bm A$ if $\bm{AC}=\bm I_m$, where $\bm I_m$ is the $m\x m$ identity matrix.
+\begin{enumerate}
+\item
+Prove that $\bm A$ has a \textit{right inverse} if and only if $\bm{Ax}=\bm b$ has at least one solution for any $\bm b\in\mathbb{R}^m$. Prove that the rank of such $\bm A$ must be $m$.\\
+\item
+Compute a \textit{right inverse} of the following matrices (if exists):
+\begin{gather*}
+\bm A=\begin{pmatrix}
+1&2&7\pi
+\end{pmatrix}\\
+\bm B=\begin{pmatrix}
+1\\2\\7\pi
+\end{pmatrix}
+\end{gather*}
+\end{enumerate}
+
+
+\newpage
+\item \textbf{(15 points)} \textit{Matrix rank}\\
+\begin{enumerate}
+\item
+For a square matrix $\bm A$, is $\rank(\bm A\trans+\bm A)=\rank(\bm A)$ always true? Justify your answer.\\
+\item
+Prove that for any $m$ by $n$ matrix $\bm A$, the null space of $\bm A$ and the null space of $\bm A\trans\bm A$ are the same.\\
+\item
+Prove that for any $m$ by $n$ matrix $\bm A$, $\rank(\bm A\trans\bm A)=\rank(\bm A).$
+\end{enumerate}
+
+
+
+\newpage
+\item \textbf{(20 points)} \\
+State your answers. No justifications are required.
+\begin{enumerate}
+\item
+If $\bm A=\bm A\trans$ and $\bm B=\bm B\trans$ which of these matrices are certainly \textit{symmetric}?
+\begin{enumerate}
+\item
+$\bm A^2-\bm B^2$
+\item
+$(\bm A+\bm B)(\bm A-\bm B)$
+\item
+$\bm{ABA}$
+\item
+$\bm{ABAB}$
+\end{enumerate}
+\item
+Let $\bm A$ be a $5\x 8$ matrix with rank equal to $5$ and let $\bm b$ be any vector in $\mathbb{R}^5$. How many solutions does this system have?\\
+\item
+True or False: If two $n\x n$ matrices $\bm A$ and $\bm B$ are both \textit{singular}, then $\bm A+\bm B$ is also \textit{singular}.\\
+\item
+True or False: The set of $n\x n$ matrices with rank no more than $r(r\le n)$ is a vector space.\\
+\item
+True or False: The set of all \textit{real-valued} functions on $\mathbb{R}$ such that $f(1)=1$ is a vector space.
+\end{enumerate}
+\end{enumerate}

@@ -1,0 +1,206 @@
+\chapter{Week6}
+
+\section{Wednesday}\index{week6_Tuesday_lecture}
+Given a function $f:\mathcal{C}^\infty$, i.e., $f^{(n)}(x)$ exists for all $n\in\mathbb{N}$, we have learnt the Taylor's polynomial (of order $n$), whose derivatives up to order $n$ are the same as the corresponding derivatives of $f(x)$ at the expanding point.
+
+Now the Taylor's series is such that its derivatives at any order are the same as the corresponding derivatives of $f(x)$ at the expanding point. This lecture will mainly discuss the follows two questions:
+\begin{enumerate}
+\item
+Does Taylor series always converge? Not necessarily.
+\item
+Suppose it does, does it necessarily converge to $f$? Also not.
+\end{enumerate}
+Before the discussion, let's review some preliminaries:
+\subsection{Reviewing}
+\paragraph{Taylor's Formula}
+\begin{theorem}[Taylor's Theorem]
+Let $f(x)$ be infinitely differentiable, then the Taylor's formula for $f(x)$ is given by:
+\[
+f(x)=f(a)+f‘(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\cdots+\frac{f^{(n-1)}(a)}{(n-1)!}(x-a)^{n-1}+R_n(x;a),
+\]
+with
+\[
+R_n(x;a)=\frac{1}{(n-1)!}\int_a^xf^{(n)}(t)(x-t)^{n-1}\diff t
+\]
+\end{theorem}
+To discuss the convergence of taylor's series, we set
+\[
+c_n=\frac{f^{(n)}(a)}{n!},
+\]
+thus it suffices to discuss the convergence of the power series $\sum_{n=0}^\infty c_n(x-a)^n$.
+\subsection{Convergence Analysis}
+\paragraph{Power Series} 
+Here we present several tests for the convergence of general series.
+\begin{theorem}[Root Test]
+Given $\sum_{n=0}^\infty a_n$, let $\alpha={\lim\sup}_{n\to\infty}\sqrt[n]{|a_n|}$, then
+\begin{enumerate}
+\item
+If $\alpha<1$, $\sum a_n$ converges \emph{absolutely};
+\item
+If $\alpha >1$, $\sum a_n$ diverges;
+\item
+If $\alpha=1$, the test gives no information.
+\end{enumerate}
+\end{theorem}
+The condition (2) and (3) is clear. Here we only give a proof for (1):
+\begin{proof}
+Since ${\lim\sup}_{n\to\infty}\sqrt[n]{|a_n|}<1$, we choose a positive number $\beta<1$ such that
+\[
+\begin{array}{ll}
+\sqrt[n]{|a_n|}<\beta,
+&\forall
+n\ge N,
+\end{array}
+\]
+i.e., $|a_n|<\beta^n$ for $n\ge N$. Since $\sum \beta^n$ converges, the same hold for $\sum|a_n|$.
+\end{proof}
+We can apply root test to derive the convergence domain for the power series $\sum c_nx^n$:
+\begin{proposition}
+Given $\sum c_nx^n$, let $R=\frac{1}{{\lim\sup}_{n\to\infty}|c_n|^{1/n}}$, then
+\begin{enumerate}
+\item
+$\sum c_nx^n$ converges absolutely for all $|x|<R$
+\item
+$\sum c_nx^n$ diverges for $|x|>R$
+\item
+The test gives no information if $|x|=R$.
+\end{enumerate}
+\end{proposition}
+The proof is left as exercise.
+\begin{proposition}
+Given the power series $f(x)=\sum c_nx^n$ with radius of convergence $R$, the radius of convergence for the derivatives $f^{(n)}(x)$ is also $R$, $n\ge1$.
+\end{proposition}
+\begin{proof}
+We show this statement for $f'(x)$. Since $f(x)$ converges absolutely for $|x|<R$, $f'(x)$ is given by:
+\[
+f'(x)=\sum_{n=1}^\infty nc_nx^{n-1},
+\]
+and
+\[
+{\lim\sup}_{n\to\infty}(nc_n)^{1/(n-1)}={\lim\sup}_{n\to\infty}|c_n|^{1/n}|c_n|^{1/n},
+\]
+by Root Test, the power series $\sum_{n=1}^\infty nc_nx^{n-1}$ converges absolutely for $|x|<R$.
+
+The statement for higher order derivative follows the similar proof.
+\end{proof}
+In the proof above, we assert but without proof that the power series converge absolutely implies its derivative can be taken term by term. The proof for this assrtion is given below:
+\begin{proposition}
+Let $f(x)=\sum_{n=0}^\infty c_nx^n$ be a power series with convergence radius $R$, then $f'(x)=\sum_{n=1}^\infty nc_nx^{n-1}$.
+\end{proposition}
+\begin{proof}
+Fix $|x|<R$, and pick $r>0$ s.t. $|x|<r<R$. For any $|y|<r$, consider the term $\frac{f(y)-f(x)}{y-x}$. Construct a function $g(x)=\sum_{n=1}^\infty nc_nx^{n-1}$, which has the same convergence radius as shown in the proof above, it suffices to show that $\frac{f(y)-f(x)}{y-x}$ is close enough to $g(x)$:
+\begin{subequations}
+\begin{align}
+\frac{f(y)-f(x)}{y-x}&=\sum_{n=0}^\infty c_n\frac{y^n-x^n}{y-x}\label{Eq:6:1}\\
+&=\sum_{n=0}^\infty c_n(y^{n-1}+y^{n-2}x+\cdots+yx^{n-2}+x^{n-1})\label{Eq:6:2}
+\end{align}
+\end{subequations}
+where (\ref{Eq:6:1}) is because that the convergence of series implies addition and multiplication term by term; (\ref{Eq:6:2}) is because the expansion on $\frac{y^n-x^n}{y-x}$.
+
+Therefore we can give a bound on $|\frac{f(y)-f(x)}{y-x}-g(x)|$:
+\begin{subequations}
+\begin{align}
+\left|\frac{f(y)-f(x)}{y-x}-g(x)\right|&=\left|\sum_{n=0}^Nc_n(\frac{y^n-x^n}{y-x} - nx^{n-1})\right.\\& \left.+ \sum_{n=N+1}^\infty c_n(y^{n-1}+y^{n-2}x+\cdots+yx^{n-2}+x^{n-1})-\sum_{N+1}^\infty nc_nx^{n-1}\right|\\
+&\le
+\left|\sum_{n=0}^Nc_n(\frac{y^n-x^n}{y-x} - nx^{n-1})\right|\\
+&+
+\left|\sum_{n=N+1}^\infty c_n(y^{n-1}+y^{n-2}x+\cdots+yx^{n-2}+x^{n-1})\right|+\left|\sum_{N+1}^\infty nc_nx^{n-1}\right|\\
+&\le
+\left|\sum_{n=0}^Nc_n(\frac{y^n-x^n}{y-x} - nx^{n-1})\right|
++
+2\sum_{n=N+1}^\infty n|c_n|r^{n-1},\label{Eq:6:2:e}
+\end{align}
+where (\ref{Eq:6:2:e}) is because that $|x|<r$ and $|y|<r$.
+\end{subequations}
+
+Note that the absolute convergence of the power series $\sum nc_n x^{n-1}$ for $|x|<R$ implies the convergence of $\sum n|c_n|r^{n-1}$, i.e., $\exists N$ such that
+\[
+\sum_{n=N+1}^\infty n|c_n|r^{n-1}<\frac{\varepsilon}{3}.
+\]
+As $y\to x$, $\sum_{n=0}^Nc_n(\frac{y^n-x^n}{y-x} - nx^{n-1})\to0$. Therefore,
+\[
+\lim_{y\to x}\sup\left|\frac{f(y)-f(x)}{y-x}-g(x)\right|\le0+\frac{2}{3}\varepsilon<\varepsilon,
+\]
+the proof is complete.
+\end{proof}
+\begin{definition}[Analytic]
+We say that $f$ is \emph{analytic} at $c$ if $f$ can be represented by a power series in a neighborhood of $a$, i.e.,
+\[
+R_n(x)=\frac{1}{(n-1)!}\int_a^xf^{(n)}(t)(x-t)^{n-1}\diff t\to0,\quad
+\mbox{as }n\to\infty
+\]
+\end{definition}
+Note that $f$ is analytic implies the existence of all its derivatives, but the converse is not true in general (why)? Adding one more condition can the converse become true.
+\begin{theorem}[Bernstein's Theorem]
+If $f$ and all of its derivatives are non-negative in an interval $I=[a,b]$, then $f$ is analytic on $(a,b)$.
+\end{theorem}
+\begin{proof}
+It suffices to show $R_n(x)\to0$. Note that
+\begin{subequations}
+\begin{align}
+R_n(x)&=\frac{1}{(n-1)!}\int_0^xf^{(n)}(t)(x-t)^{n-1}\diff t\\&=\frac{1}{(n-1)!}\int_0^xf^{(n)}(t)(\frac{x-t}{b-t})^{n-1}(b-t)^{n-1}\diff t\label{Eq:6:3:b}\\
+&\le \frac{1}{(n-1)!}\int_0^xf^{(n)}(t)(b-t)^{n-1}\diff t(\frac{x-a}{b-a})^{n-1}\label{Eq:6:3:c}\\
+&=R_n(b)(\frac{x-a}{b-a})^{n-1}\\&\le f(b)(\frac{x-a}{b-a})^{n-1}\to0\label{Eq:6:3:e},\qquad\mbox{as $n\to\infty$}
+\end{align}
+where (\ref{Eq:6:3:b}) is by re-arrangement terms; (\ref{Eq:6:3:c}) is because $(\frac{x-t}{b-t})^{n-1}\le (\frac{x-a}{b-a})^{n-1}$ and the non-negativity of $f^{(n)}$; (\ref{Eq:6:3:e}) is because of the non-negativity of $f$ and all its derivatives.
+
+The proof is complete.
+\end{subequations}
+\end{proof}
+\begin{example}
+\begin{enumerate}
+\item
+$f(x)=e^x$ admits Taylor expansion at $x=0$:
+\[
+e^x=1+x+\cdots+\frac{1}{n!}x^n+\cdots
+\]
+The radius of convergence for $e^x$ is infinity, i.e., its taylor series converges on $\mathbb{R}$.
+\item
+Also, $f(x)=e^x$ admits Taylor expansion for domain $\mathbb{C}$:
+\[
+e^z=1+z+\cdots+\frac{1}{n!}z^n+\cdots
+\]
+and therefore
+\[
+e^{iy}=1-\frac{y^2}{2!}+\frac{y^4}{4!}+\cdots+i\left(y-\frac{y^3}{3!}+\cdots\right)
+\]
+\item
+\[
+\cos y=1-\frac{y^2}{2!}+\frac{y^4}{4!}+\cdots
+\]
+\item
+\[
+\sin y=y-\frac{y^3}{3!}+\cdots
+\]
+\item
+\[
+\ln(1+x)=x-\frac{1}{2}x^2+\frac{1}{3}x^3-\cdots+\frac{(-1)^{n-1}}{n}x^n+\cdots
+\]
+\item
+\[
+(1+x)^\alpha = 1+\frac{a}{1!}x+\frac{a(a-1)}{2!}x^2+\frac{a(a-1)(a-2)}{3!}x^3+o(x^3)
+\]
+\end{enumerate}
+\end{example}
+Finally, let's discuss the convergence for series $\sum \ln\cos\frac{1}{n^\alpha}$:
+\begin{align*}
+\cos\frac{1}{n^\alpha}&=1-\frac{1}{2!}\frac{1}{n^{2\alpha}}+O(\frac{1}{n^{4\alpha}})\\
+\ln\cos\frac{1}{n^\alpha}&=\ln\left[1-\frac{1}{2!}\frac{1}{n^{2\alpha}}+O(\frac{1}{n^{4\alpha}})\right]\\
+&=1-\frac{1}{2!}\frac{1}{n^{2\alpha}}+O(\frac{1}{n^{4\alpha}})\\
+\sum \ln\cos\frac{1}{n^\alpha}&=-\frac{1}{2}\sum\left[\frac{1}{n^{2\alpha}+O(\frac{1}{n^{4\alpha}})}\right]\\
+&=-\frac{1}{2}\sum\frac{1}{n^{2\alpha}}\left[1+O(\frac{1}{n^{2\alpha}})\right],
+\end{align*}
+which is convergent since $\sum\frac{1}{n^{2\alpha}}$ converges.
+
+
+
+
+
+
+
+
+
+
+
+
+ 

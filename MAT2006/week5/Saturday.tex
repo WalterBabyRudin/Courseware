@@ -1,0 +1,142 @@
+
+\section{Saturday: Comments on Quiz 1}\index{week5_Thursday_lecture}
+The performance in Quiz 1 is not satisfying in general. The quiz one will not be counted, but the next exam will. It is designed for a rigorous mathematical course. 
+
+\subsection{First Question}
+The first is from Schroder-Bernstein Theorem: 
+\begin{quotation}
+$A=(-1,1)$ and $B=[-1,1]$. We are given two one-to-one mapping $f(x)=x:A\mapsto B$ and $g(x)=\frac{x}{2}:B\mapsto A$. We are required to construct a one-to-one onto mapping from $A$ to $B$.
+\end{quotation}
+\begin{proof}[Solution.]
+\begin{align*}
+B\setminus D&=\{-1,1\}\\
+g(B\setminus D)&=\{-\frac{1}{2},\frac{1}{2}\}\\
+gfg(B\setminus D)&=\{-\frac{1}{4},\frac{1}{4}\}\\
+\cdots\cdots&\cdots\cdots
+\end{align*}
+Hence $S=\{\dots,-\frac{1}{4},-\frac{1}{2},\frac{1}{2},\frac{1}{4},\dots\}$, and
+\[
+F(x)=\left\{
+\begin{aligned}
+f(x)=x,& x\in A\setminus S\\
+g^{-1}(x)=2x,& x\in S
+\end{aligned}
+\right.
+\]
+\end{proof}
+
+
+\subsection{Second Question}
+The first question appears on assginement 1, while the second question appears in diagnostic quiz. \emph{Always keep in mind that the same question or similar question may appear again in future exam.}
+\begin{enumerate}
+\item
+Compute limit $\lim_{x\to0+}x^x$: as $x\to 0+$,
+\begin{align*}
+x^x&=\exp(\ln(x^x))=\exp(x\ln x)\\
+&=\exp(\frac{\ln x}{1/x})=\exp(\frac{(\ln x)'}{(1/x)'})=\exp(\frac{1/x}{-1/x^2})\\
+&=\exp(-x)\to 1
+\end{align*}
+
+
+
+\end{enumerate}
+
+\subsection{Third Question}
+Also appears in assignment 1. 
+\begin{quotation}
+Suppose $a_n\ge0,\forall n$, and the series $\sum_{n=1}^\infty a_n$ converges. The new sequence $\{A_n\}$ is given by
+\[
+A_n=\sqrt{\sum_{k=n}^\infty a_k} - \sqrt{\sum_{k=n+1}^\infty a_k}.
+\]
+Show that $\sum_{n=1}^\infty A_n$ also convetges and $a_n=o(A_n)$ as $n\to\infty$.
+\end{quotation}
+\begin{proof}[Solution.]
+The partial sum gives
+\begin{align*}
+&A_1+A_2+\cdots+A_l\\
+&=
+(\sqrt{\sum_{k=1}^\infty a_k} - \sqrt{\sum_{k=2}^\infty a_k})
++
+(\sqrt{\sum_{k=2}^\infty a_k} - \sqrt{\sum_{k=3}^\infty a_k})
++\cdots+(\sqrt{\sum_{k=l}^\infty a_k} - \sqrt{\sum_{k=l+1}^\infty a_k})\\
+&=\sqrt{\sum_{k=1}^\infty a_k} - \sqrt{\sum_{k=l+1}^\infty a_k}\to\sqrt{\sum_{k=1}^\infty a_k}\qquad \mbox{as }l\to\infty
+\end{align*}
+Also,
+\begin{align*}
+\frac{a_n}{A_n}&=\frac{a_n}{\sqrt{\sum_{k=n}^\infty a_k} -\sqrt{\sum_{k=n+1}^\infty a_k}}\\
+&=\frac{a_n(\sqrt{\sum_{k=n}^\infty a_k} +\sqrt{\sum_{k=n+1}^\infty a_k})}{a_n}=\sqrt{\sum_{k=n}^\infty a_k} +\sqrt{\sum_{k=n+1}^\infty a_k}\\
+&=o(1)
+\end{align*}
+\end{proof}
+
+
+
+\subsection{Fourth Question}
+This question is about Baire-Category Theorem: 
+\begin{quotation}
+The set of rational numbers $\mathbb{Q}$ is not a countably intersection of open sets.
+\end{quotation}
+\begin{proof}
+Assume it is. Suppose
+\[
+\mathbb{Q}=\bigcap_{n=1}^\infty O_n,
+\]
+where $O_n$'s are open set containing $\mathbb{Q}$, and therefore dense. 
+
+Consider the set of irrational numbers $\mathbb{R}\setminus \mathbb{Q}=\bigcup_{n=1}^\infty(\mathbb{R}\setminus O_n)$. $\mathbb{R}\setminus O_n$ is closed $\forall n$, containing no open set, since otherwise open set $\mathbb{R}\setminus O_n$ will contain rational numbers. Therefore $\mathbb{R}\setminus O_n$ is nowhere dense, and therefore $\mathbb{R}\setminus \mathbb{Q}$ is first Category, i.e.,
+\[
+\mathbb{R}=(\mathbb{R}\setminus\mathbb{Q})\bigcup\mathbb{Q}
+\]
+is of first Category, which is a contradiction.
+\end{proof}
+
+\subsection{Fifth Question}
+The growth of the uniform continuous function.It is essentially the test on mathematical maturity. You are required to show that 
+\begin{quotation}
+if $f:\mathbb{R}\mapsto\mathbb{R}$ is \emph{uniformly continuous}, then $f$ can grow at $\infty$ at most linearly, i.e., $\frac{f(x)}{x^2}\to0$, $x\to\infty$, i.e., $|f(x)|\le Cx$ for large $x$.
+\end{quotation}
+\begin{proof}
+Recall the definition for uniform continuous: $\forall\varepsilon>0,\exists\delta>0$ such that $|f(x) - f(y)|\le\varepsilon$ if $|x-y|<\delta$. Take $\varepsilon=1$. Look at the postive axis: for $(n-1)\delta<x\le n\delta$, we have
+\[
+|f(x) - f(0)|\le n\le\frac{x}{\delta}+1
+\]
+and therefore
+\[
+|f(x)|\le |f(x)-f(0)|+|f(0)|\le \frac{x}{\delta}+1+|f(0)|\implies\frac{f(x)}{x^2}\to0.
+\]
+
+\end{proof}
+
+
+
+
+
+
+
+\subsection{Grading policy}
+We will not follow the partial grading policy in this course. 
+
+The next exam will be similar.
+
+Furthermore, the \emph{final} exam will be more \emph{comprehensive}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

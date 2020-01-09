@@ -1,0 +1,176 @@
+
+\chapter{Week14}
+\section{Wednesday}
+\subsection{Analysis on Compactness}
+Now let's disucss the compactness on the continuous function space. The main topic is Ascoli-Arzela theorem, which is a generalization of Bolzano-Weierstrass theorem.
+\begin{definition}[Equi-continuous]
+Let $\mathcal{B}$ be a subset of $\mathcal{C}(A,\mathbb{R})$. We say $\mathcal{B}$ is \emph{equi-continuous} if for $\forall\varepsilon>0$, there exists $\delta>0$ such that
+\[
+|f(x)-f(y)|<\varepsilon,
+\mbox{ provided that }x,y\in A,|x-y|<\delta,f\in\mathcal{B}.
+\]
+\end{definition}
+%\begin{example}
+%
+%
+%\end{}
+\begin{remark}
+We have studied the continuous function space over the interval $[a,b]$. Let's do a little bit generalization. Suppose $M$ is a comapct set. Let $\mathcal{C}(M,\mathbb{R})$ denote the class of continuous mapping $M\to\mathbb{R}$. Define the corresponding metric
+\[
+d(u,v)=\max_{x\in M}|u(x)-v(x)|,\forall u,v\in\mathcal{C}(M,\mathbb{R})
+\]
+The metric space in Ascoli-Arzela Theorem is pre-assumed to be $(\mathcal{C}(M,\mathbb{R}),d)$, which is \emph{complete} as well.
+\end{remark}
+
+\begin{theorem}[Ascoli-Arzela Theorem]
+Let $A\subseteq\mathbb{R}^m$ be compact, and $\mathcal{B}\subseteq\mathcal{C}(A,\mathbb{R})$ be \emph{uniformly bounded} and \emph{equi-continuous}. Then any sequence in $\mathcal{B}$ contains a \emph{uniformly convergent subsequence}.
+\end{theorem}
+\begin{remark}
+Everyone in this course are required to know about this proof (\textit{diagonal process}).
+\end{remark}
+
+\paragraph{Step 1: Construct a desired subsequence}
+
+Pick a countable dense subset $\{x_1,\dots,x_n,\dots\}\subseteq A$, and let $\{f_1,f_2,\dots,f_n,\dots\}$ be a sequence in $\mathcal{B}$. It suffices to construct a subsequence.
+\begin{enumerate}
+\item
+The sequence $\{f_1(x_1),f_2(x_1),f_3(x_1),\dots\}$ is bounded. By Bolzano-Weierstrass theorem, there exists a convergent subsequence 
+\[
+\{f_{11}(x_1),f_{12}(x_1),f_{13}(x_1),\dots\}
+\]
+\item
+Then consider the sequence $\{f_{11}(x_2),f_{12}(x_2),f_{13}(x_2),\dots\}$, which is bounded as well, which contains a convergent subsequence, denoted by
+\[
+\{f_{21}(x_2),f_{22}(x_2),f_{23}(x_2),\dots\}
+\]
+\item
+Following the similar idea, we construct a table of function sequences: 
+\begin{equation}\label{Eq:14:1}
+\begin{array}{lllllll}
+f_{11}(x_1)&f_{12}(x_1)&\cdots&f_{1,n}(x_1)&\cdots&\mbox{converges at $x_1$}\\
+f_{21}(x_2)&f_{22}(x_2)&\cdots&f_{2,n}(x_2)&\cdots&\mbox{converges at $x_2$}\\
+\vdots&\vdots&\ddots&\vdots&\vdots&\vdots\\
+f_{k1}(x_k)&f_{k2}(x_k)&\cdots&f_{k,n}(x_k)&\cdots&\mbox{converges at $x_k$}\\
+\vdots&\vdots&\ddots&\vdots&\vdots&\vdots
+\end{array}
+\end{equation}
+By construction, each row of functions above is a subsequence of all of the rows of functions above it. Then consider the sequence of functions 
+\[
+\{f_{11},f_{22},f_{33},\dots,f_{nn},\dots\}
+\]
+\end{enumerate}
+
+\paragraph{Step 2: Show the uniform convergence of $\{f_{11},f_{22},f_{33},\dots\}$}
+It suffices to show for $\forall\varepsilon>0$, there exists $N$ such that for $\forall k,l\ge N$, we have
+\[
+|f_{kk}(x)-f_{ll}(x)|<\varepsilon,\forall x\in A
+\]
+Note that we have the following three properties:
+\begin{enumerate}
+\item
+Due to the equi-continuity, for $\forall\varepsilon>0$, there exists $\delta>0$ such that $|f_{kk}(x)-f_{kk}(y)|<\frac{\varepsilon}{3}$, if $|x-y|<\delta$, $\forall k$.
+\item
+For $\delta$ in (1), there exists $r>0$ such that \textit{for any $x\in A$, there exists $j\le r$ such that $|x-x_j|<\delta$}, i.e., \textit{the distance between any point $x\in A$ and the set $\{x_1,\dots,x_r\}$ is less than $\delta$.}
+\begin{proof}
+Consider the set of neighborhoods $\{B_\delta(x)\mid x\in A\}$, which is an open cover for $A$. This imply that there exists finite subcover 
+\begin{equation}
+\{B_{\delta/2}(\bar x_1),\dots,B_{\delta/2}(\bar x_p)\}.\label{Eq:14:2}
+\end{equation}
+Since $\{x_1,\dots,x_n\}$ is a dense subset, for every $h=1,\dots,p$, there exists a point 
+\begin{equation}\label{Eq:14:3}
+x_\alpha\in B_{\delta/2}(\bar x_h)\bigcap A.
+\end{equation}
+Therefore, for $\forall x\in A$, due to the subcover (\ref{Eq:14:2}), there exists $h$ such that $|x-\bar x_h|<\delta/2$. Therefore,
+\[
+|x-x_\alpha|\le|x-\bar x_h|+|\bar x_h-x_\alpha|<\delta/2+\delta/2=\delta
+\]
+
+\end{proof}
+\item
+Note that the $N$-th row subsequence in (\ref{Eq:14:1}) converges at $x_1,x_2,\dots,x_N$. Therefore, for the same setting in (1) and (2), there exists $N$ such that $|f_{kk}(x_q)-f_{ll}(x_q)|<\varepsilon/3$, for $\forall 1\le q\le r$ and $k,l\ge N$.
+
+\end{enumerate}
+Now for $\forall x\in A$, $k,l\ge N$, we have
+\begin{subequations}
+\begin{align}
+|f_{kk}(x)-f_{ll}(x)|&\le |f_{kk}(x)-f_{kk}(x_j)|
++
+|f_{kk}(x_j)-f_{ll}(x_j)|+|f_{ll}(x_j)-f_{ll}(x)|\label{Eq:14:4:a}
+\\&\le
+\frac{\varepsilon}{3}+\frac{\varepsilon}{3}+\frac{\varepsilon}{3}=\varepsilon
+\end{align}
+\end{subequations}
+where we upper bound the first and the third term in (\ref{Eq:14:4:a}) by property (1); the second term by property (2).
+\begin{corollary}
+Suppose $\{f_n\}$ is a sequence of $\mathcal{C}^1$ functions on a compact interval $[a,b]$ with the property that 
+\[
+|f_n(x)|\le M_1,\quad
+\mbox{and}\quad |f_n'(x)|\le M_2,\forall x\in[a,b],\forall n
+\]
+then $\{f_n\}$ has a uniformly convergent sub-sequence
+\end{corollary}
+\begin{proof}
+It suffices to check equi-continuity. 
+\[
+|f_k(x)-f_k(y)|=|f'(z)||x-y|
+\le M_2|x-y|,\forall k
+\]
+which implies $\{f_k\}$ is equi-continuous.
+\end{proof}
+From the proof above we can also obtain an useful lemma:
+\begin{corollary}\label{Cor:14:2}
+Suppose $\{f_n\}$ is a sequence of $\mathcal{C}^1$ functions defined on an interval $[a,b]\subseteq\mathbb{R}^n$, and $\{f_n'\}$ is uniformly bounded on $[a,b]$. Then $\{f_n\}$ is equi-continuous on $[a,b]$. 
+\end{corollary}
+
+\begin{example}
+\begin{enumerate}
+\item
+Given a sequence of functions $f_n(x)=x^n$ in $[0,1]$. To show $\{f_n\}$ is equi-continuous, you may verify the definition directly. An alternative way is to apply the proposition
+\begin{proposition}\label{Prop:14:1}
+Suppose $\{g_n\}\subseteq\mathcal{C}(A,\mathbb{R})$, and $g_n\to g$ uniformly, then $g$ is continuous.
+\end{proposition}
+The proof of this proposition is by applying the inequality
+\[
+|g(x)-g(y)|\le |g(x)-g_n(x)|+|g_n(x)-g_n(y)|+|g_n(y)-g(y)|
+\]
+Further, uniform convergence and uniform continity implies the desired result.
+
+Return to our problem, assume $\{f_n\}$ is equi-continuous (obviously uniformly bounded), then there exists a uniformly convergent subsequence, say
+\[
+f=\lim_{k\to \infty}f_{n_k}
+\]
+From proposition (\ref{Prop:14:1}) we imply $f$ is continuous, which is a contradiction, since
+\[
+f_n(1)\to1,f_n(x)\to0,x<1,\forall n
+\]
+\item
+The sequence of functions $\{f_n\}=\{\sin nx\}\subseteq\mathcal{C}[0,\pi]$ is not equi-continuous.
+
+It's clear that $\{f_n\}$ is uniformly bounded. However, for any $\delta>0$, there exists large $n$ such that $\pi/n<\delta$, and therefore for $x:=-\pi/2n,y:=\pi/2n$, we have $|x-y|<\delta$, but
+\[
+|\sin(nx)-\sin(ny)|=2.
+\]
+\item
+The family of all polynomials of degree no more than $N$ over the interval $[0,1]$ is equi-continuous.
+
+One way is to upper bound the derivative by Markov brother's inequality:
+\[
+\sup_{x\in[-1,1]}|p'(x)|\le N^2\sup_{x\in[-1,1]}|p(x)|,
+\]
+for all polynomials $p$ of degree no more than $N$, which implies that $|p'(x)|\le N^2$, i.e, $\{p_n\}$ is uniformly bounded. From Corollary~(\ref{Cor:14:2}) we imply the family $\{p(x)\}$ is equi-continuous.
+\end{enumerate}
+\end{example}
+The converse of Ascoli-Arzela Theorem also holds, and check the details in wiki if interested.
+
+
+
+
+
+
+
+
+
+
+
+
+

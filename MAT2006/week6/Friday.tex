@@ -1,0 +1,246 @@
+
+\section{Friday}\index{week7_Friday_lecture}
+\subsection{Recap}
+\paragraph{Announcement}
+As promised, the taylor series and uniform continuity will definitely show up in the mid-term. (remember the Theorem(\ref{The:4:2})?)
+\paragraph{Summary about Taylor series}
+This lecture will mainly discuss the integration, but first let's review what we have learnt from last lecture.
+
+The Taylor series has its connection with complex numbers:
+\begin{example}
+Given a function $f(x)=\frac{1}{1+x^2}$, which is infinitely differentiable. However, when expanding its Taylor series at point $x=0$, we have
+\[
+f(x)=\frac{1}{1-(-x^2)}=1-x^2+x^4-x^6+\cdots,\quad\mbox{holds for $x^2<1$}
+\]
+\begin{quotation}
+Why would the function $f$ have taylor series convergent only hold for $x^2<1$, but it is infinitely differentiable on the whole real line? 
+\end{quotation}
+\begin{proposition}
+The function $f(z)$ for $z\in\mathbb{C}$ is infinitely differentiable on domain $D$ iff it has Taylor series convergent on $D$. Note that real function does not necessarily have such a property.
+\end{proposition}
+
+If extending the domain into complex plane, the function $\frac{1}{1+z^2}$ have poles $\pm i$, and thus have no chance to have taylor expansion beyond $|z|<1$. Then
+ projecting the domain $\{z:|z|<1\}$ into the real line, we derive the function $f$ have Taylor series convergent for $|x|<1$.
+\end{example}
+\paragraph{Exercise}
+Exercise: find the taylor series of $\frac{1}{1+x^2}$ at $x=1$ and determine its radius of convergence. Answer: $R=\sqrt{2}$
+\subsection{Riemann Integration}
+\paragraph{Set Up}
+Given a \emph{bounded} function $f$ on the closed (finite) interval $[a,b]$. A partition $\mathcal{P}$ is a set of points $\{x_i\}_{i=0}^n$:
+\[
+a_1=x_0\le x_1\le x_2\le\cdots\le x_n=b
+\]
+where the \emph{mesh} of $\mathcal{P}$ is defined to be $\lambda(\mathcal{P})=\max_{1\le i\le n}|\Delta x_i|$.
+
+On each interval $[x_{i-1},x_i]$, define 
+\[
+\begin{array}{ll}
+m_i=\inf_{x_{i-1}\le x\le x_i}f(x),
+&
+M_i=\sup_{x_{i-1}\le x\le x_i}f(x)
+\end{array}
+\]
+The lower sum and upper low sum associated with partition $\mathcal{P}$ is defined as:
+\begin{align*}
+L(\mathcal{P},f)&=\sum_{i=1}^{n} m_i(x_i - x_{i-1})
+=\sum_{i=1}^n m_i\Delta x_i\\
+U(\mathcal{P},f)&=\sum_{i=1}^{n} M_i(x_i - x_{i-1})
+=\sum_{i=1}^n M_i\Delta x_i
+\end{align*}
+Now we define the lower and upper Riemann intergral as:
+\begin{align*}
+\loRiemannint{a}{b}f(x)\diff x&=\sup_{\mathcal{P}}L(\mathcal{P},f)\\
+\upRiemannint{a}{b}f(x)&=\inf_{\mathcal{P}}U(\mathcal{P},f)
+\end{align*}
+These definitions are well-defined.
+\begin{definition}[integrable]
+We say that $f$ is (Riemann) integrable if \[\loRiemannint{a}{b}f(x)\diff x=\upRiemannint{a}{b}f(x)\diff x,\] and denote the common values of which as $\int_a^bf(x)\diff x$. The set of all \emph{Riemann integrable functions} on $[a,b]$ is denoted as $\mathcal{R}[a,b]$.
+\end{definition}
+\begin{example}
+Check if these functions are integrable or not:
+\begin{enumerate}
+\item
+$f(x)\equiv 1$ on $[0,1]$; then $\loRiemannint{a}{b}f(x)\diff x=\upRiemannint{a}{b}f(x)=1$.
+\item
+Dirichlet function:
+\[
+D(x)=\left\{
+\begin{aligned}
+0,&\quad x\notin\mathbb{Q}\\
+1,&\quad x\in\mathbb{Q}
+\end{aligned}
+\right.
+\]
+Verify that this function always has lower sum $0$ and upper sum $1$, and therefore not integrable.
+\item
+Riemann function on $[0,1]$:
+\[
+R(x)=\left\{
+\begin{aligned}
+0,&\quad x\notin\mathbb{Q}\\
+\frac{1}{q},&\quad x=\frac{p}{q}, q>0, (p,q)=1
+\end{aligned}
+\right.
+\]
+We will show that it is integrable later. First keep in mind that the function with countably many discontinuites on $[a,b]$ is integrable.
+\item
+The function defined on $[0,1]$:
+\[
+f(x)=\left\{
+\begin{aligned}
+0,&\quad x=0\\
+\sin\frac{1}{x},&\quad x\ne0
+\end{aligned}
+\right.
+\]
+It is integrable.
+\item
+Evaluate the limit from definition
+\[
+\lim_{n\to\infty}\left[\frac{1}{n+1}+\frac{1}{n+2}+\cdots+\frac{1}{2n}\right].
+\]
+Construct
+\[
+x_n=\sum_{k=1}^n\frac{1}{n+k}=\frac{1}{n}\sum_{k=1}^n\frac{1}{1+k/n}
+\]
+Note that $x_n$ is just the lower sum associated with the partitition
+\[
+\mathcal{P}=\{x_0:=0,x_1=\frac{1}{n},x_2=\frac{2}{n},\dots,x_n:=1\}.
+\]
+As $n\to\infty$, inituitively $\mathcal{L}(\mathcal{P},f)\to\mathcal{U}(\mathcal{P},f)$. Therefore
+\[
+x_n\to\int_0^1\frac{\diff x}{1+x}=\log2
+\]
+\end{enumerate}
+\end{example}
+\begin{definition}[Refinement]
+Given a partition $\mathcal{P}$, we say $\mathcal{P}^*$ is a refinement of $\mathcal{P}$ if $\mathcal{P}^*$ contains all the sub-division points of $\mathcal{P}$
+\end{definition}
+\begin{proposition}
+Let $f: [a,b]\mapsto\mathbb{R}$ with $m\le f(x)\le M$ on $[a,b]$, then
+\begin{enumerate}
+\item
+$L(\mathcal{P},f)\le L(\mathcal{P}^*,f)$ and $U(\mathcal{P}^*,f)\le U(\mathcal{P},f)$ holds for any refinement $\mathcal{P}^*$ of $\mathcal{P}$
+\item
+$L(\mathcal{P}_1,f)\le U(\mathcal{P}_2,f)$ for any refinements $\mathcal{P}_1,\mathcal{P}_2$.
+\item
+\[
+m(b-a)\le \loRiemannint{a}{b}f(x)\diff x\le
+\upRiemannint{a}{b}f(x)\diff x\le M(b-a)
+\]
+\item
+$f$ is \emph{Riemann integrable} iff $\forall\varepsilon$, there exists $\mathcal{P}$ s.t. $U(\mathcal{P},f) - L(\mathcal{P},f)\le\varepsilon$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+\item
+Check Theorem(6.4) in Rudin's book for detail
+\item
+Take the $\mathcal{P}^*$ as common refinement for $\mathcal{P}_1,\mathcal{P}_2$, and show that
+\[
+L(\mathcal{P}_1,f)\le 
+L(\mathcal{P}^*,f)\le U(\mathcal{P}^*,f)\le
+U(\mathcal{P}_2,f)
+\]
+\item
+For every $\mathcal{P}$,
+\[
+m(b-a)\le L(\mathcal{P},f)\le U(\mathcal{P},f)\le M(b-a).
+\]
+\item
+Check Theorem(6.6) in Rudin's book for detail.
+\end{enumerate}
+\end{proof}
+\begin{theorem}
+If $f$ is continuous on $[a,b]$, then $f$ is Riemann integrable on $[a,b]$.
+\end{theorem}
+
+\begin{proof}
+The function $f$ is continuous on $[a,b]$ implies $f$ is uniform continuous, i.e.,$\forall \varepsilon>0,\exists\delta>0$ s.t. for $|x-y|<\delta$,
+\[
+|f(x)-f(y)|<\varepsilon.
+\]
+Pick a partition $\mathcal{P}=\{x_0:=a,x_1:=a+h,x_2:=a+2h,\dots,x_n:=a+nh:=b\}$ with $h=\frac{b-a}{n}<\delta$. It follows that on interval $[x_{i-1},x_i]$, we have
+\[
+M_i-m_i<\varepsilon\implies
+U(\mathcal{P},f) - L(\mathcal{P},f) = \sum_{i=1}^n(M_i-m_i)\Delta x_i\le\varepsilon\sum_{i=1}^n\Delta x_i=\varepsilon(b-a)
+\]
+\end{proof}
+We aeert a proposition but without proof first:
+\begin{corollary}
+If $f$ is continuous expect for finitely many points on $[a,b]$, then $f$ is Riemann integrable.
+\end{corollary}
+We can apply this theorem to show that $f(x)=\sin\frac{1}{x}$ is integrable, since $f$ has only one discontinuity on $[0,1]$. 
+
+Alternatively, we can separate the interval $[0,1]$ as $[\epsilon,1]$ and $[0,\epsilon]$. Note that on $[\epsilon,1]$ $f$ is continuous, thus Riemann integrable, and then we can bound the difference of lower and upper sum by taking $\epsilon\to0$.
+
+We can also apply this corollary to show the Riemann function is integrable, but we need another useful tool: uniform convergence.
+\begin{theorem}
+Let $\{f_n\}$ be a sequence of \emph{Riemann integrable} functions on $[a,b]$, and $f_n$ converges uniformly to $f$. Then $f$ is Riemann integrable and 
+\[
+\int_a^bf(x)=\lim_{n\to\infty}\int_a^bf_n
+\]
+\end{theorem}
+\begin{remark}
+Note that this theorem essentially says that a sequence of uniformly convergent function $\{f_n\}$ has the property
+\[
+\int_a^b\lim_{n\to\infty}f_n(x)\diff x=\lim_{n\to\infty}\int_a^bf_n(x)\diff x
+\]
+which may not necessarily true if we ignore the uniform convergence condition. 
+\end{remark}
+\begin{example}[counter-example for pointwise convergent function sequence]
+For the function sequence $\{f_n\}$ with
+ \[
+f_n(x)=\left\{
+\begin{aligned}
+n,&\quad x\in[0,\frac{1}{n})\\
+0,&\quad x\notin(0,\frac{1}{n})
+\end{aligned}
+\right.
+\]
+we find that 
+\[
+f=\lim_{n\to\infty}f_n=0\implies
+\int_a^b f\diff x=0,
+\]
+while $\int_0^1f_n(x)\diff x=1$.
+\end{example}
+Let's review the definition for uniform convergence:
+\begin{definition}[Uniform Convergence]
+Let $f$ be the pointwise limit of $f_n$, then $f_n$ is said to converge uniformly to $f$ if 
+\[
+\sup_{a\le x\le b}|f_n(x) - f(x)|\to0,\mbox{ as }n\to\infty.
+\]
+\end{definition}
+\begin{remark}
+The value $\sup_{a\le x\le b}|f_n(x) - f(x)|$ tends to zero for pointwise convergent function $f_n$, e.g., $f_n(x) = x^n$ for $x\in[0,1]$.
+\end{remark}
+
+\begin{corollary}
+Riemann function is Riemann integrable.
+\end{corollary}
+\begin{proof}
+Construct the function
+\[
+f_N(x)=\left\{
+\begin{aligned}
+\frac{1}{q},&\quad x=\frac{p}{q}, 0<q<N, (p,q)=1,\\
+0,&\quad \mbox{otherwise}\\
+\end{aligned}
+\right.
+\]
+Thus $f_N$ is Riemann integrable since it contains finitely many discontinuities. We can also show it is uniformly convergent with limit $R(x).$ Therefore the Riemann function is Riemann integrable.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+

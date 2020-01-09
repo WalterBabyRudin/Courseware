@@ -1,0 +1,300 @@
+
+\chapter{Week7}
+
+\section{Wednesday}\index{week7_Tuesday_lecture}
+\paragraph{Announcement}
+Our mid-term is on next Wednesday in Liwen Building, from 8:00am to 10:00am. We will cover everything until this Friday.
+\subsection{Integrable Analysis}
+\paragraph{Recap}
+Given a sequence of functions $\{f_n\}$ with pointwise limit $f$, we are curious about whether the equation holds:
+\[
+\lim_{n\to\infty}\int_a^bf_n(x)\diff x
+=
+\int_a^b\left[\lim_{n\to\infty}f_n(x)\right]\diff x
+\]
+Let's give a counter-example to show this equaiton may not necessarily true.
+\begin{example}
+Let $\{f_n\}$ defined on $[0,1]$ with
+\[
+f_n(x)=\left\{
+\begin{aligned}
+n,&\quad\mbox{if $x\in(0,\frac{1}{n})$}\\
+0,&\quad\mbox{otherwise}
+\end{aligned}
+\right.
+\]
+We find that $\int_0^1f_n\diff x=1$, and $f_n\to0$ as $n\to\infty$. Thus
+\[
+\int_0^1\left[\lim_{n\to\infty}f_n(x)\right]\diff x=0\ne
+\lim_{n\to\infty}\int_0^1f_n(x)\diff x
+\]
+\end{example}
+There is a \emph{sufficient} condition that guarantees the equation holds:
+\begin{theorem}
+Let $\{f_n\}$ be a sequence of Riemann integrable functions on $[a,b].$ If $f_n$ converges to $f$ uniformly as $n\to\infty$, then $f$ is also \emph{Riemann integrable}, and 
+\[
+\lim_{n\to\infty}\int_a^bf_n(x)\diff x
+=
+\int_a^bf(x)\diff x
+\]
+\end{theorem}
+\begin{definition}
+We say that $f_n$ converges to $f$ uniformly as $n\to\infty$ on $[a,b]$ if for every $\varepsilon>0$, there exists $N$ such that $|f_n(x) - f(x)|<\varepsilon$ for all $x\in[a,b]$ and for all $n\ge N$.
+\end{definition}
+\begin{proof}
+\begin{itemize}
+\item
+\textbf{Step 1: }First we need to show that both $\int_a^bf_n(x)\diff x$ and $\int_a^bf(x)\diff x$ is well-defined, i.e., $f$ and $f_n$ is \emph{uniformly bounded}, i.e., there exists $M,M'>0$ such that $|f(x)|\le M$ and $|f_n(x)|\le M'$,$\forall n$. First show that $\{f_n\}$ is uniformly bounded:
+\begin{subequations}
+\begin{align}
+|f_n(x) - f_k(x)|&=|f_n(x) - f(x)+f(x) - f_k(x)|\label{Eq:7:1:a}\\
+&\le |f_n(x) - f(x)|+|f(x) - f_k(x)|
+\end{align}
+Due to the uniform convergence of $\{f_n\}$, we choose $\varepsilon:=1$, then there exists $N>0$ s.t. 
+\begin{equation}\label{Eq:7:1:c}
+|f_m(x)-f(x)|<1,\qquad \forall m\ge N.
+\end{equation}
+Therefore, we give a bound on (\ref{Eq:7:1:a}):
+\begin{equation}
+|f_n(x) - f_k(x)|<2,\quad
+\forall  n,k\ge N
+\end{equation}
+In particular, take $k=N$, thus
+\begin{equation}
+|f_n(x)-f_N(x)|<2\implies |f_n(x)|<|f_N(x)|+2,\qquad
+\forall n\ge N,
+\end{equation}
+\end{subequations}
+i.e., every $f_n$ for $n\ge N$ is bounded from $|f_N(x)|$ as $2$. Therefore, we have $\{f_n\}_{n=1}^\infty$ is uniformly bounded by $M$. (just set $M=\max\{|f_1(x)|,\dots,|f_{N-1}(x)|,|f_N|+2\}$.) 
+
+Another application of (\ref{Eq:7:1:c}) gives the uniform boundness of $f$:
+\[
+|f(x)|\le|f(x) - f_N(x)|+|f_N(x)|\le1+|f_N(x)|.
+\]
+\item
+\textbf{Step 2: }Argue the Riemann integrability of $f$. Define $\varepsilon_n=\sup_{a\le x\le b}|f_n(x) - f(x)|$, and $\varepsilon_n\to0$ as $n\to\infty$. 
+\begin{subequations}
+Therefore, we give bounds on $f$:
+\begin{equation}
+-\varepsilon_n+f_n(x)\le f(x)\le \varepsilon_n+f_n(x)
+\end{equation}
+So that the lower and upper integrals of $f$ satisfy:
+\begin{equation}
+\loRiemannint{a}{b}[-\varepsilon_n+f_n(x)]\diff x
+\le
+\loRiemannint{a}{b}f(x)\diff x\le \upRiemannint{a}{b}f(x)\diff x\le
+\upRiemannint{a}{b}[\varepsilon_n+f_n(x)]\diff x
+\end{equation}
+Note that $f_n$ is integrable, so we can remove the upper and lower integral symbols of $f_n\pm\varepsilon_n$:
+\begin{equation}\label{Eq:7:2:c}
+\int_a^bf_n(x)-\varepsilon_n\diff x
+\le
+\loRiemannint{a}{b}f(x)\diff x\le \upRiemannint{a}{b}f(x)\diff x\le
+\int_a^bf_n(x)-\varepsilon_n\diff x
+\end{equation}
+Hence we give a bound on the difference of upper and lower integrals of $f$:
+\begin{equation}
+0\le  \upRiemannint{a}{b}f(x)\diff x-\loRiemannint{a}{b}f(x)\diff x\le2(b-a)\varepsilon_n,
+\end{equation}
+\end{subequations}
+Since $\varepsilon_n\to0$ as $n\to\infty$, the upper and lower integrals of $f$ are equal. Thus $f\in\mathcal{R}[a,b]$.
+\item
+Another application of (\ref{Eq:7:2:c}) now yields
+\begin{equation}
+\left|\int_a^bf(x)-f_n(x)\diff x\right|\le\int_a^b\varepsilon_n\diff x=\varepsilon_n(b-a),
+\end{equation}
+which implies $\lim_{n\to\infty}\int_a^bf_n(x)\diff x
+=
+\int_a^bf(x)\diff x$.
+\end{itemize}
+\end{proof}
+\begin{remark}
+The sequence of functions also remains the question that:
+\begin{quotation}
+Would the equation (\ref{Eq:7:2}) holds?
+\begin{equation}\label{Eq:7:2}
+\lim_{n\to\infty}f_n'(x)=\left[\lim_{n\to\infty}f_n(x)\right]'
+\end{equation}
+\end{quotation}
+Equation (\ref{Eq:7:2}) holds also depends on the uniform convergence of $\{f_n\}$.
+\end{remark}
+
+\subsection{Elementary Calculus Analysis}
+\begin{theorem}[Fundamental Theorem of Calculus]
+If $f:[a,b]\mapsto \mathbb{R}$ is continuous, then the function $F(x)=\int_a^xf(t)\diff t$ is \emph{differentiable} with $F'=f$.
+\end{theorem}
+\begin{proof}
+The proof is simply by definition, keep in mind that difference quotient is useful in proofs related to differentiation.
+\begin{subequations}
+\begin{align}
+\frac{F(x+h) - F(x)}{h}-f(x)&=
+\frac{1}{h}\left[\int_a^{x+h}f(t)\diff t-\int_a^xf(t)\diff t\right]-f(x)\\
+&=\frac{1}{h}\int_x^{x+h}f(t)\diff t-f(x)\\
+&=\frac{1}{h}\int_x^{x+h}f(t)\diff t-\frac{1}{h}\left[\int_x^{x+h}1\diff t\right]f(x)\\
+&=\frac{1}{h}\int_x^{x+h}f(t)\diff t-\frac{1}{h}\int_x^{x+h}f(x)\diff t\\
+&=\frac{1}{h}\int_x^{x+h}[f(t) - f(x)]\diff t,
+\end{align}
+which implies that
+\[
+\left|\frac{F(x+h) - F(x)}{h}-f(x)\right|\le\frac{1}{h}\int_x^{x+h}|f(t) - f(x)|\diff t,
+\]
+\end{subequations}
+Then apply continuity condition to give a bound on $|f(t)-f(x)|$:
+
+Since $f$ is continuous at $x$, for $\varepsilon>0$, there exists $\delta>0$ such that $|f(y) - f(x)|<\varepsilon$ if $|y-x|<\delta$. Therefore,
+\[
+\left|\frac{F(x+h) - F(x)}{h}-f(x)\right|\le\frac{1}{h}\int_x^{x+h}|f(t) - f(x)|\diff t\le\frac{1}{h}\int_x^{x+h}\varepsilon\diff t=\varepsilon,
+\]
+If $h<\delta$, we imply
+\[
+\lim_{h\to0}\frac{F(x+h) - F(x)}{h}=f(x)
+\]
+\end{proof}
+The integraiton by parts is an important part from Calculus, the core idea is from the product rule for differentiation.
+\begin{theorem}[Integration by Parts]
+Given two functions $f,g\in\mathcal{C}^1[a,b]$, (similar to $(fg)'=f'g+fg'$), we have
+\[
+\int_a^b(fg)'\diff x=\int_a^bf'g\diff x+\int_a^bfg'\diff x,
+\]
+or equivalently,
+\[
+(fg)(a)-(fg)(b)=\int_a^bf'g\diff x+\int_a^bfg'\diff x,
+\]
+i.e.,
+\[
+\int_a^bfg'\diff x=(fg)|_a^b-\int_a^bf'g\diff x
+\]
+\end{theorem}
+
+%\begin{theorem}[Change of variables]
+%
+%\end{theorem}
+There are two versions of change of variables in Calculus. We will discuss the difference of these.
+\begin{proposition}[Change of variables,version 1]\label{Pro:7:1}
+Let $\phi:[\alpha,\beta]\mapsto[a,b]$ be a continuously differentiable function such that
+\[
+\begin{array}{ll}
+\phi(\alpha)=a,
+&
+\phi(\beta)=b.
+\end{array}
+\]
+Then for every continuous function $f:[a,b]\mapsto\mathbb{R}$, we have
+\[
+\int_a^bf(x)\diff x=\int_\alpha^\beta f(\phi(t))\phi'(t)\diff t
+\]
+\end{proposition}
+\begin{proof}
+Define $F(x)=\int_a^xf(t)\diff t$, which implies
+\[
+\frac{\diff F(x)}{\diff x}=f(x),
+\qquad
+\int_a^bf(x)\diff x=F(b).
+\]
+Observe that
+\[
+\frac{\diff F(\phi(t))}{\diff t}=\frac{\diff F(\phi(t))}{\phi(t)}\frac{\phi(t)}{\diff t}=f(\phi(t))\phi'(t)
+\]
+Or equivalently,
+\[
+\frac{\diff}{\diff t}(F\circ\phi)(t)=f(\phi(t))\phi'(t)
+\]
+Therefore,
+\begin{align}
+\int_\alpha^\beta(F\circ\phi)'(t)\diff t
+&=
+\int_\alpha^\beta f(\phi(t))\phi'(t)\diff t\\
+&=
+(F\circ\phi)(\beta) - (F\circ\phi)(\alpha)=F(\phi(\beta))-F(\phi(\alpha))\\
+&=F(b)-F(a)=F(b)\\
+&=\int_a^bf(x)\diff x
+\end{align}
+\end{proof}
+\begin{proposition}[Change of variables,version 2]\label{Pro:7:2}
+Let $\phi:[\alpha,\beta]\mapsto[a,b]$ be continuously differentiable and \emph{strictly monotone}. Then for any $f\in\mathcal{R}[a,b]$, we have
+\begin{enumerate}
+\item
+$f(\phi(t))\phi'(t)\in\mathcal{R}[\alpha,\beta]$
+\item
+\[
+\int_\alpha^\beta f(\phi(t))\phi'(t)
+=
+\int_{\phi(\alpha)}^{\phi(\beta)}f(x)\diff x
+\]
+\end{enumerate}
+\end{proposition}
+\begin{remark}
+\begin{itemize}
+\item
+Comparing proposition(\ref{Pro:7:2}) to (\ref{Pro:7:1}), note that we \emph{relax} $f$ from being continuously differentiable to being Riemann integrable; but \emph{restrict} $\phi$ to be \emph{strictly monotone}.
+\item
+The proof for proposition(\ref{Pro:7:2}) is messy. For most time functions we have faced is \textit{not continuous}, but we can break into finite sub-intervals and apply proposition(\ref{Pro:7:1}). Thus the benifit for proposition(\ref{Pro:7:2}) is not such huge. In practice, proposition(\ref{Pro:7:1}) is enough.
+\end{itemize}
+\end{remark}
+Last, let's discuss a initutive fact of Riemann sum, i.e., as the mesh goes to zero, Riemann sums always converges  to their corresponding integration
+\begin{theorem}
+Let $f\in\mathcal{R}[a,b]$. Then a Riemann sum $S(\mathcal{P},f)$ converges to $\int_a^bf(x)\diff x$ as the mesh $\lambda(\mathcal{P})\to0$, i.e.,
+\[
+\sum_{i=1}^nf(t_i)\Delta x_i\to\int_a^bf(x)\diff x,\qquad
+\mbox{as }\max_{1\le i\le n}\Delta x_i\to0,
+\]
+where $t_i\in[x_{i-1},x_i]$, $i=1,\dots,n$.
+\end{theorem}
+We apply this theorem to evaluate some limits:
+\begin{example}
+\begin{enumerate}
+\item
+Evaluate the limit
+\[
+\lim_{n\to\infty}\left[\frac{1}{n+1}+\frac{1}{n+2}+\cdots+\frac{1}{2n}\right].
+\]
+\begin{align*}
+x_n&=\frac{1}{n+1}+\frac{1}{n+2}+\cdots+\frac{1}{2n}\\
+&=\frac{1}{n}\left[\frac{n}{n+1}+\frac{n}{n+2}+\cdots+\frac{n}{2n}\right]\\
+&=\frac{1}{n}\left[
+\frac{1}{1+1/n}+\frac{1}{1+2/n}+\cdots+\frac{1}{1+n/n}
+\right]\\
+&=\Delta x_i\left[
+f(\frac{1}{n})+f(\frac{2}{n})+\cdots+f(\frac{n}{n})
+\right]
+\end{align*}
+which is essentially the Riemann sum of function $f(x)=\frac{1}{1+x}$ over interval $[0,1]$. Therefore, as $n\to\infty$,
+\[
+x_n\to\int_0^1\frac{1}{1+x}\diff x
+\]
+\item
+Evaluate the limit
+\[
+\lim_{n\to\infty}\frac{1^\alpha+\cdots+n^\alpha}{n^{\alpha}}
+\]
+\begin{align*}
+x_n&=\frac{1}{n}\frac{1^\alpha+\cdots+n^\alpha}{n^{\alpha}}\\
+&=\frac{1}{n}\left[(\frac{1}{n})^\alpha+(\frac{2}{n})^\alpha+\cdots+(\frac{n}{n})^\alpha\right]\\
+&=\Delta x_i\left[
+f(\frac{1}{n})+f(\frac{2}{n})+\cdots+f(\frac{n}{n})
+\right]
+\end{align*}
+As $n\to\infty$,
+\[
+x_n\to\int_0^1x^\alpha\diff x=\left.\frac{1}{\alpha+1}x^{\alpha+1}\right|_0^1=\frac{1}{\alpha+1}
+\]
+
+
+\end{enumerate}
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

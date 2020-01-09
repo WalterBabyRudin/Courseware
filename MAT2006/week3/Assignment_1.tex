@@ -1,0 +1,76 @@
+\section{Assignment 1}\index{week3_Friday_lecture}
+\begin{enumerate}
+\item
+We mark all the points on a circle obtained from a fixed point by rotations of the circle through angles of $n$ radians, where $n\in\mathbb{Z}$ ranges over all integers. Describe all the limit points of the set so constructed.
+\begin{proof}[Solution.]
+The inituition is the limit point is the whole circle. We describe the angles for the set of points as:
+\[
+\bm A=\left\{n-\left\lfloor\frac{n}{2\pi}\right\rfloor*2\pi: n\in\mathbb{Z}\right\}
+\]
+It suffices to show $\overline{\bm A} = [0,2\pi]$.  We set $a_n =\frac{n}{2\pi} - \left\lfloor\frac{n}{2\pi}\right\rfloor$. It suffices to show that for any $x\in[0,1]$, there exists a sub-sequence $a_{n_k}$ converging to $x$. The idea is to show that there exists a sequence of $\{q_n\}$ such that $a_{q_n}$ converges to zero first, and then index $n_k$ is of appropriately multiple of $q_n$.
+\begin{itemize}
+\item
+Note that there exists a sequence of $\{p_n,q_n\}$ such that
+\[
+\frac{1}{2\pi} -  \left\lfloor\frac{1}{2\pi}\right\rfloor - \frac{p_n}{q_n}\le\frac{1}{q_n^2}
+\implies
+\frac{q_n}{2\pi} -  q_n\left\lfloor\frac{1}{2\pi}\right\rfloor - p_n\le\frac{1}{q_n}
+\]
+Or equivalently,
+\[
+a_{q_n}=\frac{q_n}{2\pi} - \left\lfloor\frac{q_n}{2\pi}\right\rfloor
+=\min_{l\in\mathbb{Z},2\pi l\le q_n}\left(
+\frac{q_n}{2\pi} - l\right)
+\le
+\frac{q_n}{2\pi} -  q_n\left\lfloor\frac{1}{2\pi}\right\rfloor - p_n\le\frac{1}{q_n}
+\]
+We can change the inequality into equality.
+\item
+Therefore, for any $x\in[0,1]$, choose $j$ such that $|ja_{q_n} - x|\le\frac{1}{q_n}$. Note that $\{ja_{q_n}\}$ is a subsequence of $\{a_n\}$, say, $a_{j,q,n}$.
+\end{itemize}
+
+
+
+\end{proof}
+\item
+Show that if we take only the set $\mathbb{Q}$ of rational numbers instead of the complete set of real numbers, taking closed interval, open interval, and neighborhood of a point $r\in\mathbb{Q}$ to mean respectively the corresponding subsets of $\mathbb{Q}$, then none of the \emph{nested interval lemma}, \emph{finite covering lemma}, \emph{limit point lemma} remains true.
+\begin{proof}
+\begin{enumerate}
+\item
+Construct our intervals around irrational, e.g.,
+\[
+\bm I_n = \left(\sqrt{2} - \frac{1}{n},\sqrt{2}+\frac{1}{n}\right)\bigcap\mathbb{Q}\implies
+\bigcap_{i=1}^\infty \bm I_n=\emptyset
+\]
+\item
+Construct our collection of open covers with total out-measure (interval width) as a series, e.g., suppose
+\[
+[0,1]\bigcap\mathbb{Q}=\bigcup_{i=1}^\infty\{q_i\},\qquad
+\bm I_n = \left(q_n-\frac{1}{2^{n+1}},q_n+\frac{1}{2^{n+1}}\right)
+\]
+Thus $m(\bigcup_{n=1}^\infty \bm I_n)=\sum_{n=1}^\infty\frac{1}{2^n}=1$, while any sub-collection has total out-measure strictly less than one, i.e., the subcover does not exist.
+\item
+The idea is to construct a sequence of bounded rational numbers with limit point $x\notin\mathbb{Q}$, as the neighborhood of irrational numbers is not defined, e.g.,
+\[
+q_n\in\left(\sqrt{2}-\frac{1}{n},\sqrt{2}+\frac{1}{n}\right)
+\]
+\end{enumerate}
+\end{proof}
+\item
+Show that a number $x\in\mathbb{R}$ is rational if and only if its $q$-ary expression in any base $q$ is periodic, i.e., from some rank on it consists of periodically repeating digits.
+\begin{proof}
+The reverse direction is easy to show. For the necessity, for a given $\frac{m}{n}\in\mathbb{Q}$, suppose it can be written as
+\[
+\frac{m}{n} = s.d_1d_2\cdots d_n+\frac{r_n}{q^n m}
+\]
+You can show that recursively we have
+\begin{equation}\label{Eq:3:5}
+qr_n = md_{n+1} + r_{n+1}
+\end{equation}
+All the remainders $\{r_{n}\}$ are between $0$ and $m-1$, there must exist some $k<n$ such that $r_k=r_n$. Verify from (\ref{Eq:3:5}) that $d_{k+1} = d_{n+1}$ and $r_{k+1} = r_{n+1}$, and thus by applying the same trick, we can show that when the remainder repeats for the first time, the expansion form repeats.
+\end{proof}
+
+
+
+
+\end{enumerate}

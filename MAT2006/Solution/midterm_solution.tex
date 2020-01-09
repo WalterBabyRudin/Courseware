@@ -1,0 +1,381 @@
+\subsection{Midterm Exam Solution}
+\begin{enumerate}
+%q1
+\item
+\begin{enumerate}
+\item
+We can write this system as:
+\[
+\left\{\begin{aligned}
+x-y+3z&=1\\
+2x+y&=5\\
+-x-5y+9z&=-7
+\end{aligned}\right.
+\]
+We can convert it into matrix form:
+\[
+\begin{bmatrix}
+1&-1&3\\
+2&1&0\\
+-1&-5&9
+\end{bmatrix}\begin{bmatrix}
+x\\y\\z
+\end{bmatrix}=\begin{bmatrix}
+1\\5\\-7
+\end{bmatrix}.
+\]
+\item
+The \textit{augmented matrix} is given by:
+\[
+\left[\begin{array}{@{}ccc|c@{}}
+1&-1&3&1\\
+2&1&0&5\\
+-1&-5&9&-7
+\end{array}\right]
+\]
+And we perform \textit{row transformation} on this matrix:
+\[
+\left[\begin{array}{@{}ccc|c@{}}
+1&-1&3&1\\
+2&1&0&5\\
+-1&-5&9&-7
+\end{array}\right]
+\xLongrightarrow[\text{Row 3}=\text{Row 3}+\text{Row 1}]{\text{Row 2}=\text{Row 2}-2\x\text{Row 1}}
+\left[\begin{array}{@{}ccc|c@{}}
+1&-1&3&1\\
+0&3&-6&3\\
+0&-6&12&-6
+\end{array}\right]
+\xLongrightarrow{\text{Row 3}=\text{Row 3}+2\x\text{Row 2}}
+\]
+\[
+\left[\begin{array}{@{}ccc|c@{}}
+1&-1&3&1\\
+0&3&-6&3\\
+0&0&0&0
+\end{array}\right]
+\xLongrightarrow{\text{Row 1}=\text{Row 1}+\frac{1}{3}\x\text{Row 2}}
+\left[\begin{array}{@{}ccc|c@{}}
+1&0&1&2\\
+0&3&-6&3\\
+0&0&0&0
+\end{array}\right]
+\xLongrightarrow{\text{Row 2}=\text{Row 2}\x\frac{1}{3}}
+\]
+\[
+\qquad\qquad\left[\begin{array}{@{}ccc|c@{}}
+1&0&1&2\\
+0&1&-2&1\\
+0&0&0&0
+\end{array}\right](\text{rref})
+\]
+The reduced row echelon form of the augmented matrix for this system is
+\[
+\left[\begin{array}{@{}ccc|c@{}}
+1&0&1&2\\
+0&1&-2&1\\
+0&0&0&0
+\end{array}\right].
+\]
+\item
+We convert this system into:
+\[
+\left\{
+\begin{aligned}
+x+z&=2\\
+y-2z&=1
+\end{aligned}
+\right.
+\implies
+\left\{
+\begin{aligned}
+x&=2-z\\
+y&=1+2z
+\end{aligned}
+\right.
+\]
+Hence the complete set of solutions is given by
+\[
+\bm x_{\text{complete}}=\begin{pmatrix}
+2-z\\1+2z\\z
+\end{pmatrix}=\begin{pmatrix}
+2\\1\\0
+\end{pmatrix}+z\begin{pmatrix}
+-1\\2\\1
+\end{pmatrix}.
+\]
+\item
+\[
+\bm A=\begin{bmatrix}
+1&-1&3\\2&1&0\\-1&-5&9
+\end{bmatrix}
+\]
+From part $(b)$, we know that $\bm A$ is \textit{singular}. Hence $\bm A^{-1}$ doesn't exist.
+\item
+From part $(b)$, we know that $\bm A$ has $2$ \textit{pivot variables.} Hence $\rank(\bm A)=2.$
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+The \textit{coefficient matrix} for this equation is given by:
+\[
+\begin{bmatrix}
+2&-1&3&0
+\end{bmatrix}
+\]
+Hence $x_1$ is \textit{pivot variable}, $x_2,x_3,x_4$ are \textit{free variables.}\\
+Moreover, $2x_1-x_2+3x_3=0\implies x_1=\frac{x_2-3x_3}{2}.$\\
+Hence the complete set of solutions is given by
+\[
+\bm x_{\text{complete}}=\begin{pmatrix}
+\frac{x_2-3x_3}{2}\\x_2\\x_3\\x_4
+\end{pmatrix}
+=x_2\begin{pmatrix}
+\frac{1}{2}\\1\\0\\0
+\end{pmatrix}+x_3\begin{pmatrix}
+-\frac{3}{2}\\0\\1\\0
+\end{pmatrix}+x_4\begin{pmatrix}
+0\\0\\0\\1
+\end{pmatrix}.
+\]
+\item
+Obviously, the three vectors $\begin{pmatrix}
+\frac{1}{2}\\1\\0\\0
+\end{pmatrix},\begin{pmatrix}
+-\frac{3}{2}\\0\\1\\0
+\end{pmatrix},\begin{pmatrix}
+0\\0\\0\\1
+\end{pmatrix}$ are ind.\\
+Hence one basis for $\bm V$ is $\left\{\begin{pmatrix}
+\frac{1}{2}\\1\\0\\0
+\end{pmatrix},\begin{pmatrix}
+-\frac{3}{2}\\0\\1\\0
+\end{pmatrix},\begin{pmatrix}
+0\\0\\0\\1
+\end{pmatrix}\right\}.$\\
+Hence $\dim(\bm V)=3.$
+\item
+The columns of $\bm A$ form a basis for $\bm A$.\\
+Hence one matrix $\bm A$ is given by:
+\[
+\bm A=\begin{bmatrix}
+\frac{1}{2}&-\frac{3}{2}&0\\
+1&0&0\\
+0&1&0\\
+0&0&1
+\end{bmatrix}.
+\]
+\item
+We only need to find $\bm B$ such that
+\[
+\bm{Bx}=\bm 0\quad\text{where $\bm x=\begin{pmatrix}
+x_1\\x_2\\x_3\\x_4
+\end{pmatrix}.$}
+\]
+Thus one possible matrix is $\bm B=\begin{bmatrix}
+4&-2&6&0
+\end{bmatrix}.$\\
+In this case, $\bm{Bx}=2(2x_1-x_2+3x_3)=0.$
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+$\bm B=\begin{bmatrix}
+2&0&0\\0&2&0\\0&0&2
+\end{bmatrix}$.\\
+\textbf{Verify: }In this case, $\bm B=2\bm I$.\\
+Thus $\bm{BA}=2\bm{IA}=2\bm A.$ for every $\bm A.$
+\item
+$\bm B=\begin{bmatrix}
+0&0&0\\0&0&0\\0&0&0
+\end{bmatrix}$.\\
+\textbf{Verify: }In this case, $\bm{BA}=\bm0\bm A=\bm 0;2\bm B=\bm0.$\\
+Hence $\bm{BA}=2\bm B$ for every $\bm A$.
+\item
+$\bm B=\begin{bmatrix}
+0&0&1\\0&1&0\\1&0&0
+\end{bmatrix}$.\\
+\textbf{Verify: }In this case, $\bm B$ is an \textit{elementary matrix}. It interchanges the first and the last rows of $\bm A.$
+\item
+Such $\bm B$ doesn't exist.\\
+\textbf{Reason: }Suppose $\bm A=\begin{bmatrix}
+a&b&c\\d&e&f\\g&h&i
+\end{bmatrix}$, then $\bm{BA}=\begin{bmatrix}
+c&b&a\\f&e&d\\i&h&g
+\end{bmatrix}.$\\
+However, if the first row of $\bm B$ is $\begin{bmatrix}
+\alpha_1&\alpha_2&\alpha_3
+\end{bmatrix}$, then the $(1,1)$th entry of $\bm{BA}$ is
+\[
+\alpha_1a+\alpha_2d+\alpha_3g,
+\]
+which makes it impossible to equal to $c$.\\
+Hence such $\bm B$ doesn't exist.
+\end{enumerate}
+\item
+\begin{enumerate}
+%q a
+\item
+%first part of a
+\begin{enumerate}
+\item
+\begin{itemize}
+\item
+\textit{Sufficiency.} If there exists an $n\x m$ matrix $\bm C$ such that $\bm{AC}=\bm I_m$, then for $\forall\bm b\in\mathbb{R}^{m}$ we obtain:
+\[
+\bm{AC}\bm b=\bm I_m\bm b=\bm b.
+\]
+If we set $\bm x_0=\bm{Cb}$, then we derive $\bm A\bm x_0=\bm b.$ Hence $\bm x_0$ is one solution to $\bm{Ax}=\bm b$, which means $\bm{Ax}=\bm b$ has at least one solution for $\forall\bm b\in\mathbb{R}^m.$
+\item
+\textit{Necessity.} If $\bm{Ax}=\bm b$ has at least one solution for $\forall\bm b\in\mathbb{R}^m$, then we construct $\bm b=\bm e_i$ for $i=1,2,\dots,m.$\\
+For $\forall i\in\{1,2,\dots,m\}$, there exists $\bm x_i$ such that $\bm A\bm x_i=\bm e_i$.\\
+Thus we construct $\bm C=\left[\begin{array}{@{}c|c|c|c@{}}
+\bm x_1&\bm x_2&\cdots&\bm x_m
+\end{array}\right]$. $\bm C$ is an $n\x m$ matrix and 
+\begin{align*}
+\bm{AC}&=\bm A\left[\begin{array}{@{}c|c|c|c@{}}
+\bm x_1&\bm x_2&\cdots&\bm x_m
+\end{array}\right]\\&=\left[\begin{array}{@{}c|c|c|c@{}}
+\bm A\bm x_1&\bm A\bm x_2&\cdots&\bm A\bm x_m
+\end{array}\right]
+\\&=\left[\begin{array}{@{}c|c|c|c@{}}
+\bm e_1&\bm e_2&\cdots&\bm e_m
+\end{array}\right]=\bm I.
+\end{align*}
+Thus $\bm C$ is \textit{right inverse} of $\bm A$.
+\end{itemize}
+\item
+The rank of $\bm A$ is the number of \textit{nonzero} rows in the rref($\bm A$).\\
+The linear system $\bm{Ax}=\bm b$ always has solution for $\forall\bm b$. We convert it into \textit{augmented matrix form:}
+\[
+\left[\begin{array}{@{}c|c@{}}
+\bm A&\bm b
+\end{array}\right]
+\xLongrightarrow{\text{Row transform}}
+\left[\begin{array}{@{}c|c@{}}
+\text{rref($\bm A$)}&\bm b^*
+\end{array}\right]
+\]
+Once the rref($\bm A$) has zero rows and the corresponding $\bm b^*$ has nonzero entries, this system has no solution. Hence rref($\bm A$) has \emph{no} zero rows.\\
+Since $\bm A$ is a $m\x n$ matrix, we have $m$ nonzero rows for $\bm A$.\\
+Thus $\rank(\bm A)=m.$
+\end{enumerate}
+\item
+\begin{itemize}
+\item
+For $1\x 3$ matrix $\bm A=\begin{pmatrix}
+1&2&7\pi
+\end{pmatrix},$ $\rank(\bm A)=1.$\\
+And there exists $\bm x_1=\begin{pmatrix}
+1\\0\\0
+\end{pmatrix}$ such that $\bm A\bm x_1=\bm e_1$.\\
+Hence we construct $\bm C=\begin{bmatrix}
+\bm x_1
+\end{bmatrix}$. We find that
+$
+\bm{AC}=\begin{pmatrix}
+1&2&7\pi
+\end{pmatrix}\begin{pmatrix}
+1\\0\\0
+\end{pmatrix}=1=\bm I.
+$
+Hence $\bm C=\begin{pmatrix}
+1\\0\\0
+\end{pmatrix}$ is the \textit{right inverse} of $\bm A$.
+\item
+For $3\x 1$ matrix $\bm B=\begin{pmatrix}
+1\\2\\7\pi
+\end{pmatrix}$, we find $\rank(\bm B)=1\ne 3.$ \\From part $(a)$ we derive $\bm B$ has no \textit{right inverse}.
+\end{itemize}
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+No, let's raise a counter-example:
+\[
+\bm A=\begin{bmatrix}
+3&1\\5&3
+\end{bmatrix}\implies
+\rank(\bm A)=2.
+\]
+\[
+\bm A\trans=\begin{bmatrix}
+3&5\\1&3
+\end{bmatrix}
+\implies
+\bm A+\bm A\trans=\begin{bmatrix}
+6&6\\6&6
+\end{bmatrix}
+\]
+Hence $\rank(\bm A+\bm A\trans)=1\ne2=\rank(\bm A).$
+\item
+\begin{itemize}
+\item
+Firstly, we show $N(\bm A)\subset N(\bm A\trans\bm A)$:\\
+For any $\bm x_0\in N(\bm A)$, we have $\bm A\bm x_0=\bm 0$. Thus by postmultiplying $\bm A\trans$ we have $\bm A\trans\bm A\bm x_0=\bm 0$. Hence $\bm x_0\in N(\bm A\trans\bm A)$.
+\item
+Then we show $N(\bm A\trans\bm A)\subset N(\bm A)$:\\
+For any $\bm x_0\in N(\bm A\trans\bm A)$, we have $\bm A\trans\bm A\bm x_0=\bm 0$. Thus by postmultiplying $\bm x_0\trans$ we have $\bm x_0\trans\bm A\trans\bm A\bm x_0=\bm 0$, which implies $\lVert \bm A\bm x_0\rVert^2=\bm x_0\trans\bm A\trans\bm A\bm x_0=\bm 0$. Hence $\bm A\bm x_0=\bm 0$. Hence $\bm x_0\in N(\bm A)$.
+\end{itemize}
+In conclusion, $N(\bm A)=N(\bm A\trans\bm A)$.
+\item
+\begin{itemize}
+\item
+Since $\bm A$ is $m\x n$ matrix, then $\rank(\bm A\trans\bm A)+\dim(N(\bm A\trans\bm A))=n=\rank(\bm A)+\dim(N(\bm A)).$
+\item
+Since $N(\bm A)=N(\bm A\trans\bm A)$, we derive $\dim(N(\bm A\trans\bm A))=\dim(N(\bm A))$.
+\end{itemize}
+Thus $\rank(\bm A\trans\bm A)=\rank(\bm A).$
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+Verify by yourself that the following matrices are \textit{symmetric}:
+\begin{align*}
+(i)\quad&\bm A^2-\bm B^2\\
+(iii)\quad&\bm{ABA}
+\end{align*}
+\item
+There are \textit{infinitely} many solutions.\\
+\textbf{Reason: }
+\begin{itemize}
+\item
+Since $\bm A$ is $5\x 8$matrix, $\rank(\bm A)+\dim(N(\bm A))=8\implies \dim(N(\bm A))=3$.\\
+Hence this system $\bm{Ax}=\bm b$ has \emph{special solutions}.
+\item
+Moverover, since $\rank(\bm A)=5$, we have 5 nonzero pivots, which means rref($\bm A$) has no zero rows.\\
+Hence this system $\bm{Ax}=\bm b$ always has \emph{particular solution.}
+\end{itemize}
+In conclusion, there are \textit{infinitely} many solutions.
+\item
+False.\\
+\textbf{Reason: }For example, if we have
+\[
+\bm A=\begin{bmatrix}
+1&0\\0&0
+\end{bmatrix}\qquad\bm B=\begin{bmatrix}
+0&0\\0&1
+\end{bmatrix}
+\]
+then $\bm A+\bm B=\begin{bmatrix}
+1&0\\0&1
+\end{bmatrix}$, which is obviously \textit{nonsingular}.
+\item
+False.\\
+\textbf{Reason: }For example, the set of $2\x 2$ matrices with rank no more than $r=1$ is \emph{not} a vector space. Why?\\
+$\bm A=\begin{bmatrix}
+1&0\\0&0
+\end{bmatrix},\bm B=\begin{bmatrix}
+0&0\\0&1
+\end{bmatrix}$ are both in this set since $\rank(\bm A)+\rank(\bm B)=1$.\\
+However, $\bm A+\bm B=\begin{bmatrix}
+1&0\\0&1
+\end{bmatrix}$ doesn't belong to this set since $\rank(\bm A+\bm B)=2.$
+\item
+False.\\
+\textbf{Reason: }This set doesn't satisfy \textit{vector addition rule} and \textit{scalar multiplication rule.}\\
+If $f,g$ are both in this set, then $(f+g)(1)=f(1)+g(1)=2\ne1.$ Hence $f+g$ is not in this set.\\
+Similarly, you can verify $\lambda f$ ($\lambda$ is a scalar that not equal to 1) is not in this set.\\
+Hence it cannot be a vector space.
+\end{enumerate}
+\end{enumerate}

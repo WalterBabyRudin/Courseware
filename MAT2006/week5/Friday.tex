@@ -1,0 +1,188 @@
+
+%\chapter{Week5}
+
+\section{Friday}\index{week5_Friday_lecture}
+We plan to have a make-up lecture tomorrow, which will cover problems in Quiz 1.
+
+\subsection{Analysis on Derivative}
+Not all functions could be the derivative of some functions. Let's give sufficient or necessary conditions for that.
+\paragraph{Criteria 1: The image of the derivative of any function should be continuous}
+\begin{theorem}[Intermediate-Value Property for derivative]
+Let $f$ be differentiable on $[a,b]$, and let $y_0$ be a number between $f'(a)$ and $f'(b)$. Then there exists $c\in(a,b)$ such that $f'(c) = y_0$.
+\label{The:5:4}
+\end{theorem}
+\begin{proof}
+Consider an auxiliary function
+\[
+h(x) = f(x) - y_0x,
+\]
+which follows that $h'(a) = f'(a) - y_0$ and $h'(b) = f'(b) - y_0$. w.l.o.g., $f'(a)<f'(b)$, and therefore $h'(b) < 0 < h'(a)$, i.e., 
+\[
+\left\{
+\begin{array}{l}
+\lim_{x\to b+}\frac{h(x)-h(b)}{x-b}<0\\
+\lim_{x\to a-}\frac{h(x)-h(a)}{x-a}>0
+\end{array}\right.\implies
+\left\{
+\begin{array}{l}
+\mbox{$h(x)<h(a)$ for some $x>a$}\\
+\mbox{$h(x) <h(b)$ for some $x>b$}
+\end{array}\right.,
+\]
+i.e., $h$ has a minimum on $[a,b]$, say at $c$.
+By Rolle's theorem, $h'(c)=0$, i.e., $f'(c) = y_0$.
+\end{proof}
+\begin{remark}
+This theorem tells us that the image for the derivative of any function (on $[a,b]$) contains the whole interval between $f'(a)$ and $f'(b)$. Hence, the step function cannot be the derivative of other functions, since its image does not contain the interval $[0,1]$ but only the endpoints.
+\end{remark}
+However, it does not asset that the derivative of any function should be continuous (the image should be). A simple example of this is the function
+\[
+f(x)=\left\{
+\begin{aligned}
+x^2\sin\frac{1}{x},&\quad x\ne0\\
+0,&\quad x=0
+\end{aligned}
+\right.
+\]
+the derivative $f'(x)$ is not continuous at $x=0$.
+
+The question turns out how continuity should be for the derivative of any function?
+\paragraph{Criteria 2: The derivative of any function should be continuous on a dense set}
+For the derivative of any function $f$, if exists, can be expressed as the pointwise limit:
+\begin{align*}
+f'(x)&=\lim_{h\to0}\frac{f(x+h) - f(x)}{h}\\
+&=\lim_{n\to\infty}\underbrace{n\left[f(x+\frac{1}{n}) - f(x)\right]}_{f_n(x)}\\
+&:=\lim_{n\to\infty}f_n(x),
+\end{align*}
+with $f_n(x)=n\left[f(x+\frac{1}{n} - f(x))\right]$. Thus the set of all discontinuous points of $f'$ is a set of first categroy (Recall Theorem(\ref{The:3:3})). In particular, $f'$ must be continuous on a dense set.
+\subsection{Analysis on Mean-Value Theorem}
+The following proposition is a useful generalization of the standrad mean-value theorem, and is also based on the Rolle's theorem. From this theorem we can also imply the L-Hopital's Rule:
+\begin{theorem}[Cauchy's Mean-Value Theorem]
+Let $f$ and $g$ be two differentiable function on $[a,b].$ Then there exists a point $c\in(a,b)$ such that
+\begin{equation}
+g'(c)[f(b) - f(a)] = f'(c)[g(b) - g(a)]\label{Eq:5:1}
+\end{equation}
+\end{theorem}
+\begin{remark}
+\begin{enumerate}
+\item
+When $g(x):=x$, Cauchy's Mean-Value Theorem becomes the Mean-Value Theorem.
+\item
+If in addiction $g'(x)\ne0$ for each $x\in(a,b)$, then $g(b)\ne g(a)$ and we have the equality version of (\ref{Eq:5:1}):
+\[
+\frac{f(b) - f(a)}{g(b) - g(a)}=\frac{f'(c)}{g'(c)}.
+\]
+\end{enumerate}
+\end{remark}
+The idea of proof is to construct an auxiliary function satisfying the hypotheses of Rolle's theorem version $2$ (Corollary (\ref{Cor:5:1})), which is the same trick used in Theorem(\ref{The:5:2}) and (\ref{The:5:4}).
+\begin{proof}
+We construct a function
+\[
+h(x) = g(x)[f(b) - f(a)] - f(x)[g(b) - g(a)],
+\]
+which follows that $h(a)=h(b)=g(a)f(b)-f(a)g(b)$. By Rolle's theorem, there exists $c\in(a,b)$ s.t. $h'(c)=0$, i.e., $g'(c)[f(b) - f(a)] = f'(c)[g(b) - g(a)]$.
+\end{proof}
+Now we pause to discuss a special but very useful technique for findind the limit of a ratio of functions, known as L-Hopital's Rule\footnote{
+G.F.de l'Hopital, a French mathematician, a capable student of Johann Bernoulli. The L-Hopital's Rule is really due to Johann Bernoulli, but l'Hopital is so rich so that there is a deal on the table, and thus the rule was published in slightly altered altered form by ``l'Hopital''.
+}.
+\begin{theorem}[L-hospital's Rule]
+Suppose $f$ and $g$ are both differentiable on $(a,b)$, and $g'(x)\ne0$ in $(a,b)$. Suppose that
+\[
+\lim_{x\to a+}\frac{f'(x)}{g'(x)}=l,
+\]
+then
+\begin{enumerate}
+\item
+$\lim_{x\to a+}f(x)=0=\lim_{x\to a+}g(x)$ implies $\lim_{x\to a+}\frac{f(x)}{g(x)}=l$.
+\item
+$\lim_{x\to a+}f(x)=+\infty,\lim_{x\to a+}g(x)=\infty$ implies $\lim_{x\to a+}\frac{f(x)}{g(x)}=l$.
+\end{enumerate}
+\end{theorem}
+We discuss the proof for the first case, and the second case is left as exercise.
+\begin{proof}
+Note that $g(x)\ne g(y)$ for $\forall x,y\in(a,b)$, otherwise there will be some $c\in(a,b)$ such that $g'(c)=0$. By Cauchy's Mean-Value Theorem, for $x,y\in(a,b)$, there exists $z\in (y,x)$ such that
+\[
+\frac{f(x) - f(y)}{g(x) - g(y)}=\frac{f'(z)}{g'(z)}
+\]
+Or equivalently,
+\begin{equation}
+\frac{f(x)}{g(x)}=\frac{f(y)}{g(x)}+\frac{f'(z)}{g'(z)}\left[1-\frac{g(y)}{g(x)}\right],\forall x,y\in(a,b).\label{Eq:5:2}
+\end{equation}
+For fixed $x$, pick $y< x$ which is close to $a+$ such that $\frac{f(y)}{g(x)}$ and $\frac{g(y)}{g(x)}$ both small (the reason we can do that is because $\lim_{y\to a+}f(y)=0=\lim_{y\to a+}g(y)$). Thus taking the limit $x\to a+$, by (\ref{Eq:5:2}), we derive
+\[
+\lim_{x\to a+}\frac{f(x)}{g(x)}=\lim_{x\to a+}\frac{f'(z)}{g'(z)}=l.
+\]
+\end{proof}
+
+We can also derive the L-hopital's rule by Taylor expansion, but keep note that we should add one moer condition that $f,g\in\mathcal{C}^1$ (so that we can apply taylor expansion)
+\begin{proof}
+We expand $f(x)$ and $g(x)$ in a small neighborhood of $a$ with $x\ne a$:
+\begin{align*}
+\frac{f(x)}{g(x)}&=\frac{f(a)+f'(a)(x-a) + o(x-a)}{g(a) + g'(a)(x-a) + o(x-a)}\\
+&=\frac{(x-a)[f'(a)+o(1)]}{(x-a)[g'(a)+o(1)]}\\
+&=\frac{f'(a)+o(1)}{g'(a)+o(1)}\to\frac{f'(a)}{g'(a)},\qquad
+x\to a.
+\end{align*}
+\end{proof}
+Note that L-hopital's rule is a technique that should be cleverly used, otherwise the limit can be messy to handle. Prof.Yeye Ni does not like this technique. Now we give an example:
+\begin{example}
+\begin{align*}
+\lim_{x\to0}\left(\frac{\sin x}{x}\right)^{1/(1-\cos x)}
+&=
+\lim_{x\to0}\exp\left[\frac{\ln(\frac{\sin x}{x})}{1-\cos x}\right]\\
+&=
+\exp\left[\lim_{x\to0}\frac{\ln(\frac{\sin x}{x})}{1-\cos x}\right]\\
+&=\exp\left[\lim_{x\to0}\frac{\cos x-\sin x/x}{\sin^2x}\right]\leftarrow\mbox{L-hopital's Rule}\\
+&=\exp\left[\lim_{x\to0}\frac{x\cos x-\sin x}{x\sin^2 x}\right]\\
+&=\exp\left[\lim_{x\to0}\frac{\cos x-x\sin x-\cos x}{\sin^2x+2x\sin x\cos x}\right]\leftarrow\mbox{L-hopital's Rule}\\
+&=\exp\left[\lim_{x\to0}\frac{-x}{\sin x+2x\cos x}\right]\\
+&=\exp\left[\lim_{x\to0}\frac{-1}{\cos x+2\cos x-2x\sin x}\right]\leftarrow\mbox{L-hopital's Rule}\\&=e^{-1/3}
+\end{align*}
+An alternative way is to apply Taylor expansion. Recall that 
+\begin{align*}
+\sin x&=x-\frac{x^3}{6}+o(x^3)\\
+\cos x&=1-\frac{1}{2}x^2+o(x^2)\\
+\ln(1+z)&=z-z^2+o(z^2).
+\end{align*}
+Therefore we have 
+\[
+\ln(\frac{\sin x}{x})=\ln(1-\frac{1}{6}x^2+o(x^2))
+=
+\ln(1+x^2(-\frac{1}{6}+o(1)))
+\]
+Finally as $x\to0$,
+\[
+\frac{\ln(\frac{\sin x}{x})}{1-\cos x}=\frac{x^2(-\frac{1}{6}+o(1))}{x^2(\frac{1}{2}+o(1))}=-\frac{1}{3}
+\]
+\end{example}
+\paragraph{Plan for next week}
+
+Next week, with Taylor theorem, we will discuss taylor's polynomial, and finally taylor series (let $n\to\infty$).
+
+Also, given a function $f\in\mathcal{C}^\infty$, we will discuss topics about:
+\begin{enumerate}
+\item
+do we always have the taylor series converge in some neighborhood?
+\item
+Suppose it does, does it necessarily converge to $f(x)$?
+\begin{quotation}
+One counter-example is the typical function
+\[
+f(x)=\left\{
+\begin{aligned}
+\exp\left[-\frac{1}{x^2}\right],&\quad x\ne0\\
+0,&\quad x=0
+\end{aligned}
+\right..
+\]
+The taylor expansion at $x=0$ is always zero, and therefore does not converge to $f(x)$.
+\end{quotation}
+Hence what conditon could guarantee the correctness of convergence?
+\end{enumerate}
+
+
+
+
+
+
+

@@ -1,0 +1,286 @@
+\section{Thursday}\index{Thursday_lecture}
+
+\subsection{Row-Echelon Form}
+\subsubsection{Gaussian Elimination does't always work}
+
+Let's discuss an example to introduce the concept for row-echelon form.
+\begin{example}
+We apply Gaussian Elimination to try to transfrom a  Augmented matrix:
+\begin{itemize}
+\item
+In step one we choose the first row as pivot row (the first nonzero entry is the pivot):
+\[ \left(
+\begin{array}{@{}ccccc|c@{}}
+\rowcolor{blue!10}
+\cellcolor{black!20}1 & 1 & 1 & 1 & 1 & 1 \\
+-1 & -1 & 0 & 0 & 1 & -1 \\
+-2 & -2 & 0 & 0 & 3 & 1 \\
+0 & 0 & 1 & 1 & 3 & -1 \\
+1 & 1 & 2 & 2 & 4 & 1
+\end{array}
+\right)
+\xLongrightarrow[\text{Add $1\times$ row 1 to row 2; Add $2\times$ row 1 to row 3}]{\text{Add $(-1)\times$ row 1 to row 5}}
+\]
+\[ \left[
+\begin{array}{@{}ccccc|c@{}}
+1 & 1 & 1 & 1 & 1 & 1 \\
+\rowcolor{blue!10}
+0 & 0 & \cellcolor{black!20}1 & 1 & 2 & 0 \\
+0 & 0 & 2 & 2 & 5 & 3 \\
+0 & 0 & 1 & 1 & 3 & -1 \\
+0 & 0 & 1 & 1 & 3 & 0 \\
+\end{array}
+\right]
+\]
+\item
+Then we choose second row as pivot row to continue elimination:
+\[ 
+\xLongrightarrow[\text{Add $(-2)\times$ row 2 to row 3; Add $(-1)\times$ row 2 to row 4}]{\text{Add $(-1)\times$ row 2 to row 5}}\left[
+\begin{array}{@{}ccccc|c@{}}
+1 & 1 & 1 & 1 & 1 & 1 \\
+0 & 0 & 1 & 1 & 2 & 0 \\
+\rowcolor{blue!10}
+0 & 0 & 0 & 0 & \cellcolor{black!20}1 & 3 \\
+0 & 0 & 0 & 0 & 1 & -1 \\
+0 & 0 & 0 & 0 & 1 & 0 \\
+\end{array}
+\right]
+\]
+\item
+Next, we choose the third row as pivot row to continue elimination:
+\begin{equation} 
+\xLongrightarrow[\text{Add $(-1)\times$ row 3 to row 5}]{\text{Add $(-1)\times$ row 3 to row 1; Add $(-1)\times$ row 3 to row 4}}\left[
+\begin{array}{@{}ccccc|c@{}}
+1 & 1 & 1 & 1 & 0 & -2 \\
+\rowcolor{blue!10}
+0 & 0 & \cellcolor{black!20}1 & 1 & 2 & 0 \\
+\rowcolor{blue!10}
+0 & 0 & 0 & 0 & \cellcolor{black!20}1 & 3 \\
+0 & 0 & 0 & 0 & 0 & -4 \\
+0 & 0 & 0 & 0 & 0 & -3 \\
+\end{array}
+\right] \label{Row-echelon_matrix}
+\end{equation}
+
+Note that the matrix (\ref{Row-echelon_matrix}) is said to be the \emph{Row Echlon form}.
+\item
+Finally, we set second row as pivot row then set third row as pivot row to do elimination:
+\begin{equation} 
+\xLongrightarrow[\text{Add $2\times$ row 3 to row 1; Add $(-2)\times$ row 3 to row 2}]{\text{Add $(-1)\times$ row 2 to row 1}}\left[
+\begin{array}{@{}ccccc|c@{}}
+1 & 1 & 0 & 0 & 0 & 4 \\
+0 & 0 & 1 & 1 & 0 & -6 \\
+0 & 0 & 0 & 0 & 1 & 3 \\
+0 & 0 & 0 & 0 & 0 & -4 \\
+0 & 0 & 0 & 0 & 0 & -3 \\
+\end{array}
+\right] \label{Reduced_Row-echelon_matrix}
+\end{equation}
+\end{itemize}
+
+The matrix (\ref{Reduced_Row-echelon_matrix}) is said to be the \emph{Reduced Row Echelon form}. Or equivalently, it is said to be the \textit{singular matrix}. (Don't worry, we will introduce these concepts in future.)
+
+You may find there exist many solutions to this system of equation, which means Gaussian Elimination \emph{doesn't} always derive \emph{unique} solution.
+\end{example}
+\begin{definition}[Row Echelon Form]
+A matrix is said to be in \emph{row echelon form} if
+\begin{itemize}
+\item
+ \emph{(i)} The \textcolor{blue}{first nonzero entry} in each \textcolor{blue}{nonzero row} is $1$.
+ \item
+\emph{(ii)} If row $k$ does not consist entirely of zeros, the number of leading zero entries in row $k + 1$ is greater than the number of leading zero entries in row $k$.
+\item
+\emph{(iii)} If there are rows whose entries are all zero, they are below the rows having nonzero entries.
+\end{itemize}
+\end{definition}
+\begin{definition}[Reduced Row Echelon Form] \qquad \\
+A matrix is said to be in \emph{Reduced row echelon form} if
+\begin{itemize}
+\item
+ \emph{(i)} The matrix is in \textcolor{blue}{\textit{row echelon form}}. 
+ \item
+\emph{(ii)} The \textcolor{blue}{first nonzero} entry in each row is the \textcolor{blue}{only} nonzero entry in its column.
+\end{itemize}
+\end{definition}
+For example, the matrix $\begin{pmatrix}
+1 & 0 \\ 0 & 1
+\end{pmatrix}$ is also of \textit{Row Echelon Form}! Moreover, it is of \textit{Reduced Row Echelon Form}.
+\subsection{Matrix Multiplication}
+\subsubsection{Matrix Multiplied by Vector}
+Here we introduce the definition for inner product of vector:
+\begin{definition}[inner product]
+Given two vectors $x = (x_1,x_2,\dots,x_n)$ and $y = (y_1,y_2,\dots,y_n)$, the inner product between $x$ and $y$ is given by 
+\begin{equation*}
+\inp{x}{y} = x_1y_1 + x_2y_2 + \dots + x_ny_n
+\end{equation*}
+The notation of inner product can also be written as $x\trans y$ or $x \cdot y$.
+\end{definition}
+\begin{remark}
+Pro. Tom Luo \textcolor{blue}{highly recommends} you to write \textit{inner procuct} as $
+\inp{x}{y}$. For myself, I also try to \textcolor{red}{avoid} using notation $x \cdot y$ to avoid misunderstanding.
+\end{remark}
+Let's study an example for matrix multiplied by a vector:
+\begin{example}
+For the system of equations $
+\left \{	\begin{gathered}
+2x_1 + x_2 +x_3=5 	\\
+4x_1 - 6x_2 = -2 \\
+-2x_2+7x_2+2x_3 = 9
+\end{gathered}
+\right.$, 
+we define 
+\[
+\begin{array}{lll}
+\bm{x} = \begin{pmatrix}
+x_1 \\ x_2 \\ x_3
+\end{pmatrix},&
+\bm{A} = \begin{pmatrix}
+2 & 1 & 1 \\ 4 & -6 & 0 \\ -2 & 7 & 2 
+\end{pmatrix}
+= \begin{pmatrix}
+a_1\trans \\ a_2\trans \\ a_3\trans
+\end{pmatrix},&
+\bm{b} = \begin{pmatrix}
+5 \\ -2 \\ 9
+\end{pmatrix}.
+\end{array}
+\]
+Here $\bm{x}$ and $a_1,a_2,a_3$ are all vectors. More specifically, 
+\[
+\begin{array}{lll}
+a_1 = \begin{pmatrix}2 \\ 1 \\ 1\end{pmatrix},&
+a_2 = \begin{pmatrix}4 \\ -6 \\ 0\end{pmatrix},&
+a_3 = \begin{pmatrix}-2 \\ 7 \\ 2\end{pmatrix}.
+\end{array}
+\]
+Then we multiply matrix $\bm{A}$ with vector $\bm{x}$:
+\[
+\bm{A}\bm{x} = 
+\begin{pmatrix}
+2x_1+x_2+x_3 \\ 4x_1-6x_2 \\ -2x_1+7x_2+2x_3
+\end{pmatrix}
+=\begin{pmatrix}
+\inp{a_1}{\bm x}\\
+\inp{a_2}{\bm x}\\
+\inp{a_3}{\bm x}
+\end{pmatrix}
+=\begin{pmatrix}
+b_1 \\ b_2 \\ b_3
+\end{pmatrix}
+\]
+Hence we finally write the system equation as:
+\[
+\begin{array}{ll}
+\bm{A}\bm{x} = \bm{b} &\mbox{Compact Matrix Form}
+\end{array}
+\]
+Also, if we regard $\bm{x}$ as a scalar, we can also write:
+\[
+\bm{b} = \bm{A}\bm{x} = \begin{pmatrix}
+a_1\trans \\ a_2\trans \\ a_3\trans
+\end{pmatrix}\bm{x} = \begin{pmatrix}
+a_1\trans\bm x \\ a_2\trans\bm x \\ a_3\trans\bm x
+\end{pmatrix}
+\]
+\end{example}
+\subsubsection{Matrix Multiply Matrix}
+\begin{remark}
+Note that an $m\times n$ matrix $\bm A$ can be written as $\begin{bmatrix}
+a_{ij}
+\end{bmatrix}$, where $a_{ij}$ denotes the entry of $i$th row, $j$th column of $\bm A $.\end{remark}
+
+Notice that matrix $\bm A$ and $\bm B$ can do multiplication operator if and only if \emph{the \# for column of $\bm A$ equal to the \# for row of $\bm B$.} Moreover, for $m \times n$ matrix $\bm A$ and $n\times k$ matrix $\bm B$, we can do multiplication as follows:
+\[
+\bm A\bm B = \bm A \begin{pmatrix}
+b_1 &b_2 & \dots & b_k
+\end{pmatrix} = \begin{pmatrix}
+\bm Ab_1 &\bm Ab_2 & \dots & \bm Ab_k
+\end{pmatrix}
+\]
+
+The result is a $m\times k$ matrix. Thus for matrix multiplication, it suffices to calculate matrix multiplied by vectors.
+\begin{example}
+We want to calculate the result for $m \times n$ matrix $\bm A$ multiply $n\times k$ matrix $\bm B$, which is written as 
+\[\bm A\bm B = \bm C = \begin{pmatrix}
+\bm Ab_1 &\bm Ab_2 & \dots & \bm Ab_k
+\end{pmatrix}\]
+Hence the $i$th row, $j$th column of $\bm C $ is given by
+\[
+c_{ij} = \sum_{l=1}^{n}a_{il}b_{lj} = \inp{a_i}{b_j}
+\]
+You should understand this result, this means the $i$th row, $j$th column entry of $\bm C $ is given by the $i$th row of $\bm A $ multiplying the $j$th column of $\bm B $.
+\end{example}
+\begin{remark}
+\textbf{Time Complexity Analysis}
+\begin{itemize}
+\item
+To Calculate the single entry of $\bm C$, you need to do $n$ times multiplication.
+\item There exists $n^2$ entries in $\bm C$
+\item
+Hence it takes $n \times n^2 \sim O(n^3)$ operations to compute $\bm C$. (Moreover, using more advanced algorithm, the time complexity could be reduced.
+\end{itemize}
+\end{remark}
+
+\subsection{Special Matrices}
+Here we introduce several special matrices:
+\begin{definition}[Identity Matrix]
+The $n \x n$ identity matrix is the matrix $\bm I = [m_{ij}]$, where 
+\[
+m_{ij} = \begin{dcases}
+1, & \text{if } i =j; \\
+0, & \text{if } i\ne j.
+\end{dcases}
+\]
+\end{definition}
+\begin{proposition}
+Identity Matrix has the following properties:
+\[
+\begin{array}{ll}
+\bm I \bm B = \bm B,&
+\bm A \bm I = \bm A,
+\end{array}
+\]
+where $\bm A$ and $\bm B$ coud be any size-suitable matrix.
+\end{proposition}
+
+\begin{definition}[Elementary Matrix of type III]
+An elementary matrix $\bm{E}_{ij}$ of type III is a matrix such that 
+\begin{itemize}
+\item
+its \textcolor{blue}{diagonal entries} are all $1$
+\item
+the $i$th row $j$ th column is a scalar
+\item
+the remaining entries are all \textcolor{blue}{zero}.
+\end{itemize}
+\end{definition}
+For example, the matrix $\bm A = \begin{pmatrix}
+2 & 1 & 1 \\ 4 & -6 & 0 \\ -2 & 7 & 2
+\end{pmatrix}$ is elementary matrix of type III.t
+
+\begin{remark}
+If $\bm A$ is a matrix, then \textcolor{blue}{postmultiplying} with $\bm E_{ij}$ has the \textcolor{blue}{same} effect of performing row operation on $\bm A$. 
+
+For example, given an elementary matrix of type III and a matrix $\bm A$:
+\[
+\begin{array}{ll}
+\bm E_{21} = \begin{pmatrix}
+1 & 0 & 0 \\ -2 & 1 & 0 \\ 0 & 0 & 1
+\end{pmatrix}, &A = \begin{pmatrix}
+2 & 1 & 1 \\ 4 & -6 & 0 \\ -2 & 7 & 2
+\end{pmatrix}
+\end{array}\]
+Then the effect of $\bm E \bm A$ has the same effect of adding $(-2)\times$ row 1 to row 2:
+\[\qquad \bm E_{21}A = \begin{pmatrix}
+2 & 1 & 1 \\ 0 & -8 & -2 \\ -2 & 7 & 2
+\end{pmatrix}\]
+Moreover, if we define $\bm E = \begin{pmatrix}
+1 & 0 & 0 \\ 0 & 1 & 0 \\ 1 & 0 & 1
+\end{pmatrix}$, then continuing postmultiplying $\bm E_{31}$ is just like doing Gaussian Elimination:
+\[
+\bm E_{31}\bm E_{21} A = 
+\begin{pmatrix}
+2 & 1 & 1 \\ 0 & -8 & -2 \\ 0 & 8 & 3
+\end{pmatrix}
+\]
+\end{remark}

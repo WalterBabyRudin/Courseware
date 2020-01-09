@@ -1,0 +1,148 @@
+
+\chapter{Week1}
+
+\section{Wednesday}\index{Wednesday_lecture}
+ 
+\paragraph{Recommended Reading}
+\begin{enumerate}
+\item
+(Springer-Lehrbuch) V. A. Zorich, J. Schüle-Analysis I-Springer (2006).
+\item
+(The Carus mathematical monographs 13) Ralph P. Boas, Harold P. Boas, A primer of real functions-Mathematical Association of America (1996).
+\item
+(International series in pure and applied mathematics) Walter Rudin, Principles of Mathematical Analysis-McGraw-Hill (1976).
+\item
+Terence Tao, Analysis I,II-Hindustan Book Agency (2006)
+\item
+(Cornerstones) Anthony W. Knapp, Basic real analysis-Birkhäuser (2005)
+\end{enumerate}
+\subsection{Introduction to Set}
+For a set $\mathcal{A}=\{1,2,3\}$, we have $2^3=8$ subsets of $\mathcal{A}$. We are interested to study the collection of sets.
+\begin{definition}[Collection of Subsets]
+Given a set $\mathcal{A}$, the the collection of subsets of $\mathcal{A}$ is denoted as $2^{\mathcal{A}}$.
+\end{definition}
+
+We use Candinal to describe the order of number of elements in a set. 
+\begin{definition}
+Given two sets $\mathcal{A}$ and $\mathcal{B}$, $\mathcal{A}$ and $\mathcal{B}$ are said to be \emph{equivalent} (or have the same\emph{candinal}) if there exists a 1-1 onto mapping from $\mathcal{A}$ to $\mathcal{B}$.
+\end{definition}
+\begin{definition}[Countability]
+The set $\mathcal{A}$ is said to be \emph{countable} if $\mathcal{A}\sim\mathbb{N}=\{1,2,3,\dots\}$; an infinite set $\mathcal{A}$ is \emph{uncountable} if it is not equivalent to $\mathbb{N}$.
+\end{definition}
+\begin{remark}
+Note that the set of integers, i.e., $\mathbb{Z}=\{\cdots,-2,-1,0,1,2,\cdots\}$ is also countable; the set of rational numbers, i.e., $\mathbb{Q}=\{p/q\mid p,q\in\mathbb{Z}, q\ne0\}$ is countable.
+\end{remark}
+We skip the process to define real numbers.
+\begin{proposition}\label{Pro:1:1}
+The set of real numbers $\mathbb{R}$ is \emph{uncountable}.
+\end{proposition}
+For example, $\sqrt{2}\notin\mathbb{Q}$. Some inrational numbers are the roots of some polynomials, such a number is called \emph{algebraic} numbers. However, some inrational numbers are not, such a number is called \emph{transcendental}. For example, $\pi$ is \emph{not} algebraic. We will show that the collection of algebraic numbers are countable in the future.
+
+There are two steps for the proof for proposition(\ref{Pro:1:1}):
+
+\begin{proof}
+\begin{enumerate}
+\item
+$2^{\mathbb{N}}$ is \emph{uncountable}:
+
+Assume $2^{\mathbb{N}}$ is countable, i.e.,
+\[
+2^{\mathbb{N}} = \{A_1,A_2,\dots,A_k,\dots\}
+\]
+
+Define $B:=\{k\in\mathbb{N}\mid k\notin A_k\}$, it is a collection of subscripts such that the subscript $k$ does not belong to the corresponding subsets $A_k$.
+
+It follows that $B\in2^{\mathbb{N}}\implies B=A_n$ for some $n$. Then it follows two cases:
+\begin{itemize}
+\item
+If $n\in A_n$, then $n\notin B=A_n$, which is a contradiction
+\item
+Otherwise, $n\in B=A_n$, which is also a contradiction.
+\end{itemize}
+The proof for the claim $2^{\mathbb{N}}$ is \emph{uncountable} is complete.
+\item
+$\mathbb{R}\sim 2^{\mathbb{N}}$:
+
+\paragraph{Firstly we have $\mathbb{R}\sim(0,1)$} This can be shown by constructing a one-to-one mapping:
+\[
+\begin{array}{ll}
+f:\mathbb{R}\mapsto(0,1)
+&
+f(x)=\frac{1}{\pi}\arctan x+\frac{1}{2},\forall x\in\mathbb{R}
+\end{array}
+\]
+
+\paragraph{Secondly, we show that $2^{\mathbb{N}}\sim(0,1)$} We construct a mapping $f$ such that
+\[
+f:2^{\mathbb{N}}\mapsto(0,1), 
+\]
+where for $\forall A\in2^{\mathbb{N}}$, 
+\[
+\begin{array}{ll}
+f(A)=0.a_1a_2a_3\dots,
+&
+a_j=\left\{
+\begin{aligned}
+2,&\quad\mbox{if }j\in A\\
+4,&\quad\mbox{if }j\notin A
+\end{aligned}
+\right.
+\end{array}
+\]
+This function is only 1-1 mapping but not onto mapping.
+
+Reversely, we construct a 1-1 mapping from $(0,1)$ to $2^{\mathbb{N}}$. We construct a mapping $g$ such that
+\[
+g:(0,1)\mapsto2^{\mathbb{N}}
+\]
+where for any real number from $(0,1)$, we can write it into binary expansion:
+\[
+\begin{array}{lll}
+\mbox{binary form: }
+&
+0.a_1a_2\dots
+&
+\mbox{where }a_j=0\mbox{ or }1.
+\end{array}
+\]
+Hence, we construct $g(0.a_1a_2\dots) = \{j\in\mathbb{N}\mid a_j=0\}\subseteq\mathbb{N}$, which implies $g(\cdot)\in2^{\mathbb{N}}$.
+\begin{remark}
+Our intuition is that two 1-1 mappings in the reverse direction will lead to a 1-1 \emph{onto} mapping. If this is true, then we complete the proof. This intuition is the \emph{Schroder-Bernstein Theorem}.
+\end{remark}
+\end{enumerate}
+\end{proof}
+\paragraph{Defining Binary Form} However, during this proof, we must be careful about the binary form of a real number from $(0,1)$. Now we give a clear definition of Binary Form:
+
+For a real number $a$, to construct its binary form, we define
+\[
+a_1=\left\{
+\begin{aligned}
+0,&\quad\mbox{if }a\in(0,\frac{1}{2})\\
+1,&\quad\mbox{if }a\in[\frac{1}{2},1).
+\end{aligned}
+\right.
+\]
+After having chosen $a_1,a_2,\dots,a_{j-1}$, we define $a_j$ to be the largest integer such that
+\[
+\frac{1}{2}a_1+\frac{1}{2^2}a_2+\cdots+\frac{a_j}{2^j}\le a
+\]
+Then the binary form of $a$ is $a:=0.a_1a_2\dots$.
+\begin{theorem}[Schroder-Bernstein Theorem]
+If $f:A\mapsto B$ and $g:B\mapsto A$ are both 1-1 mapping, then there exists a 1-1 onto mapping from $A$ to $B$, i.e., card $\# A$ equals to card $\# B$.
+\end{theorem}
+Exercise: Show that $(0,1)$ and $[0,1]$ have 1-1 onto mapping without applying Schroder-Bernstein Theorem.
+
+The next lecture we will take a deeper study into the proof of Schroder-Bernstein Theorem and the real number.
+
+
+
+
+
+
+
+
+
+
+
+
+

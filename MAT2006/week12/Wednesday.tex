@@ -1,0 +1,291 @@
+
+\chapter{Week12}
+\section{Wednesday}
+\subsection{Recap for Rank Theorem}
+\paragraph{Inverse Function Theorem}
+Given a $\mathcal{C}^p$ function $f:E(\subseteq\mathbb{R}^m)\subseteq\mathbb{R}^m$ and $Df(\bm x_0)$ is invertible. Then we imply that there is a neighborhood $U(\bm x_0)\times V(\bm y_0)$ of $(\bm x_0,f(\bm x_0))$ such that $f$ is a $\mathcal{C}^p$-diffeomorphism between $U(\bm x_0)$ and $V(\bm y_0)$; moreover,
+\[
+D(f^{-1})(\bm y_0)=(Df(\bm x_0))^{-1}
+\]
+
+\paragraph{Rank Theorem}
+Given a $\mathcal{C}^p$ function $f:U(\bm x_0)\to\mathbb{R}^n$ of constant rank $k$ throughout $U(\bm x_0)$. Then there exists a neighborhood $N(\bm x_0)\times N(f(\bm x_0))$ and two $\mathcal{C}^p$-diffeomorphisms
+\[
+\begin{array}{ll}
+\bm u=\phi(\bm x), \bm x\in N(\bm x_0)
+&
+\bm v=\psi(\bm y), \bm y\in N(\bm y_0), \bm y_0:=f(\bm x_0),
+\end{array}
+\]
+such that the composition $\psi\circ f\circ\phi^{-1}$ takes the form
+\[
+(u_1,\dots,u_k,u_{k+1},\dots,u_m)\to
+(u_1,\dots,u_k,0,0,\dots,0)
+\]
+\paragraph{Outline of proof}
+\begin{enumerate}
+\item[Step 1:] Identify that
+\[
+f=\begin{pmatrix}
+f_1\\\vdots\\f_k\\\vdots\\f_n
+\end{pmatrix},\qquad
+Df=\frac{\partial(f_1,\dots,f_n)}{\partial(x_1,\dots,x_m)}
+\]
+w.l.o.g., assume the first $k\times k$ principal minors of $Df(\bm x_0)$ to be non-singular. Since $\det(\cdot)$ and $f$ are continuously differentiable, we imply that $Df(\bm x)$ is non-singular for some neighborhood of $\bm x_0$, say $N(\bm x_0)$.
+\item[Step 2:] Then construct the map $\phi(\bm x)$
+\[
+\phi(\bm x)=\begin{pmatrix}
+f_1(\bm x)\\\vdots\\f_k(\bm x)\\x_{k+1}\\\vdots\\x_m
+\end{pmatrix}\implies
+D\phi=\begin{pmatrix}
+\frac{\partial(f_1,\dots,f_k)}{\partial(x_1,\dots,x_k)}&
+\frac{\partial(f_1,\dots,f_k)}{\partial(x_{k+1},\dots,x_m)}
+\\
+\bm0&\bm I
+\end{pmatrix},
+\]
+by computing the determinant we assert that $D\phi$ is invertible over $N(\bm x_0)$, which implies $\phi$ is a differeomorphism.
+\item[Step 3:] Define $g:=f\circ \phi^{-1}: \phi(N(\bm x_0))\to\mathbb{R}^n$, then re-write $g$ as
+\[
+\begin{pmatrix}
+y_1\\\vdots\\y_k\\y_{k+1}\\\vdots\\y_n
+\end{pmatrix}
+:=g(\bm u)=
+\begin{pmatrix}
+u_1\\\vdots\\u_k\\g_{k+1}(\bm u)\\\vdots\\g_n(\bm u)
+\end{pmatrix}
+\implies
+Dg=\begin{pmatrix}
+\bm I&\bm0\\
+\frac{\partial(g_1,\dots,g_k)}{\partial(u_1,\dots,u_k)}&\frac{\partial (g_{k+1},\dots,g_n)}{\partial(u_{k+1},\dots,u_n)}
+\end{pmatrix},
+\]
+which implies the lower right corner should be zero matrix since $\rank(Dg)=\rank(Df[\phi^{-1}]\cdot D\phi^{-1})=k$. 
+
+In other words, $(g_{k+1},\dots,g_n)(\bm u)$ depends only on the first $k$ variables. Thus rewrite $g$ as:
+\[
+\begin{pmatrix}
+y_1\\\vdots\\y_k\\y_{k+1}\\\vdots\\y_n
+\end{pmatrix}
+=
+\begin{pmatrix}
+u_1\\\vdots\\u_k\\g_{k+1}(u_1,\dots,u_k)\\\vdots\\g_n(u_1,\dots,u_k)
+\end{pmatrix}
+\]
+\item[Step 4:] Define the map $\bm v=\psi(\bm y)$:
+\[
+\begin{pmatrix}
+v_1\\\vdots\\v_k\\v_{k+1}\\\vdots\\v_n
+\end{pmatrix}
+=
+\begin{pmatrix}
+y_1\\\vdots\\y_k\\y_{k+1}-g_{k+1}(y_1,\dots,y_k)\\\vdots\\
+y_{k+1} - g_n(y_1,\dots,y_k)
+\end{pmatrix}
+\]
+
+With careful computation, we find
+\[
+\psi\circ f\circ\phi^{-1}(\bm u)=\psi\circ g(\bm u)=\psi\begin{pmatrix}
+u_1\\\vdots\\u_k\\g_{k+1}(\bm u)\\\vdots\\g_n(\bm u)
+\end{pmatrix}=\begin{pmatrix}
+u_1\\\vdots\\u_k\\0\\\vdots\\0
+\end{pmatrix}
+\]
+\end{enumerate}
+\begin{remark}
+The rank theorem answers the question that whether we can \emph{flatten out} the curve at given point by some proper way of change of variables. The detailed way for the change of variables follows the insights in the proof.
+\end{remark}
+
+\begin{example}
+\begin{enumerate}
+\item
+Define $f(t)=(\cos t,\sin t), t\in\mathbb{R}$. Define $t_0=\frac{\pi}{4}$. 
+\begin{quotation}
+Can we flatten out the curve $f(t)$ near the point $f(t_0)$?
+\end{quotation} 
+\begin{itemize}
+\item
+Note that
+\[
+Df(t_0)=(-\frac{\sqrt{2}}{2},\frac{\sqrt{2}}{2})\ne0,
+\]
+with rank $1$. Moreover, $\rank(Df(t))=1$ for some $t$ in the neighborhood of $t_0$. Hence the answer is yes.
+\end{itemize}
+\begin{quotation}
+What is the specific way of the change of variables that makes $f(t)$ flat near $f(t_0)$?
+\end{quotation}
+\begin{itemize}
+\item
+Choose $\phi(t)=\cos t$ and $\phi^{-1}(u)=t=\cos^{-1}u$, which follows that
+\[
+g(u)=f(\phi^{-1}(u))=\begin{pmatrix}
+\cos(\phi^{-1}u)\\\sin(\phi^{-1}(u))
+\end{pmatrix}
+=\begin{pmatrix}
+u\\
+\sin(\cos^{-1}u)
+\end{pmatrix}.
+\]
+\item
+Choose $\psi(y)=\begin{pmatrix}
+y_1\\y_2-\sin(\cos^{-1}y_1)
+\end{pmatrix}$, which follows that
+\begin{align*}
+\psi\circ f\circ\phi^{-1}(u)
+&=
+\psi\circ f(\cos^{-1}u)\\
+&=\psi\begin{pmatrix}
+\cos\cos^{-1}u
+\\
+\sin\cos^{-1}u
+\end{pmatrix}=
+\psi\begin{pmatrix}
+u
+\\
+\sin\cos^{-1}u
+\end{pmatrix}
+=\begin{pmatrix}
+u\\0
+\end{pmatrix}
+\end{align*}
+\end{itemize}
+\item
+$f(x_1,x_2)=(x_1+x_2,x_1-x_2,x_1x_2)$. 
+\begin{quotation}
+Can we flatten out the curve of $f$ near $(0,0)$?
+\end{quotation}
+\begin{itemize}
+\item
+Check that \[
+Df(x_1,x_2)=\begin{pmatrix}
+1&1\\
+1&-1\\
+x_2&x_1
+\end{pmatrix},
+\]
+which is of rank $2$ throughout $\mathbb{R}^2$, and therefore the answer is yes.
+\end{itemize}
+\begin{quotation}
+What is the specific way of the change of variables that makes $f(t)$ flat near $f(0,0)$?
+\end{quotation}
+\begin{itemize}
+\item
+Define
+\[
+\phi(x_1,x_2)=\begin{pmatrix}
+f_1\\f_2
+\end{pmatrix}=\begin{pmatrix}
+x_1+x_2\\x_1-x_2
+\end{pmatrix}
+\]
+and therefore
+\[
+g=f\circ\phi^{-1}(u_1,u_2)=f\begin{pmatrix}
+\frac{u_1+u_2}{2}\\\frac{u_1-u_2}{2}
+\end{pmatrix}
+=
+\begin{pmatrix}
+u_1\\u_2\\\frac{u_1^2-u_2^2}{4}
+\end{pmatrix}
+\]
+\item
+Define 
+\[
+\psi(y)=\begin{pmatrix}
+y_1\\y_2\\y_3-\frac{y_1^2-y_2^2}{4}
+\end{pmatrix}.
+\]
+which follows that
+\[
+\psi\circ f\circ \phi^{-1}\begin{pmatrix}
+u_1\\u_2
+\end{pmatrix}=
+\psi\begin{pmatrix}
+u_1\\u_2\\\frac{u_1^2-u_2^2}{4}
+\end{pmatrix}
+=
+\begin{pmatrix}
+u_1\\u_2\\0
+\end{pmatrix}
+\]
+\end{itemize}
+
+
+\end{enumerate}
+\end{example}
+\subsection{Functional Dependence}
+In linear algebra we have talked about the linear independence:
+\begin{definition}[Vector Dependence]
+Given $n$ vectors $\bm v_1,\dots,\bm v_n$, they are linear independent if the equation
+\[
+a_1\bm v_1+\cdots+a_n\bm v_n=0
+\]
+only has the trivial solution $a_1=a_2=\cdots=a_n$.
+\end{definition}
+
+Then we talk about the dependence between functions.
+\begin{definition}[Dependence]
+A set of \emph{continuous} functions $\{f_1,\dots,f_n: U\to\mathbb{R}\}$, where $U\subseteq\mathbb{R}^m$ is a neighborhood of $\bm x_0\in\mathbb{R}^m$, is said to be \emph{functionally independent} if for the undetermined continuous $n$-argument scalar function $F$, the function equation
+\begin{equation}
+F(f_1(\bm x),\dots,f_n(\bm x))\equiv0,\label{Eq:12:1}
+\end{equation}
+only has the trivial solution $F\equiv0$ in some neighborhood $V$ of $\bm y_0:=(f_1,\dots,f_n)(\bm x_0).$
+\end{definition}
+\begin{proposition}
+Let $\{f_1,\dots,f_n\}$ be $\mathcal{C}^1$ and the rank of
+\[
+Df(\bm x)=
+\frac{\partial (f_1,\dots,f_n)}{\partial(x_1,\dots,x_m)}(\bm x)
+\]
+is $k$ at every $\bm x\in U$, then 
+\begin{enumerate}
+\item
+$k=n$ implies $\{f_1,\dots,f_n\}$ is functionally independent
+\item
+$k<n$ implies there exists a neighborhood of $\bm x_0$ and $k$ functions $f_1,\dots,f_k$ such that the rest of $(n-k)$ functions can be written as
+\[
+f_i(\bm x)=g_i(f_1(\bm x),\dots,f_k(\bm x))
+\]
+for $\forall i=k+1,\dots,n$, where $g_i$ are $\mathcal{C}^1$ functions of $k$ variables.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+\item
+Re-write (\ref{Eq:12:1}) as $F\circ f\equiv0$. Applying rank theorem, there exists some differemorphism $\phi$, $\psi$ such that $\psi\circ f\circ\phi^{-1}$ assigns $(y_1,\dots,y_n)$ into $(y_1,\dots,y_n)$, i.e., it is an identity map $\bm{id}$ around some neighborhood of $\bm y_0:=f(\bm x_0)$. Therefore,
+\[
+F\circ f=F\circ\psi^{-1}\circ(\psi\circ f\circ\phi^{-1})\circ\phi
+=
+F\circ\psi^{-1}\circ\bm{id}\circ\phi
+=
+F\circ\psi^{-1}\circ\phi\equiv0
+\]
+Or equivalently,
+\[
+F=0\circ\phi^{-1}\circ\psi\equiv0
+\]
+\item
+Applying rank theorem and IFT gives the desired result.
+\end{enumerate}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

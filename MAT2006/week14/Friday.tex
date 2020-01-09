@@ -1,0 +1,178 @@
+
+\section{Friday}\index{week8_Thursday_lecture}
+\subsection{Analysis on Constraint Optimization}
+\begin{theorem}[Lagrange Multiplier Theorem]
+Let $f,g\in\mathcal{C}^1(U,\mathbb{R})$, where $U\subseteq\mathbb{R}^m$. Suppose $\bm x_0\in U$, and $g(\bm x_0)=\bm c_0$, $\mathcal{S}=g^{-1}(\bm c_0)$, and $\nabla g(\bm x_0)\ne\bm0$. If $f|_{\mathcal{S}}$ (the range of $f$ over the support $\mathcal{S}$) has a (local) maximum or (local) minimum at $\bm x_0$, then there exists $\lambda\in\mathbb{R}$ such that $\nabla f(\bm x_0)=\lambda\nabla g(\bm x_0)$.
+\end{theorem}
+\begin{proof}\qquad\\
+\begin{enumerate}
+\item[Step 1:]
+Note that the tangent plane of the constraint set $\mathcal{S}$ at $\bm x_0$ is given by:
+\begin{equation}\label{Eq:13:10}
+T_{\bm x_0}(\mathcal{S}):=\{\bm v\mid \text{there exists a $\mathcal{C}^1$ path $h(t)$ on $\mathcal{S}$ such that $h(0)=\bm x_0$ and $h'(0)=\bm v$}\},
+\end{equation}
+i.e., the tangent plane of $\bm x_0$ is a set of vectors which are the \emph{velocities} for some smooth paths passing through $\bm x_0$. We claim that the definition (\ref{Eq:13:10}) is equivalent to say
+\begin{equation}\label{Eq:13:11}
+T_{\bm x_0}(\mathcal{S}):=\{\bm v\in\mathbb{R}^m\mid \inp{\nabla g(\bm x_0)}{\bm v}=0\}
+\end{equation}
+\begin{itemize}
+\item
+First show the forward diection. Consider any $\bm v$ satisfying (\ref{Eq:13:10}), i.e., there exists a $\mathcal{C}^1$ path $h(t)$ on $\mathcal{S}$ such that $h(0)=\bm x_0$ and $h'(0)=\bm v$. Define $\psi(t)=g(h(t))$, and then $\psi(t)=\bm c_0$ as $h(t)\in\mathcal{S}$. The derivative of $\psi$ is given by:
+\[
+\psi'(t)=0=\inp{\nabla g(h(t))}{h'(t)}\implies
+\psi'(0)=0=\inp{\nabla g(h(0))}{h'(0)}=\inp{\nabla g(\bm x_0)}{\bm v}
+\]
+\item
+For the reverse direction, we pick any $\bm v\in\mathbb{R}^m$ such that $\bm v\perp\nabla g(\bm x_0)$. We need to construct a $\mathcal{C}^1$ path $h(t)$ with $h(0)=\bm x_0$ and $h'(0)=\bm v$.  Since $\nabla g(\bm x_0)\ne0$, we assume w.l.o.g. $\frac{\partial g}{\partial x_m}(\bm x_0)\ne0$.
+
+By applying IFT, there exists a neighborhood of $\bm x_0$, say $N(\bm x_0)$, and a $\mathcal{C}^1$ function $p(x_1,\dots,x_{m-1})$ such that in $N(\bm x_0)$ we can solve $g(\bm x_0)-\bm c_0=\bm0$ for $x_m$:
+\begin{subequations}
+\begin{align}
+x_m&=p(x_1,\dots,x_{m-1})\\
+x_{m,0}&=p(x_{1,0},\dots,x_{m-1,0})\\
+\nabla p(x_1,\dots,x_{m-1})&=-\frac{1}{\frac{\partial g}{\partial x_m}}
+\begin{pmatrix}
+\frac{\partial g}{\partial x_1}
+&
+\cdots
+&
+\frac{\partial g}{\partial x_{m-1}}
+\end{pmatrix}\trans\label{Eq:13:12:c}
+\end{align}
+\end{subequations}
+Thus we construct function $h(t):\mathbb{R}\to\mathbb{R}^m$:
+\[
+h(t)=\begin{pmatrix}
+\underbrace{x_{0,1}+v_1t}_{h_1(t)}
+&
+\cdots
+&
+\underbrace{x_{0,m-1}+v_{m-1}t}_{h_{m-1}(t)}
+&
+\underbrace{
+p(h_1(t),\dots,h_{m-1}(t))
+}_{h_{m}(t)}
+\end{pmatrix}
+\]
+Therefore, it is clear that $h(0)=\bm x_0$, and
+\begin{subequations}
+\begin{align}
+h'(0)&=\begin{pmatrix}
+v_1&\cdots&v_{m-1}&\inp{\nabla p(h_1(t),\dots,h_{m-1}(t)}{(h_1',\dots,h_{m-1}')(t)}|_{t=0}\label{Eq:13:13:a}
+\end{pmatrix}\\
+&=
+\begin{pmatrix}
+v_1&\cdots&v_{m-1}&\inp{\nabla p(h_1(0),\dots,h_{m-1}(0))}{(h_1',\dots,h_{m-1}')(0)}
+\end{pmatrix}\label{Eq:13:13:b}\\
+&=\begin{pmatrix}
+v_1&\cdots&v_{m-1}&\inp{\nabla p(x_{1,0},\dots,x_{m-1,0})}{(v_1,\dots,v_{m-1})}
+\end{pmatrix}\label{Eq:13:13:c}
+\end{align}
+and
+\begin{align}
+\inp{\nabla p(x_{1,0},\dots,x_{m-1,0})}{(v_1,\dots,v_{m-1})}&=
+-\frac{1}{\frac{\partial g}{\partial x_m}}
+\begin{pmatrix}
+\frac{\partial g}{\partial x_1}
+&
+\cdots
+&
+\frac{\partial g}{\partial x_{m-1}}
+\end{pmatrix}(\bm x_0)\cdot(v_1,\dots,v_{m-1})\label{Eq:13:13:d}\\
+&=
+-\frac{1}{\frac{\partial g}{\partial x_m}}
+\left[
+v_1\frac{\partial g}{\partial x_1}+\cdots+v_{m-1}\frac{\partial g}{\partial x_{m-1}}
+\right](\bm x_0)\label{Eq:13:13:e}\\
+&=v_m\label{Eq:13:13:f}
+\end{align}
+\end{subequations}
+Therefore we obtain $h'(0)=(v_1,\dots,v_{m-1},v_m)$.
+
+Note that (\ref{Eq:13:13:a}) is by applying the chain rule; (\ref{Eq:13:13:c}) is by applying $h_(0)=\bm x_0$ and $h'_1(0)=v_1,\dots,h'_{m-1}(0)=v_{m-1}$; (\ref{Eq:13:13:d}) is by applying (\ref{Eq:13:12:c}); (\ref{Eq:13:13:f}) is by applying the condition $\bm v\perp\nabla g(\bm x_0)$ and then arranging terms.
+\end{itemize}
+
+
+
+\item[Step 2:]
+We claim that $\nabla f(\bm x_0)\perp\bm v$ for $\forall\bm v\in T_{\bm x_0}(\mathcal{S})$
+
+This is because for fixed $\bm v$, there exists a path $h(t)$ in $\mathcal{S}$, with $h(0)=\bm x_0$, and $h'(0)=\bm v$. Define $\phi(t)=f(h(t))$, which implies that
+\[
+\begin{aligned}
+\phi'(t)&=\inp{\nabla f(h(t))}{h'(t)}
+\end{aligned}
+\]
+If $\bm x_0$ is an extreme point of the function $f|_{\mathcal{S}}$, then the smooth function $\phi(t)=f(h(t))$ must have an extreme at $t=0$, which follows that 
+\[
+0=\phi'(0)=\inp{\nabla f(h(0))}{h'(0)}=\inp{\nabla f(\bm x_0)}{\bm v}
+\]
+\end{enumerate}
+Therefore, it is clear that $\nabla f(\bm x_0)$ is co-linear with $\nabla g(\bm x_0)$, since otherwise we have $\nabla f(\bm x_0)=\mu_1\nabla g(\bm x_0)+\mu_2\nabla g(\bm x_0)^\perp$ and $\inp{\nabla f(\bm x_0)}{\bm v}=\mu_2\inp{\nabla g(\bm x_0)^\perp}{\bm v}\ne0$ 
+\end{proof}
+\begin{remark}
+\begin{enumerate}
+\item
+The proof above is so called the \emph{elimination approach}. Here we view the constraints as a system of 1 equation with $m$ unknowns, and we express one of the variables in terms of the remaining $m-1$, and thereby essentially reducing this problem into an unconstrainted problem. This approach requires the use of implicit theorem.
+\item
+Another way of proof is to disgard the constraint and consider the unconstraint minimization over
+\[
+f(\bm x)+k\|g(\bm x)-\bm c_0\|^2+\frac{\alpha}{2}\|\bm x-\bm x_0\|
+\] 
+where $\bm x_0$ is supposed to be a local minimum satisfying $h(\bm x_0)=\bm c_0$, and $\alpha>0$. By \textit{writing the necessary condition for such unconstraint minimization problem} and \textit{taking the limit $k\to\infty$}, we obtain the desired result.
+\end{enumerate}
+We encourage the reader to read the book \textit{Nonlinear programming} from page $349$ to $355$, or Prof. Zhiquan Luo's note for Lecture 7 for details about these two approaches above.
+\end{remark}
+
+\subsection{Analysis on compactness}
+Then we discuss the description on compactness over the continuous function space.
+\paragraph{Notations}Let $\mathcal{C}(A,\mathbb{R})$ denote the set of all \emph{continuous} functions from a \emph{compact} set $A$ to $\mathbb{R}$. Define the associated metric $\bm d:\mathcal{C}(A,\mathbb{R})\times \mathcal{C}(A,\mathbb{R})\to\mathbb{R}$:
+\[
+\bm d(u,v)=\max_{x\in A}|u(x)-v(x)|,\quad
+\forall u,v\in \mathcal{C}(A,\mathbb{R})
+\]
+It is easy to show that $(\mathcal{C}(A,\mathbb{R}),\bm d)$ defines a metric space and is complete. We discuss the \emph{equicontinuity} under this setting.
+
+\begin{definition}[Equi-continuous]
+Let $\mathcal{B}$ be a subset of $\mathcal{C}(A,\mathbb{R})$.
+\begin{enumerate}
+\item
+We say $\mathcal{B}$ is \emph{uniformly bounded} if there exists $M_1>0$ such that
+\[
+|\phi(x)|\le M_1,\quad \forall x\in A,\forall \phi\in\mathcal{B}
+\]
+\item
+We say $\mathcal{B}$ is a \emph{equi-continuous} family of functions, if for any $\varepsilon>0$, there exists $\delta:=\delta(\varepsilon)>0$, such that
+\[
+d(f(x),f(y))<\varepsilon,\quad
+\mbox{provided that }x,y\in A,d(x,y)<\delta,\forall f\in\mathcal{B}
+\]
+\end{enumerate}
+\end{definition}
+\begin{theorem}[Arela-Ascoli Theorem]
+Let $A\subseteq\mathbb{R}^m$ be a compact set, and $\mathcal{B}\subseteq\mathcal{C}(A,\mathbb{R})$. Suppose $\mathcal{B}$ is \emph{uniformly bounded} and \emph{equi-continuous}, then any sequence in $\mathcal{B}$ has a \emph{uniformly convergent} subsequence ($\mathcal{B}$ is compact as a result). 
+\end{theorem}
+%\begin{example}
+%Suppose $\Omega\subseteq\mathbb{R}^n$ is a bounded open convex set. For fixed $M_1,M_2>0$, we derive that the set
+%\[
+%\mathcal{B}:=\{f\in\mathcal{C}(\bar{\Omega},\mathbb{R})\mid |f(x)|\le M_1,|\nabla f(x)|\le M_2,\forall x\in\Omega\}
+%\]
+%is a compact set.
+%\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

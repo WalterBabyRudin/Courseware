@@ -1,0 +1,177 @@
+\chapter{Week3}
+
+\section{Tuesday}\index{week3_Tuesday_lecture}
+\subsection{Application of Heine-Borel Theorem}
+\begin{theorem}
+Let $f(x)=\sum_{k=0}^\infty a_kx^k$ which converges in $|x|<1$. If for every $x\in[0,1)$, there exists $n (=n(x))$ such that $\sum_{n+1}^\infty a_kx^k=0$, then $f$ is a polynomial, i.e., $n$ does not depend on $x$.
+\end{theorem}
+The idea is to construct a sequence of points $\{x_n\}$ satisfying $f(x_k) = a_0+\cdots+a_mx_k^m$, i.e., infinite points coincide $f(x)$ with a polynomial, which implies $f$ is a polynomial.
+\begin{proof}
+Construct $E_N:=\{x\in[0,\frac{1}{2}]\mid \sum_{k=N+1}^\infty a_kx^k=0\}$. It follows that
+\[
+[0,\frac{1}{2}] = \bigcup_{N=1}^\infty E_N,
+\]
+which implies that at least one $E_N$ is uncountable, say, $E_m$ is uncountable. In particular, $E_m$ is infinite
+
+By Bolzano-Weierstrass Theorem, there exists a sequence $\{x_k\}\subset E_m$ with limit $x_0$ in $E_m$ as $E_m$ is closed. Hence, $f(x)=a_0+a_1x+\cdots+a_mx^m$ holds for the sequence $\{x_m\}$. Intuitively we conclude the power series and the analytics function coincide each other for every point $x\in(-1,1)$.
+\[
+f(x)\equiv a_0+a_1x+\cdots+a_mx^m
+\]
+
+\end{proof}
+However, the proof above does not show why a sequence coincide $f(x)$ with a polynomial could imply $f$ is a polynomial for every point. We summarize this induction as the proposition(\ref{Pro:3:1}) and give a proof below. Before that we formulate what we want to prove precisely:
+\begin{quotation}
+Let $f$ be analytic, i.e., $f(x) = a_0+a_1x+\cdots+a_nx^n+\cdots$ on $(-1,1)$; and $f(x_k)=\sum_{i=1}^ma_ix_k^i$ for all $k\ge1$, where $\{x_k\}$ is a sequence with limit $x_0$. Then $f(x) = \sum_{i=1}^ma_ix^i$ on $(-1,1)$.
+\end{quotation}
+To show this statement, we construct
+\[
+g(x) = f(x) - \sum_{i=1}^ma_ix^i\implies g(x_k)=0,\forall k\ge1
+\]
+It suffices to show $g\equiv0$ on $(-1,1)$. Moreover, if we construct $y_k:=x_k - x_0$, and set $f(x) = a_0+a_1(x-x_0)+\cdots$, then it suffices to prove the proposition given below:
+\begin{proposition}\label{Pro:3:1}
+Let $g$ be analytic, i.e., $g(x)= b_0+b_1x+\dots+b_nx^n+\cdots$ on $(-1,1)$; and $g(x_k)=0$ for all $k\ge1$, where $\{x_k\}\to0$. Then $g\equiv0$ on $(-1,1)$ (i.e., $b_0=b_1=\cdots=0$)
+\end{proposition}
+\begin{proof}
+\begin{itemize}
+\item
+Note that $g(0)=0$ due to continuity property. Also, $g(0) = b_0=0$, which follows that
+\begin{equation}
+g(x) = x(b_1+b_2x+\cdots+b_nx^{n-1}+\cdots\label{Eq:3:1}
+\end{equation}
+\item
+Substituting $x$ with $x_k$ in Eq.(\ref{Eq:3:1}), we derive
+\begin{equation}
+0=g(x_k) = x_k(b_1+b_2x_k+\cdots+b_nx^{n-1}_k+\cdots\label{Eq:3:2}
+\end{equation}
+Taking limit both sides for (\ref{Eq:3:2}), we derive $b_1=0$.
+\item
+By applying the same trick, we conclude $b_0=b_1=\cdots=0$ (the rigorous proof requires induction).
+\end{itemize}
+\end{proof}
+
+Now we talk about some advanced topics in Analysis.
+
+\subsection{Set Structure Analysis}
+\begin{definition}[Nowhere Dense]
+A set $\bm B$ is said to be \emph{nowhere dense} if its closure $\overline{B}$ contains no non-empty open set.
+\end{definition}
+For example,
+\[
+B = \{1,\frac{1}{2},\frac{1}{3},\dots,\frac{1}{n},..\}\implies
+\overline{B} = B\bigcup\{0\},
+\]
+which contains no non-empty open set.
+
+\begin{definition}[$1$st category]
+A set of $\bm B$ is said to be of $1$st category if it can be written as the \emph{union} of \emph{finitely} many or \emph{countably} many \emph{nowhere} dense sets.
+\end{definition}
+\begin{definition}[$2$rd category]
+A set is said to be of $2$rd category if it is \emph{not} of $1$st category
+\end{definition}
+\begin{theorem}[Baire-Category Theorem]
+\begin{itemize}
+\item
+$\mathbb{R}$ is of $2$rd category, i.e.,
+\item
+$\mathbb{R}$ cannot be written as the union of countably many nowhere dense sets, i.e.,
+\item
+if $\mathbb{R}=\bigcup_{n=1}^\infty A_n$, then at least one $A_n$ whose closure contains a non-empty open set.
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+\begin{itemize}
+\item
+Assume $\mathbb{R} = \bigcup_{n=1}^\infty A_n$ such that all $A_n$'s are nowhere dense. It follows that
+\[
+\mathbb{R}\setminus \overline{A_1}\mbox{ is open},
+\]
+since $\overline{A_1}$ is closed and its complement is open.
+\item
+We construct an open set $N_1$ such that $\overline{N_1}\subseteq\mathbb{R}\setminus \overline{A_1}$. (e.g., there exists $\varepsilon$ and $x\in\mathbb{R}\setminus \overline{A_1}$ such that $N_1:=B(x,\varepsilon)\subseteq\overline{N_1}\subseteq\mathbb{R}\setminus \overline{A_1}$.)
+\item
+Since $A_2$ is nowhere dense, we imply $\overline{A_2}$ does not contain $N_1$, i.e., $N_1\setminus \overline{A_2}$ is open.
+\item
+By applying similar trick,  we obtain a sequence of nested  sets
+\[
+\overline{N_1}\supseteq N_1\supset\overline{N_2}\supset N_2\cdots
+\]
+
+The cantor's theorem implies that $\bigcap_{k=1}^\infty\overline{N_k}\ne\emptyset$.
+\item
+On the other hand, $\bigcap_{k=1}^\infty\overline{N_k}\subseteq\mathbb{R}\setminus \bigcup_{n=1}^mA_n$ for any finite $m$.
+\item
+Therefore, $\emptyset\ne\bigcup_{k=1}^\infty\overline{N_k}\subseteq\mathbb{R}\setminus \bigcup_{n=1}^\infty A_n=\emptyset$, which is a contradiction.
+\end{itemize}
+\end{proof}
+\begin{remark}
+$\mathbb{R}$ is of 2nd category, i.e., if $\mathbb{R} = \bigcup_{n=1}^\infty A_m$, then at least $A_n$ whose closure contains a \emph{non-empty} open sets; The theorem also holds if we replace $\mathbb{R}$ by a \emph{complete} metric space (essentially the same proof).
+\end{remark}
+
+Most proof for $\mathbb{R}$ can be generalized into metric space, the proof for which is essentially the same. Now let's introduce the metric space informally.
+
+\paragraph{Metric Space}
+A metric space is an ordered pair $(M,d)$, where $M$ is a set and $d$ is a metric on $M$, i.e., $d$ is a distance function defined for two points on $M$. Here we list several examples:
+\paragraph{The Real Line}
+For $\mathbb{R}$, $d(x,y) = |x-y|$. 
+Note that $(\mathbb{Q},d)$ and $(\mathbb{R}\setminus\mathbb{Q},d)$ are also metric spaces, but not complete.
+
+\paragraph{$n$-Cell Real Space}
+$\mathbb{R}^n$, with $d(\bm x,\bm y) = |\bm x - \bm y|$ is a metric space.
+
+\paragraph{Bounded Sequences}
+The set of all bounded sequences on $\mathbb{R}$ is a metric space, with $d$ defined as:
+\[
+d(\{x_n\},\{y_n\}) = \sup\{|x_i - y_i|\mid i=1,2,\dots\}
+\]
+\paragraph{Bounded Functions}
+Similarly, the set of all bounded continuous functions on $\mathbb{R}$ (different domains), with 
+\[
+d_1(f,g) = \sup\{|f(x) - g(x)|\mid x\in\mathbb{R}\},
+\] 
+or 
+\[
+d_2(f,g) =( \int_0^1|f(x) - g(x)|^2\diff x)^{1.2}
+\]
+is a metric space. Note that $(\mathcal{C}[0,1],d_1)$ is complete, and $(\mathcal{C}[0,1],d_2)$ is not complete. (exercise)
+\begin{remark}
+
+Different distance definition corresponds to different metric spaces.
+
+Recall that a metric space is complete if all Cauchy sequence of which converge.
+\end{remark}
+
+\subsection{Reviewing}
+\begin{definition}[Sequence]
+A sequence is defined as a kind of function $f:\mathbb{N}\to\mathbb{R}$, denoted as $\{f(0), f(1),\dots\}$. Conventionally we denote it as $x_1,x_2,\dots$
+\end{definition}
+\begin{definition}[Limit]
+A number $\alpha$ is the limit of $\{x_1,x_2,\dots\}$ if $\forall\epsilon>0$, there $\exists N = N(\epsilon)$ such that $|x_k-\alpha|<\epsilon$ for $\forall k\ge N$, denoted by $\alpha_n\to\alpha$
+\end{definition}
+\begin{definition}[liminf $\&$ limsup]
+\[
+\lim\inf_{k\to\infty}x_k :=\lim_{n\to\infty}\inf_{k\ge n}x_k
+\]
+which is the smallest limit point of the sequence
+\[
+\lim\sup_{k\to\infty}x_k :=\lim_{n\to\infty}\sup_{k\ge n}x_k
+\]
+which is the largest limit point of the sequence.
+\end{definition}
+A sequence always has liminf and limsup.
+\begin{definition}[Partial Sum]
+Given the sequence $\{a_n\}$, its $n$-th partial sum are defined as:
+\[
+s_n = a_1+\cdots+a_n,
+\]
+the series $\sum_ia_i$ is defined as the limit of the partial sum,
+\end{definition}
+
+Next lecture we will show that most continuous function is nowhere differentiable, by applying the Baire Category Theorem on $(\mathcal{C}[0,1],d_1)$
+
+
+
+
+
+
+
