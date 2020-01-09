@@ -1,0 +1,584 @@
+\subsection{Final Exam Solution}
+\begin{enumerate}
+%q1
+\item
+\begin{enumerate}
+%a
+\item
+For $\forall f,g\in\{\textbf{polynomials of degree $\le4$}\}$, we obtain:
+\begin{itemize}
+\item
+\[
+T(f+g)=(x-2)\frac{\diff}{\diff x}(f+g)=(x-2)\frac{\diff}{\diff f}+(x-2)\frac{\diff}{\diff g}
+=T(f)+T(g)
+\]
+\item
+\[
+T(cf)=(x-2)\frac{\diff}{\diff x}(cf)=c(x-2)\frac{\diff}{\diff f}
+=cT(f).
+\]
+where $c$ is a scalar.
+\end{itemize}
+Since $T$ satisfies the vector addition and scalar multiplication rule, it is a linear transformation.\\
+Moreover, we obtain:
+\begin{align*}
+T(1)&=(x-2)\frac{\diff 1}{\diff x}=0\\
+T(x)&=(x-2)\frac{\diff x}{\diff x}=x-2\\
+T(x^2)&=(x-2)\frac{\diff x^2}{\diff x}=2x(x-2)=2x^2-4x\\
+T(x^3)&=(x-2)\frac{\diff x^3}{\diff x}=3x^2(x-2)=3x^3-6x^2\\
+T(x^4)&=(x-2)\frac{\diff x^4}{\diff x}=4x^3(x-2)=4x^4-8x^3.
+\end{align*}
+Hence the matrix representation is given by:
+\[
+\begin{bmatrix}
+0&0&0&0&0\\
+-2&1&0&0&0\\
+0&-4&2&0&0\\
+0&0&-6&3&0\\
+0&0&0&-8&4
+\end{bmatrix}
+\]
+%b
+\item
+\begin{itemize}
+\item
+For $f=1$, $T(f)=(x-2)\frac{\diff f}{\diff x}=0=0f$.\\
+Hence $f=1$ is an eigenvector of $T$ associated with eigenvalue $\lambda=0.$
+\item
+For $f=x-2$, $T(f)=(x-2)\frac{\diff f}{\diff x}=x-2=f$.\\
+Hence $f=x-2$ is an eigenvector of $T$ associated with eigenvalue $\lambda=1.$
+\end{itemize}
+Moreover, we have $\alpha_1\x(1)+\alpha_2\x(x-2)=0$, where $\alpha_1,\alpha_2$ are scalars, then we derive
+\[
+x(\alpha_1+\alpha_2)-2\alpha_2=0.\implies
+\alpha_1=\alpha_2=0.
+\]
+Hence $(x-2)$ and $1$ are independent.\\
+Hence two independent eigenvectors of $T$ are $1$ and $(x-2)$.
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+Firstly, we set $\bm x=\begin{bmatrix}
+1\\1\\-2
+\end{bmatrix},\bm y=\begin{bmatrix}
+-1\\-1\\4
+\end{bmatrix}.$ 
+Obviously, they are independent. \\Hence $\{\bm x,\bm y\}$ is the basis for column space of matrix $\begin{bmatrix}
+1&-1\\1&-1\\-2&4
+\end{bmatrix}.$\\
+Then we convert $\{\bm x,\bm y\}$ into orthogonal basis $\{\bm q_1,\bm q_2\}$:
+\begin{itemize}
+\item
+\[
+\bm q_1=\bm x
+\]
+\item
+\[
+\bm q_2=\bm y-\Proj_{\bm y}(\bm q_1)=\bm y-\frac{\inp{\bm y}{\bm x}}{\inp{\bm x}{\bm x}}\bm x
+=\begin{bmatrix}
+\frac{2}{3}\\\frac{2}{3}\\\frac{2}{3}
+\end{bmatrix}.
+\]
+\end{itemize}
+\begin{itemize}
+\item
+The projection of $\bm z$ onto the vector $\bm q_1$ is 
+\[
+\Proj_{\bm q_1}(\bm z)=\frac{\inp{\bm x}{\bm z}}{\inp{\bm x}{\bm x}}\bm x=\begin{bmatrix}
+-\frac{1}{6}\\-\frac{1}{6}\\\frac{1}{3}
+\end{bmatrix}.
+\]
+\item
+The projection of $\bm z$ onto the vector $\bm q_2$ is 
+\[
+\Proj_{\bm q_2}(\bm z)=\frac{\inp{\bm q_2}{\bm z}}{\inp{\bm q_2}{\bm q_2}}\bm q_2=\begin{bmatrix}
+\frac{2}{3}\\\frac{2}{3}\\\frac{2}{3}
+\end{bmatrix}.
+\]
+\end{itemize}
+Hence the projection of $\bm z$ onto $\Span\{\bm x,\bm z\}$ is given by:
+\[
+\Proj_{\Span\{\bm q_1,\bm q_2\}}(\bm z)=\Proj_{\bm q_1}(\bm z)+\Proj_{\bm q_2}(\bm z)=\begin{bmatrix}
+-\frac{1}{6}\\-\frac{1}{6}\\\frac{1}{3}
+\end{bmatrix}+\begin{bmatrix}
+\frac{2}{3}\\\frac{2}{3}\\\frac{2}{3}
+\end{bmatrix}=\begin{bmatrix}
+\frac{1}{2}\\\frac{1}{2}\\1
+\end{bmatrix}
+\]
+Hence the projection onto the column space of $\begin{bmatrix}
+1&-1\\1&-1\\-2&4
+\end{bmatrix}$ is $\begin{bmatrix}
+\frac{1}{2}\\\frac{1}{2}\\1
+\end{bmatrix}.$
+\item
+We construct an isomorphism from $\mathbb{R}^{2\x 2}$ to $\mathbb{R}^{4\x 1}$:
+\[
+\begin{bmatrix}
+a&b\\c&d
+\end{bmatrix}\mapsto\begin{bmatrix}
+a&b&c&d
+\end{bmatrix}\trans.
+\]
+The matrix representation $\bm A$ for the mapping 
+\[
+\begin{bmatrix}
+a\\b
+\end{bmatrix}\mapsto\begin{bmatrix}
+a+b&a-b&-2a+4b&0
+\end{bmatrix}\trans
+\] is given by:
+\[
+\bm A=\begin{bmatrix}
+1&1\\1&-1\\-2&4\\0&0
+\end{bmatrix}.
+\]
+We define $K=\{\bm A\bm x|\bm x\in\mathbb{R}^{2\x 1}\}.$ \\
+Hence we only need to find the best approximation of $\bm b:=\begin{bmatrix}
+1\\2\\7\\1
+\end{bmatrix}$ in the space $K$.\\
+We define $\bm x:=\begin{bmatrix}
+1\\1\\-2\\0
+\end{bmatrix},\bm y:=\begin{bmatrix}
+1\\-1\\4\\0
+\end{bmatrix}.$ Then we convert $\{\bm x,\bm y\}$ into orthogonal vectors:
+\begin{itemize}
+\item
+We set $\bm q_1=\bm x$.
+\item
+We set $\bm q_2=\bm y-\Proj_{\bm q_1}(\bm y)$. Hence
+\begin{align*}
+\bm q_2&=\bm y-\Proj_{\bm q_1}(\bm y)\\
+&=\bm y-\frac{\inp{\bm q_1}{\bm y}}{\inp{\bm q_1}{\bm q_1}}\bm q_1\\
+&=\begin{bmatrix}
+\frac{7}{3}&\frac{1}{3}&\frac{4}{3}&0
+\end{bmatrix}\trans.
+\end{align*}
+Hence the projection of $\bm b$ onto the space $K$ is:
+\begin{align*}
+\Proj_{\Span\{\bm x,\bm y\}}(\bm b)&
+=\Proj_{\Span\{\bm q_1,\bm q_2\}}(\bm b)\\
+&=\Proj_{\bm q_1}(\bm b)+\Proj_{\bm q_2}(\bm b)\\
+&=\frac{\inp{\bm q_1}{\bm b}}{\inp{\bm q_1}{\bm q_1}}\bm q_1+\frac{\inp{\bm q_2}{\bm b}}{\inp{\bm q_2}{\bm q_2}}\bm q_2\\
+&=-\frac{6}{11}\begin{bmatrix}
+1\\1\\-2\\0
+\end{bmatrix}+\frac{37}{66}\begin{bmatrix}
+7\\1\\4\\0
+\end{bmatrix}\\
+&=\frac{1}{11}\begin{bmatrix}
+23\\-14\\65\\0
+\end{bmatrix}.
+\end{align*}
+Hence the best approximation for $\bm b=\begin{bmatrix}
+1\\2\\7\\1
+\end{bmatrix}$ is $\frac{1}{11}\begin{bmatrix}
+23\\-14\\65\\0
+\end{bmatrix}.$\\
+Correspondingly, the best approximation for $\bm B=\begin{bmatrix}
+1&2\\7&1
+\end{bmatrix}$ is $\frac{1}{11}\begin{bmatrix}
+23&-14\\65&0
+\end{bmatrix}.$ 
+\end{itemize}
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+False.\\
+\textbf{Reason: }For example, if $\bm A=\begin{bmatrix}
+1&1\\1&1
+\end{bmatrix}$, $\bm A^{-1}$ doesn't exist.
+\item
+True.\\
+\textbf{Reason: }For orthogonal matrix $\bm Q$, we obtain $\bm Q\trans\bm Q=\bm I.$ Thus
+\[
+\det(\bm Q\trans\bm Q)=\det(\bm I)
+\implies
+\det(\bm Q\trans)\det(\bm Q)=\det(\bm I)
+\implies
+[\det(\bm Q)]^2=1
+\]
+Hence $\det(\bm Q)=\pm1.$
+\item
+True.\\
+\textbf{Reason: }For real symmetric $\bm A$, $-\bm A$ is PSD. $-\bm A$ could be diagonalized by orthogona matrix $\bm P$:
+\[
+\bm P\trans(-\bm A)\bm P=\bm D\Longleftrightarrow
+\bm P\bm D\bm P\trans=-\bm A
+\]
+where $\bm D=\diag(\lambda_1,\dots,\lambda_n)$, where $\lambda_i$'s are eigenvalues for $-\bm A$.\\
+Since $-\bm A=-\bm A\trans$, we obtain
+\[
+(-\bm A)(-\bm A)\trans=\bm P\bm D\bm P\trans\bm P\bm D\bm P\trans=\bm P\bm D^2\bm P\trans.
+\]
+Or equivalently, $\bm D^2=\bm P\trans(-\bm A)(-\bm A)\trans\bm P.$
+where the eigenvalues for $(-\bm A)(-\bm A)\trans$ are on the diagonal of $\bm D^2$.\\
+This shows that if $\lambda$ is the eigenvalue for $-\bm A$, then $\lambda^2$ is the eigenvalue for $(-\bm A)(-\bm A)\trans=\bm A\bm A\trans.$\\
+Since $-\bm A$ is PSD, all eigenvalues of $-\bm A$ are positive. Hence $\lambda=\sqrt{\lambda^2}.$\\
+If $\lambda$ is the eigenvalue for $-\bm A$, then $-\lambda$ is the eigenvalue for $\bm A$. Hence the absolute value of eigenvalues for $\bm A$ are the same as the singular values for $\bm A.$
+\item
+False.\\
+\textbf{Reason: }For example, $\bm A=\begin{bmatrix}
+0&1\\0&0
+\end{bmatrix}$, then $P_{\bm A}(t)=\begin{vmatrix}
+t&-1\\0&t
+\end{vmatrix}
+=t^2.$
+\item
+True.\\
+\textbf{Reason: }$\rank(\bm A)=$the smallest number of rank 1 matrices with sum $\bm A$. Hence $\rank(\bm A)\le 5.$
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+\[
+|\lambda\bm I-\bm A|=0\implies
+\begin{vmatrix}
+\lambda&1\\-4&\lambda
+\end{vmatrix}=0
+\implies
+\lambda^2+4=0.
+\]
+Hence the eigenvalues for $\bm A$ are $\lambda_1=2i,\lambda_2=-2i.$\\
+\begin{itemize}
+\item
+When $\lambda=2i,$ $(\lambda\bm I-\bm A)\bm x=\bm 0\implies\bm x=\alpha\begin{pmatrix}
+1\\-2i
+\end{pmatrix},$ where $\alpha$ is a scalar.
+\item
+When $\lambda=-2i,$ $(\lambda\bm I-\bm A)\bm x=\bm 0\implies\bm x=\beta\begin{pmatrix}
+1\\2i
+\end{pmatrix},$ where $\beta$ is a scalar.
+\end{itemize}
+Hence $\alpha\begin{pmatrix}
+1\\-2i
+\end{pmatrix}$ are eigenvectors of $\bm A$ associated with eigenvalue $\lambda=2i$; $\beta\begin{pmatrix}
+1\\2i
+\end{pmatrix}$ are eigenvectors of $\bm A$ associated with eigenvalue $\lambda=-2i$.\\
+Moreover, $\bm u=\begin{pmatrix}
+1\\2i
+\end{pmatrix}+\begin{pmatrix}
+1\\-2i
+\end{pmatrix}.$
+\item
+\begin{itemize}
+\item
+Firstly, $\bm A\trans\bm A=\begin{bmatrix}
+16&0\\0&1
+\end{bmatrix}.$ And we have 
+\[
+|\lambda\bm I-\bm A\trans\bm A|=\begin{vmatrix}
+\lambda-16&0\\0&\lambda-1
+\end{vmatrix}=(\lambda-16)(\lambda-1)=0
+\implies\lambda_1=16,\lambda_2=1.
+\]
+\begin{itemize}
+\item
+When $\lambda=16,$ $(\lambda\bm I-\bm A\trans\bm A)\bm x=\bm 0\implies
+\bm x=\alpha\begin{pmatrix}
+1\\0
+\end{pmatrix},
+$ where $\alpha$ is a scalar.
+\item
+When $\lambda=1,$ $(\lambda\bm I-\bm A\trans\bm A)\bm x=\bm 0\implies
+\bm x=\beta\begin{pmatrix}
+0\\1
+\end{pmatrix},
+$ where $\beta$ is a scalar.
+\end{itemize}
+Hence $\bm x_1=\alpha\begin{pmatrix}
+1\\0
+\end{pmatrix}$ are eigenvectors of $\bm A\trans\bm A$ associated with $\lambda_1=16$; $\bm x_2=\beta\begin{pmatrix}
+0\\1
+\end{pmatrix}$ are eigenvectors of $\bm A\trans\bm A$ associated with $\lambda_2=1.$\\
+Hence $\Sigma=\diag(\sqrt{\lambda_1},\sqrt{\lambda_2})=\diag(4,1)$. \\
+If we set $\alpha=1,\beta=1$, then $\bm V=\begin{bmatrix}
+1&0\\0&1
+\end{bmatrix}.$
+\item
+Secondly, Since we have known $\bm A=\bm U\bm\Sigma\bm V\trans$, we derive
+\[
+\bm U=\bm A\bm V\bm\Sigma^{-1}=\begin{bmatrix}
+0&-1\\4&0
+\end{bmatrix}\begin{bmatrix}
+1&0\\0&1
+\end{bmatrix}\begin{bmatrix}
+\frac{1}{4}&0\\0&1
+\end{bmatrix}=\begin{bmatrix}
+0&-1\\1&0
+\end{bmatrix}.
+\]
+\end{itemize}
+In conclusion, our SVD decomposition is given by:
+\[
+\bm A=\begin{bmatrix}
+0&-1\\1&0
+\end{bmatrix}\begin{bmatrix}
+4&0\\0&1
+\end{bmatrix}\begin{bmatrix}
+1&0\\0&1
+\end{bmatrix}\trans
+\]
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+Suppose $\bm S^{-1}\bm A\bm S=\bm D_1$, $\bm S^{-1}\bm B\bm S=\bm D_2$, where $\bm D_1,\bm D_2$ are diagonal matrices.\\
+Then equivalently,
+\[
+\bm A=\bm S\bm D_1\bm S^{-1}\quad
+\bm B=\bm S\bm D_2\bm S^{-1}
+\]
+Hence the product $\bm{AB}$ is given by:
+\begin{align*}
+\bm{AB}&=(\bm S\bm D_1\bm S^{-1})(\bm S\bm D_2\bm S^{-1})\\
+&=\bm S\bm D_1\bm D_2\bm S^{-1}\\
+&=\bm S\bm D_2\bm D_1\bm S^{-1}\\
+&=\bm S\bm D_2\bm S^{-1})(\bm S\bm D_1\bm S^{-1})\\
+&=\bm{BA}.
+\end{align*}
+\item
+We let $\bm v_1,\dots,\bm v_n$ be linearly independent eigenvectors of $\bm A$ associated with $n$ distinct eigenvalues $\lambda_1,\dots,\lambda_n$. \\
+Thus $\bm A\bm v_i=\lambda_i\bm v_i$. By postmultiplying $\bm B$ we find that
+\begin{equation}
+\label{eq_5.1}
+\bm{BA}\bm v_i=\lambda_i\bm B\bm v_i\text{ for }i=1,2,\dots,n.
+\end{equation}
+Notice that $\{\bm x_1,\dots,\bm x_n\}$ spans the whole $\mathbb{R}^n$, thus any vector in $\mathbb{R}^n$ could be expressed as the linear combination of $\{\bm x_1,\dots,\bm x_n\}$. Hence for $\bm B\bm v_i\in\mathbb{R}^n$, we set
+\begin{equation}\label{eq_5.2}
+\bm B\bm v_i=\beta_1\bm v_1+\beta_2\bm v_2+\dots+\beta_n\bm v_n.
+\end{equation}
+By postmultiplying $\bm A$ for equation (\ref{eq_5.2}) we find that
+\begin{equation}
+\begin{aligned}\label{eq_5.3}
+\bm{AB}\bm v_i&=\beta_1\bm A\bm v_1+\beta_2\bm A\bm v_2+\dots+\beta_n\bm A\bm v_n\\
+&=\beta_1\lambda_1\bm v_1+\beta_2\lambda_2\bm v_2+\dots+\beta_n\lambda_n\bm v_n
+\end{aligned}
+\end{equation}
+Also, by applying equation (\ref{eq_5.2}) into equation (\ref{eq_5.1}) we derive:
+\begin{equation}\label{eq_5.4}
+\begin{aligned}
+\bm{BA}\bm v_i&=\lambda_i(\beta_1\bm v_1+\beta_2\bm v_2+\dots+\beta_n\bm v_n)\\
+&=\beta_1\lambda_i\bm v_1+\beta_2\lambda_i\bm v_2+\dots+\beta_n\lambda_i\bm v_n
+\end{aligned}
+\end{equation}
+Since $\bm{AB}=\bm{BA}$, we derive $\bm{AB}\bm v_i=\bm{BA}\bm v_i$. Combining equation (\ref{eq_5.3}) and (\ref{eq_5.4}) we obtain:
+\[
+\bm0=\bm{AB}\bm v_i-\bm{BA}\bm v_i
+=\beta_1(\lambda_1-\lambda_i)\bm v_1+\beta_2(\lambda_2-\lambda_i)\bm v_2+\dots+\beta_n(\lambda_n-\lambda_i)\bm v_n
+\]
+Due to the independence of $\bm v_i$, we derive 
+\[
+\beta_1(\lambda_1-\lambda_i)=\beta_2(\lambda_2-\lambda_i)=\cdots=\beta_n(\lambda_n-\lambda_i)=0.
+\]
+Since eigenvalues of $\bm A$ are distinct, we get $\lambda_j-\lambda_i\ne0$ for $j\ne i.$ Hence $\beta_j=0$ for $j\ne i.$\\
+Considering equation (\ref{eq_5.2}), we derive $\bm B\bm v_i=\beta_i\bm v_i$, which means $\bm v_i$ is also the eigenvector of $\bm B$.\\
+Hence $\bm A$ and $\bm B$ has the same eigenvectors $\bm v_1,\dots,\bm v_n$. Since $\bm A$ can be diagonalized by matrix $\bm S=\begin{bmatrix}
+\bm v_1&\bm v_2&\dots&\bm v_n
+\end{bmatrix}$, $\bm B$ could be also diagonalized by matrix $\bm S$.
+\item
+We need to show that there exists $\bm S$ that can diagonalize $\bm A$ and $\bm B$:\\
+Suppose $\lambda_1,\lambda_2,\dots,\lambda_h$ be the distinct eigenvalues of $\bm A$ with multiplicities $r_1,r_2,\dots,r_h$ respectively. Since $\bm A$ is diagonalizable, there exists $\bm Q$ satisfying
+\[
+\bm Q^{-1}\bm A\bm Q:=\bm D=\diag(\lambda_1\bm I_{r_1},\lambda_2\bm I_{r_2},\dots,\lambda_h\bm I_{r_h})
+=\begin{pmatrix}
+\lambda_1\bm I_{r_1}&  &  &\\
+&\lambda_2\bm I_{r_2}&  &\\
+&&\ddots&\\
+&&&\lambda_h\bm I_{r_h}
+\end{pmatrix}.
+\]
+Also, we can obtain the product $\bm Q^{-1}\bm B\bm Q$ and partition it into block matrix (We partition it in the same way that $\bm D$ has been partitioned):
+\[
+\bm Q^{-1}\bm B\bm Q:=\bm C=\begin{bmatrix}
+\bm C_{11}&\bm C_{12}&\cdots&\bm C_{1h}\\
+\bm C_{21}&\bm C_{22}&\cdots&\bm C_{2h}\\
+\vdots&\vdots&\ddots&\vdots\\
+\bm C_{h1}&\bm C_{h2}&\cdots&\bm C_{hh}
+\end{bmatrix}
+\]
+where $\bm C_{ij}$ is $r_{i}\x r_{j}$ matrix.
+\begin{itemize}
+\item
+Firstly, we show $\bm C$ is \textit{block diagonal:}\\
+Note that $\bm{AB}=\bm{BA}$, thus we have
+\[
+\begin{aligned}
+\bm D\bm C&=(\bm Q^{-1}\bm A\bm Q)(\bm Q^{-1}\bm B\bm Q)\\
+&=\bm Q^{-1}\bm A\bm B\bm Q=\bm Q^{-1}\bm B\bm A\bm Q\\
+&=(\bm Q^{-1}\bm B\bm Q)(\bm Q^{-1}\bm A\bm Q)\\
+&=\bm C\bm D.
+\end{aligned}
+\]
+Notice that the $(i,j)$th submatrix of $\bm{DC}$ is equal to the $(i,j)$th submatrix of $\bm{CD}$, which yields $\lambda_i\bm I_{r_i}\bm C_{ij}=\bm C_{ij}\lambda_j\bm I_{r_j}\implies\lambda_i\bm C_{ij}=\lambda_j\bm C_{ij}$.\\
+Since $\lambda_i\ne\lambda_j$ for $i\ne j$, we derive $\bm C_{ij}=\bm0$ for $i\ne j$; thus 
+\[
+\bm C=\diag(\bm C_{11},\bm C_{22},\dots,\bm C_{hh})
+=
+\begin{pmatrix}
+\bm C_{11}&  &  &\\
+&\bm C_{22}&  &\\
+&&\ddots&\\
+&&&\bm C_{hh}
+\end{pmatrix}.
+\]
+is \textit{block diagonal}.
+\item
+Then we show $\bm C$ is diagonalizable:\\
+Since $\bm B$ is diagonalizable, there exists $\bm M$ satisfying
+\[
+\bm M^{-1}\bm B\bm M=\bm N\implies
+\bm B=\bm M\bm N\bm M^{-1}
+\]
+where $\bm N$ is diagonal. And since $\bm Q^{-1}\bm B\bm Q=\bm C$, we derive
+\[
+\bm Q^{-1}\bm M\bm N\bm M^{-1}\bm Q=\bm C
+\implies(\bm Q^{-1}\bm M)^{-1}\bm C(\bm Q^{-1}\bm M)=\bm N
+\]
+If we define $\bm T:=\bm Q^{-1}\bm M$, then $\bm T^{-1}\bm C\bm T=\bm N$. So $\bm C$ is also diagonalizable.
+\item
+Then we show each $\bm C_{ii}$ is diagonalizable:\\
+Moreover, if we partition $\bm T$ as:
+\[
+\bm T=\begin{bmatrix}
+\bm T_{11}&\bm T_{12}&\cdots&\bm T_{1h}\\
+\bm T_{21}&\bm T_{22}&\cdots&\bm T_{2h}\\
+\vdots&\vdots&\ddots&\vdots\\
+\bm T_{h1}&\bm T_{h2}&\cdots&\bm T_{hh}
+\end{bmatrix},
+\]
+where $\bm T_{ij}$ is $r_i\x r_j$ matrix, then we find the product $\bm{CT}$ is always block diagonal matrix.\\
+Similarly, the product $\bm T^{-1}\x(\bm{CT})$ is also block diagonal matrix.\\
+Hence without loss of generailty, we can say there must exist block diagonal matrix $\bm T_{*}=\diag(\bm T_{11},\bm T_{22},\dots,\bm T_{hh})$ such that
+\begin{equation}\label{eq_5.7}
+\begin{aligned}
+\bm T_*^{-1}\bm C\bm T_*&=\begin{pmatrix}
+\bm T_{11}^{-1}&  &  &\\
+&\bm T_{22}^{-1}&  &\\
+&&\ddots&\\
+&&&\bm T_{hh}^{-1}
+\end{pmatrix}\begin{pmatrix}
+\bm C_{11}&  &  &\\
+&\bm C_{22}&  &\\
+&&\ddots&\\
+&&&\bm C_{nn}
+\end{pmatrix}\begin{pmatrix}
+\bm T_{11}&  &  &\\
+&\bm T_{22}&  &\\
+&&\ddots&\\
+&&&\bm T_{hh}
+\end{pmatrix}\\&=
+\begin{pmatrix}
+\bm T_{11}^{-1}\bm C_{11}\bm T_{11}&  &  &\\
+&\bm T_{22}^{-1}\bm C_{22}\bm T_{22}&  &\\
+&&\ddots&\\
+&&&T_{hh}^{-1}\bm C_{hh}\bm T_{hh}
+\end{pmatrix}=\bm N.
+\end{aligned}
+\end{equation}
+Hence each $\bm C_{ii}$ is also diagonalizable.
+\item
+Finally, we set $\bm P=\bm Q\bm T_{*}$, we show that both $\bm P^{-1}\bm A\bm P$ and $\bm P^{-1}\bm B\bm P$ are diagonal:
+\begin{align*}
+\bm P^{-1}\bm A\bm P&=\bm T_{*}^{-1}\bm Q^{-1}\bm A\bm Q\bm T_{*}=\bm T_{*}^{-1}\bm D\bm T_{*}\\
+&=\diag(\bm T_{11}^{-1},\bm T_{22}^{-1},\dots,\bm T_{hh}^{-1})\diag(\lambda_1\bm I_{r_1},\lambda_2\bm I_{r_2},\dots,\lambda_h\bm I_{r_h})\diag(\bm T_{11},\bm T_{22},\dots,\bm T_{hh})\\
+&=\diag(\lambda_1\bm T_{11}^{-1}\bm T_{11},\lambda_2\bm T_{22}^{-1}\bm T_{22},\dots,\lambda_hT_{hh}^{-1}T_{hh})\\
+&=\diag(\lambda_1\bm I_{r_1},\lambda_2\bm I_{r_2},\dots,\lambda_h\bm I_{r_h})=\bm D
+\end{align*}
+and
+\begin{align*}
+\bm P^{-1}\bm B\bm P&=\bm T_{*}^{-1}\bm Q^{-1}\bm B\bm Q\bm T_{*}=\bm T_{*}^{-1}\bm C\bm T_{*}\\
+&=\bm N\qquad\text{(You may check equation $(\ref{eq_5.7})$ to see why.)}
+\end{align*}
+Hence both $\bm P^{-1}\bm A\bm P$ and $\bm P^{-1}\bm B\bm P$ are diagonal. The proof is complete.
+\end{itemize}
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+Firstly, we extend the \emph{Hadamard Product} into vectors:\\
+For $\bm u,\bm v\in\mathbb{R}^{n\x 1}$, we obtain:
+\[
+\begin{bmatrix}
+\bm u\circ\bm v
+\end{bmatrix}=\begin{bmatrix}
+u_1v_1&u_2v_2&\dots&u_nv_n
+\end{bmatrix}\trans.
+\]
+Secondly, it's easy for you to verify the two properties:
+\begin{proposition}\label{prposition_q6.1}
+For matrices $\bm A,\bm B,\bm C\in\mathbb{R}^{n\x n}$, we have
+\[
+(\bm A+\bm B)\circ\bm C=\bm A\circ\bm C+\bm B\circ\bm C
+\]
+\end{proposition}
+\begin{proposition}\label{prposition_q6.2}
+For vectors $\bm u_1,\bm v_1,\bm u_2,\bm v_2\in\mathbb{R}^{n\x 1}$, we have
+\[
+(\bm u_1\bm v_1\trans)\circ(\bm u_2\bm v_2\trans)=(\bm u_1\circ\bm u_2)\times(\bm v_1\circ\bm v_2)\trans.
+\]
+\end{proposition}
+So we begin to show $\rank(\bm A\circ\bm B)\le\rank(\bm A)\rank(\bm B):$\\
+We let $r_1=\rank(\bm A),r_2=\rank(\bm B)$. Due to the theorem $(\ref{proposition_8.4})$, we can decompose $\bm A$ and $\bm B$ as:
+\begin{align*}
+\bm A&=\sigma_1\bm u_1\bm v_1\trans+\sigma_2\bm u_2\bm v_2\trans+\dots+\sigma_{r_1}\bm u_{r_1}\bm v_{r_1}\trans\\
+\bm B&=\eta_1\bm w_1\bm x_1\trans+\eta_2\bm w_2\bm x_2\trans+\dots+\eta_{r_2}\bm w_{r_2}\bm x_{r_2}\trans
+\end{align*}
+where $\bm u_i,\bm v_i,\bm w_i,\bm x_i$'s are all $\mathbb{R}^{n\x 1}$ vectors.\\
+Hence the Hadamard product $\bm A\circ\bm B$ is given by:
+\begin{align*}
+\bm A\circ\bm B&=\left(
+\sum_{i=1}^{r_1}\sigma_i\bm u_i\bm v_i\trans
+\right)\circ\left(
+\sum_{j=1}^{r_2}\eta_j\bm w_j\bm x_j\trans
+\right)\\
+&=\sum_{i=1}^{r_1}\sum_{j=1}^{r_2}\sigma_i\eta_j(\bm u_i\bm v_i\trans\circ\bm w_j\bm x_j\trans)
+\qquad&\text{Due to the proposition (\ref{prposition_q6.1})}
+\\
+&=\sum_{i=1}^{r_1}\sum_{j=1}^{r_2}\sigma_i\eta_j(\bm u_i\circ\bm w_j)(\bm v_i\circ\bm x_j)\trans\qquad&\text{Due to the proposition (\ref{prposition_q6.2})}
+\end{align*}
+Notice that $(\bm u_i\circ\bm w_j)$ and $(\bm v_i\circ\bm x_j)$ are all $\mathbb{R}^{n\x 1}$ vectors, so $(\bm u_i\circ\bm w_j)(\bm v_i\circ\bm x_j)$ are rank 1 matrix. 
+\\Hence we express $\bm A\circ\bm B$ as the sum of $r_1r_2$ matrices with rank 1.\\Thus $\rank(\bm A\circ\bm B)\le r_1r_2=\rank(\bm A)\rank(\bm B).$
+\item
+Since $\bm A\succeq$, we decompose $\bm A$ as:
+\[
+\bm A=\bm U\trans\bm U\text{ where $\bm U$ is square.}
+\]
+If we set $\bm U:=\begin{bmatrix}
+\bm u_1\trans\\\bm u_2\trans\\\vdots\\\bm u_n\trans
+\end{bmatrix}$, we can write $\bm A$ as:
+\[
+\bm A=\bm U\trans\bm U=\begin{bmatrix}
+\bm u_1&\bm u_2&\cdots&\bm u_n
+\end{bmatrix}\begin{bmatrix}
+\bm u_1\trans\\\bm u_2\trans\\\vdots\\\bm u_n\trans
+\end{bmatrix}=\bm u_1\bm u_1\trans+\bm u_2\bm u_2\trans+\cdots+\bm u_n\bm u_n\trans
+\]
+Similarly, we can write $\bm B$ as:
+\[
+\bm B=\bm v_1\bm v_1\trans+\bm v_2\bm v_2\trans+\cdots+\bm v_n\bm v_n\trans.
+\]
+Hence $\bm A\circ\bm B$ can be written as
+\begin{align*}
+\bm A\circ\bm B&=\left(
+\sum_{i=1}^{n}\bm u_i\bm u_i\trans
+\right)\circ\left(
+\sum_{j=1}^{n}\bm v_j\bm v_j\trans
+\right)\\
+&=\sum_{i=1}^{n}\sum_{j=1}^{n}(\bm u_i\bm u_i\trans\circ\bm v_j\bm v_j\trans)\\
+&=\sum_{i=1}^{n}\sum_{j=1}^{n}(\bm u_i\circ\bm v_j)(\bm u_i\circ\bm v_j)\trans
+\end{align*}
+If we set $\bm w_{ij}=\bm u_i\circ\bm v_j$, then we obtain:
+\[
+\bm A\circ\bm B=\sum_{i=1}^{n}\sum_{j=1}^{n}\bm w_{ij}\bm w_{ij}\trans
+\]
+Hence for $\forall\bm x\in\mathbb{R}^{n}$, we derive
+\begin{align*}
+\bm x\trans(\bm A\circ\bm B)\bm x&=\sum_{i=1}^{n}\sum_{j=1}^{n}\bm x\trans\bm w_{ij}\bm w_{ij}\trans\bm x\\
+&=\sum_{i=1}^{n}\sum_{j=1}^{n}\inp{\bm x\bm w_{ij}}{\bm x\bm w_{ij}}\\
+&=\sum_{i=1}^{n}\sum_{j=1}^{n}\|\bm x\bm w_{ij}\|^2\ge0.
+\end{align*}
+By definition, $\bm A\circ\bm B\succeq0.$
+\end{enumerate}
+\end{enumerate}

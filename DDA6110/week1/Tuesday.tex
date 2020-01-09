@@ -1,0 +1,153 @@
+
+\chapter{Week1}
+
+\section{Monday}\index{Monday_lecture}
+
+\subsection{Introduction to Convex Optimization}
+The basic optimization model is as follows:
+\begin{equation}\label{Eq:cvxopt}
+\begin{array}{ll}
+\min&\quad f(x):\mathbb{R}^n\to\mathbb{R}\\
+\mbox{s.t.}&\quad x\in X\subseteq \mathbb{R}^n
+\end{array}
+\end{equation}
+For instance, the constraint $X$ can be union of some inequality constraints:
+\[
+X=\bigg\{
+x\in\mathbb{R}^n
+\bigg|
+f_i(x)\le b_i,\quad i=1,\dots,m
+\bigg\}
+\]
+We only consider \emph{convex} problems in this course,
+which means that in (\ref{Eq:cvxopt}):
+\begin{itemize}
+\item
+the objective function $f$ is convex;
+\item
+the constraint set $X$ is a convex set.
+\end{itemize}
+The goal of optimization is to find $x^*\in X$ such that 
+\[
+f(x^*)\le f(x),\quad \forall x\in X.
+\]
+or determine whether such an $x^*$ exists or not.
+
+\begin{example}
+The least squares problem is a convex problem:
+\[
+\begin{array}{ll}
+\min&\quad\frac{1}{2}\|\bm{Ax}-\bm b\|_2^2\\
+\mbox{s.t.}&\quad x\in\mathbb{R}^n
+\end{array}
+\]
+The optimal solution can be compactly written as
+\[
+\bm x^* = \bm A^{\mbox{*}}\bm b
+\]
+where $\bm A^{\mbox{*}}$ denotes the pseudo inverse of $\bm A$.
+\end{example}
+\begin{example}
+The linear programming is also a convex problem:
+ \[
+\begin{array}{ll}
+\min&\quad\bm c\trans\bm x\\
+\mbox{s.t.}&\quad \bm a_i\trans\bm x\le b_i,\quad i=1,2,\dots,m.
+\end{array}
+\]
+The linear programming is a special case of the conic programming.
+We will cover conic programming in this course.
+\end{example}
+
+
+\begin{definition}[Line Segments]
+The line segment between $\bm x_1,\bm x_2\in\mathbb{R}^n$ is defined as
+\[
+\{
+\theta\bm x_1 + (1-\theta)\bm x_2\mid 
+\theta\in[0,1]
+\}
+=
+\{
+\bm x_2 + \theta(\bm x_1-\bm x_2)\mid \theta\in[0,1]
+\}
+\]
+\end{definition}
+
+\begin{definition}[Convex Set in $\mathbb{R}^n$]
+The set $X\subseteq\mathbb{R}^n$ is convex if for any $x_1,x_2\in X$,
+\[
+\theta x_1 + (1-\theta)x_2\in X,\qquad
+\forall\theta\in[0,1].
+\]
+\end{definition}
+Here are two examples for convex sets over matrices:
+\[
+\mathcal{S}^n = \{\bm W\in\mathbb{R}^n\times\mathbb{R}^n\mid \bm W=\bm W\trans\},
+\quad
+\mathcal{S}^n_+ = \{\bm W\in\mathcal{S}^n\mid \bm W\succeq0\},
+\]
+\begin{remark}
+Sometimes the convex set could be a collection of matrices, but we can vectorize a matrix into a vector.
+\end{remark}
+
+\begin{definition}[Convex Function]
+A function $f:\mathbb{R}^n\to\mathbb{R}$ is \emph{convex} if
+\begin{itemize}
+\item
+$\text{dorm}(f)$ is a convex set, and
+\item
+$\forall x,y\in\text{dorm}(f)$, 
+it holds that for $\theta\in[0,1]$,
+\[
+f(
+\theta x + (1-\theta) y
+)
+\le
+\theta f(x) + (1-\theta) f(y),
+\]
+which means that the secant line betweeen any two points is above the function.
+\end{itemize}
+\end{definition}
+\begin{proposition}
+$f(x) = \max\limits_{i}~f_i(x)$ is convex if $f_i(x)$ is convex for each $i$.
+\end{proposition}
+\begin{proof}
+For any $\theta\in[0,1]$, the following inequality holds:
+\begin{align*}
+f(\theta x + (1-\theta)y) &=\max\limits_{i}~f_i(\theta x + (1-\theta)y)\\
+&\le \max\limits_{i}~\theta f_i(x) + (1-\theta)f_i(y)\\
+&\le \max\limits_{i}~\theta f_i(x) +  \max\limits_{i}~(1-\theta)f_i(y)\\
+&=\theta f(x) + (1-\theta)f(y)
+\end{align*}
+\end{proof}
+\begin{example}
+Define the function
+\[
+\begin{array}{ll}
+&f:\mathbb{S}^n\to\mathbb{R}\\
+\mbox{with}&f(\bm X)=\lambda_{\max}(\bm X)\triangleq\max\limits_{\|\bm v\|=1}~\bm v\trans\bm X\bm v
+\end{array}
+\]
+This function is convex since $f$ can be written as the maximization of a collection of affines (in terms of $\bm X$):
+\[
+f(\bm X) = \max_{\|\bm v\|=1}f_{\bm v}(\bm X),\qquad
+\text{with }f_{\bm v}(\bm X)=\bm v\trans\bm X\bm v.
+\]
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

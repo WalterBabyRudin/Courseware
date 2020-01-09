@@ -1,0 +1,387 @@
+\subsection{Solution to Assignment Six}
+\begin{enumerate}
+%q1
+\item
+\begin{proof}[Solution.]
+One basis for $\mathbb{P}_2$ is $\{t^2,t,1\}.$ And we obtain:
+\begin{align*}
+T(t^2)&=(3t-2)^2&=9t^2-6t+4\times 1\\
+T(t)&=3t-2&=0t^2+3t+(-2)\times 1\\
+T(1)&=1&=ot^2+0t+1\times 1\\
+\end{align*}
+Hence the matrix representation is given by:
+\[
+\bm A=\begin{bmatrix}
+9&-6&4\\0&3&-2\\0&0&1
+\end{bmatrix}
+\]
+We croos the column 1 to compute determinant:
+\[
+\det(\bm A)=9\begin{vmatrix}
+3&-2\\0&1
+\end{vmatrix}=27.
+\]
+\end{proof}
+%q2
+\item
+\begin{proof}
+We only need to show $\bm x\trans\bm y=0$:\\
+By \textit{postmultiplying} $\bm x\trans$ for $\bm A\trans\bm y=2\bm y$ both sides we obtain:
+\[
+\bm x\trans\bm A\trans\bm y=2\bm x\trans\bm y
+\]
+Or equivalently,
+\[
+(\bm{Ax})\trans\bm y=2\bm x\trans\bm y
+\implies
+\bm 0\trans\bm y=2\bm x\trans\bm y
+\implies
+\bm x\trans\bm y=0.
+\]
+\end{proof}
+%q3
+\item
+\begin{proof}[Solution.]
+\begin{enumerate}
+%part a
+\item
+\textit{True.}\\
+\textbf{Reason: }Assume $\bm Q$ is a $n\times n$ matrix s.t. 
+\[
+\bm Q=\begin{bmatrix}
+q_1&q_2&\dots&q_n
+\end{bmatrix}
+\]
+Then the product of $\bm Q\trans\bm Q$ is
+\[
+\bm Q\trans\bm Q=\begin{bmatrix}
+q_1\trans\\q_2\trans\\\vdots\\q_n\trans
+\end{bmatrix}\begin{bmatrix}
+q_1&q_2&\dots&q_n
+\end{bmatrix}=\begin{bmatrix}
+q_1\trans q_1&q_1\trans q_2&\dots&q_1\trans q_n\\
+q_2\trans q_1&q_2\trans q_2&\dots&q_2\trans q_n\\
+\vdots&\vdots&\ddots&\vdots\\
+q_n\trans q_1&q_n\trans q_2&\dots&q_n\trans q_n
+\end{bmatrix}
+\]
+Due to the orthonormality of $q_1,\dots,q_n$, we obtain:
+\[
+\bm Q\trans\bm Q=\bm I_{n}.
+\]
+Hence $\bm Q^{-1}=\bm Q\trans$. If we define $\bm Q^{-1}=\begin{bmatrix}
+q_1^*&q_2^*&\dots&q_n^*
+\end{bmatrix}$, then we obtain:
+\[
+(\bm Q^{-1})\trans\bm Q^{-1}=
+\begin{bmatrix}
+(q_1^*)\trans\\(q_2^*)\trans\\\vdots\\(q_n^*)\trans
+\end{bmatrix}\begin{bmatrix}
+q_1^*&q_2^*&\dots&q_n^*
+\end{bmatrix}=\begin{bmatrix}
+(q_1^*)\trans q_1^*&(q_1^*)\trans q_2^*&\dots&(q_1^*)\trans q_n^*\\
+(q_2^*)\trans q_1^*&(q_2^*)\trans q_2^*&\dots&(q_2^*)\trans q_n^*\\
+\vdots&\vdots&\ddots&\vdots\\
+(q_n^*)\trans q_1^*&(q_n^*)\trans q_2^*&\dots&(q_n^*)\trans q_n^*
+\end{bmatrix}
+=\bm I
+\]
+Hence for columns $q_1^*,q_2^*,\dots,q_n^*$ we have:
+\[
+\inp{\bm q_i^*}{\bm q_j^*}=\begin{cases}
+0&\text{when $i\ne j$}\qquad\text{(\emph{orthogonal} vectors)},\\
+1&\text{when $i=j$}\qquad\text{(\emph{unit} vectors: $\|\bm q_i^*\|=1$)}.
+\end{cases}
+\]
+for $i,j\in\{1,2,\dots,n\}$.\\ By definition, $q_1^*,q_2^*,\dots,q_n^*$ are orthonormal. Hence $\bm Q^{-1}$ is a orthogonal matrix.\\
+\textbf{Example:}
+\[
+\bm Q=\begin{bmatrix}
+1&0\\0&1
+\end{bmatrix}\implies\bm Q^{-1}=\begin{bmatrix}
+1&0\\0&1
+\end{bmatrix}
+\]
+which is obviously orthonormal.
+%part b
+\item
+\textit{True.}\\
+\textbf{Reason: }
+Assume $\bm Q=\begin{bmatrix}
+q_1&q_2&\dots&q_n
+\end{bmatrix}$, where $q_i\in\mathbb{R}^{m}$ for $i=1,\dots,n$.\\
+\begin{itemize}
+\item
+Firstly we show $\bm Q\trans\bm Q=\bm I$:
+\[
+\bm Q\trans\bm Q=\begin{bmatrix}
+q_1\trans\\q_2\trans\\\vdots\\q_n\trans
+\end{bmatrix}\begin{bmatrix}
+q_1&q_2&\dots&q_n
+\end{bmatrix}=\begin{bmatrix}
+q_1\trans q_1&&&\\
+&q_2\trans q_2&&\\
+&&\ddots&\\
+&&&q_n\trans q_n
+\end{bmatrix}=\bm I_{n}.
+\]
+\item
+Hence we derive
+\begin{align*}
+\|\bm{Qx}\|^2&=\bm x\trans\bm Q\trans\bm Q\bm x\\
+&=\bm x\trans(\bm Q\trans\bm Q)\bm x=\bm x\trans\bm I\bm x\\
+&=\bm x\trans\bm x\\
+&=\|\bm x\|^2
+\end{align*}
+
+\end{itemize}
+Hence $\|\bm{Qx}\|=\|\bm x\|$.\\
+\textbf{Example: }\\
+If $\bm Q=\begin{bmatrix}
+1\\0
+\end{bmatrix}_{2\times 1}$, then for any $\bm x=\begin{bmatrix}
+\bm\alpha
+\end{bmatrix}$ ($\bm\alpha$ is a row vector), 
+\begin{gather}
+\|\bm{Qx}\|=\|\begin{bmatrix}
+\bm\alpha\\\bm 0
+\end{bmatrix}\|=\sqrt{|\inp{\bm\alpha}{\bm\alpha}|+\bm 0^2}=\sqrt{|\inp{\bm\alpha}{\bm\alpha}|}\\
+\|\bm x\|=\sqrt{|\inp{\bm\alpha}{\bm\alpha}|}.
+\end{gather}
+Hence we obtain $\|\bm{Qx}\|=\|\bm x\|$ for $\forall\bm x$.
+%part c
+\item
+\textit{False.}\\
+\textbf{Example: }\\
+$\bm Q=\begin{bmatrix}
+1&0\\0&0\\0&1
+\end{bmatrix},\bm y=\begin{bmatrix}
+0\\1\\0
+\end{bmatrix}$, then note that
+\[
+\bm Q\trans\bm y=\begin{bmatrix}
+1&0&0\\0&0&1
+\end{bmatrix}\begin{bmatrix}
+0\\1\\0
+\end{bmatrix}=\begin{bmatrix}
+0\\0
+\end{bmatrix}.
+\]
+Thus $\|\bm Q\trans\bm y\|=0\ne 1=\|\bm y\|$.
+\end{enumerate}
+\end{proof}
+%q4
+\item
+\begin{proof}[Solution.]
+\begin{itemize}
+\item
+Firstly we show $\bm W_1\subset\bm W_2^{\perp}$:\\
+For $\forall p\in\bm W_1,\forall q\in\bm W_2$, we only need to show $\inp{p}{q}=0:$\\
+\begin{itemize}
+\item
+For $\forall f\in\bm W_2,$ we have
+\begin{align*}
+\int_{-1}^{1}f(x)\diff x&=\int_{-1}^{0}f(x)\diff x+\int_{0}^{1}f(x)\diff x\\
+&=\int_{-1}^{0}-f(-x)\diff x+\int_{0}^{1}f(x)\diff x\\
+&=\int_{-1}^{0}f(-x)\diff (-x)+\int_{0}^{1}f(x)\diff x\\
+&=\int_{1}^{0}f(x)\diff (x)+\int_{0}^{1}f(x)\diff x\\
+&=0.
+\end{align*}
+\item
+And the product $pq\in\bm W_2$, this is because:
+\begin{align*}
+(pq)(x)&=p(x)q(x)=p(-x)-q(-x)\\
+&=-p(-x)q(-x)\\
+&=-(pq)(-x).
+\end{align*}
+Hence the inner product $\inp{p}{q}$ is given by:
+\[\inp{p}{q}=\int_{-1}^{1}p(x)q(x)\diff x=\int_{-1}^{1}(pq)(x)\diff x=0
+\]
+\end{itemize}
+Hence $\bm W_1\perp\bm W_2\implies$$\bm W_1\subset\bm W_2^{\perp}$.
+\item
+Then we show $\bm W_2^{\perp}\subset\bm W_1$:\\
+Suppose $p^{*}\notin\bm W_1$, then we want to show $\inp{p^*}{q}\ne0$ for some $q\in\bm W_2$:\\
+\begin{itemize}
+\item
+We decompose $p^{*}$ into
+\[
+p^*(x)=p_1(x)+p_2(x)
+\]
+where $p_1(x)=\frac{p^*(x)+p^*(-x)}{2}$ and $p_2(x)=\frac{p^*(x)-p^*(-x)}{2}$.
+Since we have
+\begin{gather*}
+p_1(-x)=\frac{p^*(-x)+p^*(x)}{2}=p_1(x)\\
+p_2(-x)=\frac{p^*(-x)-p^*(x)}{2}=-p_2(x),
+\end{gather*}
+we derive $p_1(x)\in\bm W_1,p_2(x)\in\bm W_2$. ($p^*\notin \bm W_1\implies p_2\ne0$.)
+\item
+Thus the inner product for $\inp{p^{*}}{p_2}$ is positive:
+\begin{align*}
+\inp{p^*}{p_2}&=\inp{p_1+p_2}{p_2}\\
+&=\inp{p_1}{p_2}+\inp{p_2}{p_2}\\
+&=0+\int_{-1}^{1}p_2^2(x)\diff x>0.
+\end{align*}
+\end{itemize}
+Hence given $\forall p^*\notin\bm W_1$, there exists $q=p_2\in\bm W_2$ s.t. $\inp{p^*}{q}\ne0$.\\
+Thus $p^*\notin\bm W_2^{\perp}\implies\bm W_2^{\perp}\subset\bm W_1.$
+\end{itemize}
+Hence we obtain $\bm W_1=\bm W_2^{\perp}$.
+\end{proof}
+%q5
+\item\begin{proof}[Solution.]
+\begin{itemize}
+\item
+Firstly we find a basis for $\bm U$:\\
+The space $\Span\left\{\begin{bmatrix}
+1\\2\\-5
+\end{bmatrix}\right\}$ is the row space for matrix 
+\[
+\bm A=\begin{bmatrix}
+1&2&-5
+\end{bmatrix}
+\]
+Hence $\bm U=(C(\bm A))^{\perp}=N(\bm A)$. We only need to find the basis for $N(\bm A)$:
+\[
+\bm{Ax}=\bm 0\implies
+x_1+2x_2-5x_3=0.
+\]
+Hence the solution to $\bm{Ax}=\bm 0$ is
+\[
+\begin{pmatrix}
+x_1\\x_2\\x_3
+\end{pmatrix}=\begin{pmatrix}
+-2x_2+5x_3\\x_2\\x_3
+\end{pmatrix}=x_2\begin{pmatrix}
+-2\\1\\0
+\end{pmatrix}+x_3\begin{pmatrix}
+5\\0\\1
+\end{pmatrix}
+\]
+where $x_2,x_3$ are arbitrary scalars.\\
+Hence $\bm U$ is spanned by $\left\{\begin{pmatrix}
+-2\\1\\0
+\end{pmatrix},\begin{pmatrix}
+5\\0\\1
+\end{pmatrix}\right\}.$
+And obviously, $\begin{pmatrix}
+-2\\1\\0
+\end{pmatrix}$ and $\begin{pmatrix}
+5\\0\\1
+\end{pmatrix}$ are ind.\\
+Hence one basis for $\bm U$ is $\left\{\begin{pmatrix}
+-2\\1\\0
+\end{pmatrix},\begin{pmatrix}
+5\\0\\1
+\end{pmatrix}\right\}.$
+\item
+Let's do Gram-Schmidt Process to convert this basis into \textit{orthonormal}:\\
+We set $\bm a=\begin{bmatrix}
+-2\\1\\0
+\end{bmatrix}$ and $\bm b=\begin{bmatrix}
+5\\0\\1
+\end{bmatrix}$.
+\begin{itemize}
+\item
+Then we set $\bm A=\begin{bmatrix}
+-2\\1\\0
+\end{bmatrix}$.
+\item
+Next step, we compute 
+\begin{align*}
+\bm B&=\bm b-\Proj_{\bm A}(\bm b)=\bm b-\frac{\inp{\bm A}{\bm b}}{\inp{\bm A}{\bm A}}\bm A\\
+&=\begin{pmatrix}
+5\\0\\1
+\end{pmatrix}-\frac{-10}{5}\begin{pmatrix}
+-2\\1\\0
+\end{pmatrix}\\
+&=\begin{pmatrix}
+1\\2\\1
+\end{pmatrix}
+\end{align*}
+\item
+Then we convert orthogonal sets $\{\bm A,\bm B\}$ into orthonormal:
+\[
+\bm q_1:=\frac{\bm A}{\|\bm A\|}=\begin{pmatrix}
+-\frac{2}{\sqrt{5}}\\\frac{1}{\sqrt{5}}\\0
+\end{pmatrix}\qquad
+\bm q_2:=\frac{\bm B}{\|\bm B\|}=\begin{pmatrix}
+\frac{1}{\sqrt{6}}\\\frac{2}{\sqrt{6}}\\\frac{1}{\sqrt{6}}
+\end{pmatrix}
+\]
+\end{itemize}
+\end{itemize}
+In conclusion, one orthonormal basis for $\bm U$ is $\left\{\begin{pmatrix}
+-\frac{2}{\sqrt{5}}\\\frac{1}{\sqrt{5}}\\0
+\end{pmatrix},\begin{pmatrix}
+\frac{1}{\sqrt{6}}\\\frac{2}{\sqrt{6}}\\\frac{1}{\sqrt{6}}
+\end{pmatrix}\right\}$.
+\end{proof}
+%q6
+\item
+\begin{proof}[Solution.] 
+We only need to find \textit{least squares solution} $\bm x^*$ to $\bm{Ax}=\bm b$, where
+\[
+\bm A=\begin{bmatrix}
+1&-2\\1&-1\\1&0\\1&1\\1&2
+\end{bmatrix}\qquad\bm x=\begin{bmatrix}
+C\\D
+\end{bmatrix}\qquad\bm b=\begin{bmatrix}
+4\\2\\-1\\0\\0
+\end{bmatrix}.
+\]
+Take on trust that we only need to solve $\bm A\trans\bm A\bm x=\bm A\trans\bm b$.\\
+\begin{itemize}
+\item
+But before that, let's do QR factorization for $\bm A$:
+\[
+\text{Define }\bm A:=\begin{bmatrix}
+\bm a_1&\bm a_2
+\end{bmatrix}\qquad
+\inp{\bm a_1}{\bm a_2}=0
+\implies
+\text{Columns of $\bm A$ are orthogonal.}
+\]
+So we obtain orthonormal vectors:
+\[
+\bm q_1:=\frac{\bm a_1}{\|\bm a_1\|}=\begin{bmatrix}
+\frac{1}{\sqrt{5}}\\\frac{1}{\sqrt{5}}\\\frac{1}{\sqrt{5}}\\\frac{1}{\sqrt{5}}\\\frac{1}{\sqrt{5}}
+\end{bmatrix}\qquad
+\bm q_2=\frac{\bm a_2}{\|\bm a_2\|}=\begin{bmatrix}
+-\frac{2}{\sqrt{10}}\\-\frac{1}{\sqrt{10}}\\0\\\frac{1}{\sqrt{10}}\\\frac{2}{\sqrt{10}}
+\end{bmatrix}
+\]
+Thus the factor is given by
+\[
+\bm Q=\begin{bmatrix}
+\bm q_1&\bm q_2
+\end{bmatrix}\qquad
+\bm R=\bm Q\trans\bm A=\begin{bmatrix}
+\bm q_1\trans\bm a_1&\bm q_1\trans\bm a_2\\0&\bm q_2\trans\bm a_2
+\end{bmatrix}=\begin{bmatrix}
+\sqrt{5}&0\\0&\sqrt{10}
+\end{bmatrix}.
+\]
+\item
+Hence we could compute the least squares solution more easily:
+\[
+\bm A\trans\bm A\bm x=\bm A\trans\bm b\Longleftrightarrow
+\bm R\trans\bm Q\trans\bm Q\bm R\bm x=\bm R\trans\bm Q\trans\bm b\Longleftrightarrow\bm R\trans\bm R\bm x=\bm R\trans\bm Q\trans\bm b
+\]
+\begin{align*}
+\implies\bm x=\bm R^{-1}\bm Q\trans\bm b&=\frac{1}{5\sqrt{2}}\begin{bmatrix}
+\sqrt{10}&0\\0&\sqrt{5}
+\end{bmatrix}\begin{bmatrix}
+\frac{1}{\sqrt{5}}&\frac{1}{\sqrt{5}}&\frac{1}{\sqrt{5}}&\frac{1}{\sqrt{5}}&\frac{1}{\sqrt{5}}\\
+-\frac{2}{\sqrt{10}}&-\frac{1}{\sqrt{10}}&0&\frac{1}{\sqrt{10}}&\frac{2}{\sqrt{10}}
+\end{bmatrix}\\
+&=\begin{bmatrix}
+1\\-1
+\end{bmatrix}
+\end{align*}
+\end{itemize}
+Hence we have $\begin{cases}
+C=1\\D=-1.
+\end{cases}$ The best line is $\hat y=1-x$.
+\end{proof}
+\end{enumerate}

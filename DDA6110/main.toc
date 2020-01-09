@@ -1,0 +1,10 @@
+\select@language {english}
+\vskip -8pt
+\contentsline {schapter}{Acknowledgments}{vii}{chapter*.2}
+\vskip -8pt
+\contentsline {schapter}{Notations}{ix}{chapter*.3}
+\contentsline {chapter}{\numberline {1}Week1}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Monday}{1}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Introduction to Convex Optimization}{1}{subsection.1.1.1}
+\contentsline {section}{\numberline {1.2}Wednesday}{5}{section.1.2}
+\contentsfinish 

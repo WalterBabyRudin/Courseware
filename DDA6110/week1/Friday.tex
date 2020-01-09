@@ -1,0 +1,186 @@
+% !TEX encoding = UTF-8 Unicode
+
+\section{Wednesday}\index{Friday_lecture}
+
+Convex Programming~(CP):
+\[
+\begin{array}{ll}
+\min&\quad f_0(x)\\
+\mbox{s.t.}&\quad x\in X\subseteq\mathbb{R}^n
+\end{array}
+\]
+with $f$ and $X$ being convex.
+The standard constraint set $X$ can be written as:
+\begin{equation*}
+X=\bigg\{
+x\bigg|
+f_i(x)\le b_i,~~
+i=1,2,3,\ldots,m,\quad
+Ax=c
+\bigg\}
+\end{equation*}
+with $A\in\mathbb{R}^{p\times n}$, $p<n$, and $f_i$'s are convex.
+
+\begin{proposition}
+The constraint set
+\[
+X=\bigg\{
+x\bigg|
+f_i(x)\le b_i,~~i=1,\dots,m
+\bigg\}
+\]
+is \emph{convex} if all $f_i$'s are convex.
+\end{proposition}
+\begin{proof}
+For any $x_1,x_2\in X$ and $\theta\in[0,1]$, verify that
+\begin{align*}
+f_i(\theta x_1 + (1-\theta)x_2)
+&\le 
+\theta f_i(x_1) + (1-\theta) f_i(x_2)\\
+&\le \theta b_i + (1-\theta)b_i=b_i
+\end{align*}
+where the first inequality is because of the convexity,
+and the second inequality is because that $x_i\in X, i=1,2$.
+As a result, $\theta x_1 + (1-\theta)x_2\in X$, i.e., $X$ is a convex set.
+\end{proof}
+
+\begin{proposition}
+If $\{X_i\}_{i\in\mathcal{I}}$ is a collection of convex sets, then the union $X=\bigcap_{i\in \mathcal{I}}$ is convex.
+\end{proposition}
+\begin{proof}
+Consider any $x_1,x_2\in X$, i.e., $x_1,x_2\in X_i,\forall i\in\mathcal{I}$, then by the convexity of $X_i$s, the line segment
+\[
+\theta x_1 + (1-\theta)x_2\in X_i,\forall i\in\mathcal{I},
+\]
+i.e., $\theta x_1 + (1-\theta)x_2\in X$.
+\end{proof}
+
+\begin{definition}[Epigraph]
+Consider a function $f:\mathbb{R}^n\to\mathbb{R}$, 
+the epigraph of $f$ is a set defined as
+\[
+\text{epi}(f)
+=
+\bigg\{
+(x,t)\bigg|
+f(x)\le t ,x\in\text{dorm}(f)
+\bigg\}\in\mathbb{R}^{n+1}.
+\]
+\end{definition}
+
+\begin{proposition}
+The function $f$ is convex if and only if the epigraph $\text{epi}(f)$ is convex.
+\end{proposition}
+\begin{proof}
+We only talk about the proof on the forward direction.
+Consider any $(x_1,t_1), (x_2,t_2)\in \text{epi}(f)$, then we show that $\theta(x_1,t_1)+(1-\theta)(x_2,t_2)\in \text{epi}(f)$ for any $\theta\in[0,1]$:
+\begin{align*}
+f(\theta x_1 + (1-\theta)x_2)&\le \theta f(x_1) + (1-\theta)f(x_2)\\
+&\le \theta t_1 + (1-\theta)t_2,
+\end{align*}
+which proves the desired result.
+\end{proof}
+
+Let's start to introduce some useful convex sets.
+\begin{definition}[Combination of two points]
+Consider the combination of two points $x_1,x_2$:
+\[
+\theta_1 x_1 + \theta_2x_2,
+\]
+\begin{itemize}
+\item
+When $\theta_1,\theta_2\in\mathbb{R}$, it is called an affine combination;
+the resulted space is an \emph{affine space}.
+\item
+When $\theta_1,\theta_2\in\mathbb{R}_+$, it is called a non-negative combination;
+the resulted space is a \emph{convex cone}.
+\item
+When $\theta_2=1-\theta_1,\theta_1\in[0,1]$, it is called a convex combination;
+the resulted space is a \emph{convex set}.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Affine Set]
+The standard form of an affine space is $\{\bm x\mid\bm{Ax}=\bm b\}$.
+\end{definition}
+
+\begin{definition}[Cone]
+A set is called a cone with a vertex at the origin if 
+for any $\bm x\in X$, $a\bm x\in X$ for any $a\ge0$.
+\end{definition}
+
+The standard form of a convex conic programming is the following:
+\[
+\begin{array}{ll}
+\min&\quad\inp{\bm C}{\bm X}\\
+\mbox{s.t.}&\quad \inp{\bm A_i}{\bm X}=\bm B_i,~~i=1,2,\dots,m\\
+&\quad \bm X\in\mathcal{K}
+\end{array}
+\]
+where $\mathcal{K}$ is a convex cone.
+
+One special form of conic programming is the linear programming:
+\[
+\begin{array}{ll}
+\min&\quad\inp{\bm c}{\bm x}\\
+\mbox{s.t.}&\quad \bm{Ax}=\bm b\\
+&\quad \bm x\ge\bm0
+\end{array}
+\]
+
+Another is the second-order cone programming:
+\[
+\mathcal{K} = \{(\bm x,t)\mid \|\bm x\|_2\le t\}
+\]
+
+The semidefinite programming also belongs to the case of conic programming:
+\[
+\mathcal{K}=\mathcal{S}_+^n
+\triangleq
+\{
+\bm X\in\mathbb{S}^n\mid
+\bm X\succeq0,\forall \bm v\in\mathbb{R}^n
+\}
+\]
+
+Convex hull of a set $S$:
+
+It is the smallest convex set containing $S$, called $\text{conv}(S)$.
+
+\begin{definition}[Polyhedron]
+\begin{itemize}
+\item
+A hyperplane in $\mathbb{R}^n$ can be written as the form $\{\bm x\mid\bm a\trans\bm x=b\}$.
+\item
+Half space: $\{\bm x\mid\bm a\trans\bm x\le\bm b\}$.
+\item
+Polyhedron: a intersection of finite hyperplanes and half spaces.
+\item
+Ellipsoid:
+\begin{align*}
+\bigg\{
+\bm x
+\bigg|
+(\bm x - \bm x_c)\trans
+\bm P^{-1}
+(\bm x - \bm x_c)\le 1,~
+\bm P\succ0
+\bigg\}
+&=
+\{\bm x\mid \|\bm P^{-1/2}(\bm x- \bm x_c)\|_2^2\le 1\}\\
+&=
+\{\bm x\mid 
+\bm x = \bm x_c + \bm A\bm u,
+\|\bm u\|_2\le 1
+\}
+\end{align*}
+
+\end{itemize}
+\end{definition}
+
+
+
+
+
+
+

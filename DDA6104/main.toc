@@ -1,0 +1,21 @@
+\select@language {english}
+\vskip -8pt
+\contentsline {schapter}{Acknowledgments}{vii}{chapter*.2}
+\vskip -8pt
+\contentsline {schapter}{Notations}{ix}{chapter*.3}
+\contentsline {chapter}{\numberline {1}Week1}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Wednesday}{1}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Motivation}{1}{subsection.1.1.1}
+\contentsline {paragraph}{Key Issues}{3}{Item.6}
+\contentsline {subsection}{\numberline {1.1.2}Generating Random Variables}{4}{subsection.1.1.2}
+\contentsline {paragraph}{Generating Uniform Numbers}{4}{subsection.1.1.2}
+\contentsline {paragraph}{Transfer RN to RV}{4}{Item.14}
+\contentsline {paragraph}{More accpetance-rejection ideas}{7}{exampleT.1.5}
+\contentsline {paragraph}{Squeezing}{7}{exampleT.1.5}
+\contentsline {section}{\numberline {1.2}Friday}{8}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Proof of Schroder-Bernstein Theorem}{8}{subsection.1.2.1}
+\contentsline {paragraph}{Intuition from Fig.(\ref {Fig:1:2})}{8}{subsection.1.2.1}
+\contentsline {paragraph}{$F$ is onto mapping}{10}{figure.1.2}
+\contentsline {paragraph}{$F$ is one-to-one mapping}{10}{Item.20}
+\contentsline {subsection}{\numberline {1.2.2}Connectedness of Real Numbers}{12}{subsection.1.2.2}
+\contentsfinish 

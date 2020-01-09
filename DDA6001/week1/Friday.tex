@@ -1,0 +1,120 @@
+% !TEX encoding = UTF-8 Unicode
+
+\section{Thursday}\index{Thursday_lecture}
+\paragraph{Reviewing}
+Probability space $(\Omega,\mathcal{F},\mathbb{P})$, where
+\begin{itemize}
+\item
+$\Omega$: collection of data;
+\item
+$\mathcal{F}$: collection of events;
+\item
+$\mathbb{P}$: probability measure $\mathcal{F}\to[0,1]$ satisfying:
+\begin{itemize}
+\item
+$\mathbb{P}(\Omega)=1$;
+\item
+$A_i\in\mathcal{F}, A_i\cap A_j=\emptyset$, then
+\[
+\mathbb{P}\bigg(
+\bigcup_{i=1}^\infty A_i
+\bigg)
+=
+\sum_{i=1}^\infty\mathbb{P}(A_i)
+\]
+\end{itemize}
+\end{itemize}
+
+From observation to number: $\Omega\ni\omega\to X(\omega)\in\mathbb{R}$.
+Therefore, $X$ should be measurable, i.e.,
+\[
+\{\omega\in\Omega; X(\omega)\in B\}:=\{X\in B\}:=X^{-1}(B)\in\mathcal{F}, ~~\forall B\in\mathcal{B}(\mathbb{R}).
+\]
+If $X$ is measurable, we call $X$ as a random variable.
+We can also show that
+\[
+\{\omega\in\Omega; X(\omega)\in B\}\in\mathcal{F}\Longleftrightarrow
+\{X\le a\}\in\mathcal{F}
+\]
+
+
+\subsection{Representative value of random variable $X$}
+We define the random variable by the following three steps:
+\begin{itemize}
+\item
+Consider first that $X$ is simple, i.e., taking finite many values.
+Assume that $X$ only takes $x_1,x_2,\ldots,x_n\in\mathbb{R}$.
+\[
+\mathbb{E}[X]:=\sum_{i=1}^m x_i\mathbb{P}(X=x_i),
+\]
+with $\mathbb{P}(X = x_i) = \mathbb{P}(\{X=x_i\})=\mathbb{P}\{\omega\in\Omega; X(\omega)=x_i\}$.
+\item
+Then consider the case where $X$ is non-negative, which is approximated by simple random variables.
+For each $n\ge1$, 
+\[
+X_n(\omega) = \left\{
+\begin{aligned}
+(i-1)2^{-n},&\quad\text{if $(i-1)2^{-n}\le X(\omega)<i2^{-n}, i=1,2,\dots,n2^n+1$}\\
+n,&\quad\text{if $X(\omega)\ge n$}
+\end{aligned}
+\right.
+\]
+Taking $n\to\infty$, $X_n(\omega)\uparrow X(\omega)$.
+Define $\mathbb{E}[X] = \lim_{n\to\infty}\mathbb{E}[X_n]$.
+\item
+Consider finally $X$ is in the whole real line.
+\begin{align*}
+X_+(\omega) = \max\{0, X(\omega)\}\ge0
+\end{align*}
+\end{itemize}
+
+
+\begin{example}
+Consider the news vender problem:
+\end{example}
+
+
+
+The random variable $X$ may take other types of values than $(-\infty,\infty)$, such as vector values.
+\[
+X:~~\omega\in\Omega\to X(\omega)\in S,
+\]
+with $S$ being a topological space.
+A speical case is the metric space.
+The advantage of topological space is that we can use it to define borel set conveniently:
+\[
+\mathcal{B}(S):=\sigma(\{\mbox{topology of $S$}\})
+\]
+$X$ is $S$-valued random variable if $X:\Omega\to S$ and $\{X\in B\}\in\mathcal{F}, \forall B\in\mathcal{B}(S)$.
+
+It may be difficult to evaluate the expectation of a random variable, and therefore we pick the test function
+\[
+f: S\to\mathbb{R}
+\]
+satisfying measurability:
+\[
+f^{-1}(B')\in\mathcal{B}(S), \forall B'\in\mathcal{B}(\mathbb{R})
+\]
+Define $f(X)(\omega) = f(X(\omega)), \forall \omega\in\Omega$:
+\[
+\Omega\xrightarrow{X} S\xrightarrow{f}\mathbb{R}.
+\]
+
+We use a family of test functions, denoted by $\mathcal{C}$.
+If we take a sufficiently large $\mathcal{C}$, we can determine the distribution of $X$.
+\begin{itemize}
+\item
+When $S=\mathbb{R}$,
+\[
+\mathcal{C} = \{f_{\theta}:~~f_{\theta}(x) = e^{\theta x}, \theta\in\mathbb{R}\}
+\]
+and $\mathbb{E}[f_{\theta}(x)]$ is the moment generating function.
+
+\end{itemize}
+
+
+
+
+
+
+

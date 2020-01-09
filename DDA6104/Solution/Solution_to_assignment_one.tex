@@ -1,0 +1,309 @@
+
+\chapter{Solution}
+
+\section{Assignment Solutions}\index{Assignment Solution}
+\subsection{Solution to Assignment One}
+\begin{enumerate}
+\item 
+\begin{proof}[Solution.]
+Firstly we do the elimination shown as below:
+\[\begin{bmatrix}
+a & 2 & 3 \\ a & a & 4 \\ a & a & a
+\end{bmatrix}\implies\begin{bmatrix}
+a & 2 & 3 \\ 0 & a-2 & 1 \\ 0 & a-2 & a-3
+\end{bmatrix}\implies
+\begin{bmatrix}
+a & 2 & 3 \\ 0 & a-2 & 1 \\ 0 & 0 & a-4
+\end{bmatrix}\]
+Here in order to give three pivots we need to let the diagonal be nonzero, which is to say:
+\[
+a = 0 \qquad\text{or}\qquad a-2=0 \qquad\text{or}\qquad a-4 = 0
+\] 
+\[\implies a = 0 \qquad\text{or}\qquad a=2 \qquad\text{or}\qquad a=4\]
+\end{proof}
+
+
+
+
+\item
+let's solve this problem by answering the following questions first.
+\begin{enumerate}
+\item
+The other solution is given by:$(m_1x+m_2X,m_1y+m_2Y,m_1z+m_2Z)$, where $m_1+m_2=1$.
+\item
+They also meet the line that passes these two points
+\item
+In $\mathbb{R}^{n}$ space we can also ensure every point on the line that determined by the two solutions is also a solution.
+\end{enumerate}
+Then let's proof the begining statement rigorously:
+\begin{proof}
+Assume the system of equation is given by 
+\begin{gather}
+a_{11}x_1 + a_{12}x_2 + \dots + a_{1n}x_n = b_1 \notag \\ 
+a_{21}x_1 + a_{22}x_2 + \dots + a_{2n}x_n = b_2 \notag \\
+\dots 	\notag 	\\
+a_{m1}x_1 + a_{m2}x_2 + \dots + a_{mn}x_n = b_m  \label{eq:linear system equations}
+\end{gather}
+where it contains two solutions $(y_1,y_2,\dots,y_n)$ and $(z_1,z_2,\dots,z_n)$. Let's show that every point on the line that determined by the two solutions is also a solution. In other words, once the system has two solutions, it will contain infinitely many solutions.
+
+\qquad Any point on the line that determined by the two solutions is given by 
+\[(m_1y_1+m_2z_1,\dots,m_1y_n+m_2z_n),\qquad \text{where } m_1+m_2=1\]
+And then we show that this point is also a solution to this system:\\
+\hspace*{1cm} for the $i$th linear equation it satisfies that 
+\[
+\left\{ \begin{aligned}
+a_{i1}y_1 + a_{i2}y_2 + \dots + a_{in}y_n = b_i \\
+a_{i1}z_1 + a_{i2}z_2 + \dots + a_{in}z_n = b_i
+\end{aligned}
+\right.
+\]
+\qquad Hence we set $x_j = m_1y_j+m_2z_j$ for $j = 1,2,\dots,n$. Then we obtain:
+\begin{align*}
+a_{i1}x_1 + a_{i2}x_2 + \dots + a_{in}x_n&\\ &= a_{i1}(m_1y_1+m_2z_1) + a_{i2}(m_1y_2+m_2z_2) + \dots + a_{in}(m_1y_n+m_2z_n)\\ &= m_1(a_{i1}y_1 + a_{i2}y_2 + \dots + a_{in}y_n) + m_2(a_{i1}z_1 + a_{i2}z_2 + \dots + a_{in}z_n)\\ &= m_1b_i + m_2b_i = (m_1+m_2)b_i=b_i.
+\end{align*}
+\qquad where $ i= 1,2,\dots,m$
+
+Since the choice of point on the line was arbitrary, we see that every point on the line determined by the two solutions is also a solution, so there are infinitely many solutions to the system
+\end{proof}
+
+\item \begin{proof}[Solution.]
+\begin{enumerate}
+\item
+We begin to do the elimination for the system:
+\[
+\left[
+\begin{array}{@{}rrr|r@{}}
+1 & 4 & -2 & 1 \\
+1 & 7 & -6 & 6 \\
+0 & 3 & q & t\\
+\end{array}
+\right]
+\xLongrightarrow{\text{Add $(-1)\times$ row 1 to row 2}}
+\left[
+\begin{array}{@{}ccc|c@{}}
+1 & 4 & -2 & 1 \\
+0 & 3 & -4 & 5 \\
+0 & 3 & q & t
+\end{array}
+\right]\]
+\[
+\xLongrightarrow{\text{Add $(-1)\times$ row 2 to row 3}}
+\left[
+\begin{array}{@{}ccc|c@{}}
+1 & 4 & -2 & 1 \\
+0 & 3 & -4 & 5 \\
+0 & 0 & \cellcolor{black!20}{q+4} & t-5
+\end{array}
+\right]
+\]
+In order to make this system singular we need to make the third row has no pivot.$\implies q+4=0\implies q = -4$. In order to give infinitely many solutions we have to let the third equation satisfies $0=0$. $\implies t-5=0 \implies t=5$.
+\item
+When $z=1$, the second equation $3y-4z=5$ gives $y=3$; \\ the third equation $x+4y-2z=1$ gives $x=-9$.
+
+\end{enumerate}
+\end{proof}
+
+\item 
+\begin{proof}[Solution.]
+\begin{enumerate}
+\item \[\bm A = \begin{bmatrix}0 & 1 \\ -1 & 0\end{bmatrix}
+\implies \bm A^2 = \begin{bmatrix}0 & 1 \\ -1 & 0\end{bmatrix}\begin{bmatrix}0 & 1 \\ -1 & 0\end{bmatrix} 
+= \begin{bmatrix}-1 & 0 \\ 0 & -1\end{bmatrix}\]
+\item
+\[\bm B = \begin{bmatrix}0 & 1 \\ 0 & 0\end{bmatrix}
+\implies \bm B^2 = \begin{bmatrix}0 & 1 \\ 0 & 0\end{bmatrix}\begin{bmatrix}0 & 1 \\ 0 & 0\end{bmatrix} 
+= \begin{bmatrix}0 & 0 \\ 0 & 0\end{bmatrix} = \bm 0 \]
+\item
+\[
+\bm C = \begin{bmatrix}0 & 1 \\ 1 & 0\end{bmatrix};\bm D = \begin{bmatrix}0 & 1 \\ -1 & 0\end{bmatrix}
+\implies \bm{CD} = \begin{bmatrix}0 & 1 \\ 1 & 0\end{bmatrix}\begin{bmatrix}0 & 1 \\ -1 & 0\end{bmatrix} = 
+\begin{bmatrix}-1 & 0 \\ 0 & 1\end{bmatrix} = -\bm{DC}
+\]
+\item
+\[\bm E = \begin{bmatrix}1 & 1 \\ -1 & -1\end{bmatrix};\bm F = \begin{bmatrix}-1 & -1 \\ 1 & 1\end{bmatrix}
+\implies \bm{EF} = \begin{bmatrix}0 & 0 \\ 0 & 0\end{bmatrix}= \bm{0}
+\]
+\end{enumerate}\end{proof}
+
+\item
+\begin{proof}
+We assume $\bm A$ is a $m\times n$ matrix,$\bm B$ is a $n\times p$ matrix,$\bm C$ is a $p\times q$ matrix which is given by:
+\[ \bm A := \begin{bmatrix}a_{ij}\end{bmatrix},\bm B := \begin{bmatrix}b_{ij}\end{bmatrix},
+\bm C := \begin{bmatrix}c_{ij}\end{bmatrix}.
+\]
+And we also define:
+\[
+\bm{AB} := \bm{D} := \begin{bmatrix}d_{ij}\end{bmatrix},
+\bm{BC} := \bm{E} := \begin{bmatrix}e_{ij}\end{bmatrix}.
+\]
+Obviously, $\bm{AB}$ and $\bm{BC}$ are well-defined and they are all $m \times q$ matrix.\\
+\textbullet According to the definition for multiplication, $d_{ij} = \sum_{k=1}^n a_{ik}b_{kj}$. We define $(\bm{AB})\bm{C} := \bm{H} = \begin{bmatrix}h_{ij}\end{bmatrix}$, thus
+\[
+h_{ij} = \sum_{l=1}^p d_{il}c_{lj} = \sum_{l=1}^p(\sum_{k=1}^n a_{ik}b_{kl})c_{lj} = \sum_{k=1}^n\sum_{l=1}^pa_{ik}b_{kl}c_{lj}
+\]
+where $i=1,2,\dots,m$ and $i=1,2,\dots,q$.\\
+\textbullet On the other hand, $e_{ij} = \sum_{l=1}^p b_{il}c_{lj}$. We define $\bm{A}(\bm{BC}) := \bm{G} = \begin{bmatrix}g_{ij}\end{bmatrix}$, thus
+\[
+g_{ij} = \sum_{k=1}^n a_{ik}e_{kj} = \sum_{k=1}^n(\sum_{l=1}^p b_{kl}c_{lj})a_{ik} = \sum_{k=1}^n\sum_{l=1}^pa_{ik}b_{kl}c_{lj}
+\]
+where $i=1,2,\dots,m$ and $i=1,2,\dots,q$.\\
+Hence we have $h_{ij} = g_{ij}$, $i=1,2,\dots,m$ and $i=1,2,\dots,q$. 
+Hence we have $\bm H = \bm G \implies (\bm{AB})\bm{C}=\bm{A}(\bm{BC})$.
+\end{proof}
+
+\item
+\begin{proof}[Solution.] \qquad \\
+For matrix $\bm A = \begin{bmatrix}
+4 & 0 & 4 \\ 6 & 6 & -8 \\ -9 & 5 & -8
+\end{bmatrix}$, we can split $\bm A$ into blocks $\bm A = 
+\left[
+\begin{array}{cc|c}
+4 & 0 & 4 \\ 
+6 & 6 & -8 \\
+\hline
+-9 & 5 & -8
+\end{array}
+\right]
+ = \begin{bmatrix}
+A_1 & A_2 \\ A_3 & A_4
+\end{bmatrix}$,
+where $A_1 = \begin{bmatrix}4 & 0 \\ 6 & 6\end{bmatrix}, A_2 = \begin{bmatrix}
+4 \\ -8
+\end{bmatrix}, A_3 = \begin{bmatrix}
+-9 & 5
+\end{bmatrix}, A_4 = \begin{bmatrix}
+-8
+\end{bmatrix}.$\\
+For matrix $\bm B = \begin{bmatrix}
+8 & -3 & -7 \\ 3 & -7 & -4 \\ 4 & -4 & 1
+\end{bmatrix}$, we can split $\bm B$ into blocks $\bm B = 
+\left[
+\begin{array}{cc|c}
+8 & -3 & -7 \\ 3 & -7 & -4 \\
+\hline
+4 & -4 & 1
+\end{array}
+\right]
+ = \begin{bmatrix}
+B_1 & B_2 \\ B_3 & B_4
+\end{bmatrix}$,
+where $B_1 = \begin{bmatrix}8 & -3 \\ 3 & -7\end{bmatrix}, B_2 = \begin{bmatrix}
+-7\\ -4
+\end{bmatrix}, B_3 = \begin{bmatrix}
+4 & -4
+\end{bmatrix}, B_4 = \begin{bmatrix}
+1
+\end{bmatrix}.$\\
+We let $\bm C = \bm A \bm B = \begin{bmatrix}
+C_1 & C_2 \\ C_3 & C_4
+\end{bmatrix}, $we can find $C_1,C_2,C_3,C_4$ in two different ways, if we get the same answers, we can verify the block multiplication succeeds.
+\begin{enumerate}
+\item
+Multiply $\bm A$ times $\bm B$ to find $\bm C = 
+\left[
+\begin{array}{cc|c}
+48 & -28 & -24 \\ 34 & -28 & -74 \\
+\hline
+-89 & 24 & 35
+\end{array}
+\right],$\\
+Hence $C_1 = \begin{bmatrix}
+48 & -28 \\ 34 & -28
+\end{bmatrix}, C_2 = \begin{bmatrix}
+-24 \\ -74
+\end{bmatrix},C_3 = \begin{bmatrix}
+-89 & 24
+\end{bmatrix}, C_4 = \begin{bmatrix}
+35
+\end{bmatrix}.$
+\item
+On the other hand, we have $\begin{bmatrix}
+A_1 & A_2 \\ A_3 & A_4
+\end{bmatrix}\begin{bmatrix}
+B_1 & B_2 \\ B_3 & B_4
+\end{bmatrix} = \begin{bmatrix}
+A_1B_1+A_2B_3 & A_1B_2+A_2B_4 \\ A_3B_1+A_4B_3 & A_3B_2+A_4B_4
+\end{bmatrix}$\\
+Hence we find $C_1 =A_1B_1+A_2B_3 = \begin{bmatrix}4 & 0 \\ 6 & 6\end{bmatrix}\begin{bmatrix}8 & -3 \\ 3 & -7\end{bmatrix}+\begin{bmatrix}
+4 \\ -8
+\end{bmatrix}\begin{bmatrix}
+4 & -4
+\end{bmatrix} = 
+ \begin{bmatrix}
+48 & -28 \\ 34 & -28
+\end{bmatrix}.$\\Similarly, we have
+\[
+C_2 = A_1B_2+A_2B_4 = \begin{bmatrix}
+-24 \\ -74
+\end{bmatrix}
+\]
+\[
+C_3 = A_3B_1+A_4B_3 = \begin{bmatrix}
+-89 & 24
+\end{bmatrix}\]
+\[
+C_4 = A_3B_2+A_4B_4 = \begin{bmatrix}
+35
+\end{bmatrix}.
+\]
+\end{enumerate}
+
+
+
+
+
+
+\end{proof}
+
+
+
+
+
+
+
+\enlargethispage{1cm}
+\item
+\begin{proof}[Solution.]
+\[
+\bm A = \begin{bmatrix}
+a & a & a & a \\ a & b & b & b \\ a & b & c & c \\ a & b & c & d
+\end{bmatrix}\xLongrightarrow{\bm E_{41}\bm E_{31}\bm E_{21}}\begin{bmatrix}
+a & a & a & a \\ 0 & b-a & b-a & b-a \\ 0 & b-a & c-a & c-a \\ 0 & b-a & c-a & d-a
+\end{bmatrix}\]\[\xLongrightarrow{\bm E_{42}\bm E_{32}}\begin{bmatrix}
+a & a & a & a \\ 0 & b-a & b-a & b-a \\ 0 & 0 & c-b & c-b \\ 0 & 0 & c-b & d-b
+\end{bmatrix}\xLongrightarrow{\bm E_{43}}\begin{bmatrix}
+a & a & a & a \\ 0 & b-a & b-a & b-a \\ 0 & 0 & c-b & c-b \\ 0 & 0 & 0 & d-c
+\end{bmatrix} = \bm U
+\]
+\[\implies\bm E_{43}\bm E_{42}\bm E_{32}\bm E_{41}\bm E_{31}\bm E_{21}\bm A = \bm U\implies \bm A = \bm E_{21}^{-1}\bm E_{31}^{-1}\bm E_{41}^{-1}\bm E_{32}^{-1}\bm E_{42}^{-1}\bm E_{43}^{-1}\bm U
+\]
+\[\implies 
+\bm A = \begin{bmatrix}
+a & a & a & a \\ a & b & b & b \\ a & b & c & c \\ a & b & c & d
+\end{bmatrix} = \begin{bmatrix}
+1 & 0 & 0 & 0 \\ 1 & 1 & 0 & 0 \\ 1 & 1 & 1 & 0 \\ 1 & 1 & 1 & 1
+\end{bmatrix}\left[
+\begin{array}{@{}cccc@{}}
+\cellcolor{black!20}{a} & a & a & a \\
+0 & \cellcolor{black!20}{b-a} & b-a & b-a \\
+0 & 0 & \cellcolor{black!20}{c-b} & c-b \\
+0 & 0 & 0 & \cellcolor{black!20}{d-c} \\
+\end{array}
+\right]
+\]
+\[
+\implies \bm{L} = \begin{bmatrix}
+1 & 0 & 0 & 0 \\ 1 & 1 & 0 & 0 \\ 1 & 1 & 1 & 0 \\ 1 & 1 & 1 & 1
+\end{bmatrix}; \qquad \bm{U} = \left[
+\begin{array}{@{}cccc@{}}
+\cellcolor{black!20}{a} & a & a & a \\
+0 & \cellcolor{black!20}{b-a} & b-a & b-a \\
+0 & 0 & \cellcolor{black!20}{c-b} & c-b \\
+0 & 0 & 0 & \cellcolor{black!20}{d-c} \\
+\end{array}
+\right]
+\]
+In order to get four pivots, we need to let the diagonal entries of $\bm U$ to be nonzero.
+\[\implies a\ne 0 \qquad a \ne b \qquad b\ne c\qquad c\ne d   \]
+\end{proof}
+\end{enumerate}
