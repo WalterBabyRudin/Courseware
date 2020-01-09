@@ -1,0 +1,268 @@
+
+\chapter{Week5}
+
+\section{Monday}\index{week5_Friday_lecture}
+\subsection{Review}
+\paragraph{Optimality Condition}
+Given a general problem
+\[
+\begin{array}{ll}
+\min&f(x)\\
+\mbox{s.t.}&x\in X\subseteq\mathbb{R}^n\\
+&f\mbox{ is }\mathcal{C}^1\mbox{ or }\mathcal{C}^2
+\end{array}
+\]
+One of the most important thing is the optimality condition.
+\begin{itemize}
+\item
+Unconstrainted: $X=\mathbb{R}^n$. (First order and second order)
+\item
+Constrainted:
+\begin{itemize}
+\item
+1st order necessary condition: Let $\bm x^*$ be a local minimum, then
+\[
+\inp{\nabla f(\bm x^*)}{(\bm x-\bm x^*)}\ge0,\forall x\in X
+\]
+\item
+For convex function $f$, the above is also the sufficient condition, since
+\[
+f(\bm x)\ge f(\bm x^*)+\inp{\nabla f(\bm x^*)}{(\bm x-\bm x^*)},\forall x,x^*\in X.
+\]
+\end{itemize}
+\end{itemize}
+
+The optimality condition for constrainted problem is difficult to check. We want a more efficient way, which will be discussed later.
+\paragraph{Iterative descent methods}
+For unconstraint problem, we consider the iterative descent methods:
+\[
+\begin{array}{ll}
+\bm x \leftarrow \bm x-\alpha\cdot\bm D\cdot\nabla f(\bm x)
+&
+(\bm D\succ0)
+\end{array}
+\]
+\begin{itemize}
+\item
+If $\bm D=\bm I$, it is the first order (gradient) method.
+\item
+If $\bm D=\left(\nabla^2f(\bm x)\right)^{-1}$, it is the second order (Newton's) method
+\begin{remark}
+Sometimes it is difficult to compute $\nabla^2f(\bm x)$. We can apply finite difference method to accurately approximate the Hessian matrix.
+\end{remark}
+\item
+If $\bm D=(\bm J\trans\bm J)^{-1}$ with Jacobian matrix for nonlinear least squares problem, it is the Gauss-Newton method.
+\item
+Sometimes we apply rough method to approximate the Hessian matrix in-accurately, which is called the \emph{Quasi-Newton} method. The most famous one is BFGS (L-BFGS).
+\end{itemize}
+There are more generalized iterative descent methods, such as the accelerated descent method tried in Assignment 3.
+\paragraph{Reading materials} CG-conjugate gradient methods; and Nestorov's method (\emph{optimal} accelerated method in \emph{worse} case).
+
+There is a method which is much faster than Nestorov's method in most cases:
+\begin{align*}
+\bm D^r&=\frac{1}{L}\bm I+\frac{\bm S^r (\bm S^r)\trans}{(\bm y^r)\trans(\bm y^r)}\succ0\\
+\alpha&=1\\
+\bm S^r&=\bm x^{r+1} - \bm x^r\\
+\bm y^r&=\nabla f(\bm x^{r+1}) - \nabla f(\bm x^r)
+\end{align*}
+\paragraph{Step-size}
+\begin{itemize}
+\item
+Back-tracking with Amijo condition:
+\[
+\begin{array}{ll}
+\mbox{Amijo condition}
+&
+f(\bm x+\alpha\bm d)\le f(\bm x)+C_1\alpha\inp{\nabla f(\bm x)}{\bm d},0<C_1<1
+\end{array}
+\]
+\item
+Wolfe condition for line search:
+\[
+\begin{array}{ll}
+\mbox{Wolfe condition}
+&
+\left\{
+\begin{aligned}
+f(\bm x+\alpha\bm d)&\le f(\bm x)+C_1\alpha\inp{\nabla f(\bm x)}{\bm d},&0<C_1<1\\
+\inp{\nabla f(\bm x+\alpha\bm d)}{\bm d}&\ge C_2\inp{\nabla f(\bm x)}{\bm d}, &0<C_2<1
+\end{aligned}
+\right.
+\end{array}
+\]
+Define $h(\alpha)=h(\bm x+\alpha\bm d)$, then the Wolfe condition is essentially
+\[
+\left\{
+\begin{aligned}
+h(\alpha)&\le h(0)+C_1h'(0)\\
+h'(\alpha)&\ge C_2h'(0)
+\end{aligned}
+\right.
+\]
+\item
+Constant step-size: $\alpha^r\equiv\frac{1}{L}$ with $L$ be the Lipschitz constant of $\nabla f(\bm x)$.
+\item
+$\alpha^r\to0$ with $\sum\alpha^r=+\infty$.
+\end{itemize}
+\begin{remark}
+Amijo condition guarantees that $f(\bm x^r) - f(\bm x^{r+1})\ge-C_1\alpha^r\inp{\nabla f(\bm x^r)}{\bm d^r}$. Assume $f(\bm x)>-\infty$, then
+\[
+\alpha^r\inp{\nabla f(\bm x^r)}{\bm d^r}\to0
+\]
+We want $\nabla f(\bm x^r)\to0$, which means your direction $\bm d^r$ should not be perpendicular to $\nabla f(\bm x^r)$ after some iterations. If choosing $\bm d^r=-\nabla f(\bm x^r)$, then $\alpha^r\|\nabla f(\bm x^r)\|^2\to0$, which implies $\nabla f(\bm x^r)\to0$.
+\end{remark}
+Under reasonable conditions, applying first order condition we expect $\nabla f(\bm x^r)\to0$. Is $\bm x^r$ always convergent? not necessarily.
+
+\paragraph{Local convergence rate}
+The first order method has linear or sub-linear convergence rate; while the second order method has quadratic convergence rate.
+
+\paragraph{Finite difference Method}
+Given $F(\bm x): \mathbb{R}^n\mapsto\mathbb{R}^n$, its Jacobian is given by:
+\[
+F'(\bm x)=\begin{bmatrix}
+\nabla\trans F_1(\bm x)\\
+\vdots\\
+\nabla\trans F_n(\bm x)
+\end{bmatrix}
+\]
+Its $j$th column is given by:
+\begin{align*}
+F'(\bm x)\bm e_j:&=\lim_{h\to0}\frac{F(\bm x+h\bm e_j) - F(\bm x)}{h}\\
+&\approx \frac{F(\bm x+h\bm e_j) - F(\bm x)}{h}\mbox{ for small }h
+\end{align*}
+where for $\varepsilon=10^{-8}$,
+\[
+h=\varepsilon\max\{1,|x_j|\}\mbox{sign}(x_j),
+\]
+more-multiplying the term $\mbox{sign}(x_j)$ means we avoid subtract between $\bm x$ and $h\bm e_j$.
+
+\subsection{Existence of solution to Quadratic Programming}
+\begin{theorem}
+Let $\{S^k\}$ be a sequence of non-empty closed nested sets. Suppose that all \emph{asymptotic} sequences corresponding to asymptotic directions of $\{S^k\}$ are \emph{retractive}, then $\bigcap_{k=0}^\infty S^k$ is \emph{non-emtpy}.
+\end{theorem}
+\begin{definition}
+Let $\{S^k\}$ be a sequence of non-empty closed nested sets. We say that a vector $\bm d\ne\bm0$ is an \emph{asymptotic direction} of $\{S^k\}$ if there exists a sequence $\{\bm x^k\}$ such that
+\[
+\begin{array}{lll}
+\bm x^k\in S^k,
+&
+\bm x^k\ne\bm 0,
+&
+k=0,1,2,\dots
+\end{array}
+\]
+and
+\[
+\begin{array}{ll}
+\|\bm x^k\|\to\infty,
+&
+\frac{\bm x^k}{\|\bm x^k\|}\to\frac{\bm d}{\|\bm d\|}
+\end{array}
+\]
+\begin{itemize}
+\item
+$(\{\bm x^k\},\bm d)$ is said to be the asymptptoc pair of $\{S^k\}$
+\item
+$\{\bm x^k\}$ is said to be \emph{retractive} if there exists a bounded sequence of positive numbers $\{\alpha^k\}$ and $\bar k$ such that
+\[
+\bm x^k-\alpha^k\bm d\in S^k,\qquad
+\forall k\ge\bar k
+\]
+\end{itemize}
+\end{definition}
+
+\begin{theorem}
+Let $\bm Q$ be a positive semi-definite symmetric $n\times n$ matrix, let $\bm c$ and $\bm a_1,\dots,\bm a_r$ be vectors in $\mathbb{R}^n$, and let $b_1,\dots,b_r$ be scalars. Assume that the optimal value of the problem
+\begin{equation}
+\begin{array}{ll}
+\min&\bm x\trans\bm Q\bm x+\bm c\trans\bm x\\
+\mbox{such that}&\bm a_j\trans\bm x+b_j\le0,\qquad j=1,2,\dots,r,
+\end{array}
+\end{equation}
+is finite. Then the problem has \emph{at least one optimal} solution.
+\end{theorem}
+\begin{proof}
+Suppose $f^*$ is the optimal solution. The feasible region is denoted by:
+\[
+F=\{\bm x \mid a_j\trans\bm x+b_j\le0,j=1,\dots,r\}.
+\] 
+
+Set a decreasing sequence $\{\gamma^k\}$ with limit $f^*$, and set
+\[
+S^k:=\{\bm x\in F\mid \bm x\trans\bm Q\bm x+\bm c\trans\bm x\le\gamma^k\}
+\]
+Thus the set of optimal solutions is $\bigcap_{k=0}^\infty S^k$. It suffices to show that all asymptotic seqeuences corresponding to asymptotic directions are \emph{retractive}.
+
+\paragraph{Asymptotic Directions are essentially Boundary Directions} For fiexed asymptotic pair $(\{\bm x^k\},\bm d)$, we claim that 
+\begin{align}
+\bm Q\bm d&=0,\inp{\bm c}{\bm d}\le0\\
+\inp{\bm a_j}{\bm d}&\le0, j=1,2,\dots,r
+\end{align}
+
+For first equaility, define $\bm d^k=\frac{\bm x^k}{\|\bm x^k\|}$. Since $\bm x^k\in S^k$, we have
+\begin{equation}
+(\bm d^k)\trans\bm Q\bm d^k+\frac{\inp{\bm c}{\bm d^k}}{\|\bm x^k\|}\le\frac{\gamma^k}{\|\bm x^k\|^2}\label{Eq:5:4}
+\end{equation}
+Taking $k\to\infty$, we imply $(\bm d)\trans\bm Q\bm d\le0$, and therefore $\bm{Qd}=0$ as $\bm Q\succeq0$.
+
+Due to (\ref{Eq:5:4}) and the semi-definiteness of $\bm Q$, we have
+\[
+\inp{\bm c}{\bm d^k}\le 
+\|\bm x^k\|(\bm d^k)\trans\bm Q\bm d^k+\inp{\bm c}{\bm d^k}\le\frac{\gamma^k}{\|\bm x^k\|}
+\]
+Taking $k\to\infty$, we imply $\inp{\bm c}{\bm d^k}\le0$. Similarly, $\inp{\bm a_j}{\bm d}\le0$ since $\inp{\bm a_j}{\bm d^k}\le-\frac{b_j}{\|\bm x^k\|}$.
+\paragraph{Finiteness of optimal value}Next we show $\inp{\bm c}{\bm d}=0$. For a feasible vector $\bar{\bm x}$, consider $\tilde{\bm x}:=\bar{\bm x}+m\bm d$ for any positive $m$, which is also feasible as $\inp{\bm a_j}{\bm d}\le0$. Then checking the function evaluated at $\tilde{\bm x}$:
+\[
+f^*\le (\tilde{\bm x})\trans\bm Q(\tilde{\bm x})+\inp{\bm c}{\tilde{\bm x}}
+=
+(\bar{\bm x})\trans\bm Q\bar{\bm x}+\inp{\bm c}{\bar{\bm x}}+m\inp{\bm c}{\bm d}
+\]
+As $f^*$ is finite, $\inp{\bm c}{\bm d}\ge0$, i.e., $\inp{\bm c}{\bm d}=0$.
+
+As a result, for fixed $\bm x^k$, the function evaluated at $\bm x^k-\alpha\bm d$ satisfies
+\[
+(\bm x^k-\alpha\bm d)\trans\bm Q(\bm x^k-\alpha\bm d)
++
+\inp{\bm c}{\bm x^k-\alpha\bm d}=(\bm x^k)\trans\bm Q\bm x^k+\inp{\bm c}{\bm x^k}\le\gamma^k,\forall\alpha,k,
+\]
+\paragraph{Feasibleness of $\bm x^k-\alpha\bm d$}It suffices to choose $\alpha>0$ to let $\bm x^k-\alpha\bm d\in F$ for sufficiently large $k$, i.e., 
+\[
+\begin{array}{ll}
+\inp{\bm a_j}{\bm x^k-\alpha\bm d}+b_j\le0,
+&
+j=1,\dots,r
+\end{array}
+\]
+\begin{itemize}
+\item
+This is true for $\forall\alpha>0$ if $\inp{\bm a_j}{\bm d}=0$
+\item
+Otherwise, suppose $\inp{\bm a_j}{\bm d}<-\varepsilon$. Thus $\inp{\bm a_j}{\bm d^k}<-\varepsilon$ for sufficiently large $k$, i.e., $\inp{\bm a_j}{\bm x^k}\le-\varepsilon\|\bm x^k\|$. Combining the unboundness of $\{\bm x^k\}$, we imply
+\[
+\inp{\bm a_j}{\bm x^k-\alpha\bm d}+b_j\le-\varepsilon\|\bm x^k\|-\alpha\inp{\bm a_j}{\bm d}+b_j<0
+\]
+
+
+\end{itemize}
+
+
+
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,238 @@
+
+\chapter{Week1}
+
+\section{Monday}\index{Monday_lecture}
+\subsection{Introduction to Optimizaiton}
+The usual optimization formulation is given by:
+\[\begin{array}{ll}
+\min f(\bm x),
+&
+\mbox{where }f:\mathbb{R}^n\mapsto\mathbb{R}
+\\
+\mbox{such that}
+&
+\bm x\in X\subseteq\mathbb{R}^n
+\end{array}
+\]
+
+One example of the set $X$ is given by:
+\[
+X=\left\{\bm x\in\mathbb{R}^n\middle|
+\begin{array}{l}
+C_i(\bm x) = \bm0, i=1,2,\dots,m\le n
+ \\
+ h_i(\bm x)\ge\bm0, i=1,2,\dots,p
+\end{array}\right\}
+\]
+
+Linear programming can be easily solved, but Integer linear programming is much harder. The equivalent LP formulation is given by:
+\[
+\begin{array}{ll}
+\min
+&
+\bm c\trans\bm x
+\\
+\mbox{s.t.}
+&
+\bm{Ax}=\bm b
+\\
+&
+\bm c\le\bm{Bx}\le \bm c'
+\end{array}
+\]
+
+
+
+\section{Wednesday}
+
+\subsection{Reviewing for Linear Algebra}
+Questions:
+\begin{itemize}
+\item
+What is the necessary and sufficient condition for the linear system $\bm A\bm x=\bm b$ to have a solution $\bm x$?
+
+Answer: $\bm b\in\mathcal{C}(\bm A)$.
+\item
+For $\bm A\in\mathbb{S}^n$, what is the necessary and sufficient condition for $\bm A\succeq0$?
+
+Answer: $\bm x\trans\bm A\bm x\ge0$ for $\forall x\in\mathbb{R}^n$; or $\lambda_i(\bm A)\ge0$ for all $i$.
+\end{itemize}
+\subsection{Reviewing for Calculus}
+For function $f:\mathbb{R}^n\mapsto\mathbb{R}$:
+\begin{itemize}
+\item
+We use notation $f\in\mathcal{C}^n$ to denote $f$ is \emph{continuously differentiable to $n$th order}. This course will basically deal with such functions.
+\item
+We use notation $\nabla f(x)$ to denote the \emph{Gradient} of $f$ at $x$; and $\nabla^2 f(x)$ denotes the second order derivative of $f$ at $x$. Note that $\nabla^2 f(x)\in\mathbb{S}^n$ for $f\in\mathcal{C}^1$.
+\item
+We use notation $\mathbb{S}^n$ to denote the set of all symmetric $n\times n$ matrices, i.e., 
+\[
+\mathbb{S}^n=\{\bm X\in\mathbb{R}^{n\times n}\mid \bm X\trans=\bm X\}
+\]
+Moreover, $\mathbb{S}^n_+$ denotes the set of all symmetric $n\times n$ matrices with all eigenvalues non-negative:
+\[
+\mathbb{S}^n_+=\{\bm X\in\mathbb{R}^{n\times n}\mid \bm X\trans=\bm X\succeq0\}
+\]
+\end{itemize}
+\subsection{Introduction to Optimization}
+The usual optimization formulation is given by:
+\[\begin{array}{ll}
+\min f(\bm x),
+&
+\mbox{where }f:\mathbb{R}^n\mapsto\mathbb{R}
+\\
+\mbox{such that}
+&
+\bm x\in X\subseteq\mathbb{R}^n
+\end{array}
+\]
+\begin{itemize}
+\item
+The simplest case for the constraint is $X=\mathbb{R}^n$, which leads to \emph{unconstrainted} optimization problem.
+\item
+Or $X=P$ is a \emph{polyhedron}, i.e., the boundaries for the region are all lines.
+\end{itemize}
+\begin{definition}[Constraint Regions]
+In space $\mathbb{R}^n$, 
+\begin{itemize}
+\item
+the hyper-plane is defined as:
+\[
+\left\{
+\bm x\middle |\bm a\trans\bm x=\bm\beta
+\right\}
+\]
+with constants $\bm a\in\mathbb{R}^n$ and $\bm\beta\in\mathbb{R}$
+\item
+the half-space is defined as
+\[
+\left\{
+\bm x\middle |\bm a\trans\bm x\le\bm\beta
+\right\}
+\]
+\item
+the polyhedron is defined as the \emph{intersection} of a \emph{finite} number of hyperplanes or half-spaces
+\end{itemize}
+\end{definition}
+Next, we give the definition for the basic optimization problem:
+\begin{definition}[Linear Programming]
+The Linear Programming is given by:
+\[\begin{array}{ll}
+\min& \bm c\trans\bm x,
+\\
+\mbox{such that}
+&
+\bm x\in P (\mbox{polyhedron})
+\end{array}
+\]
+Or it can be reformulated as:
+\[\begin{array}{ll}
+\min& \bm c\trans\bm x,
+\\
+\mbox{such that}
+&
+\bm A_I\bm x\le\bm b_I\\
+&
+\bm A_E\bm x=\bm b_E\in\mathbb{R}^m,\quad m<n.
+\end{array}
+\]
+\end{definition}
+
+\begin{definition}[Optimality]
+$\bm x^*$ is said to be :
+\begin{itemize}
+\item
+the \emph{local minimum} of $f(\bm x)$ if there exists small $\epsilon$ such that
+\[
+\begin{array}{ll}
+f(\bm x^*)\le f(\bm x),
+&
+\forall \bm x\in\mathcal{B}(\bm x^*,\epsilon)\bigcap X:=\{\bm x\mid \|\bm x-\bm x^*\|\le\epsilon\}\bigcap X
+\end{array}
+\]
+\item
+the \emph{global minimum} if
+\[
+\begin{array}{ll}
+f(\bm x^*)\le f(\bm x),
+&
+\forall \bm x\in X
+\end{array}
+\]
+\end{itemize}
+\end{definition}
+\begin{remark}
+Unless specified, when we want to minimize a non-convex function, it usually means we only find its \emph{local minimum}. This is because usually the local minimum is good enough.
+\end{remark}
+
+The optimization task is essentially find $\bm x^*$ such that
+\[
+\bm x^*=\arg\min_{\bm x\in X}f(\bm x)\in\mathbb{R}^n.
+\]
+
+philosophy (optimization sufficient and necessity). 
+philosophy of relaxation (convex nulls)
+
+The Optimality conditions are the \emph{most important} theoretical tools for optimization.
+\begin{theorem}[Optimality condition]The optimality condition contains
+\begin{enumerate}
+\item
+Necessary Condition (exclude non-optimal points):
+\[
+\mbox{$n=1$ special case:}\left\{
+\begin{aligned}
+\mbox{1st order: }f'(x)=0\\
+\mbox{2nd order: }f''(x)\ge0
+\end{aligned}
+\right.\implies
+\left\{
+\begin{aligned}
+\mbox{1st order: }\nabla f(x)=0\\
+\mbox{2nd order: }\nabla f^2(x)\succeq0
+\end{aligned}
+\right.
+\]
+\item
+Sufficient Condition (may identify optimal solutions)
+\[
+\mbox{$n=1$ special case:}\left\{
+\begin{aligned}
+\mbox{1st order: }f'(x)=0\\
+\mbox{2nd order: }f''(x)>0
+\end{aligned}
+\right.\implies
+\left\{
+\begin{aligned}
+\mbox{1st order: }\nabla f(x)=0\\
+\mbox{2nd order: }\nabla f^2(x)\succ0
+\end{aligned}
+\right.
+\]
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+The $n=1$ special case can imply the general case for optimality condition. For multivariate $f$, we set $\bm x=\bm x^*+td$ with $t$ to be the stepsize and $d$ to be the direction.  For fixed $t$ and $d$, we define $h(t) = f(\bm x)=f(\bm x^*+td)$. It follows that
+\[
+h'(t)=\nabla\trans f(\bm x^*+td)d
+\]
+We find $h'(0)=\nabla\trans f(\bm x^*)d$ for $\forall$ d, which implies $\nabla f(\bm x^*)=0$.
+\end{proof}
+
+Note that there is a gap between necessary and sufficient conditions, which puts us in an embarrassing position. However, the convex condition can save us:
+\begin{theorem}
+If $f$ is convex in $\mathcal{C}^1$, then $\nabla f(\bm x)=0$ is the \emph{necessary} and \emph{sufficient} condition.
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,152 @@
+
+\chapter{Week11}
+
+\section{Monday}\index{week6_Tuesday_lecture}
+\paragraph{Announcement}
+The grading have finished. The grades will be available after lunch. The new assignment has been posted. The final project may let you design an algorithm by yourself to solve some given problems.
+\subsection{Equality Constraint Problem}
+Let's start with the equality constraint problem given by
+\begin{equation}\label{Eq:11:1}
+\begin{array}{ll}
+\min&f(x)\\
+\mbox{such that}&h(x)=0\\
+&x\in X
+\end{array}
+\end{equation}
+\paragraph{Augmented Lagrangian}
+The augmented Lagrangian function is given by:
+\[
+L_c(\bm x,\lambda)=f(\bm x)+\lambda\trans h(\bm x)+\frac{c}{2}\|h(\bm x)\|_2^2
+\]
+The ALMM aims to solve the iteration formula given below for bounded $c$:
+\begin{align}
+\bm x^r&=\arg\min_{\bm x}L_{\bm c^r}(\bm x,\lambda^r)\\
+\lambda^{r+1}&=\lambda^r+ch(\bm x^r)\label{Eq:11:2}
+\end{align}
+The question is that why do we update the multiplier? In last lecture we have shown it is one of the sufficient condition for convergence. Here is another point of view from duality.
+
+\paragraph{Viewpoint from Duality}
+We obtain the dual problem of (\ref{Eq:11:1}) over $\mbox{Dom}(Q)$:
+\begin{align}
+Q(\lambda)&=\inf_{\bm x}L_{\bm c}(\bm x,\lambda)\le L_{\bm c}(\bm x,\lambda)\le f(\bm x),\qquad\forall\mbox{ feasible }\bm x\\
+&=L_{\bm c}(\bm x(\lambda),\lambda),
+\end{align}
+where $\bm x(\lambda):=\arg\min_{\bm x}L_{\bm c}(\bm x,\lambda)$. Let's apply gradient ascent to solve such a problem:
+\[
+\nabla Q(\lambda)=
+\frac{\diff \bm x(\lambda)}{\diff\lambda}\underbrace{
+\nabla_{\bm x}L_{\bm c}(\bm x(\lambda),\lambda)
+}_{0}
++\frac{\partial L_{\bm c}}{\partial\lambda}=h(\bm x(\lambda))
+\]
+Therefore (\ref{Eq:11:2}) is nothing but gradient ascent for maximizing the dual function.
+
+\paragraph{Sensitivity analysis}
+The change of the constraint is related to the multiplier. 
+\begin{theorem}[Sensitivity Theorem]
+Consider the problem
+\[
+\begin{array}{ll}
+p(u)=\min&f(x)\\
+\mbox{such that}&h(x)=u\\
+&x\in X
+\end{array}
+\]
+Suppose we have the optimal solution $x(u)=\arg\min_{h(x)=u}f(x)$ and in particular, $x^*=x(0)$. With regularity, $(x^*,\lambda^*)$ is the unique minimum-Lagrange multiplier pair for this problem. Suppose $(x(u),\lambda(u))$ exists uniquely near $u=0$, then
+\[
+\nabla p(u) = -\lambda(u),\qquad
+\nabla p(0) = -\lambda^*
+\]
+\end{theorem}
+
+\begin{example}
+For the optimization problem
+\[
+\begin{array}{ll}
+p(u)=\min&\frac{1}{2}(x_1^2-x_2^2) - x_2\\
+&x_2=0
+\end{array}
+\]
+We have $x^*=(0,0),\lambda^*=1$. By the sensitivity theorem, we have $p'(0)=-\lambda^*=-1$.
+\end{example}
+\begin{proof}
+\begin{enumerate}
+\item
+Step1: apply IFT for the KKT necessary condition.
+
+The KKT condition gives
+\[
+\left\{
+\begin{aligned}
+\nabla f(x) + \nabla h(x)\lambda&=0\\
+h(x)- u&=0
+\end{aligned}
+\right.\Longleftrightarrow
+F(x,\lambda,u)=0
+\]
+The Jacobian for such a system gives:
+\[
+\bm J=\begin{bmatrix}
+\nabla^2f(x)+\sum\lambda_i\nabla^2h_i(x)&\nabla h(x)\\
+\nabla\trans h(x)&0
+\end{bmatrix}
+\]
+With regularity conditon, the Jacobian matrix is non-singular at $(x^*,\lambda^*)$. By applying implicit function theorem, $(x(u),\lambda(u))$ exists near $u=0$ such that
+\[
+F(x(u),\lambda(u),u)=0
+\]
+\item
+Step2: Derive $\nabla p(u)$.
+
+By direct computation, we have
+\begin{equation}\label{Eq:11:6}
+\nabla p(u)=\nabla x(u)\nabla f(x(u)) = \nabla x(u)\left(
+-\nabla h(x(u))\lambda(u)
+\right)
+\end{equation}
+How to compute $\nabla h(x(u))$? We differentiate $h(x(u)) - u=0$ both sides to obtain:
+\begin{equation}\label{Eq:11:7}
+\nabla x(u)\nabla h(x(u)) = \bm I,
+\end{equation}
+Substituting (\ref{Eq:11:7}) into (\ref{Eq:11:6}), we derive
+\[
+\nabla p(u)= -\lambda(u).
+\]
+
+\end{enumerate}
+\end{proof}
+
+\subsection{ADMM}
+Given two variables
+\[
+\begin{array}{ll}
+\min&f(x,y)\\
+&h(x,y)
+\end{array}
+\]
+When $f(x,y)$ and $h(x,y)$ is separable, i.e., $f(x,y)=f(x)+g(y), Ax+By=C$, the Lagrangian function is given by:
+\begin{align*}
+L_{\bm c}(x,y) &= f(x,y)+\lambda\trans h(x,y)+\frac{\bm c}{2}\|h(x,y)\|^2\\
+&=f(x)+g(y)+\lambda\trans (Ax+By-C)+\frac{C}{2}\|Ax+By-C\|^2
+\end{align*}
+Let's just minimize one variable for one computation:
+\begin{align*}
+x^{r+1}&=\arg\min_xL_c(x,y^r,\lambda^r)\\
+y^{r+1}&=\arg\min_yL_c(x^{r+1},y,\lambda^r)\\
+\lambda^{r+1}&=\lambda^r+ch(x^{r+1},y^{r+1})
+\end{align*}
+The ADMM for separable variable case absolutely converges, and the case for non-separable works in most case without the support of theory.
+\[
+\|A - XY\trans\|_F^2
+\]
+The strcuture of the problem plays a significant role in optimization.
+
+
+
+
+
+
+
+
+
+

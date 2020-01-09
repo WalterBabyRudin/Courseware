@@ -1,0 +1,174 @@
+
+\section{Wednesday}\index{week7_Thursday_lecture}
+\subsection{Review}
+\begin{enumerate}
+\item
+To minimize the term $\|A - XX\trans\|_F^2$, just implement the algorithm in the paper. 
+\item
+The next question is to solve the linear system by Newton's method
+\[
+F(x+dx,y+dy,z+dz)=\begin{bmatrix}
+A\trans y+z - c\\
+Ax-b\\
+x\circ z - \mu
+\end{bmatrix}=\begin{bmatrix}
+0\\0\\0
+\end{bmatrix}\implies
+F_\mu(x,y,z)+F'_{\mu}(x,y,z)(dx,dy,dz)\trans=0
+\]
+\end{enumerate}
+\paragraph{Stochastic Gradient Method}
+The objective function is
+\[
+f(x)=\frac{1}{2}(x-c_1)^2+\frac{1}{2}(x-c_2)^2,
+\]
+where $x^*=\frac{c_1+c_2}{2}$.
+\[
+\left\{
+\begin{aligned}
+%x^r(1) &= x^{r-1}(2) - \alpha (x^{r-1}(2)-c_2)\\
+x^r(2) &= x^r(1) - \alpha (x^r(1)-c_1)=(1-\alpha)x^r(1) + \alpha c_1\\
+x^{r+1}(1)&=x^r(2) - \alpha(x^r(2) - c_2)=(1-\alpha)x^r(2) + \alpha c_2
+\end{aligned}
+\right.
+\]
+After computation, we derive $x^{r+1}(1) = (1-\alpha)^2x^r(1) + (1-\alpha)\alpha c_1+\alpha c_2$.
+
+How to guarantee convergence? We have generated two sequences
+\[
+\{
+x^{r-1}(1).x^r(1),x^{r+1}(1),\dots
+\}\to x_\alpha(1),\qquad
+\{
+x^{r-1}(2).x^r(2),x^{r+1}(2),\dots
+\}\to x_\alpha(2),
+\]
+We can solve for $x_\alpha(1)$ and $x_\alpha(2)$:
+\begin{align*}
+x_\alpha(1)&=(1-\alpha)^2x_\alpha(1) + (1-\alpha)\alpha c_1+\alpha c_2\implies
+x_\alpha(1)=\frac{(1-\alpha)c_1+c_2}{2-\alpha}\\
+x_\alpha(2)&=\frac{(1-\alpha)c_2+c_1}{2-\alpha}
+\end{align*}
+For fixed $\alpha$ we can see that those two limits are not the same. From the formula above we can see that as $\alpha\to0$, $x_\alpha(1)\to\frac{c_1+c_2}{2}$ and $x_\alpha(2)\to\frac{c_1+c_2}{2}$.
+\begin{remark}
+Note that $\alpha^r$ cannot converge too slow or too fast, the right setting is $\alpha^r=\frac{1}{r}$.
+\end{remark}
+\subsection{Dual-Primal of LP}
+Given the primal linear programming problem
+\[
+\begin{array}{ll}
+\min&c\trans x\\
+\mbox{such that}&Ax=b\\
+&x\ge0
+\end{array}
+\]
+\paragraph{Recap}
+Recall how to solve the general optimization problem
+\[
+\begin{array}{ll}
+\min&f(x)\\
+\mbox{such that}&Ax=b\\
+\end{array}
+\]
+The 1st order necessary condition is 
+\[
+\left\{
+\begin{aligned}
+\nabla f(x)&=A\trans\lambda\\
+Ax&=b
+\end{aligned}
+\right.
+\]
+Or rewrite it into a system $F(x,\lambda)=0$, which can be solved by Newton's method.
+\paragraph{Barrier Term}
+But the LP problem has the inequality $x\ge0$, we add a log barrier $B_\mu(x)=-\mu\sum\log x_i$ with $\mu>0$ to sovle this problem:
+\[
+\begin{array}{ll}
+\min&c\trans+B_\mu(x)\\
+\mbox{such that}&Ax=b
+\end{array}
+\]
+Solving this problem is equivalent to solving the system $F_\mu(x,y,z)=0$ in assignment 4. As $\mu\to0$, it suffices to solve the original problem, i.e., $(x(\mu),y(\mu),z(\mu))\to(x^*,y^*,z^*)$.
+\begin{remark}
+There is a faster method. Every iteration just approximate $\mu$, and after new iteration, $\mu$ is updated.
+\end{remark}
+
+\begin{enumerate}
+\item
+Change step-size to make convergence rate faster
+\item
+Appreciate the use of dense matrix $A$.
+\end{enumerate}
+
+\paragraph{Dual Problem of LP}
+\begin{enumerate}
+\item
+We form the \emph{Lagrange function} of origin LP:
+\[
+L(x,y)=c\trans x-y\trans(Ax-b)
+\]
+(We take care of the constraint $x\ge0$ in next step).
+\item
+The \emph{dual function} is a function of $y$:
+\begin{align*}
+Q(y) &= \inf_{x\ge0}L(x,y)\\
+&=\inf_{x\ge0}(c-A\trans y)\trans x+b\trans y\\
+&=\left\{
+\begin{aligned}
+b\trans y,&\quad c-A\trans y\ge0\\
+-\infty&\quad \mbox{otherwise}
+\end{aligned}
+\right.
+\end{align*}
+\item
+The \emph{dual problem} is given by:
+\[
+\begin{array}{ll}
+\max_{y\in\mathbb{R}^m}&Q(y)=\max_{y}b\trans y\\
+\mbox{such that}&A\trans y\le c
+\end{array}
+\]
+The constraint is because that violeting the constraint makes the objective goes to minus infinite.
+
+Then we introduce a new variable $z\ge0$:
+ \[
+\begin{array}{ll}
+\max&b\trans y\\
+\mbox{such that}&A\trans y+z= c\\
+&z\ge0
+\end{array}\qquad\mbox{Dual}
+\]
+\end{enumerate}
+\begin{itemize}
+\item
+The primal and dual problem of LP is that they share the same $(A,b,c)$
+\item
+Let $x$ be P-feasible, $(y,z)$ be D-feasible, then $c\trans x-b\trans y\ge0$ (\emph{weak duality}):
+\begin{align*}
+c\trans x-b\trans y&=x\trans c-x\trans A\trans y\\
+&=x\trans(c-A\trans y)=x\trans z\ge0
+\end{align*}
+\item
+For linear programming, the optimal solution satisfies $c\trans x^* = b\trans y^*$, i.e., $x\circ z=0$.
+(\emph{strong duality})
+\item
+The optimality condition for the primial-dual problem is:
+\begin{align*}
+A\trans y+z-c&=0,\quad z\ge0\\
+Ax-b&=0,\quad x\ge0\\
+x\circ z&=0
+\end{align*}
+which means that the optimal solution of LP must satisfy both constraints from primal and dual. (The assignment 4 makes $x\circ z-\mu=0$ and let $\mu\to0$.)
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+

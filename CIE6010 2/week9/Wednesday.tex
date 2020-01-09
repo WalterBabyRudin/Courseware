@@ -1,0 +1,178 @@
+
+%\chapter{Week2}
+
+\section{Wednesday}\index{week2_Wednesday_lecture}
+\subsection{Convex Analysis}
+This lectue will study the convex analysis.
+
+\begin{definition}[Convex]
+The subset $\mathcal{C}\subseteq\mathbb{R}^n$ is convex if
+\[
+x,y\in\mathcal{C}\implies
+\{\lambda x + (1-\lambda)y\mid \alpha\in[0,1]\}\subset\mathcal{C},
+\]
+i.e., the line segment between arbitrarily two elements lines in $\mathcal{C}$
+\end{definition}
+\begin{remark}
+Intersections of convex sets are convex. Empty set is assumed to be convex.
+\end{remark}
+\begin{definition}[Convex]\label{Def:2:3}
+The function $f:\mathbb{R}^n\mapsto\mathbb{R}$ is convex if $\mbox{dom }f$ is convex and
+\[
+f(\lambda x+ (1-\lambda)y)\le\lambda f(x) + (1-\lambda) f(y)
+\]
+for $\forall x,y\in\mbox{dom }f$ and $\forall \lambda\in[0,1]$, i.e., the function evaluated in the line segment is lower than secant line between $x$ and $y$ ($f$ lies below secant line).
+\end{definition}
+\begin{remark}
+\begin{itemize}
+\item
+$f$ is convex iff $-f$ is concave. (The concave definition simply changes the inequality direction in Def.(\ref{Def:2:3}))
+\item
+Affines are both convex and concave.
+\item
+The convexity depends on the domain of the function.
+\end{itemize}
+\end{remark}
+For a second order differentiable function, we have a much easier way to determine its convexity.
+\begin{theorem}\label{The:2:1}
+If $f\in\mathcal{C}^1$, then the followings are equivalent:
+\begin{enumerate}
+\item
+$f$ is convex
+\item
+$f(\bm y)\ge f(\bm x)+\nabla\trans f(\bm x)(\bm y - \bm x)$ for $\forall x,y\in\mbox{dom }f$, i.e., $f$ lines above the tangent line.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+\begin{enumerate}
+\item
+From the definition for convexity,
+\[
+f(y) - f(x)\ge\frac{f(\lambda x + (1-\lambda) y) - f(x)}{1 - \lambda}
+\]
+Letting $\lambda\to1$, the RHS becomes a direction derivative:
+\[
+f(y) - f(x)\ge\nabla\trans f(\bm x)(\bm y-\bm x)
+\]
+\item
+To show the converse, we let $z = \lambda x+ (1-\lambda)y$. By applying the inequality in (\ref{The:2:1}) twice, we have
+\begin{align}
+f(\bm x)&\ge f(\bm z)+\nabla\trans f(\bm z)(\bm x-\bm z)\label{Eq:2:1}\\
+f(\bm y)&\ge f(\bm z)+\nabla\trans f(\bm z)(\bm y-\bm z)\label{Eq:2:2}
+\end{align}
+Letting Eq.(\ref{Eq:2:1}) times $\lambda$ add Eq.(\ref{Eq:2:2}) times $(1-\lambda)$, we derive that $f$ is convex.
+\end{enumerate}
+\end{proof}
+\begin{theorem}
+If $f\in\mathcal{C}^2$, then the followings are equivalent:
+\begin{enumerate}
+\item
+$f$ is convex
+\item
+$\nabla^2f(\bm x)\succeq0$ for $\forall x\in\mbox{dom }f$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+We rewrite $f(\bm y)$ by applying Taylor expansion:
+\begin{equation}
+f(\bm y) = f(\bm x)+\nabla\trans f(\bm x)(\bm y-\bm x)+\frac{1}{2}(\bm y-\bm x)\trans\nabla^2 f(\bm x+t(\bm y-\bm x))(\bm y-\bm x),\label{Eq:2:3}
+\end{equation}
+for some $t\in[0,1]$.
+\begin{enumerate}
+\item
+If $f$ is convex, from Theorem(\ref{The:2:1}) and Eq.(\ref{Eq:2:3}), we derive
+\[
+(\bm y-\bm x)\trans\nabla^2 f(\bm x+t(\bm y-\bm x))(\bm y-\bm x)\ge0\implies \frac{(\bm y-\bm x)\trans}{\|\bm y-\bm x\|}\nabla^2 f(\bm x+t(\bm y-\bm x))\frac{(\bm y-\bm x)}{\|\bm y-\bm x\|}\ge0
+\]
+Set $d:=\frac{(\bm y-\bm x)}{\|\bm y-\bm x\|}$ and let $\bm y\to\bm x$, we derive
+\[
+\bm d\trans\nabla^2 f(\bm x)\bm d\ge0,
+\]
+which implies $\nabla^2 f(\bm x)\succeq0$ since $\bm d$ could have an arbitrary direction.
+\item
+To show the converse, due to the semidefiniteness of $\nabla^2 f(\bm x)$, we obtain a new inequality from Eq.(\ref{Eq:2:3}):
+\[
+f(\bm y) \ge f(\bm x)+\nabla\trans f(\bm x)(\bm y-\bm x)
+\]
+From Theorem(\ref{The:2:1}) we imply $f$ is convex.
+\end{enumerate}
+\end{proof}
+\begin{definition}[Epigraph]
+The Epigraph of $f$ is given by:
+\[
+\mbox{Epi}(f):=\left\{
+(x,t)\in\mathbb{R}^{n}\times\mathbb{R}\mid
+x\in\mbox{dom }f,
+t\ge f(x)
+\right\}\subseteq\mathbb{R}^{n+1}
+\]
+\end{definition}
+\begin{theorem}
+$f$ is convex iff $\mbox{Epi}(f)$ is convex.
+\end{theorem}
+\begin{proof}
+\begin{enumerate}
+\item
+Suppose $f$ is convex. For any $(x,t),(y,s)\in \mbox{Epi}(f)$, it suffices to show
+\[
+(\lambda x+(1-\lambda)y, \lambda t+(1-\lambda)s)\in \mbox{Epi}(f)\Longleftrightarrow
+\lambda t+(1-\lambda)s\ge f(\lambda x+(1-\lambda)y).
+\]
+The convexity of $f$ implies that
+\begin{align*}
+f(\lambda x+(1-\lambda)y)&\le \lambda f(x)+ (1-\lambda)f(y)\\
+&\le \lambda t + (1-\lambda)s.
+\end{align*}
+\item
+The reverse direction is obvious by applying definitions.
+\end{enumerate}
+\end{proof}
+
+\begin{definition}[Strict Convex]
+The function $f:\mathbb{R}^n\mapsto\mathbb{R}$ is strict convex if $\mbox{dom }f$ is convex and
+\[
+f(\lambda x+ (1-\lambda)y)<\lambda f(x) + (1-\lambda) f(y)
+\]
+for $\forall x\ne y, x,y\in\mbox{dom }f$ and $\forall \lambda\in(0,1)$
+\end{definition}
+\begin{remark}
+Strict convex implies the uniquesness of minimum
+\end{remark}
+However, for function $f(x)=\frac{1}{x}$, the curvature becomes more and more flat. We want to exclude such kind of functions.
+\begin{definition}
+The function $f:\mathbb{R}^n\mapsto\mathbb{R}$ is said to be strongly convex if $\mbox{dom }f$ is convex and $\exists\alpha>0$ such that $f(\bm x) - \alpha\bm x\trans\bm x$ is convex; or equivalently,
+\[
+f(\bm y)\ge f(\bm x) + \nabla\trans f(\bm x)(\bm y-\bm x) + \frac{\alpha}{2}\|\bm y-\bm x\|^2
+\]
+\end{definition}
+\begin{remark}
+The strong convexity places a quadratic lower bound in the curvature of the function, i.e., the function must rise up at least as fast as a quadratic function. How fast it rises depends on the parameter $\alpha$.
+\end{remark}
+
+The convexity properties are extremely useful in forcing optimization algorithms to rapidly converge to optima. However, most functions are not convex.  The most important result that requires convexity is given below:
+\begin{theorem}
+If $f$ is convex in $\mathcal{C}^1$, then $\nabla f(\bm x)=0$ is the \emph{necessary} and \emph{sufficient} condition for \emph{global} minimum.
+\end{theorem}
+Note that convex function does not have a local minimum that is not global minimum.
+\begin{proof}
+If $f\in\mathcal{C}^1$ is convex, recall the Theorem(\ref{The:2:1}) that
+\begin{equation}
+f(\bm y)\ge f(\bm x)+\nabla\trans f(\bm x)(\bm y-\bm x)\label{Eq:2:4}
+\end{equation}
+\begin{enumerate}
+\item
+If $\nabla f(\bm x)=0$, then Eq.(\ref{Eq:2:3}) implies $f(\bm y)\ge f(\bm x)$ for $\forall y$.
+\item
+If $\bm x$ is the global minimum, recall the optimality conditon, $\nabla f(\bm x)=\bm0$.
+%i.e., $ f(\bm y)\ge f(\bm x)$ for $\forall \bm y$, then $\nabla f(\bm x)=\bm0$, since otherwise we can construct $\bm y$ to derive a contradiction (e.g., let $\bm y$).
+\end{enumerate}
+\end{proof}
+
+In practice, we cannot solve all convex optimization problems. So we need to carefully study the structure of every problem we have faced. 
+
+
+
+
+
+
+

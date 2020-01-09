@@ -1,0 +1,111 @@
+\section{Assignment Seven}\index{Assignment_Seven}
+\begin{enumerate}
+\item
+Here is a wrong ``proof'' that the \textit{eigenvalues of all real matrices are real}:
+\[
+\bm{Ax}=\lambda\bm x\text{ gives }\bm x\trans\bm A\bm x=\lambda\bm x\trans\bm x
+\implies
+\lambda=\frac{\bm x\trans\bm A\bm x}{\bm x\trans\bm x}\in\mathbb{R}.
+\]
+Find the flaw in this reasoning: a hidden assumption that is not justified.
+\item
+Let $\bm A$ be an $n\x n$ matrix and let $\lambda$ be an eigenvalue of $\bm A$ whose eigenspace has
+dimension $k$, where $1<k<n$. Any basis $\{\bm x_1,\dots,\bm x_k\}$ for the eigenspace can be
+extended to a basis $\{\bm x_1,\dots,\bm x_n\}$ for $\mathbb{R}^n$. Let $\bm X=\begin{bmatrix}
+\bm x_1&\cdots&\bm x_n
+\end{bmatrix}\trans$ and $\bm B=\bm X^{-1}\bm A\bm X.$
+\begin{enumerate}
+\item
+Show that $\bm B$ is of the form
+\[
+\begin{bmatrix}
+\lambda\bm I&\bm B_{12}\\
+\bm0&\bm B_{22}
+\end{bmatrix}
+\]
+where $\bm I$ is the $k\x k$ identity matrix
+\item
+Show that $\lambda$ is an eigenvalue of $\bm A$ with multiplicity at least $k$.
+\end{enumerate}
+\item
+Let $\bm x,\bm y$ be nonzero vectors in $\mathbb{R}^n$, $n\ge2$, and let $\bm A=\bm x\bm y\trans$. Show that
+\begin{enumerate}
+\item
+$\lambda=0$ is an eigenvalue of $\bm A$ with $n-1$ linearly independent eigenvectors. Moreover, due to the conclusion of question 2, $0$ is an eigenvalue of $\bm A$ with multiplicity at least $n-1$.
+\item
+The remaining eigenvalue of $\bm A$ is
+\[
+\lambda_n=\trace(\bm A)=\bm x\trans\bm y
+\]
+and $\bm x$ is an eigenvector belonging to $\lambda_n.$
+\item
+If $\lambda_n=\bm x\trans\bm y\ne0,$ then $\bm A$ is \textit{diagonalizable.}
+\end{enumerate}
+\item
+Suppose an $n\x n$ matrix $\bm A$ has $n$ distinct eigenvalues $\lambda_1,\dots,\lambda_n$. Consider the matrix $\bm B=(\bm A-\lambda_1\bm I)\dots(\bm A-\lambda_n\bm I)$. Prove that $\bm B$ must be a \textit{zero matrix}.\\
+\textit{Hint:} How to do eigendecomposition for $\bm A-\lambda_i\bm I$?
+\item
+Let $\bm A$ and $\bm B$ be $n\x n$ matrices. Show that
+\begin{enumerate}
+\item
+If $\lambda$ is a \emph{nonzero} eigenvalue of $\bm{AB}$, then it is also an eigenvalue of $\bm{BA}$.
+\item
+If $\lambda=0$ is an eigenvalue of $\bm{AB}$, then $\lambda=0$ is also an eigenvalue of $\bm{BA}$.
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+The sequence $a_k$ is defined as
+\[
+a_0=4,a_1=5,a_{k+1}=3a_k-2a_{k-1},k=1,2,\dots
+\]
+What is the \textit{general formula} for $a_k$?
+\item
+The sequence $b_k$ is defined as
+\[
+b_0=\alpha,b_1=\beta,b_{k+1}=4b_k-4b_{k-1},k=1,2,\dots
+\]
+What is the \textit{general formula} for $b_k$?\\
+\textit{Hint:} Prove the corresponding matrix is similar to
+\[
+\begin{bmatrix}
+2&1\\0&2
+\end{bmatrix}.
+\]
+In order to compute
+\[
+\begin{bmatrix}
+2&1\\0&2
+\end{bmatrix}^k,
+\]
+you need to use the fact that
+\[
+\text{Given sequence }p_{k+1}=2p_{k}+2^k
+\implies
+p_k=(p_0+\frac{k}{2})\times2^k.
+\]
+\end{enumerate}
+\item
+State and justify whether the following three statements are True or False:
+\begin{enumerate}
+\item
+If $\bm A$ is \textit{real symmetric} matrix, then any 2 linearly independent eigenvectors of $\bm A$ are perpendicular.
+\item
+Any $n$ by $n$ complex matrix with $n$ real eigenvalues and $n$ orthonormal eigenvectors
+is a \textit{Hermitian matrix}.
+\item
+If $\bm A$ is diagonalizable. then $e^{\bm A}$ is diagonalizable.\\
+(We define $e^{\bm A}=\bm I+\bm A+\frac{1}{2!}\bm A^2+\dots$)
+\item
+If $\bm A$ is Hermitian and $\bm A$ is invertible, then $\bm A^{-1}$ is also Hermitian.
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+For a complex $\bm A$, is the left nullspace $N(\bm A\trans)$ orthogonal to $C(\bm A)$ under the old
+unconjugated inner product $\bm x\trans\bm y$ or new conjugated inner product $\bm x\Her\bm y$? What about
+$N(\bm A\Her)$ and $C(\bm A)$?
+\item
+For a real vector subspace $V$, the intersection of $V$ and $V^{\perp}$ is only the single point $\{\bm 0\}$. Now suppose $V$ is a complex vector subspace. If we define $V^{\perp}$ as the set of vector $\bm x$ with $\bm x\trans\bm v=0$ for all $\bm v\in V$. Give an example of a $V$ that intersects $V^{\perp}$ at a nonzero vector. What about if we use $\bm x\Her\bm v=0$? Does $V$ ever intersect $V^{\perp}$ at a nonzero vector using the conjugated definition of orthogonality?
+\end{enumerate}
+\end{enumerate}

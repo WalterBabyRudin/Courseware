@@ -1,0 +1,137 @@
+\section{Wednesday}\index{week2_Wednesday_lecture}
+In this lecture we will discuss the main penalty algorithms formally.
+\subsection{Introduction to penalty algorithms}
+Given the equality constraint problem
+\begin{equation}\label{Eq:10:10}
+\begin{array}{ll}
+\min&f(\bm x)\\
+&h(\bm x)=0\\
+&\bm x\in X\subseteq\mathbb{R}^n
+\end{array}
+\end{equation}
+The augmented Lagrangian function is given by:
+\begin{equation}
+L_{\bm c}(\bm x,\bm\lambda)=f(\bm x)+\bm\lambda\trans h(\bm x)+\frac{\bm c}{2}\|h(\bm x)\|^2
+\end{equation}
+There are two penalty algorithms formally listed below:
+\paragraph{Quadratic Penalty (Courant, 1943)} 
+\begin{align*}
+\bm x^r&\leftarrow\arg\min_{\bm x\in X} L_{\bm c^r}(\bm x,\bm\lambda^r,\bm c^r)\\
+&\mbox{increase $\bm c^{r+1}>\bm c^r$}\to\infty,\qquad
+\|\bm\lambda^r\|<+\infty
+\end{align*}
+
+\paragraph{Augmented Lagrangian Multiplier Method}
+\begin{align*}
+\bm x^r&\leftarrow\arg\min_{\bm x\in X}L_{\bm c}(\bm x,\bm\lambda^r)\\
+\bm\lambda^{r+1}&\leftarrow\bm\lambda^r+\bm c h(\bm x)
+\end{align*}
+where $\bm c$ is sufficiently large in general, but not goes to infinite. 
+\begin{itemize}
+\item
+The reason why the $\lambda$ converges to the optimal Lagrange multiplier will be discussed later.
+\item
+Why do we need to take sufficiently large $\bm c$? Let's raise an example first.
+\end{itemize}
+
+\begin{example}
+Given the problem
+\[
+\begin{array}{ll}
+\min&\frac{1}{2}(-x_1^2+x_2^2)\\
+&x_1=1
+\end{array}
+\]
+with optimal solution $\bm x^*=(1,0);\lambda^*=1$. The augmented Lagrangian function is given by:
+\[
+L_c(\bm x,\lambda)=\frac{1}{2}(-x_1^2+x_2^2)+\lambda(x_1-1)+\frac{c}{2}(x_1-1)^2,
+\]
+Applying the optimality condition, we derive
+\[
+\bm x^*(c,\lambda)=\begin{pmatrix}
+\frac{c-\lambda}{c-1}\\0
+\end{pmatrix}
+\]
+The second order necessary condition should be
+\[
+\nabla_{\bm{xx}}^2L_c=\begin{pmatrix}
+c-1&0\\0&c+1
+\end{pmatrix}\succeq0
+\]
+Therefore, from this example we can see that if $\bm c$ is not large enough, the second order optimality condition will be violated. Later we will give a formal proof for this statement.
+\end{example}
+
+\subsection{Convergence Analysis}
+
+\begin{theorem}
+Given the sequence of optimization problem
+\begin{equation}\label{Eq:10:12}
+\begin{array}{ll}
+\min&L_{\bm c^k}(\bm x,\bm\lambda^k),\bm x\in X
+\end{array}
+\end{equation}
+with associated local minimum $\bm x^k$. Suppose $\{\bm c^k\}$ is monotone increaseing to infinite, and $\{\bm\lambda^k\}$ is bounded, then every limit point in the sequence $\{\bm x^k\}$ is the global minimum for original problem (\ref{Eq:10:10})
+\end{theorem}
+\begin{proof}
+\begin{enumerate}
+\item
+Firstly note that the optimal value $f^*$ for (\ref{Eq:10:10}) is the infimum of the optimal value for (\ref{Eq:10:12}), i.e., 
+\begin{align*}
+f^*&=\inf_{h(\bm x)=0,\bm x\in X}f(\bm x)\\
+&=\inf_{h(\bm x)=0,\bm x\in X}\left\{
+f(\bm x)+(\bm\lambda^k)\trans h(\bm x)+\frac{\bm c^k}{2}\|h(\bm x)\|^2
+\right\}\\
+&=\inf_{h(\bm x)=0,\bm x\in X}L_{\bm c^k}(\bm x,\bm\lambda^k)
+\end{align*}
+We study the lower bound for $L_{\bm c^k}(\bm x,\bm\lambda^k)$. By definition,
+\begin{equation}
+L_{\bm c^k}(\bm x,\bm\lambda^k)\ge L_{\bm c^k}(\bm x^k,\bm\lambda^k) 
+\end{equation}
+Taking infimum over $\bm x$ both sides, we obtain:
+\begin{equation}\label{Eq:10:14}
+f^*\ge L_{\bm c^k}(\bm x^k,\bm\lambda^k) 
+\end{equation}
+\item
+Then we show that the limit point $\bm{\bar x}$ is such that $f^*\ge f(\bm{\bar x})$ and $\bm{\bar x}$ is feasible by using (\ref{Eq:10:14}). Suppose $\{\bm x^k,\bm\lambda^k\}\to\{\bm{\bar x},\bm{\bar\lambda}\}$, and by taking limsup both sides for (\ref{Eq:10:14}), we obtain:
+\begin{equation}\label{Eq:10:15}
+f(\bm{\bar x})+(\bm{\bar\lambda})\trans h(\bm{\bar x})+\lim\sup_{k\to\infty}\frac{\bm c^k}{2}\|h(\bm x^k)\|^2\le f^*
+\end{equation}
+Since $\bm c^k\to\infty$ and $\|h(\bm x)\|^2\ge0$, and the LHS of (\ref{Eq:10:15}) is bounded above, we derive $h(\bm x^k)\to0$, and in particular, 
+\begin{equation}\label{Eq:10:16}
+h(\bm{\bar x})=0
+\end{equation}
+\end{enumerate}
+Combining (\ref{Eq:10:15}) and (\ref{Eq:10:16}), we conclude that $f^*\ge f(\bm{\bar x})$ and $\bm{\bar x}$ is feasible, i.e., $\bm{\bar x}$ is global minimum.
+\end{proof}
+
+\begin{theorem}
+Given the sequence of optimization problem
+\begin{equation}\label{Eq:10:17}
+\begin{array}{ll}
+\min&L_{\bm c^k}(\bm x,\bm\lambda^k),\bm x\in X
+\end{array}
+\end{equation}
+with associated local minimum $\bm x^k$. Suppose $\{\bm c^k\}$ is chosen to be sufficiently large, and $\{\bm\lambda^k\}$ is picked by the formula
+\begin{equation}
+\bm\lambda^{k+1}=\bm\lambda^k+\bm c^kh(\bm x^k),
+\end{equation}
+under the constraint qualification, we have $\{\bm x^k,\bm\lambda^k\}\to\{\bm x^*,\bm\lambda^*\}$, with the limit to be the optimal solution and the Lagrangian multiplier pair.
+\end{theorem}
+Check the proof in the textbook Numerical Optimization, page 518.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

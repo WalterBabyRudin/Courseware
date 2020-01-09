@@ -1,0 +1,483 @@
+
+\chapter{Week8}
+
+\section{Monday}\index{week7_Tuesday_lecture}
+\paragraph{Comments for P-C method in A5}
+The Newton's method gives the iterative formula
+\[
+x^{k+1} = x^k - [F'(x^k)]^{-1}F(x^k)
+\]
+Moreover, the two-step Newton's method gives:
+\begin{equation}\label{Eq:8:1}
+x^{k+2} = x^k - [F'(x^k)]^{-1}F(x^k)-[F'(x^{k+1})]^{-1}F(x^{k+1}),
+\end{equation}
+with convergence order $O(\|x^k-x^*\|^4)$.
+
+However, computing Hessian matrix inverse twice in one iteration is expansive. The predictor-corrector method just change $F'(x^{k+1})$ as $F'(x^{k})$ in (\ref{Eq:8:1}):
+\begin{align*}
+x^{k+2} &= x^k - [F'(x^k)]^{-1}F(x^k)-[F'(x^{k})]^{-1}F(x^{k+1})\\
+&=x^k - [F'(x^k)]^{-1}[F(x^k)+F(x^{k+1})],
+\end{align*}
+or equivalently,
+\begin{align*}
+x^{k+1} &= x^k - [F'(x^k)]^{-1}[F(x^k)+F(x^{k+1/2})],
+\end{align*}
+which is also called Composite Newton, with convergence rate $O(\|x^{k}-x^*\|^{3})$.
+\paragraph{Comments for Incremental Gradient Method}
+The reason why the disminishing step size performs poorer than the constant step size remains to be found.
+
+\subsection{Constraint optimization}
+%Given the problem
+%\[
+%\begin{array}{ll}
+%\min&\quad f(x)\\
+%\mbox{such that}&x\in X,
+%\end{array}
+%\]
+%where $X$ is convex.
+%\paragraph{Feasible Direction method}
+%Given $\bar{x^r}\in X$, the new update is
+%\[
+%x^{r+1}=x^r+\alpha_r(\bar{x^r} - x^r),\qquad
+%\alpha_r\in(0,1]
+%\]
+%\paragraph{Gradient projection method}
+%\[
+%\bar{x^r} = [x^r - s_r\nabla f(x^r)]^+
+%\]
+%\paragraph{Conditional Gradient}
+%\[
+%\bar{x^r}=\arg\min_{x\in X}\inp{\nabla f(x^r)}{(x-x^r)}
+%\]
+%\begin{example}
+%Given the problem
+%\[
+%\begin{array}{ll}
+%\min&x_1+x_2\\
+%\mbox{such that}&x_1^2+x_2^2\le1
+%\end{array}
+%\]
+%the gradient projection is as follows:
+%\[
+%x^0=\begin{pmatrix}
+%0\\1
+%\end{pmatrix}\implies \nabla f(x)=\begin{pmatrix}
+%1\\1
+%\end{pmatrix}\implies
+%\bar{x^0}=\left[\begin{pmatrix}
+%0\\1
+%\end{pmatrix}-\frac{1}{2}\begin{pmatrix}
+%1\\1
+%\end{pmatrix}\right]^+=\frac{1}{2}\begin{pmatrix}
+%-1\\1
+%\end{pmatrix}
+%\]
+%It follows that
+%\[
+%x^1=\begin{pmatrix}
+%0\\1
+%\end{pmatrix}-\alpha_1(\bar{x^0}-x^0)
+%\]
+%Lagrange multiplier
+%
+%\end{example}
+\begin{theorem}[Lagrange necesary optimality condition]
+Given the problem
+\begin{equation}\label{Eq:8:1}
+\begin{array}{ll}
+\min&f(\bm x)\\
+\mbox{such that}&h_i(\bm x)=0,\quad i=1,\dots,m
+\end{array}
+\end{equation}
+with $f:\mathbb{R}^n\mapsto\mathbb{R}$ and $h_i:\mathbb{R}^n\mapsto\mathbb{R}$ are continuously differentiable functions.Let $\bm x^*$ be a regular point, i.e., $\nabla h_i(\bm x^*)$ are linearly independent, $\lambda^*$ is the corresponding multiplier, then
+\begin{itemize}
+\item
+The first order necessary optimality condition is 
+\[
+\nabla_x L(\bm x^*,\lambda^*)=0,\Longleftrightarrow
+\nabla f(\bm x^*)+\sum_{i=1}^m\lambda_i^*\nabla h_i(\bm x^*)=0,
+\]
+where $\lambda^*$ is uniquely determined.
+\item
+The second order necessary optimality condition is (pre-assume $f,g\in\mathcal{C}^2$):
+\[
+\bm y\trans\left[\nabla_{xx}^2L(\bm x^*,\lambda^*)\right]\bm y\ge0,\quad
+\forall\bm y\mbox{ s.t. }\inp{\nabla h(\bm x^*)}{\bm y}=0,
+\]
+or equivalently,
+\[
+\bm y\trans\left[\nabla^2f(\bm x^*)+\sum_{i=1}^m\lambda_i^*\nabla^2 h_i(\bm x^*)\right]\bm y\ge0,\quad
+\forall\bm y\mbox{ s.t. }\inp{\nabla h(\bm x^*)}{\bm y}=0,
+\]
+i.e., the Hessian matrix $L_{xx}(\bm x^*,\lambda^*)$ is PSD over the null space of Jacobian matrix of $h(\bm x^*)$.
+\end{itemize}
+
+\end{theorem}
+
+\begin{theorem}[Lagrange sufficient optimality condition]
+Given the problem (\ref{Eq:8:1}), the second order sufficent optimality conditon is
+\[
+\left\{
+\begin{aligned}
+\nabla_{\bm x}L(\bm x^*,\lambda^*)&=0,\qquad
+\nabla_{\lambda}L(\bm x^*,\lambda^*)=0\\
+\bm y\trans\nabla^2_{\bm x\bm x}L(\bm x^*,\lambda^*)\bm y&>0,\qquad\forall\bm y\ne\bm0\mbox{ with }\inp{\nabla h(\bm x^*)}{\bm y}=\bm0
+\end{aligned}
+\right.
+\]
+
+\end{theorem}
+\subsection{Inequality Constraint Problem}
+
+Given the problem
+\begin{equation}\label{Eq:8:2}
+\begin{array}{ll}
+\min&f(\bm x)\\
+\mbox{such that}&h(\bm x)=0\\
+&g(\bm x)\le0,
+\end{array}
+\end{equation}
+with $f:\mathbb{R}^n\mapsto\mathbb{R},h:\mathbb{R}^n\mapsto\mathbb{R}^m,m<n;g:\mathbb{R}^n\mapsto\mathbb{R}^p$, we set a general set
+\[
+X=\{x\mid h(\bm x)=0,g(\bm x)\le0\}
+\]
+We set the Lagrange function
+\[
+L(\bm x,\lambda,\mu)=f(\bm x)+\lambda\trans h(\bm x)+\mu\trans g(\bm x)
+\]
+Define the dual function
+\[
+Q(\lambda,\mu)=\inf_XL(\bm x,\lambda,\mu)\le 
+f(\bm x)
+\]
+
+
+\section{Monday Tutorial: Review for CIE6010}
+\paragraph{Matrix Calculus}
+\begin{itemize}
+\item
+\[
+\frac{\partial \bm a\trans\bm x}{\partial \bm x}=\bm a
+\]
+\[
+\frac{\partial\bm a\trans\bm A\bm x}{\partial\bm x}=\bm A\trans\bm a
+\]
+\item
+\[
+\frac{\partial\bm x\trans\bm x}{\partial \bm x}=2\bm x
+\]
+\item
+\[
+\frac{\partial{\bm{Ax}}}{\partial\bm x}=\bm A\trans
+\]
+\item
+\[
+\frac{\partial f\trans g}{\partial\bm x}=\frac{\partial f}{\bm x}g+\frac{\partial g}{\bm x}f
+\]
+\item
+\[
+\frac{\partial x\trans\bm{Ax}}{\partial\bm x}=(\bm A+\bm A\trans)\bm x
+\]
+\item
+\[
+\frac{\partial\|\bm y-\bm{Ax}\|_2^2}{\partial\bm x}=2\frac{\partial{\bm y-\bm{Ax}}}{\partial\bm x}(\bm y-\bm{Ax})=-2\bm A\trans(\bm y-\bm{Ax})
+\]
+\item
+\begin{proposition}[Chain Rule]
+Let $h(x)=g(f(x))$ with $g:\mathbb{R}^m\mapsto\mathbb{R}^n$ and $f:\mathbb{R}^k\mapsto\mathbb{R}^m$, then we have
+\begin{equation}
+\nabla h(x)=\nabla f(x)\nabla g(f(x))\label{Eq:8:4}
+\end{equation}
+\end{proposition}
+\[
+\nabla_{\bm X}\|\bm{AX}-\bm B\|_F^2=
+\]
+\begin{proof}
+Firstly we compute $\nabla_{\bm X}\|\bm X\|_F^2$:
+\[
+\|\bm X\|_F^2=\sum_{i,j}x_{ij}^2\implies
+\nabla_{\bm X}\|\bm X\|_F^2=\left[\frac{\partial\sum_{i,j} x_{ij}^2}{\partial\bm X}\right]
+\]
+Note that
+\[
+\left[\frac{\partial\sum_{i,j} x_{ij}^2}{\partial\bm X}\right]_{ij}=
+\left[\frac{\partial\sum_{i,j} x_{ij}^2}{\partial x_{ij}}\right]=2x_{ij},
+\]
+which follows that $\nabla_{\bm X}\|\bm X\|_F^2=2\bm X$, and therefore
+\[
+\nabla_{\bm X}\|\underbrace{\bm{AX}-\bm B}_{\bm Y}\|_F^2=
+\nabla_{\bm X}(\bm{AX}-\bm B)\nabla_{\bm Y}\|\bm Y\|_F^2=2\bm A\trans\bm Y
+\]
+\end{proof}
+\end{itemize}
+\paragraph{Necessary and Sufficient Optimality condition}
+\begin{proposition}[Unconstraint optimality condition]
+Suppose $f:X\mapsto\mathbb{R}$ is a second order differentiable function defined on domain $X$
+\begin{itemize}
+\item
+Necessary condition for local minimum $x^*$:
+\[
+\left\{
+\begin{aligned}
+\nabla f(x^*)&=0\\
+\nabla^2f(x^*)&\succeq0
+\end{aligned}
+\right.
+\]
+\item
+Sufficient condition for local minimum $x^*$:
+\[
+\left\{
+\begin{aligned}
+\nabla f(x^*)&=0\\
+\nabla^2f(x^*)&\succ0
+\end{aligned}
+\right.
+\]
+\end{itemize}
+\end{proposition}
+\begin{corollary}
+For $x^*$ satisfying the sufficient condition, there exists $\gamma,\varepsilon>0$ such that
+\[
+f(x)\ge f(x^*)+\frac{\gamma}{2}\|x-x^*\|^2,\qquad
+\forall x\mbox{ such that }\|x-x^*\|<\varepsilon
+\]
+\end{corollary}
+\begin{proof}
+For any direction $d$, we have
+\begin{align*}
+f(x^*+d)-f(x^*)&=\inp{\nabla f(x^*)}{d}+\frac{1}{2}d\trans\nabla^2f(x^*)d+o(\|d\|_2^2)\\
+&\ge\frac{1}{2}\lambda_{\min}\|d\|^2+o(\|d\|_2^2)\\
+&=\left[\frac{1}{2}\lambda_{\min}+o(1)\right]\|d\|_2^2
+\end{align*}
+\end{proof}
+\begin{proposition}[Constraint but convex optimality condition]
+Consider the convex optimization problem
+\begin{equation}\label{Eq:8:5}
+\begin{array}{ll}
+\min&f_0(x)\\
+&x\in X\mbox{ for convex set $X$},
+\end{array}
+\end{equation}
+$x$ is optimal if and only if
+\begin{equation}\label{Eq:8:6}
+\begin{array}{ll}
+\inp{\nabla f_0(x)}{(y-x)}\ge0,
+&
+\forall y\in X
+\end{array}
+\end{equation}
+\end{proposition}
+\begin{proof}
+For the reverse direction, consider the Taylor expansion and the inequality below:
+\[
+\begin{array}{ll}
+f_0(y)\ge f_0(x)+\inp{\nabla f_0(x)}{(y-x)},
+&
+\forall y\in X
+\end{array}
+\]  
+For the forward direction, assume $x$ is optimal but (\ref{Eq:8:6}) does not hold, i.e., for some $y\in X$, we have
+\[
+\inp{\nabla f_0(x)}{(y-x)}<0.
+\]
+Consider the point $z(t)=ty+(1-t)x$ with the derivative
+\[
+\frac{\diff}{\diff t}f_0(z(t))|_{t=0}=\inp{\nabla f_0(x)}{(y-x)}<0,
+\]
+i.e., for some $t>0$, we have $f_0(z(t))<f_0(x)$, which is a contradiction.
+\end{proof}
+\begin{proposition}[KKT conditions]
+Consider the standard optimization problem
+\begin{equation}
+\begin{array}{ll}
+\min&f_0(x)\\
+\mbox{such that}&f_i(x)\le0,\quad i=1,\dots,m\\
+&h_i(x)=0,\quad i=1,\dots,p
+\end{array}
+\end{equation}
+with the dual problem
+\begin{equation}
+\begin{array}{ll}
+\max&g(\lambda,\gamma)\\
+&\lambda_i\ge0,\quad i=1,\dots,m
+\end{array}
+\end{equation}
+\begin{enumerate}
+\item
+The necessary condition for primal and dual optimal points $x^*$, $(\lambda,\gamma^*)$ is
+\begin{itemize}
+\item
+Primal Feasibility: $f_i(x)\le0,\quad i=1,\dots,m$; $h_i(x)=0,\quad i=1,\dots,p$
+\item
+Dual Feasibility: $\lambda\ge0$
+\item
+Complementary Slacknes: $\lambda_if_i(x^*)=0,\quad i=1,\dots,m$
+\item
+Stationarity of Lagrange: $\nabla_xL(x^*,\lambda^*,\gamma^*)=0$
+\end{itemize}
+\item
+When the primal problem is convex, the KKT conditions above are both necessary and sufficient optimality conditions.
+\end{enumerate}
+\end{proposition}
+\paragraph{Convex functions and convex sets}
+How to verify the convexity?
+\begin{enumerate}
+\item
+By definition:
+\begin{proposition}
+The functions $f_1,f_2$ are convex implies that $f:=\max\{f_1,f_2\}$ is convex.
+\end{proposition}
+\begin{proof}
+For any $\lambda\in(0,1)$ and $x,y\in\mbox{dom }f$, we have
+\begin{align*}
+f(\lambda x+(1-\lambda)y)&=\max\{f_1(\lambda x+(1-\lambda)y),f_2(\lambda x+(1-\lambda)y)\}\\
+&\le\max\{\lambda f_1(x)+(1-\lambda)f_1(y),\lambda f_2(x)+(1-\lambda)f_2(y)\}\\
+&\le\lambda\max\{f_1(x),f_2(x)\}+(1-\lambda)\max\{f_1(y),f_2(y)\}\\
+&=\lambda f(x)+(1-\lambda)f(y)
+\end{align*}
+\end{proof}
+\item
+By properties:
+\begin{proposition}[First Order Conditions]
+For differentiable function $f$, $f$ is convex if and only if for all $x,y\in\mbox{dom }f$,
+\[
+f(y)\ge f(x)+\inp{\nabla f(x)}{(y-x)}
+\]
+\end{proposition}
+\begin{proposition}[Second Order Conditions]
+For twice differentiable function $f$, $f$ is convex if and only if for all $x\in\mbox{dom }f$,
+\[
+\nabla^2f(x)\succeq0
+\]
+\end{proposition}
+\end{enumerate}
+\paragraph{Algorithms}
+For algorithms, make clear of those things below:
+\begin{itemize}
+\item
+How it works?
+\item
+What kind of problems does it intend for?
+\item
+What is the convergence rate?
+\end{itemize}
+\paragraph{Primal and Dual}
+\begin{example}
+Derive the dual for the optimization problem
+\begin{equation}
+\begin{array}{ll}
+\min&\|\bm{Ax}-\bm b\|_\infty.
+\end{array}
+\end{equation}
+\begin{enumerate}
+\item
+First make some transformations. We set $t:=\|\bm{Ax}-\bm b\|_\infty$, and thus suffices to solve
+\begin{equation}
+\begin{array}{ll}
+\min&t\\
+&\bm {Ax}-\bm b\le t\\
+&-\bm{Ax}+\bm b\le t
+\end{array}
+\end{equation}
+\item
+Thus the Lagrange function is defined as:
+\[
+L(\bm x,t,u,v)=t+\begin{bmatrix}
+\bm u\trans&\bm v\trans
+\end{bmatrix}\left(
+\begin{bmatrix}
+\bm A&-\bm 1\\-\bm A&-\bm 1
+\end{bmatrix}\begin{bmatrix}
+\bm x\\ t
+\end{bmatrix}-\begin{bmatrix}
+\bm b\\-\bm b
+\end{bmatrix}
+\right)
+\]
+and $\inf_{\bm x,t}L(\bm x,t,u,v)=-\begin{bmatrix}
+\bm u\trans&\bm v\trans
+\end{bmatrix}\begin{pmatrix}
+\bm b\\-\bm b
+\end{pmatrix}$, which implies the dual problem
+\[
+\begin{array}{ll}
+\max&-\begin{bmatrix}
+\bm u\trans&\bm v\trans
+\end{bmatrix}\begin{pmatrix}
+\bm b\\-\bm b
+\end{pmatrix}\\
+&\bm u\trans\bm A-\bm v\trans\bm A=0\\
+&-\bm u\trans\bm 1-\bm v\trans\bm 1=-1
+\end{array}
+\]
+
+\end{enumerate}
+\end{example}
+\begin{theorem}[Weak Duality]
+For any optimization problem with dual optimal value $q^*$ and primal optimal value $f^*$, we have
+\[
+q^*\le f^*
+\]
+\end{theorem}
+\begin{theorem}[Strong Duality]
+For convex optimization problem, we have
+\begin{enumerate}
+\item
+Both primal and dual has optimal feasible solution
+\item
+One is infeasible implies the other is unbounded
+\item
+If both has optimal feasible solution, then $q^*=f^*$.
+\end{enumerate}
+\end{theorem}
+\paragraph{Convergence Analysis}
+For (not necessarily quadratic) optimization problem $f(\bm x)=\frac{1}{2}\bm x\trans\bm Q\bm x$, consider the steepest descent
+\[
+\bm x^{k+1}=\bm x^k-\alpha^k\nabla f(\bm x^k)=(\bm I-\alpha^k\bm Q)\bm x^k,
+\]
+which implies
+\begin{align*}
+\|\bm x^{k+1}\|^2&=(\bm x^k)\trans (\bm I-\alpha^k\bm Q)^2\bm x^r\le \lambda_1[(\bm I-\alpha^k\bm Q)^2]\|\bm x^{r}\|^2\\
+&=\|\bm x^{k}\|^2\cdot\max\{(1-\alpha^km)^2,(1-\alpha^kM)^2\},
+\end{align*}
+which implies
+\[
+\frac{\|\bm x^{k+1}\|}{\|\bm x^k\|}\le\max\{|1-\alpha^km|,|1-\alpha^kM|\}
+\]
+Choosing $\alpha^k=\frac{2}{M+m}$ s.t. $\max\{|1-\alpha^km|,|1-\alpha^kM|\}$ is maximized, we have
+\[
+\frac{\|\bm x^{k+1}\|}{\|\bm x^k\|}\le\frac{M-m}{M+m}.
+\]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

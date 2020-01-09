@@ -1,0 +1,210 @@
+%% Run LaTeX on this file several times to get Table of Contents,
+\input{book_command}
+\usepackage{pdfpages}
+%\includeonly{week13/Wednesday}
+\begin{document}
+%Hello
+\frontmatter
+%\includepdf[pages={1}]{book_cover/cover/FrontCover}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Setting up title pages, type in the appropriate names here:
+
+\booktitle{A Graduate Course \\ In \\
+Optimization}
+
+\subtitle{CIE6010 Notebook}
+
+\AuAff{
+Lecturer\\
+Prof. Yin Zhang\\ The Chinese University of Hongkong, Shenzhen
+}
+\AuAff{
+Tex Written By\\
+Mr. Jie Wang\\ The Chinese University of Hongkong, Shenzhen}
+%\AuAff{Prof. Ruoyu Sun\\ University of Illinois Urbana-Champaign}
+%% \\ will start a new line.
+
+
+%% Print Half Title and Title Page:
+\halftitlepage
+\titlepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright Page
+%\begin{copyrightpage}{year}
+%Title, etc
+%\end{copyrightpage}
+
+% Note, you must use \ to start indented lines, ie,
+% 
+% \begin{copyrightpage}{2004}
+% Survey Methodology / Robert M. Groves . . . [et al.].
+% \       p. cm.---(Wiley series in survey methodology)
+% \    ``Wiley-Interscience."
+% \    Includes bibliographical references and index.
+% \    ISBN 0-471-48348-6 (pbk.)
+% \    1. Surveys---Methodology.  2. Social 
+% \  sciences---Research---Statistical methods.  I. Groves, Robert M.  II. %
+% Series.\\
+%
+% HA31.2.S873 2004
+% 001.4'33---dc22                                             2004044064
+% \end{copyrightpage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Only Dedication (optional) 
+%\dedication{To my girlfriend Jianyu Yang}
+
+\tableofcontents
+
+%\listoffigures %optional
+%\listoftables  %optional
+
+
+
+% If your book has chapters written by different authors,
+% you'll need a Contributors page.
+
+% Use \begin{contributors}...\end{contributors} and
+% then enter each author with the \name{} command, followed
+% by the affiliation information.
+
+% \begin{contributors}
+% \name{Zhi-quan Luo,} Shenzhen Research Institute of Big Data, Lecturer
+%
+% \name{Ruoyu Sun,} Industrial and Enterprise Systems Engineering, Lecturer
+%
+% \name{Jie Wang,} The Chinese University of Hongkong, Shenzhen, Typer
+% \end{contributors}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Optional Preface:
+%\begin{preface}
+%\input{preface.tex}
+%\prefaceauthor{}
+%\where{CUHK(SZ)\\
+% \today}
+%\end{preface}
+% ie,
+% \begin{preface}
+% This is an example preface.
+% \prefaceauthor{R. K. Watts}
+% \where{Durham, North Carolina\\
+% September, 2004}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Optional Acknowledgments:
+
+\acknowledgments
+This book is from the CIE6010 in fall semester, 2018.
+\authorinitials{CUHK(SZ)}  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Optional notations:
+\begin{notations}
+\acro{$X$}{Set}
+\acro{$\inf X\subseteq\mathbb{R}$}{Infimum over the set $X$}
+\acro{$\mathbb{R}^{m\times n}$}{set of all $m\times n$ real-valued matrices}
+\acro{$\mathbb{C}^{m\times n}$}{set of all $m\times n$ complex-valued matrices}
+\acro{$x_i$}{$i$th entry of column vector $\bm x$}
+\acro{$a_{ij}$}{$(i,j)$th entry of matrix $\bm A$}
+\acro{$\bm a_i$}{$i$th column of matrix $\bm A$}
+\acro{$\bm a_i\trans$}{$i$th row of matrix $\bm A$}
+\acro{$\mathbb{S}^n$}{set of all $n\times n$ real symmetric matrices, i.e., $\bm A\in\mathbb{R}^{n\times n}$ and $a_{ij}=a_{ji}$ for all $i,j$}
+\acro{$\mathbb{H}^n$}{set of all $n\times n$ complex Hermitian matrices, i.e., $\bm A\in\mathbb{C}^{n\times n}$ and $\bar{a}_{ij}=a_{ji}$ for all $i,j$}
+\acro{$\bm A\trans$}{transpose of $\bm A$, i.e, $\bm B=\bm A\trans$ means $b_{ji}=a_{ij}$ for all $i,j$}
+\acro{$\bm A\Her$}{Hermitian transpose of $\bm A$, i.e, $\bm B=\bm A\Her$ means $b_{ji}=\bar{a}_{ij}$ for all $i,j$}
+\acro{$\trace(\bm A)$}{sum of diagonal entries of square matrix $\bm A$}
+\acro{$\bm 1$}{A vector with all $1$ entries}
+\acro{$\bm 0$}{either a vector of all
+zeros, or a matrix of all zeros}
+\acro{$\bm e_i$}{a unit vector with the nonzero element at the $i$th entry}
+\acro{$\mathcal{C}(\bm A)$}{the column space of $\bm A$}
+\acro{$\mathcal{R}(\bm A)$}{the row space of $\bm A$}
+\acro{$\mathcal{N}(\bm A)$}{the null space of $\bm A$}
+\acro{$\Proj_{\mathcal{M}}(\bm A)$}{the projection of $\bm A$ onto the set $\mathcal{M}$}
+\end{notations}
+\mainmatter
+\setcounter{page}{1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Optional introduction:
+%\begin{introduction}
+%
+%The word \textit {traffic} becomes \textit {teletraffic} in telecommunications, as communications becomes telecommunications to indicate technology use, e.g., conversation from some distance through phones or Internet. The term teletraffic covers all kinds of computer communication traffic and telecom traffic.  This book includes teletraffic loss models.
+%\end{introduction}
+\include{week1/Tuesday}
+%\include{week1/Thursday}
+%\include{week1/Friday}
+%\include{week1/Assignment_One}
+%%\include{week2/Lecture_1}
+%%\include{week2/Lecture_2}
+\include{week2/Tuesday}
+\include{week2/Wednesday}
+%
+%\include{week2/Assignment_Two}
+%\include{week2/Friday}
+%\include{week2/Assignment_Three}
+%%\include{week3/Lecture_1}
+%%\include{week3/Lecture_2}
+\include{week3/Tuesday}
+\include{week3/Thursday}
+%\include{week3/Friday}
+%\include{week3/Assignment_Four}
+\include{week4/Wednesday}
+%%\include{week4/Lecture_2}
+%\include{exam/midterm/MAT2040_Sample_Exam}
+%\include{exam/midterm/MAT2040_Midterm_Exam}
+%\include{week4/Friday}
+%\include{week4/Assignment_Five}
+%%\include{week5/Lecture_1}
+%%\include{week5/Lecture_2}
+\include{week5/Monday}
+\include{week5/Wednesday}
+%\include{week5/Friday}
+%\include{week5/Assignment_Six}
+%%\include{week6/Lecture_1}
+%%\include{week6/Lecture_2}
+\include{week6/Monday}
+\include{week6/Wednesday}
+%\include{week6/Friday}
+%\include{week6/Assignment_Seven}
+\include{week7/Monday}
+\include{week7/Wednesday}
+\include{week8/Monday}
+\include{week9/Monday}
+\include{week10/Monday}
+\include{week10/Wednesday}
+\include{week11/Monday}
+\include{week11/Wednesday}
+\include{week12/Monday}
+\include{week12/Wednesday}
+\include{week13/Wednesday}
+%\include{week14/Monday}
+%\include{week14/Wednesday}
+%\include{week7/Thursday}
+%\include{week7/Assignment_Eight}
+%\include{exam/final/MAT2040_Sample_Exam}
+%\include{exam/final/MAT2040_Final_Exam}
+%\include{Solution/Solution_to_assignment_one}
+%\include{Solution/Solution_to_assignment_two}
+%\include{Solution/Solution_to_assignment_three}
+%\include{Solution/Solution_to_assignment_four}
+%\include{Solution/Solution_to_assignment_five}
+%\include{Solution/Solution_to_assignment_six}
+%\include{Solution/Solution_to_assignment_seven}
+%\include{Solution/Solution_to_assignment_eight}
+%\include{Solution/Sample_midterm_solution}
+%\include{Solution/midterm_solution}
+%\include{Solution/Sample_final_solution}
+%\include{Solution/Final_solution}
+
+
+\backmatter
+%\include{app01}
+%\includegraphics{AuthorIcon}
+
+\latexprintindex
+
+\end{document} 
