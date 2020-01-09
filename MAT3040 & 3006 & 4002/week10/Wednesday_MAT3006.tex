@@ -1,0 +1,298 @@
+
+\section{Wednesday for MAT3006}\index{Wednesday_lecture}
+
+\begin{proposition}[Fatou's Lemma]
+Suppose $\{f_n\}$ is a sequence of measurable, nonnegative functions.
+\[
+\lim_{n\to\infty}\inf \int f_n\diff m
+\ge
+\int
+\lim_{n\to\infty}\inf(f_n)\diff m
+\]
+\end{proposition}
+
+\begin{proof}
+Define $g_n(x) := \inf_{k \geq n} f_k(x)$ and 
+\[
+f(x)=\lim_{n\to\infty}\inf f_n(x)
+=\lim_{n\to\infty}\left(\inf_{k\ge n}f_k(x)\right):=\lim_{n\to\infty}g_n(x)
+\]
+To study the integral $\int f\diff m$, we will only focus on $f(x)$ on $E\subseteq\mathbb{R}$, where $f(x)>0,\forall x\in E$. 
+
+It suffices to show that $\int_E\phi\diff m\le \lim_{n\to\infty}\inf\int_Ef_n\diff m$ for all simple $\phi$ satisfying $0\le \phi(x)\le f(x),\forall x\in E$.
+(Then taking supremum both sides leads to the desired result.)
+
+\begin{enumerate}
+\item
+Construct the simple function $\phi'$ on $E$ such that 
+\[
+\phi'(x)=\left\{
+\begin{aligned}
+\phi(x)-\varepsilon,&\quad\text{if $\phi(x)>0$}\\
+0,&\quad\text{if $\phi(x)=0$}
+\end{aligned}
+\right.
+\]
+in which we pick $\varepsilon$ small enough such that $\phi(x)-\varepsilon\ge0$.
+
+As a result, $\phi'<f,\forall x\in E$ (why?).
+\item
+Note that $g_n(x)$ is monotone increasing with $n$, and therefore convergent to $f(x)$.
+Consider $A_n:=\{x\in E\mid \phi'(x)\le g_n(x)\}$, which follows that
+\begin{itemize}
+\item[(a)]
+$A_n\subseteq A_{n+1}$
+\item[(b)]
+$\cup_{n=1}^\infty A_n=E$ (We do need $\phi'$ is strictly less than $f$ to obtain this condition).
+\end{itemize}
+Therefore, for any $k\ge n$,
+\[
+\int_{A_n}\phi'\diff m\le \int_{A_n}g_n\diff m\le 
+\int_{A_n}f_k\diff m,
+\]
+which implies $\int_{A_n}\phi'\diff m\le \int_Ef_k\diff m$ since $f_k\mathcal{X}_{A_n}\le f_k\mathcal{X}_{E}$.
+Or equivalently,
+\begin{equation}\label{Eq:10:2}
+\int_{A_n}\phi'\diff m\le\inf_{k\ge n}\int_Ef_k\diff m
+\end{equation}
+\item
+Taking limits $n\to\infty$ both sides for (\ref{Eq:10:2}):
+\begin{itemize}
+\item
+For LHS, suppose that $\phi'=\sum_i\alpha_i\mathcal{X}_{c_i}$, then $\int_{A_n}\phi'\diff m=\sum_i\alpha_i m(c_i\cap A_n)$, which follows that
+\[
+\lim_{n\to\infty}\int_{A_n}\phi'\diff m
+=
+\sum_i\alpha_i\lim_{n\to\infty}m(c_i\cap A_n)
+=
+\sum_i\alpha_im(c_i)=\int_E\phi'\diff m
+\]
+\item
+The limit of RHS equals $\lim_{n\to\infty}\inf\int_Ef_n\diff m$, and therefore 
+\[
+\int_E\phi'\diff m\le \lim_{n\to\infty}\inf\int_Ef_n\diff m
+\]
+\end{itemize}
+Note that the goal is to show $\int_E\phi\diff m\le \lim_{n\to\infty}\inf\int_Ef_n\diff m$, and therefore we need to evaluate $\phi'$ in terms of $\phi$.
+\item
+\begin{enumerate}
+\item
+Consider the case where $m(\phi^{-1}(0,\infty))=P<\infty$, then
+\[
+\int_E\phi'\diff m = \int_E\phi\diff m-\varepsilon\cdot P\le \lim_{n\to\infty}\inf\int_Ef_n\diff m,
+\]
+for all small $\varepsilon>0$. Then the desired result holds.
+\item
+Consider the case where $m(\phi^{-1}(0,\infty)) = \infty$, and we write the canonical form $\phi=\sum\alpha_i\mathcal{X}_{c_i}$ with $\alpha_i>0$.
+Define $C=\cup_ic_i$ such that $m(c)=\infty$.
+
+Construct the simple function $\phi'=a\mathcal{X}_C$, where $a:=\frac{1}{2}\min\{\alpha_i\}$, which implies
+\begin{itemize}
+\item
+$\phi'\le\phi$
+\item
+$\int_E\phi'\diff m=am(c)=\infty$, which follows that $\int_E\phi\diff m=\infty$.
+\end{itemize}
+Our goal is to show $\lim_{n\to\infty}\inf\int_Ef_n\diff m=\infty$.
+
+Consider $B_n=\{x\in E\mid g_n(x)>a\}$, then $\cup B_n=E, B_n\subseteq B_{n+1}$.
+
+Observe the inequality
+\[
+\int_{C\cap B_n}a\diff m\le \int_{B_n}a\diff m\le \int_{B_n}g_n\diff m\le \inf_{k\ge n}\int_Ef_n\diff m
+\]
+Taking $n\to\infty$ both sides. For LHS, by definition of $B_n$, the limit equals $\int_Ca\diff m = \int\phi'\diff m=\infty$;
+and the limit of RHS equals to $\lim_{n\to\infty}\inf\int_Ef_n\diff m$, i.e.,
+\[
+\lim_{n\to\infty}\inf\int_Ef_n\diff m=\infty
+\]
+\end{enumerate}
+
+\end{enumerate}
+
+\end{proof}
+
+\begin{theorem}[Monotone Convergence Theorem I]
+Let $\{f_n\}$ be a sequence of non-negative measurable functions, with 
+\begin{itemize}
+\item
+$f_n(x)$ being monotone increasing
+\item
+$f_n(x)\to f(x)$ pointwisely
+\end{itemize}
+Then we have
+\[
+\lim_{n\to\infty}\int f_n\diff m = \int\left(\lim_{n\to\infty}f_n\right)\diff m:=\int f\diff m
+\]
+\end{theorem}
+\begin{proof}
+\begin{itemize}
+\item
+On the one hand, for all $n\in\mathbb{N}$, we have
+\[
+f_n\le f\implies \int f_n\diff m\le\int f\diff m\implies
+\lim_{n\to\infty}\sup \int f_n\diff m\le \int f\diff m
+\]
+\item
+On the other hand, applying the Fatou's lemma,
+\[
+\int f\diff m:=
+\int\left(\lim_{n\to\infty}\inf f_n\right)\diff m\le \lim_{n\to\infty}\inf \int f_n\diff m
+\]
+Togehter with the previous inequality, we imply
+\[
+\lim_{n\to\infty}\sup \int f_n\diff m\le \int f\diff m
+\le
+ \lim_{n\to\infty}\inf \int f_n
+\]
+\end{itemize}
+Therefore, all inequalities above are equalities, and the limit exists since limsup and liminf coincides. Moreover,
+\[
+\lim_{n\to\infty}\int f_n\diff m=
+ \int f\diff m.
+\]
+\end{proof}
+
+From MCT I, the Lebesgue integral $\int f\diff m$ can be computed as follows:
+\begin{itemize}
+\item
+Construct simple functions $\phi_n\le\phi_{n+1}$ with $\phi_n\to f$
+\item
+Evaluate $\int\phi_n\diff m$ and then $\int f\diff m = \lim_{n\to\infty}\int\phi_n\diff m$
+\end{itemize}
+
+
+
+\subsection{Consequences of MCT}
+\begin{proposition}
+The Lebesgue integral is finitely addictive for measurable non-negative functions.
+In other words, suppose $f,g$ are measurable and nonnegative, then
+\[
+\int f\diff m+\int g\diff m=\int(f+g)\diff m
+\]
+\end{proposition}
+\begin{proof}
+Suppose we have simple increasing functions $\{\phi_n\}$ and $\{\psi_n\}$ such that $\phi_n\to f$ and $\psi_n\to f$. Then
+\begin{subequations}
+\begin{align}
+\int(f+g)\diff m&=\lim_{n\to\infty}\int(\phi_n+\psi_n)\diff m\label{Eq:10:3:a}\\
+&=\lim_{n\to\infty}\int\phi_n\diff m+\lim_{n\to\infty}\int\psi_n\diff m\label{Eq:10:3:b}\\
+&=\int f\diff m+\int g\diff m\label{Eq:10:3:c}
+\end{align}
+where (\ref{Eq:10:3:a}) and (\ref{Eq:10:3:c}) is by applying MCT I; and (\ref{Eq:10:3:b}) is by definition of simple function.
+\end{subequations}
+\end{proof}
+\begin{corollary}
+The Lebesgue integral is linear defined for measurable, nonnegative functions.
+In other words, suppose $f,g$ are measurable and nonnegative, then
+\[
+\int(af+bg)\diff m=a\int f\diff m+b\int g\diff m,
+\]
+for any $a,b\ge0$.
+\end{corollary}
+\begin{proposition}\label{pro:10:14}
+The Lebesgue integral for non-negative continuous function on a bounded closed interval coincides with the Riemann integral.
+In other words, let $f$ be a non-negative continuous function on $[a,b]$. then
+\[
+\int_{[a,b]}f\diff m = \int_a^bf(x)\diff x.
+\]
+\end{proposition}
+We will extend this result into all proper Riemann integrable functions on $[a,b]$ soon.
+
+\begin{proof}
+Let $\phi_n$ be the simple function giving the Riemann lower sum of $f(x)$ with $2^n$ equal subintervals:
+\[
+\phi_n(x)=\sum_{k=1}^{2^n}\left(\min_{y\in\bar{I}_k}f(y)\right)\mathcal{X}_{I_k},\ \text{where }I_k=[a+(b-a)\frac{k-1}{2^n}, a+(b-a)\frac{k}{2^n}]
+\]
+\begin{itemize}
+\item
+$\phi_n(x)\ge0$ is monotone increasing~(that's the reason we should divde intervals into $2^n$ pieces instead of $n$ pieces)
+\item
+$\phi_n(x)\to f(x)$ pointwisely:
+for any $x\in[a,b]$ and $\varepsilon>0$, by (uniform) continuity of $f$, there exists $\delta>0$ such that
+\[
+|y-x|<\delta\implies |f(y)-f(x)|<\varepsilon.
+\]
+
+Therefore, for sufficiently large $n$, we imply for any $x\in I_{k,n}$, $|I_{k,n}|<\delta$.
+As a result, 
+\[
+\left|\min_{y\in I_{k,n}}f(y) - f(x)\right|<\varepsilon.
+\]
+\end{itemize}
+Therefore,
+\begin{align*}
+\int_{[a,b]}f\diff m&=\lim_{n\to\infty}\int\phi_n\diff m
+\\&=
+\lim_{n\to\infty}\left[\text{Riemann lower integral of $\int_a^bf(x)\diff x$}\right]\\&=\int_a^bf(x)\diff x
+\end{align*}
+\end{proof}
+
+\begin{example}
+The Lebesgue integral gives us an alternative way to compute improper integrals.
+Suppose that we want to compute the integral
+\[
+\int_0^1(1-x)^{-1/2}\diff x.
+\]
+\begin{enumerate}
+\item
+The old method is that we know the integral
+\[
+\int_0^{1-1/n}(1-x)^{-1/2}\diff x\text{ exists for any $n$}.
+\]
+Then we extend the definition of Riemann integration by taking limit of $n$:
+\[
+\int_0^1f(x)\diff x=\lim_{n\to\infty}\int_0^{1-1/n}(1-x)^{-1/2}
+=
+\lim_{n\to\infty}2-2\sqrt{\frac{1}{n}}=2
+\]
+\item
+The Lebesgue integration does not require us to extend the definition.
+Consider
+\[
+f_n(x)=(1-x)^{-1/2}\mathcal{X}_{[0,1-1/n]}
+\]
+Then
+\begin{itemize}
+\item
+$f_n(x)\to f(x)$ on $[0,1)$
+\item
+$f_n(x)$ is monotone increasing
+\end{itemize}
+Therefore, by applying MCT I,
+\[
+\int_{[0,1)}(1-x)^{-1/2}\diff x=\lim_{n\to\infty}\int f_n\diff m=\lim_{n\to\infty}\int_{[0,1-1/n]}(1-x)^{-1/2}\diff x.
+\]
+By Proposition~(\ref{pro:10:14}), $\int_{[0,1-1/n]}(1-x)^{-1/2}\diff x=\int_0^{1-1/n}(1-x)^{-1/2}\diff x$ for all $n$.
+Therefore, we conclude that the Lebesgue integral is equal to the (improper) Riemann integral in this case.
+\end{enumerate}
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

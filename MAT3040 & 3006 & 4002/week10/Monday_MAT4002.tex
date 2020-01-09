@@ -1,0 +1,106 @@
+\section{Monday for MAT4002}\index{Monday_lecture}
+\begin{proposition}[Simplicial Approximation Proposition]\label{pro:10:6}
+Let $K$ and $L$ be two simplifical complexes, and $f:|K|\to|L|$ be a continuous mapping. If there exists a simplicial mapping $g:K\to L$ such that $f(\text{st}_K(\bm v))\subseteq\text{st}_L(g(\bm v)),\forall \bm v\in V(K)$, then 
+\[
+|g|\simeq f
+\]
+\end{proposition}
+Recall the definition
+\[
+\text{st}_K(\bm v) = \bigcup\{\text{inside}(\sigma):\text{$\sigma$ is a simplex of $|K|$ and $x\in\sigma$}\}
+\]
+\begin{proof}
+\begin{itemize}
+\item
+We first show a statement: Suppose that $\sigma=\{v_0,\dots,v_n\}\in\Sigma(K)$, and $x\in\text{inside}(\sigma)\subseteq|K|$. If $f(x)\in|L|$ lies in the inside of the (unique) simplex $\tau\in\Sigma_L$, (i.e., $f(x)$ can uniquely be expressed as $\sum_{u_i \in \tau} \beta_i u_i,$ such that $\beta_i > 0,\forall i$ and $\sum_i \beta_i = 1$) then $g(v_0),\dots,g(v_n)$ are vertices of $\tau$.
+
+By definition of $\text{inside}(\sigma)$, $x=\sum_{i=0}^n\alpha_iv_i$ with $\alpha_i>0$ and $\sum_{i=1}^n\alpha_i=1$.
+Therefore, $x\in\text{st}_K(v_i)$ for $i=1,\dots,n$, where
+\[
+\text{st}_K(v_i):=\left\{
+av_i+\sum_{j=1}^mb_jw_j\mid a>0,b_j>0,a+\sum_{j=1}^mb_j=1,\{v_i,w_1,\dots,w_m\}\in\Sigma_K
+\right\}.
+\]
+Therefore, $f(x)\in\text{int}(\text{st}_K(v_i))\subseteq\text{st}_L(g(v_i))$, which follows that
+\[
+f(x) = ag(v_i)+\sum_{j=1}^mb_ju_j, \ \text{where }a>0,b_j>0, a+\sum_{j=1}^mb_j=1,\ \{g(v_i),u_1,\dots,u_m\}\in\Sigma_L
+\]
+Comparing the above formula with our hypothesis on $f(x)$, $g(v_i)$ is a vertex of the simplex $\tau$, $i=1,\dots,n$.
+Moreover, $\{g(v_0),\dots,g(v_n)\}$ is a subset of $\tau$, which is a face of $\tau$, and therefore $\{g(v_0),\dots,g(v_n)\}\in\Sigma_L$.
+\item
+Therefore, the mapping $g:K\to L$ maps simplicies to simplicies, which is a simplicial mapping.
+We can construct a homotopy between $f$ and $|g|$ as follows:
+Consider any $x\in|K|$, and let $\tau\in\Sigma_L$ be such that $f(x)\in\text{inside}(\tau)$.
+We write $x=\sum_{i=0}^n\lambda_iv_i$ for some $\{v_0,\dots,v_n\}\in\Sigma_K$ and $\lambda_i>0,\sum_{i=1}^n\lambda_i=1$.
+Applying our claim,
+\[
+|g|(x)=\sum_{i=0}^n\lambda_ig(v_i),
+\]
+where $g(v_0),\dots,g(v_n)$ are all vertices of $\tau$.
+
+We can directly construct a homotopy between $f$ and $|g|$. Before that, we need some reformulations.
+Since $f(x)\in\text{inside}(\tau)$, we let $f(x)=\sum_{i=0}^m\mu_i\tau_i$.
+Since  $|g|(x)=\sum_{i=0}^n\lambda_ig(v_i)\in \text{inside}(\tau)$, we rewrite $|g|(x)=\sum_{i=0}^m\lambda_i'\tau_i$. (by adding some $\lambda_i' := 0$ if necessary)
+We define the map
+\[
+\begin{array}{ll}
+H:&|K|\times I\to |L|\\
+\text{with}&(x,t)\mapsto \sum_{i=0}^mt\lambda_i'+(1-t)\mu_i
+\end{array}
+\]
+which follows that $f\simeq |g|$.
+
+
+
+
+\end{itemize}
+\end{proof}
+
+\begin{theorem}[Simplicial Approximation Theorem]
+Let $K$,$L$ be simplicial complexes with $V_K$ finite, and $f:|K|\to|L|$ be continuous.
+Then there exists a subdivison $|K'|$ of $|K|$ together with a simplicial map $g$ such that $|g|\simeq f$.
+
+Here the way for constructing subdivison $|K'|$ is as follows.
+There exists a constant $\delta>0$. As long as the coarseness of $K'$ is less than $\delta$, our constructed subdivision satisfies the condition.
+\end{theorem}
+\begin{proof}
+The sets $\{\text{st}_L(w)\mid w\in V(L)\}$ forms an open cover of $|L|$, which implies
+$\{f^{-1}(\text{st}_L(w))\}$ forms an open cover of $|K|$.
+By compactness, there exists a finite subcover of $|K|$, denoted as
+\[
+|K|\subseteq \bigcup_{i=1}^nf^{-1}(\text{st}_L(w_i))
+\]
+
+There exists a small number $\delta>0$ such that for any $x,y\in|K|$ with $d(x,y)<\delta$, $x,y\in f^{-1}(\text{st}_L(w_i))$ for some $i$.
+Then we construct a simplicial subdivision $|K'|$ of $|K|$ with coarseness less than $\delta$, i.e., $\forall x,y\in\text{st}_{K'}(v)$, $d(x,y)<\delta$.
+
+Therefore, $\text{st}_{K'}(v)\subseteq f^{-1}(\text{st}_L(w_i))$ for any $v\in V(K;)$ and some $w_i\in V(L)$, i.e., $f(\text{st}_{K'}(v))\subseteq\text{st}_L(w_i)$.
+
+Setting $g(v)=w_i$ and applying proposition~(\ref{pro:10:6}) gives the desired result.
+\end{proof}
+
+\subsection{Group Presentations}
+Group is a highlight of our course, which interwises topology and algebra.
+I assume that most students have learnt abstract algebra course MAT3004, and encourage those without this knowledge to read the notes for group posted on blackboard.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

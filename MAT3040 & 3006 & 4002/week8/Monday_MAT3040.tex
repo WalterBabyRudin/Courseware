@@ -1,0 +1,309 @@
+\chapter{Week8}
+\section{Monday for MAT3040}\index{Monday_lecture}
+\paragraph{Reviewing}
+\begin{itemize}
+\item
+If $\mathcal{X}_T(x) =(x-\lambda_1)\cdots(x-\lambda_n)$, then 
+\[
+(T)_{\mathcal{A},\mathcal{A}}=\begin{pmatrix}
+\lambda_1&\times&\times&\times\\
+0&\lambda_2&\cdots&\times\\
+0&\cdots&\ddots&\times\\
+0&0&\cdots&\lambda_n
+\end{pmatrix}
+\]
+for some basis $\mathcal{A}$.
+In other words, $T$ is \emph{triangularizable} with the diagonal entries $\lambda_1,\dots,\lambda_n$.
+\end{itemize}
+\begin{remark}
+I hope you appreciate this result. Consider the example below:
+In linear algebra we have studied that the matrix $\bm A=\begin{pmatrix}
+1&1\\0&1
+\end{pmatrix}$ is not diagonalizable, and the characteristic polynomial is given by
+\[
+\mathcal{X}_{A}(x)=(x-1)^2.
+\]
+However, the theorem above claims that $\bm A$ is \textit{triangularizable}, with diagonal entries 1 and 1.
+The diagonalization of $\bm A$ only uses the eigenvector of $\bm A$, but the $1$-eigenspace has only 1 dimension.
+Fortunately, the triangularization gives a rescue such that we can make use of the generalized eigenvector $(0,1)\trans$ (but not an eigenvector) of $\bm A$ by considering the mapping below:
+\[
+\begin{array}{ll}
+&U=\Span\left\{\begin{pmatrix}
+1\\0
+\end{pmatrix}\right\}\\
+\bar{A}:&V/U\to V/U
+\end{array}
+\]
+Here $(0,1)\trans+U$ is an eigenvector of $\bar{ A}$, with eigenvalue $1$.
+\end{remark}
+
+\begin{theorem}
+The linear operator $T$ is triangularizable with diagonal entries $(\lambda_1,\dots,\lambda_n)$ if and only if 
+\[
+\mathcal{X}_{T}=(x-\lambda_1)\cdots(x-\lambda_n)
+\]
+\end{theorem}
+\begin{proof}
+It suffices to show only the sufficiency.
+Suppose that there exists basis $\mathcal{A}$ such that 
+\[
+(T)_{\mathcal{A},\mathcal{A}}=\begin{pmatrix}
+\lambda_1&\times&\times&\times\\
+0&\lambda_2&\cdots&\times\\
+0&\cdots&\ddots&\times\\
+0&0&\cdots&\lambda_n
+\end{pmatrix}
+\]
+Then we compute the characteristic polynomial directly:
+\begin{align*}
+\mathcal{X}_T(x)&=\det[(xI-T)_{\mathcal{A},\mathcal{A}}]\\
+&=\det\begin{pmatrix}
+x-\lambda_1&\times&\times&\times\\
+0&x-\lambda_2&\cdots&\times\\
+0&\cdots&\ddots&\times\\
+0&0&\cdots&x-\lambda_n
+\end{pmatrix}\\
+&=(x-\lambda_1)\cdots(x-\lambda_n)
+\end{align*}
+\end{proof}
+\subsection{Cayley-Hamiton Theorem}
+\begin{proposition}[A Useful Lemma]\label{pro:8:1}
+Suppose that $\mathcal{X}_T(x)=(x-\lambda_1)\cdots(x-\lambda_n)$, then $\mathcal{X}_T(T)=0$.
+\end{proposition}
+\begin{proof}
+Since $\mathcal{X}_T(x)=(x-\lambda_1)\cdots(x-\lambda_n)$, we imply $T$ is triangularizable under some basis $\mathcal{A}$.
+Note that
+\begin{itemize}
+\item
+$T\mapsto(T)_{\mathcal{A},\mathcal{A}}$ is an isomorphism between $\text{Hom}(V,V)$ and $M_{n\times n}(\mathbb{F})$,
+\item
+$(\underbrace{T\circ T\circ\cdots\circ T}_{\text{$m$ times}})_{\mathcal{A},\mathcal{A}} = [(T)_{\mathcal{A},\mathcal{A}}]^m$, for any $m$,
+\end{itemize}
+It suffices to show $\mathcal{X}_T((T)_{\mathcal{A},\mathcal{A}})$ is the zero matrix (why?):
+\[
+\mathcal{X}_T((T)_{\mathcal{A},\mathcal{A}})=
+((T)_{\mathcal{A},\mathcal{A}}-\lambda_1\bm I)\cdots
+((T)_{\mathcal{A},\mathcal{A}}-\lambda_n\bm I).
+\]
+Observe the matrix multiplication
+\[
+((T)_{\mathcal{A},\mathcal{A}}-\lambda_i\bm I)\begin{pmatrix}
+x_1\\\vdots\\x_i\\0\\\vdots\\0
+\end{pmatrix}
+=
+\begin{pmatrix}
+\lambda_1-\lambda_i&\times&\times&\times\\
+0&\lambda_2-\lambda_i&\cdots&\times\\
+0&\cdots&\ddots&\times\\
+0&0&\cdots&\lambda_n-\lambda_i
+\end{pmatrix}
+\begin{pmatrix}
+x_1\\\vdots\\x_i\\0\\\vdots\\0
+\end{pmatrix}
+\in\Span\{\bm e_1,\dots,\bm e_{i-1}\}
+\]
+Therefore, for any $\bm v\in V$,
+\[
+((T)_{\mathcal{A},\mathcal{A}}-\lambda_n\bm I)\bm v\in\Span\{\bm e_1,\dots,\bm e_{n-1}\}.
+\]
+Applying the same trick, we conclude that 
+\[
+((T)_{\mathcal{A},\mathcal{A}}-\lambda_1\bm I)\cdots
+((T)_{\mathcal{A},\mathcal{A}}-\lambda_n\bm I)\bm v
+=\bm0,\quad\forall \bm v\in V,
+\]
+i.e., $\mathcal{X}_T((T)_{\mathcal{A},\mathcal{A}})=((T)_{\mathcal{A},\mathcal{A}}-\lambda_1\bm I)\cdots
+((T)_{\mathcal{A},\mathcal{A}}-\lambda_n\bm I)$ is a zero matrix.
+\end{proof}
+
+Now we are ready to give a proof for the Cayley-Hamiton Theorem:
+\begin{proof}
+Suppose that $\mathcal{X}_T(x)=x^n+a_{n-1}x^{n-1}+\cdots+a_0\in\mathbb{F}[x]$. By considering algebrically closed field $\overline{\mathbb{F}}\supseteq\mathbb{F}$, we imply
+\begin{subequations}
+\begin{align}
+\mathcal{X}_T(x)&=x^n+a_{n-1}x^{n-1}+\cdots+a_0\label{Eq:8:1:a}\\
+&=(x-\lambda_1)\cdots(x-\lambda_n),
+\quad
+\lambda_i\in\overline{\mathbb{F}}\label{Eq:8:1:b}
+\end{align}
+\end{subequations}
+By applying proposition~(\ref{pro:8:1}), we imply $\mathcal{X}_T(T)=0$, where the coefficients in the formula $\mathcal{X}_T(T)=0$ w.r.t. $T$ are in $\overline{\mathbb{F}}$.
+
+Then we argue that these coefficients are essentially in $\mathbb{F}$. Expand the whole map of $\mathcal{X}_T(T)$:
+\begin{subequations}
+\begin{align}
+\mathcal{X}_T(T)
+&=
+(T-\lambda_1I)\cdots(T-\lambda_nI)
+\\&=
+T^n-(\lambda_1+\cdots+\lambda_n)T^{n-1}+\cdots+(-1)^n\lambda_1\cdots\lambda_nI\\
+&=
+T^n+a_{n-1}T^{n-1}+\cdots+a_0I\label{Eq:8:2:c}
+\end{align}
+\end{subequations}
+where the derivation of (\ref{Eq:8:2:c}) is because that the polynomial coefficients for (\ref{Eq:8:1:a}) and (\ref{Eq:8:1:b}) are all identical.
+
+Therefore, we conclude that $\mathcal{X}_T(T)=0$, under the field $\mathbb{F}$.
+\end{proof}
+
+\begin{corollary}\label{cor:8:1}
+$m_T(x)\mid\mathcal{X}_T(x)$.
+More precisely,
+if
+\[
+\mathcal{X}_T(x) = [p_1(x)]^{e_1}\cdots[p_k(x)]^{e_k},\ e_i>0,\forall i
+\]
+where $p_i$'s are distinct, monic, and irreducible polynomials.
+Then
+\[
+m_T(x)=[p_1(x)]^{f_1}\cdots[p_k(x)]^{f_k},\ \text{for some }0<f_i\le e_i,\forall i
+\]
+\end{corollary}
+\begin{proof}
+The statement $m_T(x)\mid\mathcal{X}_T(x)$ is from Cayley-Hamiton Theorem.
+Therefore, $0\le f_i\le e_i,\forall i$.
+Suppose on the contrary that $f_i=0$ for some $i$.
+w.l.o.g., $i=1$.
+
+It's clear that $\text{gcd}(p_1,p_j)=1$ for $\forall j\ne 1$, which implies
+\[
+a(x)p_1(x)+b(x)p_j(x)=1,\text{ for some }a(x),b(x)\in\mathbb{F}[x].
+\]
+
+Considering the field extension $\overline{\mathbb{F}}\supseteq\mathbb{F}$, we have
+$p_1(x)=(x-\mu_1)\cdots(x-\mu_\ell)$.
+For any root $\mu_m$ of $p_1$, $m=1,\dots,\ell$, we have
+\[
+a(\mu_m)p_1(\mu_m)+b(\mu_m)p_j(\mu_m)=1
+\implies
+b(\mu_m)p_j(\mu_m)=1
+\implies
+p_j(\mu_m)\ne0,
+\]
+i.e., $\mu_m$ is not a root of $p_j$, $\forall j\ne1$.
+
+Therefore, $\mu_m$ is a root of $\mathcal{X}_T(x)$, but not a root of $m_T(x)$.
+Then $\mu_m$ is an eigenvalue of $T$, e.g., $T\bm v=\mu_m\bm v$ for some $\bm v\ne\bm0$.
+Recall that $m_{T,\bm v}=x-\mu_m$,
+we imply $m_{T,\bm v}=x-\mu_m\mid m_T(x)$, which is a contradiction.
+\end{proof}
+
+
+
+
+
+\begin{example}
+We can use Corollary~(\ref{cor:8:1}), a stronger version of Cayley-Hamiltion Theorem to determine the minimal polynomials:
+\begin{enumerate}
+\item
+For matrix $\bm A=\begin{pmatrix}
+0&-1\\1&1
+\end{pmatrix}$, we imply $\mathcal{X}_{A}(x)=(x^2+x+1)^1$.
+Since $x^2+x+1$ is irreducible in $\mathbb{R}$, we have $m_A(x)=x^2+x+1$.
+\item
+For matrix 
+\[
+\bm A=\begin{pmatrix}
+1&1&0&0\\0&1&0&0\\0&0&2&0\\0&0&0&2
+\end{pmatrix},
+\]
+we imply $\mathcal{X}_A(x)=(x-1)^2(x-2)^2$.
+
+By Corollary~(\ref{cor:8:1}), we imply both $(x-1)$ and $(x-2)$ should be roots of $m_T(x)$, i.e., $m_A(x)$ may have the four options:
+\begin{align*}
+(x-1)^2(x-2)^2,\text{ or }\\
+(x-1)(x-2)^2,\text{ or }\\
+(x-1)^2(x-2),\text{ or }\\
+(x-1)(x-2).
+\end{align*}
+By trial and error, one sees that $m_A(x) = (x-1)^2(x-2)$.
+\end{enumerate}
+\end{example}
+\subsection{Primary Decomposition Theorem}
+
+We know that not every linear operator is diagonalizable, but diagonalization has some nice properties:
+\begin{definition}[diagonalizable]
+The linear operator $T:V\to V$ is diagonalizable over $\mathbb{F}$ if and only if there exists a basis $\mathcal{A}$ of $V$ such that 
+\[
+(T)_{\mathcal{A},\mathcal{A}}=\diag(\lambda_1,\dots,\lambda_n),
+\]
+where $\lambda_i$'s are not necessarily distinct.
+\end{definition}
+
+\begin{proposition}\label{pro:8:2}
+If the linear operator $T:V\to V$ is diagonalizable, then
+\[
+m_T(x) = (x-\mu_1)\cdots(x-\mu_k),
+\]
+where $\mu_i$'s are \emph{distinct}.
+\end{proposition}
+\begin{proof}
+Suppose $T$ is diagonalizable, then there exists a basis $\mathcal{A}$ of $V$ such that
+\[
+(T)_{\mathcal{A},\mathcal{A}}=\diag(\mu_1,\dots,\mu_1,\mu_2,\dots,\mu_2,\dots,\mu_k,\dots,\mu_k)
+\]
+It's clear that $((T)_{\mathcal{A},\mathcal{A}}-\mu_1\bm I)\cdots((T)_{\mathcal{A},\mathcal{A}}-\mu_k\bm I)=\bm0$, i.e., $m_T(x)\mid (x-\mu_1)\cdots(x-\mu_k)$.
+
+Then we show the minimality of $(x-\mu_1)\cdots(x-\mu_k)$.
+In particular, if $(x-\mu_i)$ is omitted for any $1\le i\le k$, then it's easy to show
+\begin{align*}
+(T_{\mathcal{A},\mathcal{A}}-\mu_1\bm I)&\cdots
+(T_{\mathcal{A},\mathcal{A}}-\mu_{i-1}\bm I)
+(T_{\mathcal{A},\mathcal{A}}-\mu_{i+1}\bm I)
+\cdots
+(T_{\mathcal{A},\mathcal{A}}-\mu_{k}\bm I)
+\ne\bm0,
+\end{align*}
+since all $\mu_i$'s are distinct.
+Therefore, $m_T(x)$ will not divide $(x-\mu_1)\cdots(x-\mu_{i-1})(x-\mu_{i+1})\cdots(x-\mu_k)$ for any $i$, i.e.,
+\[
+m_T(x)=(x-\mu_1)\cdots(x-\mu_k)
+\]
+
+\end{proof}
+\begin{remark}
+The converse of proposition~(\ref{pro:8:2}) is also true, which is a special case for the Primary Decomposition Theorem.
+\end{remark}
+
+\begin{theorem}[Primary Decomposition Theorem]
+Let $T:V\to V$ be a linear operator with
+\[
+m_T(x) = [p_1(x)]^{e_1}\cdots[p_k(x)]^{e_k},
+\]
+where $p_i$'s are distinct, monic, and irreducible polynomials.
+Let $V_i=\ker([p_i(x)]^{e_i})\le V, i=1,\dots,k$,
+then
+\begin{enumerate}
+\item
+Each $V_i$ is $T$-invariant ($T(V_i)\le V_i$)
+\item
+$V=V_1\oplus V_2\oplus\cdots\oplus V_k$
+\item
+Consider $T\mid_{V_i}:V_i\to V_i$, then
+\[
+m_{T\mid V_i}(x) = [p_i(x)]^{e_i}
+\]
+\end{enumerate}
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

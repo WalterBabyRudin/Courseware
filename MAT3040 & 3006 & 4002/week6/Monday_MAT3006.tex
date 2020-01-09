@@ -1,0 +1,199 @@
+\section{Monday for MAT3006}\index{Monday_lecture}
+
+\subsection{Compactness in Functional Space}
+In functional space, previous study have shown that closedness and boundedness is not equivalent to compactness. 
+We need the equi-continuity to rescue the situation:
+\begin{definition}[Equi-continuity]
+Let $X\subseteq\mathbb{R}^n$.
+A subset $\mathcal{T}\subseteq\mathcal{C}(X)$ is called \emph{equi-continuous} if 
+for any $\varepsilon>0$, there exists $\delta>0$ such that whenever $d(x,y)<\delta, x,y\in X$
+\[
+d_\infty(f(x),f(y))<\varepsilon,\forall f\in\mathcal{T}
+\]
+\end{definition}
+\begin{example}
+\begin{enumerate}
+\item
+Let $\mathcal{T}$ be a collection of Lipschitz continuous functions with the same Lipschitz constant $L$, i.e., $\forall f\in\mathcal{T}$, $|f(x)-f(y)|<L|x-y|$ for $\forall x,y\in X$.
+It's clear that $\mathcal{T}$ is equi-continuous.
+\item
+Let $\mathcal{T}\subseteq\mathcal{C}[a,b]$ be such that
+\[
+\sup_{x\in[a,b]}|f'(x)|<M,\quad
+\forall f\in\mathcal{T},
+\]
+then for any $\forall x,y\in[a,b]$, we imply $|f(y)-f(x)|=|f'(\xi)||y-x|$ for some $\xi\in[a,b]$. Therefore,
+\[
+|f(y)-f(x)|<M|y-x|,\quad\forall f\in\mathcal{T},
+\]
+i.e., $\mathcal{T}$ reduces to the space studied in (1) with Lipschitz constant $M$, thus is equi-continuous.
+\end{enumerate}
+\end{example}
+
+\begin{theorem}
+Let $K\subseteq\mathbb{R}^n$ be a compact set, and $\mathcal{T}\subseteq\mathcal{C}(K)$.
+Then $\mathcal{T}$ is \emph{compact} if and only if $\mathcal{T}$ is \emph{closed}, \emph{uniformly bounded}, and \emph{equicontinuous}.
+\end{theorem}
+\begin{proof}
+To be added.
+\end{proof}
+
+\begin{corollary}
+Let $K\subseteq\mathbb{R}^n$ be compact, and $\{f_n\}$ be a sequence of uniformly bounded, equi-continuous functions on $K$.
+Then $\{f_n\}$ has the \emph{Bolzano-Weierstrass property}, i.e.,
+it has a convergent subsequence.
+\end{corollary}
+\begin{proof}
+To be added.
+\end{proof}
+\subsection{An Application of Ascoli-Arzela Theorem}
+The Ascoli-Arzela Theorem has a novel application on the ODE. Consider the IVP problem again:
+\begin{equation}\label{Eq:6:2}
+\left\{
+\begin{aligned}
+\frac{\diff y}{\diff x}&=f(x,y)\\
+y(\alpha)&=\beta
+\end{aligned}
+\right.
+\end{equation}
+where $f$ is continuous on a rectangle $R$ containing $(\alpha,\beta)$.
+Now we show the existence of Picard-Lindelof Theorem without the Lipschitz condition:
+\begin{theorem}[Cauchy-Peano Theorem]
+Consider the problem~(\ref{Eq:6:2}).
+Then there exists a solution of this ODE on some rectangle $R'\subseteq R$.
+\end{theorem}
+\begin{proof}
+To be added.
+\end{proof}
+%
+%
+%
+%
+%\subsection{Arzela-Ascoli Theorem}
+%\begin{theorem}
+%Let $\mathcal{F}$ be a closed set in $\mathcal{C}(K)$, where $K$ is closed and bounded in $\mathbb{R}^n$.
+%Then $\mathcal{F}$ is compact iff it is bounded and equi-continuous.
+%\end{theorem}
+%\begin{definition}[Equi-continuous]
+%For any $\varepsilon>0$, there exists $\delta>0$ such that whenever $d(x,y)<\delta, x,y\in X$
+%\[
+%d_\infty(f(x),f(y))<\varepsilon,\forall f\in\mathcal{F}
+%\]
+%\end{definition}
+%\begin{example}
+%Let $X$ be a bounded and convex set in $\mathbb{R}^n$.
+%Show that a family of equi-continuous functions, say $\mathcal{F}$,
+%is bounded in $C(X)$,
+%if there exists a point $x_0\in X$ and a constant $M>0$ such that $|f(x_0)|\le M$ for all $f\in\mathcal{F}$.
+%\begin{proof}
+%By equi-continuity for $\varepsilon:=1$, there exists $\delta_0$ such that $|f(x)-f(y)|<1$ whenever $|x-y|<\delta_0$.
+%
+%Consider the open ball $B_{R}(x_0)$ containing $E$.
+%Then $|x-x_0|\le R$ for all $x\in E$, we can find $x_0,x_1,\dots,x_n=x$ where $n\delta_0\le R\le (n+1)\delta_0$ such taht
+%\[
+%|x_{n+1} - x_0|\le \delta_0\implies
+%|f(x)-f(x_0)|\le \sum_{j=0}^{n-1}|f(x_{j+1}) - f(x_j)|\le n\le R/\delta_0
+%\]
+%Therefore,
+%\[
+%|f(x)|\le |f(x_0)|+n+1\le M+R/\delta_0,\forall x\in X,\forall f\in\mathcal{F}
+%\]
+%\end{proof}
+%\end{example}
+%
+%\begin{example}
+%Let $\phi:[0,1]\times\mathbb{R}\to\mathbb{R}$ be continuous. Suppose that there is $M>1$ such that 
+%$|\phi(r,s)|\le M$ for $r\in[0,1]$ and $s\in\mathbb{R}$.
+%Let $\mathbb{Z} = C[0,1]$ and $\psi$ be the following:
+%\[
+%\psi(f(x)) = c + \int_0^x\phi(t,f(t))\diff t,\forall x\in[0,1]
+%\]
+%where $c$ is a constant.
+%Then define
+%\[
+%E = \left\{f\in\mathbb{Z}\middle|
+%|f(x)-c|\le M,\quad
+%|f(x)-f(y)|\le M|x-y|,\ \forall x,y\in[0,1]
+%\right\}
+%\]
+%Show that $\psi(E)\subseteq E$ and $E$ is compact.
+%\end{example}
+%\begin{proof}
+%Let $f\in E$, then
+%\[
+%|\psi(f(x)) - c|=|\int_0^x\phi(t,f(t))\diff t|\le 1\cdot M = M
+%\]
+%Moreover,
+%\[
+%|\psi(f(x)) - \psi(f(y))|=|\int_y^x\phi(t,f(t))\diff t|\le M|x-y|=M|x-y|
+%\]
+%Therefore, $\psi(E)\subseteq E$.
+%
+%We need to show that $E$ is bounded and equi-continuous:
+%
+%Since $|f(x)-c|\le M,\forall f\in E$, we imply $|f(x)|\le M+c$.
+%
+%Given $\varepsilon>0$, take $\delta = \frac{\varepsilon}{M}$, then 
+%\[
+%|x-y|<\delta\implies|f(x) - f(y)|\le M|x-y|=\varepsilon,\forall f\in E
+%\]
+%
+%The closedness of $E$:
+%for any $\{f_n\}\in E$ and let $f_n\to f$, and show that $f\in E$, i.e., $E'\subseteq E$, i.e., $E$ is closed.
+%
+%Applying Arzela-Ascoli Theorem, $E$ is compact.
+%\end{proof}
+%
+%\subsection{Baire Category Theorem}
+%Let $\{E_j\}_{j=1}^\infty$ be a sequence of nowhere dense subsets of $(X,d)$, where $(X,d)$ is complete.
+%Then
+%\begin{itemize}
+%\item
+%$\cup_{j=1}^\infty \overline{E}_j$ has empty interior.
+%\end{itemize}
+%
+%\begin{definition}[Nowhere Dense]
+%A set $E$ is said to be \emph{nowhere dense} if $X\setminus E$ is dense in $X$.
+%\end{definition}
+%Cator Set: nowhere dense.
+%
+%Boundary point is nowhere dense.
+%
+%\begin{proposition}
+%The intersection of dense sequence of open sets is dense.
+%\end{proposition}
+%\begin{proof}
+%Let $\{G_j\}$ be open and $\overline{G}_j = X$.
+%Let $F_j = X\setminus G_j$.
+%Then $F_j$ is nowhere dense, which follows that
+%\[
+%\bigcap_j G_j = \left(\bigcup_{j}F_j\right)^c,
+%\]
+%which is comeagre, and therefore dense.
+%\end{proof}
+%\begin{proposition}
+%The set $\mathbb{Q}$ of rationals is an $F_\delta$ but not $G_\delta$, where $F_\delta = \cup_{n=1}^NF_n$, where $F_n$ is closed, and $G_\delta = \cap_{n=1}^NG_n$, where $G_n$ is open.
+%\end{proposition}
+%\begin{proof}
+%If $\mathbb{Q}$ were a $G_\delta$, then the complement of $\mathbb{Q}$ is a countable union of closed sests 
+%\[
+%\mathbb{Q}^c=\cup_{n=1}^NG_n^c
+%\]
+%Since $\mathbb{Q}^c$ has no interiors, $\text{int}(\mathbb{Q}^c)$.
+%However, $\mathbb{R} = \mathbb{Q}\cup(\cup_{n=1}^NG_n^c)$, a countable union of nowhere dense sets, which contradicts to the BCT.
+%\end{proof}
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%

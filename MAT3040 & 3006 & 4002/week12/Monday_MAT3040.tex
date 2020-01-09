@@ -1,0 +1,231 @@
+\chapter{Week12}
+\section{Monday for MAT3040}\index{Monday_lecture}
+\subsection{Remarks on Normal Operator}
+\begin{proposition}\label{pro:12:1}
+If $T$ is normal, then
+\begin{enumerate}
+\item
+$\|T(\bm v)\| = \|T'(\bm v)\|$ for any $\bm v\in V$
+\item
+$(T-\lambda I)$ is normal for any $\lambda\in\mathbb{C}$
+\item
+$T(\bm v) = \lambda\bm v$ if and only if $T'(\bm v)=\bar{\lambda}\bm v$
+\item
+If $T(\bm v) = \lambda\bm v$ and $T(\bm w)=\mu\bm w$ with $\lambda\ne\mu$, then $\inp{\bm v}{\bm w}=0$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+\item[(3)]
+\begin{itemize}
+\item
+For the forward direction, if $(T-\lambda I)\bm v=0$, then by part~(2), $(T-\lambda I)$ is normal, which follows that 
+\[
+\|(T-\lambda I)'(\bm v)\|=0\implies
+(T-\lambda I)'(\bm v)=0\implies 
+T'\bm v = \bar{\lambda}\bm v.
+\]
+\item
+For the reverse direction, suppose that $(T'-\bar{\lambda}I)\bm v=0$.
+Since $T$ is normal, we imply $T'$ is normal.
+Then by part~(2), $(T'-\bar{\lambda}I)$ is normal. 
+By applying the same trick, 
+\[
+(T'-\bar{\lambda}I)'\bm v=0\implies
+((T')' - \overline{\bar{\lambda}}I)\bm v=0.
+\]
+By hw4, $(T')' =T$. Therefore, 
+$(T-\lambda I)\bm v=0$.
+\end{itemize}
+\item[(4)]
+Observe that
+\[\lambda
+\inp{\bm v}{\bm w}=\inp{\bar{\lambda}\bm v}{\bm w}
+\xLongrightarrow{\text{by (3)}}
+\lambda
+\inp{\bm v}{\bm w}
+=
+\inp{T'(\bm v)}{\bm w}=\inp{\bm v}{T(\bm w)}
+=
+\inp{\bm v}{\mu\bm w}=\mu \inp{\bm v}{\bm w}
+\]
+Since $\lambda\ne\mu$, we imply $\inp{\bm v}{\bm w}=0$.
+The proof is complete.
+\end{enumerate}
+\end{proof}
+
+\begin{theorem}\label{The:12:1}
+Let $T$ be an operator on a finite dimensional $(\dim(V)=n)$ $\mathbb{C}$-inner product vector space $V$ satisfying $T'T=TT'$.
+Then there is an orthonormal basis of eigenvectors of $V$,
+i.e., an orthonormal basis of $V$ such that any element from this basis is an eigenvector of $T$.
+\end{theorem}
+
+\begin{proof}
+Since $\mathcal{X}_T(x)$ must have a root in $\mathbb{C}$, there must exist an eigen-pair $(\bm v,\lambda)$ of $T$.
+\begin{itemize}
+\item
+Construct $U=\Span\{\bm v\}$, and it follows that
+\[
+T\bm v=\lambda\bm v\implies\text{ $U$ is $T$-invariant}.
+\] 
+\[
+T'\bm v=\bar{\lambda}\bm v\implies\text{ $U$ is $T$'-invariant}.
+\] 
+\item
+Moreover, we claim that $U^\perp$ is $T$ and $T'$ invariant:
+let $\bm w\in U^\perp$, and for all $\bm u\in U$, we have
+\[
+\inp{\bm u}{T(\bm w)}=\inp{T'(\bm u)}{\bm w}=\inp{\bar{\lambda}\bm u}{\bm w}
+=\lambda\inp{\bm u}{\bm w}=0,
+\]
+i.e., $U^\perp$ is $T$ invariant. 
+\[
+\inp{\bm u}{T'(\bm w)}=\inp{T(\bm u)}{\bm w}=\inp{\lambda\bm u}{\bm w}=\bar{\lambda}\inp{\bm u}{\bm w}=0,
+\]
+which implies $U^\perp$ is $T'$ invariant.
+\item
+Therefore, we construct the operator $T\mid_{U^\perp}:U^\perp\to U^\perp$, and 
+\[
+TT'=T'T\implies
+(T\mid_{U^\perp})(T'\mid_{U^\perp})=(T'\mid_{U^\perp})(T\mid_{U^\perp}),
+\]
+i.e., $(T\mid_{U^\perp})$ is normal on $U^{\perp}$. Moreover, $\dim(U^\perp)=n-1$.
+\item
+Applying the same trick as in Theorem~(\ref{the:11:1}), we imply there exists an orthonormal basis
+$\{\bm e_2,\dots,\bm e_n\}$ of eigenvectors of $(T\mid_{U^\perp})$.
+Then we can argue that 
+\[
+\mathcal{B}=\{\bm v'=\bm v/\|\bm v\|, \bm e_2,\dots,\bm e_{k+1}\}
+\]
+is a basis of orthonormal eigenvectors of $V$.
+\end{itemize}
+\end{proof}
+
+\begin{corollary}[Spectral Theorem for Normal Operator]\label{cor:12:1}
+Let $T:V\to V$ be a normal operator on a $\mathbb{C}$-inner product space with $\dim(V)<\infty$.
+Then there exists self-adjoint operators $P_1,\dots,P_k$ such that
+\[
+P_i^2=P_i,\quad
+P_iP_j=0, i\ne j,\quad
+\sum_{i=1}^kP_i=I,
+\]
+and $T=\sum_{i=1}^k\lambda_iP_i$, where $\lambda_i$'s are the eigenvalues of $T$.
+\end{corollary}
+\begin{remark}
+These $P_i$'s are the \emph{orthogonal projections} from $V$ to the $\lambda_i$-eigenspace $\ker(T-\lambda_i I)$ of $T$, i.e.,we have
+\[
+\begin{array}{ll}
+&v = P_i(v) + (v- P_i(v)),\\
+\text{where}&P_i(v) \in \ker(T - \lambda_i I) ,\text{ and }v - P_i(v) \in (\ker(T - \lambda_i I))^{\perp}.
+\end{array}
+\]
+You should know how to compute $P_i$'s when $T(\bm v) = \bm A\bm v$ in the course MAT2040.
+\end{remark}
+
+\begin{proof}
+Since $T$ has a basis of eigenvectors, by definition, $T$ is diagonalizable. By proposition~(\ref{pro:8:2}),
+\[
+m_T(x) = (x-\lambda_1)\cdots(x-\lambda_k),
+\]
+where $\lambda_i$'s are distinct.
+By spectral decomposition corollary~(\ref{cor:9:2}), it suffices to show $P_i$'s are self-disjoint.
+\begin{itemize}
+\item
+Recall that $P_i  =a_i(T)q_i(T):=b_mT^m+\cdots+b_1T+b_0T$, i.e., a polynomial of $T$, and therefore
+\[
+P_i' = \bar{b}_m(T')^m+\cdots+\bar{b}_1(T')+\bar{b}_0I.
+\]
+We claim that $P_i$ is normal: Since $T'T=TT'$, we imply
+\[
+(T')^pT^q = T^q(T')^p,\forall p,q\in\mathbb{N}
+\]
+which follows that 
+\begin{align*}
+P_iP_i'&=(b_mT^m+\cdots+b_0I)(\bar{b}_m(T')^m+\cdots+\bar{b}_1(T')+\bar{b}_0I)\\
+&=\sum_{1\le x,y\le m}b_x\bar{b}_y(T)^x(T')^y\\
+&=\sum_{1\le x,y\le m}\bar{b}_yb_x(T')^y(T)^x\\
+&=(\bar{b}_m(T')^m+\cdots+\bar{b}_1(T')+\bar{b}_0I)(b_mT^m+\cdots+b_0I)\\
+&=P_i'P_i
+\end{align*}
+\item
+In general, $S$ is self-adjoint, which implies $S$ is normal, but not vice versa.
+However, the converse holds if further all eigenvalues of $S$ are real numbers:
+
+By Theorem~(\ref{The:12:1}), we imply $S$ is orthonormally diagonalizable, and its diagonal representation is of the form
+\[
+(S)_{\mathcal{B},\mathcal{B}}=\diag(\lambda_1,\dots,\lambda_k).
+\]
+Note that $\mathcal{B}$ is also a basis for $S'$ and elements of $\mathcal{B}$ are eigenvalues of $S'$, by part~(3) in proposition~(\ref{pro:12:1}).
+Therefore,
+\[
+(S')_{\mathcal{B},\mathcal{B}}=\diag(\lambda_1,\dots,\lambda_k).
+\]
+Therefore, $S=S'$.
+\end{itemize}
+In particular, for $S=P_i$, we can easily show all eigenvalues of $P_i$ are 0 or $1$, which are real.
+Therefore, $P_i$'s are self-adjoint.
+\end{proof}
+
+
+\begin{corollary}
+Let $T:V\to V$ be a linear operator on $\mathbb{C}$-inner product space with $\dim(V)<\infty$.
+Then $T$ is normal if and only if $T'=f(T)$ for some polynomial $f(x)\in\mathbb{C}[x]$.
+\end{corollary}
+
+\begin{proof}
+\begin{itemize}
+\item
+For the reverse direction, if $T'=f(T)$, then $T'T=f(T)T=Tf(T)=TT'$.
+\item
+For the forward direction, suppose that $T$ is normal, then by corollary~(\ref{cor:12:1}),
+\[
+T=\sum_{i=1}^k\lambda_iP_i,\ P_i = f_i(T),\ \text{where $P_i$'s are self-adjoint},
+\]
+which follows that
+\[
+T'=\left(\sum_{i=1}^k\lambda_iP_i\right)'
+=
+\sum_{i=1}^k\bar{\lambda}_iP_i' = \sum_{i=1}^k\bar{\lambda}_iP_i
+=
+\sum_{i=1}^k\bar{\lambda}_if_i(T)
+\]
+\end{itemize}
+\end{proof}
+\begin{remark}
+The normal operator is a generalization of Hermitian matrices, and it inherits many nice properties of Hermitian.
+\end{remark}
+
+\subsection{Tensor Product}
+\paragraph{Motivation}
+Let $U,V,W$ be vector spaces.
+We want to study bilinear maps $f:U\times W\to U$, i.e.,
+\begin{align*}
+f(av_1+bv_2,w)&=af(v_1,w)+bf(v_2,w)\\
+f(v,cw_1+dw_2)&=cf(v,w_1)+df(v,w_2)
+\end{align*}
+Unfortunately, bilinear form usually is not a linear transformation!
+
+\begin{example}
+\begin{itemize}
+\item
+Let $f:\mathbb{R}^n\times\mathbb{R}^n\to\mathbb{R}$ be with $(u,v)\mapsto\inp{u}{v}$.
+\item
+Let $f:M_{n\times n}(\mathbb{F})\times M_{n\times n}(\mathbb{F})\to M_{n\times n}(\mathbb{F})$ be with $f(A,B)=AB$.
+\item
+Let $f:\mathbb{F}[x]\times\mathbb{F}[x]\to\mathbb{F}$ be  with $f(p(x),q(x))=p(1)q(2)$
+\item
+Let $f:\mathbb{F}[x]\times\mathbb{F}[x]\to\mathbb{F}[x]$ be with $f(p(x),q(x))=p(x)q(x)$.
+\end{itemize}
+\end{example}
+
+
+
+
+
+
+
+
+
+
+

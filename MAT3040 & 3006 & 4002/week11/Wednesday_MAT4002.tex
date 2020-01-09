@@ -1,0 +1,172 @@
+\section{Wednesday for MAT4002}\index{Monday_lecture}
+\paragraph{Revewing}
+Homotopy relative to $\{0,1\}$.
+
+It's \emph{essential} to study homotopy relative to $\{0,1\}$.
+
+Given a torus with a loop $\ell_1(t)$ and a base point $b$,
+if without restriction of the homotopy to $\{0,1\}$, and suppose that $X$ is path-connected,
+then all loops are homotopic to the constant map $c_b(t)=b$.
+
+In other words, $\ell\simeq c_b,\forall\ell$, i.e., there is only one element $\{[c_b]\}$ in $\pi_1(X,b)$.
+
+Recall that $\pi_1(X,b)$
+
+\begin{proposition}
+$[\ell]$ denote the homotopy class of loops relative to $\{0,1\}$ based at $b$, and define
+\begin{align*}
+[\ell]*[\ell']&=[\ell\cdot\ell']\\
+\end{align*}
+Then this gives a group structure on
+\[
+\pi_1(X,b) = \{[\ell]\mid \ell:[0,1]\to X\text{ denotes loops based at $b$}\} 
+\]
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+\item
+Well-definedness:
+Suppose $u\sim u'$ and $v\sim v'$, it suffices to show $u\cdot v\simeq u'\cdot v'$.
+
+Consider $H:u\simeq u'$, $K:v\simeq v'$, where 
+$H,K:I\times I\to X$.
+
+Consider $L:I\times I\to X$ with
+\[
+L(t,s)=\left\{
+\begin{aligned}
+H(2t,s),&\quad 0\le t\le 1/2\\
+K(2t-1,s),&\quad 1/2\le t\le 1
+\end{aligned}
+\right.
+\] 
+Therefore, $u\cdot v\simeq u'\cdot v'$.
+\item
+Associate: $(u\cdot v)\cdot w\simeq u\cdot(v\cdot w)$
+
+They are essentially different loops! They are with different speed.
+
+Consider $H:I\times I\to X$ with
+\[
+H(t,s) = \left\{
+\begin{aligned}
+u(4t/(2-s)),&\quad 0\le t\le 1/2-1/4s\\
+v(4t - 2+s),&\quad 1/2 - 1/4s\le t\le 3/4 - 1/4s\\
+w(4t - 3+s/(1+s)),&\quad 3/4 - 1/4s\le t\le 1
+\end{aligned}
+\right.
+\]
+Therefore,
+\[
+[u]*([v]*[w])=([u]*[v])*[w]
+\]
+\item
+Identity: let $c_b:I\to X$ by $c_b(t) = b,\forall t$, and let $\ell = [c_b]$. WTS:
+\[
+[c_b]*[\ell]=[\ell]*[c_b]=[\ell]
+\]
+Or equivalently,
+\[
+[c_b\cdot\ell]=[\ell\cdot c_b]=[\ell]
+\]
+Or equivalently,
+\[
+c_b\cdot\ell\simeq\ell,\quad
+\ell\cdot c_b\simeq \ell
+\]
+Figure
+\item
+Inverse: for all $u:I\to X$ (loop based at $b$), define $u^{-1}:I\to X$ by $u^{-1}(t)=u(1-t)$.
+
+Note that
+\[
+[u]*[u^{-1}]=[u\cdot u^{-1}]=[c_b] = e,
+\]
+i.e., $u\cdot u^{-1}\simeq c_b$:
+
+in fact, let
+\[
+H(t,s)=\left\{
+\begin{aligned}
+u(2t(1-s)),&\quad 0\le t\le 1/2\\
+u((2-2t)(1-s)),&\quad 1/2\le t\le 1
+\end{aligned}
+\right.
+\]
+As a result,
+\[
+H(t,0)=\left\{
+\begin{aligned}
+u(2t),&\quad 0\le t\le 1/2\\
+u(2-2t),&\quad 1/2\le t\le 1
+\end{aligned}
+\right.
+=
+u\cdot u^{-1}
+\]
+and
+\[
+H(t,1) = c_b.
+\]
+Similarly, $u^{-1}\cdot u\simeq c_b$.
+\end{enumerate}
+\end{proof}
+
+Question:
+does the figure below give a homotopy $u\cdot u^{-1}\simeq c_b$?
+Answer: no.
+
+\begin{example}
+$\pi_1(\mathbb{R}^2,b) = \{e\}$ is trivial.
+
+Indeed, for all $u:I\to\mathbb{R}^2$ with $u(0)=u(1)=b$, consider (pick any $s$, then $H(0,s)=H(1,s)=b$)
+\[
+H(t,s) = (1-s)u(t)+sb.
+\]
+Therefore, $u\simeq c_b$ for any lop $u$ based at $b$.
+
+Therefore, $[u] = [c_b] = e$.
+
+More generally, if $X\simeq\{x\}$ is contractible, then $\pi_1(X,b)\simeq\{e\}$ is trivial.
+
+However, $\pi_1(S^1,1)$ is not trivial.
+You cannot continuously deform the red loop to a constant loop.
+
+In fact, $\pi_1(S^1,1) \cong\mathbb{Z}$.
+\end{example}
+
+\begin{proposition}
+If $b,b'$ are path-connected in $X$, then $\pi_1(X,b)\cong\pi_1(X,b')$.
+\end{proposition}
+\begin{proof}
+Let $w$ be a path from $b$ to $b'$, and define
+\[
+\begin{array}{ll}
+w_{\#}:&\pi_1(X,b)\to\pi_1(X,b')\\
+\text{with}&[\ell]\mapsto[w^{-1}\ell w]
+\end{array}
+\]
+Check that if $\ell\simeq\ell'$, then $w^{-1}\ell w\simeq w^{-1}\ell' w$.
+
+It is the same proof as in the definition/proposition of the well-definedness of $\pi_1$.
+
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

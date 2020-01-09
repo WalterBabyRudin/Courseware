@@ -1,0 +1,281 @@
+
+\chapter{Week2}
+\section{Monday for MAT3040}\index{Monday_lecture}
+\paragraph{Reviewing}
+\begin{enumerate}
+\item
+Linear Combination and Span
+\item
+Linear Independence
+\item
+Basis: a set of vectors $\{\bm v_1,\dots,\bm v_k\}$ is called a \emph{basis} for $V$ if $\{\bm v_1,\dots,\bm v_k\}$ is linearly independent, and $V=\Span\{\bm v_1,\dots,\bm v_k\}$.
+
+Lemma: Given $V=\Span\{\bm v_1,\dots,\bm v_k\}$, 
+we can find a basis for this set. 
+Here $V$ is said to be \emph{finitely generated}.
+\item
+Lemma: The vector $\bm w\in\Span\{\bm v_1,\dots,\bm v_n\}\setminus\Span\{\bm v_2,\dots,\bm v_n\}$ implies that 
+\[
+\bm v_1\in\Span\{\bm w,\bm v_2,\dots,\bm v_n\}\setminus\Span\{\bm v_2,\dots,\bm v_n\}
+\]
+\end{enumerate}
+\subsection{Basis and Dimension}
+\begin{theorem}
+Let $V$ be a finitely generated vector space. Suppose $\{\bm v_1,\dots,\bm v_m\}$ and $\{\bm w_1,\dots,\bm w_n\}$ are two basis of $V$. Then $m=n$. (where $m$ is called the \emph{dimension})
+\end{theorem}
+\begin{proof}
+Suppose on the contrary that $m\ne n$. Without loss of generality (w.l.o.g.), assume that $m<n$. 
+Let 
+$
+\bm v_1=\alpha_1\bm w_1+\cdots+\alpha_n\bm w_n,
+$
+with some $\alpha_i\ne0$. w.l.o.g., assume $\alpha_1\ne0$. Therefore, 
+\begin{equation}\label{Eq:2:1}
+\bm v_1\in\Span\{\bm w_1,\bm w_2,\dots,\bm w_n\}\setminus\Span\{\bm w_2,\dots,\bm w_n\}
+\end{equation}
+which implies that $\bm w_1\in\Span\{\bm v_1,\bm w_2,\dots,\bm w_n\}\setminus\Span\{\bm w_2,\dots,\bm w_n\}$.
+
+Then we claim that $\{\bm v_1,\bm w_2,\dots,\bm w_n\}$ is a basis of $V$:
+\begin{enumerate}
+\item
+Note that $\{\bm v_1,\bm w_2,\dots,\bm w_n\}$ is a spannning set:
+\begin{align*}
+\bm w_1&\in\Span\{\bm v_1,\bm w_2,\dots,\bm w_n\}
+\implies
+\{\bm w_1,\bm w_2,\dots,\bm w_n\}\subseteq
+\Span\{\bm v_1,\bm w_2,\dots,\bm w_n\}\\
+&\implies
+\Span\{\bm w_1,\bm w_2,\dots,\bm w_n\}\subseteq\Span\{\Span\{\bm v_1,\bm w_2,\dots,\bm w_n\}\}\subseteq\Span\{\bm v_1,\bm w_2,\dots,\bm w_n\}
+\end{align*}
+
+Since $V=\Span\{\bm w_1,\bm w_2,\dots,\bm w_n\}$, we have $\Span\{\bm v_1,\bm w_2,\dots,\bm w_n\}=V$.
+
+\item
+Then we show the linear independence of $\{\bm v_1,\bm w_2,\dots,\bm w_n\}$.
+Consider the equation 
+\[
+\beta_1\bm v_1+\beta_2\bm v_2+\cdots+\beta_n\bm w_n=\bm0
+\]
+\begin{enumerate}
+\item
+When $\beta_1\ne0$, we imply
+\[
+\bm v_1=
+\left(
+-\frac{\beta_2}{\beta_1}
+\right)
+\bm w_2
++\cdots+
+\left(
+-\frac{\beta_n}{\beta_1}
+\right)
+\bm w_n
+\in\Span\{\bm w_2,\dots,\bm w_n\},
+\]
+which contradicts (\ref{Eq:2:1}).
+\item
+When $\beta_1=0$, then $\beta_2\bm w_2+\cdots+\beta_n\bm w_n=\bm0$, which implies $\beta_2=\cdots=\beta_n=0$, due to the independence of $\{\bm w_2,\dots,\bm w_n\}$.
+\end{enumerate}
+\end{enumerate}
+
+Therefore, $\bm v_2\in\Span\{\bm v_1,\bm w_2,\dots,\bm w_n\}$, i.e.,
+\[
+\bm v_2=\gamma_1\bm v_1+\cdots+\gamma_n\bm v_n,
+\]
+where $\gamma_2,\dots,\gamma_n$ cannot be all zeros, since otherwise $\{\bm v_1,\bm v_2\}$ are linearly dependent, i.e., $\{\bm v_1,\dots,\bm v_m\}$ cannot form a basis. w.l.o.g., assume $\gamma_2\ne0$, which implies
+\[
+\bm w_2\in\Span\{\bm v_1,\bm v_2,\bm w_3,\dots,\bm w_n\}\setminus\Span\{\bm v_1,\bm w_3,\dots,\bm w_n\}.
+\]
+Following the simlar argument above, $\{\bm v_1,\bm v_2,\bm w_3,\dots,\bm w_n\}$ forms a basis of $V$.
+
+Continuing the argument above, we imply $\{\bm v_1,\dots,\bm v_m,\bm w_{m+1},\dots,\bm w_n\}$ is a basis of $V$. Since $\{\bm v_1,\dots,\bm v_m\}$ is a basis as well, we imply
+\[
+\bm w_{m+1}=\delta_1\bm v_1+\cdots+\delta_m\bm v_m
+\]
+ for some $\delta_i\in\mathbb{F}$, i.e., $\{\bm v_1,\dots,\bm v_m,\bm w_{m+1}\}$ is linearly dependent, which is a contradction.
+\end{proof}
+\begin{example}
+A vector space may have more than one basis.
+
+Suppose $V=\mathbb{F}^n$, it is clear that $\dim(V)=n$, and
+\[
+\text{$\{\bm e_1,\dots,\bm e_n\}$ is a basis of $V$, where $\bm e_i$ denotes a unit vector.}
+\]
+
+There could be other basis of $V$, such as
+\[
+\left\{
+\begin{pmatrix}
+1\\0\\\vdots\\0
+\end{pmatrix},
+\begin{pmatrix}
+1\\1\\\vdots\\0
+\end{pmatrix},
+\cdots,
+\begin{pmatrix}
+1\\1\\\vdots\\1
+\end{pmatrix},
+\right\}
+\]
+
+Actually, the columns of any invertible $n\times n$ matrix forms a basis of $V$. 
+\end{example}
+
+\begin{example}
+Suppose $V=M_{m\times n}(\mathbb{R})$, we claim that $\dim(V)=mn$:
+\[
+\left\{
+E_{ij}\middle|
+\begin{aligned}
+1\le i\le m\\
+1\le j\le n
+\end{aligned}
+\right\}
+\text{ is a basis of $V$},
+\]
+where $E_{ij}$ is $m\times n$ matrix with $1$ at $(i,j)$-th entry, and $0$s at the remaining entries.
+\end{example}
+
+\begin{example}
+Suppose $V=\{\text{all polynomials of degree $\le$ n}\}$, then $\dim(V)=n+1$.
+\end{example}
+
+\begin{example}
+Supppose $V=\{\bm A\in M_{n\times n}(\mathbb{R})\mid\bm A\trans=\bm A\}$, then 
+$\dim(V)=\frac{n(n+1)}{2}$.
+\end{example}
+
+\begin{example}
+Let $W=\{\bm B\in M_{n\times n}(\mathbb{R})\mid \bm B\trans=-\bm B\}$, then 
+$\dim(V)=\frac{n(n-1)}{2}$.
+\end{example}
+
+
+\begin{remark}
+Sometimes it should be classified the field $\mathbb{F}$ for the scalar multiplication to define a vector space. Conside the example below:
+\begin{enumerate}
+\item
+Let $V=\mathbb{C}$, then $\dim(\mathbb{C})=1$ for the scalar multiplication defined under the field $\mathbb{C}$.
+\item
+Let $V=\Span\{1,i\}=\mathbb{C}$, then $\dim(\mathbb{C})=2$ for the scalar multiplication defined under the field $\mathbb{R}$, since all $z\in V$ can be written as $z=a+bi$, $\forall a,b\in\mathbb{R}$.
+\item
+Therefore, to aviod confusion, it is safe to write
+\[
+\begin{array}{ll}
+\dim_{\mathbb{C}}(\mathbb{C})=1,
+&
+\dim_{\mathbb{R}}(\mathbb{C})=2.
+\end{array}
+\]
+\end{enumerate}
+\end{remark}
+
+\subsection{Operations on a vector space}
+Note that the basis for a vector space is characterized as the \emph{maximal linearly independent set}.
+
+\begin{theorem}[Basis Extension]
+Let $V$ be a finite dimensional vector space, and $\{\bm v_1,\dots,\bm v_k\}$ be a linearly independent set on $V$, Then we can extend it to the basis 
+$\{\bm v_1,\dots,\bm v_k,\bm v_{k+1},\dots,\bm v_n\}$ of $V$.
+\end{theorem}
+\begin{proof}
+\begin{itemize}
+\item
+Suppose $\dim(V)=n>k$, and $\{\bm w_1,\dots,\bm w_n\}$ is a basis of $V$. 
+Consider the set 
+$\{
+\bm w_1,\dots,\bm w_n
+\}
+\bigcup
+\{
+\bm v_1,\dots,\bm v_k
+\}$,
+which is linearly dependent, i.e., 
+\[
+\alpha_1\bm w_1+\cdots+\alpha_n\bm w_n
++
+\beta_1\bm v_1+\cdots+\beta_k\bm v_k=\bm0,
+\]
+with some $\alpha_i\ne0$, since otherwise this equation will only have trivial solution. w.l.o.g., assume $\alpha_1\ne0$. 
+\item
+Therefore, consider the set 
+$\{
+\bm w_2,\dots,\bm w_n
+\}
+\bigcup
+\{
+\bm v_1,\dots,\bm v_k
+\}$. 
+We keep removing elements from $\{
+\bm w_2,\dots,\bm w_n
+\}$ until we first get the set 
+\[
+S\bigcup\{\bm v_1,\dots,\bm v_k\},
+\]
+with $S\subseteq\{
+\bm w_1,\bm w_2,\dots,\bm w_n
+\}$
+and $S\bigcup\{\bm v_1,\dots,\bm v_k\}$ 
+is linearly independent, i.e., 
+$S$ is a maximal subset of 
+$\{\bm w_1,\dots,\bm w_n\}$ such that 
+$S\bigcup\{\bm v_1,\dots,\bm v_k\}$
+ is linearly independent.
+ \item
+Rewrite $S=\{\bm v_{k+1},\dots,\bm v_m\}$ and therefore $S'=\{\bm v_1,\dots,\bm v_k,\bm v_{k+1},\dots,\bm v_m\}$ are linearly independent. It suffices to show $S'$ spans $V$.
+\begin{itemize}
+\item
+Indeed, for all $\bm w_i\in\{\bm w_1,\dots,\bm w_n\}$, $\bm w_i\in\Span(S')$, since otherwise the equation 
+ \[
+ \alpha\bm w_i+\beta_1\bm v_1+\cdots+\beta_m\bm v_m=\bm0\implies\alpha=0,
+ \]
+ which implies that $\beta_1\bm v_1+\cdots+\beta_m\bm v_m=\bm0$ admits only trivial solution, i.e., 
+ \[
+ \{\bm w_i\}\bigcup S'=\{\bm w_i\}\bigcup S\bigcup\{\bm v_1,\dots,\bm v_k\}\text{ is linearly independent},
+ \]
+ which violetes the maximality of $S$.
+\end{itemize}
+ Therefore, all $\{\bm w_1,\dots,\bm w_n\}\subseteq\Span(S')$, which implies $\Span(S')=V$.
+ 
+  Therefore, $S'$ is a basis of $V$.
+\end{itemize}
+\end{proof}
+\begin{remark}
+Start with a spanning set, we keep removing something to form a basis; 
+start with independent set, we keep adding something to form a basis.
+
+In other words, the basis is both the minimal spanning set, and the maximal linearly independent set.
+\end{remark}
+
+\begin{definition}[Direct Sum]
+Let $W_1,W_2$ be two vector subspaces of $V$, then
+\begin{enumerate}
+\item
+$W_1\bigcap W_2:=\{\bm w\in V\mid\bm w\in W_1,\text{ and }\bm w\in W_2\}$
+\item
+$W_1+W_2:=\{\bm w_1+\bm w_2\mid\bm w_i\in W_i\}$
+\item
+If furthermore that $W_1\bigcap W_2=\{\bm0\}$, then $W_1+W_2$ is denoted as $W_1\oplus W_2$, which is called \emph{direct sum}.
+\end{enumerate}
+\end{definition}
+\begin{proposition}
+$W_1\bigcap W_2$ and $W_1+W_2$ are vector subspaces of $V$.
+\end{proposition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

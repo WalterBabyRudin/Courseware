@@ -1,0 +1,225 @@
+
+\section{Wednesday for MAT3040}\index{Wednesday_lecture}
+There will be a quiz on next Monday. 
+\[
+\begin{array}{ll}
+\text{Scope}:&\text{From Week 1 up to (including) the definition of $B^*$.}
+\end{array}
+\]
+
+\paragraph{Reviewing}
+\begin{enumerate}
+\item
+If $V$ is finite dimensional, and $B$ a basis of $V$, then $B^*$ is a basis of the dual space $V^*$.
+\item
+Define the Annihilator $\text{Ann}(S)\le V^*$:
+\[
+\text{Ann}(S) =\{f\in V^*\mid f(s)=0,\forall s\in S\}
+\]
+\item
+If $V$ is finite dimensional, and $W\le V$, then $\text{Ann}(W)$ fills the gap, i.e.,
+\[
+\dim(\text{Ann}(W)) = \dim(V) - \dim(W)
+\]
+\item
+Define a map 
+\[
+\begin{array}{ll}
+\Phi:&\text{Ann}(W)\to(V/W)^*\\
+&f\mapsto\tilde{f}
+\end{array}
+\]
+where $\tilde{f}$ is defined such that the diagram~(\ref{fig:5:1}) below commutes
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{week5/p_3}
+\caption{Construction of $\tilde{f}$}
+\label{fig:5:1}
+\end{figure}
+Or equivalently, $\tilde{f}:V/W\to\mathbb{F}$ is such that $\tilde{f}(\bm v+W) = f(\bm v)$.
+\end{enumerate}
+\subsection{Adjoint Map}
+The natural question is that whether $\Phi$ is the isomorphism between $\text{Ann}(W)$ and $(V/W)^*$:
+\begin{proposition}
+$\Phi$ is a linear transformation, i.e., 
+\[
+\Phi(af+bg) = a\cdot \Phi(f)+b\cdot\Phi(g).
+\]
+\end{proposition}
+\begin{proof}
+Itt suffices to show that 
+\begin{align*}
+\overline{af+bg} = a\overline{f}+b\overline{g}
+\end{align*}
+\end{proof}
+
+Therefore, we need to answer whether $\Phi$ a bijective map. We will show this conjucture at the end of this lecture.  
+The definition of $\Phi$ is \emph{natural}, i.e., we do not need to specify any basis to define this $\Phi$ . However, as studied in Monday, the constructed isomorphism $V\to V^*$ with $\bm v_i\mapsto f_i$ is not natural.
+
+
+\begin{definition}[Adjoint Map]
+Let $T:V\to W$ be a linear transformation. 
+Define the \emph{adjoint} of $T$ by
+\[
+\begin{array}{ll}
+T^*:&W^*\to V^*\\
+\end{array}
+\]
+such that for any $f\in W^*$, 
+\[
+[T^*(f)](\bm v) :=f(T(\bm v)), \ \forall \bm v\in V.
+\]
+\end{definition}
+
+
+
+\begin{remark}
+\begin{enumerate}
+\item
+In other words, $T^*(f) = f\circ T$, i.e., a linear transformation from $V$ to $\mathbb{F}$, i.e., belongs to $V^*$.
+\item
+Moreover, the mapping $T^*$ itself is a linear transformation:
+For $f,g\in W^*$, and $\forall \bm v\in V$,
+\begin{align*}
+[T^*(af+bg)](\bm v) &= (af+bg)[T(\bm v)]\\
+&=af(T(\bm v))+bg(T(\bm v))\qquad\qquad\text{definition of $W^*$ as a vector space}\\
+&=a[T^*(f)](\bm v)+b[T^*(g)](\bm v)\\
+&=[aT^*(f)+bT^*(g)](\bm v)\qquad\qquad\text{definition of $V^*$ as a vector space}
+\end{align*}
+\end{enumerate}
+\end{remark}
+
+\begin{proposition}\label{pro:5:5}
+Let $T:V\to W$ be a linear transformation.
+\begin{enumerate}
+\item
+If $T$ is \emph{injective}, then $T^*$ is \emph{surjective}.
+\item
+If $T$ is \emph{surjetive}, then $T^*$ is \emph{injective}.
+\end{enumerate}
+\end{proposition}
+This statement is quite intuitive, since $T^*$ reverses the dual of output into the dual of input:
+\[
+\begin{aligned}
+T&:V\to W\\
+T^*&:W^*\to V^*
+\end{aligned}
+\]
+\begin{proof}
+We only give a proof of (2), i.e., suffices to show $\ker(T) = \{\bm0\}$.
+
+Consider any $g\in W^*$ such that $T^*(g) = \bm0_{V^*}$. It follows that 
+\begin{equation}\label{Eq:5:1}
+[T^*(g)](\bm v) = \bm0_{V^*}(\bm v),\ \quad\forall \bm v\in V.
+\Longleftrightarrow
+g(T(\bm v))=\bm0,\quad\forall\bm v\in V.
+\end{equation}
+To show $g=\bm0_{W^*}$, it suffices to show $g(\bm w)=\bm0$ for $\forall\bm w\in W$. 
+For all $\bm w\in W$, by the surjectivity of $T$, there exists $\bm v'\in V$ such that 
+\[
+\bm w = T(\bm v').
+\]
+By substituting $\bm w$ with $T(\bm v')$ and (\ref{Eq:5:1}), we imply
+\[
+g(\bm w) = g(T(\bm v'))=\bm0.
+\]
+The proof is complete.
+\end{proof}
+
+\begin{proposition}
+Let $T:V\to W$ be a linear transformation,
+and $\mathcal{A} = \{\bm v_1,\dots,\bm v_n\},\mathcal{B}=\{\bm w_1,\dots,\bm w_m\}$ 
+be the bases of $V$ and $W$, respectively. 
+Let
+$\mathcal{A}^* = \{f_1,\dots,f_n\},\mathcal{B}^*=\{g_1,\dots,g_m\}$ be bases of dual spaces $V^*$ and $W^*$, respectively.
+Then $T^*:W^*\to V^*$ admits a matrix representation
+\[
+(T^*)_{\mathcal{A}^*\mathcal{B}^*}
+=
+\text{transpose}\left((T)_{\mathcal{B}\mathcal{A}}\right)
+\]
+where $(T^*)_{\mathcal{A}^*\mathcal{B}^*}\in\mathbb{F}^{n\times m}$ and $(T)_{\mathcal{B}\mathcal{A}}\in\mathbb{F}^{m\times n}$
+\end{proposition}
+
+
+\begin{proof}
+Let $(T)_{\mathcal{B}\mathcal{A}}=(\alpha_{ij})$ and
+$(T^*)_{\mathcal{A}^*\mathcal{B}^*}=(\beta_{ij})$.
+By definition of matrix representation, 
+\[
+T(\bm v_j) = \sum_{i=1}^m\alpha_{ij}\bm w_i,\qquad
+T^*(g_i) =  \sum_{k=1}^n\beta_{ki}f_k\in V^*
+\]
+As a result,
+\begin{align*}
+[T^*(g_i)](\bm v_j) &= g_i(T(\bm v_j)) \\&= g_i\left(\sum_{\ell=1}^m\alpha_{\ell j}\bm w_\ell\right)\\
+&=\sum_{\ell=1}^m\alpha_{\ell j}g_i(\bm w_\ell)\\
+&=\alpha_{ij}
+\end{align*}
+and
+\begin{align*}
+[T^*(g_i)](\bm v_j)&=
+\left(\sum_{k=1}^n\beta_{ki}f_k\right)(\bm v_j)\\&=\sum_{k=1}^n\beta_{ki}f_k(\bm v_j)\\
+&=\beta_{ji}
+\end{align*}
+Therefore, $\beta_{ji}=\alpha_{ij}$. The proof is complete.
+\end{proof}
+
+\subsection{Relationship between Annihilator and dual of quotient spaces}
+
+\begin{example}
+Consider the canonical projection mapping $\pi_W:V\to V/W$ with its \emph{adjoint} mapping:
+\[
+(\pi_W)^*:(V/W)^*\to V^*
+\]
+The understanding of $(\pi_W)^*$ is as follows:
+\begin{enumerate}
+\item
+Take $h\in(V/W)^*$ and study $(\pi_W)^*(h)\in V^*$
+\item
+Take $\bm v\in V$ and understand 
+\[
+[(\pi_W)^*(h)](\bm v)=h(\pi_W(\bm v))=h(\bm v+W)
+\]
+\end{enumerate}
+\begin{enumerate}
+\item[(a)]
+In particular, for all $\bm w\in W\le V$, we have
+\[
+[(\pi_W)^*(h)](\bm w) = h(\bm w+W) = h(\bm0_{V/W}) = \bm0_{\mathbb{F}}
+\]
+Therefore, 
+\[
+(\pi_W)^*(h)\in\text{Ann}(W).
+\]
+i.e., $(\pi_W)^*$ is a mapping from $(V/W)^*$ to $\text{Ann}(W)$.
+\item[(b)]
+By proposition~(\ref{pro:5:5}), $\pi_W$ is surjective implies $(\pi_W)^*$ is injective.
+\end{enumerate}
+Combining (a) and (b), it's clear that (i.e., left as homework problem)
+\[
+\Phi\circ \pi_W^* = \text{id}_{(V/W)^*} \text{ and }\pi_W^*\circ\Phi=\text{id}_{\text{Ann}(W)}
+\]
+This relationship implies $\Phi$ is an isomorphism.
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

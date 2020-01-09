@@ -1,0 +1,194 @@
+
+\section{Monday for MAT3006}\index{Monday_lecture}
+\subsection{Tonelli's and Fubini's Theorem}
+
+\begin{proposition}\label{pro:14:1}
+For all $E\in\mathcal{M}\otimes\mathcal{M}$,we have
+\begin{equation}\label{Eq:14:1}
+\int m_Y(E_x)\diff x =\int m_X(E_y)\diff y=\pi(E),
+\end{equation}
+where $\pi(\cdot)$ is a measure on $\mathcal{M}\otimes\mathcal{M}.$
+\end{proposition}
+Here note that 
+\begin{align*}
+m_X(E_y):&=\int(\mathcal{X}_E)_y(x)\diff x\\
+m_Y(E_x):&=\int(\mathcal{X}_E)_x(y)\diff y
+\end{align*}
+
+\begin{proof}
+Construct 
+\[
+\mathcal{A}=\left\{E\in\mathcal{M}\otimes\mathcal{M}\middle| 
+\begin{array}{l}
+x\mapsto m_Y(E_x)\text{ measurable}\\
+y\mapsto m_X(E_y)\text{ measurable}\\
+(\ref{Eq:14:1})\text{ holds for $E$}
+\end{array}\right\}
+\]
+Following the proof given in the last lecture, it suffices to show $\mathcal{A}$ is a monotone class:
+\begin{itemize}
+\item
+Construct 
+\[
+\mathcal{A}_k=\mathcal{A}\cap \{E\in\mathcal{M}\otimes\mathcal{M}\mid E\subseteq[-k,k]\times[-k,k]\}.
+\]
+We first show that $\mathcal{A}_k$ is a monotone class for all $k\in\mathbb{N}$:
+\begin{enumerate}
+\item
+Suppose that $E_n\subseteq E_{n+1},\forall n$ and $E_n\in \mathcal{A}_k$, and we aim to show $E:=\cup_{n=1}^\infty E_n\in\mathcal{A}_k$.
+Consider the function $f_n(x)=m_Y((E_n)_x)$, which is measurable for all $n$, and $f_n(x)\le f_{n+1}(x)$ for all $n$, since $E_n\subseteq E_{n+1}$.
+
+The MCT I implies that $f(x)=m_Y(E_x)$ is measurable with
+\[
+\int m_Y(E_x)\diff x
+=
+\lim_{n\to\infty}\int m_Y((E_n)_x)\diff x
+\stackrel{(a)}{=}
+\lim_{n\to\infty}\pi(E_n)
+\stackrel{(b)}{=}
+\pi(E)
+\]
+where (a) is because that $E_n\in\mathcal{A}$; and (b) is due to the exercise in Hw3.
+Similarly, $y\mapsto m_X(E_y)$ is measurable, with $\int m_X(E_y)\diff y=\pi(E)$.
+Therefore, $E\in\mathcal{A}$, i.e., $E\in\mathcal{A}_k$ as well.
+\item
+Suppose that $F_i\in\mathcal{A}_k, F_i\supseteq F_{i+1}$, and we aim to show $F:=\cap_{i=1}^\infty F_i\in\mathcal{A}_k$.
+Construct the measurable function $g_n(x)=m_Y((F_n)_x)$, and $g_n(x)\ge g_{n+1}(x)$;
+$|g_n(x)|\le g_1(x)$, with $g_1(x)$ integrable. (You may see the bounded rectangle in $\mathcal{A}_k$ matters here)
+
+The DCT implies that $g(x)=m_Y(F_x)$ is measurable, with 
+\[
+\int m_Y(F_x)\diff x = \lim_{n\to\infty}\int g_n\diff x=\lim_{n\to\infty}\pi(F_n)=\pi(F).
+\]
+Similarly, $y\mapsto m_X(F_y)$ is measurable, with $\int m_X(F_y)\diff y = \pi(F)$.
+Therefore, $F\in\mathcal{A}_k$.
+\end{enumerate}
+Together with the results from last lecture, we conclude that claim~(1) and (2) holds for $\mathcal{A}_k$.
+Following the similar idea of the results obtained from last lecture, we conclude that $\mathcal{A}_k = \{E\in\mathcal{M}\otimes\mathcal{M}\mid E\subseteq[-k,k]\times[-k,k]\}$.
+\item
+Then we show $\mathcal{A}$ is a monotone class, i.e., closed under countable decreasing intersections.
+
+Suppose that $F_i\in\mathcal{A}, F_i\supseteq F_{i+1}$, we aim to show that $F:=\cap F_i\in\mathcal{A}$.
+
+Construct 
+\[
+F_i^{(k)} = F_i\cap ([-k,k]\times[-k,k]),
+\] 
+which follows that $F_i^{(k)}\supseteq F_{i+1}^{(k)}$, and $F_i^{(k)}\in\mathcal{A}_k$ since 
+$F_i^{(k)}\in\mathcal{M}\otimes\mathcal{M}$ and $F_i^{(k)}\subseteq[-k,k]\times[-k,k]$.
+We denote $F^{(k)}=\cap_{i=1}^\infty F_i^{(k)}$.
+The previous result implies that $F^{(k)}\in\mathcal{A}_k$, i.e.,
+\[
+\int m_Y((F^{(k)})_x)\diff x =\pi(F^{(k)})
+\]
+Now note that $F^{(1)}\subseteq F^{(2)}\subseteq\cdots$, and $F=\cup_{k\in\mathbb{N}}F^{(k)}$.
+Therefore, applying MCT gives
+\[
+\int m_Y(F_x)\diff x = \lim_{k\to\infty}\int m_Y((F^{(k)})_x)\diff x = \lim_{k\to\infty}\pi(F^{(k)}) = \pi(F).
+\]
+Therefore, $F$ satisfies (\ref{Eq:14:1}), i.e., $F\in\mathcal{A}$
+
+
+\end{itemize}
+\end{proof}
+
+\begin{theorem}[Tonelli's Theorem]
+Let $F:\mathbb{R}^2\to[0,\infty]$ be measurable under the space $(\mathbb{R}^2,\mathcal{M}\otimes\mathcal{M},\pi)$.
+Then
+\[
+\left\{
+\begin{array}{l}
+x\mapsto \int F(x,y)\diff y\\
+y\mapsto \int F(x,y)\diff x
+\end{array}
+\right.\text{ is measurable},
+\]
+and 
+\[
+\int F\diff\pi = \int\left(\int F(x,y)\diff x\right)\diff y = \int\left(\int F(x,y)\diff y\right)\diff x
+\]
+\end{theorem}
+
+\begin{proof}
+Let
+\[
+\phi_n(x,y)=\sum_{k=0}^{4^n}(k\cdot 2^{-n})\mathcal{X}_{F^{-1}([k\cdot 2^{-n},(k+1)\cdot 2^{-n}])}
++
+2^n\mathcal{X}_{F^{-1}(2^n,\infty]}
+\]
+We just re-write the terms above as $\sum_k\alpha_k\mathcal{X}_{E_k}$.
+Our constructed $\phi_n(x,y)$ is a monotone increasing simple function such that $\phi_n\to F$ pointwise.
+It follows that
+\begin{subequations}
+\begin{align}
+\int F\diff\pi
+&=
+\lim_{n\to\infty}\int\phi_n\diff\pi\label{Eq:14:2:a}\\
+&=
+\lim_{n\to\infty}\int\left(
+\sum_k\alpha_k\mathcal{X}_{E_k}
+\right)\diff\pi\\
+&=
+\lim_{n\to\infty}\sum_k\alpha_k\int\mathcal{X}_{E_k}\diff\pi\label{Eq:14:2:c}=\lim_{n\to\infty}
+\sum_k\alpha_k\pi(E_k)\\&
+=
+\lim_{n\to\infty}\sum_k\alpha_k\int
+\left(
+\int\mathcal{X}_{E_k}(x,y)\diff x
+\right)
+\diff y\label{Eq:14:2:d}\\
+&=\lim_{n\to\infty}
+\int\int\left(\sum_k
+\alpha_k\mathcal{X}_{E_k}(x,y)
+\right)\diff x\diff y\label{Eq:14:2:e}\\
+&=\lim_{n\to\infty}
+\int\left(
+\int\phi_n(x,y)\diff x
+\right)\diff y\\
+&=\int \lim_{n\to\infty}
+\left(
+\int
+\phi_n(x,y)\diff x
+\right)\diff y\label{Eq:14:2:g}\\
+&=\int\int \lim_{n\to\infty}\phi_n(x,y)\diff x\diff y\label{Eq:14:2:h}\\
+&=\int \int F(x,y)\diff x\diff y\label{Eq:14:2:i}
+\end{align}
+\end{subequations}
+where (\ref{Eq:14:2:a}) is by the MCT I on $\phi_n$;
+(\ref{Eq:14:2:c}) is by the linearity of integral;
+(\ref{Eq:14:2:d}) is by proposition~(\ref{pro:14:1})
+(\ref{Eq:14:2:e}) is by the linearity of integral;
+(\ref{Eq:14:2:g}) is by the MCT I on $f_n(y)=\int \phi_n(x,y)\diff x$;
+(\ref{Eq:14:2:h}) is by the MCT I on $g_n(x)=\phi_n(x,y)$;
+(\ref{Eq:14:2:i}) is because that $\phi_n(x,y)\to F(x,y)$.
+\end{proof}
+
+\begin{theorem}[Fubini's Theorem]
+Suppose that $F:\mathbb{R}^2\to[-\infty,\infty]$ is integrable, then
+\[
+\int F\diff\pi
+=
+\int\left(
+\int F(x,y)\diff x
+\right)\diff y
+=
+\int\left(
+\int F(x,y)\diff y
+\right)\diff x
+\]
+\end{theorem}
+\begin{proof}
+Suppose $F=F^+-F^-$, where $F^{\pm}$ are both integrable.
+Applying Tonell's theorem on both $F^-$ and $F^+$ and the linearity of integrals gives the desired result.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,332 @@
+\chapter{Week15}
+\section{Monday for MAT3040}\index{Monday_lecture}
+\subsection{More on Exterior Power}
+\paragraph{Reviewing}
+Let $\text{Obj}:=\{\phi:V\times\cdots\times V\to W\mid\text{$\phi$ is alternating}\}$,
+then there exists
+\[
+\{\Lambda:V\times\cdots\times V\to E\}\in\text{Obj}
+\]
+such that
+\[
+\phi = \bar{\phi}\circ\Lambda,\quad\text{where $\bar{\phi}:E\to W$ is the unique linear transformation}
+\]
+Here we give one way for constructing $E$:
+\[
+E = V^{\otimes p}/U,
+\]
+where $U$ is spanned by vectors of the form 
+\[
+v_1\otimes\cdots\otimes v_p\in V^{\otimes p},
+\quad
+v_i=v_j\text{ where for some $i\ne j$.}
+\]
+For instance, $v\otimes v\otimes\cdots\otimes v_p\in U$.
+
+\begin{definition}[Wedge Product]
+Define the wedge product space
+\[
+\wedge^pV:=V^{\otimes p}/U =E,
+\]
+with the wedge product among vectors
+\[
+v_1\wedge\cdots\wedge v_p = v_1\otimes\cdots\otimes v_p+U\in \wedge^pV
+\]
+\end{definition}
+As a result, the mapping
+\[
+\begin{array}{ll}
+\wedge:&V\times\cdots\times V\to E:=\wedge^pV\\
+&(v_1,\dots,v_p)\mapsto v_1\wedge\cdots\wedge v_p
+\end{array}	
+\]
+will satisfy the universal property of exterior power.
+
+\begin{proposition}\label{pro:15:1}
+\begin{enumerate}
+\item
+We have the $p$-linearity for $\wedge^pV$, i.e.,
+\[
+v_1\wedge\cdots\wedge(av_i+bv_i')\wedge\cdots\wedge v_p
+=
+a
+(v_1\wedge\cdots\wedge v_i\wedge\cdots\wedge v_p)
++
+b
+(v_1\wedge\cdots\wedge v_i'\wedge\cdots\wedge v_p)
+\]
+for $i=1,\dots,p$.
+\item
+The wedge product is alternating:
+\begin{align*}
+v_1\wedge\cdots\wedge v\wedge\cdots \wedge v\wedge\cdots\wedge v_p&:=v_1\otimes\cdots\otimes v\otimes\cdots \otimes v\otimes\cdots\otimes v_p+U\\
+&=0+U\\
+&=0_{\wedge^pV}
+\end{align*}
+\item
+The wedge product reverses sign reversal property:
+\[
+v_1\wedge\cdots\wedge v\wedge\cdots\wedge w\wedge\cdots\wedge v_p
+=
+-
+v_1\wedge\cdots\wedge w\wedge\cdots\wedge v\wedge\cdots\wedge v_p
+\]
+Reason: $(v+w)\wedge(v+w)=0$, which implies $v\wedge w+w\wedge v=0$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}
+\begin{enumerate}
+\item
+If $\dim(V)=n$, and $0\le p\le n$, then
+\[
+\dim(\wedge^pV)=\binom{n}{p}
+\]
+\item
+For all linear operators $T:V\to V$, there is an unique linear operator
+from $\wedge^pV$ to $\wedge^pV$:
+\[
+\begin{array}{ll}
+T^{\wedge^p}:&\wedge^pV\to \wedge^pV\\
+\text{with}&v_1\wedge\cdots\wedge v_p\mapsto
+T(v_1)\wedge\cdots\wedge T(v_p)
+\end{array}
+\]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+\item
+Let $\{v_1,\dots,v_n\}$ be basis of $V$, 
+then $\{v_{i_1}\otimes\cdots\otimes v_{i_p}\mid 1\le i_{k}\le n\}$ forms basis of $V^{\otimes p}$.
+Note that $\{v_{i_1}\wedge\cdots\wedge v_{i_p}\mid 1\le i_{k}\le n\}$ spans $\wedge^pV$, since $\pi_V:V\to V/U$ is surjective.
+We claim that
+\[
+\mathcal{B}=\{v_{i_1}\wedge\cdots\wedge v_{i_p}\mid 1\le i_1<i_2<\cdots<i_p\le n\}
+\]
+is a basis of $\wedge^pV$
+\begin{itemize}
+\item
+$\mathcal{B}$ spans $\wedge^pV$:
+we can use (3) in proposition~(\ref{pro:15:1}) to ``rearrange'' the indices $j_1,\dots,j_p$ into ascending order, and $\Span(\mathcal{B})=\Span\{v_{i_1}\wedge\cdots\wedge v_{i_p}\mid 1\le i_{k}\le n\}$.
+\item
+We omit the proof that $\mathcal{B}$ is linear independent due to time limit.
+\end{itemize}
+The numbre of vectors in $\mathcal{B}$ is equal to $\binom{n}{p}$.
+
+\end{enumerate}
+\end{proof}
+
+\subsection{Determinant}
+\paragraph{Previous Approach for defining determinant}
+We define the determinant for $\bm A = M_{n\times n}(\mathbb{F})$ directly.
+From such complicated definition, we come up with $\det(\bm A\bm B)=\det(\bm A)\det(\bm B)$, which implies that the similar matrices share with the same determinant, then we define the determinant for any linear operator $T:V\to V$ as
+\[
+\det(T) = \det((T)_{\mathcal{B},\mathcal{B}}),\quad
+\text{for some basis $\mathcal{B}$ of $T$}
+\]
+
+\paragraph{New Approach}
+We will define $\det(T)$ for linear operators without fixing a basis,
+and then we will imply $\det(T\circ S) = \det(T)\det(S)$ easily.
+Then $\det(\bm A)$ for $\bm A\in M_{n\times n}(\mathbb{F})$ belongs to our special case.
+
+\begin{definition}[Determinant for Linear Operators]
+\begin{enumerate}
+\item
+Suppose that $\dim(V)=n$, then
+\[
+\dim(\wedge^nV)=\binom{n}{n}=1
+\]
+More precisely, for any basis $\{v_1,\dots,v_n\}$ of $V$, we have $\wedge^n(V)=\Span\{v_1\wedge\dots\wedge v_n\}$.
+\item
+Note tht $T^{\wedge^n}:\wedge^nV\to \wedge^nV$
+is a linear operator on $\wedge^nV\cong\mathbb{F}$.
+Therefore, for all $\tau\in \wedge^nV$, there exists $\alpha_{T}\in\mathbb{F}$ such that
+\[
+T^{\wedge^n}(\tau) = \alpha_{T}\tau
+\]
+\item
+Now we define
+\[
+\det(T) = \alpha_{T}
+\]
+This definition of determinant does not depend on any choice of basis of $V$.
+\end{enumerate}
+\end{definition}
+
+
+
+
+\begin{example}\label{exp:15:1}
+\begin{enumerate}
+\item
+Suppose that $T=I:V\to V$ be identity.
+Take a basis $\{v_1,\dots,v_n\}$ of $V$, then
+\[
+T^{\wedge^n} (v_1\wedge\cdots\wedge v_n)
+=
+T(v_1)\wedge\cdots\wedge T(v_n)
+\]
+Or equivalently,
+\[
+\det(T)\cdot (v_1\wedge\cdots\wedge v_n) = v_1\wedge\cdots\wedge v_n
+\]
+Therefore, $\det(T)=1$.
+\item
+Suppose that $T:V\to V$ is diagonalizable with
+$\{w_1,\dots,w_n\}$ forming eigen-basis of $T$.
+
+As a result,
+\[
+T^{\wedge^n}(w_1\wedge\cdots\wedge w_n)
+=
+T(w_1)\wedge T(w_2)\cdots\wedge T(w_n),
+\]
+which implies
+\[
+\det(T)(w_1\wedge\cdots\wedge w_n)
+=
+(\lambda_1w_1)\wedge\cdots\wedge(\lambda_nw_n),
+\]
+which implies
+\[
+\det(T)w_1\wedge\cdots\wedge w_n=(\lambda_1\cdots\lambda_n)w_1\wedge\cdots\wedge w_n,
+\]
+i.e., $\det(T)=\lambda_1\cdots\lambda_n$.
+\end{enumerate}
+\end{example}
+
+
+\begin{proposition}
+Let $T,S:V\to V$ be linear transformations, then
+\[
+\begin{array}{ll}
+(T\circ S)^{\wedge^p}:&\wedge^pV\to \wedge^pV\\
+\text{with}&T^{\wedge^p},S^{\wedge^p}:\wedge^pV\to \wedge^pV
+\end{array}
+\]
+satisfies
+\[
+(T\circ S)^{\wedge^p} = (T^{\wedge^p})\circ(S^{\wedge^p})
+\]
+\end{proposition}
+
+\begin{proof}
+Pick any basis $\{v_{i_1}\wedge\cdots\wedge v_{i_p}\mid 1\le i_1<\cdots<i_p\le n\}$ of $\wedge^pV$.
+Then
+\begin{align*}
+(T\circ S)^{\wedge^p}(v_{i_1}\wedge\cdots\wedge v_{i_p})&=
+(T\circ S)(v_{i_1})\wedge\cdots\wedge(T\circ S)(v_{i_p})
+\end{align*}
+On  the other hand,
+\begin{align*}
+(T^{\wedge^p})\circ(S^{\wedge^p})(v_{i_1}\wedge\cdots\wedge v_{i_p})
+&=
+(T^{\wedge^p})(S(v_{i_1})\wedge\cdots\wedge S(v_{i_p}))\\
+&=
+(T\circ S)(v_{i_1})\wedge\cdots (T\circ S)(v_{i_p})\\
+\end{align*}
+
+
+\end{proof}
+
+\begin{corollary}
+\[
+\det(T\circ S) = \det(T)\det(S)
+\]
+\end{corollary}
+
+\begin{proof}
+Pick any basis $\{v_1\wedge\cdots\wedge v_n\}$ of $\wedge^nv$, then
+\begin{align*}
+\det(T\circ S)v_1\wedge\cdots\wedge v_n
+&=(T\circ S)^{\wedge^n}v_1\wedge\cdots\wedge v_n\\
+&=(T^{\wedge^n})\circ((S^{\wedge^n})v_1\wedge\cdots\wedge v_n)\\
+&=(T^{\wedge^n})(\det(S)v_1\wedge\cdots\wedge v_n)\\
+&=\det(S)T^{\wedge^n}(v_1\wedge\cdots\wedge v_n)\\
+&=\det(S)\det(T)v_1\wedge\cdots\wedge v_n
+\end{align*}
+Therefore, $\det(T\circ S) = \det(T)\det(S)$.
+
+
+\end{proof}
+
+\begin{theorem}
+Let $V=\mathbb{F}^n$, and 
+\[
+\begin{array}{ll}
+T:&V\to V\\
+\text{with}&T(\bm v)=\bm A\bm v,\quad\bm A\in M_{n\times n}(\mathbb{F})
+\end{array}
+\]
+Then $\det(T)= \det(\bm A)$
+\end{theorem}
+\begin{proof}
+Take $\{ e_1,\dots, e_n\}$ as the usual basis of $V\equiv\mathbb{F}^n$, then
+\begin{align*}
+\det(T)e_1\wedge\cdots\wedge e_n &= T( e_1)\wedge\cdots T(e_n)\\
+&=a_1\wedge\cdots\wedge a_n
+\end{align*}
+where $a_i$ denotes the $i$-th column of $\bm A$.
+
+As we have studied before [c.f. p141 in MAT2040 Notebook], the previous definition of determinant is based on three basic properties. It suffices to show these three basis properties:
+\begin{enumerate}
+\item
+The determinant of the $n$ by $n$ identity matrix is 1:
+See part~(1) in Example~(\ref{exp:15:1})
+\item
+The determianant changes sign when two columns~(w.l.o.g., ``rows'' are relaced with 
+``columns'') are exchanged:
+due to the sign reversal property for wedge product
+\item
+The determinant is a linear function of each column separately, i.e.,
+\[
+a_1\wedge\cdots\wedge(ta_i)\wedge\cdots\wedge a_n
+=
+t(a_1\wedge\cdots\wedge a_i\wedge\cdots\wedge a_n)
+\]
+\end{enumerate}
+Once we verify these three properties, we conclude that the explicit formula for $\det(\bm A)$ is a special case for our new definition.
+\end{proof}
+
+Or we can come into the previous definition for determinant directly. 
+For instance, consider the mapping
+\[
+\begin{array}{ll}
+T:&\mathbb{R}^2\to\mathbb{R}^2\\
+\text{with}&T\begin{pmatrix}
+x\\y	
+\end{pmatrix}
+=
+\begin{pmatrix}
+a&b\\c&d
+\end{pmatrix}\begin{pmatrix}
+x\\y
+\end{pmatrix}
+\end{array}
+\]
+Then we imply
+\begin{subequations}
+\begin{align*}
+\det(T)(e_1\wedge e_2)&=\begin{pmatrix}
+a\\c
+\end{pmatrix}\wedge\begin{pmatrix}
+b\\d
+\end{pmatrix}\\
+&=(ae_1)\wedge(be_1)+(ae_1)\wedge(de_2)+(ce_2)\wedge(de_1)+(ce_2)\wedge(de_2)\\
+&=(ad)e_1\wedge e_2 + (bc)e_2\wedge e_1\\
+&=(ad-bc)e_1\wedge e_2
+\end{align*}
+\end{subequations}
+Therefore, we imply $\det(T) = ad-bc$.
+
+
+
+
+
+
+
+
+

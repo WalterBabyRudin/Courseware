@@ -1,0 +1,302 @@
+
+\section{Monday for MAT3006}\index{Monday_lecture}
+\subsection{Remarks on MCT}
+\begin{example}
+The MCT can help us to compute the integral
+\begin{align*}
+\lim_{n\to\infty}\int_{[0,n\pi]}\cos\left(\frac{x}{2n}\right)xe^{-x^2}\diff x
+\end{align*}
+
+Construct $f_n(x) = \cos\left(\frac{x}{2n}\right)xe^{-x^2}\mathcal{X}_{[0,n\pi]}$.
+\begin{itemize}
+\item
+Since $\cos(x/2n)<\cos(x/2(n+1))$ for any $x\in[0,n\pi]$, we imply $f_n$ is monotone increasing with $n$
+\item
+$f_n(x)$ is integrable for all $n$.
+\item
+$f_n$ converges pointwise to $xe^{-x^2}\mathcal{X}_{[0,\infty)}$
+\end{itemize}
+Therefore, MCT I applies and
+\[
+\lim_{n\to\infty}\int_{[0,n\pi]}\cos\left(\frac{x}{2n}\right)xe^{-x^2}\diff x
+=
+\int\left(\lim_{n\to\infty}f_n\right)\diff m
+\]
+with
+\[
+\lim_{n\to\infty}f_n = xe^{-x^2}\mathcal{X}_{[0,\infty)}.
+\]
+Moreover, 
+\begin{subequations}
+\begin{align}
+\int\left(\lim_{n\to\infty}f_n\right)\diff m &= 
+\lim_{m\to\infty}\int_{[0,m]}xe^{-x^2}\diff x\label{Eq:12:1}\\
+&=\int_0^\infty xe^{-x^2}\diff x\\
+&=\frac{1}{2}
+\end{align}
+where (\ref{Eq:12:1}) is by applying MCT I with $g_m(x) = xe^{-x^2}\mathcal{X}_{[0,m]}$ and proposition~(\ref{pro:10:14}) to compute a Lebesgue integral by evaluating a proper Riemann integral.
+\end{subequations}
+\end{example}
+
+Then we discuss the Lebesgue integral for series:
+
+\begin{corollary}[Lebesgue Series Theorem]
+Let $\{f_n\}$ be a series of measurable functions such that
+\[
+\sum_{n=1}^\infty\int|f_n|\diff m<\infty,
+\]
+then $\sum_{n=1}^kf_n$ converges to an integrable function $f = \sum_{n=1}^\infty f_n$ a.e., with
+\[
+\int f\diff m = \sum_{n=1}^\infty\int f_n\diff m
+\]
+\end{corollary}
+\begin{proof}
+\begin{itemize}
+\item
+For each $f_n$, consider 
+\[
+f_n = f_n^+ - f_n^-,\ \text{where $f_n^+,f_n^-$ are nonnegative}.
+\]
+By proposition~(\ref{pro:11:6}), 
+\[
+\int\sum_{n=1}^\infty f_n^+\diff m = \sum_{n=1}^\infty\int f_n^+\diff m\le \sum_{n=1}^\infty\int |f_n|\diff m<\infty.
+\]
+Therefore, $f^+:=\sum_{n=1}^\infty f_n^+=\lim_{k\to\infty}\sum_{n=1}^kf_n^+$ is integrable.
+The same follows by replacing $f^{+}$ with $f^{-}$.
+By corollary~(\ref{cor:9:6}), $f^+(x),f^-(x)<\infty,\forall x\in U$, where $U^c$ is null.
+\item
+Therefore, construct 
+\[
+f(x)=\left\{
+\begin{aligned}
+f^+(x)-f^-(x),&\quad x\in U\\
+0,&\quad x\in U^c
+\end{aligned}
+\right.
+\]
+Moreover, for $x\in U$, 
+\begin{align*}
+f(x)&=\left(\lim_{k\to\infty}\sum_{n=1}^kf_n^+(x)\right)-
+\left(\lim_{k\to\infty}\sum_{n=1}^kf_n^-(x)\right)\\
+&=\lim_{k\to\infty}
+\left(
+\sum_{n=1}^kf_n^+(x)
+-
+\sum_{n=1}^kf_n^-(x)
+\right)\\
+&=\lim_{k\to\infty}\left[\sum_{n=1}^k(f_n^+(x)-f_n^-(x))\right]
+\\&=
+\sum_{n=1}^\infty f_n(x)
+\end{align*}
+where the first equality is because that both terms are finite.
+\item
+It follows that
+\begin{subequations}
+\begin{align}
+\int f\diff m&=\int f^+\diff m - \int f^-\diff m\label{Eq:12:2:a}\\
+&=
+\int\sum_{n=1}^\infty f_n^+\diff m -\int\sum_{n=1}^\infty f_n^-\diff m\\
+&=\left(\sum_{n=1}^\infty\int f_n^+\diff m\right)
+-
+\left(\sum_{n=1}^\infty\int f_n^-\diff m\right)\label{Eq:12:2:c}\\
+&=\sum_{n=1}^\infty
+\left(
+\int f_n^+\diff m -\int f_n^-\diff m
+\right)\label{Eq:12:2:d}\\
+&=\sum_{n=1}^\infty\int f_n\diff m\label{Eq:12:2:e}
+\end{align}
+where (\ref{Eq:12:2:a}),(\ref{Eq:12:2:d}) is because that summation/subtraction between series holds when these series are finite; (\ref{Eq:12:2:c}) is by proposition~(\ref{pro:11:6}); (\ref{Eq:12:2:e}) is by definition of $f_n$.
+\end{subequations}
+\end{itemize}
+\end{proof}
+
+\begin{example}
+Compute the integral
+\[
+\int_{(0,1]}e^{-x}x^{\alpha-1}\diff x,\ \alpha>0.
+\]
+\begin{itemize}
+\item
+Construct $f_n(x) = (-1)^n\frac{x^{\alpha+n-1}}{n!}\mathcal{X}_{(0,1]}, n\ge0$, and
+\[
+\sum_{n=0}^N f_n(x)\to e^{-x}x^{\alpha-1}, \ \text{pointwisely}, x\in(0,1]. 
+\]
+By applying MCT I,
+\[
+\int|f_n|\diff m=\frac{1}{(\alpha+n)n!}
+\]
+Therefore, 
+\[
+\sum_{n=0}^\infty\int|f_n|\diff m=
+\sum_{n=0}^\infty\frac{1}{(\alpha+n)n!}<\infty
+\]
+\item
+Applying the Lebesgue Series Theorem,
+\[
+\int_{(0,1]}e^{-x}x^{\alpha-1}\diff x = 
+\int_{(0,1]}(\sum_{n=0}^\infty f_n)\diff m
+=
+\sum_{n=0}^\infty\int f_n\diff m=
+\sum_{n=0}^\infty\frac{(-1)^n}{(\alpha+n)n!}
+\]
+\end{itemize}
+\end{example}
+
+\begin{remark}
+It's essential to have $\sum\int|f|\diff m<\infty$ rather than $\sum\int f_n\diff m<\infty$ in the Lebesgue Series Theorem.
+For example, let
+\[
+f_n=\frac{(-1)^{n+1}}{(n+1)}\mathcal{X}_{[n,n+1)}
+\implies
+\sum_{n=1}^\infty\int f_n\diff m =\log(2)<\infty
+\]
+However, $f:=\sum f_n$ is not integrable.
+\end{remark}
+
+\subsection{Dominated Convergence Theorem}
+\begin{theorem}
+Let $\{f_n\}$ be a sequence of measruable functions such that $|f_n|\le g$ a.e., and $g$ is integrable.
+Suppose that $\lim_{n\to\infty}f_n(x)=f(x)$ a.e., then
+\begin{enumerate}
+\item
+$f$ is integrable,
+\item
+\[
+\int f\diff m =\lim_{n\to\infty}\int f_n\diff m
+\]
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+\begin{itemize}
+\item
+Observe that 
+\[
+|f_n|\le g\implies
+\lim_{n\to\infty}|f_n|\le g\implies |f|\le g
+\]
+By comparison test, $g$ is integrable implies $|f|$ is integrable, and further $f$ is integrable.
+\item
+Consider the sequence of non-negative functions
+$\{g-f_n\}_{n\in\mathbb{N}}$ and $\{g+f_n\}_{n\in\mathbb{N}}$.
+
+By Fatou's Lemma, 
+\begin{align*}
+\lim_{n\to\infty}\inf\int(g-f_n)\diff m&\ge \int \lim_{n\to\infty}\inf(g-f_n)\diff m\\
+&=\int(g-f)\diff m\\
+&=\int g\diff m - \int f\diff m
+\end{align*}
+which follows that
+\[
+\int g\diff m - \lim_{n\to\infty}\sup\int f_n\diff m
+\ge
+\int g\diff m - \int f\diff m
+\]
+i.e.,
+\[
+\int f\diff m\ge  \lim_{n\to\infty}\sup\int f_n\diff m
+\]
+\item
+Similarly, 
+\[
+\lim_{n\to\infty}\inf(g+f_n)\diff m\ge \int\lim_{n\to\infty}\inf(g+f_n)\diff m
+=
+\int g\diff m + \int f\diff m
+\]
+which implies
+\[
+ \lim_{n\to\infty}\inf\int f_n\diff m\ge\int f\diff m
+\]
+\end{itemize}
+As a result,
+\[
+ \lim_{n\to\infty}\sup\int f_n\diff m
+ \le
+ \int f\diff m\le  \lim_{n\to\infty}\inf\int f_n\diff m,
+\]
+which implies
+\[
+\int f\diff m = \lim_n\int f_n\diff m
+\]
+\end{proof}
+
+\begin{corollary}[Bounded Convergence Theorem]
+Suppose that $E\in\mathcal{M}$ be such that $m(E)<\infty$.
+If
+\begin{itemize}
+\item
+$|f_n(x)|\le K<\infty$ for any $x\in E,n\in\mathbb{N}$
+\item
+$f_n\to f$ a.e. in $E$,
+\end{itemize}
+then $f$ is integrable in $E$ with
+\[
+\int_Ef\diff m = \lim_{n\to\infty}\int f_n\diff m
+\]
+\end{corollary}
+\begin{proof}
+Take $g=K\mathcal{X}_E$ in DCT.
+\end{proof}
+
+
+\begin{proposition}
+Every Riemann integrable function $f$ on $[a,b]$ is Lebesgue integrable, without the condition that $f$ is continuous a.e.
+\end{proposition}
+\begin{proof}
+Since $f$ is Riemann integrable, we imply $f$ is bounded.
+We construct the Riemann lower abd upper functions with $2^n$ equal intervals, denoted as $\{\phi_n\}$ and $\{\psi_n\}$, which follows that
+\begin{itemize}
+\item
+$\phi_n$ is monotone increasing;
+$\psi_n$ is monotone decreasing;
+\item
+$\phi_n\le f\le \psi_n$, and
+\[
+\lim_{n\to\infty}\int_{[a,b]}\phi_n=\int_a^bf(x)\diff x = \lim_{n\to\infty}\int_{[a,b]}\psi_n.
+\]
+\end{itemize}
+Construct $g=\sup_n\phi_n$ and $h=\inf_n\psi_n$.
+Now we can apply the bounded convergence theorem:
+\begin{itemize}
+\item
+$\phi_n$ is bounded on $[a,b]$
+\item
+$\phi_n\to g$ on $[a,b]$
+\end{itemize}
+which implies
+$g$ is Lebesgue integrable on $[a,b]$, with 
+\[
+\int_{[a,b]}g\diff m = \lim_{n\to\infty}\int_{[a,b]}\phi_n\diff m=\int_a^bf(x)\diff x.
+\]
+Similarly, $h$ is Lebesgue integrable, with
+\[
+\int_{[a,b]}h\diff m = \lim_{n\to\infty}\int_{[a,b]}\psi_n\diff m=\int_a^bf(x)\diff x.
+\]
+Moreover, $g\le f\le h$, and
+\[
+\int_{[a,b]}(h-g)\diff m = \int_{[a,b]}h\diff m - \int_{[a,b]}g\diff m=\int_a^bf(x)\diff x-\int_a^bf(x)\diff x=0,
+\]
+which implies $h=g$ a.e., and further $f=g$ a.e., which implies
+\[
+\int_{[a,b]} f\diff m = \int_{[a,b]} g\diff m= \int_a^bf(x)\diff x.
+\]
+\end{proof}
+\begin{remark}
+However, an improper Riemann integral does not necessarily has the corresponding Lebesgue integral:
+\[
+f(x)=\sum_{n=1}^\infty (-1)^nn\cdot\mathcal{X}_{(1/(n+1),1/n]},\ x\in[0,1]
+\]
+In this case, $f$ is Riemann integrable but not Lebesgue integrable.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+

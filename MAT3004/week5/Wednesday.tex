@@ -1,0 +1,401 @@
+\begin{theorem}
+Let $n\ge5$, then $A_n$ is simple,and $A_n$ is the only non-trivial proper normal subgroup of $S_n$.
+\end{theorem}
+It suffices to show that $1<H\triangleleft S_n$ implies $H=A_n$.
+
+
+\section{Thursday}\index{week5_Thursday_lecture}
+\subsection{Homomorphisms}
+\begin{definition}[Homomorphisms]
+Let $G=(G,*)$ and $\hat G=(\hat G,\bigodot)$, then a \emph{homomorphisms} is a map $\phi: G\mapsto \hat G$ such that
+\[
+\phi(a*b) = \phi(a)\bigodot \phi(b),\quad
+\forall a,b\in G
+\]
+If $\phi$ is a \emph{bijection}, then $\phi$ is said to be a \emph{isomorphism}. We denote $G\cong^{\phi} \hat G$.
+\end{definition}
+\begin{remark}
+\begin{itemize}
+\item
+homomorphisms is not necessarily injective or surjective.
+\item
+The isomorphism from $G$ to $\hat G$ is not unique;
+\item
+ isomorphism admits symmetry, i.e., $G\cong \hat G$ iff $\hat G\cong G$.
+\end{itemize}
+\end{remark}
+\begin{example}
+\begin{itemize}
+\item
+Let $V,W$ be vector spaces over $\mathbb{R}$ (or $\mathbb{C}$), then ant linear transformation $\phi: V\mapsto W$ is a \emph{homomorphism} $\phi: (V,+)\mapsto (W,+)$.
+\[
+\phi(\lambda\bm u+\mu\bm v) = \lambda\phi(\bm u)+\mu(\bm v),
+\]
+and let $\lambda=\mu=1$, we derive the homomorphismness.
+\item
+The determinant $\det:\mbox{GL}(n,\mathbb{R})\mapsto\mathbb{R}^{\#}:=\mathbb{R}\setminus\{0\}$ is a group homomorphism:
+\[
+\phi:g\mapsto\det(g)\implies
+\phi(gh)=\phi(g)*\phi(h)
+\]
+\item
+For any $n\in\mathbb{Z}^+$, we have $n\mathbb{Z}\le\mathbb{Z}$. Define the map $\phi:n\mathbb{Z}\mapsto\mathbb{Z}$ as $nk\mapsto k$, then
+\[
+\phi(nh+nk)=\phi(n(h+k))=h+k=\phi(nh)+\phi(nk)
+\]
+Then we need to show it is bijection. Each element on the range has its input, i.e., surjective. Also, take $\phi(nh)=\phi(nk)$, then $n=k$, i.e., injective.
+
+For $n>1$, we have $n\mathbb{Z}<\mathbb{Z}$, i.e., a proper subgroup can be isomorphic to its parent group.
+\item
+The map $\mathbb{Z}\mapsto\mathbb{Z}$ defined by $k\mapsto nk$ is a homomorphism but not isomorphism unless $n=\pm1$:
+\[
+\phi(h+k)=n(h+k)=\phi(h)+\phi(k)
+\]
+\item
+The remainder map $\phi:\mathbb{Z}\mapsto\mathbb{Z}_n$ is defined as mapping $k$ to its remainder $\bar k$divided by $n$. It is a surjective homomorphism: $\bar k\in\{0,\dots,n-1\}$ always has its input
+\item
+The map $\phi$ defined as $k\mapsto k+1$ is not a homomorphism:
+\[
+\phi(0)=1,\phi(1)=2,\phi(0+1)=2
+\]
+
+\end{itemize}
+\end{example}
+\begin{proposition}
+The group
+\[
+G=\left\{\begin{pmatrix}
+\cos\theta&-\sin\theta\\
+\sin\theta&\cos\theta
+\end{pmatrix}|\theta\in\mathbb{R}\right\}
+\]
+is isomorphic to $H=\{z\in\mathbb{C}||z|=1\}$ under the map 
+\[\begin{pmatrix}
+\cos\theta&-\sin\theta\\
+\sin\theta&\cos\theta
+\end{pmatrix}\mapsto e^{i\theta}
+\]
+\end{proposition}
+\begin{proof}
+First is to check the well-defineness of $\phi$. i.e., different expression of the same input leads to the same output:
+\[
+\begin{pmatrix}
+\cos\theta&-\sin\theta\\
+\sin\theta&\cos\theta
+\end{pmatrix}=
+\begin{pmatrix}
+\cos\theta'&-\sin\theta'\\
+\sin\theta'&\cos\theta'
+\end{pmatrix}\implies
+\theta'=\theta+2n\pi\implies
+e^{i\theta}=e^{i\theta'}
+\]
+
+Then check homomorphism and bijection.
+
+\end{proof}
+\begin{proposition}
+Let $\phi:G\mapsto H$ be a group homomorphism, then
+\begin{enumerate}
+\item
+$\phi(e_G)=e_H$
+\item
+$\phi(g^{-1})=[\phi(g)]^{-1}$ for $\forall g\in G$
+\item
+$\phi(g^n) = [\phi(g)]^n$ for  $\forall g\in G$ and $n\in\mathbb{Z}$
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+\[
+H\ni\phi(e_G)=\phi(e_G)\phi(e_G)\implies
+e_H=\phi(e_G)
+\]
+\end{proof}
+\begin{definition}[image]
+Let $\phi:G\mapsto H$ be a group homomorphism, then the \emph{image} of $\phi$ is
+\[
+\mbox{Im }\phi=\phi(G)=\{\phi(g)\mid g\in G\}
+\]
+The \emph{kernel} of $\phi$ is
+\[
+\mbox{ker }\phi:=\{g\in G\mid \phi(g) = e_H\}
+\]
+In particular, if $\mbox{ker }\phi=G$, then we say the homomorphism is \emph{trivial}.
+\end{definition}
+\begin{remark}
+$\mbox{im }\phi\le H$ and $\mbox{ker }G\triangleleft G$.
+\end{remark}
+\begin{proposition}
+Let $\phi$ defined above, then $\mbox{im }\phi\le H$ and $\mbox{ker }\phi\le G$
+\end{proposition}
+\begin{proof}
+\[
+a,b\in\mbox{im }\phi\implies
+ab^{-1}=\phi(g)[\phi(h)]^{-1}=\phi(gh^{-1})\in\mbox{im }\phi
+\]
+\end{proof}
+\begin{proposition}
+A group homomorphism $\phi:G\mapsto H$ is injective iff $\mbox{ker }\phi=\{e_G\}$
+\end{proposition}
+\begin{proof}
+Necessity. 
+
+Assume $a\ne e_G$ and $a\in\mbox{ker }\phi$, then
+\[
+\phi(g)=\phi(g)e_H=\phi(g)\phi(a)=\phi(g*a),
+\]
+but $g\ne g*a$, which is a contradiction.
+
+Sufficiency.
+
+For any $\phi(g)=\phi(h)$, it suffices to show $g=h$:
+\[
+\phi(g)[\phi(h)]^{-1}=e_H\implies
+\phi(gh^{-1})=e_H\implies
+gh^{-1}=e_G\implies g=h.
+\]
+\end{proof}
+\begin{proposition}
+Let $G,H$ be isomorphic groups, if $G$ is cyclic, then so is $H$
+\end{proposition}
+\begin{proof}
+Let $G=\gen{g_0}\cong H$ and $\phi:G\mapsto H$. Define $h_0=\phi(g_0)$. Take $h\in H$, there exists $n\in\mathbb{Z}$ s.t.
+\[
+h=\phi(g_0^n)=[\phi(g_0)]^n:=h_0^n
+\]
+It follows that $H\subseteq\gen{h_0}\subseteq H$, i.e., $H=\gen{h_0}$
+\end{proof}
+\begin{proposition}
+Let $G,H$ be isomorphic groups, if $G$ is abelian, then so is $H$
+\end{proposition}
+\begin{proof}
+For any $h_1,h_2\in H$, there exists $g_1,g_2\in G$ such that
+\[
+h_1h_2=\phi(g_1)\phi(g_2)=\phi(g_2)\phi(g_1)=h_2h_1.
+\]
+\end{proof}
+Note that $D_6$ is not isomorphic to $\mathbb{Z}_6\times\mathbb{Z}_2$, since $D_6$ is not abelian.
+\begin{remark}
+These two propositions above still remains true if replacing isomorphism by a surjective homomorphism.
+\end{remark}
+\begin{proposition}
+The restriction of a homomorphism $\phi:G\mapsto\hat G$ to a subgroup $H\le G$ gives a homomorphism $\phi|_H:H\mapsto\hat G$ as well.
+\end{proposition}
+\begin{proof}
+$\phi(g_1*g_2)=\phi(g_1)*\phi(g_2)$ for $g_1,g_2\in H$
+\end{proof}
+\begin{proposition}
+Let $G,H$ be groups s.t. $G\cong_{\phi} H$, then $|\phi(g)| = |g|$ for each $g\in G$.
+\end{proposition}
+\begin{proof}
+Note that $n=|g|$ implies
+\[
+[\phi(g)]^n=e_H,
+\]
+i.e., $|\phi(g)|\le n$. On the other hand, assume we can take a positive integer $m<n$ s.t.
+\[
+[\phi(g)]^m=e_H\implies \phi(g^m)=e_H,
+\]
+with $g^m\ne e_G$, which implies $\phi$ is not one-to-one, which is a contradiction.
+\end{proof}
+
+\subsection{Classification of cyclic groups}
+\begin{proposition}
+Let $r_1$ denote the anti-clockwise rotation by $\frac{2\pi}{n}$, then $H=\gen{r_1}\le D_n$. Then $H\cong\mathbb{Z}_n$.
+\end{proposition}
+\begin{proof}
+Define $\phi: H\mapsto\mathbb{Z}_n$ with $\phi(r_1^k)=\bar k$, $k\in\mathbb{Z}$
+\begin{itemize}
+\item
+$\phi$ is well-defined:
+\[
+r_1^{k_1}=r_1^{k_2}\implies
+k_2=k_1+nd,
+\]
+which is well-defined since $\overline{k_1+nd}=\overline{k_1}$.
+\item
+$\phi$ is a homomorphism: for $i,j\in\{0,\dots,n-1\}$
+\[
+\phi(r_1^ir_1^j)=\phi(r_1^{i+j})=\overline{i+j}=i+_nj=\phi(r_1^i)+_n\phi(r_1^j)
+\]
+\item
+To show $\phi$ is a bijection. It suffices to show $\mbox{ker }\phi=\{e_H\}$:
+\[
+\phi(r_1^i)=0\implies i=nd,d\in\mathbb{Z}\implies
+r_1^i=r_0
+\]
+\end{itemize}
+
+
+
+\end{proof}
+
+\begin{theorem}
+Let $G$ be a cyclic group, then
+\begin{enumerate}
+\item
+If $|G|=\infty$, then $G\cong\mathbb{Z}$
+\item
+If $|G|=n$, then $G\cong\mathbb{Z}_n$
+\end{enumerate}
+ 
+\end{theorem}
+\begin{proof}
+Define $\phi:G\mapsto\mathbb{Z}$ with $g_0^k\mapsto k$
+
+First show the well-defineness of $\phi$; then show $\phi$ is homomorphic:
+\[
+\phi(g_0^m*g_0^n)=\phi(g_0^m)+\phi(g_0^n)
+\]
+
+Then show that $\phi$ is bijection, i.e., $\mbox{ker }\phi=\{e_G\}.$
+
+For the second case, define the map $\phi:\mathbb{Z}_n\mapsto G$ with $k\mapsto g_0^k$:
+
+Check the well-defineness, which is clear since the expresison for $k$ is unique.
+
+$\phi$ is homomorphism:
+\[
+\phi(h+_nk)=\phi(\overline{h+k})=g_0^{\overline{h+k}}
+=g_0^{h+k}=g_0^hg_0^k=\phi(h)\phi(k)
+\]
+
+Then show that it is bijection. A one-to-one function from a finite set to itself is onto. Then check one-to-one mapping.
+
+\end{proof}
+\begin{corollary}
+Let $G,\hat G$ be cyclic groups of the same order, then $G\cong \hat G$.
+\end{corollary}
+
+\subsection{Isomorphism Theorems}
+The first and seond theorem is required in exam. (can we apply the corresponding theorem in the exam?)
+
+\begin{theorem}[The First Isomorphism Theorem]
+Let $G\mapsto H$ be a group homomorphism, then $\mbox{ker }\phi\trianglelefteq G$ and $G/\mbox{ker }\phi\cong\mbox{im }\phi$
+\end{theorem}
+\begin{proof}
+Let $K=\mbox{ker }\phi\trianglelefteq G$. Define 
+\[
+\psi:G/K\mapsto\mbox{im }\phi,\qquad
+aK\mapsto\phi(a)
+\]
+First show that $\psi$ is well-defined, i.e., different expression of input leads to the same output. Note that
+\[
+b\in aK\implies b=ak,
+\]
+therefore $\psi(bK)=\psi((ak)K)=\phi(ak)=\phi(ak)=\phi(a)e_H$.
+
+Then check that $\psi$ is homomorphism:
+\[
+\psi(aK)\psi(bK)=\phi(a)\phi(b)=\phi(ab)=\psi((ab)K)
+=\psi((aK)(bK))
+\]
+
+Then check that $\psi$ is a bijection: Take $a\notin K$,
+\[
+\psi(aK)=\phi(a)=e_H\implies
+\mbox{ker }\psi\subseteq K
+\]
+Take $a\in K$, then
+\[
+\psi(aK)=\psi(e_G\cdot K)=\phi(e_G)=e_H\implies
+\mbox{ker }\psi\supseteq K
+\]
+Thus $\psi$ is one-to-one, and furthermore bijection.
+\end{proof}
+
+\begin{theorem}
+Let $G$ be a group with $N\trianglelefteq G$, then 
+\[
+\rho: G\to G/N,\qquad g\mapsto gN
+\]
+has $\mbox{ker }\rho=N$
+\end{theorem}
+\begin{proof}
+\begin{enumerate}
+\item
+$\rho$ is well-defined
+\item
+$\rho$ is homomorphism:
+\[
+\rho(g)\rho(h)=\rho(gh)
+\]
+\item
+$\rho$ is bijection:
+\[
+\rho(g)=gN=N\implies g\in N,
+\]
+i.e., $\mbox{ker }\rho\subseteq N$.
+
+On the other hand, take $g\in N$, then
+\[
+\rho(g)=gN=N\implies\mbox{ker }\rho\supset N.
+\]
+\end{enumerate}
+\end{proof}
+
+\begin{example}
+\begin{enumerate}
+\item
+$\phi:\mathbb{Z}\to\mathbb{Z}_n$ with $x\mapsto\bar{x}$ is surjective. Then we have $\phi(x)+\phi(y)=\bar{x}+_n\bar{y}=x+_ny=\overline{x+y}=\phi(x+y)$
+\[
+\phi(x)=\bar{x}=0\implies x\in n\mathbb{Z}\implies\mbox{ker }\phi=n\mathbb{Z}
+\]
+Therefore $\mathbb{Z}/n\mathbb{Z}=\mathbb{Z}_n$. Construct the canonical homomorphism $x\mapsto x+nZ$.
+\item
+$\phi:\mathbb{Z}_4\times\mathbb{Z}_4\to\mathbb{Z}_4$ with $(x,y)\mapsto y$.
+
+Note that $\phi$ is surjective
+
+Note that $\phi$ is homomorphism:
+\[
+\phi((x_1,y_1))*\phi((x_2,y_2))=y_1+y_2=\phi((x_1+x_2,y_1+y_2))
+=
+\phi((x_1,y_1)+(x_2,y_2))
+\]
+
+$\mathbb{Z}_4^2/\mbox{ker }\phi\cong\mathbb{Z}_4$
+
+The canonical homomorphism is $\rho:\mathbb{Z}_4^2\to\mathbb{Z}_4^2/\mbox{ker }\phi$ with $(x,y)\mapsto (x,y)+\mbox{ker }\phi$.
+
+
+\item
+Let $G=D_3$ and $\phi:D_3\to\mathbb{Z}_6$ with $r^i\mapsto0$ and $r^is\mapsto 3$. Then $\phi$ is a homomorphism but not surjective:
+\[
+\phi(r^i)\phi(r^j)=0=\phi(r^ir^j)
+\]
+\[
+\phi(r^i)\phi(r^j)=3=\phi(r^i\cdot r^is)
+\]
+\[
+\phi(r^is)\phi(r^is)=0=\phi(r^is\cdot r^js)
+\]
+
+Note that $D_3/\mbox{ker }\phi=D_3/\gen{r}\cong\{0,3\}\cong\mathbb{Z}_2$
+\end{enumerate}
+\end{example}
+\begin{theorem}
+Let $G$ be a group, and $H\le G$, $N\trianglelefteq G$, then
+\[
+H/(N\bigcap H)\cong NH/N
+\]
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

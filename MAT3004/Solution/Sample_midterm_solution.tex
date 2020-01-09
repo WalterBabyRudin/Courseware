@@ -1,0 +1,538 @@
+\section{Midterm Exam Solutions}\index{Midterm Exam Solutions}
+\subsection{Sample Exam Solution}
+\begin{enumerate}
+%q1
+\item
+\begin{enumerate}
+\item
+\[
+\bm A=\begin{bmatrix}
+1&1&c&1\\
+0&-1&1&2\\
+1&2&1&-1
+\end{bmatrix}
+\]
+\item
+The \textit{augmented matrix} is given by
+\[
+\left[\begin{array}{@{}cccc|c@{}}
+1&1&c&1&c\\
+0&-1&1&2&0\\
+1&2&1&-1&-c
+\end{array}\right]
+\]
+Then we compute its \textit{row-reduced form:}
+\[
+\left[\begin{array}{@{}cccc|c@{}}
+1&1&c&1&c\\
+0&-1&1&2&0\\
+1&2&1&-1&-c
+\end{array}\right]
+\xLongrightarrow[\text{Row 3}=\text{Row 3}-\text{Row 1}]{\text{Row 1}=\text{Row 1}+\text{Row 2}}
+\left[\begin{array}{@{}cccc|c@{}}
+1&0&c+1&3&c\\
+0&-1&1&2&0\\
+0&1&1-c&-2&-2c
+\end{array}\right]
+\]
+\[
+\xLongrightarrow{\text{Row 2}=\text{Row 2}\x(-1)}
+\left[\begin{array}{@{}cccc|c@{}}
+1&0&c+1&3&c\\
+0&1&-1&-2&0\\
+0&1&1-c&-2&-2c
+\end{array}\right]
+\]
+\[
+\xLongrightarrow{\text{Row 3}=\text{Row 3}-\text{Row 2}}
+\left[\begin{array}{@{}cccc|c@{}}
+1&0&c+1&3&c\\
+0&1&-1&-2&0\\
+0&0&2-c&0&-2c
+\end{array}\right]
+\]
+\begin{enumerate}
+\item
+If $c=2$, then we obtain:
+\[
+\xLongrightarrow{\text{Row 3}=\text{Row 3}\x(-\frac{1}{4})}
+\left[\begin{array}{@{}cccc|c@{}}
+1&0&3&3&2\\
+0&1&-1&-2&0\\
+0&0&0&0&1
+\end{array}\right]
+\xLongrightarrow{\text{Row 1}=\text{Row 1}-2\x\text{Row 3}}
+\]
+\[
+\qquad\qquad\left[\begin{array}{@{}cccc|c@{}}
+1&0&3&3&0\\
+0&1&-1&-2&0\\
+0&0&0&0&1
+\end{array}\right]\text{(rref)}
+\]
+\item
+Otherwise, we derive:
+\[
+\xLongrightarrow{\text{Row 3}=\text{Row 3}\x(\frac{1}{2-c})}
+\left[\begin{array}{@{}cccc|c@{}}
+1&0&c+1&3&c\\
+0&1&-1&-2&0\\
+0&0&1&0&\frac{2c}{c-2}
+\end{array}\right]
+\xLongrightarrow[\text{Row 2}=\text{Row 2}+\text{Row 3}]{\text{Row 1}=\text{Row 1}-\text{Row 3}\x(c+1)}
+\]
+\[
+\qquad\qquad\left[\begin{array}{@{}cccc|c@{}}
+1&0&0&3&-\frac{c^2+4c}{c-2}\\
+0&1&0&-2&\frac{2c}{c-2}\\
+0&0&1&0&\frac{2c}{c-2}
+\end{array}\right](\text{rref})
+\]
+\end{enumerate}
+%\[
+%\xLongrightarrow{\text{Row 3}=\text{Row 3}\x\frac{1}{2-c}}
+%\left[\begin{array}{@{}cccc|c@{}}
+%1&0&c+1&3&c\\
+%0&1&-1&-2&0\\
+%0&0&1&0&0
+%\end{array}\right]
+%\]
+\item
+\begin{enumerate}
+\item
+If $c=2$, there is no solution to this system.
+\item
+Otherwise, we convert this system into:
+\[
+\left\{
+\begin{aligned}
+x_1+3x_4&=-\frac{c^2+4c}{c-2}\\
+x_2-2x_4&=\frac{2c}{c-2}\\
+x_3&=\frac{2c}{c-2}
+\end{aligned}
+\right.
+\implies
+\left\{
+\begin{aligned}
+x_1&=-\frac{c^2+4c}{c-2}-3x_4\\
+x_2&=\frac{2c}{c-2}+2x_4\\
+x_3&=\frac{2c}{c-2}
+\end{aligned}
+\right.
+\]
+Hence the complete set of solutions is given by
+\[
+\bm x_{\text{complete}}=\begin{pmatrix}
+-\frac{c^2+4c}{c-2}-3x_4\\\frac{2c}{c-2}+2x_4\\
+\frac{2c}{c-2}\\x_4
+\end{pmatrix}=\begin{pmatrix}
+-\frac{c^2+4c}{c-2}\\
+\frac{2c}{c-2}\\
+\frac{2c}{c-2}\\
+0
+\end{pmatrix}+x_4\begin{pmatrix}
+-3\\2\\0\\1
+\end{pmatrix}.
+\]
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+If $c=2$, obviously, the rref of $\bm A$ is
+\[
+\begin{bmatrix}
+1&0&3&3\\0&1&-1&-2\\0&0&0&0
+\end{bmatrix}
+\]
+Hence $\rank(\bm A)=2$.
+\item
+Otherwise, the rref of $\bm A$ is
+\[
+\begin{bmatrix}
+1&0&0&3\\0&1&0&-2\\0&0&1&0
+\end{bmatrix}
+\]
+Hence $\rank(\bm A)=3$.
+\end{enumerate}
+In conclusion, $\rank(\bm A)=\begin{cases}
+3,&c\ne 2;\\
+2,&c=2.
+\end{cases}$
+\item
+When $c=0$, the complete solution is given by:
+\[
+\bm x_{\text{complete}}=x_4\begin{pmatrix}
+-3\\2\\0\\1
+\end{pmatrix}.
+\]
+where $x_4$ is a scalar.\\
+Hence a basis for the subspace of solutions is $\left\{\begin{pmatrix}
+-3\\2\\0\\1
+\end{pmatrix}\right\}.$
+\end{enumerate}
+\item
+\begin{itemize}
+\item
+For \textit{skew symmetric} matrix, once the lower triangular part is determined, the whole matrix is immediately determined. For example, if we know $a_{ij}=m(i>j)$, then the corresponding upper triangular entry is $a_{ji}=-m$. Thus our basis is given by: 
+\[
+\{\bm A_{ij}\}\text{ for }1\le j\le i\le n.
+\]
+where the entries $a_{st}$$(1\le s,t\le n)$ for $\bm A_{ij}$ is given by
+\[
+a_{st}=\left\{
+\begin{aligned}
+0,&\quad (s,t)\ne(i,j)\text{ and }(s,t)\ne(j,i);\\
+1,&\quad (s,t)=(i,j);\\
+-1,&\quad (s,t)=(j,i).
+\end{aligned}\right.
+\]
+\item
+Notice $ax^2+bx+2a+3b=a(x^2+2)+b(x+3)$. And $(x^2+2)$ and $(x+3)$ are obviously independent. Hence the basis is given by
+\[
+\{
+(x^2+2),(x+3)
+\}.
+\]
+\item
+Firstly we show that $(x-1),(x+1),(2x^2-2)$ are independent:
+\[
+\begin{aligned}
+\alpha_1(x-1)+\alpha_2(x+1)&+\alpha_3(2x^2-2)=0
+\implies\\
+&2\alpha_3x^2+(\alpha_1+\alpha_2)x+(-\alpha_1+\alpha_2-2\alpha-3)=0.
+\end{aligned}
+\]
+Hence we derive
+\[
+\left\{
+\begin{aligned}
+2\alpha_3&=0\\\alpha_1+\alpha_2&=0\\-\alpha_1+\alpha_2-2\alpha_3&=0
+\end{aligned}
+\right.\implies
+\left\{
+\begin{aligned}
+\alpha_1&=0\\\alpha_2&=0\\\alpha_3&=0
+\end{aligned}
+\right.
+\]
+which means $(x-1),(x+1),(2x^2-2)$ are independent.\\
+Hence one basis for this space is $\{(x-1),(x+1),(2x^2-2)\}$.
+\end{itemize}
+\item
+\begin{enumerate}
+\item
+Obviously, the entrie of $\bm D$ is
+\[
+d_{ij}=\left\{
+\begin{aligned}
+d_{ii},&\quad i=j;\\
+0,&\quad i\ne j.
+\end{aligned}
+\right.
+\]
+We set $\bm E=\bm{AD},\bm F=\bm{DA}$. Hence the entries for $\bm E$ and $\bm F$ is given by:
+\[
+e_{ij}=\sum_{t=1}^{n}a_{it}d_{tj}=a_{ij}d_{jj}\qquad
+f_{ij}=\sum_{t=1}^{n}d_{it}a_{tj}=d_{ii}a_{ij}
+\]
+where $1\le i,j\le n.$\\
+In order to let $\bm E=\bm F$, we must let $e_{ij}=f_{ij}$ for $\forall 1\le i,j\le n.$
+\[
+\implies
+a_{ij}d_{jj}=d_{ii}a_{ij}
+\implies
+a_{ij}(d_{jj}-d_{ii})=0.
+\]
+Since $d_{ii}\ne d_{jj}$ for $\forall i\ne j$, we derive $d_{jj}-d_{ii}\ne0.$ Hence $a_{ij}=0$ for $\forall i\ne j$.\\
+Considering the case $i=j$, then $d_{jj}-d_{ii}=d_{ii}-d_{ii}=0.$ Thus the value of $a_{ij}$ is undetermined.\\
+In conclusion, $\bm A$ could be any diagonal matrix.
+\item
+\begin{itemize}
+\item
+We construct $\bm B^{ij}$ such that the $(i,j)$th entry of $\bm B^{ij}$ is $1$, other entries are
+all zero.
+\item
+We set $\bm A\bm B^{ij}=\bm E^{ij};\bm B^{ij}\bm A=\bm F^{ij}$. Hence the entries for $\bm E^{ij}$ and $\bm F^{ij}$ is given by:
+\[
+e_{pq}^{ij}=\sum_{t=1}^{n}a_{pt}b_{tq}\qquad
+f_{pq}^{ij}=\sum_{t=1}^{n}b_{pt}a_{tq}
+\]
+where $1\le p,q\le n.$\\
+Since $\bm{AB}=\bm{BA}$ is always true for any matrix $\bm B$, we have $\bm A\bm B^{ij}=\bm B^{ij}\bm A.$ Hence $e_{pq}^{ij}=f_{pq}^{ij}.$
+\item
+For $q\ne i$, we have $e_{iq}^{ii}=\sum_{t=1}^{n}a_{it}b_{tq}=0$ since $b_{tq}=0$ for $\forall t=1,2,\dots,n.$\\
+Also, $f_{iq}^{ii}=\sum_{t=1}^{n}b_{it}a_{tq}=a_{iq}.$\\
+Hence $0=a_{iq}$ for $\forall q\ne i.$
+\item
+For $i\ne j$, we have $e_{ij}^{ij}=\sum_{t=1}^{n}a_{it}b_{tj}=a_{ii}b_{ij}=a_{ii}$ and $f_{ij}^{ij}=\sum_{t=1}^{n}b_{it}a_{tj}=b_{ij}a_{jj}=a_{jj}.$\\
+Hence $a_{ii}=a_{jj}.$
+\end{itemize}
+So, $\bm A$ is diagonal and all the diagonal entries of $\bm A$ are equal. Hence $\bm A=c\bm I$ for some scalar $c$.
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+\[
+\left[
+\begin{array}{@{}cc|cc@{}}
+5&4&1&0\\
+4&5&0&1
+\end{array}
+\right]
+\xLongrightarrow{\text{Row 2}=5\x\text{Row 2}-4\x\text{Row 1}}
+\left[
+\begin{array}{@{}cc|cc@{}}
+5&4&1&0\\
+0&9&-4&5
+\end{array}
+\right]
+\]
+\[
+\xLongrightarrow{\text{Row 1}=9\x\text{Row 1}-4\x\text{Row 2}}
+\left[
+\begin{array}{@{}cc|cc@{}}
+45&0&25&-20\\
+0&9&-4&5
+\end{array}
+\right]
+\xLongrightarrow[\text{Row 2}=\frac{1}{9}\x\text{Row 2}]{\text{Row 1}=\frac{1}{45}\x\text{Row 1}}
+\]
+\[
+\qquad\qquad\left[
+\begin{array}{@{}cc|cc@{}}
+1&0&\frac{5}{9}&-\frac{4}{9}\\
+0&1&-\frac{4}{9}&\frac{5}{9}
+\end{array}
+\right]
+\]
+Hence the inverse of the matrix $\begin{pmatrix}
+5&4\\4&5
+\end{pmatrix}$ is 
+$
+\left[
+\begin{array}{@{}cc@{}}
+\frac{5}{9}&-\frac{4}{9}\\
+-\frac{4}{9}&\frac{5}{9}
+\end{array}
+\right]
+$.
+\item
+\[
+\left[
+\begin{array}{@{}cc|cc@{}}
+a&b&1&0\\
+c&d&0&1
+\end{array}
+\right]
+\xLongrightarrow{\text{Row 2}=a\x\text{Row 2}-c\x\text{Row 1}}
+\left[
+\begin{array}{@{}cc|cc@{}}
+a&b&1&0\\
+0&ad-bc&-c&a
+\end{array}
+\right]
+\]
+\[
+\xLongrightarrow{\text{Row 1}=(ad-bc)\x\text{Row 1}-b\x\text{Row 2}}
+\left[
+\begin{array}{@{}cc|cc@{}}
+a(ad-bc)&0&ad&-ab\\
+0&ad-bc&-c&a
+\end{array}
+\right]
+\]
+\begin{enumerate}
+\item
+If $ad-bc=0$, then this process cannot continue, which means the inverse of $\begin{pmatrix}
+a&b\\c&d
+\end{pmatrix}$ doesn't exist.
+\item
+If $ad-bc\ne0$, without loss of generality, we assume $a\ne0$.\\ (If $a=0$, then $c$ must be nonzero. Then we only need to set the second row as pivot row to proceed similarly.)
+\\Thus we obtain:
+\[
+\xLongrightarrow[{\text{Row 2}=\frac{1}{ad-bc}\x\text{Row 2}}]{\text{Row 1}=\frac{1}{a(ad-bc)}\x\text{Row 1}}
+\left[
+\begin{array}{@{}cc|cc@{}}
+1&0&\frac{d}{ad-bc}&\frac{-b}{ad-bc}\\
+0&1&\frac{-c}{ad-bc}&\frac{a}{ad-bc}
+\end{array}
+\right]
+\]
+Hence the inverse of the matrix $\begin{pmatrix}
+a&b\\c&d
+\end{pmatrix}$ is $\left[
+\begin{array}{@{}cc@{}}
+\frac{d}{ad-bc}&\frac{-b}{ad-bc}\\
+\frac{-c}{ad-bc}&\frac{a}{ad-bc}
+\end{array}
+\right]$.
+\end{enumerate}
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+We set $\bm A=\bm I-\bm u\bm u\trans$.
+\begin{itemize}
+\item
+Firstly, we find that $\bm u\in N(\bm A):$
+\[
+\bm A\bm u=(\bm I-\bm u\bm u\trans)\bm u=\bm u-\bm u(\bm u\trans\bm u)=\bm u-\bm u=\bm0.
+\]
+Moreover, $c\bm u\in N(\bm A)$, where $c$ is a scalar.\\
+Hence any elements that parallel to $\bm u$ is in $N(\bm A).$
+\item
+Secondly, $\forall x\in N(\bm A),$ we notice:
+\[
+\bm{Ax}=\bm0\implies
+(\bm I-\bm u\bm u\trans)\bm x=\bm x-\bm u\bm u\trans\bm x=\bm0
+\implies
+\bm x=\bm u(\bm u\trans\bm x).
+\]
+Since $\bm u\trans\bm x$ is a scalar, $\bm x$ is parallel to $\bm u.$\\
+In other words, any elements in $N(\bm A)$ is parallel to $\bm u.$
+\end{itemize}
+In conclusion, $N(\bm A)=\Span\{\bm u\}.$ Hence $\dim(N(\bm A))=1.$\\
+Hence $\rank(\bm A)=n-\dim(N(\bm A))=n-1.$
+\item
+We find that
+\begin{align*}
+\bm P^2&=\bm P\\
+\bm P^5&=\bm P.
+\end{align*}
+Hence $\rank(\bm P^2)=\rank(\bm P)=n-1;\rank(\bm P^5)=\rank(\bm P)=n-1$.
+\item
+\begin{enumerate}
+\item
+If $\bm I-\bm x\bm y\trans=\bm 0$, (for example, $\bm x=\begin{bmatrix}
+1
+\end{bmatrix},\bm y=\begin{bmatrix}
+1
+\end{bmatrix}.$) then $\rank(\bm I-\bm x\bm y\trans)=0.$
+\item
+Otherwise, we set $\bm A=\bm I-\bm x\bm y\trans$.
+\begin{itemize}
+\item
+Firstly, for $\forall\bm v\in N(\bm A)$, we notice:
+\[
+\bm A\bm v=(\bm I-\bm x\bm y\trans)\bm v=\bm0
+\implies
+\bm v=\bm x(\bm y\trans\bm v).
+\]
+Since $\bm y\trans\bm v$ is a scalar, $\bm v$ is parallel to $\bm x$.\\
+In other words, any elements in $N(\bm A)$ is parallel to $\bm x.$
+\item
+Secondly, we discuss whether $\bm x$ is in $N(\bm A):$
+\begin{equation}
+\bm x\in N(\bm A)\Longleftrightarrow
+\bm{Ax}=(\bm I-\bm x\bm y\trans)\bm x=\bm0
+\Longleftrightarrow
+\bm x=\bm x(\bm y\trans\bm x).\label{case_one}
+\end{equation}
+\begin{enumerate}
+\item
+If $\bm y\trans\bm x=1$, then condition $(\ref{case_one})$ is satisfied, then $\bm x$ is in $N(\bm A)$. Moreover, $c\bm x\in N(\bm A)$, where $c$ is a scalar.\\
+Hence any elements that parallel to $\bm x$ is in $N(\bm A)$.\\
+In this case, we derive $N(\bm A)=\Span\{\bm x\}$. Hence $\dim(N(\bm A))=1.$ $\rank(\bm A)=n-\dim(N(\bm A))=n-1.$
+\item
+Otherwise, then condition $(\ref{case_one})$ is  \emph{not} satisfied, thus $\bm x$ is not in $N(\bm A)$.\\
+Obviously, $c\bm x\notin N(\bm A)$ for $\forall$ \emph{nonzero} scalar $c$.\\
+Hence any nonzero elements that parallel to $\bm x$ is not in $N(\bm A)$.\\
+In this case, we derive $N(\bm A)=\{\bm0\}.$ Hence $\dim(N(\bm A))=0.$ $\rank(\bm A)=n-\dim(N(\bm A))=n.$
+\end{enumerate}
+\end{itemize}
+\end{enumerate}
+In conclusion, 
+\begin{itemize}
+\item
+When $\bm I-\bm x\bm y\trans=\bm0$, $\rank(\bm I-\bm x\bm y\trans)=0.$
+\item
+Otherwise,
+\[
+\rank(\bm I-\bm x\bm y\trans)=\begin{cases}
+n&\bm y\trans\bm x\ne1;\\
+n-1&\bm y\trans\bm x=1.
+\end{cases}
+\]
+\end{itemize}
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+No.\\
+\textbf{Reason: }$(\bm A+\bm B)(\bm A-\bm B)=\bm A^2-\bm B^2+(\bm{BA}-\bm{AB})$.\\ But $(\bm{BA}-\bm{AB})$ cannot always be zero. For example,
+\[
+\bm A=\begin{bmatrix}
+1&0\\1&0
+\end{bmatrix}\qquad
+\bm B=\begin{bmatrix}
+-2&0\\2&0
+\end{bmatrix}.
+\]
+\[
+\text{But}\qquad\bm{AB}=\begin{bmatrix}
+-2&0\\-2&0
+\end{bmatrix},\quad\bm{BA}=\begin{bmatrix}
+-2&0\\2&0
+\end{bmatrix}.
+\]
+\item
+False.\\
+\textbf{Reason: } For example, 
+\[
+\bm A=\begin{bmatrix}
+1&0\\0&1
+\end{bmatrix}\qquad\bm B=\begin{bmatrix}
+-1&0\\0&-1
+\end{bmatrix}.
+\]
+Although $\bm A$ and $\bm B$ are invertible, $\bm A+\bm B$ is not invertible:
+\[
+\bm A+\bm B=\begin{bmatrix}
+0&0\\0&0
+\end{bmatrix}.
+\]
+\item
+True.\\
+\textbf{Reason: }If $f_1$ and $f_2$ is in this set, then the linear combination of $f_1$ and $f_2$ is also in this set. Why? \\
+For function $\alpha_1f_1+\alpha_2f_2$, where $\alpha_1,\alpha_2$ are scalars, we obtain:
+\begin{align*}
+\alpha_1f_1+\alpha_2f_2(1)&=\alpha_1f_1(1)+\alpha_2f_2(1)\\
+&=\alpha_1\x0+\alpha_2\x0\\
+&=0.
+\end{align*}
+Hence $\alpha_1f_1+\alpha_2f_2$ is also in this set. Hence this set is a vector space.
+\item
+True.\\
+\textbf{Reason: }If $\bm A$ and $\bm B$ are invertible, then for the product $\bm{AB}$, we find
+\[
+\bm{AB}\bm B^{-1}\bm A^{-1}=\bm A(\bm B\bm B^{-1})\bm A^{-1}=\bm A\bm I\bm A^{-1}=\bm I.
+\]
+Hence $\bm B^{-1}\bm A^{-1}$ is the inverse of $\bm{AB}$. Hence the product $\bm{AB}$ is invertible.
+\item
+False.\\
+Don't mix up this statement with the proposition:\textit{ Row transforamtion doesn't change the row space}.\\
+Actually, in most case, the two matrices that have the same \textit{reduced row echelon form} have \emph{different} \textit{column space.}\\
+For example,
+\[
+\bm A=\begin{bmatrix}
+1&3&3&4\\2&6&9&7\\-1&-3&3&4
+\end{bmatrix}\xLongrightarrow{\text{Row transform}}
+\bm U=\begin{bmatrix}
+1&3&0&-1\\0&0&1&1\\0&0&0&0
+\end{bmatrix}
+\]
+they have the same \textit{reduced row echelon form}. However, the first column of $\bm A$ is $\begin{pmatrix}
+1\\2\\-1
+\end{pmatrix}\notin\col(\bm U).$ They have \emph{different} \textit{column space.}
+\item
+True.\\
+\textbf{Reason: }Suppose $\bm A$ is $n\x n$ square matrix, if two columns of $\bm A$ are the same, then $\dim(\col(\bm A))=\rank(\bm A)<n$. Since $\bm A$ is not \textit{full rank}, $\bm A$ \textit{cannot} be invertible.
+\item
+False.\\
+Don't mix up this statement with the equality:
+\[
+\rank(\bm A)+\dim(N(\bm A))=n.
+\]
+Actually, $\rank(\bm A)=\dim(\row(\bm A))=\dim(\col(\bm A)).$
+\end{enumerate}
+\end{enumerate}

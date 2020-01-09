@@ -1,0 +1,274 @@
+%\chapter{Introduction to Linear Programming}
+\chapter{Conic Optimization Models}
+\paragraph{Notations}
+\begin{definition}[pointed convex cone]
+A subset $\mathcal{K}\subseteq\mathbb{R}^n$ is called a \emph{pointed convex cone} in $\mathbb{R}^n$ if the following conditions are satisfied:
+\begin{enumerate}
+\item
+$0\in\mathcal{K}$
+\item
+If $x,-x\in\mathcal{K}$, then $x=0$
+\item
+If $x\in\mathcal{K}$, then $tx\in\mathcal{K},\forall t>0$
+\item
+If $x,y\in\mathcal{K}$, then $x+y\in\mathcal{K}$
+\end{enumerate}
+\end{definition}
+\begin{definition}[Proper]
+Cone $\mathcal{K}$ is called \emph{proper} if
+\begin{enumerate}
+\item
+$\mathcal{K}$ is convex
+\item
+$\mathcal{K}$ is solid, i.e., it is full dimensional
+\item
+$\mathcal{K}$ is pointed.
+\end{enumerate}
+\end{definition}
+\subsection{Problem Setting}
+A generic conic optimzation model:
+\[
+\begin{array}{ll}
+\min&\bm c\trans\bm x\\
+\mbox{such that}&\bm{Ax}=\bm b\\
+&\bm x\in\mathcal{K}
+\end{array}
+\]
+where $\mathcal{K}\subseteq\mathbb{R}^n$ is the closed convex cone.
+w.l.o.g., we assume that rows of $\bm A$ are all linearly independent.
+
+\begin{example}[Second Order Cone Programming]
+The \emph{Lorentz cone}, or say the \emph{second order cone} is denoted as:
+\[
+\text{SOC}(n+1)=\left\{
+\begin{pmatrix}
+t\\\bm x
+\end{pmatrix}\middle|
+t\in\mathbb{R},\bm x\in\mathbb{R}^n, t\ge\|\bm x\|
+\right\}
+\]
+The $\text{SOC}(2)$ looks like the ice-cream.
+
+The Cartesian Product of second order cones is denoted as
+\[
+\mathcal{K} = \text{SOC}(d_1+1)\times\cdots\times\text{SOC}(d_m+1).
+\]
+For example, if $\bm x=[\bm x_1\trans,\bm x_2\trans,\bm x_3\trans]\trans\in S_1\times S_2\times S_3$, then $\bm x_1\in S_1,\bm x_2\in S_2,\bm x_3\in S_3$.
+
+If $\mathcal{K}$ is taken as a Cartesian Product of second order cones, then conic optimization is called the \emph{second order cone programming}, or SOCP for short.
+
+For example, for $t\ge\sqrt{\bm x\trans\bm A\bm x}$, we can reformulate this constraint as
+\[
+\begin{pmatrix}
+t\\\bm y
+\end{pmatrix}\in\text{SOC},\quad
+\text{where }\bm y = \bm A^{1/2}\bm x
+\]
+\end{example}
+
+\begin{example}[Semidefinite Programming]
+If $\mathcal{K}$ is taken as the cone of \emph{positive semidefinite matrices}, i.e., $\mathbb{S}^n$ or $\mathbb{H}^n$, then the conic optimization model is called \emph{Semidefinite Programming}~(SDP).
+
+Here the standard model treats the matrix as decision variables:
+\[
+\begin{array}{ll}
+\min&C\bullet X\\
+\mbox{such that}&A_i\bullet X=b_{i},\ i=1,\dots,m\\
+&X\succeq0
+\end{array}
+\]
+where $X\bullet Y$ denotes the inner product between $X$ and $Y$:
+\[
+X\bullet Y=\sum_{i,j}X_{ij}Y_{ij}=\trace(X\trans Y)
+\]
+In general, $\text{LP}\subseteq\text{SOCP}\subseteq\text{SDP}$.
+\end{example}
+
+\begin{example}[Best Location Problem]
+\[
+\begin{array}{ll}
+\min&\sum_{i=1}^n\omega_i\|x - a_i\|
+\end{array}
+\]
+Or equivalently,
+\[
+\begin{array}{ll}
+\min&\sum_{i=1}^n\omega_it_i\\
+&\begin{pmatrix}
+t_i\\x-a_i
+\end{pmatrix}\in\text{SOC},\ i=1,\dots,m
+\end{array}
+\]
+\end{example}
+
+\begin{example}[QCQP]
+Consider the following QCQP
+\[
+\begin{array}{ll}
+\min&x\trans Q_0x+2b_0\trans x\\
+\mbox{such that}&x\trans Q_ix+2b_i\trans x+c_i\le0,\ i=1,\dots,m
+\end{array}
+\]
+where $Q_i\succeq0,i=0,\dots,m$.
+
+Observe the tricks:
+\[
+\begin{pmatrix}
+t\\ x
+\end{pmatrix}\in\text{SOC}
+\Longleftrightarrow
+t\ge0, t^2\ge x\trans x
+\]
+Therefore,
+\[
+t\ge x\trans x\Longleftrightarrow
+\left\{
+\begin{aligned}
+\frac{t+1}{2}&\ge0\\
+(\frac{t+1}{2})^2&\ge(\frac{t-1}{2})^2+x\trans x
+\end{aligned}
+\right.
+\Longleftrightarrow
+\begin{pmatrix}
+\frac{t+1}{2}\\\frac{t-1}{2}\\x
+\end{pmatrix}\in\text{SOC}(n+2)
+\]
+\end{example}
+\begin{example}[Finding Largest Eigenvalue]
+\[
+\begin{array}{ll}
+\min&t\\
+\mbox{such that}&tI-A\in\mathbb{S}^n_+
+\end{array}
+\]
+Or equivalently,
+\[
+\begin{array}{ll}
+\min&t\\
+\mbox{such that}&tI-A=X\\
+&X\succeq0
+\end{array}
+\]
+\[
+\begin{array}{ll}
+\min&t\\
+\text{such that}&tI-A_0-\sum_{j=1}^mx_jA_j\in\mathbb{S}^n_+
+\end{array}
+\]
+
+Furthermore, the sum of first $k$ largest eigenvalues of a matrix can be found using SDP.
+\end{example}
+
+\begin{example}
+The polynomial optimization problem can be solved using SDP:
+\[
+\begin{array}{ll}
+\min&x^{2n}+a_1x^{2n-1}+\cdots+a_{2n}
+\end{array}
+\]
+Equivalently,
+\[
+\begin{array}{ll}
+\max&t\\
+&x^{2n}+a_1x^{2n-1}+\cdots+a_{2n}-t\ge0,\ \forall x\in\mathbb{R}
+\end{array}
+\]
+\end{example}
+
+
+
+
+\begin{definition}[Dual Cone]
+Let $\mathcal{K}\in\mathbb{R}^n$ be a closed convex cone. Its dual cone is defined as
+\[
+\mathcal{K}^*=\{\bm y\mid\inp{\bm x}{\bm y}\ge0,\forall \bm x\in\mathcal{K}\}
+\]
+\end{definition}
+\begin{theorem}[Bipolar Theorem]
+If $\mathcal{K}\in\mathbb{R}^n$ is a closed convex cone, then
+\[
+(\mathcal{K}^*)^*=\mathcal{K}
+\]
+\end{theorem}
+
+\begin{enumerate}
+\item
+Unconstrained optimization:
+\[
+\begin{array}{ll}
+\min&f(x)
+\end{array}
+\]
+\item
+Constrained optimization:
+\[
+\begin{array}{ll}
+\min&f(x)\\
+\text{with}&x\in\mathcal{X}
+\end{array}
+\]
+\item
+Regulated convex optimization
+\[
+\begin{array}{ll}
+\min&f(x)+h(x)\\
+\text{with}&x\in\mathcal{X}
+\end{array}
+\]
+where $h$ denotes the regularization function.
+\item
+Structured optimization:
+\[
+\begin{array}{ll}
+\min&f(x)\\
+\text{with}&x\in\mathcal{X}\\
+&Ax=b
+\end{array}
+\]
+\item
+Separable optimization but with coupling constraint:
+\[
+\begin{array}{ll}
+\min&f(x)+g(y)\\
+\text{with}&x\in\mathcal{X},y\in\mathcal{Y}\\
+&Ax+By=b
+\end{array}
+\]
+\end{enumerate}
+
+
+\paragraph{Basic Inequalities}
+\begin{enumerate}
+\item
+(Without convexity)
+Given that $\|\nabla f(x) - \nabla f(y)\|\le L\|x-y\|$, we imply
+\[
+f(u)\le f(v)+\nabla\trans f(v)\cdot(u-v)+\frac{L}{2}\|u-v\|^2
+\]
+\item
+If $f$ is convex for $\alpha\in\partial f(x)$, then
+\[
+f(u)\ge f(v)+\alpha\trans(u-v),\ \forall u,v
+\]
+\item
+Let $x^*=\arg\min_{x\in\mathcal{X}}f(x)$, then
+\[
+\nabla\trans f(x^*)(x-x^*)\ge0,\ \forall x\in\mathcal{X}
+\]
+What about non-differentiable $f(x)$?
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

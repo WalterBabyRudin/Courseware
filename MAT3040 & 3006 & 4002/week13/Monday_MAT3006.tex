@@ -1,0 +1,264 @@
+
+\section{Monday for MAT3006}\index{Monday_lecture}
+
+\paragraph{Notations}
+In this lecture, we let $\int_If(x,y)\diff x$ denote the Lebesgue integral.
+
+\begin{theorem}
+Let $I,J$ be intervals in $\mathbb{R}$, and $f:I\times J\to\mathbb{R}$ be a function such that
+\begin{enumerate}
+\item
+For fixed $y\in J$, the function $f(x):=f(x,y)$ is integrable on $I$
+\item
+$\frac{\partial f}{\partial y}$ exists for any $(x,y)\in I\times J$
+\item
+$\left|\frac{\partial f}{\partial y}(x,y)\right|\le g(x)$ for some integrable function $g(x)$ on $I$.
+\end{enumerate}
+Then $F(y):=\int_If(x,y)\diff x$ is differentiable on $J$, with
+\[
+F'(y)=\int_I\frac{\partial f}{\partial y}(x,y)\diff x
+\]
+\end{theorem}
+\begin{proof}
+Fix $y\in J$, and consider any sequence $\{y_n\}$ (with $y_n\ne y$) in $J$ converging to $y$.
+
+Construct the function
+\[
+g_n(x):=\frac{f(x,y_n) - f(x,y)}{y_n-y}
+\]
+which follows that 
+\begin{enumerate}
+\item
+The function $g_n$ is integrable by hypothesis (1)
+\item
+The function $g_n(x)$ converges to $\frac{\partial f}{\partial y}(x,y)$ as $n\to\infty$
+\item
+By MVT, $|g_n(x)|=|\frac{\partial f}{\partial y}(x,\xi)|$, which is bounded by $g(x)$ by hypothesis (3).
+\end{enumerate}
+Therefore, the DCT applies, and 
+\[
+\int_Ig_n(x)\diff x
+=
+\frac{1}{y_n-y}\left[\int f(x,y_n)\diff x - \int f(x,y)\diff x\right]
+\to\int_I\frac{\partial f}{\partial y}(x,y)\diff x
+\]
+In other words, for all sequences $\{y_n\}\to y$ with $y_n\ne y$,
+\[
+\lim_{n\to\infty}\frac{F(y_n) - F(y)}{y_n-y}=\int_I\frac{\partial f}{\partial y}(x,y)\diff x
+\]
+From the elementary analysis knowledge, in particular, $\lim_{y'\to y}H(y')$ exists~(equal to $L$) if and only if 
+$\lim_{n\to\infty}H(y_n)=L$
+for all sequences $\{y_n\}\to y$ with $y_n\ne y$.
+Therefore,
+\[
+F'(y):=\lim_{y'\to y}\frac{F(y')-F(y)}{y'-y}=\int_I\frac{\partial f}{\partial y}(x,y)\diff x.
+\]
+\end{proof}
+
+\subsection{Double Integral}
+\begin{definition}[Measure in $\mathbb{R}^2$]
+In $\mathbb{R}^2$, we can define the \emph{measure} of the rectangle 
+$A\times B\subseteq\mathbb{R}^2$ with $A,B\in\mathcal{M}$ by
+\[
+m^*(A\times B) = m(A)m(B)
+\]
+In particular, we define
+\[
+x\cdot\infty=\infty\cdot x=(-x)\cdot(-\infty)=\left\{
+\begin{aligned}
+\infty,&\quad\text{if $x>0$}\\
+-\infty,&\quad\text{if $x<0$}\\
+0,&\quad\text{if $x=0$}
+\end{aligned}
+\right.
+\]
+\end{definition}
+\begin{definition}[Outer Measure in $\mathbb{R}^2$]
+Then the outer measure of any $E\subseteq\mathbb{R}^2$ is defined as
+\[
+m^*(E):=\inf\left\{
+\sum_{i=1}^\infty m(R_i)\middle|
+E\subseteq\bigcup_{i=1}^\infty R_i,
+R_i = A_i\times B_i, A_i,B_i\in\mathcal{M}
+\right\}
+\]
+\end{definition}
+\begin{definition}[Lebesgue Measurable in $\mathbb{R}^2$]
+A subset $E\subseteq\mathbb{R}^2$ is Lebesgue measurable if $E$ satisfies the Carathedory Property:
+\[
+m^*(A) = m^*(A\cap E)+m^*(A\setminus E),
+\]
+for any subset $A\subseteq\mathbb{R}^2$.
+\end{definition}
+
+\paragraph{Product Space of $\mathbb{R}^2$}
+Given two measurable spaces $(X,\mathcal{A},\mu)$ and $(Y,\mathcal{B},\lambda)$, in particular, we are interested in 
+\[
+(X,\mathcal{A},\mu)=(Y,\mathcal{B},\lambda)=(\mathbb{R},\mathcal{M},m).
+\]
+Now we want to construct another measurable space in $X\times Y:=\mathbb{R}^2$.
+\begin{enumerate}
+\item
+Start from the ``measurable rectangles''
+\[
+\mathcal{A}\times\mathcal{B}
+=
+\{A\times B\mid A\in\mathcal{A},B\in\mathcal{B}\}
+\]
+\item
+Define the function $\pi:\mathcal{A}\times\mathcal{B}\to[0,\infty]$ by
+\[
+\pi(A\times B)= \mu(A)\lambda(B).
+\]
+\item
+Let $\mathcal{A}\otimes \mathcal{B}$ be the smallest $\sigma$-algebra containing $\mathcal{A}\times\mathcal{B}$.
+Then by Caratheodory extension theorem, we can extend $\pi:\mathcal{A}\times\mathcal{B}\to[0,\infty]$ to $\tilde{\pi}:\mathcal{A}\otimes \mathcal{B}\to[0,\infty]$ such that 
+\begin{enumerate}
+\item
+$(X\times Y,\mathcal{A}\otimes\mathcal{B},\tilde{\pi})$ is a measurable space
+\item
+$\tilde{\pi}\mid_{\mathcal{A}\times\mathcal{B}}=\pi$.
+\end{enumerate}
+\end{enumerate}
+
+\begin{remark}
+\begin{itemize}
+\item
+If further we have $\mathcal{A}$ and $\mathcal{B}$ are $\sigma$-finite, i.e., there exists $E_i\in\mathcal{A}$ such that $X=\cup_{i=1}^\infty E_i$, $\mu(E_i)<\infty,\forall i$, then we can imply the extension $\tilde{\pi}$ is unique.
+
+(For instance, $\mathbb{R}=\cup_{n\in\mathbb{Z}}[n,n+1]$ and $m([n,n+1]) = 1<\infty$, i.e., $(\mathbb{R},\mu,m)$ is $\sigma$-finite.)
+\item
+Question: 
+we have constructed two measurable space $(\mathbb{R}\times\mathbb{R},\mathcal{M}\otimes\mathcal{M},\tilde{\pi})$
+and
+$(\mathbb{R}^2,\mathcal{M}_{\mathbb{R}^2},m)$.
+Are they the same?
+
+Answer : no, but the latter can be obtained from the former by completion process.
+In particular,
+\[
+m\mid_{\mathcal{M}\otimes\mathcal{M}}=\tilde{\pi}.
+\]
+\end{itemize}
+\end{remark}
+
+Let's study the measurable space $(\mathbb{R}\times\mathbb{R},\mathcal{M}\otimes\mathcal{M},\pi)$ first,
+where $f:\mathbb{R}^2\to[-\infty,\infty]$ is a measurable function, i.e.,
+$f^{-1}((a,\infty])\in\mathcal{A}\otimes\mathcal{B}$.
+In particular, we say $E\subseteq \mathbb{R}\times\mathbb{R}$ is measurable if $E\in\mathcal{M}\otimes\mathcal{M}$ for the moment being (but we will generalize the notion of measurable into $\mathcal{M}_{\mathbb{R}^2}$ in the future).
+
+
+\begin{definition}[$x$-section and $y$-section]
+Let $E\subseteq X\times Y$, with $(x,y)\in E$.
+Define
+\begin{itemize}
+\item
+the $x$-section $E_x = \{y\in Y\mid (x,y)\in E\}$, for fixed $x\in X$
+\item
+the $y$-section $E_y = \{x\in X\mid (x,y)\in E\}$, for fixed $y\in Y$.
+\end{itemize}
+\end{definition}
+
+\begin{proposition}
+Suppose that $E\subseteq X\times Y$ is measurable (i.e., $E\in\mathcal{A}\otimes\mathcal{B}$), then $E_x\in\mathcal{B}$ and $E_y\in\mathcal{A}$.
+\end{proposition}
+\begin{proof}
+Construct the set $\mathfrak{A}=\{E\in\mathcal{A}\otimes\mathcal{B}\mid E_x\in\mathcal{B}\}.$
+It suffices to show $\mathfrak{A}=\mathcal{A}\otimes\mathcal{B}$.
+We claim that
+\begin{enumerate}
+\item
+$\mathfrak{A}$ is a $\sigma$-algebra
+\item
+$\mathfrak{A}$ contains all $A\times B\in\mathcal{A}\times\mathcal{B}$
+\end{enumerate}
+If the claim~(1) and (2) hold, and since $\mathcal{A}\otimes\mathcal{B}$ is the smallest-$\sigma$-algebra containing $\mathcal{A}\times\mathcal{B}$,
+we imply $\mathcal{A}\otimes\mathcal{B}\subseteq\mathfrak{A}\subseteq\mathcal{A}\otimes\mathcal{B}$, i.e., the proof is complete.
+
+
+
+\begin{enumerate}
+\item
+\begin{enumerate}
+\item
+Note that $\emptyset\in\mathfrak{A}$, and 
+$X\times Y\in\mathfrak{A}$
+ since 
+$(X\times Y)_x = Y\in\mathcal{B}$.
+\item
+Suppose that $E_i\in\mathfrak{A}$, $i\ge1$, i.e., $(E_i)_x\in\mathcal{B}$.
+Observe that
+\[
+\left(
+\bigcup_{i=1}^\infty E_i
+\right)_x
+=
+\bigcup_{i=1}^\infty
+(E_i)_x\in\mathcal{B},
+\]
+since $\mathcal{B}$ is a $\sigma$-algebra.
+Therefore, $\cup_{i=1}^\infty E_i\in\mathfrak{A}$.
+\item
+Suppose that $E\in\mathfrak{A}$, i.e., $(E)_x\in\mathcal{B}$, then
+\begin{align*}
+(E^c)_x &=\{y\mid (x,y)\in E^c\}\\
+&=\{y\mid (x,y)\notin E\}\\
+&=(E_x)^c\in\mathcal{B}
+\end{align*}
+which implies $E^c\in\mathfrak{A}$.
+\end{enumerate}
+\item
+For any $A\times B\in\mathcal{A}\times\mathcal{B}$, 
+since $(A\times B)_x=B\in\mathcal{B}$, we imply $(A\times B)\in\mathfrak{A}$.
+\end{enumerate}
+
+
+In conclusion, $\mathfrak{A}=\mathcal{A}\otimes\mathcal{B}$.
+For all $E\in \mathcal{A}\otimes\mathcal{B}$, we imply $E\in \mathfrak{A}$, i.e., $E_x\in\mathcal{B}$.
+\end{proof}
+
+
+\begin{proposition}
+Sippose that $f:X\times Y\to[-\infty,\infty]$ is measurable.
+(i.e., $f^{-1}((a,\infty])\in\mathcal{A}\otimes\mathcal{B}$), then the maps 
+\[\left\{
+\begin{array}{ll}
+f_x:&Y\to[-\infty,\infty]\\
+\text{with}&f_x(y):=f(x,y)
+\end{array}\right.,\qquad\left\{
+\begin{array}{ll}
+f_y:&X\to[-\infty,\infty]\\
+\text{with}&f_y(x):=f(x,y)
+\end{array}\right.
+\]
+are measurable.
+More precisely, $f_x^{-1}((a,\infty])\in\mathcal{B}$ and $f_y^{-1}((a,\infty])\in\mathcal{A}$.
+\end{proposition}
+
+\begin{proof}
+\begin{align*}
+f_x^{-1}((a,\infty])&=\{y\in Y\mid f_x(y)\in(a,\infty]\}\\
+&=\{y\in Y\mid f(x,y)>a\}\\
+&=\{(u,y)\in X\times Y\mid f(u,y)>a\}_x\\
+&=(f^{-1}((a,\infty]))_x\in\mathcal{B}
+\end{align*}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

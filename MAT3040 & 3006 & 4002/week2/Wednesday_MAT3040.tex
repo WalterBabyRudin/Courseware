@@ -1,0 +1,405 @@
+
+\section{Wednesday for MAT3040}\index{Wednesday_lecture}
+\paragraph{Reviewing}
+\begin{itemize}
+\item
+Basis, Dimension
+\item
+Basis Extension
+\item
+$W_1\bigcap W_2=\emptyset$ implies $W_1\oplus W_2=W_1+W_2$ (Direct Sum).
+\end{itemize}
+
+\subsection{Remark on Direct Sum}
+
+\begin{proposition}
+The set $W_1+W_2=W_1\oplus W_2$ iff 
+any $\bm w\in W_1+W_2$ can be uniquely expressed as 
+\[
+\bm w=\bm w_1+\bm w_2,
+\]
+where $\bm w_i\in W_i$ for $i=1,2$.
+\end{proposition}
+
+\begin{remark}
+We can also define addiction among finite set of vector spaces $\{W_1,\dots,W_k\}$.
+
+If $\bm w_1+\cdots+\bm w_k=\bm0$ implies $\bm w_i=0,\forall i$, then we can write $W_1+\cdots+W_k$ as
+\[
+W_1\oplus\cdots\oplus W_k
+\]
+\end{remark}
+\begin{proposition}[Complementation]\label{Pro:2:14}
+Let $W\le V$ be a vector subspace of a 
+fintie dimension vector space $V$. 
+Then there exists $W'\le V$ such that
+\[
+W\oplus W'=V.
+\]
+\end{proposition}
+
+\begin{proof}
+It's clear that $\dim(W):=k\le n:=\dim(V)$. Suppose $\{\bm v_1,\dots,\bm v_k\}$ is a basis of $W$. 
+
+By the basis extension proposition, we can extend it into $\{\bm v_1,\dots,\bm v_k,\bm v_{k+1},\dots,\bm v_n\}$, which is a basis of $V$.
+
+Therefore, we take $W'=\Span\{\bm v_{k+1},\dots,\bm v_n\}$, which follows that
+\begin{enumerate}
+\item
+$W+W'=V$: $\forall\bm v \in V$ has the form 
+\[
+\bm v=
+\left(
+\alpha_1\bm v_1+\cdots+\alpha_k\bm v_k
+\right)+\left(
+\alpha_{k+1}\bm v_{k+1}+\cdots+\alpha_n\bm v_n
+\right),
+\]
+where $\alpha_1\bm v_1+\cdots+\alpha_k\bm v_k\in W$ and $\alpha_{k+1}\bm v_{k+1}+\cdots+\alpha_n\bm v_n\in W'$.
+\item
+$W\bigcap W'=\{\bm0\}$: Suppose $\bm v\in W\bigcap W'$, i.e., 
+\begin{align*}
+\bm v&=
+\left(
+\beta_1\bm v_1+\cdots+\beta_k\bm v_k
+\right)+
+(0\bm v_{k+1}+\cdots+0\bm v_n)\in W\\
+&=(0\bm v_1+\cdots+0\bm v_k)+\left(\beta_{k+1}\bm v_{k+1}+\cdots+\beta_n\bm v_n\right)\in W'.
+\end{align*}
+By the uniqueness of coordinates, we imply $\beta_1=\cdots=\beta_n=0$, i.e., $\bm v=\bm0$.
+\end{enumerate}
+Therefore, we conclude that $W\oplus W'=V$.
+\end{proof}
+
+
+\subsection{Linear Transformation}
+
+\begin{definition}[Linear Transformation]
+Let $V,W$ be vector spaces. 
+Then $T:V\to W$ is a \emph{linear transformation} if 
+\[
+T(\alpha\bm v_1+\beta\bm v_2)=\alpha  T(\bm v_1)+\beta T(\bm v_2),
+\]
+for $
+\forall\alpha,\beta\in\mathbb{F}$ and $\bm v_1,\bm v_2\in V$.
+\end{definition}
+
+\begin{proposition}
+\begin{enumerate}
+\item
+Suppose that $S:V\to W$ and $T:W\to U$ are linear transformations, then
+so is $T\circ S:V\to U$.
+\item
+For any linear transformation $T:V\to W$, we have
+\[
+T(\bm 0_V)=\bm 0_W
+\]
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+Simply apply the definition of the linear transformation.
+\end{proof}
+
+
+
+\begin{example}
+\begin{enumerate}
+\item
+The transformation $T:\mathbb{R}^n\to\mathbb{R}^m$ defined as $\bm x\mapsto\bm{Ax}$ (where $\bm A\in\mathbb{R}^{m\times n}$) is a linear transformation.
+
+\item
+The transformation $T:\mathbb{R}[x]\to\mathbb{R}[x]$ defined as
+\[
+\begin{array}{ll}
+p(x)\mapsto T(p(x))=p'(x),
+&
+p(x)\mapsto T(p(x))=\int_0^xp(t)\diff t
+\end{array}
+\]
+is a linear transformation
+
+\item
+The transformation $T: M_{n\times n}(\mathbb{R})\to\mathbb{R}$ defined as
+\[
+\bm A\mapsto\trace(\bm A):=\sum_{i=1}^na_{ii}
+\]
+is a linear transformation.
+
+However, the transformation
+\[
+\bm A\mapsto\det(\bm A)
+\]
+is not a linear transformation.
+\end{enumerate}
+\end{example}
+
+\begin{definition}[Kernel/Image]
+Let $T:V\to W$ be a linear transfomation. 
+\begin{enumerate}
+\item
+The \emph{kernel} of $T$ is
+\[
+\ker(T)=T^{-1}(\bm0)=\{\bm v\in V\mid T(\bm v)=\bm0\}
+\]
+\item
+The \emph{image} (or range) of $T$ is
+\[
+\text{Im}(T)=T(\bm v)=\{T(\bm v)\in W\mid\bm v\in V\}
+\]
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+\begin{enumerate}
+\item
+Let $T:\mathbb{R}^n\to\mathbb{R}^n$ be a linear transformation with $T(\bm x)=\bm{Ax}$, then
+\[
+\ker(T)=\{\bm x\in\mathbb{R}^n\mid\bm{Ax}=\bm0\}
+=
+\text{Null}(\bm A)\qquad\mbox{Null Space}
+\]
+and
+\[
+\text{Im}(T)=\{\bm{Ax}\mid\bm x\in\mathbb{R}^n\}
+=\text{Col}(\bm A)
+=\Span\{\text{columns of $\bm A$}\}
+\qquad\mbox{Column Space}
+\]
+\item
+For $T(p(x))=p'(x)$, $\ker(T)=\{\text{constant polynomials}\}$ and $\text{Im}(T)=\mathbb{R}[x]$.
+\end{enumerate}
+\end{example}
+
+\begin{proposition}
+The kernel or image for a linear transformation $T:V\to W$ also forms a vector subspace:
+\[
+\begin{array}{ll}
+\ker(T)\le V,
+&
+\text{Im}(T)\le W
+\end{array}
+\]
+\end{proposition}
+
+\begin{proof}
+For $\bm v_1,\bm v_2\in\ker(T)$, we imply
+\[
+T(\alpha\bm v_1+\beta\bm v_2)=\bm0,
+\]
+which implies $\alpha\bm v_1+\beta\bm v_2\in\ker(T)$.
+
+The remaining proof follows similarly.
+\end{proof}
+
+\begin{definition}[Rank/Nullity]
+Let $V,W$ be finite dimensional vector spaces and 
+$T:V\to W$ a linear transformation. 
+Then we define
+\begin{align*}
+\rank(T)&=\dim(\text{im}(T))\\
+\text{nullity}(T)&=\dim(\ker(T))
+\end{align*}
+\end{definition}
+
+\begin{remark}
+Let
+\[
+\text{Hom}_{\mathbb{F}}(V,W)=\{\text{all linear transformations }T:V\to W\},
+\]
+and we can define the addiction and scalar multiplication to make it a vector space:
+\begin{enumerate}
+\item
+For $T,S\in\text{Hom}_{\mathbb{F}}(V,W)$, define
+\[
+(T+S)(\bm v)=T(\bm v)+S(\bm v),
+\]
+which implies $T+S\in\text{Hom}_{\mathbb{F}}(V,W)$.
+\item
+Also, define
+\[
+(\gamma T)(\bm v)=\gamma T(\bm v),\qquad
+\text{for }\forall\gamma\in\mathbb{F},
+\]
+which implies $\gamma T\in\text{Hom}_{\mathbb{F}}(V,W)$.
+\end{enumerate}
+In particular, if $V=\mathbb{R}^n,W=\mathbb{R}^m$, then
+\[
+\text{Hom}_{\mathbb{F}}(V,W)=M_{m\times n}(\mathbb{R}).
+\]
+\end{remark}
+
+\begin{proposition}
+If $\dim(V)=n,\dim(W)=m$, then $\dim(\text{Hom}_{\mathbb{F}}(V,W))=mn$.
+\end{proposition}
+
+\begin{proposition}
+
+There are anternative characterizations for the injectivity and surjectivity of lienar transformation $T$:
+\begin{enumerate}
+\item
+The linear transformation $T$ is injective if and only if
+\[
+\ker(T)=0,
+\Longleftrightarrow
+\mbox{nullity}(T)=0.
+\]
+\item
+The linear transformation $T$ is surjective if and only if
+\[
+\text{im}(T)=W,
+\Longleftrightarrow
+\rank(T)=\dim(W).
+\]
+\item
+If $T$ is bijective, then $T^{-1}$ is a linear transformation.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+\item
+\begin{enumerate}
+\item
+
+For the forward direction of (1),
+\[
+\bm x\in\ker(T)\implies
+T(\bm x)=0=T(\bm0)\implies
+\bm x=\bm0
+\]
+\item
+
+For the reverse direction of (1),
+\[
+T(\bm x)=T(\bm y)\implies
+T(\bm x-\bm y)=\bm0\implies
+\bm x-\bm y\in\ker(T)=\bm0
+\implies
+\bm x=\bm y
+\]
+
+\end{enumerate}
+
+\item
+The proof follows similar idea in (1).
+
+\item
+Let $T^{-1}:W\to V$. 
+For all $\bm w_1,\bm w_2\in W$, 
+there exists $\bm v_1,\bm v_2\in V$ such that 
+$T(\bm v_i)=\bm w_i$, i.e., $T^{-1}(\bm w_i)=\bm v_i$ $i=1,2$.
+
+Consider the mapping
+\begin{align*}
+T(\alpha\bm v_1+\beta\bm v_2)&=\alpha T(\bm v_1)+\beta T(\bm v_2)\\
+&=\alpha\bm w_1+\beta\bm w_2,
+\end{align*}
+which implies $\alpha\bm v_1+\beta\bm v_2=T^{-1}(\alpha\bm w_1+\beta\bm w_2)$, i.e.,
+\[
+\alpha T^{-1}(\bm w_1)+\beta T^{-1}(\bm w_2)
+=
+T^{-1}(\alpha\bm w_1+\beta\bm w_2).
+\]
+\end{enumerate}
+\end{proof}
+
+
+
+\begin{definition}[isomorphism]
+We say that the vector subspaces $V$ and $W$ are isomorphic 
+if there exists a bijective linear transfomation $T:V\to W$. ($V\cong W$)
+
+This mapping $T$ is called an \emph{isomorphism} from $V$ to $W$.
+\end{definition}
+
+\begin{remark}
+If $\dim(V)=\dim(W)=n<\infty$, then $V\cong W$:
+
+Take $\{\bm v_1,\dots,\bm v_n\},\{\bm w_1,\dots,\bm w_n\}$ as basis of $V$ and $W$, respectively. Then one can construct $T:V\to W$ satisfying $T(\bm v_i)=\bm w_i$ for $\forall i$ as follows:
+\[
+T(\alpha_1\bm v_1+\cdots+\alpha_n\bm v_n)
+=
+\alpha_n\bm w_1+\cdots+\alpha_n\bm w_n\
+\forall\alpha_i\in\mathbb{F}
+\]
+It's clear that our constructed $T$ is a linear transformation.
+\end{remark}
+
+\begin{remark}
+$V\cong W$ doesn't imply any linear transformations $T:V\to W$ is an isomorphism. e.g., 
+$T(\bm v)=\bm0$ is not an isomorphic if $W\ne\{\bm0\}$.
+\end{remark}
+
+\begin{theorem}[Rank-Nullity Theorem]\label{The:2:3}
+Let $T:V\to W$ be a linear transformation with $\dim(V)<\infty$. Then
+\[
+\rank(T)+\text{nullity}(T)=\dim(V).
+\]
+\end{theorem}
+
+\begin{proof}
+Since $\ker(T)\le V$, by proposition~(\ref{Pro:2:14}), there exists  $V_1\le V$ such that 
+\[
+V=\ker(T)\oplus V_1.
+\]
+\begin{enumerate}
+\item
+Consider the transformation $T\mid_{V_1}:V_1\to T(V_1)$, which is an isomorphism, since:
+\begin{itemize}
+\item
+Surjectivity is immediate
+\item
+For $\bm v\in\ker(T\mid_{V_1})$,
+\[
+T(\bm v)=\bm0\implies \bm v\in\ker(T),
+\]
+which implies $\bm v=\bm0$ since $\bm v\in\ker(T)\cap V_1=0$, i.e., the injectivity follows.
+\end{itemize}
+Therefore, $\dim(V_1)=\dim(T(V_1))$.
+\item
+Secondly, given an isomorphism $T$ from $X$ to $Y$ with $\dim(X)<\infty$, then $\dim(X)=\dim(T(X))$. The reason follows from assignment 1 questions (8-9):
+\[
+\{\bm v_1,\dots,\bm v_k\}\text{ is a basis of $X$}\implies
+\{T(\bm v_1),\dots,T(\bm v_k)\}\text{ is a basis of $Y$}
+\]
+\item
+Note that $T(V_1)=T(V)=\text{im}(T)$, since:
+\begin{itemize}
+\item
+for $\forall\bm v\in V$, $\bm v=\bm v_k+\bm v_1$, where $\bm v_k\in\ker(T),\bm v_1\in V_1$, which implies
+\[
+T(\bm v)=T(\bm v_k)+T(\bm v_1)=\bm0+T(\bm v_1),
+\]
+i.e., $T(V)\subseteq T(V_1)\subseteq T(V)$, i.e., $T(V)=T(V_1)$.
+\end{itemize}
+\item
+We can show that $\dim(V)=\dim(\ker(T))+\dim(V_1)$:
+Let $\{v_1,\dots,v_k\}$ be a basis of $\ker(T)$,
+and $\{v_{k+1},\dots,v_n\}$ be a basis of $V_1$,
+then by the proof of complementation proposition~(\ref{Pro:2:14}),
+we imply $\{v_1,\dots,v_n\}$ is a basis of $V$, i.e., 
+$\dim(V)=n=k+(n-k)=\dim(\ker(T))+\dim(V_1)$.
+
+Therefore, we imply
+\begin{align*}
+\dim(V)&=\dim(\ker(T))+\dim(V_1)\\
+&=\text{nullity}(T)+\dim(T(V_1))\\
+&=\text{nullity}(T)+\dim(T(V))\\
+&=\text{nullity}(T)+\dim(\text{im}(T))\\
+&=\text{nullity}(T)+\rank(T).
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+

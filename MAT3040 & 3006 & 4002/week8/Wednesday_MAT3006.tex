@@ -1,0 +1,244 @@
+
+\section{Wednesday for MAT3006}\index{Wednesday_lecture}
+\paragraph{Reviewing}
+\begin{itemize}
+\item
+All null sets are measurable
+\item
+If $E\subseteq \mathbb{R}$ is measurable, then $E^c:=R\setminus E$ is measurable.
+\item
+$E_i$ is measurable implies $\cup_{i=1}^nE_i$ is measurable. 
+\end{itemize}
+\subsection{Remarks on Lebesgue Measurability}
+\begin{proposition}
+If $E_i$ is measurable for $\forall i\in\mathbb{N}$, then so is $\cup_{i=1}^\infty E_i$.
+Moreover, if further $E_i$'s are pairwise disjoint, then
+\[
+m^*\left(\bigcup_{i=1}^\infty E_i\right)
+=
+\sum_{i=1}^\infty m^*(E_i)
+\]
+\end{proposition}
+\begin{proof}
+\begin{itemize}
+\item
+Consider the case where $E_i$'s are measurable, pairwise disjoint first.
+For all subsets $A\subseteq\mathbb{R}$, and all $n\in\mathbb{N}$,
+\begin{subequations}
+\begin{align}
+m^*(A)&=
+m^*(A\cap (\cup_{i=1}^n E_i))+
+m^*(A\cap (\cup_{i=1}^n E_i)^c)\label{Eq:8:4:a}\\
+&=[m^*(A\cap (\cup_{i=1}^n E_i)\cap E_n)
++
+m^*(A\cap (\cup_{i=1}^n E_i)\cap E_n^c)]
++m^*(A\cap (\cup_{i=1}^n E_i)^c)\label{Eq:8:4:b}\\
+&=[m^*(A\cap E_n)
++
+m^*(A\cap (\cup_{i=1}^{n-1} E_i)]
++m^*(A\cap (\cup_{i=1}^n E_i)^c)\label{Eq:8:4:c}
+\end{align}
+\end{subequations}
+where (\ref{Eq:8:4:a}) is by the measurability of $\cup_{i=1}^n E_i$;
+(\ref{Eq:8:4:b}) is by the measurability of $E_n$;
+(\ref{Eq:8:4:c}) is by direct calculation.
+
+Proceeding these trick similarly, we obtain:
+\begin{subequations}
+\begin{align}
+m^*(A) &=[m^*(A\cap E_n)+m^*(A\cap (\cup_{i=1}^n E_i)^c)]+m^*(A\cap (\cup_{i=1}^{n-1} E_i)]\\
+&=
+\sum_{\ell=1}^n
+m^*(A\cap E_{\ell})
++
+m^*(A\cap (\cup_{i=1}^{\ell} E_i)^c)\\
+&\ge
+\sum_{\ell=1}^n
+m^*(A\cap E_{\ell})
++
+m^*(A\cap (\cup_{i=1}^\infty E_i)^c)\label{Eq:8:5:c}
+%&\ge
+%m^*(\cup_{i=1}^\infty(A\cap E_i))+m^*(A\cap (\cup_{i=1}^\infty E_i)^c)
+\end{align}
+for any $n\in\mathbb{N}$, where (\ref{Eq:8:5:c}) is by lower bounding $(\cup_{i=1}^{\ell} E_i)^c\supseteq
+(\cup_{i=1}^{\infty} E_i)^c
+$.
+Taking $n\to\infty$ in (\ref{Eq:8:5:c}), we imply
+\begin{align}
+m^*(A)&\ge 
+\sum_{\ell=1}^\infty
+m^*(A\cap E_{\ell})
++
+m^*(A\cap (\cup_{i=1}^\infty E_i)^c)\label{Eq:8:5:d}\\
+&\ge m^*(\cup_{i=1}^\infty(A\cap E_i))+m^*(A\cap (\cup_{i=1}^\infty E_i)^c)\label{Eq:8:5:e}\\
+&=m^*(A\cap(\cup_{i=1}^\infty E_i))+m^*(A\cap (\cup_{i=1}^\infty E_i)^c)\label{Eq:8:5:f}
+\end{align}
+\end{subequations}
+where (\ref{Eq:8:5:e}) is by the countable sub-addictivity of $m^*$.
+Therefore, $\cup_{i=1}^\infty E_i$ is measurable.
+\item
+Moreover, taking $A=\cup_{i=1}^\infty E_i$ in (\ref{Eq:8:5:d}) gives
+\[
+m^*(\cup_{i=1}^\infty E_i) = \sum_{i=1}^\infty m^*(E_i)+m^*(\emptyset)= \sum_{i=1}^\infty m^*(E_i)+0.
+\]
+\item
+Now suppose that $E_i$'s are measurable but not necessarily pairwise disjoint.
+We need to show $\bigcup_{i=1}^\infty E_i$ is measurable. The way is to construct the disjoint sequence of sets first:
+\[
+\left\{
+\begin{aligned}
+F_1 &= E_1,\\
+F_{k+1}&=E_k\setminus \left(\cup_{i=1}^kE_i\right),\ \forall k>1
+\end{aligned}
+\right.\implies
+\cup_{i=1}^\infty F_i = \cup_{i=1}^\infty E_i
+\]
+\end{itemize}
+It's clear that $F_i$'s are pairwise disjoint and measurable, which implies $\cup_{i=1}^\infty E_i=\cup_{i=1}^\infty F_i$ is measrable. 
+The proof is complete.
+\end{proof}
+\paragraph{Notations}
+We denote $\mathcal{M}$ as the collection of all \emph{(Lebesgue) measurable} subsets of $\mathbb{R}$, and
+\[
+m(E) = m^*(E),\ \quad \forall E\in\mathcal{M}
+\]
+
+\subsection{Measures In Probability Theory}
+
+\begin{definition}[$\sigma$-Algebra]
+\begin{itemize}
+\item
+Let $\Omega$ be any set, and $\mathbb{P}(\Omega)$ (\emph{power set}) denotes the collection of all subsets of $\Omega$
+\item
+A family of subsets of $\Omega$, denoted as $\mathcal{T}$, is a $\sigma$-algebra if it satisfies
+\begin{enumerate}
+\item
+$\emptyset,\Omega\in\mathcal{T}$
+\item
+If $E \in \mathcal{T}$, then $E^c \in \mathcal{T}$
+\item
+If $E_i\in\mathcal{T}$ for $\forall i\in\mathbb{N}$,
+then $\cup_{i=1}^\infty E_i\in\mathcal{T}$ (and therefore $\cap_{i=1}^\infty E_i\in\mathcal{T}$).
+\end{enumerate}
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Measure]
+A \emph{measure} on a $\sigma$-algerba $(\Omega,\mathcal{T})$ is a function 
+$\mu:\mathcal{T}\to[0,\infty]$ 
+such that
+\begin{itemize}
+\item
+$\mu(\emptyset) = 0$
+\item
+$\mu(\cup_{i=1}^\infty E_i)=\sum_{i=1}^\infty\mu(E_i)$ whenever $E_i$'s are pairwise disjoint in $\mathcal{T}$.
+\end{itemize}
+As a result, $(\Omega,\mathcal{T},\mu)$ is called a \emph{measurable space}.
+\end{definition}
+
+\begin{example}
+\begin{enumerate}
+\item
+Let $\Omega$ be any set, $\mathcal{T}=\mathcal{M}$, and $\mu(E)=|E|$ (the number of elements in $E$). Then $(\Omega,\mathbb{P}(\Omega),\mu)$ is a measure space, and $\mu$ is called a counting measure on $\Omega$.
+\end{enumerate}
+\end{example}
+
+
+\begin{definition}[Borel $\sigma$-algebra]
+Let $\bm{B}$ be a collection of all intervals in $\mathbb{R}$.
+Then there is a \emph{unique} $\sigma$-algebra $\mathcal{B}$ of $\mathbb{R}$, such that
+\begin{enumerate}
+\item
+$\bm B\subseteq\mathcal{B}$
+\item
+For all $\sigma$-algebra $\mathcal{T}$ containing $\bm B$, we have $\mathcal{B}\subseteq\mathcal{T}$
+\end{enumerate}
+This $\mathcal{B}$ is called a \emph{Borel $\sigma$-algebra}
+\end{definition}
+\begin{remark}
+\begin{enumerate}
+\item
+In particular, $C_i\in\mathcal{B}$ implies $\cup_{i=1}^\infty C_i$ and $\cap_{i=1}^\infty C_i\in\mathcal{B}$.
+\item
+$\mathcal{B}\subseteq\mathcal{M}$, since $\bm B\subseteq\mathcal{M}$ and $\mathcal{M}$ is a $\sigma$-algebra.
+\item
+However, $\mathcal{M}$ and $\mathcal{B}$ are not equal.
+% (see example below).
+The element $C\in\mathcal{B}$ is called \emph{Borel measurable subsets}
+\end{enumerate}
+\end{remark}
+%
+%
+%In Hw3, for all $E\in\mathcal{M}$, there exists $B\in\mathcal{B}$ with $B\supseteq E$ such that 
+%\[
+%B\setminus E\text{ is null , i.e., }m(B\setminus E)=0.
+%\]
+
+\begin{definition}[complete]
+Let $(\Omega, \mathcal{T},\mu)$ be a measurable space.
+Then we say it is \emph{complete} if for any $E\in\mathcal{T}$ with $\mu(E)=0$,
+$N\subseteq E$ implies $N\in\mathcal{T}$. (and therefore $\mu(N)=0$)
+\end{definition}
+
+\begin{example}
+\begin{enumerate}
+\item
+$(\mathbb{R},\mu,m^*)$ is complete.
+
+Reason: if $m^*(E)=0$, then $m^*(N)=0$, $\forall N\subseteq E$
+\item
+$(\mathbb{R},\mu,m)$ is complete.
+
+Reason: the same as in (1)
+\item
+However, $(\mathbb{R},\mathcal{B},m\mid_{\mathcal{B}})$ is not complete. (left as exercise)
+\end{enumerate}
+\end{example}
+
+Then we study the difference between $\mathcal{B}$ and $\mathcal{M}$:
+
+\begin{definition}[Completion]
+Let $(\Omega,\mathcal{T},\mu)$ be measurable space.
+The \emph{completion} of $(\Omega,\mathcal{T},\mu)$ with respect to $\mu$ 
+is the smallest complete $\sigma$-algebra containing $\mathcal{T}$, denoted as $\overline{\mathcal{T}}$.
+More precisely, 
+\[
+\overline{\mathcal{T}} = \{G\cup N\mid G\in\mathcal{T}, N\subseteq F\in\mathcal{T}, \text{with }\mu(F)=0\}
+\]
+e.g., take $G = \emptyset\in\mathcal{T}$.
+For all $F\in\mathcal{T}$ such that $\mu(F)=0$, $N\subseteq F$ implies $N\in\overline{\mathcal{T}}$.
+\end{definition}
+\begin{remark}
+If further define $\overline{\mu}:\overline{\mathcal{T}}\to[0,\infty]$ by
+\[
+\overline{\mu}(G\cup N) = \mu(G), 
+\]
+then $(\Omega,\overline{\mathcal{T}},\overline{\mu})$ is a measurable space.
+\end{remark}
+
+\begin{theorem}
+The completion of $(\mathbb{R},\mathcal{B},m\mid_{\mathcal{B}})$ is $(\mathbb{R},\mathcal{M},m)$
+\end{theorem}
+
+\begin{remark}
+Another completion of $(\mathbb{R},\mu,m)$ is as follows:
+
+Define $\ell(\{a,b\}) = b-a$ for all intervals $\{a,b\}\in\bm B$
+Then by Caratheodory extension theorem, we can extend $\ell:\bm B\to[0,\infty]$ to $\ell:\mathcal{B}\to[0,\infty]$.
+
+
+Complete $\ell:\mathcal{B}\to[0,\infty]$ to $\bar{\ell}:\mathcal{M}\to[0,\infty]$.
+Then $\bar{\ell}=m$ as in our course.
+
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+

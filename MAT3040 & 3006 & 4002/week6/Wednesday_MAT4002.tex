@@ -1,0 +1,35 @@
+\section{Wednesday for MAT4002}\index{Monday_lecture}
+\subsection{Remarks on Compactness}
+
+
+
+
+
+
+
+
+The image of the quotient mapping is intrinsically the same as the quotient topology:
+\begin{proposition}
+Suppose that $q:X\to Y$ is a quotient map and that $\sim$ is the equivalence relation on $X$ corresponding to the partition $\{q^{-1}(y):y\in Y\}$.
+Then $X/\sim$ and $Y$ are homeomorphic.
+\end{proposition}
+\begin{proof}
+Construct the mapping
+\[
+\begin{array}{ll}
+g:&X/\sim\to Y\\
+\text{with}&g([x]) = q(x).
+\end{array}
+\]
+It suffices to show $g$ is a homeomorphism:
+\begin{enumerate}
+\item
+The mapping $g$ is surjective since $q$ is surjective.
+The mapping $g$ is clearly a injective.
+\item
+Construct the canonical projection mapping $p:X\to X/\sim$.
+Therefore $g\circ p = q$ is continuous.
+
+
+\end{enumerate}
+\end{proof}

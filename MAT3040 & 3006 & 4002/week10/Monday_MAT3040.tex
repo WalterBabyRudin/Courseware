@@ -1,0 +1,246 @@
+\chapter{Week10}
+\section{Monday for MAT3040}\index{Monday_lecture}
+\subsection{Inner Product Space}
+\begin{itemize}
+\item
+Symmetric: $F(\bm u,\bm w)=F(\bm w,\bm u),\forall\bm u,\bm w$
+\item
+Non-degenerate: $F(\bm u,\bm w)=0,\forall\bm w$ implies $\bm u=\bm0$
+\item
+Positive definite: $F(\bm v,\bm v)>0,\forall\bm v\ne\bm0$
+\end{itemize}
+\paragraph{Classification}
+When we say $V$ be a vector space over $\mathbb{F}$, we treat $\alpha\in\mathbb{F}$ as a scalar.
+\begin{definition}[Sesqui-linear Form]
+Let $V$ be a vector space over $\mathbb{C}$.
+A \emph{sesquilinear form} on $V$ is a function $F:V\times V\to\mathbb{C}$ such that
+\begin{enumerate}
+\item
+$F(\bm u+\bm v,\bm w)=F(\bm u,\bm w)+F(\bm v,\bm w)$
+\item
+$F(\bm u,\bm v+\bm w)=F(\bm u,\bm v)+F(\bm u,\bm w)$
+\item
+$F(\overline{\lambda}\bm v,\bm w)=F(\bm v,\lambda\bm w)=\lambda F(\bm v,\bm w),\forall\lambda\in\mathbb{C}$
+\end{enumerate}
+In this case, we say $F$ is \emph{conjugate symmetric} if
+\[
+F(\bm v,\bm w)=\overline{F(\bm w,\bm v)},\quad\forall \bm v,\bm w\in V.
+\]
+The definition for non-degenerateness, and positve definiteness is the same as that in bilinear form.
+\end{definition}
+\begin{remark}
+In the sesquilinear form, why there is a $\bar{\lambda}$ shown in condition~(3)?
+
+Partial Answer: We want our $F$ to be positive definite in many cases:
+\begin{itemize}
+\item
+Suppose that $F(\bm v,\bm v)>0$ and we do not have $\bar{\lambda}$ in sesquilinear form $F$, it follows that
+\[F(i\bm v,i\bm v) = i^2F(\bm v,\bm v)=-F(\bm v,\bm v)<0\]
+As a result, there will be no positive bilinear form for vector space over $\mathbb{C}$.
+\end{itemize}
+Therefore, $\bar{\lambda}$ is essential to guarantee that we have a positive definite form on vector space over $\mathbb{C}$, i.e.,
+\[
+F(i\bm v,i\bm v)=\bar{i}iF(\bm v,\bm v)=F(\bm v,\bm v)
+\]
+\end{remark}
+
+\begin{example}
+Consider $V=\mathbb{C}^n$, and a basic sesquilinear form is the Hermitian inner product:
+\[
+F(\bm v,\bm u)=\bm v\Her\bm u
+=
+\begin{pmatrix}
+\bar{v_1}&\cdots&\bar{v_n}
+\end{pmatrix}\begin{pmatrix}
+w_1\\\vdots\\ w_n
+\end{pmatrix}
+=
+\sum_{i=1}^n\bar{v_i}w_i
+\]
+In this case, we do not have symmetric property $F(\bm v,\bm w)=F(\bm w,\bm v)$ any more, instead, we have the conjugate symmetric property $F(\bm v,\bm w)=\overline{F(\bm w,\bm v)}$.
+\end{example}
+
+\begin{definition}[Inner Product]
+A real~(complex) vector space $V$ with a bilinear~(sesquilinear) form with symmetric~(conjugate symmetric) and positive definite property is called an \emph{inner product} on $V$.
+Any vector space equipped with inner product is called an \emph{inner product space}.
+\end{definition}
+\paragraph{Notation}
+We write $\inp{\cdot}{\cdot}$ instead of $F(\cdot,\cdot)$ to denote inner product.
+\begin{definition}[Norm]
+The \emph{norm} of a vector $\bm v$ is
+$
+\|\bm v\|=\sqrt{\inp{\bm v}{\bm v}}.
+$
+\end{definition}
+\begin{remark}
+As a result, $\|\alpha\bm v\|=\sqrt{\inp{\alpha\bm v}{\alpha\bm v}}=\sqrt{\bar{\alpha}\alpha\inp{\bm v}{\bm v}}
+=
+\sqrt{|\alpha|^2\inp{\bm v}{\bm v}}=|\alpha|\|\bm v\|$.
+
+The norm is well-defined since $\inp{\bm v}{\bm v}\ge0$ (positive definiteness of inner product).
+\end{remark}
+\begin{definition}[Orthogonal]
+We say a family of vectors $S=\{\bm v_i\mid i\in I\}$ is \emph{orthogonal} if 
+\[
+\inp{\bm v_i}{\bm v_j}=0,\ \forall i\ne j
+\]
+If furthermore $\inp{\bm v_i}{\bm v_i}=1,\forall i$, then we say $S$ is an \emph{orthonormal} set.
+\end{definition}
+
+\begin{remark}
+\begin{enumerate}
+\item
+The Cauchy-Scharwz inequality holds for inner product space:
+\[
+|\inp{\bm u}{\bm v}|\le\|\bm u\|\|\bm v\|,\ \forall\bm u,\bm v\in V.
+\]
+\begin{proof}
+The proof for $\inp{\bm u}{\bm v}\in\mathbb{R}$ is the same as in MAT2040 course.
+Check Theorem~(6.1) in the note
+\[
+\text{\url{https://walterbabyrudin.github.io/information/Notes/MAT2040.pdf}}
+\]
+However, for $\inp{\bm u}{\bm v}\in\mathbb{C}\setminus\mathbb{R}$, we need the re-scaling technique:
+
+Let $\bm w=\frac{1}{\overline{\inp{\bm u}{\bm v}}}\bm u$, then $\inp{\bm w}{\bm v}\in\mathbb{R}$:
+\[
+\inp{\bm w}{\bm v}=\inp{\frac{1}{\overline{\inp{\bm u}{\bm v}}}\bm u}{\bm v}
+=
+\overline{\left(\frac{1}{\overline{\inp{\bm u}{\bm v}}}\right)}
+\inp{\bm u}{\bm v}
+=
+\frac{1}{\inp{\bm u}{\bm v}}\inp{\bm u}{\bm v}=
+1.
+\]
+Applying the Cauchy-Scharwz inequality for $\inp{\bm w}{\bm v}\in\mathbb{R}$ gives
+\begin{align*}
+\left|\inp{\frac{1}{\overline{\inp{\bm u}{\bm v}}}\bm u}{\bm v}\right|&=|\inp{\bm w}{\bm v}|\\
+&\le \|\bm w\|\|\bm v\|=\left\|\frac{1}{\overline{\inp{\bm u}{\bm v}}}\bm u\right\|\|\bm v\|
+\end{align*}
+Or equivalently,
+\[
+\left|\frac{1}{\inp{\bm u}{\bm v}}\right||\inp{\bm u}{\bm v}|\le\left|
+\frac{1}{\overline{\inp{\bm u}{\bm v}}}\right|\|\bm u\|\|\bm v\|
+\]
+Since $\left|\frac{1}{\inp{\bm u}{\bm v}}\right|=\left|
+\frac{1}{\overline{\inp{\bm u}{\bm v}}}\right|$, we imply 
+\[
+|\inp{\bm u}{\bm v}|\le\|\bm u\|\|\bm v\|
+\]
+\end{proof}
+\item
+The triangle inequality also holds for inner product process:
+\[
+\|\bm u+\bm v\|\le\|\bm u\|+\|\bm v\|
+\]
+\item
+The Gram-Schmidt process holds for finite set of vectors: let $S=\{\bm v_1,\dots,\bm v_n\}$ be (finite) linearly independent. Then we can construct an orthonormal set from $S$:
+\[
+\bm w_1=\bm v_1,\quad
+\bm w_{i+1}=\bm v_{i+1}-\frac{\inp{\bm v_{i+1}}{\bm w_1}}{\|\bm w_1\|^2}-\frac{\inp{\bm v_{i+1}}{\bm w_2}}{\|\bm w_2\|^2}-\cdots-\frac{\inp{\bm v_{i+1}}{\bm w_i}}{\|\bm w_i\|^2},\ i=1,\dots,n-1
+\]
+Then after normalization, we obtain the constructed orthonormal set.
+
+Consequently, every finite dimensional inner product space has an orthonormal basis.
+\end{enumerate}
+\end{remark}
+\subsection{Dual spaces}
+
+\begin{theorem}[Riesz Representation]
+Consider the mapping
+\[
+\begin{array}{ll}
+\phi:&V\to V^*\\
+\text{with}&\bm v\mapsto\phi_{\bm v}\\
+\text{where}&\phi_{\bm v}(w)=\inp{\bm v}{w},\ \forall w\in V
+\end{array}
+\]
+
+Then the mapping $\phi$ is well-defined and it is an $\mathbb{R}$-linear transformation.
+
+Moreover, if $V$ is finite dimensional, then $\phi$ is an isomorphism.
+\end{theorem}
+
+The $\mathbb{R}$-linear transformation $V\to V^*$ means that, when $V,V^*$ are vector space over $\mathbb{R}$, the $\mathbb{R}$-linear transformation deduces into exactly the linear transformation.
+
+\begin{remark}
+The $\mathbb{R}$-linear transformation $V\to V^*$ is \emph{not} necessarily linear if $V,V^*$ are vector spaces over $\mathbb{C}$.
+
+However, we can transform a vector space over $\mathbb{C}$ into a vector space over $\mathbb{R}$:
+\begin{itemize}
+\item
+For example, suppose that $\{\bm v_1,\dots,\bm v_n\}$ is a basis of $V$ over $\mathbb{C}$, i.e.,
+\[
+\bm v=\sum_{j=1}^n\alpha_j\bm v_j
+\]
+where $\alpha_j=p_j+iq_j,\forall p_j,q_j\in\mathbb{R}$, then
+\[
+\bm v=\sum_jp_j\bm v_j+\sum_jq_j(i\bm v_j),\ p_j,q_j\in\mathbb{R}
+\]
+Therefore, $\{\bm v_1,\dots,\bm v_n,i\bm v_1,\dots,i\bm v_n\}$ forms a basis of $V$ over $\mathbb{R}$.
+\end{itemize}
+Note that $i\bm v_1$ cannot be considered as a linear combination of $\bm v_1$ over $\mathbb{R}$, but a linear combination of $\bm v_1$ over $\mathbb{C}$.
+
+In particular, if $\phi:V\to V^*$ is a $\mathbb{R}$-linear transformation, then 
+\[
+\phi(i\bm v)\ne i\phi(\bm v),\text{ but }\phi(2\bm v)=2\phi(\bm v).
+\]
+\end{remark}
+\begin{proof}
+\begin{enumerate}
+\item
+Well-definedness:
+We need to show $\phi_{\bm v}\in V^*$, i.e., for scalars $a,b$,
+\[
+\phi_{\bm v}(a\bm w_1+b\bm w_2)
+=
+\inp{\bm v}{a\bm w_1+b\bm w_2}
+=
+a\inp{\bm v}{\bm w_1}+b\inp{\bm v}{\bm w_2}
+=
+a\phi_{\bm v}(\bm w_1)+b\phi_{\bm v}(\bm w_2)
+\]
+Therefore, $\phi_{\bm v}\in V^*$.
+\item
+$\mathbb{R}$-linearity of $\phi$: it suffices to show 
+\[
+\phi(c\bm v_1+d\bm v_2)=c\phi(\bm v_1)+d\phi(\bm v_2),\quad
+\forall c,d\in\mathbb{R},\bm v_1,\bm v_2\in V.
+\]
+For all $\bm w\in V$, we have
+\[
+\phi_{c\bm v_1+d\bm v_2}(\bm w)
+=
+\inp{c\bm v_1+d\bm v_2}{\bm w}
+=
+c\inp{\bm v_1}{\bm w}
++
+d\inp{\bm v_2}{\bm w}
+=
+c\phi_{\bm v_1}(\bm w)+d\phi_{\bm v_2}(\bm w)
+\]
+where the second equality holds because $c,d\in\mathbb{R}$.
+
+Therefore,
+\[
+\phi(c\bm v_1+d\bm v_2)=c\phi(\bm v_1)+d\phi(\bm v_2).
+\]
+\end{enumerate}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

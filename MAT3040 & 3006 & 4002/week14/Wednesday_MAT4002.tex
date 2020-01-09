@@ -1,0 +1,192 @@
+\section{Wednesday for MAT4002}\index{Monday_lecture}
+\begin{theorem}
+\[
+\pi_1(S^1)\cong(\mathbb{Z},+)
+\]
+\end{theorem}
+\begin{proof}
+It's clear that $\pi_1(S^1)\cong E(K,1)$, where $K$ is the triangle illustrated in the figure below.
+
+For every edge loop based at $1$,
+\[
+\alpha\sim(123\cdots1231),\quad
+\text{or}
+\alpha\sim(132\cdots1321)
+\]
+Question: can $\alpha$ be equivalent to both $(123\cdots1231)$ and $(132\cdots1321)$?
+
+Define the winding number of $\alpha$ by
+\[
+\begin{array}{l}
+\text{number of 23 appearing in $\alpha$}-\\
+\text{number of 32 appearing in $\alpha$}
+\end{array}
+\]
+It follows that
+\begin{enumerate}
+\item
+Then if $\alpha\sim\alpha'$, then $\alpha$ and $\alpha'$ have the same winding number, e.g.,
+\[
+\alpha = (1231231),\ \alpha'=(123231231)
+\]
+\item
+In particular, w.n. of $(123123\cdots1231)$ ($23$ shows for $m$ times) is $m$;
+w.n. of $(132132\cdots1321)$ ($32$ shows for $n$ times) is $-n$
+\end{enumerate}
+In conclusion, $\alpha$ is equivalent to a unique $(123123\cdots1231)$ or $(132\cdots1321)$, since otherwise will have different winding numbers.
+
+Define
+\[
+\begin{array}{ll}\phi:
+&E(K,1)\to (\mathbb{Z},+)\\\text{with}&[\alpha]\mapsto
+\text{winding number of $\alpha$}
+\end{array}
+\]
+It follows that for $[\alpha]=[(1bc1bc\cdots1bc1)]$ and $[\beta]=[(1pq1pq\cdots1pq1)]$,
+\[
+\phi([\alpha]\cdot[\beta])=\phi([\alpha\cdot\beta])
+=
+[(1bc1bc\cdots1bc11pq1pq\cdots1pq1)]
+\]
+If $\phi([\alpha])=j,\phi([\beta])=k$, and $jk>0$, then ...
+if $jk<0$, then $12311321$ reduces into $1$, then ...
+\[
+\phi([\alpha]\cdot[\beta])=j+k=\phi([\alpha])+\phi([\beta])
+\]
+$\phi$ is a homomorphism.
+
+$\phi$ is bijective: surjective is clear; suppose $\phi([\alpha])=0$, then by definition of $\phi$, $[\alpha]=[(1)]=e$, which is the trivial element in $E(K,1)$.
+
+Therefore, $\phi$ is an isomorphism.
+\end{proof}
+
+\begin{remark}
+The loop based at $1$ given by:
+\[
+\begin{array}{ll}
+\ell&I\to S^1\\\text{with}&t\mapsto e^{2\pi i t}
+\end{array}
+\]
+satisfies $\phi([\ell])=1$ in $\phi:\pi_1(S^1,1)\cong\mathbb{Z}$.
+
+Therefore,
+\[
+\phi(\underbrace{[\ell]\cdots[\ell]}_{\text{$m$ times}})=m
+\]
+More precisely, the loop
+\[
+\begin{array}{ll}
+\ell^m:&I\to S^1\quad m\in\mathbb{Z}\\
+\text{with}&\ell^m(t) = e^{2\pi imt}
+\end{array}
+\]
+gives $\phi([\ell^m])=m$
+\end{remark}
+
+\begin{corollary}[Fundamental Theorem of Algebra]
+All non-constant polynomials in $\mathbb{C}$ has a root in $\mathbb{C}$
+\end{corollary}
+
+\begin{proof}
+Suppose on the contrary that 
+\[
+p(x)=a_nx^n+\cdots+a_1x+a_0\ a_n\ne0
+\]
+has no roots, then 
+\[
+p:\mathbb{C}\to\mathbb{C}\setminus\{0\}
+\]
+Since $\mathbb{C}\setminus\{0\}\simeq\mathcal{O}=\{z\in\mathbb{C}\mid|z|=1\}$, we imply
+\[
+\pi_1(\mathbb{C}\setminus\{0\})=\pi_1(S^1)\cong\mathbb{Z}.
+\]
+Consider the map (since $\mathbb{C}\simeq\{0\}$ is contractible)
+\[
+\begin{array}{ll}
+p_*:&\pi_1(\mathbb{C})\to \pi_1(\mathbb{C}\setminus\{0\})\\
+&\{e\}\mapsto\mathbb{Z}
+\end{array}
+\]
+Note that $p_*(e)=0$.
+
+Consider $C_r=\{z\in\mathbb{C}\mid |z|=r\}$ and the map
+\[
+\begin{array}{ll}
+i:&C_r\to\mathbb{C}\\
+\text{with}&z\mapsto z
+\end{array}
+\]
+such that
+\[
+\begin{array}{ll}
+i_*:&\pi_1(C_r)\to\pi_1(\mathbb{C})\\
+\text{with}&(p\mid_{c_r})_* = p_*\circ i_*,\\
+&\text{$p_*$ maps $m$ to $0$}
+\end{array}
+\]
+Study $p\mid_{c_r}:c_r\to\mathbb{C}\setminus\{0\}$.
+\[
+\left\{
+\begin{aligned}
+q(z)&=k\cdot z^n,\quad k:=\frac{p(r)}{r^n}\text{is a constant}\\
+p(z)&=a_nz^n+\cdots+a_1z+a_0
+\end{aligned}
+\right.
+\]
+Note that $p(r)=q(r)$, and $p,q:C_r\to\mathbb{C}\setminus\{0\}$.
+\begin{itemize}
+\item
+We claim that $p\simeq q$ for large $r$:
+let $H(z,t)=tp(z)+(1-t)q(z)$, then 
+\[
+\begin{array}{ll}
+H:&c_r\times[0,1]\to\mathbb{C}\\
+\text{with}&H(z,0)=q(z), \ H(z,1) = p(z)
+\end{array}
+\]
+Indeed, $H:c_r\times[0,1]\to\mathbb{C}\setminus\{0\}$:
+SUppose on the contrary that there exists $(z,t)$ such that
+\[
+(1-t)p(z)+tq(z)=0,\quad |z|=r, t\in[0,1]
+\]
+then 
+\[
+(1-t)(a_nz^n+\cdots+a_1z+a_0)+t\cdot kz^n=0
+\]
+Substituting $k=p(r)/r^n$ into it,
+\[
+a_nz^n+\cdots+a_1z+a_0
+=
+t(a_{n-1}z^{n-1}+\cdots+a_0 - (a_{n-1}\frac{z^n}{r}+\cdots+a_1\frac{z^n}{r^{n-1}}+a_0\frac{z^n}{r^n}))
+\]
+Therefore, LHS has leading order $n$, the RHS has leading order less or equal to $n-1$.
+As $r=|z|\to\infty$, then $t\to\infty$.
+In order to make the equality hold, if we pick $r=|z|$ large enough, the equality holds only for some $t>1$.
+
+For this choice of $r=|z|$, 
+\[
+H:c_r\times[0,1]\to\mathbb{C}\setminus\{0\}
+\]
+gives the homotopy $p(z)\simeq q(z)$.
+\item
+Therefore, $q:c_r\to\mathbb{C}\setminus\{0\}$ with $q(z)=kz^n$ satisfies 
+\[
+(p\mid_{c_r})_*=q_*:\pi_1(c_r)\to\pi_1(\mathbb{C}\setminus\{0\})
+\]
+such that 
+figrues.
+\end{itemize}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+

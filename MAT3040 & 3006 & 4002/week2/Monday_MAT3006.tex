@@ -1,0 +1,303 @@
+\section{Monday for MAT3006}\index{Monday_lecture}
+\paragraph{Reviewing}
+\begin{enumerate}
+\item
+Continuous functions: the function $f$ is continuous is equivalent to say for $\forall x_n\to x$, we have $f(x_n)\to f(x)$.
+\item
+Open sets: Let $(X,d)$ be a metric space. A set $U\subseteq X$ is open if for each $x\in U$, there exists $\rho_x>0$ such that $B_{\rho_x}(x)\subseteq U$.
+\end{enumerate}
+
+\begin{remark}
+Unless stated otherwise, we assume that 
+\[
+\mathcal{C}[a,b]\longleftrightarrow
+(\mathcal{C}[a,b],d_\infty)
+\]
+\[
+\mathbb{R}^n\longleftrightarrow
+(\mathbb{R}^n,d_2)
+\]
+\end{remark}
+\subsection{Remark on Open and Closed Set}
+
+\begin{example}\label{Exp:2:6}
+Let $X=\mathcal{C}[a,b]$, show that the set 
+\[
+U:=\{f\in X\mid f(x)>0,\forall x\in[a,b]\}\quad\text{is open}.
+\]
+Take a point $f\in U$, then
+\[
+\inf_{[a,b]}f(x)=m>0.
+\]
+Consider the ball $B_{m/2}(f)$, and for $\forall g\in B_{m/2}(f)$,
+\begin{align*}
+|g(x)|&\ge |f(x)|-|f(x)-g(x)|\\
+&\ge\inf_{[a,b]}|f(x)|-\sup_{[a,b]}|f(x)-g(x)|\\
+&\ge m-\frac{m}{2}\\&=\frac{m}{2}>0,\ \forall x\in[a,b]
+\end{align*}
+Therefore, we imply $g\in U$, i.e., $B_{m/2}(f)\subseteq U$, i.e., $U$ is open in $X$.
+\end{example}
+
+\begin{proposition}
+Let $(X,d)$ be a metric space. Then 
+\begin{enumerate}
+\item
+$\emptyset,X$ are open in $X$
+\item
+If $\{U_\alpha\mid\alpha\in\mathcal{A}\}$ are open in $X$, then $\bigcup_{\alpha\in\mathcal{A}}$ is also open in $X$
+\item
+If $U_1,\dots,U_n$ are open in $X$, then $\bigcap_{i=1}^nU_i$ are open in $X$
+\end{enumerate}
+\end{proposition}
+
+\begin{remark}
+Note that $\bigcap_{i=1}^\infty U_i$ is not necessarily open if all $U_i$'s are all open:
+\[
+\bigcap_{i=1}^\infty
+\left(
+-\frac{1}{i},1+\frac{1}{i}
+\right)
+=
+[0,1]
+\]
+\end{remark}
+
+\begin{definition}[Closed]
+The closed set in metric space $(X,d)$ are the complement of open sets in $X$, i.e., any closed set in $X$ is of the form $V=X\setminus U$, where $U$ is oepn.
+\end{definition}
+
+For example, in $\mathbb{R}$, 
+\[
+[a,b]=\mathbb{R}\setminus\{(-\infty,a)\bigcup(b,\infty)\}
+\]
+
+\begin{proposition}
+\begin{enumerate}
+\item
+$\emptyset,X$ are closed in $X$
+\item
+If
+$\{V_\alpha\mid\alpha\in\mathcal{A}\}$ are closed subsets in $X$, then $\bigcap_{\alpha\in\mathcal{A}}V_\alpha$ is also closed in $X$
+\item
+If $V_1,\dots,V_n$ are closed in $X$, then $\bigcup_{i=1}^nV_i$ is also closed in $X$.
+\end{enumerate}
+\end{proposition}
+
+\begin{remark}
+Whenever you say $U$ is open or $V$ is closed, you need to specify the underlying space, e.g.,
+\begin{align*}
+\textbf{Wrong}: &\text{$U$ is open}\\
+\textbf{Right}: &\text{$U$ is open in $X$}
+\end{align*}
+\end{remark}
+
+\begin{proposition}
+The following two statements are equivalent:
+\begin{enumerate}
+\item
+The set $V$ is closed in metric space $(X,d)$.
+\item
+If the sequence $\{v_n\}$ in $V$ converges to $x$, then $x\in V$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\textit{Necessity.}
+
+Suppose on the contrary that $\{v_n\}\to x\notin V$. Since $X\setminus V\ni x$ is open, there exists an open ball
+$
+B_\varepsilon(x)\subseteq X\setminus V.
+$
+
+Due to the convergence of sequence, there exists $N$ such that $d(v_n,x)<\varepsilon$ for $\forall n\ge N$, i.e., $v_n\in B_\varepsilon(x)$, i.e., $v_n\notin V$, which contradicts to $\{v_n\}\subseteq V$.
+
+\textit{Sufficiency.}
+
+Suppose on the contrary that $V$ is not closed in $X$, i.e., $X\setminus V$ is not open, i.e., there exists $x\notin V$ such that for all open $U\ni x$, $U\bigcap V\ne\emptyset$. In particular, take 
+\[
+U_n=B_{1/n}(x),\implies\exists v_n\in B_{1/n}(x)\bigcap V,
+\]
+i.e., $\{v_n\}\to x$ but $x\notin V$, which is a contradiction.
+\end{proof}
+
+\begin{proposition}\label{Pro:2:5}
+Given two metric space $(X,d)$ and $(Y,\rho)$, the following statements are equivalent:
+\begin{enumerate}
+\item
+A function $f:(X,d)\to(Y,\rho)$ is continuous on $X$
+\item
+For $\forall U\subseteq Y$ open in $Y$, $f^{-1}(U)$ is open in $X$.
+\item
+For $\forall V\subseteq Y$ closed in $Y$, $f^{-1}(V)$ is closed in $X$.
+\end{enumerate}
+\end{proposition}
+
+\begin{example}
+The mapping $\Psi:\mathcal{C}[a,b]\to\mathbb{R}$ is defined as:
+\[
+f\mapsto f(c)
+\]
+where $\Psi$ is called a \emph{functional}. 
+
+Show that $\Psi$ is continuous by using $d_\infty$ metric on $\mathcal{C}[a,b]$:
+\begin{enumerate}
+\item
+Any open set in $\mathbb{R}$ can be written as countably union of open disjoint intervals, and therefore suffices to consider the pre-image $\Psi^{-1}(a,b)=\{f\mid f(c)\in(a,b)\}$. Following the similar idea in Example~(\ref{Exp:2:6}), it is clear that $\Psi^{-1}(a,b)$ is open in $(\mathcal{C}[a,b],d_\infty)$. Therefore, $\Psi$ is continuous. 
+\item
+Another way is to apply definition.
+\end{enumerate}
+\end{example}
+
+We now study open sets in a subspace $(Y,d_Y)\subseteq(X,d_X)$, i.e.,
+\[
+d_Y(y_1,y_2):=d_X(y_1,y_2),\quad
+\forall y_1,y_2\in Y.
+\]
+
+Therefore, the open ball is defined as
+\begin{align*}
+B_\varepsilon^Y(y)&=\{y'\in Y\mid d_Y(y,y')<\varepsilon\}\\
+&=\{y'\in Y\mid d_X(y,y')<\varepsilon\}\\
+&=\{y'\in X\mid d_X(y,y')<\varepsilon, y'\in Y\}\\
+&=B_\varepsilon^X(y)\bigcap Y
+\end{align*}
+\begin{proposition}
+All open sets in the subspace $(Y,d_Y)\subseteq (X,d_X)$ are of the form $U\bigcap Y$, where $U$ is open in $X$.
+\end{proposition}
+\begin{corollary}
+For the subspace $(Y,d_Y)\subseteq (X,d_X)$, the mapping $i:(Y,d_Y)\to(X,d_X)$ with $i(y)=y,\forall y\in Y$ is continuous.
+\end{corollary}
+\begin{proof}
+$i^{-1}(U)=U\bigcap Y$ for any subset $U\subseteq X$. The results follows from proposition~(\ref{Pro:2:5}).
+\end{proof}
+
+\begin{remark}
+It's important to specify the underlying space to describe an open set. 
+
+For example, the interval $[0,\frac{1}{2})$ is not open in $\mathbb{R}$, while $[0,\frac{1}{2})$ is open in $[0,1]$, since
+\[
+[0,\frac{1}{2})
+=
+(-\frac{1}{2},\frac{1}{2})
+\bigcap
+[0,1].
+\]
+\end{remark}
+
+\subsection{Boundary, Closure, and Interior}
+
+\begin{definition}
+Let $(X,d)$ be a metric space, then
+\begin{enumerate}
+\item
+A point $x$ is a \emph{boundary point} of $S\subseteq X$ (denoted as $x\in\partial S$)
+if for any open $U\ni x$, then both $U\bigcap S,U\setminus S$ are non-empty.
+
+(one can replace $U$ by $B_{1/n}(x)$, with $n=1,2,\dots$)
+\item
+The \emph{closure} of $S$ is defined as $\overline{S}=S\bigcup\partial S$.
+\item
+A point $x$ is an \emph{interior point} of $S$ (denoted as $x\in S^\circ$) 
+if there $\exists U\ni x$ open such that $U\subseteq S$. We use $S^\circ$ to denote the set of interior points.
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}
+\begin{enumerate}
+\item
+The closure of $S$ can be equivalently defined as
+\[
+\overline{S}=\bigcap\{C\in X\mid\text{$C$ is closed and $C\supseteq S$}\}
+\]
+
+Therefore, $\overline{S}$ is the smallest closed set containing $S$.
+
+(Note that $C = X$ is a closed set containing $S$, and hence $\overline{S}$ is well-defined.)
+\item
+The interior set of $S$ can be equivalently defined as
+\[
+S^\circ=\bigcup\{U\subseteq X\mid\text{$U$ is open and $U\subseteq S$}\}
+\]
+
+Therefore, $S^\circ$ is the largest open set contained in $S$.
+\end{enumerate}
+\end{proposition}
+\begin{example}
+For $S=[0,\frac{1}{2}]\subseteq X$, we have
+\begin{enumerate}
+\item
+$\partial S=\{0,\frac{1}{2}\}$
+\item
+$\overline{S}=[0,\frac{1}{2}]$
+\item
+$S^\circ=(0,\frac{1}{2})$
+\end{enumerate}
+\end{example}
+\begin{proof}
+\begin{enumerate}
+\item
+\begin{enumerate}
+\item
+Firstly, we show that $\overline{S}$ is closed, i.e., $X\setminus\overline{S}$ is open.
+\begin{itemize}
+\item
+Take $x\notin\overline{S}$. Since $x\notin\partial S$, there $\exists B_r(x)\ni x$ such that 
+\[
+\begin{array}{lll}
+B_r(x)\bigcap S,
+&
+\text{or}
+&
+B_r(x)\setminus S\text{ is }\emptyset.
+\end{array}
+\]
+\item
+Since $x\notin S$, the set $B_r(x)\setminus S$ is not empty. Therefore, $B_r(x)\bigcap S=\emptyset$.
+\item
+It's clear that $B_{r/2}(x)\bigcap S=\emptyset$. We claim that $B_{r/2}(x)\bigcap \overline{S}$ is empty.
+
+Suppose on the contrary that
+\[
+y\in B_{r/2}(x)\bigcap\partial S,
+\]
+which implies that $B_{r/2}(y)\bigcap S\ne\emptyset$. Therefore,
+\[
+B_{r/2}(y)\subseteq B_r(x)\implies 
+B_r(x)\bigcap S\supseteq B_{r/2}(y)\bigcap S\ne\emptyset,
+\]
+which is a contradiction.
+\end{itemize}
+Therefore, $x\in X\setminus\overline{S}$ implies $B_{r/2}(x)\bigcap\overline{S}=\emptyset$, i.e., $X\setminus\overline{S}$ is open, i.e., $\overline{S}$ is closed.
+\item
+Secondly, we show that $\overline{S}\subseteq C$, for any closed $C\supseteq S$, i.e., suffices to show $\partial S\subseteq C$.
+
+Take $x\in\partial S$, which implies that $B_{\varepsilon}(x)\cap S$ is non-empty for any $\varepsilon>0$. Therefore, construct a sequence
+\[
+x_n\in B_{1/n}(x)\bigcap S.
+\] 
+Here $\{x_n\}$ is a sequence in $S\subseteq C$ converging to $x$, 
+which implies $x\in C$, 
+due to the closeness of $C$ in $X$.
+\end{enumerate}
+Combining (a) and (b), the result follows naturally. 
+\item
+Exercise. Show that 
+\[
+S^\circ=S\setminus \partial S=X\setminus(\overline{X\setminus S}).
+\]
+Then it's clear that $S^\circ$ is open, and contained in $S$.
+\end{enumerate}
+\end{proof}
+
+The next lecture we will talk about compactness and sequential compactness.
+
+
+
+
+
+
+
+
+
+
+

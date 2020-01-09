@@ -1,0 +1,263 @@
+\section{Monday for MAT3006}\index{Monday_lecture}
+\paragraph{Reviewing}
+\begin{enumerate}
+\item
+Compactness/Sequential Compactness:
+\begin{itemize}
+\item
+Equivalence for metric space
+\item
+Stronger than closed and bounded
+\end{itemize}
+\item
+Completeness: 
+\begin{itemize}
+\item
+The metric space $(E,d)$ is complete if every Cauchy sequence on $E$ is convergent.
+\item
+$\mathbb{P}[a,b]\subseteq\mathcal{C}[a,b]$ is not complete:
+\[
+f_N(x)=\sum_{n=0}^N(-1)^n\frac{x^{2n}}{(2n)!}\to\cos x,
+\]
+while $\cos x\notin\mathcal{P}[a,b]$.
+\end{itemize}
+\end{enumerate}
+
+
+\subsection{Remarks on Completeness}
+
+\begin{proposition}
+Let $(X,d)$ be a metric space.
+\begin{enumerate}
+\item
+If $X$ is complete and $E\subseteq X$ is closed, then $E$ is complete.
+\item
+If $E\subseteq X$ is complete, then $E$ is closed in $X$.
+\item
+If $E\subseteq X$ is compact, then $E$ is complete.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+\item
+Every Cauchy sequence $\{e_n\}$ in $E\subseteq X$ is also a Cauchy sequence in $E$.
+
+Therefore we imply $\{e_n\}\to x\in X$, due to the completeness of $X$.
+
+Due to the closedness of $E$, the limit $x\in E$, i.e., $E$ is complete.
+\item
+Consider any convergent sequence $\{e_n\}$ in $E$, with some limit $x\in X$.
+
+We imply $\{e_n\}$ is Cauchy and thus $\{e_n\}\to e\in E$, due to the completeness of $E$.
+
+By the uniqueness of limits, we must have $x=z\in E$, i.e., $E$ is closed.
+\item
+Consider a Cauchy sequence $\{e_n\}$ in $E$.
+There exists a subsequence $\{e_{n_j}\}\to e\in E$, 
+due to the sequential compactness of $E$.
+
+It follows that for large $n$ and $j$,
+\[
+d(e_n,e)
+\makebox[1cm][c]{$\overset{\text{(a)}} \leq$}
+ d(e_n,e_{n_j})+d(e_{n_j},e)
+ \makebox[1cm][c]{$\overset{\text{(b)}} <$}
+ \varepsilon
+\]
+where (a) is due to triangle inequality
+and (b) is due to the Cauchy property of $\{e_n\}$ and the convergence of $\{e_{n_j}\}$. 
+
+Therefore, we imply $\{e_n\}\to e\in E$, i.e., $E$ is complete.
+\end{enumerate}
+\end{proof}
+
+\begin{remark}
+Given any metric space that may not be necessarily complete, we can make the union of it with another space to make it complete, e.g., just like the completion from $\mathbb{Q}$ to $\mathbb{R}$.
+\end{remark}
+
+
+\subsection{Contraction Mapping Theorem}
+
+The motivation of the contraction mapping theorem comes from solving an equation $f(x)$. More precisely, such a problem can be turned into a problem for fixed points, i.e., it suffices to find the fixed points for $g(x)$, with $g(x)=f(x)+x$.
+
+\begin{definition}
+Let $(X,d)$ be a metric space. 
+A map $T:(X,d)\to (X,d)$ is a \emph{contraction} 
+if there exists a constant $\tau\in(0,1)$ such that
+\[
+\begin{array}{ll}
+d(T(x),T(y))<\tau\cdot d(x,y),
+&
+\forall x,y\in X
+\end{array}
+\]
+A point $x$ is called a fixed point of $T$ if $T(x)=x$.
+\end{definition}
+\begin{remark}
+All contractions are continuous: 
+Given any convergence sequence $\{x_n\}\to x$, 
+for $\varepsilon>0$, take $N$ such that 
+$d(x_n,x)<\frac{\varepsilon}{\tau}$ for $n\ge N$. It suffices to show the convergence of $\{T(x_n)\}$:
+\[
+d(T(x_n),T(x))<\tau\cdot T(x_n,x)<\tau\cdot\frac{\varepsilon}{\tau}=\varepsilon.
+\]
+Therefore, the contraction is Lipschitz continuous with Lipschitz constant $\tau$.
+\end{remark}
+
+\begin{theorem}[Contraction Mapping Theorem / Banach Fixed Point Theorem]
+Every contraction $T$ in a \emph{complete} metric space $X$ has a unique fixed point.
+\end{theorem}
+
+\begin{example}
+\begin{enumerate}
+\item
+The mapping $f(x)=x+1$ is not a contraction in $X=\mathbb{R}$, and it has no fixed point.
+\item
+Consider an in-complete space $X=(0,1)$ and a contraction $f(x)=\frac{x+1}{2}$. It doesn't admit a fixed point on $X$ as well.
+\end{enumerate}
+\end{example}
+
+\begin{proof}
+Pick any $x_0\in X$, and define a sequence recursively by setting $x_{n+1}=T(x_n)$ for $n\ge0$.
+\begin{enumerate}
+\item
+Firstly show that the sequence $\{x_n\}$ is Cauchy.
+
+We can upper bound the term $d(T^n(x_0),T^{n-1}(x_0))$:
+\begin{equation}\label{Eq:3:4}
+d(T^n(x_0),T^{n-1}(x_0))\le \tau d(T^{n-1}(x_0),T^{n-2}(x_0))\le\cdots\le \tau^{n-1}d(T(x_0),x_0)
+\end{equation}
+Therefore for any $n\ge m$, where $m$ is going to be specified later,
+\begin{subequations}
+\begin{align}
+d(x_n,x_m)&=d(T^n(x_0),T^m(x_0))\label{Eq:3:5:a}\\
+&\le\tau d(T^{n-1}(x_0),T^{m-1}(x_0))\le\cdots\le\tau^md(T^{n-m}(x_0),x_0)\label{Eq:3:5:b}\\
+&\le\tau^m\sum_{j=1}^{n-m}\tau^{n-m-j}d(T(x_0),x_0)\label{Eq:3:5:c}\\
+&<\frac{\tau^{m}}{1-\tau}d(T(x_0),x_0)\label{Eq:3:5:d}\\
+&\le\varepsilon\label{Eq:3:5:e}
+\end{align}
+\end{subequations}
+where (\ref{Eq:3:5:b}) is by repeatedly applying contraction property of $d$; (\ref{Eq:3:5:c}) is by applying the triangle inequality and (\ref{Eq:3:4}); (\ref{Eq:3:5:e}) is by choosing sufficiently large $m$ such that $\frac{\tau^{m}}{1-\tau}d(T(x_0),x_0)<\varepsilon$.
+
+Therefore, $\{x_n\}$ is Cauchy. By the completeness of $X$, we imply $\{x_n\}\to x\in X$.
+\item
+Therefore, we imply 
+\[
+x=\lim_{n\to\infty}x_{n+1}=\lim_{n\to\infty}T(x_n)=T(\lim_{n\to\infty}x_n)=T(x),
+\]
+i.e., $x$ is a fixed point of $T$.
+
+Now we show the uniqueness of the fixed point. Suppose that there is another fixed point $y\in X$, then
+\[
+d(x,y)=d(T(x),T(y))<\tau\cdot d(x,y)\implies d(x,y)<\tau d(x,y),\quad\tau\in(0,1),
+\]
+and we conclude that $d(x,y)=0$, i.e., $x=y$.
+\end{enumerate}
+\end{proof}
+
+\begin{example}[Convergence of Newton's Method]
+The Newton's method aims to find the root of $f(x)$ by applying the iteration
+\[
+x_{n+1}=x_n-\frac{f(x_n)}{f'(x)}
+\]
+Suppose $r$ is a root for $f$, the pre-assumption for the convergence of Newton's method is:
+\begin{enumerate}
+\item
+$f'(r)\ne0$
+\item
+$f\in\mathcal{C}^2$ on some neighborhood of $r$
+\end{enumerate}
+\begin{proof}
+\begin{enumerate}
+\item
+We first show that there exists $[r-\varepsilon,r+\varepsilon]$ such that the mapping
+\[
+\begin{array}{ll}
+T:&\mathbb{R}\to\mathbb{R},\\
+\text{with}&
+x\mapsto x-\frac{f(x)}{f'(x)}
+\end{array}
+\]
+satisfies 
+\begin{equation}\label{my:Eq:3:6}
+|T'(x)|<1,\quad
+\forall x\in[r-\varepsilon,r+\varepsilon].
+\end{equation}
+
+Note that $T'(x)=\frac{f(x)}{[f'(x)]^2}f''(x)$, and we define $h(x)=|T'(x)|$.
+
+It's clear that $h(r)=0$ and $h(x)$ is continuous, which implies
+\[
+r\in h^{-1}((-1,1))\implies
+B_\rho(r)\subseteq h^{-1}((-1,1))\ \text{for some $\rho>0$}.
+\]
+Or equivalently, $h((r-\rho,r+\rho))\subseteq(-1,1)$. Take $\varepsilon=\frac{\rho}{2}$, and the result is obvious.
+\item
+Moreover, for any $x,y\in [r-\varepsilon,r+\varepsilon]$,
+\begin{subequations}
+\begin{align}
+d(T(x),T(y)):&=|T(x)-T(y)|\label{Eq:3:6:a}\\
+&=|T'(\xi)||x-y|\label{Eq:3:6:b}\\
+&\le\max_{\xi\in [r-\varepsilon,r+\varepsilon]}|T'(\xi)||x-y|\label{Eq:3:6:c}\\
+&<m\cdot|x-y|\label{Eq:3:6:d}
+\end{align}
+\end{subequations}
+where (\ref{Eq:3:6:b}) is by applying MVT, and $\xi$ is some point in $[r-\varepsilon,r+\varepsilon]$; we assume that $\max_{\xi\in [r-\varepsilon,r+\varepsilon]}|T'(\xi)|<m$ for some $m<1$ in (\ref{Eq:3:6:d}).
+\item
+Note that (2) is not enough to show that $T$ is a contraction.
+We further need to show that $T(x)\in [r-\varepsilon,r+\varepsilon]$ provided that $x\in [r-\varepsilon,r+\varepsilon]$:
+\[
+|T(x)-r|=|T(x)-T(r)|=|T'(s)||x-r|\le\sup_{[r-\varepsilon,r+\varepsilon]}|T'(s)||x-r|<|x-r|.
+\]
+\end{enumerate}
+Combining (2) and (3), we imply $T$ is a contraction on $[r-\varepsilon,r+\varepsilon]$.
+By applying the contraction mapping theorem, there exists a unique fixed point near $[r-\varepsilon,r+\varepsilon]$:
+\[
+x-\frac{f(x)}{f'(x)}=x\implies\frac{f(x)}{f'(x)}=0\implies f(x)=0,
+\]
+i.e., we obtain a root $x=r$.
+\end{proof}
+
+Summary: if we use Newton's method on any point between $[r-\varepsilon,r+\varepsilon]$ where $f(r)=0$ and $\varepsilon$ is sufficiently small, then we will eventually get close to $r$.
+\end{example}
+
+\subsection{Picard Lindelof Theorem}
+We will use Banach fixed point theorem to show the existence and uniqueness of the solution of ODE
+\begin{equation}\label{Eq:3:7}
+\left\{
+\begin{aligned}
+\frac{\diff y}{\diff x}&=f(x,y(x))\\
+y(x_0)&=y_0
+\end{aligned}
+\right.\qquad
+\textbf{Initial Value Problem, IVP}
+\end{equation}
+\begin{example}
+Consider the IVP
+\[
+\left\{
+\begin{aligned}
+\frac{\diff y}{\diff x}&=x^{2}y^{1/5}\\
+y(x_0)&=c>0
+\end{aligned}
+\right.
+\implies 
+y=\left(
+\frac{4x^3}{15}+c^{4/5}
+\right)^{5/4}
+\]
+which can be solved by the separation of variables:
+\[
+c>0\implies y=\left(
+\frac{4x^3}{15}+c^{4/5}
+\right)^{5/4}.
+\]
+However, when $c=0$, the ODE does not have a unique solution. One can verify that $y_1,y_2$ given below are both solutions of this ODE:
+\[
+y_1=(\frac{4x^3}{15})^{5/4},\qquad
+y_2=0
+\]
+This example shows that even when $f$ is very nice, the IVP may not have unique solution. The Picard-Lindelof theorem will give a clean condition on $f$ ensuring the unique solvability of the IVP~(\ref{Eq:3:7}).
+\end{example}
+
+

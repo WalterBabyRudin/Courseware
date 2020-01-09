@@ -1,0 +1,348 @@
+\section{Wednesday for MAT4002}\index{Monday_lecture}
+
+\paragraph{Reviewing}
+\begin{enumerate}
+\item
+Interior, Closure:
+\[
+\overline{A}=\{x\mid\forall U\ni x\text{ open}, U\bigcap A\ne\emptyset\}
+\]
+\item
+Accumulation points
+\end{enumerate}
+
+\subsection{Remark on Closure}
+
+\begin{definition}[Sequential Closure]
+Let $A_S$ be the set of limits of any convergent sequence in $A$, then $A_S$ is called the \emph{sequential closure} of $A$.
+\end{definition}
+\begin{definition}[Accumulation/Cluster Points]
+The set of accumulation (limit) points is defined as
+\[
+A'=
+\{x\mid\forall U\ni x\text{ open },(U\setminus\{x\})\bigcap A\ne\emptyset\}
+\]
+\end{definition}
+\begin{remark}
+\begin{enumerate}
+\item
+\begin{enumerate}
+\item
+There exists some point in $A$ but not in $A'$:
+\[
+A=\{1,2,3,\dots,n,\dots\}
+\]
+Then any point in $A$ is not in $A'$
+\item
+There also exists some point in $A'$ but not in $A$:
+\[
+A=\{\frac{1}{n}\mid n\ge1\}
+\]
+Then the point $0$ is in $A'$ but not in $A$.
+\end{enumerate}
+\item
+The closure $\overline{A}=A\bigcup A'$.
+\item
+The size of the sequentical closure $A_S$ is between $A$ and $\overline{A}$, i.e., $A\subseteq A_S\subseteq\overline{A}$:
+
+It's clear that $A\subseteq A_S$, since the sequence $\{a_n:=a\}$ is convergent to $a$ for $\forall a\in A$.
+
+For all $a\in A_S$, we have $\{a_n\}\to a$. 
+Then for any open $U\ni a$, 
+there exists $N$ such that 
+$\{a_N,a_{N+1},\dots\}\subseteq U\bigcap A\ne\emptyset$. 
+Therefore, $a\in\overline{A}$, i.e., $A_S\subseteq\overline{A}$.
+\end{enumerate}
+\end{remark}
+
+Question: Is $A_S=\overline{A}$?
+
+\begin{proposition}
+Let $(X,d)$ be a metric space, then $A_S=\bar{A}$.
+\end{proposition}
+
+\begin{proof}
+Let $a\in\overline{A}$, 
+then there exists $a_n\in B_{1/n}(a)\bigcap A$, 
+which implies $\{a_n\}\to a$, i.e., 
+$a\in A_S$.
+\end{proof}
+
+\begin{remark}
+If $(X,\mathcal{T})$ is metrizable, then $A_S=\overline A$. 
+The same goes for first countable topological spaces.
+However, $A_S$ is a proper subset of $\overline{A}$ in general:
+
+Let $A\subseteq X$ be the set of continuous functions, where $X=\mathbb{R}^{\mathbb{R}}$ denotes the set of all real-valued functions on $\mathbb{R}$, with the topology of pointwise convergence.
+
+Then $A_S=B_1$, the set of all functions of first Baire-Category on $\mathbb{R}$; and $[A_S]_S=B_2$, the set of all functions of second Baire-Category on $\mathbb{R}$. Since $B_1\ne B_2$, we have $[A_S]_S=A_S$. Note that $\overline{\overline{A}}=\overline{A}$. We conclude that $A_S$ cannot equal to $\overline{A}$, since the sequential closure operator cannot be idemotenet.
+\end{remark}
+
+\begin{definition}[Boundary]
+The \emph{boundary} of $\bm A$ is defined as
+\[
+\partial\bm A=\overline{A}\setminus A^\circ
+\]
+\end{definition}
+
+\begin{proposition}
+Let $(X,\mathcal{T})$ be a topological space with $A,B\subseteq X$.
+\[
+\begin{array}{lll}
+\overline{X\setminus A}=X\setminus A^\circ,
+&
+(X\setminus B)^\circ = X\setminus\overline{B}&
+\partial A=\overline{A}\bigcap(\overline{X\setminus A})
+\end{array}
+\]
+\end{proposition}
+
+%\begin{subequations}
+%\begin{align}
+%X\setminus A^\circ&=X\setminus\left(\bigcup_{U\text{ is open, } U\subseteq A}U\right)\\
+%&=\bigcap_{U\text{ is oepn, }(X\setminus U)\\
+%&=\bigcap_{V\text{ is closed, }F\supseteq X\setminus A}F\\
+%\end{align}
+%\end{subequations}
+\begin{proof}
+\begin{subequations}
+\begin{align}
+X\setminus A^\circ&=X\setminus\left(\bigcup_{U\text{ is open, } U\subseteq A}U\right)\\
+&=\bigcap_{U\text{ is open, }U\subseteq A}(X\setminus U)\\
+&=\bigcap_{V\text{ is closed, }F\supseteq X\setminus A}F\\
+&=\overline{X\setminus A}
+\end{align}
+\end{subequations}
+Denoting $X\setminus A$ by $B$, we obtain:
+\begin{subequations}
+\begin{align}
+(X\setminus B)^\circ&=A^\circ\\
+&=X\setminus(X\setminus A^\circ)\\
+&=X\setminus\overline{X\setminus A}\\
+&=X\setminus\overline{B}
+\end{align}
+\end{subequations}
+By definition of $\partial A$,
+\begin{subequations}
+\begin{align}
+\partial A&=\overline{A}\setminus A^\circ\\
+&=\overline{A}\bigcap(X\setminus A^\circ)\\
+&=\overline{A}\bigcap(\overline{X\setminus A})
+\end{align}
+\end{subequations}
+\end{proof}
+
+\subsection{Functions on Topological Space}
+\begin{definition}[Continuous]
+Let $f:(X,\mathcal{T}_X)\to(Y,\mathcal{T}_Y)$ be a map. Then the function $f$ is continuous, if
+\[
+U\in\mathcal{T}_Y\implies
+f^{-1}(U)\in\mathcal{T}_X
+\]
+\end{definition}
+\begin{example}
+\begin{enumerate}
+\item
+The identity map $\text{id}: (X,\mathcal{T})\to(X,\mathcal{T})$ defined as 
+$x\mapsto x$ is continuous
+\item
+The identity map $\text{id}: (X,\mathcal{T}_{\text{discrete}})\to(X,\mathcal{T}_{\text{indiscrete}})$ defined as $x\mapsto x$ is continuous.
+
+Since $\text{id}^{-1}(\emptyset)=\emptyset$ and $\text{id}^{-1}(X)=X$
+\item
+The identity map $\text{id}: (X,\mathcal{T}_{\text{indiscrete}})\to(X,\mathcal{T}_{\text{discrete}})$ defined as $x\mapsto x$ is not continuous.
+\end{enumerate}
+\end{example}
+
+\begin{proposition}
+If $f:X\to Y$, and $g:Y\to Z$ be continuous, then $g\circ f$ is continuous
+\end{proposition}
+
+\begin{proof}
+For given $U\in\mathcal{T}_Z$, we imply
+\[
+g^{-1}(U)\in\mathcal{T}_Y
+\implies
+f^{-1}(g^{-1}(U))\in\mathcal{T}_X,
+\]
+i.e., $(g\circ f)^{-1}(U)\in\mathcal{T}_X$
+\end{proof}
+
+\begin{proposition}
+Suppose $f:X\to Y$ is continuous between two topological spaces. Then $\{x_n\}\to x$ implies $\{f(x_n)\}\to f(x)$.
+\end{proposition}
+\begin{proof}
+Take open $U\ni f(x)$, which implies $f^{-1}(U)\ni x$. Since $f^{-1}(U)$ is open, we imply there exists $N$ such that 
+\[
+\{x_n\mid n\ge N\}\subseteq f^{-1}(U),
+\] 
+i.e., $\{f(x_n)\mid n\ge N\}\subseteq U$
+\end{proof}
+
+We use the notion of Homeomorphism to describe the equivalence between two topological spaces.
+\begin{definition}[Homeomorphism]
+A \emph{homeomorphism} between spaces topological spaces $(X,\mathcal{T}_X)$ and $(Y,\mathcal{T}_Y)$ is a bijection 
+\[
+f:(X,\mathcal{T}_X)\to(Y,\mathcal{T}_Y),
+\]
+such that both $f$ and $f^{-1}$ are continuous.
+\end{definition}
+
+\subsection{Subspace Topology}
+\begin{definition}\label{Def:2:16}
+Let $A\subseteq X$ be a non-empty set. 
+The \emph{subspace topology} of $A$ is defined as:
+\begin{enumerate}
+\item
+$\mathcal{T}_A:=\{U\bigcap A\mid U\in\mathcal{T}_A\}$
+\item
+The \emph{coarsest} topology on $A$ such that the \emph{inclusion map}
+\[
+\begin{array}{ll}
+i:(A,\mathcal{T}_A)\to(X,\mathcal{T}_X),
+&
+i(x)=x
+\end{array}
+\]
+is continuous.
+
+(We say the topology $\mathcal{T}_1$ is \emph{coarser} than $\mathcal{T}_2$, or $\mathcal{T}_2$ is \emph{finer} than $\mathcal{T}_1$, if $\mathcal{T}_1\subseteq\mathcal{T}_2$
+
+e.g., $\mathcal{T}_{\text{discrete}}$ is the finest topology, and $\mathcal{T}_{\text{indiscrete}}$ is coarsest topology.)
+\item
+The (\emph{unique}) topology such that for any $(Y,\mathcal{T}_Y)$,
+\[
+f:(Y,\mathcal{T}_Y)\to(A,\mathcal{T}_A)
+\]
+is continuous iff $i\circ f:(Y,\mathcal{T}_Y)\to(X,\mathcal{T}_X)$ (where $i$ is the inclusion map) is continuous.
+\end{enumerate}
+\end{definition}
+\begin{proposition}
+The definition (1) and (2) in~(\ref{Def:2:16}) are equivalent.
+\end{proposition}
+
+\begin{proof}[Outline]
+The proof is by applying 
+\[
+i^{-1}(S)=S\bigcap A,\quad
+\forall S
+\]
+\end{proof}
+
+\begin{example}
+Let all English and numerical letters be subset of $\mathbb{R}^2$:
+\[
+\mbox{P},
+\mbox{6}
+\]
+The homeomorphism can be constrcuted between these two English letters.
+\end{example}
+
+\begin{proposition}
+The definition (2) and (3) in (\ref{Def:2:16}) are equivalent.
+\end{proposition}
+\begin{proof}
+Necessity. 
+\begin{itemize}
+\item
+For $\forall U\in\mathcal{T}_X$, consider that
+\[
+(i\circ f)^{-1}(U)=f^{-1}(i^{-1}(U))=f^{-1}(U\bigcap A)
+\]
+since $U\bigcap A\in\mathcal{T}_A$ and $f$ is continuous, we imply $(i\circ f)^{-1}(U)\in\mathcal{T}_Y$
+\item
+For $\forall U'\in\mathcal{T}_A$, we have $U'=U\bigcap A$ for some $U\in\mathcal{T}_X$. Therefore,
+\[
+f^{-1}(U')=f^{-1}(U\bigcap A)=f^{-1}(i^{-1}(U))=(i\circ f)^{-1}(U)\in\mathcal{T}_Y.
+\]
+\end{itemize}
+The sufficiency is left as exercise.
+\end{proof}
+
+
+\begin{proposition}\label{Pro:2:22}
+\begin{enumerate}
+\item
+The definition (1) in~(\ref{Def:2:16}) does define a topology of $A$
+\item
+Closed sets of $A$ under subspace topology are of the form $V\bigcap A$, where $V$ is closed in $X$
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}
+Suppose $(A,\mathcal{T}_A)\subseteq(X,\mathcal{T}_X)$ is a subspace topology, and $B\subseteq A\subseteq X$. Then 
+\begin{enumerate}
+\item
+$\bar B^A=\bar B^X\bigcap A$.
+\item
+$B^{\circ A}\supseteq B^{\circ X}$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+By proposition~(\ref{Pro:2:22}), $\bar B^X\bigcap A$ is closed in $A$, and $\bar B^X\bigcap A\supset B$, which implies
+\[
+\bar B^A\subseteq \bar B^X\bigcap A
+\] 
+
+Note that $\bar B^A\supset B$ is closed in $A$, which implies $\bar B^A=V\bigcap A\subseteq V$, where $V$ is closed in $X$. Therefore,
+\[
+\bar B^X\subseteq V\implies
+\bar B^X\bigcap A\subseteq V\bigcap A=\bar B^A
+\]
+Therefore, $\bar B^A=\bar B^X\subseteq V$
+
+\end{proof}
+
+Can we have $B^{\circ X}=B^{\circ A}$?
+
+\subsection{Basis (Base) of a topology}
+
+Roughly speaking, a basis of a topology is a family of ``generators'' of the topology.
+\begin{definition}
+Let $(X,\mathcal{T})$ be a topological space. A family of subsets $\mathcal{B}$ in $X$ is a \emph{basis} for $\mathcal{T}$ if
+\begin{enumerate}
+\item
+$\mathcal{B}\subseteq\mathcal{T}$, i.e., everything in $\mathcal{B}$ is open
+\item
+Every $U\in\mathcal{T}$ can be written as union of elements in $\mathcal{B}$.
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+\begin{enumerate}
+\item
+$\mathcal{B}=\mathcal{T}$ is a basis.
+\item
+For $X=\mathbb{R}^n$,
+\[
+\mathcal{B}=\{B_r(\bm x)\mid \bm x\in\mathbb{Q}^n,r\in\mathbb{Q}\bigcap(0,\infty)\}
+\]
+Exercise: every $(a,b)=\bigcup_{i\in I}(p_i,q_i)$ for $p_i,q_i\in\mathbb{Q}$.
+
+Therefore, $\mathcal{B}$ is countable.
+\end{enumerate}
+\end{example}
+\begin{proposition}
+If $(X,\mathcal{T})$ has a countable basis, e.g., $\mathbb{R}^n$, then $(X,\mathcal{T})$ has a second-countable space.
+\end{proposition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

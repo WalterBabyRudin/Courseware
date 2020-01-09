@@ -1,0 +1,266 @@
+\section{Wednesday}
+
+\begin{proposition}
+$G$ is hamiltionian implies that for any nonempty $S\subseteq V$, $G-S$ has at most $|S|$ components.
+\end{proposition}
+\begin{theorem}
+$G$ is Hamiltionian if for any vetices $v,w$ such that $(v,w)\notin E$,
+\[
+\mbox{deg}(v)+\mbox{deg}(w)\ge n
+\]
+\end{theorem}
+
+
+\paragraph{Knapsacle Problem}
+\[
+\begin{array}{ll}
+\max&\sum_{i=1}^nv_iu_i\\
+\mbox{such that}&\sum_{i=1}^nw_iu_i\le W\\
+&u_i\in\{0,1\},\ i=1,\dots,n
+\end{array}
+\]
+
+This is the binary integer programming problem, which is NP-complete. We cannot find exact solution to this problem. There are $2^n$ possible solutions, which requires exponential time.
+
+We can find some ``pseudo''-polynomial algorithm. Assumption:
+\begin{enumerate}
+\item
+$W$ is an integer. 
+
+\end{enumerate}
+
+State: remaining capacity, define as $X_k$.
+
+Stage: iterm $1,\dots,n$.
+\[
+J_N(x_N)=\left\{
+\begin{aligned}
+v_N &\quad\text{if }N\le X_N\\
+0,&\quad\text{if }w_N>X_N
+\end{aligned}
+\right.
+\]
+\[
+J_N(x_{N-1})
+=
+\left\{
+\begin{aligned}
+0+J_N(X_N),&\quad\text{if }w_{N-1}>X_{N-1}, \text{Here }X_N=X_{N-1}\\
+\max\{v_{N-1}+J_N(x_N), 0+J_N(x_N)\}&,\text{ if }w_{N-1}\le X_{N-1}
+\end{aligned}
+\right.
+\]
+
+Here why the DP has ``pesduo''-polynomial time, and the $w_i$ should be integer?
+
+Let's list states $\{x_1,\dots,x_N\}$. For each stage $k$, there would be $W+1$.
+
+Each iteration at most $2$ computation, and therefore we face $2(W+1)\cdot N$
+
+\subsection{Label Correcting Methods}
+Shortest Path. Back up some information.
+
+The label refers to the intermediate information.
+
+$A^*$-algorithm; Bellman-Ford Algorithm
+
+Benchmark: MILP, CPLEX, CVX.
+
+\subsection{DP problems with perfect state information}
+
+\paragraph{Linear Quadratic System}
+Let $x_k\in\mathbb{R}^1$ be the state; $u_k\in\mathbb{R}^n$ be the control; $\omega_k\in\mathbb{R}^n$ be the disturbance.
+
+System Dynamics.
+\[
+x_{k+1}=A_kx_k+B_ku_k+\omega_k
+\]
+Stage cost:
+\[
+x_k'Q_kx_k+u_k'R_ku_k
+\]
+Here $Q_k$ is required to be positive-semi-definite symmetric matrix; $R_k$ to be positive-definite symmetric matrix.
+\[
+J_{n-1}(x_{n-1})=\min_{u_{n-1}}\mathbb{E}_{\omega}
+\left\{
+x_{n-1}'Q_{n-1}x_{n-1}+u_{n-1}'R_{n-1}u_{n-1}
++
+J_n(x_n)
+\right\}
+\]
+where
+\[
+J_n(x_n)=(A_{n-1}x_{n-1}+Bu_{n-1}+\omega)'Q_n
+(A_{n-1}x_{n-1}+Bu_{n-1}+\omega)
+\]
+
+
+\subsection{Linear Quadratic}
+Dynamics:
+\[
+x_{k+1}=A_kx_k+B_ku_k+\omega_k
+\]
+Stage cost:
+\[
+x_k'Q_kx_k+u_k'R_ku_k, \ Q_k\succeq0, R_k\succ 0
+\]
+Cost to go function:
+\[
+J_k(x_k)=\min_{u_k}\mathbb{E}_{\omega_k}
+[
+x_k'Q_kx_k+u_k'R_ku_k
++
+J_{k+1}(x_{k+1})
+]
+\]
+The final cost is 
+\[
+J_N(x_N)=x_N'Q_Nx_N
+\]
+
+At $N-1$ stage
+\begin{align*}
+&x_{N-1}'Q_{N-1}x_N+u_{N-1}'R_{N-1}u_{N-1}\\
+&+
+\mathbb{E}
+[
+(A_{N-1}x_{N-1}+B_{N-1}u_{N-1}+\omega_{N-1})'
+Q_{N}
+(A_{N-1}x_{N-1}+B_{N-1}u_{N-1}+\omega_{N-1})
+]
+\end{align*}
+
+Optimization model:
+\[
+\frac{\partial}{\partial u}(u'Hu+2r'u+c) = 2Hu+2r\implies
+Hu = -r\implies
+u^*=-H^{-1}r
+\]
+
+For $N-1$ stage, we have
+\begin{align*}
+H&=R_{N-1}+B_{N-1}'Q_NB_{N-1}\\
+r'&=x_{N-1}'A_{N-1}'Q_NB_N\\
+c&=x_{N-1}'(Q_{N-1}+A_{N-1}'Q_NA_{N-1})x_{N-1}
++
+\mathbb{E}_{\omega}(\omega_{N-1}'Q_N\omega_{N-1})
+\end{align*}
+
+Therefore,
+\[
+u_{N-1}^*=-(R_{N-1}+B_{N-1}'Q_NB_{N-1})^{-1}B_NQ_NA_{N-1}x_{N-1},
+\]
+which is linaer in terms of $x_{N-1}$, which is so called linear controller.
+
+Therefore,
+\[
+J_{N-1}(x_{N-1})
+=
+x_{N-1}'K_{N-1}x_{N-1}
++
+\mathbb{E}(\omega'_{N-1}Q_N\omega_{N-1})
+\]
+The linear controller will be tested during mid-term or final.
+
+\[
+J_0(x_0)=x_0'K_0x_0+\sum_{k=0}^{N-1}\mathbb{E}_\omega\{\omega_k'K_{k+1}\omega_k\}
+\]
+\[
+K_{k-1}=f(K_k)\implies K_{k-1}=K_k,\ \text{ for large }k.
+\]
+
+\paragraph{Riccati Equation}
+
+for stationary ststem, i.e., $A_k=A,B_k=B,Q_k=Q,R_k=R$.
+\[
+K=A'(K - KB(B'KB+R)^{-1}B'K)A+Q
+\]
+
+Therefore as time goes long enough, the cost to go function $J_k(x_k)$ will be a constant plus over stages. such a constant $K$ is called the \emph{optimal stationary controller}.
+
+Stability. For $u^*=Lx$, we imply
+\[
+x_{k+1}=Ax_k+Bu_k+\omega_k=(A+BL)x_k+\omega_k
+\]
+Care about $\lim_{k\to\infty}(A+BL)^k=0$.
+
+Here
+\[
+L = -(B'KB+R)^{-1}B'KA
+\]
+It suffices to solve
+\[
+P_{k+1} = A^2\left(
+P_k-\frac{B^2P_k^2}{B^2P_k+R}
+\right)
++
+Q
+\]
+
+Then consider the case that $A_k,B_k$ are all random matrices, i.e., independent. $Q_k\succeq0, R_k\succ0$.
+
+\[
+L_k = -\left(
+R_k+\mathbb{E}(B_k'K_{k+1}B_k)
+\right)^{-1}
+\mathbb{E}(B_j'K_{k+1}A_k)
+\]
+
+Note that
+\[
+P_{\infty}
+=
+\frac{\mathbb{E}A^2 RP}{R+EB^2P}
++
+\frac{\mathbb{E}A^2\mathbb{E}B^2 - (\mathbb{E}A)^2 (\mathbb{E}B)^2}{R + \mathbb{E}B^2P}
+\]
+
+Certainty Equivalence
+
+State: $x_k$, inventory level
+
+Control: $u_k\ge0$, number of orders placed
+
+Disturbance: $\omega_k$: damand
+
+Dynamics:
+\[
+x_{k+1 } = (x_k+u_k-\omega_k)
+\]
+
+Stage cost:
+\begin{itemize}
+\item
+Ordering cost: $c\cdot u_k$
+\item
+Maintaining cost: full backlog.$ \mathbb{E}_{\omega_k}(r(x_k+u_k-\omega_k)).$
+
+where $r(z) =hz^+ + pz^-$ is a convex function.
+
+We imply the maintaining cost is $H(x_k+u_k)$, which is convex.
+\end{itemize}
+
+\[
+J_k(x_k) = \min_{u_k\ge0}
+\left\{
+cu_k+H(x_k+u_k)
++
+\mathbb{E}[J_{k+1}(x_k+u_k-\omega_k)]
+\right\}
+\]
+
+Define $Y=x_k+u_k$, and therefore
+\[
+G(Y) = cY+H(Y)+\mathbb{E}[J(Y-\omega_k)]
+\]
+
+Therefore, we can always set $Y=x_k+u_k=S_k$, where $S_k$ minimizes $G(Y)$.
+
+
+
+
+
+
+
+
+

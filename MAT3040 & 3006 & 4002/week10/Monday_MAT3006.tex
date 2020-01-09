@@ -1,0 +1,109 @@
+
+\section{Monday for MAT3006}\index{Monday_lecture}
+\subsection{Remarks on Markov Inequality}
+\begin{proposition}[Markov Inequality]
+Suppose that $f:\mathbb{R}\to[0,\infty]$ is measurable, then
+\[
+m(f^{-1}[\lambda,\infty])\le\frac{1}{\lambda}\int f\diff m,\ \forall\lambda>0
+\]
+\end{proposition}
+\begin{proof}
+Define the function
+\[
+g:=\lambda\mathcal{X}_{f^{-1}([\lambda,\infty])},
+\]
+it follows that $g\le f$ globally. Applying proposition~(\ref{pro:9:8}), we imply
+\[
+\int g\diff m\le\int f\diff m\implies
+\lambda m(f^{-1}[\lambda,\infty])\le \int f\diff m.
+\]
+\end{proof}
+\begin{corollary}
+If $f:\mathbb{R}\to[0,\infty]$ is integrable, and $\int f\diff m=0$, then $f=0$ a.e.
+\end{corollary}
+\begin{proof}
+Consider that for any $\lambda>0$,
+\[
+0\le m(f^{-1}[\lambda,\infty])\le\frac{1}{\lambda}\int f\diff m=0.
+\]
+Therefore, $m(\{x\mid f(x)\ne0\})=m(f^{-1}(0,\infty])=0$.
+\end{proof}
+
+\subsection{Properties of Lebesgue Integration}
+In this lecture, we will show several lemmas, which is very useful during the proof of monotone convergence theorem.
+\begin{proposition}
+If $f:\mathbb{R}\to[0,\infty]$ is such that $f=0$ a.e., then $\int f\diff m=0$.
+\end{proposition}
+\begin{proof}
+Any simple function $\psi\le f$ must be 0 almost everywhere:
+\[
+\phi=\sum_i\alpha_i\mathcal{X}_{A_i},\alpha_i>0,\ \cup_{i}A_i\text{ is null}.
+\]
+Direct computation of the Lebesgue integral for this simple function $\psi$ gives
+\[
+\int f\diff m = \sum_i\alpha_im(A_i)=0,
+\]
+where the last equality is because that for each $i$, the set $A_i$ is null.
+\end{proof}
+\begin{remark}
+Given a non-negative integrable function $f$ on a measurable set $E$, the integral $\int_Ef\diff m=0$ if and only if $f=0$ a.e. on $E$.
+\end{remark}
+
+\begin{proposition}
+If $A,B$ are measurable, disjoint sets, then
+\[
+\int_{A\cup B}f\diff m = \int_Af\diff m+\int_Bf\diff m
+\]
+\end{proposition}
+\begin{proof}
+The key is to apply $f\cdot\mathcal{X}_{A\cup B}=f\cdot\mathcal{X}_A+f\cdot\mathcal{X}_B$ and 
+\[
+\int_Ef\diff m=\int f\cdot\mathcal{X}_E\diff m,\text{ for any measurable $E$}.
+\]
+\end{proof}
+
+\begin{proposition}
+If $f:\mathbb{R}\to[0,\infty]$ is measurable, then there exists an increasing sequence of simple functions $\{\phi_n\}$ such that $\phi_n(x)\to f(x)$ pointwise.
+\end{proposition}
+
+\begin{proof}
+For each $n\in\mathbb{N}$, we divide the interval $[0,2^n]\subseteq[0,\infty]$ into $2^{2n}$ subintervals of width $2^{-n}$:
+\[
+I_{k,n}=(k2^{-n},(k+1)2^{-n}],\quad
+k=0,1,\dots,2^{2n}-1.
+\]
+Let $J_n=(2^n,\infty]$ be the remaining part of the range of $f$, and define
+\[
+E_{k,n} = f^{-1}(I_{k,n}),\quad
+F_n=f^{-1}(J_n).
+\]
+Then the sequence of simple functions are given by:
+\[
+\phi_n = \sum_{k=0}^{2^n-1}k\cdot 2^{-n}\mathcal{X}_{E_{k,n}}+2^n\mathcal{X}_{F_n}.
+\]
+\end{proof}
+
+\begin{proposition}[Fatou's Lemma]
+Let $\{F_n\}$ be a sequence of non-negative measurable functions, then
+\[
+\lim_{n\to\infty}\inf\int f_n\diff m\ge \int\left(\lim_{n\to\infty}\inf f_n\right)\diff m
+\]
+\end{proposition}
+
+
+\begin{remark}
+The inequality in the Fatou's lemma could be strict, e.g., consider $f_n(x)=(n+1)x^n$ on $[0,1]$.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+

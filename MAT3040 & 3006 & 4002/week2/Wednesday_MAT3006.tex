@@ -1,0 +1,297 @@
+\section{Wednesday for MAT3006}\index{Monday_lecture}
+\subsection{Compactness}
+This lecture will talk about the generalization of closeness and boundedness property in $\mathbb{R}^n$. First let's review some simple definitions:
+
+\begin{definition}[Compact]
+Let $(X,d)$ be a metric space, and $\{U_\alpha\}_{\alpha\in\mathcal{A}}$ a collection of open sets.
+\begin{enumerate}
+\item
+$\{U_\alpha\}_{\alpha\in\mathcal{A}}$ is called an \emph{open cover} of $E\subseteq X$ if $E\subseteq\cup_{\alpha\in\mathcal{A}}U_\alpha$
+\item
+A \emph{finite subcover} of $\{U_\alpha\}_{\alpha\in\mathcal{A}}$ is a finite sub-collection 
+$\{U_{\alpha_1},\dots,U_{\alpha_n}\}\subseteq\{U_\alpha\}$ covering $E$.
+\item
+The set $E\subseteq X$ is \emph{compact} if every open cover of $E$ has a finite subcover.
+\end{enumerate}
+\end{definition}
+
+A well-known result is talked in MAT2006:
+
+\begin{theorem}[Heine-Borel Theorem]
+The set $E\subseteq\mathbb{R}^n$ is \emph{compact} if and only if $E$ is closed and bounded.
+\end{theorem}
+
+However, there's a notion of sequentially compact, and we haven't identify its gap and relation with compactness.
+
+\begin{definition}[Sequentially Compact]
+Let $(X,d)$ be a metric space. Then $E\subseteq X$ is \emph{sequentially compact} if every sequence in $E$ has a convergent subsequence with limit in $E$.
+\end{definition}
+
+A well-known result is talked in MAT2006:
+\begin{theorem}[Bolzano-Weierstrass Theorem]
+The set $E\subseteq\mathbb{R}^n$ is closed and bounded if and only if $E$ is sequentially compact.
+\end{theorem}
+
+Actually, the definitions of comapctness and the sequential compactness are equivalent under a metric space.
+
+\begin{theorem}
+Let $(X,d)$ be a metric space, then $E\subseteq X$ is compact if and only if $E$ is sequentially compact.
+\end{theorem}
+
+\begin{proof}
+
+\textit{Necessity}
+
+Suppose $\{x_n\}$ is a sequence in $E$, it suffices to show it has a convergent subsequence. 
+Consider the tail of $\{x_n\}$, say 
+\[
+F_n=\overline{\{x_k\mid k\ge n\}}\implies F_1\supseteq F_2\supseteq\cdots.
+\]
+\begin{itemize}
+\item
+Note that $\cap_{i=1}^\infty F_i\ne\emptyset$. 
+Assume not, then we imply $\cup_{i=1}^\infty(E\setminus F_i)=E$, i.e., $\{E\setminus F_i\}_{i=1}^\infty$ a open cover of $E$. 
+By the compactness of $E$, we imply there exists a finite subcover of $E$:
+\[
+E=\bigcup_{j=1}^r(E\setminus F_{i_j})\implies \bigcap_{j=1}^rF_{i_j}=\emptyset\implies F_{i_r}=\emptyset,
+\]
+which is a contradiction, and there must exist an element $x\in\cap_{n=1}^\infty F_i$.
+\item
+For any $n\ge1$ and $x\in\cap_{n=1}^\infty F_i$, either $x\in\{x_k\mid k\ge n\}$ or $x\in\partial\{x_k\mid k\ge n\}$. In both cases, the open ball $B_{\varepsilon}(x)$ must intersect with the $n$-th tail of the sequence $\{x_n\}$ for any $\varepsilon>0$:
+\[
+B_{\varepsilon}(x)\cap\{x_k\mid k\ge n\}\ne\emptyset,\ \forall \varepsilon>0.
+\]
+Therefore, construct $x_{n_1}\in B_1(x)\cap\{x_k\mid k\ge1\}$ and for $r>1$, 
+\[
+x_{n_r}\in B_{1/r}(x)\cap\{x_{k}\mid k\ge n_{r-1}+1\}.
+\]
+Therefore, the subsequence $x_{n_r}\to x$ as $r\to\infty$. The proof for necessity is complete.
+\end{itemize}
+
+\textit{Sufficiency}
+
+Firstly, let's assume the claim below hold (which will be shown later):
+\begin{proposition}\label{pro:2:18}
+If $E\subseteq X$ is sequentially compact, then for any$\varepsilon>0$, there exists finitely many open balls, say $\{B_{\varepsilon}(x_1),\dots,B_{\varepsilon}(x_n)\}$, covering $E$.
+\end{proposition}
+
+Suppose on the contrary that there exists an open cover $\{U_\alpha\}_{\alpha\in\mathcal{A}}$ of $E$, that has no finite subcover.
+\begin{itemize}
+\item
+By proposition~(\ref{pro:2:18}), for $n\ge1$, there are finitely many balls of radius $1/n$ covering $E$. Due to our assumption, there exists a open ball $B_{1/n}(y_n)$ such that $B_{1/n}(y_n)\cap E$ cannot be covered by finitely many members in $\{U_\alpha\}_{\alpha\in\mathcal{A}}$.
+\item
+Pick $x_n\in B_{1/n}(y_n)$ to form a sequence. Due to the sequential compactness of $E$, there exists a subsequence $\{x_{n_j}\}\to x$ for some $x\in E$. 
+\item
+Since $\{U_\alpha\}_{\alpha\in\mathcal{A}}$ covers $E$, there exists a $U_\beta$ containing $x$.
+Since $U_\beta$ is open and the radius of $B_{1/n_j}(y_{n_j})$ tends to 0, we imply that,
+for sufficiently large $n_j$, the set $B_{1/n_j}(y_{n_j})\cap E$ is contained in $U_\beta$.
+
+In oteher words, $U_\beta$ forms a \emph{single} subcover of $B_{1/n}(y)\cap E$, which contradicts to our choice of $B_{1/n_j}(y_{n_j})\cap E$. 
+The proof for sufficiency is complete.
+\end{itemize}
+\end{proof}
+\begin{proof}[Proof for proposition~(\ref{pro:2:18})]
+Pick $B_\varepsilon(x_1)$ for some $x_1\in E$. 
+Suppose $E\setminus B_\varepsilon(x_1)\ne\emptyset$.
+We can find $x_2\notin B_\varepsilon(x_1)$ such that $d(x_2,x_1)\ge\varepsilon$.
+
+Suppose $E\setminus(B_\varepsilon(x_1)\bigcup B_\varepsilon(x_2))$ is non-empty, 
+then we can find $x_3\notin B_\varepsilon(x_1)\bigcup B_\varepsilon(x_2)$ 
+so that $d(x_j,x_3)\ge\varepsilon$, $j=1,2$.
+
+Keeping this procedure, we obtain a sequence $\{x_n\}$ in $E$ such that
+\[
+E\setminus\bigcup_{j=1}^nB_\varepsilon(x_j)\ne\emptyset,
+\qquad
+\text{and}
+\qquad
+d(x_j,x_n)\ge\varepsilon,j=1,2,\dots,n-1.
+\]
+
+By the sequential compactness of $E$, 
+there exists $\{x_{n_j}\}$ and $x\in E$ so that $x_{n_j}\to x$ as $j\to\infty$.
+But then $d(x_{n_j},x_{n_k})<d(x_{n_j},x)+d(x_{n_k},x)\to0$, 
+which contradicts that $d(x_j,x_n)\ge\varepsilon$ for $\forall j<n$.
+
+Therefore, one must have 
+$E\setminus \bigcup_{j=1}^NB_\varepsilon(x_j)=\emptyset$ for some finite $N$. 
+
+The proof is complete.
+\end{proof}
+
+\begin{remark}
+\begin{enumerate}
+\item
+Given the condition metric space,
+\[
+\text{Sequential Compactness}
+\Longleftrightarrow
+\text{Compactness}
+\]
+\item
+Given the condition metric space, we will show that 
+\[
+\text{Compactness}
+\implies
+\text{Closed and Bounded}
+\]
+However, the converse may not necessarily hold. Given the condition the metric space is $\mathbb{R}^n$, then
+\[
+\text{Compactness}
+\Longleftrightarrow
+\text{Closed and Bounded}
+\]
+\end{enumerate}
+
+
+\end{remark}
+
+\begin{proposition}
+Let $(X,d)$ be a metric space. Then $E\subseteq X$ is compact implies that $E$ is closed and bounded.
+
+We say a set $E$ if bounded if there exists $K\geq 0$ such that
+\[
+d(e_1,e_2) < K,\quad
+\forall e_1, e_2 \in E
+\]
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+\item
+Let $\{x_n\}$ be a convergent sequence in $E$. By sequential compactness, $\{x_{n_j}\}\to x$ for some $x\in E$. By the uniqueness of limits, under metric space, $\{x_n\}\to x$ for $x\in E$. The closeness is shown
+\item
+Take $x\in E$ and consider the open cover $\bigcup_{n=1}^\infty B_n(x)$ of $E$. By compactness, 
+\[
+E\subseteq\bigcup_{i=1}^kB_{n_i}(x)=B_{n_k}(x),
+\]
+which implies that for any $y,z\in E$,
+\[
+d(y,z)\le d(y,x)+d(x,z)\le n_k+n_k=2n_k.
+\]
+The boundness is shown.
+\end{enumerate}
+\end{proof}
+
+Here we raise several examples to show that the coverse does not necessarily hold under a metric space.
+
+\begin{example}
+Given the metric space $\mathcal{C}[0,1]$ and a set $E=\{f\in\mathcal{C}[0,1]\mid0\le f(x)\le 1\}$.
+
+Notice that $E$ is closed and bounded:
+\begin{itemize}
+\item
+$E=\cap_{x\in[0,1]}\Psi_x^{-1}([0,1])$, where $\Psi_x(f)=f(x)$, which implies that $E$ is closed.
+\item
+Note that $E\subseteq B_2(\bm0)=\{f\mid |f|<2\}$, i.e., $E$ is bounded.
+\end{itemize}
+
+However, $E$ may not be compact. Consider a sequence $\{f_n\}$ with
+\[
+f_n(x)=\left\{
+\begin{aligned}
+nx,&\quad0\le x\le\frac{1}{n}\\
+1,&\quad\frac{1}{n}\le x\le 1
+\end{aligned}
+\right.
+\]
+
+Suppose on the contrary that $E$ is sequentially compact, therefore there exists a subsequence $\{f_{n_k}\}\to f$ under $d_\infty$ metric, which implies, $\{f_{n_k}\}$ uniformly converges to $f$.
+
+By the definition of $f_n(x)$, we imply
+\[
+f(x)=\left\{
+\begin{aligned}
+0,&\quad x=0\\
+1,&\quad x\in(0,1]
+\end{aligned}
+\right.
+\]
+
+However, since $d_\infty$ indicates uniform convergence, the limit for $\{f_{n_k}\}$, say $f$, must be continuous, which is a contradiction.
+
+\end{example}
+
+
+
+\begin{theorem}\label{The:2:7}
+Let the set $E$ be compact in $(X,d)$ and the function $f:(X,d)\to (Y,\rho)$ is continuous. Then $f(E)$ is compact in $Y$.
+\end{theorem}
+
+Note that the technique to show compactness by using the sequential compactness is very useful. However, this technique only applies to the metric space, but fail in general topological spaces.
+\begin{proof}
+Let $\{y_n\}=\{f(x_n)\}$ be any sequence in $f(E)$.
+\begin{itemize}
+\item
+By the compactness of $X$, $\{x_n\}$ has a convergent subsequence $\{x_{n_r}\}\to x$ as $r\to\infty$.
+\item
+Therefore, $\{y_{n_r}\}:=\{f(x_{n_r})\}\to f(x)$ by the continuity of $f$.
+\item
+Therefore, $f(E)$ is sequentially compact, i.e., compact.
+\end{itemize}
+\end{proof}
+
+\begin{remark}
+The Theorem~(\ref{The:2:7}) is a generalization of the statement that \textit{a continuous function on $\mathbb{R}^n$ admits its minimum and maximum}. Note that such an extreme value property no longer holds for arbitrary closed, bounded sets in a general metric space, but it continues to hold when the sets are strengthened to compact ones.
+
+Another characterization of compactness in $\mathcal{C}[a,b]$ is shown in the Ascoli-Arzela Theorem (see Theorem~(14.1) in MAT2006 Notebook).
+\end{remark}
+
+\subsection{Completeness}
+\begin{definition}[Complete]
+Let $(X,d)$ be metric space.
+\begin{enumerate}
+\item
+A sequence $\{x_n\}$ in $(X,d)$ is a \emph{Cauchy sequence} if for every $\varepsilon>0$, there exists some $N$ such that $d(x_n,x_m)<\varepsilon$ for all $n,m\ge N$.
+\item
+A subset $E\subseteq X$ is said to be \emph{complete} if every Cauchy sequence in $E$ is convergent.
+\end{enumerate}
+\end{definition}
+
+\begin{example}\label{exp:2:15}
+The set $X=\mathcal{C}[a,b]$ is complete:
+\begin{itemize}
+\item
+Suppose $\{f_n\}$ is Cauchy in $\mathcal{C}[a,b]$, i.e., $\{f_n(x)\}$ is Cauchy in $\mathbb{R}$ for $\forall x\in[a,b]$.
+\item
+By the completeness of $\mathbb{R}$, the sequence $f_n(x)\to f(x)$ for some $f(x)\in\mathbb{R},\forall x\in[a,b]$. It suffices to show $f_n\to f$ uniformly:
+\begin{itemize}
+\item
+For fixed $\varepsilon>0$, there exists $N>0$ such that
+\[
+d_\infty(f_n,f_{n+k})<\frac{\varepsilon}{2},\qquad
+\forall n\ge N,k\in\mathbb{N}
+\]
+which implies that for $\forall x\in[a,b]$, $\forall n\ge N,k\in\mathbb{N}$,
+\[
+|f_n(x)-f_{n+k}(x)|<\frac{\varepsilon}{2}
+\implies
+\lim_{k\to\infty}|f_n(x)-f_{n+k}(x)|\le\frac{\varepsilon}{2}
+\]
+Therefore, we imply
+\[
+|f_n(x)-f(x)|=\lim_{k\to\infty}|f_n(x)-f_{n+k}(x)|\le\frac{\varepsilon}{2}<\varepsilon,\qquad
+\forall n\ge N,x\in[a,b]
+\]
+The proof is complete.
+\end{itemize}
+\end{itemize}
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,163 @@
+\section{Monday for MAT4002}\index{Monday_lecture}
+\begin{example}
+$<S\mid R(S)>$. For example, (the right of $\mid$ equals to $e$)
+\[
+G=<a,b\mid a^2,b^2,abab^{-1}a^{-1}b^{-1}>:=
+<a,b\mid a^2,b^2,aba=bab>
+=
+\{
+e,a,b,ab,ba,aba
+\}
+\]
+It's isomorphic to $S^3$:
+
+
+Then the map $\phi:S_3\to G$ is given by:
+\[
+X\mid\mapsto a,\qquad
+\mid X\mapsto bm
+\]
+which is an isomorphism.
+\end{example}
+\begin{example}
+Consider $G_2=<a,b\mid ab=ba>$ and the words $a^sb^ta^ub^v\cdots$
+
+If $s\in\mathbb{N}$, we have $a^s=\underbrace{a\cdots a}_{s\text{ times}}$
+
+If $s\in-\mathbb{N}$, we have $a^s=\underbrace{(a^{-1})\cdots (a^{-1})}_{-s\text{ times}}$
+
+For the word $a\cdots b\cdots b a\cdots a$, we can always push $a$ into the left using $ab=ba$
+
+For the word $a\cdots a b\cdots ba^{-1}$, we can always push $a^{-1}$ into the left using $ba^{-1}=a^{-1}b$.
+
+Therefore, all elements in $G_2$ are of the form $a^pb^q,p,q\in\mathbb{Z}$.
+Also, $(a^{p_1}b^{q_1})(a^{p_2}b^{q_2})=a^{p_1+p_2}b^{q_1+q_2}$.
+
+Therefore, $G_2\cong \mathbb{Z}\times\mathbb{Z}$, where $\phi:\mathbb{Z}\times\mathbb{Z}\to G_2$ is the isomorphism $(p,q)\mapsto a^pb^q$.
+\end{example}
+
+\begin{example}
+\[
+G_3=<a\mid a^5>=\{1,a,a^2,\dots,a^4\}
+\]
+Therefore, $G_3\cong \mathbb{Z}/5\mathbb{Z}$
+\end{example}
+
+\subsection{Cayley Graph for finitely presented groups}
+\begin{definition}[Oriented Graph]
+An oriented graph $T$ is specified by
+\begin{enumerate}
+\item
+A countable or finite set $V$ (vertices)
+\item
+A countable or finite set $E$ (edges)
+\item
+A function $\delta:E\to V\times V$ given by
+\[
+\delta(e) = (\ell(e),\tau(e))
+\]
+where $\ell(e)$ denotes the initiatl vertex and $\tau(e)$ denotes the terminal vertex.
+\end{enumerate}
+\end{definition}
+
+For example, $V=\{a,b,c\}$ and $E=\{e_1,e_2,e_3,e_4\}$ with
+\[
+\begin{array}{llll}
+\delta(e_1)=(a,a),
+&
+\delta(e_2)=(b,c),
+&
+\delta(e_3)=(a,c),
+&
+\delta(e_4)=(b,c)
+\end{array}
+\]
+
+\begin{definition}[Cayley graph]
+Let $G=<S\mid R(S)>$ with $|S|<\infty$.
+The \emph{Cayley graph} associated to $<S\mid R(S)>$ is an oriented graph with
+\begin{enumerate}
+\item
+$V$ as the elements of $G$
+\item
+edges: $(\ell(e),\tau(e))=(g,g\cdot s)$ for all $g\in G$ and $s\in S$
+\end{enumerate}
+We link two elements in $G$ if thery differe by a generator.
+\end{definition}
+\begin{example}
+Let $G=<a> (\cong\mathbb{Z})$:
+
+Let $G=<a\mid a^3>$:
+
+Let $G=<a,b\mid ab=ba> (\cong\mathbb{Z}\times\mathbb{Z})$ and for simplification, $(p,q)=a^pb^q$.
+
+Let $G=<a,b>$
+\end{example}
+Warning:
+there can be different presentations $<S_1\mid R(S_1)>\cong<S_2\mid R(S_2)>$ of the same group.
+
+\subsection{Fundamental Group}
+Idea: $S^2$ (2-shpere) and $S^1\times S^1$ (torus).
+How to show they are not homeomorphic?
+
+any loop
+
+However, the loop shown in the torus cannot be contractible.
+
+\begin{definition}[loop]
+Let $X$ be a topological space.
+A \emph{loop} on $X$ is a constant map $\ell:[0,1]\to X$ such that $\ell(0) = \ell(1)$.
+
+We say $\ell$ is based at $b\in X$ if $\ell(0)=\ell(1)=b$.
+\end{definition}
+
+\begin{definition}[composite loop]
+Suppose that $\bm u,\bm v$ are loops on $X$ based at $b\in X$.
+The \emph{composite loop} $u\cdot v$ is given by
+\[
+u\cdot v=\left\{
+\begin{aligned}
+u(2t),&\quad\text{if $0\le t\le1/2$}\\
+v(2t-1),&\quad\text{if $1/2\le t\le1$}
+\end{aligned}
+\right.
+\]
+\end{definition}
+
+
+\begin{definition}[fundamental group]
+The \emph{homotopy class of loops relative to $\{0,1\}$ based at $b\in X$} form a group.
+It is called the \emph{fundamental group} of $X$ based at $b$, denoted as $\pi_1(X,b)$.
+
+More precisely, 
+let $\ell,\ell'$ be two loops based at $b$, and $[\ell],[\ell']$ be the homotopy class (relative to $\{0,1\}$) corresponding to $\ell,\ell'$ respectively.
+
+Then $[\ell],[\ell']\in\pi_1(X,b)$ and $[\ell]*[\ell']:=[\ell\cdot\ell']$
+\end{definition}
+
+\begin{remark}
+Two paths $\ell_1,\ell_2:[0,1]\to X$ are homotopic relative to $\{0,1\}$ if we can find $H:[0,1]\times[0,1]\to X$ such that
+\[
+H(t,0)=\ell_1(t),\quad
+H(t,1)=\ell_2(t)
+\]
+and
+\[
+H(0,s) = \ell_1(0),\ \forall 0\le s\le1,\quad
+H(1,s) = \ell_1(s),\ \forall 0\le s\le 1
+\]
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

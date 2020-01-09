@@ -1,0 +1,226 @@
+
+\section{Wednesday for MAT3006}\index{Wednesday_lecture}
+\begin{proposition}[Linearity]
+If $f,g$ are both integrable, then $f+g$ and $\alpha f$ are integrable with
+\begin{align*}
+\int(f+g)\diff m &= \int f\diff m+\int g\diff m\\
+\int\alpha f\diff m &= \alpha\int f\diff m\quad \alpha\in\mathbb{R}
+\end{align*}
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+\item
+Construct
+\[
+(f+g)^+ - (f+g)^- = f+g
+=
+(f^+ - f^-) + (g^+ - g^-)
+\implies
+(f+g)^+ + f^- + g^- = (f+g)^- + f^++g^+
+\]
+Since both sides for the equality above is non-negative, we do the Lebesgue integral both sides:
+\[
+\int((f+g)^+ + f^- + g^- )\diff m
+=
+\int((f+g)^- + f^++g^+ )\diff m.
+\]
+Due to the linearity of Lebesgue integral for non-negative functions, 
+\[
+\int (f+g)^+\diff m +\int f^-\diff m+\int g^-\diff m
+=
+\int(f+g)^-\diff m+\int f^+\diff m+\int g^+\diff m
+\]
+i.e.,
+\[
+\int(f+g)\diff m = \int f\diff m+\int g\diff m
+\]
+\item
+Assume $\alpha<0$. Then
+\begin{align*}
+\int(\alpha f)\diff m&:=\int(\alpha f)^+\diff m - \int(\alpha f)^-\diff m\\
+&=\int(-\alpha)f^-\diff m - \int(-\alpha)f^+\diff m\\
+&=(-\alpha)\int f^-\diff m - (-\alpha)\int f^+\diff m\\
+&=\alpha\left(\int f^+\diff m - \int f^-\diff m\right)\\
+&=\alpha \int f\diff m
+\end{align*}
+The proof for the case $\alpha\ge0$ follows similarly.
+\end{enumerate}
+\end{proof}
+\subsection{Properties of Lebesgue Integrable Functions}
+
+\begin{corollary}
+Suppose that $f,g$ are integrable, then 
+\begin{enumerate}
+\item
+If $f\le g$, then $\int f\diff m\le \int g\diff m$
+\item
+If $f=g$ a.e., then $\int f\diff m = \int g\diff m$
+\end{enumerate}
+\end{corollary}
+\begin{proof}
+\begin{enumerate}
+\item
+Since $g-f\ge0$, $\int(g-f)\diff m\ge\int0\diff m=0$.
+By linearity, $\int g\diff m-\int f\diff m\ge0$, i.e.,
+\[
+\int g\diff m\ge \int f\diff m.
+\]
+\item
+The proof follows similarly as in proposition~(\ref{pro:11:4}). In detail, 
+let $U=\{x\mid f(x)=g(x)\}$, then $m(U) = 0$. It follows that
+\[
+\int f \mathcal{X}_{U^C}dm = \int f^+\mathcal{X}_{U^c}dm + \int f^- \mathcal{X}_{U^c}dm = 0
+\]
+Similarly, $\int g\mathcal{X}_{U^c}dm = 0$. Therefore, 
+\begin{align*}
+\int f\diff m&=\int f\mathcal{X}_U\diff m
++
+\int f\mathcal{X}_{U^c}\diff m\\
+&=\int g\mathcal{X}_U\diff m\\
+&=\int g\mathcal{X}_U\diff m+\int g\mathcal{X}_{U^c}\diff m\\
+&=\int g\diff m
+\end{align*}
+
+
+\end{enumerate}
+\end{proof}
+
+
+\begin{remark}
+\begin{enumerate}
+\item
+Consider the set of integrable functions, say $\mathcal{T}=\{f:\mathbb{R}\to[-\infty,\infty],\ \text{integrable}\}$, which is a vector space if we define $0_{\mathcal{T}}:=\text{zero function}$.
+
+We can define a ``norm'' on $f\in\mathcal{T}$ by
+\[
+\|f\|=\int|f|\diff m
+\]
+then $\|\alpha f\|=|\alpha|\|f\|$ and $\|f+g\|\le\|f\|+\|g\|$.
+
+Unfortunately, we should keep in mind that $\mathcal{T}$ is not a normed space, since there exists $f\ne0_{\mathcal{T}}$ such that $\|f\|=0$, e.g., $f=\mathcal{X}_{\mathbb{Q}}$.
+\item
+To remedy this, define the equivalence relation on $\mathcal{T}$: $f\sim g$ if $f=g$ a.e.
+The equivalence classes of $\mathcal{T}$ under $\sim$ are of the form $[f]:=\{g: g\sim f\}$. Denote the collection of equivalence classes as $L^1(\mathbb{R}) := \mathcal{T}/\sim$. 
+\begin{enumerate}
+\item
+It's clear that $L^1(\mathbb{R})$ has a vector space structure
+\begin{align*}
+[f]+[g]&=[f+g]\\
+\alpha[f]&=[\alpha f]
+\end{align*}
+\item
+The space $L^1(\mathbb{R})$ can be viewed as a quotient space defined in linear algebra. Consider a vector subspace $\mathcal{N}$ of $\mathcal{T}$ defined by
+\[
+\mathcal{N}:=\{g\in\mathcal{T}\mid g=0\text{ a.e.}\}
+\]
+then $\mathcal{T}/\sim=\mathcal{T}/\mathcal{N}$.
+\item
+We define a norm on $L^1(\mathbb{R})$ by $\|[f]\| = \int|f|\diff m$, which is truly a norm:
+\begin{align*}
+\|\alpha[f]\|&=|\alpha|\|[f]\|\\
+\|[f]+[g]\|&\le \|[f]\|+\|[g]\|\\
+\|[f]\|&=0
+\Longleftrightarrow
+\int|f|\diff m=0
+\Longleftrightarrow
+f=0\text{ a.e.}
+\Longleftrightarrow
+[f]=0_{L^1(\mathbb{R})}
+\end{align*}
+Similarly, we can study $L^2(\mathbb{R}),\dots,L^p(\mathbb{R})$, e.g., for $L^2(\mathbb{R}) = \{f:\mathbb{R}\to[-\infty,\infty]\mid \int |f|^2\diff m<\infty\}/\mathcal{N}$, define the norm
+\[
+\|f\|_2=(\int|f|^2\diff m)^{1/2}
+\]
+\end{enumerate}
+\end{enumerate}
+\end{remark}
+
+\begin{example}
+There exist some improper Riemann integrable functions that are not Lebesgue integrable:
+Consider $f = \sum_{k=0}^\infty \frac{(-1)^k}{k+1}\mathcal{X}_{[k,k+1)}$, then the improper Riemann integral gives 
+\[
+\int_0^\infty f(x)\diff x=\log(2) = 1-\frac{1}{2}+\frac{1}{3}-\cdots
+\]
+
+However, $f$ is not Lebesgue integrable.
+Suppose on the contrary that it is , then $|f|$ is integrable:
+\[
+|f| = \sum_{k=0}^\infty\frac{1}{k+1}\mathcal{X}_{[k,k+1)}
+\]
+However,
+\begin{align*}
+\int|f|\diff m&=\lim_{n\to\infty}\sum_{k=0}^n\int\left(\frac{1}{k+1}\mathcal{X}_{[k,k+1)}\right)\diff m\\
+&=\sum_{k=0}^\infty\frac{1}{k+1}=\infty
+\end{align*}
+
+We will also show that all the proper Riemann integrable functions are Lebesgue integrable (and the integrals have the same value)
+\end{example}
+
+\begin{theorem}[MCT II]
+Let $\{f_n\}$ be a sequence of integrable functions such that
+\begin{enumerate}
+\item
+$f_n\le f_{n+1}$ a.e.
+\item
+$\sup_n\int f_n\diff m<\infty$
+\end{enumerate}
+Then $f_n$ converges to an integrable function $f$ a.e., and
+\[
+\int f\diff m = \lim_{n\to\infty}\int f_n\diff m
+\]
+\end{theorem}
+\begin{proof}
+Re-define $f_n$ by changing its values on a null set such that
+\begin{enumerate}
+\item
+$f_n(x)\in\mathbb{R}$, for any $x\in\mathbb{R}$
+\item
+$f_n(x)\le f_{n+1}(x)$ for any $n\in\mathbb{R},x\in\mathbb{R}$
+\end{enumerate}
+Let $f(x) = \lim_{n\to\infty}f(x)$.
+Consider the sequence of functions $\{f_n - f_1\}_{n\in\mathbb{N}}$, then
+\begin{enumerate}
+\item
+$f_n-f_1\ge0$
+\item
+$f_n-f_1$ is monotone increasing, integrable
+\item
+$f_n-f_1\to f-f_1$
+\end{enumerate}
+Applying MCT I gives 
+\[
+\int(f-f_1)\diff m =\lim_{n\to\infty}\int(f_n-f_1)\diff m
+\]
+Adding $\int f_1\diff m$ and applying the linearity of integrals, we obtain
+\[
+\int(f-f_1)\diff m+\int f_1\diff m
+=
+\lim_{n\to\infty}\int(f_n-f_1)\diff m+\int f_1\diff m
+=
+\lim_{n\to\infty}\int f_n\diff m 
+\]
+Here $\lim_{n\to\infty}\int f_n\diff m $ exists as $\lim_{n\to\infty}\int f_n\diff m =\sup_n\int f_n\diff m<\infty$; and $\int(f-f_1)\diff m+\int f_1\diff m$ is integrable since it equals $\lim_{n\to\infty}\int f_n\diff m<\infty$.
+
+Therefore,
+\[
+\text{LHS}=\int f\diff m = \text{RHS}=\lim_{n\to\infty}\int f_n\diff m.
+\]
+The proof is complete.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

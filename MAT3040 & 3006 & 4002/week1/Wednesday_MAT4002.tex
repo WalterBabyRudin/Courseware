@@ -1,0 +1,240 @@
+\section{Wednesday for MAT4002}\index{Monday_lecture}
+\paragraph{Reviewing}
+\begin{itemize}
+\item
+Metric Space $(X,d)$
+\item
+Open balls and open sets (note that the emoty set $\emptyset$ is open)
+\item
+Define the collection of open sets in $X$, say $\mathcal{T}$ is the topology.
+\end{itemize}
+\paragraph{Exercise}
+\begin{enumerate}
+\item
+Show that the $\mathcal{T}_2$ under $(X=\mathbb{R}^2,d_2)$ and $\mathcal{T}_\infty$ under $(X=\mathbb{R}^2,d_\infty)$ are the same.
+\begin{proof}[Ideas]
+Follow the procedure below:
+
+An open ball in $d_2$-metric is open in $d_\infty$; 
+
+Any open set in $d_2$-metric is open in $d_\infty$;
+
+Switch $d_2$ and $d_\infty$.
+\end{proof}
+\item
+Describe the topology $\mathcal{T}_{\text{discrete}}$ under the metric space $(X=\mathbb{R}^2,d_{\text{discrete}})$.
+\begin{proof}[Outlines]
+Note that $\{x\}=B_{1/2}(x)$ is an open set.
+
+For any subset $W\subseteq\mathbb{R}^2$, $W=\bigcup_{w\in W}\{w\}$ is open.
+
+Therefore $\mathcal{T}_{\text{discrete}}$ is all subsets of $\mathbb{R}^2$.
+\end{proof}
+\end{enumerate}
+\subsection{Forget about metric}
+Next, we will try to define closedness, compactness, etc., without using the tool of metric:
+\begin{definition}[closed]
+A subset $V\subseteq X$ is \emph{closed} if $X\setminus V$ is \emph{open}.
+\end{definition}
+\begin{example}
+Under the metric space $(\mathbb{R},d_1)$, 
+\[
+\mathbb{R}\setminus [b,a]=(a,\infty)\bigcup(-\infty,b)
+\mbox{ is open}\implies
+[b,a]\mbox{ is closed}
+\]
+\end{example}
+
+\begin{proposition}
+Let $X$ be a metric space.
+\begin{enumerate}
+\item
+$\emptyset,X$ is closed in $X$
+\item
+If $F_\alpha$ is closed in $X$, so is $\bigcap_{\alpha\in A}F_\alpha$.
+\item
+If $F_1,\dots,F_k$ is closed, so is $\bigcup_{i=1}^kF_i$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+\item
+Note that $X$ is open in $X$, which implies $\emptyset=X\setminus X$ is closed in $X$;
+
+Similarly, $\emptyset$ is open in $X$, which implies $X=X\setminus \emptyset$ is closed in $X$;
+\item
+The set $F_\alpha$ is closed implies there exists open $U_\alpha\subseteq X$ such that $F_\alpha=X\setminus U_\alpha$. By De Morgan's Law,
+\[
+\bigcap_{\alpha\in A}F_\alpha=\bigcap_{\alpha\in A}(X\setminus U_\alpha)=X\setminus(\bigcup_{\alpha\in A}U_\alpha).
+\]
+By part (a) in proposition~(\ref{Pro:1:6}), the set $\bigcup_{\alpha\in A}U_\alpha$ is openm which implies $\bigcap_{\alpha\in A}F_\alpha$ is closed.
+\item
+The result follows from part (b) in proposition~(\ref{Pro:1:6}) by taking complements.
+\end{enumerate}
+
+\end{proof}
+
+We illustrate examples where open set is used to define convergence and continuity.
+\begin{enumerate}
+\item
+Convergence of sequences:
+\begin{definition}[Convergence]
+Let $(X,d)$ be a metric space, then $\{x_n\}\to x$ means
+\[
+\forall\varepsilon>0,\exists N\mbox{ such that }d(x_n,x)<\varepsilon,\forall n\ge N.
+\]
+\end{definition}
+We will study the convergence by using open sets instead of metric.
+\begin{proposition}
+Let $X$ be a metric space, then $\{x_n\}\to x$ if and only if for $\forall$ open set $U\ni x$, there exists $N$ such that $x_n\in U$ for $\forall n\ge N$.
+\end{proposition}
+\begin{proof}
+\textit{Necessity}:
+Since $U\ni x$ is open, there exists $\varepsilon>0$ such that $B_\varepsilon(x)\subseteq U.$
+
+Since $\{x_n\}\to x$, there exists $N$ such that $d(x_n,x)<\varepsilon$, i.e., $x_n\in B_\varepsilon(x)\subseteq U$ for $\forall n\ge N$.
+
+\textit{Sufficiency}:
+Let $\varepsilon>0$ be given. Take the open set $U=B_\varepsilon(x)\ni x$, then there exists $N$ such that $x_n\in U=B_\varepsilon(x)$ for $\forall n\ge N$, i.e., $d(x_n,x)<\varepsilon$, $\forall n\ge N$.
+
+\end{proof}
+
+\item
+Continuity:
+\begin{definition}[Continuity]
+Let $(X,d)$ and $(Y,\rho)$ be given metric spaces. Then $f:X\to Y$ is continuous at $x_0\in X$ if 
+\[
+\forall\varepsilon>0,\exists\delta>0\mbox{ such that }
+d(x,x_0)<\delta\implies
+\rho(f(x),f(x_0))<\varepsilon.
+\]
+The function $f$ is continuous on $X$ if $f$ is continous for all $x_0\in X$.
+\end{definition}
+We can get rid of metrics to study continuity:
+\begin{proposition}
+\begin{enumerate}
+\item
+The function  $f$ is continuous at $x$ if and only if for all open $U\ni f(x)$, there exists $\delta>0$ such that the set $B(x,\delta)\subseteq f^{-1}(U)$.
+\item
+The function $f$ is continuous on $X$ if and only if $f^{-1}(U)$ is open in $X$ for each open set $U\subseteq Y$.
+\end{enumerate}
+\end{proposition}
+During the proof we will apply a small lemma:
+\begin{proposition}\label{Pro:1:15}
+$f$ is continuous at $x$ if and only if for all $\{x_n\}\to x$, we have $\{f(x_n)\}\to f(x)$.
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+\item
+\textit{Necessity}:
+
+Due to the openness of $U\ni f(x)$, there exists a ball $B(f(x),\varepsilon)\subseteq U$.
+
+Due to the continuity of $f$ at $x$, there exists $\delta>0$ such that $d(x,x')<\delta$ implies $d(f(x),f(x'))<\varepsilon$, which implies
+\[
+f(B(x,\delta))\subseteq B(f(x),\varepsilon)\subseteq U,
+\]
+which implies $B(x,\delta)\subseteq f^{-1}(U).$
+
+\textit{Sufficiency}:
+
+Let $\{x_n\}\to x$. It suffices to show $\{f(x_n)\}\to f(x)$. For each open $U\ni f(x)$, by hypothesis, there exists $\delta>0$ such that $B_\delta(x)\subseteq f^{-1}(U)$.
+
+Since $\{x_n\}\to x$, there exists $N$ such that
+\[
+x_n\in B_\delta(x)\subseteq f^{-1}(U),\forall n\ge N\implies f(x_n)\in U, \forall n\ge N
+\]
+
+Let $\varepsilon>0$ be given, and then construct the $U=B_{\varepsilon}(f(x))$. The argument above shows that $f(x_n)\in B_{\varepsilon}(f(x))$ for $\forall n\ge N$, which implies $\rho(f(x_n),f(x))<\varepsilon$, i.e., $\{f(x_n)\}\to f(x)$.
+\item
+For the forward direction, it suffices to show that each point $x$ of $f^{-1}(U)$ is an interior point of $f^{-1}(U)$, which is shown by part~$(a)$; the converse follows trivially by applying $(a)$.
+\end{enumerate}
+\end{proof}
+\end{enumerate}
+\begin{remark}
+As illustracted above, convergence, continuity, (and compactness) can be defined by using open sets $\mathcal{T}$ only.
+\end{remark}
+
+\subsection{Topological Spaces}
+\begin{definition}
+A \emph{topological space} $(X,\mathcal{T})$ consists of a (non-empty) set $X$, and a family of subsets of $X$ (``open sets'' $\mathcal{T}$) such that
+\begin{enumerate}
+\item
+$\emptyset,X\in\mathcal{T}$
+\item
+$U,V\in\mathcal{T}$ implies $U\bigcap V\in \mathcal{T}$
+\item
+If $U_\alpha\in\mathcal{T}$ for all $\alpha\in\mathcal{A}$, then $\bigcup_{\alpha\in\mathcal{A}}U_\alpha\in\mathcal{T}$.
+\end{enumerate}
+The elements in $\mathcal{T}$ are called \emph{open subsets} of $X$. The $\mathcal{T}$ is called a \emph{topology} on $X$.
+\end{definition}
+\begin{example}
+\begin{enumerate}
+\item
+Let $(X,d)$ be any metric space, and
+\[
+\mathcal{T}=\{\mbox{all open subsets of }X\}
+\]
+It's clear that $\mathcal{T}$ is a topology on $X$.
+\item
+Define the discrete topology
+\[
+\mathcal{T}_{\text{dis}}=\{\mbox{all subsets of }X\}
+\]
+It's clear that $\mathcal{T}_{\text{dis}}$ is a topology on $X$, (which also comes from the discrete metric $(X,d_{\text{discrete}})$).
+\begin{remark}
+We say $(X,\mathcal{T})$ is induced from a metric $(X,d)$ (or it is \emph{metrizable}) if $\mathcal{T}$ is the faimly of open subsets in  $(X,d)$.
+\end{remark}
+\item
+Consider the indiscrete topology $(X,\mathcal{T}_{\text{indis}})$, where $X$ contains more than one element:
+\[
+\mathcal{T}_{\text{indis}}=\{\emptyset,X\}.
+\]
+Question: is $(X,\mathcal{T}_{\text{indis}})$ metrizable? No. For any metric $d$ defined on $X$, let $x,y$ be distinct points in $X$, and then $\varepsilon:=d(x,y)>0$, hence $B_{\frac{1}{2}\varepsilon}(x)$ is a open set belonging to the corresponding induced topology. Since $x\in B_{\frac{1}{2}\varepsilon}(x)$ and $y\notin B_{\frac{1}{2}\varepsilon}(y)$, we conclude that $B_{\frac{1}{2}\varepsilon}(x)$ is neither $\emptyset$ nor $X$, i.e., the topology induced by any metric $d$ is not the indiscrete topology.
+\item
+Consider the cofinite topology $(X,\mathcal{T}_{\text{cofin}})$:
+\[
+\mathcal{T}_{\text{cofin}}=\{U\mid X\setminus U\mbox{ is a finite set}\}\bigcup\{\emptyset\}
+\]
+Question: is $(X,\mathcal{T}_{\text{cofin}})$ metrizable? 
+\end{enumerate}
+\end{example}
+
+\begin{definition}[Equivalence]
+Two metric spaces are \emph{topologically equivalent} if they give rise to the same topology.
+\end{definition}
+\begin{example}
+Metrics $d_1,d_2,d_\infty$ in $\mathbb{R}^n$ are topologically equivalent.
+\end{example}
+\subsection{Closed Subsets}
+\begin{definition}[Closed]
+Let $(X,\mathcal{T})$ be a topology space. Then $V\subseteq X$ is \emph{closed} if $X\setminus V\in \mathcal{T}$
+\end{definition}
+\begin{example}
+Under the topology space $(\mathbb{R},\mathcal{T}_{\text{usual}})$, $(b,\infty)\bigcup(-\infty,a)\in\mathcal{T}$. Therefore,
+\[
+[a,b]=\mathbb{R}\setminus\left((b,\infty)\bigcup(-\infty,a)\right)
+\]
+is closed in $\mathbb{R}$ under usual topology.
+\end{example}
+
+\begin{remark}
+It is important to say that $V$ is \emph{closed in $X$.} You need to specify the underlying the space $X$.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

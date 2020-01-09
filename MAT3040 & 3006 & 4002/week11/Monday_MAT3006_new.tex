@@ -1,0 +1,243 @@
+
+\section{Monday for MAT3006}\index{Monday_lecture}
+
+\paragraph{Reviewing}
+Compute the integration
+\[
+\int_{[0,1)}(1-x)^{-1/2}\diff x
+\]
+\begin{proof}[Solution.]
+\begin{enumerate}
+\item
+Construct $g_n(x) = (1-x)^{-1/2}\mathcal{X}_{[0,1-1/n]}$, then $g_n$ is monotone increasing and $g_n(x)\to (1-x)^{-1/2}\mathcal{X}_{[0,1)}$ pointwisely.
+\item
+By applying MCT I and proposition~(\ref{pro:10:14}),
+\[
+\int_{[0,1)}(1-x)^{-1/2}\diff x=\lim_{n\to\infty}\int g_n\diff m
+=
+2.
+\]
+\end{enumerate}
+\end{proof}
+Question: How to understand $\int_{[0,1]}(1-x)^{-1/2}\diff x$?
+
+Answer: 
+\[
+(1-x)^{-1/2}\mathcal{X}_{[0,1]} = (1-x)^{-1/2}\mathcal{X}_{[0,1)} + \infty\cdot\mathcal{X}_{\{1\}}
+\]
+which follows that
+\begin{subequations}
+\begin{align}
+\int (1-x)^{-1/2}\mathcal{X}_{[0,1]}\diff m&=\int (1-x)^{-1/2}\mathcal{X}_{[0,1)}\diff m+\int \infty\cdot\mathcal{X}_{\{1\}}\diff m\\
+&=\int_{[0,1)}(1-x)^{-1/2}\diff x+0\label{Eq:11:1:b}
+\end{align}
+\end{subequations}
+where (\ref{Eq:11:1:b}) is because that $\infty\cdot\mathcal{X}_{\{1\}}=\infty\cdot0=0$.
+\subsection{Consequences of MCT I}
+
+\begin{proposition}\label{pro:11:4}
+If $f,g$ are measurable non-negative functions, and $f=g$ a.e., then
+\[
+\int f\diff m=\int g\diff m
+\]
+\end{proposition}
+\begin{proof}
+Let $U=\{x\in\mathbb{R}\mid f(x) = g(x)\}$, then
+\[
+f=f\cdot \mathcal{X}_{U}+f\cdot \mathcal{X}_{U^c}
+\]
+where $U^c$ is null. As a result,
+\begin{subequations}
+\begin{align}
+\int f\diff m &= \int f \mathcal{X}_{U} + \int f\mathcal{X}_{U^c}\\&=\int g \mathcal{X}_{U}+0\label{Eq:11:2:b}\\
+&=\int g\mathcal{X}_{U} + \int g\mathcal{X}_{U^c}\label{Eq:11:2:c} \\
+&=\int g\diff m
+\end{align}
+\end{subequations}
+where (\ref{Eq:11:2:b}) is because that  $f\cdot\mathcal{X}_{U^c}=0$ a.e., and $f\cdot\mathcal{X}_U=g\cdot\mathcal{X}_U$;
+(\ref{Eq:11:2:c}) is becasue that $g\cdot\mathcal{X}_{U^c}=0$ a.e.
+\end{proof}
+
+\begin{proposition}[Slight Generalization of MCT I]
+Suppose that $f_n(x)$ are nonnegative measurable functions such that
+\begin{enumerate}
+\item
+$f_n$ is monotone increasing a.e.
+\item
+$f_n(x)\to f(x)$ a.e.
+\end{enumerate}
+ then
+\[
+\lim_{n\to\infty}\int f_n\diff m = \int f\diff m
+\]
+\end{proposition}
+
+\begin{proof}
+Construct the set $V_n = \{x \mid f_n(x) \le f_{n+1}(x)\}$ and $V = \bigcap_{n=1}^\infty V_n$.
+Since $f_n(x)$ is monotone increasing a.e., we imply $m(V_n^c) = 0$, and $m(V^c) \leq \sum_{n=1}^\infty m(V_n^c) = 0$. 
+\begin{enumerate}
+\item
+Construct $\tilde{f}_n(x)$ as follows:
+\[
+\tilde{f}_n(x) = \left\{
+\begin{aligned}
+f_n(x), &\ \text{if }x\in V\\
+0, &\ \text{if }x\in V^c
+\end{aligned}
+\right.
+\]
+As a result,
+\begin{itemize}
+\item
+$\tilde{f}_n$ is monotone increasing
+\item
+Define a function $g:\mathbb{R}\to[0,\infty]$ such that $\lim_{n\to\infty}\tilde{f}_n(x)=g_n(x)$.
+\end{itemize}
+\begin{subequations}
+Apply the MCT I gives
+\begin{equation}\label{Eq:11:3:a}
+\lim_{n\to\infty}\int\tilde{f}_n\diff m=\int g\diff m
+\end{equation}
+\item
+Note that $\{x\mid \tilde{f}_n(x)\ne f_n(x)\}\subseteq V^c$, where $V^c$ is null. Therefore, $f_n=f$ a.e., which implies
+\begin{equation}\label{Eq:11:3:b}
+\int\tilde{f}_n\diff m=\int{f}_n\diff m
+\end{equation}
+\item
+Consider $V'=\{x\mid \lim_{n\to\infty}f_n(x)=f(x)\}$, and $(V')^c$ is null by hyphothesis.
+For any $x\in V\cap V'$, we imply
+\[
+f(x) = \lim_{n\to\infty}f_n(x) = \lim_{n\to\infty}\tilde{f}_n(x).
+\]
+Since $(V\cap V')^c$ is null, we imply $\tilde{f}_n(x)\to f$ a.e.
+Note that $\tilde{f}_n(x)\to g$, we imply $g=f$ a.e., which follows that
+\begin{equation}\label{Eq:11:3:c}
+\int g\diff m=\int f\diff m
+\end{equation}
+\end{subequations}
+\end{enumerate}
+Combining (\ref{Eq:11:3:a}) to (\ref{Eq:11:3:c}), we conclude that
+\[
+\lim_{n\to\infty}\int f_n\diff m=\lim_{n\to\infty}\int\tilde{f}_n\diff m=\int g\diff m = \int f\diff m
+\]
+
+\end{proof}
+
+\begin{proposition}\label{pro:11:6}
+Let $\{f_k\}$ be non-negative measurable and 
+\[
+f:=\sum_{k=1}^\infty f_k,
+\]
+then 
+\[
+\int f\diff m = \sum_{k=1}^\infty \int f_k\diff m
+\]
+\end{proposition}
+\begin{proof}
+Firstly, $\int f\diff m$ is well-defined since $f=\lim_{n\to\infty}\sum_{k=1}^nf_k$ is measurable.
+
+Secondly, take $g_n = \sum_{k=1}^nf_k$, which implies $g_n$ is monotone increasing and $g_n\to f$.
+Apply MCT I gives the desired result.
+\end{proof}
+\begin{example}
+Consider
+\[
+(1-x)^{-1/2} = \sum_{n=0}^\infty\frac{(2n)!}{4^n(n!)^2}x^n,\quad x\in[0,1)
+\]
+Take $f_k = \frac{(2k)!}{4^k(k!)^2}x^k$. 
+Applying proposition~(\ref{pro:11:6}) gives 
+\[
+\int_{[0,1)}(1-x)^{-1/2}\diff x=\sum_{n=0}^\infty\int_0^1\frac{(2n)!}{4^n\cdot (n!)^2}x^n\diff x
+\]
+Or equivalently,
+\[
+2 = \sum_{n=0}^\infty\frac{(2n)!}{4^n(n!)(n+1)!}
+\]
+
+\end{example}
+\subsection{MCT II}
+We now extend our study to all measurable functions instead of non-negativity.
+\begin{definition}[Lebesgue integrable]
+Let $f$ be a measurable function, then let
+\[
+f^+(x) = \left\{
+\begin{aligned}
+f(x),&\quad\text{if $f(x)>0$}\\
+0,&\quad\text{if $f(x)\le0$}
+\end{aligned}
+\right.
+=
+f(x)\mathcal{X}_{f^{-1}((0,\infty])}
+\]
+and
+\[
+f^-(x) = \left\{
+\begin{aligned}
+-f(x),&\quad\text{if $f(x)\le0$}\\
+0,&\quad\text{if $f(x)>0$}
+\end{aligned}
+\right.
+=
+-f(x)\mathcal{X}_{f^{-1}([-\infty,0])}
+\]
+As a result, $f^+$ and $f^-$ are both measurable.
+
+Note that
+\begin{itemize}
+\item
+$f(x) = f^+(x) - f^-(x)$
+\item
+$|f|(x) = f^+(x)+f^-(x)$
+\end{itemize}
+Now we define the Lebesgue integral of $f$ as
+\[
+\int f\diff m = \int f^+\diff m - \int f^-\diff m
+\]
+We say $f$ is \emph{Lebesgue integrable} if both $f^+$ and $f^-$ are integrable, i.e., $\int f^{\pm}\diff m<\infty$
+\end{definition}
+
+\begin{proposition}
+\begin{enumerate}
+\item
+If $f$ is measurable, then $f$ is integrable if and only if $|f|$ is integrable
+\item
+If $f$ is measurable, and $|f|\le g$ with $g$ integrable, then $f$ is also integrable
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+\item
+If $f$ is integrable, then $\int f^+\diff m,\int f^-\diff m<\infty$.
+As a result,
+\[
+\int|f|\diff m = \int(f^++f^-)\diff m=\int f^+\diff m+\int f^-\diff m
+<\infty.
+\]
+
+For the reverse direction, if $|f|$ is integrable, then 
+\[
+\int|f| = \int f^++\int f^-
+\]
+therefore $\int f^{\pm}<\infty$, and hence $f$ is interable.
+\item
+Since $0\le |f|\le g$, by proposition~(\ref{pro:9:8}), $\int|f|\diff m\le \int g\diff m<\infty$.
+
+Therefore, $\int|f|\diff m<\infty$, and hence $|f|$ is integrable, which implies $f$ is integrable.
+\end{enumerate}
+\end{proof}
+
+\begin{remark}
+If $|f|\le g$, and $\int|f|\diff m=\infty$, then by proposition~(\ref{pro:9:8}), we imply $\int g\diff m=\infty$.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+

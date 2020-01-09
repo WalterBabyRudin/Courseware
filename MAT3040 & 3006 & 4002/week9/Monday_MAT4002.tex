@@ -1,0 +1,283 @@
+\section{Monday for MAT4002}\index{Monday_lecture}
+\paragraph{Reviewing}
+\begin{enumerate}
+\item
+Homotopy: we denote the homotopic function pair as $f\simeq g$.
+\item
+If $Y\subseteq\mathbb{R}^n$ is convex, 
+then the set of continuous functions $f:X\to Y$ form a single equivalence class, i.e., $\{\text{continuous functions $f:X\to Y$}\}/\sim$ has only one element
+\end{enumerate}
+\subsection{Remarks on Homotopy}
+\begin{proposition}\label{pro:9:4}
+Consider four continous mappings 
+\[
+\begin{array}{llll}
+W\xrightarrow{f}X,
+&
+X\xrightarrow{g}Y,
+&
+X\xrightarrow{h}Y,
+&
+Y\xrightarrow{k} Z.
+\end{array}
+\]
+If $g\simeq h$, then
+\[
+\begin{array}{ll}
+g\circ f\simeq h\circ f,&
+k\circ g\simeq k\circ h
+\end{array}
+\]
+\end{proposition}
+\begin{proof}
+Suppose there exists the homotopy $H:g\simeq h$, 
+then $k\circ H:X\times I\to Z$ 
+gives the momotopy between $k\circ g$ and $k\circ h$.
+
+Simiarly, 
+$H\circ(f\times\text{id}_I):W\times I\to Y$ 
+gives the homotopy $g\circ f\simeq h\circ f$.
+\end{proof}
+
+\begin{definition}[Homotopy Equivalence]
+Two topological spaces $X$ and $Y$ are \emph{homotopy equivalent} if there are continuous maps $f:X\to Y$, and $g:Y\to X$ such that
+\[
+\begin{array}{l}
+g\circ f\simeq \text{id}_{X\to X}\\
+f\circ g\simeq\text{id}_{Y\to Y},
+\end{array}
+\]
+which is denoted as $X\simeq Y$.
+\end{definition}
+\begin{remark}
+\begin{enumerate}
+\item
+If $X\cong Y$ are homeomorphic, then they are homotopic equivalent.
+\item
+The homotopy equivalence $X\simeq Y$ gives a bijection between $\{\phi:\text{continuous }W\to X\}/\sim$ and $\{\phi:\text{continuous }W\to Y\}/\sim$, for any given topological space $W$.
+\begin{proof}
+Since $X\simeq Y$, we can find $f:X\to Y$ and $g:Y\to X$ such that $f\circ g\simeq\text{id}_Y$ and $g\circ f\simeq\text{id}_X$.
+We construct a mapping
+\[
+\begin{array}{ll}
+\phi:&\{\phi:\text{continuous }W\to X\}/\sim\to \{\phi:\text{continuous }W\to Y\}/\sim\\
+\text{with}&[\phi]\mapsto[f\circ\phi]
+\end{array}
+\]
+$\phi$ is well-defined since $\phi_1\sim\phi_2$ implies $f\circ\phi_1\sim f\circ\phi_2$
+
+Also, we can construct a mapping
+\[
+\begin{array}{ll}
+\beta:& \{\phi:\text{continuous }W\to Y\}/\sim\to\{\phi:\text{continuous }W\to X\}/\sim\\
+\text{with}&[\psi]\mapsto[g\circ\phi]
+\end{array}
+\]
+Similarly, $\beta$ is well-defined.
+
+Also, we can check that $\alpha\circ\beta=\text{id}$ and $\beta\circ\alpha=\text{id}$.
+For example,
+\[
+\alpha\circ\beta[\psi]=[f\circ g\circ\psi]=[\psi],
+\]
+where the last equality is because that $f\circ g\simeq\text{id}_Y$.
+\end{proof}
+\item
+The homotopy equivalence $X\simeq Y$ forms an equivalence relation between topological spaces
+\end{enumerate}
+\end{remark}
+
+Compared with homeomorphism, some properties are lost when consider the homotopy equivalence.
+
+\begin{definition}[Contractible]
+The topological space $X$ is \emph{contractible} 
+if it is homotopy equivalent to any point $\{\bm c\}$.
+
+\begin{remark}
+In other words, there exists continuous mappings $f,g$ such that
+\begin{align*}
+\{\bm c\}\xrightarrow{f}X\xrightarrow{g}\{\bm c\},&\ 
+g\circ f\simeq\text{id}_{\{\bm c\}}\\
+X\xrightarrow{g}\{\bm c\}\xrightarrow{f}X,&\ 
+f\circ g\simeq\text{id}_{X}
+\end{align*}
+Note that $g\circ f\simeq\text{id}_{\{\bm c\}}$ follows naturally; and since $X\cong X$, we can find $f,g$ such that $f\circ g=c_y$ for some $y\in X$, where $c_y:X\to X$ is a constant function $c_y(x)=y,\forall x\in X$.
+Therefore, to check $X$ is contractible, it suffices to check $c_y\simeq\text{id}_{X},\forall y\in X$.
+
+Therefore, $X$ is contractible if its identity map $\text{id}_X$ is homotopic to any constant map $c_y,\forall y\in X$.
+\end{remark}
+\end{definition}
+\begin{proposition}
+The definition for contractible can be simplified further:
+\begin{enumerate}
+\item
+$X$ is contractible if it is homotopy equivalent to some point $\{c\}$
+\item
+$X$ is contractible if the identity map $\text{id}_X$ is homotopic to some constant map $c_y(x)=y$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+The only thing is to show that $c_y\simeq c_{y'},\forall y,y'\in X$.
+By hw 3, $X$ is path-connected, and therefore there exists continous $p(t)$ such that
+\[
+\begin{array}{ll}
+p(0)=y,&
+p(1)=y'
+\end{array}
+\]
+Therefore, we construct the homotopy between $c_y$ and $c_{y'}$ as follows:
+\[
+H(x,t)=p(t).
+\]
+\end{proof}
+
+
+\begin{example}
+\begin{enumerate}
+\item
+$X=\mathbb{R}^2$ is contractible:
+
+It suffices to show that the mapping $f(\bm x)=\bm x,\forall \bm x\in\mathbb{R}^2$ is homotopic to the constant function $g(x)=(0,0),\forall x\in\mathbb{R}^2$, i.e., $g=c_{(0,0)}$.
+
+Consider the continuous mapping $H(\bm x,t) = tf(\bm x)$, with
+\[
+\begin{array}{ll}
+H(\bm x,0)=c_{(0,0)},
+&
+H(\bm x,1)=\text{id}_X
+\end{array}
+\]
+Therefore, $c_{(0,0)}\simeq \text{id}_X$.
+Since $c_{(0,0)}\simeq c_{\bm y},\forall\bm y\in\mathbb{R}^2$, we imply $c_{\bm y}\simeq\text{id}_X$ for any $\bm y\in \mathbb{R}^2$.
+
+Therefore, $X$ is contractible.
+
+More generally, any convex $X\subseteq\mathbb{R}^n$ is contractible.
+\end{enumerate}
+\end{example}
+
+\begin{remark}
+$S^1$ is not contractible, and we will see it in 3 weeks' time. In particular, we are not able to construct the continuous mapping
+\[
+H:S^1\times[0,1]\to S^1
+\]
+such that 
+\[
+\begin{array}{ll}
+H(e^{2\pi ix},0)=e^{2\pi i x},
+&
+H(e^{2\pi i x},1)=e^{2\pi i(0)} = 1
+\end{array}
+\]
+
+How about the mapping $H(e^{2\pi ix},t)=e^{2\pi ixt}$?
+Unfortunately, it is not well-defined, since
+\[
+H(e^{2\pi i(1)},t)=e^{2\pi it}=H(e^{2\pi i(0)},t)=1
+\]
+and the equality is not true for $t\ne0,1$.
+\end{remark}
+
+
+\begin{definition}[Homotopy Retract]
+Let $A\subseteq X$ and $i:A\hookrightarrow X$ be an inclusion.
+We say $A$ is a \emph{homotopy retract} of $X$ if there exists continuous mapping $r:X\to A$ such that 
+\begin{align*}
+r\circ i:&A\hookrightarrow X\xrightarrow{r}A=\text{id}_{A}\\
+i\circ r:&X\xrightarrow{r}A\hookrightarrow X\simeq\text{id}_{X}
+\end{align*}
+In particualr, $A\simeq X$.
+\end{definition}
+
+\begin{example}
+The 1-sphere $S^1$ is a homotopy retract of Mobius band $M$.
+
+Let $M=[0,1]^2/\sim$ and $S^1=[0,1]/\sim$.
+Define the inclusion $i$ and $r$ as:
+\[
+\begin{array}{ll}
+i:&S^1\hookrightarrow M\\
+\text{with}&[x]\mapsto [(x,\frac{1}{2})]
+\end{array}
+\]
+\[
+\begin{array}{ll}
+r:&M\to S^1\\
+\text{with}&[(x,y)]\mapsto[x]
+\end{array}
+\]
+As a result, 
+\[
+r\circ i = \text{id}_{S^1},\qquad
+i\circ r([(x,y)]) = [(x,1/2)]
+\]
+
+It suffices to show $i\circ r\simeq\text{id}_{M}$, where $\text{id}_M([(x,y)]) = [(x,y)]$.
+
+Construct the continous mapping $H:M\times I\to M$ with
+\[
+H([(x,y)],t):=[(x,(1-t)y+t/2)]
+\]
+To show the well-definedness of $H$, we need to check 
+\[
+H([(0,y)],t)=H([(1,1-y)],t),\quad \forall y\in[0,1]
+\]
+It's clear that $H$ gives a homotopy between $i\circ r$ and $\text{id}_{M}$, i.e., $i\circ r\simeq\text{id}_M$
+\end{example}
+\begin{example}
+The $n-1$-sphere $S^{n-1}$ is a homotopy retract of $\mathbb{R}^n\setminus\{\bm0\}$:
+
+We have the inclusion $i: S^{n-1}\to\mathbb{R}^n\setminus\{0\}$ and
+\[
+\begin{array}{ll}
+r:&\mathbb{R}^n\setminus\{0\}\to \mathbb{S}^{n-1}\\
+\text{with}&x\mapsto\frac{x}{\|x\|}
+\end{array}
+\]
+Therefore, $r\circ i=\text{id}_{S^{n-1}}$ and $i\circ r(x)= \frac{x}{\|x\|}$.
+
+It suffices to show that $i\circ r\simeq\text{id}_{\mathbb{R}^n\setminus\{0\}}$.
+Consider the homotopy $H(x,t)=t\bm x+(1-t)\bm x/\|\bm x\|$ such that 
+\[
+H(\bm x,0)=i\circ r(\bm x),\quad
+H(\bm x,1)=\bm x=\text{id}(\bm x)
+\]
+To show the well-definedness of $H$, we need to check $H(x,t)\in\mathbb{R}^n\setminus\{\bm0\}$ for all $\bm x\in\mathbb{R}^n\setminus\{\bm0\}$ and $t\in[0,1]$.
+\end{example}
+
+
+\begin{definition}[Homotopic Relative]
+Let $A\subseteq X$ be topological spaces.
+We say $f,g:X\to Y$ are homotopic relative to $A$ if there eixsts $H:X\times I\to Y$ such that
+\[
+\left\{
+\begin{aligned}
+H(x,0)&=f(x)\\
+H(x,1)&=g(x)
+\end{aligned}
+\right.
+\qquad
+\text{ and }
+H(a,t)=f(a)=g(a),\forall a\in A
+\]
+\end{definition}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{week9/p_4}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

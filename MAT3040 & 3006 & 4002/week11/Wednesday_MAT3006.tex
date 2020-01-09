@@ -1,0 +1,225 @@
+
+\section{Wednesday for MAT3006}\index{Wednesday_lecture}
+\begin{proposition}[Linearity]
+If $f,g$ are integrable, then $f+g$ and $\alpha f$ are integrable with
+\begin{itemize}
+\item
+$\int(f+g)\diff m = \int f\diff m+\int g\diff m$
+\item
+$\int\alpha f\diff m = \alpha\int f\diff m$ ($\alpha\in\mathbb{R}$)
+\end{itemize}
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+\item
+Consider 
+\[
+(f+g)^+ - (f+g)^- = f+g
+=
+(f^+ - f^-) + (g^+ - g^-)
+\]
+It follows that
+\[
+(f+g)^+ + f^- + g^- = (f+g)^- + f^++g^+
+\]
+Therefore, both sides of the equality above are non-negative, which implies
+\[
+\int((f+g)^+ + f^- + g^- )\diff m
+=
+\int((f+g)^- + f^++g^+ )\diff m,
+\]
+i.e., 
+\[
+\int (f+g)^+\diff m +\int f^-\diff m+\int g^-\diff m
+=
+\int(f+g)^-\diff m+\int f^+\diff m+\int g^+\diff m
+\]
+i.e.,
+\[
+\int(f+g)\diff m = \int f\diff m+\int g\diff m
+\]
+\item
+Assume $\alpha<0$. Then
+\begin{align*}
+\int(\alpha f)\diff m&:=\int(\alpha f)^+\diff m - \int(\alpha f)^-\diff m\\
+&=\int(-\alpha)f^-\diff m - \int(-\alpha)f^+\diff m\\
+&=(-\alpha)\int f^-\diff m - (-\alpha)\int f^+\diff m\\
+&=\alpha\left(\int f^+\diff m - \int f^-\diff m\right)\\
+&=\alpha \int f\diff m
+\end{align*}
+
+\end{enumerate}
+\end{proof}
+
+
+\begin{corollary}
+Suppose that $f,g$ are integrable, then 
+\begin{enumerate}
+\item
+If $f\le g$, then $\int f\diff m\le \int g\diff m$
+\item
+If $f=g$ a.e., then $\int f\diff m = -\int g\diff m$
+\end{enumerate}
+\end{corollary}
+\begin{proof}
+\begin{enumerate}
+\item
+Since $g-f\ge0$, then
+\[
+\int(g-f)\diff m\ge\int0\diff m=0
+\]
+By linearity, $\int g\diff m-\int f\diff m\ge0$, i.e.,
+\[
+\int g\diff m\ge \int f\diff m
+\]
+\item
+Same proof as before:
+let $U=\{x\mid f(x)=g(x)\}$, then 
+\begin{align*}
+\int f\diff m&=\int f\mathcal{X}_U\diff m
++
+\int f\mathcal{X}_{U^c}\diff m\\
+&=\int g\mathcal{X}_U\diff m\\
+&=\int g\mathcal{X}_U\diff m+\int g\mathcal{X}_{U^c}\diff m\\
+&=\int g\diff m
+\end{align*}
+
+
+\end{enumerate}
+\end{proof}
+By corollary of Markov inequality, $\int f^{\pm}\mathcal{X}_{U^c}\diff m=0$.
+
+
+\begin{remark}
+Let $\mathcal{T}=\{f:\mathbb{R}\to[-\infty,\infty],\ \text{integrable}\}$, which $0:=\text{zero function}$ is a vector space.
+
+Define a ``norm'' on $f\in\mathcal{T}$ by
+\[
+\|f\|=\int|f|\diff m
+\]
+then $\|\alpha f\|=|\alpha|\|f\|$ and $\|f+g\|\le\|f\|+\|g\|$.
+
+However, $\exists f\ne0$ s.t. $\|f\|=0$, e.g., $f=\mathcal{X}_{\mathbb{Q}}$.
+\end{remark}
+To remedy this, consider the equivalence relation on $\mathcal{T}$: $f\sim g$ if $f=g$ a.e.
+
+Consider the equivalence classes of $\mathcal{T}$ under $\sim$, $L^1(\mathbb{R}) = \mathcal{T}/\sim$, e.g., $[f]\in\mathcal{T}/\sim$.
+
+Now define a norm on $L^1(\mathbb{R})$ by $\|[f]\| = \int|f|\diff m$, then $L^1(\mathbb{R})$ has a vector space structure
+\begin{align*}
+[f]+[g]&=[f+g]\\
+\alpha[f]&=[\alpha f]
+\end{align*}
+
+Consider a vector subspace $\mathcal{N}$ of $\mathcal{T}$ defined by
+\[
+\mathcal{N}:=\{g\in\mathcal{T}\mid g=0\text{ a.e.}\}
+\]
+then $\mathcal{T}/\sim=\mathcal{T}/\mathcal{N}$.
+
+Therefore, we get an normed space:
+\begin{align*}
+\|\alpha[f]\|&=|\alpha|\|[f]\|\\
+\|[f]+[g]\|&\le \|[f]\|+\|[g]\|\\
+\|[f]\|&=0
+\Longleftrightarrow
+\int|f|\diff m=0
+\Longleftrightarrow
+f=0\text{ a.e.}
+\Longleftrightarrow
+[f]=0_{L^1(\mathbb{R})}
+\end{align*}
+Similarly, we can study $L^2(\mathbb{R}),\dots,L^p(\mathbb{R})$.
+
+For example, $L^2(\mathbb{R}) = \{f:\mathbb{R}\to[-\infty,\infty]\mid \int |f|^2\diff m<\infty\}/\mathcal{N}$ and $\|f\|_2=(\int|f|^2\diff m)^{1/2}$
+
+\begin{example}
+Consider $f = \sum_{k=0}^\infty \frac{(-1)^k}{k+1}\mathcal{X}_{[k,k+1)}$
+
+Then the improper Riemann integral gives 
+\[
+\int_0^\infty f(x)\diff x=\log(2) = 1-\frac{1}{2}+\frac{1}{3}-\cdots
+\]
+
+However, $f$ is not Lebesgue integrable.
+Suppose on the contrary that it is , then $|f|$ is integrable:
+\[
+|f| = \sum_{k=0}^\infty\frac{1}{k+1}\mathcal{X}_{[k,k+1)}
+\]
+Consequences:
+\begin{align*}
+\int|f|\diff m&=\lim_{n\to\infty}\sum_{k=0}^n\int\left(\frac{1}{k+1}\mathcal{X}_{[k,k+1)}\right)\diff m\\
+&=\sum_{k=0}^\infty\frac{1}{k+1}=\infty
+\end{align*}
+
+Concluson:
+there are improper Riemann integrable functions that are not Lebesgue integrable.
+However, all the proper Riemann integrable functions are Lebesgue integrable (and the integrals have the same value). (Prove it in two classes.)
+\end{example}
+
+\begin{theorem}[MCT II]
+Let $\{f_n\}$ be a sequence of integrable functions such that
+\begin{enumerate}
+\item
+$f_n\le f_{n+1}$ a.e.
+\item
+$\sup_n\int f_n\diff m<\infty$
+\end{enumerate}
+Then $f_n$ converges to an integrable function $f$ a.e., and
+\[
+\int f\diff m = \lim_{n\to\infty}\int f_n\diff m
+\]
+\end{theorem}
+\begin{proof}
+Re-define $f_n$ by changing its values on a null set such that
+\begin{enumerate}
+\item
+$f_n(x)\in\mathbb{R}$, for any $x\in\mathbb{R}$
+\item
+$f_n(x)\le f_{n+1}(x)$ for any $n\in\mathbb{R},x\in\mathbb{R}$
+\end{enumerate}
+Let $f(x) = \lim_{n\to\infty}f(x)$.
+Consider the sequence of functions $\{f_n - f_1\}_{n\in\mathbb{N}}$, then
+\begin{enumerate}
+\item
+$f_n-f_1\ge0$
+\item
+$f_n-f_1$ is monotone increasing, integrable
+\item
+$f_n-f_1\to f-f_1$
+\end{enumerate}
+Then we apply the MCT II and get
+\[
+\int(f-f_1)\diff m =\lim_{n\to\infty}\int(f_n-f_1)\diff m
+\]
+which implies
+\[
+\int(f-f_1)\diff m+\int f_1\diff m
+=
+\lim_{n\to\infty}\int(f_n-f_1)\diff m+\int f_1\diff m
+=
+\lim_{n\to\infty}\int f_n\diff m 
+\]
+note that $\lim_{n\to\infty}\int f_n\diff m $ exists as $\lim_{n\to\infty}\int f_n\diff m =\sup_n\int f_n\diff m<\infty$.
+
+Note that $\int(f-f_1)\diff m+\int f_1\diff m$ is integrable as it equals to $\lim_{n\to\infty}\int f_n\diff m<\infty$.
+
+The proof is complete.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

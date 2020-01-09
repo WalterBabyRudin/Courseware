@@ -1,0 +1,217 @@
+
+\chapter{Week1}
+\section{Monday for MAT3040}\index{Monday_lecture}
+
+\subsection{Introduction to Advanced Linear Algebra}
+Advanced Linear Algebra is one of the most important course in MATH major, with pre-request MAT2040. This course will offer the really linear algebra knowledge.
+\paragraph{What the content will be covered?}
+\begin{itemize}
+\item
+In MAT2040 we have studied the space $\mathbb{R}^n$; while in MAT3040 we will study the general vector space $V$. 
+\item
+In MAT2040 we have studied the \textit{linear transformation} between Euclidean spaces, i.e., $T:\mathbb{R}^n\to\mathbb{R}^m$; while in MAT3040 we will study the linear transformation from vector spaces to vector spaces: $T:V\to W$
+\item
+In MAT2040 we have studied the eigenvalues of $n\times n$ matrix $\bm A$; while in MAT3040 we will study the eigenvalues of a \emph{linear operator} $T:V\to V$.
+\item
+In MAT2040 we have studied the dot product $\bm x\cdot \bm y=\sum_{i=1}^nx_iy_i$; while in MAT3040 we will study the \emph{inner product} $\inp{\bm v_1}{\bm v_2}$.
+\end{itemize}
+\paragraph{Why do we do the generalization?}
+We are studying many other spaces, e.g., $\mathcal{C}(\mathbb{R})$ is called the space of all functions on $\mathbb{R}$, $\mathcal{C}^\infty(\mathbb{R})$ is called the space of all infinitely differentiable functions on $\mathbb{R}$, $\mathbb{R}[x]$ is the space of polynomials of one-variable.
+\begin{example}
+\begin{enumerate}
+\item
+Consider the Laplace equation $\Delta f=0$ with linear operator $\Delta$:
+\[
+\begin{array}{ll}
+\Delta:\mathcal{C}^\infty(\mathbb{R}^3)\to\mathcal{C}^\infty(\mathbb{R}^3)
+&
+f\mapsto(\frac{\partial^2}{\partial x^2}+\frac{\partial^2}{\partial y^2}+\frac{\partial^2}{\partial z^2})f
+\end{array}
+\]
+The solution to the PDE $\Delta f=0$ is the 0-eigenspace of $\Delta$.
+\item
+Consider the Schrödinger equation
+$
+\hat Hf = Ef
+$
+with the linear operator 
+\[
+\begin{array}{ll}
+\hat H:\mathcal{C}^\infty(\mathbb{R}^3)\to\mathcal{C}^\infty(\mathbb{R}^3),
+&
+f\to
+\left[{\frac
+ {-\hbar ^{2}}{2\mu }}\nabla ^{2}+V(x,y,z )\right]f
+\end{array}
+\]
+Solving the equation $\hat Hf=Ef$ is equivalent to finding the eigenvectors of $\hat H$. In fact, the eigenvalues of $\hat H$ are \emph{discrete}.
+\end{enumerate}
+\end{example}
+
+\subsection{Vector Spaces}
+\begin{definition}[Vector Space]
+A \emph{vector space} over a field $\mathbb{F}$ (in particular, $\mathbb{F}=\mathbb{R}$ or $\mathbb{C}$) is a set of objects $V$ equipped with vector addiction and scalar multiplication such that 
+\begin{enumerate}
+\item
+the vector addiction $+$ is closed with the rules:
+\begin{enumerate}
+\item
+\textbf{Commutativity}: $\forall\bm v_1,\bm v_2\in V$, $\bm v_1+\bm v_2=\bm v_2+\bm v_1$.
+\item
+\textbf{Associativity}: 
+$\bm v_1+(\bm v_2+\bm v_3)=(\bm v_1+\bm v_2)+\bm v_3$.
+\item
+\textbf{Addictive Identity}: $\exists\bm0\in V$ such that $\bm0+\bm v=\bm v$, $\forall\bm v\in V$.
+\end{enumerate}
+\item
+the \emph{scalar multiplication} is closed with the rules:
+\begin{enumerate}
+\item
+\textbf{Distributive}:
+$\alpha(\bm v_1+\bm v_2) = \alpha\bm v_1+\alpha\bm v_2$,$\forall\alpha\in\mathbb{F}$ and $\bm v_1,\bm v_2\in V$
+\item
+\textbf{Distributive}:
+$(\alpha_1+\alpha_2)\bm v=\alpha_1\bm v+\alpha_2\bm v$
+\item
+\textbf{Compatibility}:
+$a(b\bm v) = (ab)\bm v$ for $\forall a,b\in\mathbb{F}$ and $\bm b\in V$.
+\item
+$0\bm v=\bm0$, $1\bm v=\bm v$.
+\end{enumerate}
+\end{enumerate}
+\end{definition}
+Here we study several examples of vector spaces:
+\begin{example}
+For $V=\mathbb{F}^n$, we can define
+\begin{enumerate}
+\item
+Addictive Identity:
+\[
+\bm0=\begin{pmatrix}
+0\\\vdots\\0
+\end{pmatrix}
+\]
+\item
+Scalar Multiplication:
+\[
+\alpha\begin{pmatrix}
+x_1\\\vdots\\x_n
+\end{pmatrix}=
+\begin{pmatrix}
+\alpha x_1\\\vdots\\\alpha x_n
+\end{pmatrix}
+\]
+\item
+Vector Addiction:
+\[
+\begin{pmatrix}
+x_1\\\vdots\\x_n
+\end{pmatrix}
++
+\begin{pmatrix}
+y_1\\\vdots\\y_n
+\end{pmatrix}
+=
+\begin{pmatrix}
+x_1+y_1\\\vdots\\x_n+y_n
+\end{pmatrix}
+\]
+\end{enumerate}
+\end{example}
+\begin{example}
+\begin{enumerate}
+\item
+It is clear that the set $V=M_{n\times n}(\mathbb{F})$ (the set of all $m\times n$ matrices) is a vector space as well.
+\item
+The set $V=\mathcal{C}(\mathbb{R})$ is a vector space:
+\begin{enumerate}
+\item
+Vector Addiction:
+\[
+(f+g)(x)=f(x)+g(x),\forall f,g\in V
+\]
+\item
+Scalar Multiplication:
+\[
+(\alpha f)(x)=\alpha f(x),\forall\alpha\in\mathbb{R},f\in V
+\]
+\item
+Addictive Identity is a zero function, i.e., $\bm0(x)=0$ for all $x\in\mathbb{R}$.
+\end{enumerate}
+\end{enumerate}
+\end{example}
+
+\begin{definition}
+A sub-collection $W\subseteq V$ of a vector space $V$ is called a \emph{vector subspace of $V$} if $W$ itself forms a vector space, denoted by $W\le V$.
+\end{definition}
+\begin{example}
+\begin{enumerate}
+\item
+For $V=\mathbb{R}^3$, we claim that $W=\{(x,y,0)\mid x,y\in\mathbb{R}\}\le V$
+\item
+$W=\{(x,y,1)\mid x,y\in\mathbb{R}\}$ is not the vector subspace of $V$.
+\end{enumerate}
+\end{example}
+\begin{proposition}
+$W\subseteq V$ is a \emph{vector subspace} of $V$ iff for $\forall\bm w_1,\bm w_2\in W$, we have $\alpha\bm w_1+\beta\bm w_2\in W$, for $\forall\alpha,\beta\in\mathbb{F}$.
+\end{proposition}
+\begin{example}
+\begin{enumerate}
+\item
+For $V=M_{n\times n}(\mathbb{F})$, the subspace $W=\{A\in V\mid \bm A\trans=\bm A\}\le V$
+\item
+For $V=\mathcal{C}^\infty(\mathbb{R})$, define $W=\{f\in V\mid\frac{\diff^2}{\diff x^2}f+f=0\}\le V$. For $f,g\in W$, we have
+\[
+(\alpha f+\beta g)''=\alpha f''+\beta g''=\alpha(-f)+\beta(-g)=-(\alpha f+\beta g),
+\]
+which implies $(\alpha f+\beta g)''+(\alpha f+\beta g)=0$.
+\end{enumerate}
+\end{example}
+
+
+
+
+
+%
+%\[
+%\left[
+%\begin{array}{@{}cc|c@{}}
+%1 & 2 & 5 \\
+%4 & 5 & 14
+%\end{array}
+%\right]
+%\implies
+%\left[
+%\begin{array}{@{}cc|c@{}}
+%1 & 2 & 5 \\
+%0& -3 & -6
+%\end{array}
+%\right]
+%\implies
+%\left[
+%\begin{array}{@{}cc|c@{}}
+%1 & 2 & 5 \\
+%0& 1 & 2
+%\end{array}
+%\right]
+%\implies
+%\left[
+%\begin{array}{@{}cc|c@{}}
+%1 & 0 & 1 \\
+%0& 1 & 2
+%\end{array}
+%\right].
+%\]
+
+
+
+
+
+
+
+
+
+
+
+
+

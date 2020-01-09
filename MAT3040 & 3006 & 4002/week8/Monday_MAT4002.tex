@@ -1,0 +1,181 @@
+\section{Monday for MAT4002}\index{Monday_lecture}
+\subsection{Quotient Map}
+\begin{definition}[Quotient Map]
+A map $q:X\to Y$ between topological spaces is a \emph{quotient map} if 
+\begin{enumerate}
+\item
+$q$ is surjective
+\item
+For any $U\subseteq Y$, $U$ is open iff $q^{-1}(U)$ is open.
+\end{enumerate}
+\end{definition}
+For example, 
+\begin{enumerate}
+\item
+the mapping $p:X\to X/\sim$ is a quotient map
+\item
+For $f$ is continuous and maps open sets to open sets. Then $f$ satisfies (2).
+\end{enumerate}
+
+\begin{proposition}
+Suppose $q:X\to Y$ is a quotient map, and $\sim$ is an equivalence relation given by the partition $\{q^{-1}(y)\mid y\in Y\}$ of $X$.
+Then $X$ and $Y$ are \emph{homeomorphic}.
+\end{proposition}
+\begin{proof}
+Let $h:X/\sim\to Y$ defined as $h([x]) = q(x)$.
+\begin{enumerate}
+\item
+The mapping $h$ is well-defined and injective.
+\item
+Surjective is easy to shown
+\item
+$q = h\circ p$, by (2), is continuous. Therefore, $h$ is continuous.
+\end{enumerate}
+It suffices to show $h^{-1}$ is continuous:
+For any open $\tilde{U}\subseteq X/\sim$, it suffices to show $h(\tilde{U})$ is open in $Y$. Note that 
+\[
+q^{-1}[h(\tilde{U})] = p^{-1}h^{-1}(h(\tilde{U}))=p^{-1}(\tilde{U}),
+\]
+which is open by definition of quotient topology.
+By (2), $h(\tilde{U})$ is open
+\end{proof}
+
+\begin{example}
+Define the mapping
+\[
+\begin{array}{ll}
+q:&\mathbb{R}\to S^1\\
+&x\mapsto e^{2\pi i x}
+\end{array}
+\]
+Note that $q$ open balls to open balls. (Check what $q(a,b)$ is)
+
+$q^{-1}(e^{2\pi i x}) = \{x+z\mid z\in\mathbb{Z}\}$. Therefore, 
+\[
+\mathbb{R}/\sim\cong S^1,
+\]
+where $x\sim y$ iff $x-y\in\mathbb{Z}$, i.e..,
+\[
+\mathbb{R}/\mathbb{Z}\cong S^1
+\]
+\end{example}
+
+
+\subsection{Simplicial Complex}
+The idea is to build some new spaces from some fundamental objects.
+Then we can use the combinatorics of these fundamental objects to study topology.
+
+\begin{definition}[$n$-simplex]
+The standard $n$-simplex is the set
+\[
+\Delta^n = \{(x_1,\dots,x_{n+1})\in\mathbb{R}^{n+1}\mid x_i\ge0, \sum_{i}x_i=1\}
+\]
+\begin{enumerate}
+\item
+vertices of $\Delta^n$ are the points on $\Delta^n$ with
+$x_i=1$ for some $i$.
+\item
+face of $\Delta^n:$ For $\mathcal{A}\subseteq\{1,\dots,n+1\}$, a face is given by
+\[
+\{(x_1,\dots,x_{n+1})\in\Delta^n\mid x_i=0,\ \forall i\notin\mathcal{A}\}
+\]
+\item
+inside of $\Delta^n$ is 
+\[
+\{(x_1,\dots,x_{n+1})\in\Delta^n\mid x_i>0,\forall i\}
+\]
+(Inside of $\Delta^0$ is $\Delta^0$)
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[face inclusion]
+A face inclusion of $\Delta^m$ into $\Delta^n$ ($m<n$) is a function $\Delta^m\to\Delta^n$ which comes from the restriction of an \emph{injective linear} map
+\[
+f:\mathbb{R}^{n+1}\to\mathbb{R}^{n+1},
+\]
+which maps vertices into vertices.
+\end{definition}
+\[
+\begin{pmatrix}
+1\\0
+\end{pmatrix}\mapsto\begin{pmatrix}
+0\\1\\0
+\end{pmatrix}\quad
+\begin{pmatrix}
+0\\1
+\end{pmatrix}\mapsto\begin{pmatrix}
+0\\0\\1
+\end{pmatrix}
+\]
+Any injection from $\{1,\dots,m+1\}\to\{1,\dots,n+1\}$ gives a face inclusion $\Delta^m\to\Delta^n$, and vice versa.
+
+\begin{definition}[Simplicial Complex]
+An (abstract) \emph{simplicial complex} is a pair $(V,\Sigma)$,
+where $V$ is a set of vertices and $\Sigma$ is a collection of non-empty finite subsets of $V$ (simplices) such that
+\begin{enumerate}
+\item
+$\forall \bm v\in V$, $\{\bm v\}\in\Sigma$
+\item
+If $\sigma\in\Sigma$, then any non-empty subset of $\sigma$ must lie in $\Sigma$.
+
+e.g., $V=\{1,2,3,4\}$, then 
+\[
+\Sigma=\{\{1\},\{2\},\{3\},\{4\},\{1,3,4\},\{2,4\},\{1,3\},\{3,4\},\{1,4\}\}
+\]
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Topological Realization]
+The \emph{topological realization} of $K=(V,\Sigma)$ is 
+a topological space $|K|$ (or denoted as $|(V,\Sigma)|$), where
+\begin{enumerate}
+\item
+For each $\sigma\in\Sigma$ with $|\sigma|=n+1$, 
+take a copy of $n$-simplex and denote it as $\Delta_\sigma$
+\item
+Whenever $\sigma\subset\tau\in\Sigma$, identify $\Delta_{\sigma}$ with a face of $\Delta_{\tau}$ through face inclusion.
+\end{enumerate}
+\end{definition}
+\begin{example}
+Take 
+
+\end{example}
+
+\begin{example}
+Take $V=\{1,2,3,4\}$ and 
+\[
+\Sigma=\{\text{all subsets of $V$ except $V$}\}
+\]
+\end{example}
+\begin{example}
+Take $V=\{1,\dots,n+1\}$ and
+\[
+\Sigma=\{\text{All subsets of $V$}\}
+\]
+Then $|(V,\Sigma)| = \Delta^n$.
+\end{example}
+
+\begin{definition}[Triangulation]
+A \emph{triangulation} of a topological spcae $X$ is a simplicial complex $(V,\Sigma)=K$ with a choice of homeomorphism $|(V,\Sigma)|\to X$.
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,265 @@
+\section{Monday for MAT3006}\index{Monday_lecture}
+Our first quiz will be held on next Wednesday.
+\paragraph{Reviewing}
+\begin{itemize}
+\item
+Picard Lindelof Theorem on ODEs. e.g., consider
+\[
+\left\{
+\begin{aligned}
+\frac{\diff y}{\diff x} &= \frac{x}{1-y},\ (x,y)\in G:=(-\infty,\infty)\times(-\infty,1)\\
+y(0)&=2
+\end{aligned}
+\right.
+\]
+Since $f\in\mathcal{C}^1(G)$ satisfies the Lipschitz condition on some closed ball of the point $(x_0,y_0)$, the setting for Picard Lindelof Theorem is satisfied, and the solution is uniquely given by:
+\[
+y = 1+\sqrt{1-x^2},\ -1<x<1.
+\]
+Therefore, the maximal interval of existence is given by $(-1,1)$. 
+In order to restrict $G$ to be open to construct a closed ball of $(x_0,y_0)$, 
+we need the initial condition $y(0)\ne1$.
+\end{itemize}
+
+\subsection{Generalization into System of ODEs}
+\paragraph{Formal Setting of System of ODEs}
+Consider the system of ODEs
+\[
+\left\{
+\begin{aligned}
+y_1'(x)&=f_1(x,y_1(x),\dots,y_n(x))\\
+\vdots\\
+y_n'(x)&=f_n(x,y_1(x),\dots,y_n(x))
+\end{aligned}
+\right.\quad
+\left\{
+\begin{aligned}
+y_1(\alpha)&=\beta_1\\
+\vdots\\
+y_n(x)&=\beta_n
+\end{aligned}
+\right.
+\]
+It's convenient to denote
+\[
+\begin{array}{lll}
+\bm y(x)=\begin{pmatrix}
+y_1(x)\\\vdots\\y_n(x)
+\end{pmatrix}\in\mathcal{C}(\mathbb{R},\mathbb{R}^n),
+&
+\bm f(x,\bm y)=\begin{pmatrix}
+f_1(x,\bm y)\\
+\vdots\\
+f_n(x,\bm y)
+\end{pmatrix},
+&
+\bm\beta:=\begin{pmatrix}
+\beta_1\\\vdots\\\beta_n
+\end{pmatrix}
+\end{array}
+\]
+Here the notation $\mathcal{C}(X,Y)$ denotes the set of bounded continuous mapping from $X$ to $Y$. Therefore we can express the system of ODE as a compact form:
+\[
+\left\{
+\begin{aligned}
+\bm y'&=\bm f(x,\bm y)\\
+\bm y(\alpha)&=\bm\beta
+\end{aligned}
+\right.
+\]
+\paragraph{Generalization of Picard Lindelof Theorem}
+Consider the rectangle
+\[
+S = \{(\bm x,\bm y)\in\mathbb{R}\times\mathbb{R}^n\mid \alpha-a\le x\le\alpha+a,\beta_i-b_i\le y_i\le \beta_i+b_i, i=1,\dots,n\}
+\]
+Suppose that 
+\begin{itemize}
+\item
+$\|\bm f(x,\bm y)\|\le M, \forall (x,\bm y)\in S$
+\item
+$\|\bm f(x,\bm y) - \bm f(x,\bm y')\|\le L\cdot\|\bm y-\bm y'\|$ for $\forall x\in[\alpha-a,\alpha+a]$
+\end{itemize}
+Then consider the complete metric space
+\[
+X=\{\bm y\in \mathcal{C}([\alpha-a,\alpha+a],\mathbb{R}^n)\mid \beta_i - b_i\le y_i(x)\le\beta_i + b_i\}
+\]
+(Verification of completeness: if $Y$ is complete, then $\mathcal{C}(X,Y)$ is complete.) 
+Under this setting, the similar argument gives the Picard-Lindelof for system of ODEs.
+
+
+\paragraph{Higher Order ODEs}
+Note that there is a standard way to transform the ODE with higher order derivatives into a system of first order ODEs. Suppose we want to solve the initival value problem
+\[
+\left\{
+\begin{aligned}
+y^{(m)}&=f(x,y,y',\dots,y^{(m-1)})\\
+y(\alpha)&=\beta_0,\ y'(\alpha)=\beta_1,\dots,y^{(m-1)}(\alpha)=\beta_{m-1}
+\end{aligned}
+\right.
+\]
+We can define the variables
+\[
+\begin{pmatrix}
+y_{m-1}(x)\\\vdots\\y_1(x)\\y_0(x)
+\end{pmatrix}=\begin{pmatrix}
+y^{(m-1)}(x)\\\vdots\\y'(x)\\y(x)
+\end{pmatrix}
+\]
+which gives an equivalent system of ODE:
+\[
+\left\{
+\begin{aligned}
+y_{m-1}'&=f(x,y_0,\dots,y_{m-1})\\
+y_{m-2}'&=y_{m-1}\\
+\vdots\\
+y_0' &= y_1
+\end{aligned}\right.,\ \text{with }
+\left\{
+\begin{aligned}
+y_{m-1}(\alpha)&=\beta_{m-1}\\
+y_{m-2}(\alpha)&=\beta_{m-2}\\
+\vdots\\
+y_0(\alpha) &= \beta_0
+\end{aligned}
+\right.
+\]
+
+\subsection{Stone-Weierstrass Theorem}
+Under the compact metric space $X$, the goal is to approximate \emph{any} functions in $\mathcal{C}(X)$. For example, under $X=[a,b]$, one can apply Taylor polynomials $p_n(x)$ to approximate differentiable functions:
+\[
+\|f(x) - p_n(x)\|_\infty<\varepsilon,\ \text{for large $n$}.
+\]
+To formally describe the phenomenon for the approximation of \emph{any} functions in $\mathcal{C}(X)$, we need to describe the set of approximate functions, which usually obtains a common property:
+
+\begin{definition}[Algebra]
+A subset $\mathcal{A}\subseteq\mathcal{C}(X)$ (where $X$ is a general space) is an \emph{algebra} if the following holds:
+\begin{itemize}
+\item
+If $f_1,f_2\in\mathcal{A}$, then $\alpha f_1 + \beta f_2\in\mathcal{A}$
+\item
+If $f_1,f_2\in\mathcal{A}$, then $f_1\cdot f_2\in\mathcal{A}$
+\end{itemize}
+\end{definition}
+\begin{example}
+\begin{enumerate}
+\item
+$\mathcal{A} = \mathcal{C}(X)$ is an algebra.
+\item
+$X=[a,b]$, then $\mathcal{A}=P[a,b] = \{\text{All polynomials $p(x)$}\}$ is an algebra.
+\end{enumerate}
+\end{example}
+
+The goal is to approximate any $f\in\mathcal{C}(X)$ by $p\in\mathcal{A}$, i.e., for $\forall f\in\mathcal{C}(X)$, there exists $p\in\mathcal{A}$ such that
+\[
+\|f - p\|_\infty<\varepsilon,\ \forall \varepsilon>0.
+\]
+In other words, we aim to find an algebra $\mathcal{A}\subseteq\mathcal{C}(X)$ such that 
+$\overline{\mathcal{A}}=\mathcal{C}(X)$, i.e., $\mathcal{A}$ is dense in $\mathcal{C}(X)$.
+
+\begin{theorem}[Weierstrass Approximation]
+$\mathcal{P}[a,b]$ is dense in $\mathcal{C}[a,b]$.
+\end{theorem}
+
+\begin{proof}
+Consider any function $f\in\mathcal{C}[0,1]$.
+By rescaling, assume that $f\in\mathcal{C}[0,1]$.
+By subtracting a linear function $\ell(x)$, 
+assume that $f(0) = f(1) = 0$. 
+Then we extend $f(x)$ into $\mathbb{R}$ by setting $f(x)=0,\forall x\notin [0,1]$.
+
+\begin{itemize}
+\item
+\textbf{Step 1: Construction of approximate function}: Consider the \emph{Landaus kernel function}
+\[
+Q_n(x)
+=
+\left\{
+\begin{aligned}
+c_n\cdot(1-x^2)^n,&\quad -1\le x\le 1\\
+0,&\quad |x|>1
+\end{aligned}
+\right.
+\]
+where $c_n$ is chosen such that $\int Q_n(x)\diff x = 1$. Then construct the approximation of $f$ by defining
+\[
+p_n(x):=Q_n * f = \int_{-1}^1f(x+t)Q_n(t)\diff t
+\]
+The intuition behind this construction is that as $n\to\infty$, $Q_n(x)\to\delta(x)$, where
+\[
+\delta(x)=\left\{
+\begin{aligned}
+\infty,&\quad x=0\\
+0,&\quad x\ne0
+\end{aligned}
+\right.
+\implies
+\int_{-1}^1f(x+t)\delta(t)\diff t = f(x).
+\]
+\textbf{Step 2: Argue that $p_n(x)\in \mathcal{P}[a,b]$: }Now it's clear that
+\begin{subequations}
+\begin{align}
+p_n(x)&=\int_{-1}^1f(x+t)Q_n(t)\diff t\label{Eq:4:2:a}\\
+&=\int^{1-x}_{-x} f(x+t)Q_n(t)\diff t \label{Eq:4:2:b}\\
+&=\int_{-1}^1f(u)\cdot Q_n(u-x)\diff u\label{Eq:4:2:c}\\
+&=\int_{-1}^1f(u)\cdot (1 - (u - x)^2)^n\diff u,\label{Eq:4:2:d}
+\end{align}
+\end{subequations}
+where (\ref{Eq:4:2:b}) is because that $f=0$, for $x\notin[0,1]$ and $Q_n=0$ for $|x|>1$;
+(\ref{Eq:4:2:c}) is by change of variables; and (\ref{Eq:4:2:d}) is by substitution of $Q_n(x)$. Therefore, $p_n$ is still a polynomial of $x$.
+\item
+\textbf{Step 3: Construct an upper bound on $c_n$: }It's clear that
+\begin{align*}
+c_n^{-1}&=\int_{-1}^1(1-x^2)^n\diff x\\
+&=2\int_{0}^1(1-x^2)^n\diff x\\
+&\ge2\int_0^1(1-nx^2)\diff x\\
+&\ge2\int_{0}^{1/\sqrt{n}}(1-nx^2)\diff x\\
+&=2(\frac{1}{\sqrt{n}} - \frac{1}{3\sqrt{n}}) >\frac{1}{\sqrt{n}}
+\end{align*}
+and therefore $c_n<\sqrt{n}$. As a result, for any fixed $\delta\in(0,1)$, we imply
+\[
+Q_n(x)\le\sqrt{n}(1-\delta^2)^n,\qquad \forall x\in[\delta,1],
+\]
+which implies $Q_n(x)\to0$ uniformly on $[\delta,1]$.
+\item
+\textbf{Step 4: Show that $\|p_n-f\|_\infty\to0$.}
+Since $f$ is continuous, for given $\varepsilon>0$, there exists $\delta\in(0,1)$ such that
+\[
+|f(x)-f(y)|<\varepsilon,\quad\text{when }|x-y|<\delta,x,y\in[0,1].
+\]
+Therefore, for any $x\in[0,1]$, and for sufficiently large $n$,
+\begin{subequations}
+\begin{align}
+|p_n(x)-f(x)|&=\left|\int_{-1}^1f(x+t)Q_n(t) - \int_{-1}^1f(x)Q_n(t)\diff t\right|\\
+&\le\int_{-1}^1|f(x+t)-f(x)|Q_n(t)\diff t\\
+&\le 2M\int_{-1}^{-\delta}Q_n(t)\diff t+\frac{\varepsilon}{2}\int_{-\delta}^{\delta}Q_n(t)\diff t
++2M\int_{\delta}^1Q_n(t)\diff t\label{Eq:4:3:c}\\
+&\le 4M\sqrt{n}(1-\delta^2)^n+\frac{\varepsilon}{2}\label{Eq:4:3:d}\\
+&\le\varepsilon\label{Eq:4:3:e}
+\end{align}
+\end{subequations}
+where (\ref{Eq:4:3:c}) is by separating the integrand into three parts, and then upper bounding $|f(x+t)-f(x)|$ by $2M:=2\sup_{x}|f(x)|$ for the integrand $t\in[-1,\delta)\cup(\delta,1]$, and upper bounding $|f(x+t)-f(x)|$ by $\frac{\varepsilon}{2}$ due to the continuity of $f$ for the integrand $t\in[\delta,\delta]$; (\ref{Eq:4:3:e}) is by choosing $n$ sufficiently enough to make $4M\sqrt{n}(1-\delta^2)^n$ sufficiently small.
+
+Therefore $\|p_n-f\|_\infty=\max_{x\in[0,1]}|p_n(x)-f(x)|<\varepsilon$ for large $n$. The proof is complete.
+\end{itemize}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

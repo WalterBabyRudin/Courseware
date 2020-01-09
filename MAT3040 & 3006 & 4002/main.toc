@@ -1,0 +1,336 @@
+\select@language {english}
+\vskip -8pt
+\contentsline {schapter}{Acknowledgments}{xv}{chapter*.2}
+\vskip -8pt
+\contentsline {schapter}{Notations}{xvii}{chapter*.3}
+\contentsline {chapter}{\numberline {1}Week1}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Monday for MAT3040}{1}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Introduction to Advanced Linear Algebra}{1}{subsection.1.1.1}
+\contentsline {paragraph}{What the content will be covered?}{1}{subsection.1.1.1}
+\contentsline {paragraph}{Why do we do the generalization?}{1}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}Vector Spaces}{2}{subsection.1.1.2}
+\contentsline {section}{\numberline {1.2}Monday for MAT3006}{5}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Overview on uniform convergence}{5}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Introduction to MAT3006}{6}{subsection.1.2.2}
+\contentsline {paragraph}{What are we going to do}{6}{subsection.1.2.2}
+\contentsline {subsection}{\numberline {1.2.3}Metric Spaces}{7}{subsection.1.2.3}
+\contentsline {section}{\numberline {1.3}Monday for MAT4002}{11}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Introduction to Topology}{11}{subsection.1.3.1}
+\contentsline {subsection}{\numberline {1.3.2}Metric Spaces}{12}{subsection.1.3.2}
+\contentsline {paragraph}{Exercise}{14}{Item.59}
+\contentsline {section}{\numberline {1.4}Wednesday for MAT3040}{15}{section.1.4}
+\contentsline {subsection}{\numberline {1.4.1}Review}{15}{subsection.1.4.1}
+\contentsline {subsection}{\numberline {1.4.2}Spanning Set}{15}{subsection.1.4.2}
+\contentsline {subsection}{\numberline {1.4.3}Linear Independence and Basis}{17}{subsection.1.4.3}
+\contentsline {section}{\numberline {1.5}Wednesday for MAT3006}{21}{section.1.5}
+\contentsline {paragraph}{Reviewing}{21}{section.1.5}
+\contentsline {subsection}{\numberline {1.5.1}Convergence of Sequences}{21}{subsection.1.5.1}
+\contentsline {subsection}{\numberline {1.5.2}Continuity}{25}{subsection.1.5.2}
+\contentsline {subsection}{\numberline {1.5.3}Open and Closed Sets}{26}{subsection.1.5.3}
+\contentsline {section}{\numberline {1.6}Wednesday for MAT4002}{28}{section.1.6}
+\contentsline {paragraph}{Reviewing}{28}{section.1.6}
+\contentsline {paragraph}{Exercise}{28}{section.1.6}
+\contentsline {subsection}{\numberline {1.6.1}Forget about metric}{28}{subsection.1.6.1}
+\contentsline {subsection}{\numberline {1.6.2}Topological Spaces}{31}{subsection.1.6.2}
+\contentsline {subsection}{\numberline {1.6.3}Closed Subsets}{32}{subsection.1.6.3}
+\contentsline {chapter}{\numberline {2}Week2}{35}{chapter.2}
+\contentsline {section}{\numberline {2.1}Monday for MAT3040}{35}{section.2.1}
+\contentsline {paragraph}{Reviewing}{35}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Basis and Dimension}{35}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Operations on a vector space}{38}{subsection.2.1.2}
+\contentsline {section}{\numberline {2.2}Monday for MAT3006}{41}{section.2.2}
+\contentsline {paragraph}{Reviewing}{41}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Remark on Open and Closed Set}{41}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Boundary, Closure, and Interior}{44}{subsection.2.2.2}
+\contentsline {section}{\numberline {2.3}Monday for MAT4002}{47}{section.2.3}
+\contentsline {paragraph}{Reviewing}{47}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Convergence in topological space}{47}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Interior, Closure, Boundary}{49}{subsection.2.3.2}
+\contentsline {section}{\numberline {2.4}Wednesday for MAT3040}{53}{section.2.4}
+\contentsline {paragraph}{Reviewing}{53}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Remark on Direct Sum}{53}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Linear Transformation}{54}{subsection.2.4.2}
+\contentsline {section}{\numberline {2.5}Wednesday for MAT3006}{61}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Compactness}{61}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}Completeness}{66}{subsection.2.5.2}
+\contentsline {section}{\numberline {2.6}Wednesday for MAT4002}{68}{section.2.6}
+\contentsline {paragraph}{Reviewing}{68}{section.2.6}
+\contentsline {subsection}{\numberline {2.6.1}Remark on Closure}{68}{subsection.2.6.1}
+\contentsline {subsection}{\numberline {2.6.2}Functions on Topological Space}{70}{subsection.2.6.2}
+\contentsline {subsection}{\numberline {2.6.3}Subspace Topology}{72}{subsection.2.6.3}
+\contentsline {subsection}{\numberline {2.6.4}Basis (Base) of a topology}{74}{subsection.2.6.4}
+\contentsline {chapter}{\numberline {3}Week3}{75}{chapter.3}
+\contentsline {section}{\numberline {3.1}Monday for MAT3040}{75}{section.3.1}
+\contentsline {paragraph}{Reviewing}{75}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Remarks on Isomorphism}{75}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Change of Basis and Matrix Representation}{76}{subsection.3.1.2}
+\contentsline {section}{\numberline {3.2}Monday for MAT3006}{84}{section.3.2}
+\contentsline {paragraph}{Reviewing}{84}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Remarks on Completeness}{84}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Contraction Mapping Theorem}{85}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Picard Lindelof Theorem}{89}{subsection.3.2.3}
+\contentsline {section}{\numberline {3.3}Monday for MAT4002}{90}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Remarks on Basis and Homeomorphism}{90}{subsection.3.3.1}
+\contentsline {paragraph}{Reviewing}{90}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Product Space}{93}{subsection.3.3.2}
+\contentsline {section}{\numberline {3.4}Wednesday for MAT3040}{95}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Remarks for the Change of Basis}{95}{subsection.3.4.1}
+\contentsline {paragraph}{Reviewing}{95}{subsection.3.4.1}
+\contentsline {section}{\numberline {3.5}Wednesday for MAT3006}{102}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}Remarks on Contraction}{102}{subsection.3.5.1}
+\contentsline {paragraph}{Reviewing}{102}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.2}Picard-Lindelof Theorem}{102}{subsection.3.5.2}
+\contentsline {section}{\numberline {3.6}Wednesday for MAT4002}{107}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}Remarks on product space}{107}{subsection.3.6.1}
+\contentsline {paragraph}{Reviewing}{107}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}Properties of Topological Spaces}{110}{subsection.3.6.2}
+\contentsline {subsubsection}{\numberline {3.6.2.1}Hausdorff Property}{110}{subsubsection.3.6.2.1}
+\contentsline {chapter}{\numberline {4}Week4}{113}{chapter.4}
+\contentsline {section}{\numberline {4.1}Monday for MAT3040}{113}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Quotient Spaces}{113}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}First Isomorphism Theorem}{116}{subsection.4.1.2}
+\contentsline {section}{\numberline {4.2}Monday for MAT3006}{119}{section.4.2}
+\contentsline {paragraph}{Reviewing}{119}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Generalization into System of ODEs}{119}{subsection.4.2.1}
+\contentsline {paragraph}{Formal Setting of System of ODEs}{119}{subsection.4.2.1}
+\contentsline {paragraph}{Generalization of Picard Lindelof Theorem}{120}{subsection.4.2.1}
+\contentsline {paragraph}{Higher Order ODEs}{120}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Stone-Weierstrass Theorem}{121}{subsection.4.2.2}
+\contentsline {section}{\numberline {4.3}Monday for MAT4002}{125}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Hausdorffness}{125}{subsection.4.3.1}
+\contentsline {paragraph}{Reviewing}{125}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Connectedness}{126}{subsection.4.3.2}
+\contentsline {section}{\numberline {4.4}Wednesday for MAT3040}{130}{section.4.4}
+\contentsline {paragraph}{Reviewing}{130}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Dual Space}{135}{subsection.4.4.1}
+\contentsline {section}{\numberline {4.5}Wednesday for MAT3006}{138}{section.4.5}
+\contentsline {paragraph}{Reviewing}{138}{section.4.5}
+\contentsline {subsection}{\numberline {4.5.1}Stone-Weierstrass Theorem}{139}{subsection.4.5.1}
+\contentsline {section}{\numberline {4.6}Wednesday for MAT4002}{144}{section.4.6}
+\contentsline {paragraph}{Reviewing}{144}{section.4.6}
+\contentsline {subsection}{\numberline {4.6.1}Remark on Connectedness}{144}{subsection.4.6.1}
+\contentsline {subsection}{\numberline {4.6.2}Compactness}{146}{subsection.4.6.2}
+\contentsline {chapter}{\numberline {5}Week5}{149}{chapter.5}
+\contentsline {section}{\numberline {5.1}Monday for MAT3040}{149}{section.5.1}
+\contentsline {paragraph}{Reviewing}{149}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Remarks on Dual Space}{150}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Annihilators}{152}{subsection.5.1.2}
+\contentsline {section}{\numberline {5.2}Monday for MAT3006}{156}{section.5.2}
+\contentsline {paragraph}{Reviewing}{156}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Stone-Weierstrass Theorem in $\PazoBB {C}$}{157}{subsection.5.2.1}
+\contentsline {paragraph}{Fourier Analysis}{158}{equation.5.2.2}
+\contentsline {subsection}{\numberline {5.2.2}Baire Category Theorem}{159}{subsection.5.2.2}
+\contentsline {paragraph}{Motivation}{159}{subsection.5.2.2}
+\contentsline {section}{\numberline {5.3}Monday for MAT4002}{161}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Continuous Functions on Compact Space}{161}{subsection.5.3.1}
+\contentsline {section}{\numberline {5.4}Wednesday for MAT3040}{164}{section.5.4}
+\contentsline {paragraph}{Reviewing}{164}{section.5.4}
+\contentsline {subsection}{\numberline {5.4.1}Adjoint Map}{165}{subsection.5.4.1}
+\contentsline {subsection}{\numberline {5.4.2}Relationship between Annihilator and dual of quotient spaces}{168}{subsection.5.4.2}
+\contentsline {section}{\numberline {5.5}Wednesday for MAT3006}{169}{section.5.5}
+\contentsline {subsection}{\numberline {5.5.1}Remarks on Baire Category Theorem}{169}{subsection.5.5.1}
+\contentsline {subsection}{\numberline {5.5.2}Compact subsets of $\mathcal {C}[a,b]$}{171}{subsection.5.5.2}
+\contentsline {section}{\numberline {5.6}Wednesday for MAT4002}{173}{section.5.6}
+\contentsline {subsection}{\numberline {5.6.1}Remarks on Compactness}{173}{subsection.5.6.1}
+\contentsline {subsection}{\numberline {5.6.2}Quotient Spaces}{174}{subsection.5.6.2}
+\contentsline {paragraph}{Motivation}{174}{subsection.5.6.2}
+\contentsline {paragraph}{Idea}{174}{subsection.5.6.2}
+\contentsline {subsubsection}{\numberline {5.6.2.1}Equivalence Relations and partitions}{174}{subsubsection.5.6.2.1}
+\contentsline {chapter}{\numberline {6}Week6}{179}{chapter.6}
+\contentsline {section}{\numberline {6.1}Monday for MAT3040}{179}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Polynomials}{179}{subsection.6.1.1}
+\contentsline {section}{\numberline {6.2}Monday for MAT3006}{182}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Compactness in Functional Space}{182}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}An Application of Ascoli-Arzela Theorem}{183}{subsection.6.2.2}
+\contentsline {section}{\numberline {6.3}Monday for MAT4002}{184}{section.6.3}
+\contentsline {subsection}{\numberline {6.3.1}Quotient Topology}{184}{subsection.6.3.1}
+\contentsline {subsection}{\numberline {6.3.2}Properties in quotient spaces}{186}{subsection.6.3.2}
+\contentsline {subsubsection}{\numberline {6.3.2.1}Closedness on $X/\sim $}{186}{subsubsection.6.3.2.1}
+\contentsline {subsubsection}{\numberline {6.3.2.2}Isomorphism on $X/\sim $}{186}{subsubsection.6.3.2.2}
+\contentsline {paragraph}{Torus}{189}{proposition.6.5}
+\contentsline {section}{\numberline {6.4}Wednesday for MAT3040}{191}{section.6.4}
+\contentsline {subsection}{\numberline {6.4.1}Eigenvalues $\&$ Eigenvectors}{194}{subsection.6.4.1}
+\contentsline {paragraph}{Assumption}{195}{exampleT.6.8}
+\contentsline {section}{\numberline {6.5}Wednesday for MAT4002}{197}{section.6.5}
+\contentsline {subsection}{\numberline {6.5.1}Remarks on Compactness}{197}{subsection.6.5.1}
+\contentsline {chapter}{\numberline {7}Week7}{199}{chapter.7}
+\contentsline {section}{\numberline {7.1}Monday for MAT3040}{199}{section.7.1}
+\contentsline {paragraph}{Reviewing}{199}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}Minimal Polynomial}{199}{subsection.7.1.1}
+\contentsline {paragraph}{Assumption}{203}{proposition.7.4}
+\contentsline {paragraph}{Notation}{203}{proposition.7.4}
+\contentsline {subsection}{\numberline {7.1.2}Minimal Polynomial of a vector}{204}{subsection.7.1.2}
+\contentsline {section}{\numberline {7.2}Monday for MAT3006}{206}{section.7.2}
+\contentsline {paragraph}{Reviewing}{206}{section.7.2}
+\contentsline {subsection}{\numberline {7.2.1}Remarks on the outer measure}{206}{subsection.7.2.1}
+\contentsline {section}{\numberline {7.3}Monday for MAT4002}{211}{section.7.3}
+\contentsline {subsection}{\numberline {7.3.1}Quotient Map}{211}{subsection.7.3.1}
+\contentsline {subsection}{\numberline {7.3.2}Simplicial Complex}{212}{subsection.7.3.2}
+\contentsline {paragraph}{Motivation}{214}{definitionT.7.8}
+\contentsline {section}{\numberline {7.4}Wednesday for MAT3040}{217}{section.7.4}
+\contentsline {paragraph}{Reviewing}{217}{section.7.4}
+\contentsline {subsection}{\numberline {7.4.1}Cayley-Hamiton Theorem}{217}{subsection.7.4.1}
+\contentsline {paragraph}{Assumption}{219}{theoremeT.7.1}
+\contentsline {section}{\numberline {7.5}Wednesday for MAT4002}{224}{section.7.5}
+\contentsline {subsection}{\numberline {7.5.1}Remarks on Triangulation}{224}{subsection.7.5.1}
+\contentsline {subsection}{\numberline {7.5.2}Simplicial Subcomplex}{226}{subsection.7.5.2}
+\contentsline {subsection}{\numberline {7.5.3}Some properties of simplicial complex}{228}{subsection.7.5.3}
+\contentsline {chapter}{\numberline {8}Week8}{231}{chapter.8}
+\contentsline {section}{\numberline {8.1}Monday for MAT3040}{231}{section.8.1}
+\contentsline {paragraph}{Reviewing}{231}{section.8.1}
+\contentsline {subsection}{\numberline {8.1.1}Cayley-Hamiton Theorem}{233}{subsection.8.1.1}
+\contentsline {subsection}{\numberline {8.1.2}Primary Decomposition Theorem}{236}{subsection.8.1.2}
+\contentsline {section}{\numberline {8.2}Monday for MAT3006}{238}{section.8.2}
+\contentsline {paragraph}{Reviewing}{238}{section.8.2}
+\contentsline {subsection}{\numberline {8.2.1}Remarks for Outer Measure}{238}{subsection.8.2.1}
+\contentsline {subsection}{\numberline {8.2.2}Lebesgue Measurable}{239}{subsection.8.2.2}
+\contentsline {paragraph}{Notations}{243}{proposition.8.4}
+\contentsline {section}{\numberline {8.3}Monday for MAT4002}{244}{section.8.3}
+\contentsline {subsection}{\numberline {8.3.1}Quotient Map}{244}{subsection.8.3.1}
+\contentsline {subsection}{\numberline {8.3.2}Simplicial Complex}{245}{subsection.8.3.2}
+\contentsline {section}{\numberline {8.4}Wednesday for MAT3006}{248}{section.8.4}
+\contentsline {paragraph}{Reviewing}{248}{section.8.4}
+\contentsline {subsection}{\numberline {8.4.1}Remarks on Lebesgue Measurability}{248}{subsection.8.4.1}
+\contentsline {paragraph}{Notations}{250}{equation.8.4.13f}
+\contentsline {subsection}{\numberline {8.4.2}Measures In Probability Theory}{250}{subsection.8.4.2}
+\contentsline {section}{\numberline {8.5}Wednesday for MAT4002}{253}{section.8.5}
+\contentsline {paragraph}{Reviewing}{253}{section.8.5}
+\contentsline {subsection}{\numberline {8.5.1}Homotopy}{255}{subsection.8.5.1}
+\contentsline {paragraph}{Yoneda's ``philosophy''}{255}{subsection.8.5.1}
+\contentsline {chapter}{\numberline {9}Week9}{257}{chapter.9}
+\contentsline {section}{\numberline {9.1}Monday for MAT3040}{257}{section.9.1}
+\contentsline {paragraph}{Reviewing}{257}{section.9.1}
+\contentsline {subsection}{\numberline {9.1.1}Remarks on Primary Decomposition Theorem}{257}{subsection.9.1.1}
+\contentsline {paragraph}{Organization of future two weeks}{261}{corollaryT.9.2}
+\contentsline {section}{\numberline {9.2}Monday for MAT3006}{263}{section.9.2}
+\contentsline {paragraph}{Reviewing}{263}{section.9.2}
+\contentsline {subsection}{\numberline {9.2.1}Measurable Functions}{263}{subsection.9.2.1}
+\contentsline {paragraph}{Motivation}{263}{subsection.9.2.1}
+\contentsline {section}{\numberline {9.3}Monday for MAT4002}{268}{section.9.3}
+\contentsline {paragraph}{Reviewing}{268}{section.9.3}
+\contentsline {subsection}{\numberline {9.3.1}Remarks on Homotopy}{268}{subsection.9.3.1}
+\contentsline {section}{\numberline {9.4}Wednesday for MAT3040}{274}{section.9.4}
+\contentsline {subsection}{\numberline {9.4.1}Jordan Normal Form}{274}{subsection.9.4.1}
+\contentsline {subsection}{\numberline {9.4.2}Inner Product Spaces}{280}{subsection.9.4.2}
+\contentsline {section}{\numberline {9.5}Wednesday for MAT3006}{282}{section.9.5}
+\contentsline {subsection}{\numberline {9.5.1}Remarks on Measurable function}{282}{subsection.9.5.1}
+\contentsline {subsection}{\numberline {9.5.2}Lebesgue Integration}{283}{subsection.9.5.2}
+\contentsline {section}{\numberline {9.6}Wednesday for MAT4002}{287}{section.9.6}
+\contentsline {subsection}{\numberline {9.6.1}Simplicial Approximation Theorem}{287}{subsection.9.6.1}
+\contentsline {paragraph}{Key Observations}{287}{figure.caption.51}
+\contentsline {paragraph}{Motivation}{288}{Item.573}
+\contentsline {chapter}{\numberline {10}Week10}{293}{chapter.10}
+\contentsline {section}{\numberline {10.1}Monday for MAT3040}{293}{section.10.1}
+\contentsline {subsection}{\numberline {10.1.1}Inner Product Space}{293}{subsection.10.1.1}
+\contentsline {paragraph}{Classification}{293}{subsection.10.1.1}
+\contentsline {paragraph}{Notation}{294}{definitionT.10.2}
+\contentsline {subsection}{\numberline {10.1.2}Dual spaces}{296}{subsection.10.1.2}
+\contentsline {section}{\numberline {10.2}Monday for MAT3006}{299}{section.10.2}
+\contentsline {subsection}{\numberline {10.2.1}Remarks on Markov Inequality}{299}{subsection.10.2.1}
+\contentsline {subsection}{\numberline {10.2.2}Properties of Lebesgue Integration}{299}{subsection.10.2.2}
+\contentsline {section}{\numberline {10.3}Monday for MAT4002}{302}{section.10.3}
+\contentsline {subsection}{\numberline {10.3.1}Group Presentations}{304}{subsection.10.3.1}
+\contentsline {section}{\numberline {10.4}Wednesday for MAT3040}{305}{section.10.4}
+\contentsline {paragraph}{Reviewing}{305}{section.10.4}
+\contentsline {subsection}{\numberline {10.4.1}Orthogonal Complement}{305}{subsection.10.4.1}
+\contentsline {subsection}{\numberline {10.4.2}Adjoint Map}{308}{subsection.10.4.2}
+\contentsline {paragraph}{Motivation}{308}{subsection.10.4.2}
+\contentsline {paragraph}{Notation}{308}{subsection.10.4.2}
+\contentsline {section}{\numberline {10.5}Wednesday for MAT3006}{311}{section.10.5}
+\contentsline {subsection}{\numberline {10.5.1}Consequences of MCT}{314}{subsection.10.5.1}
+\contentsline {section}{\numberline {10.6}Wednesday for MAT4002}{317}{section.10.6}
+\contentsline {subsection}{\numberline {10.6.1}Reviewing On Groups}{317}{subsection.10.6.1}
+\contentsline {subsection}{\numberline {10.6.2}Free Groups}{319}{subsection.10.6.2}
+\contentsline {subsection}{\numberline {10.6.3}Relations on Free Groups}{321}{subsection.10.6.3}
+\contentsline {chapter}{\numberline {11}Week11}{323}{chapter.11}
+\contentsline {section}{\numberline {11.1}Monday for MAT3040}{323}{section.11.1}
+\contentsline {paragraph}{Reviewing}{323}{section.11.1}
+\contentsline {subsection}{\numberline {11.1.1}Self-Adjoint Operator}{323}{subsection.11.1.1}
+\contentsline {subsection}{\numberline {11.1.2}Orthononal/Unitary Operators}{326}{subsection.11.1.2}
+\contentsline {section}{\numberline {11.2}Monday for MAT3006}{328}{section.11.2}
+\contentsline {paragraph}{Reviewing}{328}{section.11.2}
+\contentsline {subsection}{\numberline {11.2.1}Consequences of MCT I}{328}{subsection.11.2.1}
+\contentsline {subsection}{\numberline {11.2.2}MCT II}{331}{subsection.11.2.2}
+\contentsline {section}{\numberline {11.3}Monday for MAT4002}{333}{section.11.3}
+\contentsline {paragraph}{Reviewing}{333}{section.11.3}
+\contentsline {subsection}{\numberline {11.3.1}Cayley Graph for finitely presented groups}{335}{subsection.11.3.1}
+\contentsline {subsection}{\numberline {11.3.2}Fundamental Group}{337}{subsection.11.3.2}
+\contentsline {paragraph}{Motivation}{337}{subsection.11.3.2}
+\contentsline {paragraph}{Why do we need algebra in topology}{338}{subsection.11.3.2}
+\contentsline {section}{\numberline {11.4}Wednesday for MAT3040}{340}{section.11.4}
+\contentsline {paragraph}{Reviewing}{340}{section.11.4}
+\contentsline {subsection}{\numberline {11.4.1}Unitary Operator}{340}{subsection.11.4.1}
+\contentsline {paragraph}{Notation}{343}{theoremeT.11.2}
+\contentsline {subsection}{\numberline {11.4.2}Normal Operators}{343}{subsection.11.4.2}
+\contentsline {section}{\numberline {11.5}Wednesday for MAT3006}{345}{section.11.5}
+\contentsline {subsection}{\numberline {11.5.1}Properties of Lebesgue Integrable Functions}{346}{subsection.11.5.1}
+\contentsline {section}{\numberline {11.6}Wednesday for MAT4002}{351}{section.11.6}
+\contentsline {subsection}{\numberline {11.6.1}The fundamental group}{351}{subsection.11.6.1}
+\contentsline {paragraph}{Revewing}{351}{subsection.11.6.1}
+\contentsline {chapter}{\numberline {12}Week12}{359}{chapter.12}
+\contentsline {section}{\numberline {12.1}Monday for MAT3040}{359}{section.12.1}
+\contentsline {subsection}{\numberline {12.1.1}Remarks on Normal Operator}{359}{subsection.12.1.1}
+\contentsline {subsection}{\numberline {12.1.2}Tensor Product}{363}{subsection.12.1.2}
+\contentsline {paragraph}{Motivation}{363}{subsection.12.1.2}
+\contentsline {section}{\numberline {12.2}Monday for MAT3006}{365}{section.12.2}
+\contentsline {subsection}{\numberline {12.2.1}Remarks on MCT}{365}{subsection.12.2.1}
+\contentsline {subsection}{\numberline {12.2.2}Dominated Convergence Theorem}{368}{subsection.12.2.2}
+\contentsline {section}{\numberline {12.3}Monday for MAT4002}{372}{section.12.3}
+\contentsline {paragraph}{Notation}{372}{proposition.12.3}
+\contentsline {subsection}{\numberline {12.3.1}Some basic results on $\pi _1(X,b)$}{375}{subsection.12.3.1}
+\contentsline {section}{\numberline {12.4}Wednesday for MAT3040}{377}{section.12.4}
+\contentsline {subsection}{\numberline {12.4.1}Introduction to Tensor Product}{377}{subsection.12.4.1}
+\contentsline {paragraph}{Reviewing}{377}{subsection.12.4.1}
+\contentsline {section}{\numberline {12.5}Wednesday for MAT3006}{381}{section.12.5}
+\contentsline {subsection}{\numberline {12.5.1}Riemann Integration $\&$ Lebesgue Integration}{381}{subsection.12.5.1}
+\contentsline {subsection}{\numberline {12.5.2}Continuous Parameter DCT}{383}{subsection.12.5.2}
+\contentsline {section}{\numberline {12.6}Wednesday for MAT4002}{386}{section.12.6}
+\contentsline {paragraph}{Reviewing}{386}{section.12.6}
+\contentsline {subsection}{\numberline {12.6.1}Groups $\&$ Simplicial Complices}{386}{subsection.12.6.1}
+\contentsline {chapter}{\numberline {13}Week13}{391}{chapter.13}
+\contentsline {section}{\numberline {13.1}Monday for MAT3040}{391}{section.13.1}
+\contentsline {paragraph}{Reviewing}{391}{section.13.1}
+\contentsline {subsection}{\numberline {13.1.1}Basis of $V\otimes W$}{393}{subsection.13.1.1}
+\contentsline {paragraph}{Motivation}{393}{subsection.13.1.1}
+\contentsline {subsection}{\numberline {13.1.2}Tensor Product of Linear Transformation}{397}{subsection.13.1.2}
+\contentsline {paragraph}{Motivation}{397}{subsection.13.1.2}
+\contentsline {section}{\numberline {13.2}Monday for MAT3006}{398}{section.13.2}
+\contentsline {paragraph}{Notations}{398}{section.13.2}
+\contentsline {subsection}{\numberline {13.2.1}Double Integral}{399}{subsection.13.2.1}
+\contentsline {paragraph}{Product Space of $\PazoBB {R}^2$}{400}{definitionT.13.3}
+\contentsline {section}{\numberline {13.3}Monday for MAT4002}{403}{section.13.3}
+\contentsline {subsection}{\numberline {13.3.1}Isomorphsim between Edge Loop Group and the Fundamental Group}{403}{subsection.13.3.1}
+\contentsline {section}{\numberline {13.4}Wednesday for MAT3040}{409}{section.13.4}
+\contentsline {subsection}{\numberline {13.4.1}Tensor Product for Linear Transformations}{409}{subsection.13.4.1}
+\contentsline {paragraph}{Notation Warning}{409}{proposition.13.5}
+\contentsline {section}{\numberline {13.5}Wednesday for MAT3006}{415}{section.13.5}
+\contentsline {subsection}{\numberline {13.5.1}Fubini's and Tonell's Theorem}{415}{subsection.13.5.1}
+\contentsline {paragraph}{Motivation}{415}{subsection.13.5.1}
+\contentsline {paragraph}{Easier Goal}{415}{subsection.13.5.1}
+\contentsline {paragraph}{Easiest Goal}{415}{equation.13.5.4}
+\contentsline {section}{\numberline {13.6}Wednesday for MAT4002}{420}{section.13.6}
+\contentsline {subsection}{\numberline {13.6.1}Applications on the isomorphism of fundamental group}{420}{subsection.13.6.1}
+\contentsline {chapter}{\numberline {14}Week14}{427}{chapter.14}
+\contentsline {section}{\numberline {14.1}Monday for MAT3040}{427}{section.14.1}
+\contentsline {subsection}{\numberline {14.1.1}Multilinear Tensor Product}{427}{subsection.14.1.1}
+\contentsline {paragraph}{Notation}{430}{corollaryT.14.1}
+\contentsline {paragraph}{Final Exam Ends Here}{430}{corollaryT.14.1}
+\contentsline {subsection}{\numberline {14.1.2}Exterior Power}{430}{subsection.14.1.2}
+\contentsline {section}{\numberline {14.2}Monday for MAT3006}{432}{section.14.2}
+\contentsline {subsection}{\numberline {14.2.1}Tonelli's and Fubini's Theorem}{432}{subsection.14.2.1}
+\contentsline {section}{\numberline {14.3}Monday for MAT4002}{436}{section.14.3}
+\contentsline {subsection}{\numberline {14.3.1}Fundamental group of a Graph}{436}{subsection.14.3.1}
+\contentsline {chapter}{\numberline {15}Week15}{441}{chapter.15}
+\contentsline {section}{\numberline {15.1}Monday for MAT3040}{441}{section.15.1}
+\contentsline {subsection}{\numberline {15.1.1}More on Exterior Power}{441}{subsection.15.1.1}
+\contentsline {paragraph}{Reviewing}{441}{subsection.15.1.1}
+\contentsline {subsection}{\numberline {15.1.2}Determinant}{443}{subsection.15.1.2}
+\contentsline {paragraph}{Previous Approach for defining determinant}{443}{subsection.15.1.2}
+\contentsline {paragraph}{New Approach}{444}{subsection.15.1.2}
+\contentsline {section}{\numberline {15.2}Monday for MAT3006}{448}{section.15.2}
+\contentsline {subsection}{\numberline {15.2.1}Applications on the Tonell's and Fubini's Theorem}{448}{subsection.15.2.1}
+\contentsline {paragraph}{Process of Completion}{450}{equation.15.2.3f}
+\contentsline {subsection}{\numberline {15.2.2}Final Review}{452}{subsection.15.2.2}
+\contentsline {section}{\numberline {15.3}Monday for MAT4002}{458}{section.15.3}
+\contentsline {subsection}{\numberline {15.3.1}The Selfert-Van Kampen Theorem}{459}{subsection.15.3.1}
+\contentsfinish 

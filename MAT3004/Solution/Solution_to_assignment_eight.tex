@@ -1,0 +1,288 @@
+\subsection{Solution to Assignment Eight}
+\begin{enumerate}
+\item
+\begin{proof}[Solution.] We factorize $\bm A\in\mathbb{R}^{n\times n}$ into:
+\[
+\bm A=\bm U\bm\Sigma\bm V\trans
+\]
+where $\bm U$ is a $n\times n$ \emph{orthogonal} matrix,
+$\bm\Sigma$ is a $n\times n$ \textit{diagonal} matrix,
+$\bm V$ is a $n\times n$ \emph{orthogonal} matrix.\\
+Thus we write $\bm A\bm A\trans$ and $\bm A\trans\bm A$ as:
+\begin{align*}
+\bm A\bm A\trans&=\bm U\bm\Sigma\bm V\trans\bm V\bm \Sigma\trans\bm U\trans=\bm U\bm\Sigma\bm \Sigma\trans\bm U\trans=\bm U\bm\Sigma^2\bm U\trans.\qquad\text{Since $\bm V\trans\bm V=\bm I$ due to orthonormality.}\\
+\bm A\trans\bm A&=\bm V\bm \Sigma\trans\bm U\trans\bm U\bm\Sigma\bm V\trans=\bm V\bm \Sigma\trans\bm\Sigma\bm V\trans=\bm V\bm\Sigma^2\bm V\trans.\qquad\text{Since $\bm U\trans\bm U=\bm I$ due to orthonormality.}
+\end{align*}
+If we set $\bm S=(\bm V\trans)^{-1}\bm U\trans=\bm V\bm U\trans$, then the inverse is given by $\bm S^{-1}=(\bm U\trans)^{-1}\bm V^{-1}=\bm U\bm V\trans$.\\
+Hnece there exists invertible $\bm S=\bm V\bm U\trans$ such that
+\[
+\begin{aligned}
+\bm S^{-1}(\bm A\trans\bm A)\bm S
+&=\bm U\bm V\trans(\bm A\trans\bm A)\bm V\bm U\trans\\
+&=\bm U\bm V\trans\bm V\bm\Sigma^2\bm V\trans\bm V\bm U\trans\\
+&=\bm U\bm\Sigma^2\bm U\trans=\bm A\bm A\trans
+\end{aligned}
+\]
+Hence $\bm A\trans\bm A$ is similiar to $\bm A\bm A\trans$, i.e. $\bm A\trans\bm A$ and $\bm A\bm A\trans$ are \emph{similar}.
+\end{proof}
+%q2
+\item
+Let $\bm A$ be $m\times n$ ($m\ge n$) matrix of rank $n$ with singular value decomposition $\bm U\Sigma\bm V\trans$. Let $\Sigma^+$ denote the $n\times m$ matrix
+\[
+\begin{pmatrix}
+\frac{1}{\sigma_1}&&&0&\dots&0\\
+&\ddots&&\vdots&\ddots&\vdots\\
+&&\frac{1}{\sigma_n}&0&\dots&0\\
+\end{pmatrix}
+\]
+And we define $\bm A^+=\bm V\Sigma^+\bm U\trans$
+\begin{enumerate}
+\item
+Show that
+\[
+\bm A\bm A^+=\begin{bmatrix}
+\bm I_n&\bm0\\\bm0&\bm0
+\end{bmatrix}\qquad\text{and}\qquad
+\bm A^+\bm A=\bm I_n.
+\]
+(Note that $\bm A^+$ is called the \emph{pseudo-inverse} of $\bm A$.)
+\item
+Show that $\hat{\bm x}=\bm A^+\bm b$ satisfies the normal equation $\bm A\trans\bm A\bm x=\bm A\trans\bm b.$
+\end{enumerate}
+\begin{proof}[Solution.]
+\begin{enumerate}
+\item
+We write $\Sigma^+$ into block matrix:
+\[
+\Sigma^+=\begin{bmatrix}
+\bm\Sigma^{-1}&\bm0_{n\times(m-n)}
+\end{bmatrix}
+\]
+where $\bm\Sigma^{-1}:=\diag(\frac{1}{\sigma_1},\dots,\frac{1}{\sigma_n})$.\\
+Hence $\bm\Sigma\Sigma^+=\begin{bmatrix}
+\bm\Sigma\bm\Sigma^{-1}&\bm0_{m\times(m-n)}\end{bmatrix}=
+\begin{bmatrix}
+\bm I_{n}&\bm0_{n\times(m-n)}\\\bm0_{m-n}&\bm0_{(m-n)\times(m-n)}
+\end{bmatrix}
+.$\\
+Thus we derive
+\begin{align*}
+\bm A\bm A^+&=\bm U\bm\Sigma\bm V\trans\bm V\bm\Sigma^+\bm U\trans\\
+&=\bm U\bm\Sigma\bm\Sigma^+\bm U\trans=
+\bm U\begin{bmatrix}
+\bm I_{n}&\bm0_{n\times(m-n)}\\\bm0_{m-n}&\bm0_{(m-n)\times(m-n)}
+\end{bmatrix}\bm U\trans
+\end{align*}
+We write $\bm U$ as block matrix:
+\[
+\bm U=\begin{bmatrix}
+\bm U_1&\bm U_2
+\end{bmatrix}
+\]
+where $\bm U_1$ is $m\times n$ matrix, $\bm U_2$ is $m\times (m-n)$ matrix.\\
+Hence we derive
+\[
+\begin{aligned}
+\bm A\bm A^+&=\bm U\begin{bmatrix}
+\bm I_{n}&\bm0_{n\times(m-n)}\\\bm0_{m-n}&\bm0_{(m-n)\times(m-n)}
+\end{bmatrix}\bm U\trans\\
+&=\begin{bmatrix}
+\bm U_1&\bm U_2
+\end{bmatrix}\begin{bmatrix}
+\bm I_{n}&\bm0_{n\times(m-n)}\\\bm0_{m-n}&\bm0_{(m-n)\times(m-n)}
+\end{bmatrix}\begin{bmatrix}
+\bm U_1\trans\\\bm U_2\trans
+\end{bmatrix}\\
+&=\begin{bmatrix}
+\bm U_1\bm I_{n}\bm U_1\trans&\bm0_{n\times(m-n)}\\\bm0_{m-n}&\bm0_{(m-n)\times(m-n)}
+\end{bmatrix}\\
+&=\begin{bmatrix}
+\bm I_{n}&\bm0_{n\times(m-n)}\\\bm0_{m-n}&\bm0_{(m-n)\times(m-n)}
+\end{bmatrix}\qquad\text{due to the orthogonality of $\bm U$.}
+\end{aligned}
+\]
+Moreover, $\bm A^+\bm A=\bm V\bm\Sigma^+\bm U\trans\bm U\bm\Sigma\bm V\trans
+=\bm V\bm\Sigma^+\bm\Sigma\bm V\trans.$\\
+You can verify by yourself that $\Sigma^+\bm\Sigma=\bm I$.\\
+Hence $\bm A^+\bm A=\bm V\bm V\trans=\bm I_{n}.$
+\item
+We only need to show $\bm A\trans\bm A\bm A^+\bm b=\bm A\trans\bm b$.\\
+Since $\rank(\bm A)=n$, the columns of $\bm A$ are ind. Hence $\bm A\trans\bm A$ is invertible.
+\begin{itemize}
+\item
+Firstly, we show $(\bm A\trans\bm A)^{-1}\bm A\trans$ is the right inverse of $\bm A$:
+\[
+\begin{aligned}
+\bm A(\bm A\trans\bm A)^{-1}\bm A\trans&=
+\bm U\bm\Sigma\bm V\trans(\bm V\bm\Sigma\bm U\trans\bm U\bm\Sigma\bm V\trans)^{-1}
+\bm V\bm\Sigma\bm U\trans\\
+&=\bm U\bm\Sigma\bm V\trans(\bm V\bm\Sigma^2\bm V\trans)^{-1}\bm V\bm\Sigma\bm U\trans
+=\bm U\bm\Sigma\bm V\trans\bm V\bm\Sigma^{-2}\bm V\trans\bm V\bm\Sigma\bm U\trans\\
+&=\bm U\bm\Sigma\bm\Sigma^{-2}\bm\Sigma\bm U\trans\\
+&=\bm I
+\end{aligned}
+\]
+\item
+Since we also obtain $\bm A^+\bm A=\bm I$, we derive 
+\[
+\bm A^+=\bm A^+\bm I=\bm A^+\bm A\left[(\bm A\trans\bm A)^{-1}\bm A\trans\right]=\bm I\left[(\bm A\trans\bm A)^{-1}\bm A\trans\right]=\left[(\bm A\trans\bm A)^{-1}\bm A\trans\right]
+\]
+\end{itemize}
+Thus we have $\bm A\trans\bm A\bm A^+=\bm A\trans\implies\bm A\trans\bm A\bm A^+\bm b=\bm A\trans\bm b.$
+\end{enumerate}
+\end{proof}
+
+
+
+
+
+
+%q3
+\item
+\begin{proof}
+\begin{enumerate}
+\item
+\begin{align*}
+\|\bm A\|_{\bm F}^2&=\trace(\bm A\trans\bm A)\\
+&=\trace\left[\sum_{i=1}^{n}\sigma_i\bm v_i\bm u_i\trans\times\sum_{i=1}^{n}\sigma_i\bm u_i\bm v_i\trans\right]\\
+&=\trace\left(\sum_{i=1}^{n}\sigma_i^2\bm v_i(\bm u_i\trans\bm u_i)\bm v_i\trans+\sum_{i\ne j}\sigma_i\sigma_j\bm v_i(\bm u_i\trans\bm u_j)\bm v_j\trans\right)\\
+&=\trace\left(\sum_{i=1}^{n}\sigma_i^2\bm v_i\bm v_i\trans+\bm0\right)\qquad
+\text{due to orthogonality for $\bm u_i$'s and $\bm v_i$'s.}\\
+&=\sum_{i=1}^n\sigma_i^2\trace\left(
+\bm v_i\bm v_i\trans
+\right)
+\end{align*}
+Suppose $\bm v_i=\begin{bmatrix}
+v_{1i}&v_{2i}&\dots&v_{ni}
+\end{bmatrix}\trans$, then due to the orthonormality of $\bm v_i$, we obtain
+\[
+\trace\left(
+\bm v_i\bm v_i\trans
+\right)=\sum_{j=1}^{n}v_{ji}^2=1.
+\]
+Hence $\|\bm A\|_{\bm F}^2=\sum_{i=1}^n\sigma_i^2\trace\left(
+\bm v_i\bm v_i\trans
+\right)=\sum_{i=1}^n\sigma_i^2.$
+\item
+\begin{itemize}
+\item
+When $k<n$, it's obvious that 
+\[
+\bm A_k=\sigma_1\bm u_1\bm v_1\trans+\dots+\sigma_k\bm u_k\bm v_k\trans.
+\]
+Hence \[\bm A-\bm A_k=\sigma_{k+1}\bm u_{k+1}\bm v_{k+1}\trans+\dots+\sigma_{n}\bm u_{n}\bm v_{n}\trans.\]
+And 
+\begin{align*}
+\|\bm A-\bm A_k\|_{\bm F}^{2}&=\trace\left(
+\sum_{i=k+1}^{n}\sigma_i\bm v_i\bm u_i\trans\times\sum_{i=k+1}^{n}\sigma_i\bm u_i\bm v_i\trans
+\right)
+\end{align*}
+Similarly, we obtain
+\[
+\|\bm A-\bm A_k\|_{\bm F}^{2}=\sum_{i=k+1}^{n}\sigma_i^2.
+\]
+\item
+Otherwise, $\bm A_k=\bm A$, thus $\|\bm A-\bm A_k\|_{\bm F}^{2}=0.$
+\end{itemize}
+\end{enumerate}
+\end{proof}
+\item
+\begin{proof}
+We only need to show that $\max_{\bm x,\bm y}\|\bm x\trans\bm A\bm y\|^2=\sigma_1^2:$
+\begin{itemize}
+\item
+we find
+\begin{align*}
+\|\bm x\trans\bm A\bm y\|^2&=\|\inp{\bm x}{\bm{Ay}}\|^2\le\|\bm x\|^2\cdot\|\bm{Ay}\|^2\\
+&=\|\bm{Ay}\|^2
+\end{align*}
+The equality holds if and only if $\bm x=\bm{Ay}$.
+\end{itemize}
+Thus
+\[
+\max_{\bm x,\bm y}\|\bm x\trans\bm A\bm y\|^2=\max_{\bm y}\|\bm{Ay}\|^2=\max_{\bm y}\bm y\trans(\bm A\trans\bm A\bm y).
+\]
+We only need to show $\max_{\bm y}\bm y\trans(\bm A\trans\bm A\bm y)=\sigma_1^2$:
+\begin{itemize}
+\item
+Since $\bm A\trans\bm A$ is real symmetric, there exists $n$ orthogonal eigenvectors of $\bm A\trans\bm A$. Moreover, we can divide these eigenvectors by their length to get $n$ \emph{orthonormal} eigenvectors $\bm p_1,\bm p_2,\dots,\bm p_n$ associated with eigenvalues $\lambda_1,\lambda_2,\dots,\lambda_n$ respectively.\\
+Without loss of generality, we set $\lambda_1=\max_{i}\lambda_i$ for $i=1,\dots,n.$\\
+Since they span $\mathbb{R}^{n}$, we can express arbitrary $\bm y$ as linear combination of $\bm p_1,\bm p_2,\dots,\bm p_n$:
+\[
+\bm y=\alpha_1\bm p_1+\alpha_2\bm p_2+\dots+\alpha_n\bm p_n.
+\]
+Moreover, the product $\bm y\trans\bm y$ is
+\begin{align*}
+\bm y\trans\bm y&=\|\bm y\|^2=1\\
+&=\sum_{i=1}^{n}\sum_{j=1}^{n}\alpha_i\alpha_j\bm p_i\bm p_j\\
+&=\sum_{i=1}^{n}\alpha_i^2=1.
+\end{align*}
+\item
+Moreover, the product $\bm A\trans\bm A\bm y$ is given by:
+\begin{align*}
+\bm A\trans\bm A\bm y&=\bm A\trans\bm A(\alpha_1\bm p_1+\alpha_2\bm p_2+\dots+\alpha_n\bm p_n)\\
+&=\alpha_1(\bm A\trans\bm A\bm p_1)+\alpha_2(\bm A\trans\bm A\bm p_2)+\dots+\alpha_n(\bm A\trans\bm A\bm p_n)\\
+&=\alpha_1\lambda_1\bm p_1+\alpha_2\lambda_2\bm p_2+\dots+\alpha_n\lambda_n\bm p_n
+\end{align*}
+Hence the product $\bm y\trans(\bm A\trans\bm A\bm y)$ is given by:
+\begin{align*}
+\bm y\trans(\bm A\trans\bm A\bm y)&=
+\bm y\trans(\alpha_1\lambda_1\bm p_1+\alpha_2\lambda_2\bm p_2+\dots+\alpha_n\lambda_n\bm p_n)\\
+&=\left(
+\sum_{i=1}^{n}\alpha_i\bm p_i\trans
+\right)
+\left(
+\sum_{j=1}^{n}\alpha_j\lambda_j\bm p_j
+\right)
+=\sum_{i=1}^{n}\sum_{j=1}^{n}\alpha_i\alpha_j\lambda_j\bm p_i\trans\bm p_j\\
+&=\sum_{i=1}^{n}\alpha_i^2\lambda_i\\
+&\le\lambda_1\sum_{i=1}^{n}\alpha_i^2=\lambda_1.
+\end{align*}
+The equality is satisfied when $\bm y=\bm p_1.$ Hence $\max_{\bm y}\bm y\trans(\bm A\trans\bm A\bm y)=\lambda_1$.\\
+Since $\lambda_1=\sigma_1^2$, we derive $\max_{\bm y}\bm y\trans(\bm A\trans\bm A\bm y)=\sigma^2_1$.
+\end{itemize}
+\end{proof}
+\item
+\begin{proof}
+\begin{itemize}
+\item
+We do the eigendecomposition for $\bm A$:
+\[
+\bm A=\bm U\bm\Sigma\bm U\trans
+\]
+where $\bm U$ is a $n\times n$ \emph{orthogonal} matrix such that columns are eigenvectors of $\bm A^2$.\\
+$\bm\Sigma=\diag(\lambda_1,\dots,\lambda_n)$ is a $n\times n$ \textit{diagonal} matrix, and $(\lambda_1,\dots,\lambda_n)$ are eigenvalues of $\bm A^2$.\\
+And then we define $\sqrt{\bm\Sigma}:=\diag(\sqrt{\lambda_1},\dots,\sqrt{\lambda_n})$. Obviously, we have $\bm\Sigma=\sqrt{\bm\Sigma}\sqrt{\bm\Sigma}.$\\
+Hence we could factorize $\bm A$ into
+\[
+(\bm U\sqrt{\bm\Sigma})(\bm U\sqrt{\bm\Sigma})\trans
+=\bm U\sqrt{\bm\Sigma}\sqrt{\bm\Sigma}\trans\bm U
+=\bm U\bm\Sigma\bm U=\bm A.
+\]
+Thus we define $\bm Q:=\bm U\sqrt{\bm\Sigma}$, which means we can factorize $\bm A$ into $\bm A=\bm Q\bm Q\trans$.
+\item
+Then we show the columns of $\bm Q$ are mutually orthogonal:\\
+Suppose $\bm U=\begin{bmatrix}
+\bm u_1&\dots&\bm u_n
+\end{bmatrix}$, and $\{\bm u_1,\dots,\bm u_n\}$ is orthonormal basis.
+\[
+\bm Q=\bm U\sqrt{\bm\Sigma}
+=\begin{bmatrix}
+\bm u_1&\dots&\bm u_n
+\end{bmatrix}\begin{pmatrix}
+\sqrt{\lambda_1}&&\\&\ddots&\\&&\sqrt{\lambda_n}
+\end{pmatrix}
+=\begin{bmatrix}
+\sqrt{\lambda_1}\bm u_1&\sqrt{\lambda_2}\bm u_2&\dots&\sqrt{\lambda_n}\bm u_n
+\end{bmatrix}
+\]
+Since $\{\bm u_1,\dots,\bm u_n\}$ is orthonormal basis, we obtain:
+\[
+\bm u_i\bm u_j=0\text{ for }i\ne j.
+\implies
+(\sqrt{\lambda_i}\bm u_i)(\sqrt{\lambda_j}\bm u_j)=0\text{ for }i\ne j.
+\]
+which means columns of $\bm Q$ are mutually orthogonal.
+\end{itemize}	
+\end{proof}
+\end{enumerate}

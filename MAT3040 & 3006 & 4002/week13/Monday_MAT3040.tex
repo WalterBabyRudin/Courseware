@@ -1,0 +1,345 @@
+\chapter{Week13}
+\section{Monday for MAT3040}\index{Monday_lecture}
+\paragraph{Reviewing}
+
+
+\begin{enumerate}
+\item
+Define $S=\{(\bm v,\bm w)\mid \bm v\in V,\bm w\in W\}$ and $\mathfrak{X}=\Span(S)$.
+In $\mathfrak{X}$, there are no relations between distinct elements of $S$, e.g.,
+\[
+2(\bm v,0)+3(0,\bm w)\ne1(2\bm v,3\bm w)
+\]
+General element in $\mathfrak{X}$:
+\[
+a_1(\bm v_1,\bm w_1)+\cdots+a_n(\bm v_n,\bm w_n), 
+\]
+where $(\bm v_i,\bm w_i)$ are distinct.
+\item
+Define the space $V\otimes W=\mathfrak{X}/y$, with 
+\[
+\bm v\otimes\bm w = 1(\bm v,\bm w)+y\in V\otimes W.
+\]
+General element in $\mathfrak{X}/y:=V\otimes W$:
+\begin{align*}
+a_1(\bm v_1,\bm w_1)+\cdots+a_n(\bm v_n,\bm w_n)+y
+&=
+a_1((\bm v_1,\bm w_1)+y)+\cdots+a_n((\bm v_n,\bm w_n)+y)\\
+&=
+a_1(\bm v_1\otimes\bm w_1)+\cdots+a_n(\bm v_n\otimes\bm w_n)\\
+&=
+(a_1\bm v_1)\otimes\bm w_1 + \cdots+(a_n\bm v_n)\otimes\bm w_n
+\end{align*}
+Therefore, a general element in $V\otimes W$ is of the form
+\begin{equation}\label{Eq:13:1}
+\bm v_1'\otimes\bm w_1+\cdots+\bm v_n'\otimes\bm w_n,\ 
+\bm v_i'\in V, \bm w_i\in W.
+\end{equation}
+Note that 
+$V\otimes W$ is different from $V\times W$, where all elements in $V\times W$ can be expressed as $(\bm v,\bm w)$.
+\item
+The tensor product mapping 
+\[
+\begin{array}{ll}
+i:&V\times W\to V\otimes W\\
+\text{with}&(\bm v,\bm w)\mapsto\bm v\otimes\bm w
+\end{array}
+\]
+satisfies the universal property.
+\end{enumerate}
+
+Here we present an example for computing tensor product by making use of the rules below:
+\begin{align*}
+(\bm v_1+\bm v_2)\otimes\bm w&=\bm v_1\otimes\bm w + \bm v_2\otimes\bm w\\
+\bm v\otimes(\bm w_1+\bm w_2)&=(\bm v\otimes\bm w_1)+(\bm v\otimes\bm w_2)\\
+(k\bm v)\otimes\bm w&=k(\bm v\otimes\bm w)\\
+\bm v\otimes(k\bm w)&=k(\bm v\otimes\bm w)
+\end{align*}
+
+\begin{example}
+Let $V=W=\mathbb{R}^2$, with
+\[
+\bm e_1=\begin{pmatrix}
+1\\0
+\end{pmatrix},
+\quad
+\bm e_2=\begin{pmatrix}
+0\\1
+\end{pmatrix}.
+\]
+Here we have
+\begin{align*}
+\begin{pmatrix}
+3\\1
+\end{pmatrix}\otimes\begin{pmatrix}
+-4\\2
+\end{pmatrix}
+&=(3\bm e_1+2\bm e_2)\otimes(-4\bm e_1+2\bm e_2)\\
+&=(3\bm e_1)\otimes (-4\bm e_1+2\bm e_2)
++
+(\bm e_2)\otimes(-4\bm e_1+2\bm e_2)\\
+&=(3\bm e_1)\otimes(-4\bm e_1)
++
+(3\bm e_1)\otimes(2\bm e_2)
++
+(\bm e_2)\otimes(-4\bm e_1)
++
+\bm e_2\otimes(2\bm e_2)\\
+&=-12(\bm e_1\otimes\bm e_1)
++
+6(\bm e_1\otimes\bm e_2)
+-4
+(\bm e_2\otimes\bm e_1)
++
+2(\bm e_2\otimes\bm e_2)
+\end{align*}
+\end{example}
+
+Exercise:
+Check that $\bm e_1\otimes\bm e_2+\bm e_2\otimes\bm e_1$ cannot be re-written as 
+\[
+\begin{array}{ll}
+(a\bm e_1+b\bm e_2)\otimes(c\bm e_1+d\bm e_2),
+&
+a,b,c,d\in\mathbb{R}.
+\end{array}
+\]
+
+\subsection{Basis of $V\otimes W$}
+\paragraph{Motivation}
+Given that $\{\bm v_1,\dots,\bm v_n\}$ is a basis of $V$,
+and 
+$\{\bm w_1,\dots,\bm w_m\}$ a basis of $W$,
+we aim to find a basis of $V\otimes W$ using $\bm v_i$'s and $\bm w_i$'s.
+
+\begin{proposition}\label{pro:13:1}
+The set 
+$\{\bm v_i\otimes\bm w_j\mid 1\le i\le n, 1\le j\le m\}$
+spans 
+the tensor product space
+$V\otimes W$.
+\end{proposition}
+\begin{proof}
+Consider any $\bm v\in V$ and $\bm w\in W$, and we want to express $\bm v\otimes\bm w$ in terms of $\bm v_i,\bm w_j$.
+Suppose that
+$\bm v=\alpha_1\bm v_1+\cdots+\alpha_n\bm v_n$ and $\bm w=\beta_1\bm w_1+\cdots+\beta_m\bm w_m$.
+
+Substituting $\bm v=\alpha_1\bm v_1+\cdots+\alpha_n\bm v_n$ into the expression 
+$\bm v\otimes\bm w$, we imply
+\begin{align*}
+\bm v\otimes\bm w&=
+(\alpha_1\bm v_1+\cdots+\alpha_n\bm v_n)\otimes\bm w\\
+&=(\alpha_1\bm v_1)\otimes\bm w_1
++
+\cdots
++
+(\alpha_n\bm v_n)\otimes\bm w_n\\
+&=\alpha_1(\bm v_1\otimes\bm w)
++
+\cdots
++
+\alpha_n(\bm v_n\otimes\bm w)
+\end{align*}
+For each $\bm v_i\otimes\bm w$, $i=1,\dots,n$, similarly, 
+\begin{equation*}
+\bm v_i\otimes\bm w
+=
+\beta_1(\bm v_i\otimes\bm w_1)
++
+\cdots
++
+\beta_m(\bm v_i\otimes\bm w_m).
+\end{equation*}
+Therefore, 
+\begin{equation}\label{Eq:13:2}
+\bm v\otimes\bm w
+=
+\sum_{i=1}^n\sum_{j=1}^m
+\alpha_i\beta_j
+(\bm v_i\otimes\bm w_j)
+\end{equation}
+By (\ref{Eq:13:1}), any vector in $V\otimes W$ is of the form 
+\[
+\bm v^{(1)}\otimes\bm w^{(1)}+\cdots
++
+\bm v^{(\ell)}\otimes\bm w^{(\ell)}
+\]
+By (\ref{Eq:13:2}), each $\bm v^{(k)}\otimes\bm w^{(k)}, k=1,\dots,\ell$,
+can be expressed as
+\[
+\bm v^{(k)}\otimes\bm w^{(k)}
+=
+\sum_{i=1}^n\sum_{j=1}^m
+\alpha_i^{(k)}\beta_j^{(k)}(\bm v_i\otimes\bm w_j)
+\]
+Therefore,
+\begin{align*}
+\bm v^{(1)}\otimes\bm w^{(1)}+\cdots
++
+\bm v^{(\ell)}\otimes\bm w^{(\ell)}
+&=
+\sum_{k=1}^\ell\sum_{i=1}^n\sum_{j=1}^m\alpha_i^{(k)}\beta_j^{(k)}(\bm v_i\otimes\bm w_j)
+\end{align*}
+In other words, $\{\bm v_i\otimes\bm w_j\mid 1\le i\le n, 1\le j\le m\}$ spans $V\otimes W$.
+\end{proof}
+
+\begin{theorem}
+A basis of $V\otimes W$ is $\{\bm v_i\otimes\bm w_j\mid 1\le i\le n, 1\le j\le m\}$
+\end{theorem}
+
+\begin{proof}
+By proposition~(\ref{pro:13:1}), 
+it suffices to show that the set $\{\bm v_i\otimes\bm w_j\mid 1\le i\le n, 1\le j\le m\}$ is linear independent.
+Suppose that
+\begin{equation}\label{Eq:13:3}
+\sum_{i=1}^n\sum_{j=1}^n\alpha_{ij}(\bm v_i\otimes\bm w_j)=\bm0
+\end{equation}
+Suppose that $\{\phi_1,\dots,\phi_n\}$ is a dual basis of $V^*$, and $\{\psi_1,\dots,\psi_m\}$ is a dual basis of $W^*$.
+Construct the mapping
+\[
+\begin{array}{ll}
+\pi_{p,q}:&V\times W\to\mathbb{F}\\
+\text{with}&\pi_{p,q} = \phi_p(\bm v)\psi_q(\bm w)
+\end{array}
+\]
+\begin{itemize}
+\item
+The mapping $\pi_{p,q}$ is actually bilinear: for instance,
+\begin{align*}
+\pi_{p,q}(a\bm v_1+b\bm v_2,\bm w)
+&=
+\phi_p(a\bm v_1+b\bm v_2)\psi_q(\bm w)\\
+&=(a\phi_p(\bm v_1)+b\phi_p(\bm v_2))\psi_q(\bm w)\\
+&=a\phi_p(\bm v_1)\psi_q(\bm w)+b\phi_p(\bm v_2)\psi_q(\bm w)\\
+&=a\pi_{p,q}(\bm v_1,\bm w)+b\pi_{p,q}(\bm v_2,\bm w).
+\end{align*}
+Following the similar ideas, we can check that $\pi_{p,q}(\bm v,a\bm w_1+b\bm w_2)=a\pi_{p,q}(\bm v,\bm w_1)+b\pi_{p,q}(\bm v,\bm w_2).$
+\item
+Therefore, $\pi_{p,q}\in\text{Obj}$. By the universal property of the tensor product, $\pi_{p,q}$ induces the unique linear transformation
+\[
+\begin{array}{ll}
+\prod_{p,q}:&V\otimes W\to \mathbb{F}\\
+\text{with}&\prod_{p,q}(\bm v\otimes\bm w) = \pi_{p,q}(\bm v,\bm w)
+\end{array}
+\]
+In other words, $\prod_{p,q}(\bm v\otimes\bm w) = \phi_p(\bm v)\psi_q(\bm w)$.
+\item
+Applying the mapping $\Pi_{p,q}$ on both sides of (\ref{Eq:13:3}), we imply
+\[
+\Pi_{p,q}
+\left(
+\sum_{i=1}^n\sum_{j=1}^n\alpha_{ij}(\bm v_i\otimes\bm w_j)
+\right)
+=
+\Pi_{p,q}(\bm0)
+\]
+Or equivalently,
+\[
+\sum_{i=1}^n\sum_{j=1}^n\alpha_{ij}\Pi_{p,q}(\bm v_i\otimes\bm w_j)=0,
+\]
+i.e.,
+\[
+\sum_{i=1}^n\sum_{j=1}^n\alpha_{ij}\phi_p(\bm v_i)\psi_q(\bm w_j)=\alpha_{p,q}=0
+\]
+Following this procedure, we can argue that $\alpha_{ij}=0,\forall i, \forall j$.
+\end{itemize}
+\end{proof}
+
+\begin{corollary}
+If $\dim(V),\dim(W)<\infty$, then $\dim(V\otimes W)=\dim(V)\dim(W)$
+\end{corollary}
+\begin{proof}
+Check dimension of the basis of $V\otimes W$. 
+\end{proof}
+
+
+\begin{remark}
+The universal property can be very helpful.
+In particular, given a bilinear mapping, say $\phi: V\times W\to U$, we imply $\phi\in\text{Obj}$.
+By theorem~(\ref{The:12:3}), since $i$ satisfies the universal property of tensor product, we can induce an unique linear transformation $\psi:V\otimes W\to U$.
+\end{remark}
+
+Let's try another example for making use of the universal property:
+\begin{theorem}
+For finite dimension $U$ and $V$,
+\[
+V\otimes U\cong U\otimes V
+\]
+\end{theorem}
+\begin{proof}
+Construct the mapping 
+\[
+\begin{array}{ll}
+\phi:&V\times U\to U\otimes V\\
+\text{with}&\phi(\bm v,\bm u) = \bm u\otimes \bm v
+\end{array}
+\]
+Indeed, $\phi$ is bilinear: for instance,
+\begin{align*}
+\phi(a\bm v_1+b\bm v_2,\bm u)&=
+u\otimes(a\bm v_1+b\bm v_2)\\
+&=a(\bm u\otimes\bm v_1)+b(u\otimes\bm v_2)\\
+&=a\phi(\bm v_1,\bm u)+b\phi(\bm v_2,\bm u)
+\end{align*}
+
+Therefore, $\phi\in\text{Obj}$. By the universal property of tensor product, we induce an unique linear transformation
+\[
+\begin{array}{ll}
+\Phi:&V\otimes U\to U\otimes V\\
+\text{with}&\Phi(\bm v\otimes\bm u)=\bm u\otimes\bm v
+\end{array}
+\]
+Similarly, we may induce the linear transformation
+\[
+\begin{array}{ll}
+\Psi:&U\otimes V\to V\otimes U\\
+\text{with}&\Psi(\bm u\otimes\bm v)=\bm v\otimes\bm u
+\end{array}
+\]
+Given any $\sum_i\bm u_i\otimes\bm v_i\in U\otimes V$, observe that 
+\begin{align*}
+(\Phi\circ\Psi)\left(\sum_i\bm u_i\otimes\bm v_i\right)
+&=
+\Phi\left(\sum_i\Psi(\bm u_i\otimes\bm v_i)\right)\\
+&=
+\Phi\left(\sum_i\bm v_i\otimes\bm u_i\right)\\
+&=
+\sum_i\Phi\left(\bm v_i\otimes\bm u_i\right)\\
+&=
+\sum_i\bm u_i\otimes\bm v_i
+\end{align*}
+Therefore, $\Phi\circ\Psi=\text{id}_{U\otimes V}$.
+Similarly, $\Psi\circ\Phi = \text{id}_{V\otimes U}$.
+Therefore,
+\[
+U\otimes V\cong
+V\otimes U.
+\]
+\end{proof}
+
+\subsection{Tensor Product of Linear Transformation}
+\paragraph{Motivation}
+Given two linear transformations $T:V\to V'$ and $S:W\to W'$, we want to construct the tensor product 
+\[
+T\otimes S:
+V\otimes W
+\to V'\otimes W'
+\]
+Question: is $T\otimes S$ a linear transformation?
+
+Answer: Yes.
+Universal property plays a role!
+
+
+
+
+
+
+
+
+
+
+
+
+
+

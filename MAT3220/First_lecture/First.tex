@@ -1,0 +1,501 @@
+\chapter{Introduction to Linear Programming}
+
+\section{Preliminaries}
+\paragraph{Standard Form}
+We usually consider the standard linear programming (LP) model:
+\begin{equation}\label{Eq:1:1}
+\begin{array}{ll}
+\max&\sum_{j=1}^nc_jx_j\\
+\text{s.t.}&\sum_{j=1}^na_{ij}x_j\le b_i,\quad i=1,\dots,m\\
+&x_j\ge 0, j=1,\dots,n
+\end{array}
+\end{equation}
+
+Or more generally, the constraints with equalities:
+\begin{equation*}
+\begin{array}{ll}
+\min&\sum_{j=1}^nc_jx_j\\
+\text{s.t.}&\sum_{j=1}^na_{ij}x_j\le b_i,\quad i\in I\\
+&\sum_{j=1}^na_{ij}x_j= b_i,\quad i\in E\\
+&x_j\ge 0, j=1,\dots,n
+\end{array}
+\end{equation*}
+
+It's often convenient to write the LP~(\ref{Eq:1:1}) into the compact matrix form:
+\begin{equation}\label{Eq:1:2}
+\begin{array}{ll}
+\max&\bm c\trans\bm x\\
+\text{s.t.}&\bm{Ax}\le\bm b\\
+&\bm x\ge\bm0
+\end{array}
+\end{equation}
+where $\bm c\in\mathbb{R}^n,\bm A\in\mathbb{R}^{m\times n},\bm b\in\mathbb{R}^m$.
+
+We also write $\bm A$ as the column form:
+\[
+\bm A=\begin{pmatrix}
+\bm a_1,&\cdots&\bm a_n
+\end{pmatrix}
+\]
+where $\bm a_i$ is the $i$-th column of $\bm A$. We also express the submatrix of $\bm A$, i.e., $\bm A_I\subset A$ as:
+\[
+\bm A_I:=[a_i\mid i\in I],
+\]
+where $I$ is a subset of $\{1,2,\dots,n\}$.
+
+\paragraph{Dictionaries of an LP}
+We can introduce slack variables to transform (\ref{Eq:1:1}) into LP with equalities:
+\[
+x_{n+i}:=b_i - \sum_{j=1}^na_{ij}x_j,\quad i=1,\dots,m
+\]
+Let $z=\sum_{j=1}^nc_jx_j$ be the objective function, and therefore we obtain a \emph{dictionary} for the LP~(\ref{Eq:1:1}):
+\begin{equation}
+\left.
+\begin{aligned}
+x_{n+i}&=b_i - \sum_{j=1}^na_{ij}x_j,\quad i=1,\dots,m\\
+z&=\sum_{j=1}^nc_jx_j
+\end{aligned}
+\right\}\qquad \text{Dictionary}
+\end{equation}
+
+Assume that $b_i\ge0$ for $i=1,\dots,m$. Therefore we obtain a \emph{feasible solution} associated with the dictionary, say \emph{dictionary solution}:
+\[
+\begin{array}{ll}
+x_j=0,\ \text{for $j=1,\dots,n$}
+&
+x_{n+i}=b_i \ \text{for $i=1,\dots,m$}
+\end{array}
+\]
+
+It's clear how to improve the current dictionary solution:
+\begin{itemize}
+\item
+If $c_j\le0,\forall j$, then we cannot possibly improve the dictionary solution
+\item
+If $c_j>0$ for some $1\le j\le n$, we increase the value for $x_j$ from $0$ into maximal value, while fixing $x_j=0$ for $1\le k(\ne j)\le n$. Keep implementing until $c_j\le0,\forall j$.
+\end{itemize}
+
+\begin{example}
+\begin{subequations}
+Consider the optimization problem
+\begin{equation}
+\begin{array}{ll}
+\max&5x_1+4x_2+3x_3\\
+\text{s.t.}&2x_1+3x_2+x_3\le 5\\
+&4x_1+x_2+2x_3\le 11\\
+&3x_1+4x_2+2x_3\le 8\\
+&x_1\ge0,\ x_2\ge0, \ x_3\ge0
+\end{array}
+\end{equation}
+We can find its dictionary:
+\begin{equation}
+\begin{aligned}
+x_4&=5\bm{-2}x_1-3x_2-x_3\\
+x_5&=11-4x_1-x_2-2x_3\\
+x_6&=8-3x_1-4x_2-2x_3\\
+z&=0\bm{+5}x_1+4x_2+3x_3
+\end{aligned}
+\end{equation}
+Since $c_1>0$, increasing value for $x_1$ suffices to consider the dictionary below instead:
+\begin{equation}
+\begin{aligned}
+x_1&=\frac{5}{2}-\frac{3}{2}x_2-\frac{1}{2}x_3-\frac{1}{2}x_4\\
+x_5&=11-4x_1-x_2-2x_3\\
+x_6&=8-3x_1-4x_2-2x_3\\
+z&=0+5x_1+4x_2+3x_3
+\end{aligned}
+\Longleftrightarrow
+\begin{aligned}
+x_1&=\frac{5}{2}-\frac{3}{2}x_2-\frac{1}{2}x_3-\frac{1}{2}x_4\\
+x_5&=1+5x_2+0x_3+2x_4\\
+x_6&=\frac{1}{2}+\frac{1}{2}x_2-\frac{1}{2}x_3+\frac{3}{2}x_4\\
+z&=\frac{25}{2}-\frac{7}{2}x_2+\frac{1}{2}x_3-\frac{5}{2}x_4
+\end{aligned}
+\end{equation}
+Also, since $c_3>0$, increasing value for $x_3$ suffices to consider the dictionary below instead:
+\begin{equation}
+\begin{aligned}
+x_1&=\frac{5}{2}-\frac{3}{2}x_2-\frac{1}{2}x_3-\frac{1}{2}x_4\\
+x_5&=1+5x_2+0x_3+2x_4\\
+x_3&=1+x_2+3x_4-2x_6\\
+z&=\frac{25}{2}-\frac{7}{2}x_2+\frac{1}{2}x_3-\frac{5}{2}x_4
+\end{aligned}
+\Longleftrightarrow
+\begin{aligned}
+x_3&=1+x_2+3x_4-2x_6\\
+x_1&=2-x_2-2x_4+x_6\\
+x_5&=1+5x_2+2x_4+2x_6\\
+z&=13-3x_2-x_4-x_6
+\end{aligned}
+\end{equation}
+
+\end{subequations}
+\end{example}
+
+\section{Simplex Method}
+
+\paragraph{Notations}
+The general dictionary for the problem~(\ref{Eq:1:1}) can be expressed as:
+\begin{equation}\label{Eq:1:5}
+\begin{aligned}
+x_i&=\bar b_i -\sum_{j\in N}\bar{a}_{ij}x_j,\quad i\in B\\
+z&=\zeta - \sum_{j\in N}\bar c_jx_j
+\end{aligned}
+\end{equation}
+where
+\begin{enumerate}
+\item
+the set $B$ is called a \emph{basis}, with $|B|=m$
+\item
+the set $N$ is called a \emph{non-basis}, with $|N|=n-m$. Moreover, $B\cupdot N = \{1,\dots,n\}$.
+\item
+the basis $B$ is said to be \emph{primal feasible} if $\bar{\bm b}\ge0$, since in this case we can choose a primal feasible solution by setting non-basis variables to be zero and basis variables $x_i$ to be $\bar{b}_i$.
+\item
+the non-basis $N$ is said to be \emph{dual feasible} if $\bar{\bm c}\le 0$, since in this case we can choose a dual feasible solution by setting non-basis variables to be $\bar{c}_i$ and other variables to be $0$.
+\end{enumerate}
+One can verify that in (\ref{Eq:1:5}), 
+\begin{align*}
+\bar{\bm b}&=\bm A_B^{-1}\bm b\\
+\bar{\bm c}_N\trans&=\bm c_N\trans - \bm c_B\trans\bm A_B^{-1}\bm A_N\\
+\bar{\bm A}_N&=\bm A_B^{-1}\bm A_N\\
+\zeta&=\bm c_B\trans\bm A_B^{-1}\bm b
+\end{align*}
+One can verify that $(\bm x_B,\bm x_N)=(\bm A_B^{-1}\bm b,\bm0)$ is a \emph{basic solution}.
+
+\paragraph{Simplex Method Algorithm}
+The assumption for the working of simplex method is that we are given a primal feasible basic solution, i.e., $\bar{b}\ge0$. The framework for obtaining an improved solution is summarized in (\ref{alg:SM}).
+
+
+\begin{algorithm}[htb] 
+\caption{Framework for the one step of the Simplex Method} 
+\label{alg:SM} 
+\begin{algorithmic}[1] %show number in each rows
+\REQUIRE ~~\\ %算法的输入参数：Input
+Primal feasible basic solution;
+\ENSURE ~~\\ %算法的输出：Output
+Improved feasible basic solution;
+\STATE Find Entering Basis Variable $j$
+\begin{itemize}
+\item
+Search for $j\in N$ such that $\bar{c}_j>0$
+\item
+If none exists then the current basic solution is optimal; otherwise choose one of such $j$.
+\end{itemize}
+\STATE Find Leaving Basis Variable $i$
+\begin{itemize}
+\item
+Search for $i\in B$ such that $\bar{a}_{ij}>0$
+\item
+If none exists then the problem is unbounded; otherwise choose
+\[
+i\in\arg\min\left\{\frac{\bar{b}_i}{\bar{a}_{ij}}: \bar{a}_{ij}>0,\ i\in B
+\right\}
+\]
+\end{itemize}
+\label{code:fram:trainbase}
+\STATE Basis Update:  $B\leftarrow B\cup\{j\}\setminus\{i\}$, and then form the corresponding basic solution.
+\end{algorithmic}
+\end{algorithm}
+\begin{remark}
+The \emph{one-step} of the simplex method is also called a \emph{pivot step}, i.e., choose one pivot variable entering the basis and one leaving the basis.
+
+The objective value for a successful pivot is improved by $\frac{\bar{c}_j\bar{b}_i}{\bar{a}_{ij}}$. However, the simplex method may not necessarily increase the objective value at each pivot, e.g., the case $\bar{b}_i=0$ coul happen. In this case, the basic solution is said to be \emph{degenerate}.
+
+Since there are no more than $\binom{n}{m}$ (finite) possible bases, the simplex method will stop on two cases: (a) declaring the problem is unbounded; (b) finding a basic optimal solution.
+\end{remark}
+\paragraph{Pivot Rules}
+The \emph{simplex method} specializes into a \emph{simplex algorithm} if one specifies a \emph{pivot rule} to determine which one variable to enter the basis and which one to leave, when there is a choice to make. Note that there exists some pivot rules that will make the problem face into cycling circumstance (see the example below), but here we list some examples of pivot rules that will be shown to definitely avoid cycling circumstance:
+\begin{itemize}
+\item
+Dantzig’s pivot rule: \emph{choose the largest positive coefficient to enter the basis.}
+\item
+The maximum improvement rule: \emph{try all the combinations and pick the pivot pair with the largest improvement}.
+\item
+Bland's rule: \emph{Among the candidates always pick the one with the smallest index}.
+\end{itemize}
+
+\begin{example}
+This example shows that some pivot rules may let the problem face into cycling circumstance, i.e., the algorithm solves the problem in a loop and fails to go out:
+\begin{align*}
+\bm{x_5}&=-0.5x_1+5.5x_2+2.5x_3-9x_4\\
+x_6&=-0.5x_1+1.5x_2+0.5x_3-x_4\\
+x_7&=1-x_1\\
+z&=\bm{10x_1}-57x_2-9x_3-24x_4
+\end{align*}
+Choosing $x_1$ to enter the basis and $x_5$ to leave gives:
+\begin{align*}
+x_1&=-2x_5+11x_2+5x_3-18x_4\\
+\bm{x_6}&=x_5-4x_2-2x_3+8x_4\\
+x_7&=1+2x_5-11x_2-5x_3+18x_4\\
+z&=-20x_5+\bm{53x_2}+41x_3-204x_4
+\end{align*}
+Choosing $x_2$ to enter the basis and $x_6$ to leave gives:
+\begin{align*}
+\bm{x_1}&=0.75x_5-2.75x_6-0.5x_3+4x_4\\
+x_2&=0.25x_5-0.25x_6-0.5x_3+2x_4\\
+x_7&=1-0.75x_5-13.25x_6+0.5x_3-4x_4\\
+z&=-6.75x_5-13.25x_6+\bm{14.5x_3}-98x_4
+\end{align*}
+Choosing $x_3$ to enter the basis and $x_1$ to leave gives:
+\begin{align*}
+x_3&=1.5x_5-5.5x_5-2x_1+8x_4\\
+\bm{x_2}&=-0.5x_5+2.5x_5+x_1-2x_4\\
+x_7&=1-x_1\\
+z&=15x_5-93x_5-29x_1+\bm{18x_4}
+\end{align*}
+Choosing $x_4$ to enter the basis and $x_2$ to leave gives:
+\begin{align*}
+\bm{x_3}&=-0.5x_5+4.5x_5+2x_1-4x_2\\
+x_4&=-0.25x_5+1.25x_5+0.5x_1-0.5x_2\\
+x_7&=1-x_1\\
+z&=\bm{10.5x_5}-70.5x_5-20x_1-9x_2
+\end{align*}
+Choosing $x_5$ to enter the basis and $x_3$ to leave gives:
+\begin{align*}
+x_5&=9x_6+4x_1-8x_2-2x_3\\
+\bm{x_4}&=-x_6-0.5x_1+1.5x_2+0.5x_3\\
+x_7&=1-x_1\\
+z&=\bm{24x_6}+22x_1-93x_2-21x_3
+\end{align*}
+Choosing $x_6$ to enter the basis and $x_4$ to leave gives the \emph{same dictionary as we started}:
+\begin{align*}
+\bm{x_5}&=-0.5x_1+5.5x_2+2.5x_3-9x_4\\
+x_6&=-0.5x_1+1.5x_2+0.5x_3-x_4\\
+x_7&=1-x_1\\
+z&=\bm{10x_1}-57x_2-9x_3-24x_4
+\end{align*}
+\end{example}
+
+\begin{theorem}
+Bland's pivot rule would aviod cycling.
+\end{theorem}
+\begin{proof}
+We show this claim by contradiction. If Bland's pivot rule produces cycling, let's study one cycle. For a sequence of dictionaries that form a cycle, let's delete all the variables that neither leave nor enter the basis, then it will remain a cycle.
+
+In all these dictionaries, all $\bar{b}_i$ will be zero, since otherwise the objective value will be strictly increased.
+
+Let's study the tablau of dictionaries. It's a matrix that stores all the coefficients of a dictionary:
+\[
+\begin{array}{cc|c}
+\hline
+  \bm I_B & \bm A_B^{-1}\bm A_N&\bar{\bm b} \\ \hline
+  \bm 0\trans&\bar{\bm c}_N\trans&\bm c_B\trans\bm A_B^{-1}\bm b \\ \hline
+\end{array}
+\]
+Two vectors are of special interest. The last row of the tablau in left part can be written as
+\[
+\bar{\bm c}\trans=\bm c - \bm c_B\trans\bm A_B^{-1}\bm A
+\]
+For the chosen $j\in N$, the direction
+\[
+d_i^{(j)} = \left\{
+\begin{aligned}
+-\bar{a}_{ij},&\quad i\in B\\
+0&,\quad i\ne j\\
+1&,\quad i=j
+\end{aligned}
+\right.
+\]
+It's clear that $\bar{\bm c}\trans \bm d^{(j)}=\bar{c}_j$.
+
+Suppose that $\ell$ is the largest index of all variables that are involved in the cycle. Let $(B,N)$ be the pivot where $\ell$ was about to enter the basis, $\bm v=\bar{\bm c}$ be the last row for that tableau at that point; let $(B',N')$ be the pivot where $\ell$ was about to leave the basis, and $k$ was to enter the basis at that point, $\bm d^{(k)}$ be the corresponding direction vector, $\bm u$ the last row of that tableau.
+
+It's clear that 
+\begin{itemize}
+\item
+$\bm v$ is everywhere non-positive except for one position $v_\ell>0$
+\item
+$\bm d^{(k)}$ is everywhere non-negative except for one position $d_\ell^{(k)}<0$
+\end{itemize}
+Moreover, $\bm v-\bm u\in\mathcal{R}(\bm A\trans)$ and $\bm d^{(k)}\in\mathcal{N}(\bm A)$, which implies
+\[
+0 = (\bm v-\bm u)\trans \bm d^{(k)} = \bm v\trans\bm d^{(k)} - \bm u_k<0,
+\]
+which is a contradiction.
+\end{proof}
+\begin{lemma}
+Given the condition that the LP~(\ref{Eq:1:2}) has one basic feasible solution, then the LP~(\ref{Eq:1:2}) with perturbations, i.e., 
+\begin{equation}\label{Eq:1:6}
+\begin{array}{ll}
+\max&\bm c\trans\bm x\\
+\text{s.t.}&\bm{Ax}\le\bm b+\begin{pmatrix}
+\varepsilon_1\\\vdots\\\varepsilon_m
+\end{pmatrix}\\
+&\bm x\ge\bm0
+\end{array}
+\end{equation}
+will face no degeneracy for $\forall \bm\varepsilon\in(\bm0,\bm\varepsilon_1)$ for some $\bm\varepsilon_1>0$.
+
+\end{lemma}
+\begin{proof}
+For any basis $B$, the feasible solution for LP~(\ref{Eq:1:6}) is $\bm A_B^{-1}(\bar{\bm b}+\bm\varepsilon)$. Suppose its $i$-th component is zero, i.e., $0+0\varepsilon_1+\cdots+0\varepsilon_m$.
+
+However, its $i$-th component is $\bm e_i\trans\bm A_B^{-1}(\bar{\bm b}+\bm\varepsilon)$, which implies $\bm e_i\trans\bm A_B^{-1}=\bm0$, which is a contradiction.
+\end{proof}
+Question: what's the conclusion for page 19 in slides 1?
+
+\paragraph{Two-Phase Simplex Method}
+Given a dictionary
+\[
+x_{n+i}=b_i-\sum_{j=1}^na_{ij}x_j,\quad i=1,\dots,m,
+\]
+with some $b_i<0$, the question is how to choose an initial basic feasible solution? The \emph{two-phase simplex method} proceeds as follows:
+\begin{enumerate}
+\item
+Introduce a new variable $x_0$
+\[
+x_{n+i}=b_i-\sum_{j=1}^na_{ij}x_j+x_0,\quad i=1,\dots,m,
+\]
+and an objective $-x_0$ to maximize
+\item
+Suppose that $b_i<0$ is the smallest valu. Perform a pivot on $x_0$ and thus $x_{n+i}$ will turn the dictionary into a feasible one.
+\item
+This \emph{non-cycling pivots} will lead to either (a) an optimal basis where $x_0$ is within the basis, and we conclude this problem is infeasible; (b) or we have $x_0$ out of the basis, and we just delete $x_0$ and plug back the original objective, and go from there.
+\end{enumerate}
+\begin{example}
+Given the dictionary 
+\begin{align*}
+x_4&=4-2x_1+x_2-2x_3\\
+x_5&=-5-2x_1+3x_2-x_3\\
+x_6&=-1+x_1-x_2+2x_3
+\end{align*}
+We first add the new variable $x_0$ and an objective $-x_0$:
+\begin{align*}
+x_4&=4-2x_1+x_2-2x_3+x_0\\
+\bm{x_5}&=-5-2x_1+3x_2-x_3+x_0\\
+x_6&=-1+x_1-x_2+2x_3+\bm{x_0}\\
+z&=-x_0
+\end{align*}
+Choosing $x_0$ entering the basis and $x_5$ leaving the basis, we obtain:
+\begin{align*}
+x_4&=9-x_2+x_3+x_5\\
+x_0&=5+2x_1-3x_2-x_3+x_5\\
+x_6&=4+3x_1-4x_2+3x_3+x_5\\
+w&=-5-2x_1+3x_2+x_3-x_5
+\end{align*}
+and our feasible solution is $(x_1,x_2,x_3,x_4,x_5,x_6)=(0,0,0,9,0,4)$.
+\end{example}
+
+\section{Duality Results}
+\begin{theorem}
+A linear programming problem can only be (i) \emph{feasible}; or (ii) \emph{infeasible}. In case (i), then \emph{there exists a basic feasible solution}, and further with two possibilities: (i.a) \emph{an optimal solution exists, in that case a basic optimal solution exists} (i.b) \emph{the problem is unbounded}.
+\end{theorem}
+
+\paragraph{Duality problem is the best possible upper bounding problem}
+Consider the primal problem
+\[
+(P)\qquad
+\begin{array}{ll}
+\max&\bm c\trans\bm x\\
+\text{s.t.}&\bm{Ax}\le\bm b\\
+&\bm x\ge0
+\end{array}
+\]
+
+Take any $\bm y\ge0$ such that $\bm y\trans\bm A\ge\bm c\trans$, and thus $\bm y\trans\bm b$ becomes an upper bound for the optimal value. Therefore the best possible upper bounding problem becomes:
+\[
+(D)\qquad
+\begin{array}{ll}
+\max&\bm b\trans\bm y\\
+\text{s.t.}&\bm A\trans\bm y\ge\bm c\\
+&\bm y\ge0
+\end{array}
+\]
+which is known as the \emph{dual} problem.
+
+The proceed above can be summarized as the weak duality theorem:
+\begin{theorem}[Weak Duality]
+Let $\bm x,\bm y$ be the primal feasible, and dual feasible solution to (P) and (D), respectively, then we always have $\bm b\trans\bm y\ge\bm c\trans\bm x$.
+\end{theorem}
+
+\begin{theorem}[Strong Duality]
+If (P) has an optimal solution, then (D) has an optimal solution. Moreover, the optimal values coincide.
+\end{theorem}
+\begin{proof}
+Let $B$ be an optimal basis for (P), then we have
+\[
+\begin{array}{ll}
+\bm A_B^{-1}\bm b\ge0,
+&
+\begin{bmatrix}
+\bm c\trans&\bm0_m\trans
+\end{bmatrix}-\bm c_B\trans\bm A_B^{-1}\begin{bmatrix}
+\bm A&\bm I
+\end{bmatrix}\le0
+\end{array}
+\]
+Therefore we construct the dual feasible solution $\bm y:=\bm A_B^{-1}\bm c_B$, which implies $\bm b\trans\bm y=\bm c_B\trans\bm A_B^{-1}\bm b$. Therefore $\bm b\trans\bm y$ should be the optimal solution for (D).
+\end{proof}
+
+\paragraph{Complentarity Slackness}
+\begin{theorem}[Complentarity Condition]
+Consider the primal and dual problem
+\[
+(P)\ \ \begin{array}{ll}
+\max&\bm c\trans\bm x\\
+\text{s.t.}&\bm A\bm x+\bm s=\bm b\\
+&\bm x\ge0,\bm s\ge0
+\end{array},\qquad
+(D)\ \ 
+\begin{array}{ll}
+\min&\bm b\trans\bm y\\
+\text{s.t.}&\bm A\trans\bm y-\bm w=\bm c\\
+&\bm y\ge0,\bm w\ge0
+\end{array}
+\]
+If $(P)$ has an optimal solution $(\bm x,\bm s)$ and $(D)$ has an optimal solution $(\bm y,\bm w)$, then
+\begin{align*}
+\bm s\circ\bm y&=\bm0\\
+\bm w\circ\bm x&=\bm0
+\end{align*}
+\end{theorem}
+
+\begin{remark}
+\begin{enumerate}
+\item
+If (P) is feasible and unbounded, then (D) must be infeasible.
+\item
+The dual of the dual problem is the primal problem
+\item
+There is possibility that both (P) and (D) are infeasible. Consider the self-dual problem for example:
+\[
+\begin{array}{ll}
+\max&x_1-x_2\\
+\text{s.t.}&\begin{pmatrix}
+0&1\\-1&0
+\end{pmatrix}\begin{pmatrix}
+x_1\\x_2
+\end{pmatrix}\le\begin{pmatrix}
+-1\\1
+\end{pmatrix}\\
+&x_1\ge0,x_2\ge0
+\end{array}
+\]
+\item
+Therefore, the relationship for primal and dual problems can be summarized in the table below:
+\[
+\begin{array}{|c|c|c|c|}
+\hline
+&\text{Feasible}&\text{Unbounded}&\text{Infeasible}\\\hline
+\text{Feasible}&Y&N&N\\\hline
+\text{Unbounded}&N&N&Y\\\hline
+\text{Infeasible}&N&Y&Y\\\hline
+\end{array}
+\]
+\end{enumerate}
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

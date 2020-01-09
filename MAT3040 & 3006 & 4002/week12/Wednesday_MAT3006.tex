@@ -1,0 +1,211 @@
+
+\section{Wednesday for MAT3006}\index{Wednesday_lecture}
+\subsection{Riemann Integration $\&$ Lebesgue Integration}
+\begin{example}
+Compute the integral
+\[
+L=\lim_{n\to\infty}\int_0^1\frac{nx\log(x)}{1+n^2x^2}\diff x.
+\]
+Let $f_n(x) = \frac{nx\log(x)}{1+n^2x^2}\mathcal{X}_{(0,1]}$, which is continuous on $[0,1]$, i.e., integrable on $[0,1]$.
+The goal is to show $L=0$.
+\begin{itemize}
+\item
+Note that $f_n(x)\to0,\forall x\in[0,1]$ pointwisely, as $n\to\infty$.
+\item
+Note that $t/(1+t^2)\le\frac{1}{2},\forall t\ge0$. Take $t=nx$, we imply
+\[
+|f_n(x)| \le\frac{1}{2}|\log(x)|\mathcal{X}_{(0,1]}
+\]
+We claim that $\frac{1}{2}|\log(x)|\mathcal{X}_{(0,1]}:=-\frac{1}{2}\log(x)\mathcal{X}_{(0,1]}$ is integrable:
+by MCT I,
+\[
+\int-\frac{1}{2}\log(x)\mathcal{X}_{(0,1]}\diff m
+=
+\lim_{n\to\infty}\int_{1/n}^1-\frac{1}{2}\log(x)\diff x
+=\frac{1}{2}<\infty.
+\]
+\end{itemize}
+Therefore, the DCT applies, and
+\[
+\lim_{n\to\infty}\int_{(0,1]}\frac{nx\log(x)}{1+n^2x^2}\diff x
+=
+\int_{(0,1]}\lim_{n\to\infty}\frac{nx\log(x)}{1+n^2x^2}\diff x
+=
+\int_{(0,1]}0\diff x= 0
+\]
+However, $f_n(x)$ does not converge to $f(x)\equiv0$ uniformly on $[0,1]$:
+\[
+\sup_{0\le x\le1}|f_n(x)-0|
+\ge
+|f_n(1/n) - 0|
+=
+\frac{1}{2}\log(n)\to\infty, \text{as $n\to\infty$}
+\]
+Therefore, we cannot switch integral symbol and limit by using the tools in MAT2006.
+\end{example}
+
+\begin{proposition}
+Suppose that $f(x)$ is a proper Riemann integrable function on $[a,b]$. Then $f(x)$ is Lebesgue integrable on $[a,b]$ with 
+\[
+\int_{[a,b]}f\diff m = \int_a^bf(x)\diff x.
+\]
+\end{proposition}
+\begin{proof}
+Since $f$ is properly Riemann inregrable, we imply $f(x)$ is bounded on $[a,b]$, i.e., $|f(x)|\le K,\forall x\in[a,b]$.
+Construct the Riemann lower and upper functions with $2^n$ equal subintervals, denoted as $\phi_n,\psi_n$, which follows that
+\begin{itemize}
+\item
+$\phi_n(x)\le f(x)\le\psi_n(x),\forall n$
+\item
+$\phi_n(x)$ is monotone increasing
+\item
+$\psi_n(x)$ is monotone decreasing
+\end{itemize}
+Now apply bounded convergence theorem on $\psi_n-\phi_n$:
+\begin{itemize}
+\item
+$|\psi_n(x)-\phi_n(x)|\le 2K$ on $[a,b]$
+\item
+$\psi_n-\phi_n\to \psi-\phi$
+\end{itemize}
+which implies
+\begin{align*}
+\int|\psi-\phi|\diff m &= \int\psi-\phi\diff m\\ &= \lim_{n\to\infty}\int \psi_n-\phi_n\diff m
+=\lim_{n\to\infty}\int \psi_n\diff m - \lim_{n\to\infty}\int \phi_n\diff m
+\\&=\text{Riemann Upper Sum} - \text{Riemann Lower Sum}\\
+&=0
+\end{align*}
+Therefore, $\int|\psi-\phi|\diff m=0$ implies $\psi(x)=\phi(x)$ a.e.
+By sandwich theorem,
+\[
+\psi(x)=f(x)=\phi(x)\text{ a.e.}
+\]
+Therefore, 
+\[
+\int f\diff m = \int\phi\diff m = \lim_{n\to\infty}\int\phi_n\diff m=\int_a^bf(x)\diff x
+\]
+where the second equality is by MCT II.
+
+
+\end{proof}
+
+
+\begin{remark}
+The improper Riemann integrable functions $f(x)$ is not necessarily Lebesgue integrable.
+However, if we assume $f(x)\ge0$, then $f(x)$ is improper Riemann integrable implies $f(x)$ is Lebesgue integrable, with the same integral value.
+\begin{proof}[Proof Outline]
+Suppose $f(x)$ is improper Riemann integrable on $[a,b]$, where $a,b\in\mathbb{R}\cup\{\pm\infty\}$.
+\begin{itemize}
+\item
+Construct $f_n=f\mathcal{X}_{[a_n,b_n]}$, with $[a_{n},b_n]\subseteq[a_{n+1},b_{n+1}]\subseteq\cdots\subseteq[a,b]$.
+\item
+By previous proposition, $f_n$ is proper Riemann integrable implies $f_n$ is Lebesgue integrable.
+\item
+Then we apply the MCT I to $\{f_n\}$.
+\end{itemize}
+\end{proof}
+
+\end{remark}
+\subsection{Continuous Parameter DCT}
+
+\begin{theorem}[Continous parameter DCT]\label{The:12:4}
+Let $I,J\subseteq\mathbb{R}$ be intervals, and 
+$f:I\times J\to\mathbb{R}$ be such that 
+\begin{enumerate}
+\item
+for fixed $y\in J$, the function $f(x):=f(x,y)$ is an integrable function over $I$.
+\item
+for fixed $y\in J$, 
+\[
+\lim_{y'\to y}f(x,y')=f(x,y)
+\]
+for almost all $x\in I$
+\item
+There exists integrable $g(x)$~(do not depend on $y$) such that for all $y\in J$,
+\[
+|f(x,y)|\le g(x)
+\]
+for almost all $x\in I$.
+\end{enumerate}
+As a result, 
+\[
+F(y) = \int_If(x,y)\diff x
+\]
+is a continuous function on $J$.
+\end{theorem}
+\begin{remark}
+Note that the integrability of $f(x)$ in hypothesis~(1) can be weaken into the measurability of $f(x)$:
+The measurability of $f(x)$ together with hypothesis~(3), and DCT implies the integrability of $f(x)$.
+\end{remark}
+
+\begin{proof}
+Let $\{y_n\}$ be a sequence on $J$ such that $y_n\to y$.
+It suffices to show $F(y_n)\to F(y)$.
+
+Construct $f_n(x) = f(x,y_n)$, which follows that
+\begin{itemize}
+\item
+$f_n(x)$ is integrable for all $n$ (by hypothesis~(1))~(why check integrable)
+\item
+$|f_n(x)|\le g(x)$ a.e. for all $n$, and $g(x)$ is integrable (by hypothesis~(3))
+\item
+By hypothesis~(2),
+\[
+\lim_{n\to\infty}f_n(x) = f(x,y)
+\]
+\end{itemize}
+
+Therefore, the DCT applies, and
+\[
+\lim_{n\to\infty}\int_If_n(x,y_n)\diff m =\int\lim_{n\to\infty} f_n(x,y_n)\diff m=\int_If(x,y)\diff m
+\]
+Or equivalently,
+\[
+\lim_{n\to\infty}F(y_n)= F(y)
+\]
+\end{proof}
+
+\begin{example}
+Consider $f(x,y) = e^{-x}x^{y-1}$ with $I\times J = (0,\infty)\times[m,M]$, where $0<m<M<\infty$.
+We will study the integral
+\[
+\Gamma(y) = \int_0^\infty e^{-x}x^{y-1}\diff x
+\]
+We check the hypothesis in the Theorem~(\ref{The:12:4}):
+\begin{enumerate}
+\item
+For fixed $y\in[m,M]$, $f(x):=f(x,y)$ is indeed measurable on $(0,\infty)$, since $f(x)$ is continous on $(0,\infty)$.
+%\[
+%\left(e^{-x}x^{k-1}\right)\mathcal{X}_{(0,\infty)}\le 1\cdot x^{k-1}\mathcal{X}_{(0,K]}+
+%10e^{-x/2}\mathcal{X}_{[K,\infty)}
+%\]
+%where $K$ is a sufficiently large number in $(0,\infty)$.
+\item
+The hypothesis~(2) follows directly from the contiuity of $f(x,y)$
+\item
+\begin{align*}
+|f(x,y)|&\le e^{-x}x^{m-1}\mathcal{X}_{[0,1]}+e^{-x}x^{M-1}\mathcal{X}_{(1,\infty)}\\
+&\le x^{m-1}\mathcal{X}_{[0,1]}+e^{-x}x^{M-1}\mathcal{X}_{(1,\infty)}
+\end{align*}
+Here $x^{m-1}\mathcal{X}_{[0,1]}$ is integrable. 
+Following the similar argument in~(1), we imply $e^{-x}x^{M-1}\mathcal{X}_{(1,\infty)}$ is integrable as well.
+\end{enumerate}
+Therefore, $\Gamma(y)$ is continuous for any $m\le y\le M$.
+Since the choice of $0<m<M<\infty$ is arbitrary, we imply $T(y)$ is continous on $(0,\infty)$.
+
+In the next lecture we wish to show that
+\[
+F'(y) = \int_I\frac{\partial f}{\partial y}(x,y)\diff x
+\]
+\end{example}
+
+
+
+
+
+
+
+
+
+
+

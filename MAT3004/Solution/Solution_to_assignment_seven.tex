@@ -1,0 +1,447 @@
+\subsection{Solution to Assignment Seven}
+\begin{enumerate}
+\item
+%q1
+\begin{proof}[Solution.]
+A hidden assumption is $\bm x\trans\bm x=\|\bm x\|^2\ne0$. But this is not always true, let me raise a counterexample:\\
+The eigenvectors of rotation matrix $\bm K=\begin{bmatrix}
+0&-1\\1&0
+\end{bmatrix}$ are $\bm x_1=\alpha\begin{pmatrix}
+1\\i
+\end{pmatrix}$ associated with eigenvalue $\lambda_1=i$ and $\bm x_2=\beta\begin{bmatrix}
+1\\-i
+\end{bmatrix}$ associated with eigenvalue $\lambda_2=-i$. Foe each $\bm x_i$ we obtain
+\[
+\bm x_i\trans\bm x_i=1+i^2=0.
+\]
+But the eigenvalues are all complex, which leads to a contradiction for the statement.
+\end{proof}
+\item
+%q2
+\begin{proof}
+\begin{enumerate}
+\item
+The eigenspace for $\lambda$ is given by
+\[
+\{\bm x:\bm A\bm x=\lambda\bm x\}.
+\]
+Firstly we investigate $\bm{AX}$:
+\begin{align*}
+\bm A\bm X&=\bm A\begin{bmatrix}
+\bm x_1&\dots&\bm x_n
+\end{bmatrix}\\
+&=\begin{bmatrix}
+\bm A\bm x_1&\dots&\bm A\bm x_k&\bm A\bm x_{k+1}\dots&\bm A\bm x_n
+\end{bmatrix}\\
+&=
+\begin{bmatrix}
+\lambda\bm x_1&\dots&\lambda\bm x_k&\bm A\bm x_{k+1}&\dots&\bm A\bm x_n
+\end{bmatrix}
+\end{align*}
+Then investigate $\bm X^{-1}\bm A\bm X:$
+\begin{align*}
+\bm X^{-1}\bm A\bm X&=
+\bm X^{-1}\begin{bmatrix}
+\lambda\bm x_1&\dots&\lambda\bm x_k&\bm A\bm x_{k+1}&\dots&\bm A\bm x_n\\
+\end{bmatrix}\\
+&=\begin{bmatrix}
+\lambda\bm X^{-1}\bm x_1&\dots&\lambda\bm X^{-1}\bm x_k&\bm X^{-1}\bm A\bm x_{k+1}&\dots&\bm X^{-1}\bm A\bm x_n
+\end{bmatrix}
+\end{align*}
+Since $\bm x_1,\dots,\bm x_k$ are columns of $\bm X$, and $\bm X^{-1}\bm X=\bm I$, we obtain
+\[
+\bm X^{-1}\bm x_i=\bm e_i\text{ for }i=1,\dots,k.
+\] 
+Hence 
+\begin{align*}
+\bm B=&\bm X^{-1}\bm A\bm X\\
+&=\begin{bmatrix}
+\lambda\bm X^{-1}\bm x_1&\dots&\lambda\bm X^{-1}\bm x_k&\bm X^{-1}\bm A\bm x_{k+1}&\dots&\bm X^{-1}\bm A\bm x_n
+\end{bmatrix}\\
+&=\begin{bmatrix}
+\lambda\bm e_1&\dots&\lambda\bm X^{-1}\bm e_k&\bm X^{-1}\bm A\bm x_{k+1}&\dots&\bm X^{-1}\bm A\bm x_n
+\end{bmatrix}\\
+&=\begin{bmatrix}
+\lambda&0&\dots&0&b_{1(k+1)}&\dots&b_{1n}\\
+0&\lambda&\dots&0&b_{2(k+1)}&\dots&b_{2n}\\
+\vdots&\vdots&\ddots&\vdots&\vdots&\ddots&\vdots\\
+0&0&\dots&\lambda&b_{k(k+1)}&\dots&b_{kn}\\
+0&0&\dots&0&b_{(k+1)(k+1)}&\dots&b_{(k+1)n}\\
+\vdots&\vdots&\ddots&\vdots&\vdots&\ddots&\vdots\\
+0&0&\dots&0&b_{n(k+1)}&\dots&b_{nn}
+\end{bmatrix}
+\end{align*}
+If we write $\bm B$ in block matrix form, then we obtain:
+\[
+\bm B=\begin{bmatrix}
+\lambda\bm I&\bm B_{12}\\\bm 0&\bm B_{22}
+\end{bmatrix}.
+\]
+%part b
+\item
+For a fixed eigenvalue $\lambda^{*}$, $\bm B$ could be written as
+\[
+\bm B=\begin{bmatrix}
+\lambda^{*}&0&\dots&0&b_{1(k+1)}&\dots&b_{1n}\\
+0&\lambda^{*}&\dots&0&b_{2(k+1)}&\dots&b_{2n}\\
+\vdots&\vdots&\ddots&\vdots&\vdots&\ddots&\vdots\\
+0&0&\dots&\lambda^{*}&b_{k(k+1)}&\dots&b_{kn}\\
+0&0&\dots&0&b_{(k+1)(k+1)}&\dots&b_{(k+1)n}\\
+\vdots&\vdots&\ddots&\vdots&\vdots&\ddots&\vdots\\
+0&0&\dots&0&b_{n(k+1)}&\dots&b_{nn}
+\end{bmatrix}
+\]
+Hence the matrix for $\lambda\bm I-\bm B$ is given by:
+\[
+\lambda\bm I-\bm B=
+\begin{bmatrix}
+\lambda-\lambda^{*}&0&\dots&0&-b_{1(k+1)}&\dots&-b_{1n}\\
+0&\lambda-\lambda^{*}&\dots&0&-b_{2(k+1)}&\dots&-b_{2n}\\
+\vdots&\vdots&\ddots&\vdots&\vdots&\ddots&\vdots\\
+0&0&\dots&\lambda-\lambda^{*}&-b_{k(k+1)}&\dots&-b_{kn}\\
+0&0&\dots&0&\lambda-b_{(k+1)(k+1)}&\dots&-b_{(k+1)n}\\
+\vdots&\vdots&\ddots&\vdots&\vdots&\ddots&\vdots\\
+0&0&\dots&0&-b_{n(k+1)}&\dots&\lambda-b_{nn}
+\end{bmatrix}
+\]
+In order to compute $\begin{vmatrix}\lambda\bm I-\bm B\end{vmatrix}
+$, we cross the first $k$ columns to get
+\[
+\begin{vmatrix}\lambda\bm I-\bm B\end{vmatrix}
+=(\lambda-\lambda^*)^k\begin{vmatrix}
+\lambda-b_{(k+1)(k+1)}&\dots&-b_{(k+1)n}\\
+\vdots&\ddots&\vdots\\
+-b_{n(k+1)}&\dots&\lambda-b_{nn}
+\end{vmatrix}
+\]
+Hence the term $(\lambda-\lambda^*)$ appears at least $k$ times in the characteristic polynomial of $\begin{vmatrix}\lambda\bm I-\bm B\end{vmatrix}$.\\
+Hence $\lambda^*$ is an eigenvalue of $\bm B$ with multiplicity at least $k$.\\
+Since $\bm B$ is similar to $\bm A$, they have the same eigenvalues. Hence $\lambda^*$ is an eigenvalue of $\bm A$ with multiplicity at least $k$.
+\end{enumerate}
+\end{proof}
+%q3
+\item
+\begin{proof}[Solution.]
+\begin{enumerate}
+\item
+$\bm A\bm x=\lambda\bm x\implies(\bm A-\lambda\bm I)\bm x=\bm 0.$ Since $\lambda=0$, we only need to investigate the dimension for $\bm x$, where $\bm{Ax}=\bm 0.$\\
+Since $\bm A=\bm x\bm y\trans$, $\rank(\bm A)=1$. Hence $\dim(N(\bm A))=n-1$. So the eigenspace for $\lambda$  is $n-1$ dimension.\\
+Thus $\lambda=0$ is an eigenvalue of $\bm A$ with $n-1$ ind. eigenvectors.
+\item
+By part (a), 
+\[
+\lambda_1=\lambda_2=\dots=\lambda_{n-1}=0.
+\]
+The sum of the eigenvalues is the trace of $\bm A$ which equals to $\bm x\trans\bm y$. Thus
+\[
+\sum_{i=1}^{n}\lambda_i=\lambda_n=\trace(\bm A)=\bm x\trans\bm y.
+\]
+Hence the remaining eigenvalue of $\bm A$ is $\lambda_n=\trace(\bm A)=\bm x\trans\bm y.$
+\item
+From part(a) $\lambda=0$ has $n-1$ ind. eigenvectors.\\
+Since $\lambda_n\ne0$, the eigenvector associated to $\lambda_n$ will be independent from the $n-1$ eigenvectors.(A theorem says if eigenvalues $\lambda_1,\dots,\lambda_k$ are distinct, their corresponding eigenvectors $\bm x_1,\dots,\bm x_k$ will be ind.)\\ Hence $\bm A$ has $n$ ind. eigenvectors, $\bm A$ is diagonalizable.
+\end{enumerate}
+\end{proof}
+%q4
+\item
+This question is the special case for Cayley-Hamilton theorem. It states that if the charactristic polynomial for $\bm A$ is $P_{\bm A}(\lambda)=(\lambda-\lambda_1)\dots(\lambda-\lambda_n)$, then \[P_{\bm A}(\bm A)=(\bm A-\lambda_1\bm I)\dots(\bm A-\lambda_n\bm I)=\bm0.\]
+\begin{proof}
+Obviously, $\bm A$ has $n$ ind. eigenvectors. Hence $\bm A$ is \textit{diagonalizable}. Hence we decompose $\bm A$ as
+\[
+\bm A=\bm S\bm D\bm S^{-1}
+\]
+where $\bm D=\diag(\lambda_1,\dots,\lambda_n)$, and $\lambda_1,\dots,\lambda_n$ are $n$ eigenvalues of $\bm A$.\\
+Hence we write $\bm B$ as:
+\begin{align*}
+\bm B&=(\bm A-\lambda_1\bm I)\dots(\bm A-\lambda_n\bm I)\\
+&=(\bm S\bm D\bm S^{-1}-\lambda_1\bm I)\dots(\bm S\bm D\bm S^{-1}-\lambda_n\bm I)\\
+&=(\bm S\bm D\bm S^{-1}-\lambda_1\bm S\bm S^{-1})\dots(\bm S\bm D\bm S^{-1}-\lambda_n\bm S\bm S^{-1})\\
+&=\left[\bm S(\bm D-\lambda_1\bm I)\bm S^{-1}\right]\dots\left[\bm S(\bm D-\lambda_n\bm I)\bm S^{-1}\right]=\bm S(\bm D-\lambda_1\bm I)\dots(\bm D-\lambda_n\bm I)\bm S^{-1}
+\end{align*}
+For each term $(\bm D-\lambda_i\bm I)$, $i\in\{1,2,\dots,n\}$, we find its $i$th row are all zero.\\
+Hence the product $(\bm D-\lambda_1\bm I)\dots(\bm D-\lambda_n\bm I)$ must be zero matrix.\\
+Hence $\bm B=\bm S(\bm D-\lambda_1\bm I)\dots(\bm D-\lambda_n\bm I)\bm S^{-1}$ is a \textit{zero matrix}.
+\end{proof}
+%q5
+\item
+\begin{proof}[Solution.]
+\begin{enumerate}
+\item
+Since $\lambda\ne0$ is a eigenvalue of $\bm{AB}$, there exists vector $\bm x$ s.t.
+\[
+\bm{AB}\bm x=\lambda\bm x
+\]
+By postmultiplying $\bm B$ both sides we obtain
+\[
+\bm B(\bm{AB}\bm x)=\lambda\bm B\bm x
+\implies \bm{BA}(\bm B\bm x)=\lambda(\bm B\bm x)
+\]
+Hence we only need to show $\bm B\bm x\ne\bm 0:$\\
+Assume $\bm B\bm x=\bm 0$, then $\bm{AB}\bm x=\bm A(\bm B\bm x)=\bm A\bm 0=\bm 0=\lambda\bm x.$\\
+Hence $\lambda=0$, which leads to a contradiction. Hence there exists eigenvector $\bm B\bm x\ne\bm 0$ s.t.
+\[
+\bm{BA}(\bm B\bm x)=\lambda(\bm B\bm x)
+\]
+Thus $\lambda$ is also an eigenvalue of $\bm{BA}.$
+\item
+By definition, there exists vector $\bm x\ne\bm0$ s.t.
+\[
+\bm{AB}\bm x=\lambda\bm x=0\bm x=\bm0.
+\]
+Hence $\bm{AB}$ is \textit{singular}, the determinant $\det(\bm{AB})=0.$\\
+\[
+\det(\bm{AB})=\det(\bm A)\det(\bm B)=\det(\bm B)\det(\bm A)=\det(\bm{BA})=0.
+\]
+Hence $\bm{BA}$ is also \textit{singular}. Thus there exists $\bm y\ne\bm0$ s.t.
+\[
+\bm{BA}\bm y=\bm0=0\bm y
+\]
+By definition, $\lambda=0$ is also an eigenvalue of $\bm{BA}.$
+\end{enumerate}
+\end{proof}
+%q6
+\item
+\begin{proof}
+\begin{enumerate}
+\item
+We set $\bm u_{k}=\begin{bmatrix}
+a_{k+1}\\a_{k}
+\end{bmatrix}$. The rule 
+\[\left\{\begin{aligned}
+a_{k+2}&=3a_{k+1}-2a_{k}\\a_{k+1}&=a_{k+1}
+\end{aligned}\right.\] can be written as $\bm u_{k+1}=\begin{bmatrix}
+3&-2\\1&0
+\end{bmatrix}\bm u_k$. And $\bm u_0=\begin{bmatrix}
+5\\4
+\end{bmatrix}.$\\
+After computation we derive $\bm x_1=\begin{bmatrix}
+1\\1
+\end{bmatrix}$ is eigenvector of $\bm A$ corresponding to eigenvalue $\lambda_1=1$; $\bm x_2=\begin{bmatrix}
+2\\1
+\end{bmatrix}$ is eigenvector of $\bm A$ corresponding to eigenvalue $\lambda_2=2$.\\
+And then, we want to find the lienar combination of $\bm x_1$ and $\bm x_2$ to get $\bm u_0=\begin{bmatrix}
+5\\4
+\end{bmatrix}$:
+\[
+\begin{bmatrix}
+5\\4
+\end{bmatrix}=3\begin{bmatrix}
+1\\1
+\end{bmatrix}+\begin{bmatrix}
+2\\1
+\end{bmatrix}.\qquad\text{Or }
+\bm u_0=3\bm x_1+\bm x_2
+\]
+Then we multiply $\bm u_0$ by $\bm A^{k}$ to get $\bm u_k$:
+\begin{align*}
+\bm u_k&=\bm A^{k}u_0=3\bm A^{k}\bm x_1+\bm A^{k}\bm x_2\\
+&=3\lambda_1^k\bm x_1+\lambda_2^k\bm x_2\\
+&=3\bm x_1+2^k\bm x_2\\&=\begin{bmatrix}
+3+2^{k+1}\\3+2^k
+\end{bmatrix}.
+\end{align*}
+Hence the general formula is $\bm a_{k}=3+2^k.$
+\item
+We set $\bm u_{k}=\begin{bmatrix}
+b_{k+1}\\b_{k}
+\end{bmatrix}$. The rule 
+\[\left\{\begin{aligned}
+b_{k+2}&=4b_{k+1}-4b_{k}\\b_{k+1}&=b_{k+1}
+\end{aligned}\right.\] can be written as $\bm u_{k+1}=\begin{bmatrix}
+4&-4\\1&0
+\end{bmatrix}\bm u_k$. And $\bm u_0=\begin{bmatrix}
+\beta\\\alpha
+\end{bmatrix}.$\\
+We set $\bm A=\begin{bmatrix}
+4&-4\\1&0
+\end{bmatrix}$, then there exists nonsingular $\bm S=\begin{bmatrix}
+2&3\\1&1
+\end{bmatrix}$ such that
+\[
+\bm{SD}=\begin{bmatrix}
+2&3\\1&1
+\end{bmatrix}\begin{bmatrix}
+2&1\\0&2
+\end{bmatrix}=\begin{bmatrix}
+4&-4\\1&0
+\end{bmatrix}\begin{bmatrix}
+2&3\\1&1
+\end{bmatrix}\implies
+\bm D=\begin{bmatrix}
+2&1\\0&2
+\end{bmatrix}=\bm S^{-1}\bm A\bm S.
+\]
+Hence $\bm A$ is similar to $\bm D$.\\
+Then we compute $\bm A^{k}$:
+\begin{align*}
+\bm A^{k}&=(\bm S\bm D\bm S^{-1})^{k}\\
+&=\bm S\bm D^k\bm S^{-1}
+\end{align*}
+Hence we only need to compute $\bm D^k$:
+\begin{itemize}
+\item
+We have known $\bm D^1=\begin{bmatrix}
+2&1\\0&2
+\end{bmatrix}$.
+\item
+If we assume $\bm D^k=\begin{bmatrix}
+p(k)&q(k)\\s(k)&t(k)
+\end{bmatrix}$, then $\bm D^{k+1}=\begin{bmatrix}
+2&1\\0&2
+\end{bmatrix}\begin{bmatrix}
+p&q\\s&t
+\end{bmatrix}=\begin{bmatrix}
+2p+s&2q+t\\2s&2t
+\end{bmatrix}=\begin{bmatrix}
+p(k+1)&q(k+1)\\s(k+1)&t(k+1)
+\end{bmatrix}.$
+\item
+Hence by induction, $s=0,t(k)=2^k$. And $p(k+1)=2p(k)+0\implies p(k)=2^k$; $q(k+1)=2q(k)+t=2q(k)+2^k\implies q(k)=2^{k-1}[q(1)+k-1]=k\times 2^{k-1}
+$\item
+Hence $\bm D^k=\begin{bmatrix}
+2^k&k\times 2^{k-1}\\0&2^k
+\end{bmatrix}.$
+\end{itemize}
+Thus $\bm A^k=\bm S\bm D^k\bm S^{-1}=\begin{bmatrix}
+2&3\\1&1
+\end{bmatrix}\begin{bmatrix}
+2^k&k\times 2^{k-1}\\0&2^k
+\end{bmatrix}\begin{bmatrix}
+2&3\\1&1
+\end{bmatrix}^{-1}=
+2^{k}\begin{bmatrix}
+k+1&-2k\\\frac{k}{2}&1-k
+\end{bmatrix}.$\\
+Hence $\bm u_k=\bm A^{k}\bm u_0=2^{k}\begin{bmatrix}
+k+1&-2k\\\frac{k}{2}&1-k
+\end{bmatrix}\begin{bmatrix}
+\beta\\\alpha
+\end{bmatrix}
+=2^{k}\begin{bmatrix}
+\beta(k+1)-2k\alpha
+\\
+\beta(\frac{k}{2})+(1-k)\alpha
+\end{bmatrix}
+$\\
+Hence the general formula is $b_k=2^k\left[
+(1-k)\times\alpha+\frac{k}{2}\times\beta
+\right].$
+\end{enumerate}
+\end{proof}
+%q7
+\item
+\begin{proof}[Solution.]
+\begin{enumerate}
+\item
+False.\\
+\emph{Reason:} For \textit{real symmetric} matrix, we have shown that its eigenvectors corrsponding to \textit{distinct} eigenvalues are \textit{orthigonal}. However, ind. eigenvectors corresponding to the same eigenvalue may not be \textit{orthogonal.}\\
+\emph{Example: }Let $\bm A=\bm I.$ Any nonzero vector  is eigenvector. But two different vectors may not have to be orthogonal.
+\item
+True.\\
+\emph{Reason:} We do the eigendecomposition for $\bm A$:
+\[
+\bm A=\bm S\Lambda\bm S^{-1}
+\]
+where $\Lambda=\diag(\lambda_1,\dots,\lambda_n)$ and $\bm S=\begin{bmatrix}
+\bm x_1&\dots&\bm x_n
+\end{bmatrix}$, where $\bm x_i$ is the eigenvector of $\bm A$ associated with eigenvalue $\lambda_i$ for $i=1,2,\dots,n.$\\
+Since columns of $\bm S$ are orthonormal vectors, it is \textit{unitary.} Hence $\bm A=\bm S\Lambda\bm S\Her.$\\
+Since $\Lambda\Her=\Lambda$, we obtain
+\[
+\bm A\Her=(\bm S\Lambda\bm S\Her)\Her=\bm S\Lambda\Her\bm S\Her=\bm S\Lambda\bm S\Her=\bm A
+\]
+So $\bm A$ is Hermitian.
+\item
+True.\\
+\emph{Reason: }Suppose $\bm A$ has the eigendecomposition
+\[
+\bm A=\bm S\Lambda\bm S^{-1}
+\]
+Then for the series we obtain:
+\begin{align*}
+\bm I+\bm A+\frac{1}{2!}\bm A^2+\dots&=
+\bm S\bm S^{-1}+\bm S\Lambda\bm S^{-1}+\frac{1}{2!}\bm S\Lambda^2\bm S^{-1}+\dots\\
+&=\bm S(\bm I+\Lambda+\frac{1}{2!}\Lambda^2+\dots)\bm S^{-1}
+\end{align*}
+If we define the series $\bm I+\bm A+\frac{1}{2!}\bm A^2+\dots:=e^{\bm A}$, then we obtain:
+\[
+e^{\bm A}=\bm S e^{\Lambda}\bm S^{-1}
+\]
+Since every term for the series $e^{\Lambda}$ is \textit{diagonal matrix}, the series $e^{\Lambda}$ is consequently a \textit{diagonal matrix}.\\
+Hence $e^{\bm A}$ is diagonalizable.
+\item
+True.\\
+\emph{Reason: }
+Since $\bm A\bm A^{-1}=\bm I$, taking complex conjugate we obtain $\overline{\bm A\bm A^{-1}}=\bm I$. Taking transpose we get $(\bm A^{-1})\Her\bm A\Her=\bm I.$\\
+And we have $\bm A\Her=\bm A$, so $(\bm A^{-1})\Her\bm A=\bm I.$ That is to say $(\bm A^{-1})\Her=\bm A^{-1}.$ Hence $\bm A^{-1}$ is Hermitian.
+\end{enumerate}
+\end{proof}
+%q8
+\item
+\begin{proof}[Solution.]
+\begin{enumerate}
+\item
+\begin{itemize}
+\item
+$N(\bm A\trans)$ is \textit{orthogonal} to $C(\bm A)$ under the \emph{old unconjugated inner product.}\\
+In fact, for $\forall\bm u\in N(\bm A\trans)$ and $\forall\bm{Av}\in C(\bm A)$,
+\[
+(\bm{Av})\trans\bm u=\bm v\trans(\bm A\trans\bm u)=\bm v\trans\bm 0=\bm 0.
+\implies
+C(\bm A)\perp N(\bm A\trans)\Longleftrightarrow
+N(\bm A\trans)\perp C(\bm A).
+\]
+\item
+However, $N(\bm A\trans)$ is \textit{not always orthogonal} to $C(\bm A)$ under the \emph{new unconjugated inner product.}\\
+\emph{Example: }If $\bm A=\begin{pmatrix}
+1&1\\i&i
+\end{pmatrix},$ then $\bm u=\begin{pmatrix}
+1\\i
+\end{pmatrix}\in C(\bm A)$ and $\bm u\in N(\bm A\trans)$.\\ But $\bm u\Her\bm u=2\ne0.$
+\item
+$N(\bm A\Her)$ is \textit{orthogonal} to $C(\bm A)$ under the \emph{new unconjugated inner product.}\\
+In fact, for $\forall\bm u\in N(\bm A\Her)$ and $\forall\bm{Av}\in C(\bm A)$,
+\[
+(\bm{Av})\Her\bm u=\bm v\Her(\bm A\Her\bm u)=\bm v\Her\bm 0=\bm 0.
+\implies
+C(\bm A)\perp N(\bm A\Her)\Longleftrightarrow
+N(\bm A\Her)\perp C(\bm A).
+\]
+\item
+However, $N(\bm A\Her)$ is \textit{not always orthogonal} to $C(\bm A)$ under the \emph{old unconjugated inner product.}\\
+\emph{Example: }If $\bm A=\begin{pmatrix}
+1&1\\i&i
+\end{pmatrix},$ then $\bm u=\begin{pmatrix}
+1\\i
+\end{pmatrix}\in C(\bm A)$ and $\bm v=\begin{bmatrix}
+1\\-i
+\end{bmatrix}\in N(\bm A\Her)$.\\ But $\bm u\trans\bm v=2\ne0.$
+\end{itemize}
+\item
+\begin{itemize}
+\item
+\emph{Example: }Let $\bm V=\Span\left\{\begin{pmatrix}
+1\\i
+\end{pmatrix}\right\}$.\\
+Then since we have $\begin{pmatrix}
+1&i
+\end{pmatrix}\begin{pmatrix}
+1\\i
+\end{pmatrix}=0$, we see $\bm V^{\perp}=\bm V$. Thus $\bm V\cap\bm V^{\perp}=\bm V!$
+\item
+If we use $\bm x\Her\bm v=\bm0$ to define the orthogonal complement, then $\{\bm 0\}\notin\bm V\cap\bm V^{\perp}$.\\
+Assume $\bm V\cap\bm V^{\perp}$ contains some nonzero vector $\bm x$, then $\bm x$ is orthogonal to itself:
+\[
+\bm x\Her\bm x=0.
+\]
+But $\bm x\Her\bm x=\|\bm x\|^2$, so $\bm x=\bm 0$, which leads to a contradiction!
+\end{itemize}
+
+
+\end{enumerate}
+
+
+
+
+\end{proof}
+\end{enumerate}

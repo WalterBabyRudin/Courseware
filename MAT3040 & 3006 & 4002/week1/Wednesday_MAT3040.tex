@@ -1,0 +1,248 @@
+
+\section{Wednesday for MAT3040}\index{Wednesday_lecture}
+\subsection{Review}
+\begin{enumerate}
+\item
+Vector Space: e.g., $\mathbb{R},M_{n\times n}(\mathbb{R}),\mathcal{C}(\mathbb{R}^n),\mathbb{R}[x]$.
+\item
+Vector Subspace: $W\le V$, e.g., 
+\begin{enumerate}
+\item
+$V=\mathbb{R}^2$, the set $W:=\mathbb{R}^2_+$ is not a vector subspace since $W$ is not closed under scalar multiplication;
+\item
+the set $W=\mathbb{R}^2_+\bigcup\mathbb{R}^2_-$ is not a vector subspace since it is not closed under addition.
+\item
+For $V=\mathbb{M}_{3\times 3}(\mathbb{R})$, the set of invertible $3\times 3$ matrices is not a vector subspace, since we cannot define zero vector inside.
+\item
+Exercise: How about the set of all singular matrices? Answer: it is not a vector subspace since the vector addition does not necessarily hold.
+\end{enumerate} 
+
+\end{enumerate}
+\subsection{Spanning Set}
+\begin{definition}[Span]
+Let $V$ be a vector space over $\mathbb{F}$:
+\begin{enumerate}
+\item
+A linear combination of a subset $S$ in $V$ is of the form
+\[
+\sum_{i=1}^n\alpha_i\bm s_i,\quad
+\alpha_i\in\mathbb{F},
+\bm s_i\in S
+\]
+Note that the summation should be finite.
+\item
+The \emph{span} of a subset $S\subseteq V$ is
+\[
+\Span(S)=\left\{\sum_{i=1}^n\alpha_i\bm s_i\middle|\alpha_i\in\mathbb{F},
+\bm s_i\in S\right\}
+\] 
+\item
+$S$ is a spanning set of $V$, or say $S$ spans $V$, if
+\[
+\Span(S)=V.
+\]
+\end{enumerate}
+\end{definition}
+\begin{example}
+For $V=\mathbb{R}[x]$, define the set
+\[
+S=\{1,x^2,x^4,\dots,x^6\},
+\]
+then $2+x^4+\pi x^{106}\in\Span(S)$, while the series $1+x^2+x^4+\cdots\notin\Span(S)$.
+
+It is clear that $\Span(S)\ne V$, but $S$ is the spanning set of $W=\{p\in V\mid p(x)=p(-x)\}$.
+\end{example}
+
+\begin{example}
+For $V=M_{3\times 3}(\mathbb{R})$, let $W_1=\{\bm A\in V\mid \bm A\trans=\bm A\}$ and $W_2=\{\bm B\in V\mid\bm B\trans=-\bm B\}$ (the set of skew-symmetric matrices) be two vector subspaces. Define the set
+\[
+\bm S:= W_1\bigcup W_2
+\]
+Exercise: $\bm S$ spans $V$.
+\end{example}
+\begin{proposition}\label{Pro:1:7}
+Let $S$ be a subset in a vector space $V$.
+\begin{enumerate}
+\item
+$S\subseteq\Span(S)$
+\item
+$\Span(S)=\Span(\Span(S))$
+\item
+If $\bm w\in\Span\{\bm v_1,\dots,\bm v_n\}\setminus\Span\{\bm v_2,\dots,\bm v_n\}$, then 
+\[
+\bm v_1\in\Span\{\bm w,\bm v_2,\dots,\bm v_n\}\setminus
+\Span\{\bm v_2,\dots,\bm v_n\}
+\]
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+\item
+For each $\bm s\in S$, we have 
+\[
+\bm s=1\cdot\bm s\in\Span(S)
+\]
+\item
+From (1), it's clear that $\Span(S)\subseteq\Span(\Span(S))$, and therefore suffices to show $\Span(\Span(S))\subseteq\Span(S)$:
+
+Pick $\bm v=\sum_{i=1}^n\alpha_i\bm v_i\in \Span(\Span(S))$, where $\bm v_i\in\Span(S)$. Rewrite 
+\[
+\bm v_i=\sum_{j=1}^{n_i}\beta_{ij}\bm s_j,\quad \bm s_j\in S,
+\]
+which implies
+\begin{align*}
+\bm v&=\sum_{i=1}^n\alpha_i\sum_{j=1}^{n_i}\beta_{ij}\bm s_j\\
+&=\sum_{i=1}^n\sum_{j=1}^{n_i}(\alpha_i\beta_{ij})\bm s_j,
+\end{align*}
+i.e., $\bm v$ is the finite combination of elements in $S$, whcih implies $\bm v\in\Span(S)$.
+\item
+By hypothesis, $\bm w=\alpha_1\bm v_1+\cdots+\alpha_n\bm v_n$ with $\alpha_1\ne0$, which implies
+\[
+\bm v_1=-\frac{\alpha_2}{\alpha_1}\bm v_2+\cdots+\left(
+-\frac{1}{\alpha_1}\bm w
+\right)
+\]
+which implies $\bm v_1\in\Span\{\bm w,\bm v_2,\dots,\bm v_n\}$. It suffices to show $\bm v_1\notin\Span\{\bm v_2,\dots,\bm v_n\}$.
+
+Suppose on the contrary that $\bm v_1\in \Span\{\bm v_2,\dots,\bm v_n\}$. It's clear that $\Span\{\bm v_1,\dots,\bm v_n\}=\Span\{\bm v_2,\dots,\bm v_n\}$. (left as exercise). Therefore,
+\[
+\emptyset=\Span\{\bm v_1,\dots,\bm v_n\}\setminus\Span\{\bm v_2,\dots,\bm v_n\},
+\]
+which is a contradiction.
+\end{enumerate}
+\end{proof}
+
+
+\subsection{Linear Independence and Basis}
+\begin{definition}[Linear Independence]
+Let $S$ be a (not necessarily finite) subset of $V$. Then $S$ is \emph{linearly independent} (l.i.) on $V$ if for any finite subset $\{\bm s_1,\dots,\bm s_k\}$ in $S$,
+\[
+\sum_{i=1}^k\alpha_i\bm s_i=0\Longleftrightarrow
+\alpha_i=0,\forall i
+\]
+\end{definition}
+
+\begin{example}
+For $V=\mathcal{C}(\mathbb{R})$, 
+\begin{enumerate}
+\item
+let $S_1=\{\sin x,\cos x\}$, which is l.i., since
+\[
+\alpha\sin x+\beta\cos x=\bm0 (\mbox{means zero function})
+\]
+Taking $x=0$ both sides leads to $\beta=0$; taking $x=\frac{\pi}{2}$ both sides leads to $\alpha=0$.
+\item
+let $S_2=\{\sin^2x,\cos^2x,1\}$, which is linearly dependent, since
+ \[
+ 1\cdot\sin^2x+1\cdot\cos^2x+(-1)\cdot 1=0,\forall x
+ \]
+\item
+Exercise: For $V=\mathbb{R}[x]$, let $S=\{1,x,x^2,x^3,\dots,\}$, which is l.i.:
+
+Pick $x^{k_1},\dots,x^{k_n}\in S$ with $k_1<\cdots<k_n$. Consider that the euqation
+\[
+\alpha_1x^{k_1}+\cdots+\alpha_nx^{k_n}=\bm0
+\]
+holds for all $x$, and try to solve for $\alpha_1,\dots,\alpha_n$ (one way is differentation.)
+\end{enumerate}
+\end{example}
+\begin{definition}[Basis]
+A subset $S$ is a \emph{basis} of $V$ if 
+\begin{enumerate}
+\item[(a)]
+$S$ spans $V$;
+\item[(b)]
+$S$ is l.i.
+\end{enumerate}
+\end{definition}
+\begin{example}
+\begin{enumerate}
+\item
+For $V=\mathbb{R}^n$, $S=\{\bm e_1,\dots,\bm e_n\}$ is a basis of $V$
+\item
+For $V=\mathbb{R}[x]$, $S=\{1,x,x^2,\dots\}$ is a basis of $V$
+\item
+For $V=M_{2\times 2}(\mathbb{R})$, 
+\[
+S=\left\{
+\begin{pmatrix}
+1&0\\0&0
+\end{pmatrix},
+\begin{pmatrix}
+0&1\\0&0
+\end{pmatrix},
+\begin{pmatrix}
+0&0\\1&0
+\end{pmatrix},
+\begin{pmatrix}
+0&0\\0&1
+\end{pmatrix}
+\right\}
+\]
+is a basis of $V$
+\end{enumerate}
+\end{example}
+\begin{remark}
+Note that there can be many basis for a vector space $V$.
+\end{remark}
+\begin{proposition}
+Let $V=\Span\{\bm v_1,\dots,\bm v_m\}$, then there exists a subset of $\{\bm v_1,\dots,\bm v_m\}$, which is a basis of $V$.
+\end{proposition}
+\begin{proof}
+If $\{\bm v_1,\dots,\bm v_m\}$ is l.i., the proof is complete.
+
+Suppose not, then $\alpha_1\bm v_1+\cdots+\alpha_m\bm v_m=\bm0$ has a non-trivial solution. 
+w.l.o.g., $\alpha_1\ne0$, which implies
+\[
+\bm v_1=-\frac{\alpha_2}{\alpha_1}\bm v_2+\cdots+\left(
+\frac{\alpha_m}{\alpha_1}
+\right)\bm v_m\implies
+\bm v_1\in\Span\{\bm v_2,\dots,\bm v_m\}
+\]
+
+By the proof in (c), Proposition~(\ref{Pro:1:7}),
+\[
+\Span\{\bm v_1,\dots,\bm v_m\}=\Span\{\bm v_2,\dots,\bm v_m\},
+\]
+which implies $V=\Span\{\bm v_2,\dots,\bm v_m\}$.
+
+Continuse this argument finitely many times to guarantee that $\{\bm v_i,\bm v_{i+1},\dots,\bm v_m\}$ is l.i., and spans $V$. The proof is complete.
+\end{proof}
+
+\begin{corollary}
+If $V=\Span\{\bm v_1,\dots,\bm v_m\}$ (i.e., $V$ is finitely generated), then $V$ has a basis. (The same holds for non-finitely generated $V$).
+\end{corollary}
+\begin{proposition}
+If $\{\bm v_1,\dots,\bm v_n\}$ is a basis of $V$, then every $\bm v\in V$ can be expressed uniquely as
+\[
+\bm v=\alpha_1\bm v_1+\cdots+\alpha_n\bm v_n
+\]
+\end{proposition}
+\begin{proof}
+Since $\{\bm v_1,\dots,\bm v_n\}$ spans $V$, so $\bm v\in V$ can be written as
+\begin{equation}\label{Eq:1:1}
+\bm v=\alpha_1\bm v_1+\cdots+\alpha_n\bm v_n
+\end{equation}
+Suppose further that 
+\begin{equation}\label{Eq:1:2}
+\bm v=\beta_1\bm v_1+\cdots+\beta_n\bm v_n,
+\end{equation}
+it suffices to show that $\alpha_i=\beta_i$ for $\forall i$:
+
+Subtracting (\ref{Eq:1:1}) into (\ref{Eq:1:2}) leads to
+\[
+(\alpha_1-\beta_1)\bm v_1+\cdots+(\alpha_n-\beta_n)\bm v_n=0.
+\]
+By the hypothesis of linear independence, we have $\alpha_i-\beta_i=0$ for $\forall i$, i.e., $\alpha_i=\beta_i$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+

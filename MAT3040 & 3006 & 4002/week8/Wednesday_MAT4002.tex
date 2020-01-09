@@ -1,0 +1,265 @@
+\section{Wednesday for MAT4002}\index{Monday_lecture}
+\paragraph{Reviewing}
+We can construct a continuous injection from $|K|$ to $|K'|$, where $K=(V,\Sigma)$ is a simplicial complex, and $K'=(V',\Sigma')$ is its subcomplex:
+
+Let $D_{\Sigma}:=\coprod_{\sigma\in\Sigma}\sigma$ and $D_{\Sigma'}:=\coprod_{\sigma'\in\Sigma'}\sigma'$, then
+$|K'| = D_{\Sigma'}/\sim_{\Sigma'}$ and $|K| = D_{\Sigma}/\sim_{\Sigma}$, which follows that
+\[
+f:D_{\Sigma'}\to D_{\Sigma}\xrightarrow{P}D_{\Sigma}/\sim_{\Sigma},\quad\text{$P$ denotes the canonical projection mapping}
+\]
+The whole mapping $f$ descends to a continuous mapping
+\[
+\tilde{f}:D_{\Sigma'}/\sim_{\Sigma'}\to D_{\Sigma}/\sim_{\Sigma}
+\]
+The $\tilde{f}$ is injective since
+\begin{equation}\label{Eq:8:2}
+x\sim_{\Sigma'}y\Longleftrightarrow
+i(x)\sim_{\Sigma}i(y),\qquad
+\forall x,y\in D_{\Sigma},
+\end{equation}
+where $i$ denotes the inclusion mapping.
+
+Another way is to consider the inclusion $i:|K'|\to |K|$, which is continuous and injective as well.
+Note that $i(|K'|)$ is closed in $|K|$.
+
+\begin{proposition}
+For each $K=(V,\Sigma)$, and finite $V$, 
+there is a continuous injection 
+$g:|K|\hookrightarrow\mathbb{R}^n$ for some $n$.
+\end{proposition}
+
+\begin{proof}
+Consider $K^p:=(V,\Sigma^p)$, where $\Sigma^p$ is the power set of $V$.
+Therefore, $|K^p| = \Delta^{|V|-1}\subseteq\mathbb{R}^{|V|}$, and $K$ is a simplicial subcomplex of $K^p$, which follows that
+\[
+l:|K'|\xrightarrow{i}|K^p|\xrightarrow{i}\mathbb{R}^{|V|}
+\]
+The whole mapping $l$ is an inclusion mapping from $|K'|$ to $\mathbb{R}^{|V|}$, which is continuous and injective. The proof is complete.
+\end{proof}
+
+\begin{proposition}[Hausdorff]
+If $K=(V,\Sigma)$ with fintie $V$, then $|K|$ is Hausdorff.
+\end{proposition}
+
+\begin{proof}
+Let $g:|K|\xrightarrow{l}\mathbb{R}^n$.
+Consider the bijective $g:|K|\to g(|K|)$, which is continuous.
+Sicne $|K|$ is compact, and $g(|K|)\subseteq \mathbb{R}^n$ is Hausdorff, we imply that $|K|$ and $g(|K|)$ are homeomorphic, i.e., $|K|$ is Hausdorff.
+\end{proof}
+
+\begin{definition}[Edge Path]
+An \emph{edge path} of $K=(V,\Sigma)$ is a sequence of vertices $(v_1,\dots,v_n), v_i\in V$ such that $\{v_i,v_{i+1}\}\in\Sigma,\forall i$.
+\end{definition}
+
+\begin{proposition}[Connectedness]
+Let $K=(V,\Sigma)$ be a simplicial complex. TFAE:
+\begin{enumerate}
+\item
+$|K|$ is connected
+\item
+$|K|$ is path-connected
+\item
+Any 2 vertices in $(V,\Sigma)$ can be joined by an edge path, i.e., for $\forall u,v\in V$, there exists $v_1,\dots,v_k\in V$ such that $(u,v_1,\dots,v_k,v)$ is an edge path.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Sketch of Proof (to be revised)]
+\begin{enumerate}
+\item
+(3) implies (2):
+For every $x,y\in|K|$, 
+\[
+\left\{
+\begin{aligned}
+x\in\Delta_{\sigma_1}\text{ for some $\sigma_1\in\Sigma$.}\\
+y\in\Delta_{\sigma_2}\text{ for some $\sigma_2\in\Sigma$.}\\
+\end{aligned}
+\right.
+\]
+Take a path joining $x$ to a vertex $v_1\in\sigma_1$ and a path joining $y$ to a vertex $v_2\in\sigma_2$.
+
+By (3), we have a path joninig $v_1$ and $v_2$.
+\item
+(1) implies (3):
+Suppose on the contrary that there is a vertex $v$ not satisfying (3).
+Take $V'$ as the set of vertexs that can be joined with $v$; and $V''$ as the set of vertexs that cannot be joinied with $v$.
+
+Then $V',V''\ne\emptyset$.
+Consider $K',K''$ be simplicial subcomplexes of $K$, spanned by $V'$ and $V''$.
+Then $|K'|,|K''|$ are disjoint, closed in $|K|$.
+
+$|K| = |K'|\cup|K''|$. 
+If there exists $x\in |K|\setminus(|K'|\cup|K''|)$, then for any $\sigma\in\Sigma$ such that $x\in\Delta_{\sigma}$, we imply $\Delta_\sigma\not\subseteq |K'|$ or $|K''|$.
+
+Therefore, $\sigma$ consists of vertices in both $V'$ and $V''$.
+Then there is $v',v''\in\sigma$ joining $V'$ and $V''$.
+
+Therefore, there is no such $x$ and hence $|K|=|K'|\cup|K''|$ is a disjoint union of two closed sets, i.e., not connected.
+\end{enumerate}
+\end{proof}
+
+\subsection{Homotopy}
+\paragraph{Yoneda's ``philosophy''}
+To understand an object $X$ (in our focus, $X$ denotes topological space), we should understand functions
+\[
+\begin{array}{lll}
+f:A\to X,
+&
+\text{ or }
+&
+g:X\to B
+\end{array}
+\]
+One special example is to let $B=\mathbb{R}$.
+
+There are many type of continuous mappings from $X$ to $Y$. We will group all these mappings into equivalence classes.
+
+\begin{definition}[Homotopy]
+A \emph{Homotopy} between two continuous maps $f,g:X\to Y$ is a continuous map
+\[
+H:X\times[0,1]\to Y
+\]
+such that 
+\[
+H(x,0)=f(x),\quad
+H(x,1)=g(x)
+\]
+If such $H$ exists, we say $f$ and $g$ are \emph{homotopic}, denoted as $f\simeq g$.
+\end{definition}
+
+\begin{example}\label{exp:8:7}
+Let $Y\subseteq\mathbb{R}^2$ be a convex subset.
+Consider two continuous maps $f:X\to Y$ and $g:X\to Y$.
+They are always homotopic since we can define the homotopy
+\[
+H(x,t) = tg(x) + (1-t)f(x)
+\]
+\end{example}
+
+\begin{proposition}
+Homotopy is an equivalent relation.
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+\item
+Let $f:X\to Y$ be any continuous map. Then $f\simeq f$:
+we can define a homotopy $H(x,t) = f(x),\forall 0\le t\le 1$.
+\item
+Suppose $f\simeq g$, i.e., $H$ is a homotopy between $f$ and $g$, then $g\simeq f$:
+Define the mapping $H'(x,t) = H(x,1-t)$, 
+then 
+\[
+\begin{array}{ll}
+H'(x,0)=g(x),
+&
+H'(x,1)=f(x)
+\end{array}
+\]
+\item
+Let $f,g,h:X\to Y$ be three continuous maps.
+If $f$ and $g$ are homotopic and $g$ and $h$ are homotopic, then $f$ and $h$ are homotopic:
+
+Let $H:X\times[0,1]\to Y$ be a continuous map such that 
+\[
+H(x,0)=f(x),H(x,1)=g(x);
+\]
+$K:X\times[0,1]\to Y$ be a continuous map such that 
+\[
+K(x,0)=g(x),K(x,1)=h(x).
+\]
+
+Define a function $J:X\times[0,1]\to Y$ by
+\[
+J(x,t)=\left\{
+\begin{aligned}
+H(x,2t),&\quad 0\le t\le1/2\\
+K(x,2t-1),&\quad 1/2\le t\le 1
+\end{aligned}
+\right.
+\]
+\begin{itemize}
+\item
+$J$ is continuous, since for all closed $V\subseteq Y$,
+\[
+J^{-1}(V)=(J^{-1}(V)\cap(X\times[0,1/2]))\cup(J^{-1}(V)\cap(X\times[1/2,1]))
+=
+H^{-1}(V)\cup K^{-1}(V),
+\]
+and the closedness of $H^{-1}(V)$ and $K^{-1}(V)$ implies the closedness of $J^{-1}(V)$
+\item
+Moreover, $J$ has the property that $J(x,0)=H(x,0)=f(x)$, while $J(x,1)=K(x,1)=h(x)$.
+\end{itemize}
+\end{enumerate}
+\end{proof}
+
+
+
+
+%
+%
+%\begin{enumerate}
+%
+%\item
+%If $f\cong g$, then $g\cong f$:
+%For homotopic from $f$ to $g$, say $H(x,t)$, construct
+%\[
+%H'(x,t):=H(x,1-t)
+%\]
+%Therefore, $H'(x,0)=g(x)$ and $H'(x,1)=f(x)$.
+%\item
+%If $f\cong g$ and $g\cong h$, then $f\cong h$:
+%suppose $H:f\cong g$, and $K:g\cong h$.
+%Consider
+%\[
+%J(x,t)=\left\{
+%\begin{aligned}
+%H(x,2t),&\quad 0\le t\le1/2\\
+%K(x,2t-1),&\quad 1/2\le t\le 1
+%\end{aligned}
+%\right.
+%\]
+%Note that $J(x,1/2)$ are well-defined.
+%Then $J$ is continuous, since for all closed $V\subseteq Y$,
+%\[
+%J^{-1}(V)=(J^{-1}(V)\cap(X\times[0,1/2]))\cup(J^{-1}(V)\cap(X\times[1/2,1]))
+%=
+%H^{-1}(V)\cup K^{-1}(V)
+%\]
+%Since $H^{-1}(V)$ and $K^{-1}(V)$ are both closed, we imply $J^{-1}(V)$ is closed.
+%\end{enumerate}
+
+\begin{remark}
+There are only one equivalence class in example~(\ref{exp:8:7}). Actually, for given space $X$ and $Y$, if any two continuous mapping are homotopic, then we imply there is only one equivalence class.
+\end{remark}
+%
+%Therefore, there is only one equivalence class in example~(1).
+%This reflects the fact that $Y\subseteq\mathbb{R}^2$ is a ``simple'' object.
+%
+%\begin{proof}
+%Tkae $y_0\in Y$.
+%Consider $C_y:X\to Y$ by $C_y(x)=y_0,\forall x$.
+%For all continuous maps $f:X\to Y$, $f\cong C_y$.
+%
+%Therefore, there is only one equivalence class since every continuous map is homotopic to $C_y$
+%\end{proof}
+%
+%
+%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

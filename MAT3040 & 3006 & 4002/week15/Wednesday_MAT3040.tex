@@ -1,0 +1,267 @@
+
+\section{Wednesday for MAT3040}\index{Wednesday_lecture}
+\subsection{Tensor Product for Linear Transformations}
+
+\begin{proposition}
+Suppose that $T:V\to V'$ and $S:W\to W'$ are linear transformations, then there exists an unique linear transformation 
+\[
+\begin{array}{ll}
+T\otimes S:&V\otimes W\to V'\otimes W'\\
+\text{satisfying}&(T\otimes S)(v\otimes w) = T(v)\otimes S(w)
+\end{array}
+\]
+\end{proposition}
+
+\begin{proof}
+We construct the mapping
+\[
+\begin{array}{ll}
+T\times S:&V\times W\to V'\otimes W'\\
+\text{with}&(T\times S)(v,w) = T(v)\otimes S(w)
+\end{array}
+\]
+This mapping is indeed bilinear: for instance, we can show that 
+\[
+(T\times S)(av_1+bv_2,w) = a(T\times S)(v_1,w)+b(T\times S)(v_2,w)
+\]
+Therefore, $T\times S\in\text{Obj}$. Since the tensor product satisfies the universal property, we imply there exists an unique linear transformation
+\[
+\begin{array}{ll}
+T\otimes S&V\otimes W\to V'\otimes W'\\
+\text{satisfying}&(T\otimes S)(v\otimes w)=T(v)\otimes S(w)
+\end{array}
+\]
+
+
+\end{proof}
+\paragraph{Notation Warning}
+Does the notion $T\otimes S$ really form a tensor product, i.e., do we obtain the addictive rules for tensor product such as 
+\[
+(aT_1+bT_2)\otimes S = a(T_1\otimes S)+b(T_2\otimes S)?
+\]
+
+
+\begin{example}\label{exp:13:2}
+Let $V=V'=\mathbb{F}^2$ and $W=W'=\mathbb{F}^3$.
+Define the matrix-multiply mappings:
+\[\left\{
+\begin{array}{ll}
+T:&V\to V\\
+\text{with}&\bm v\mapsto\bm A\bm v\\
+&\bm A=\begin{pmatrix}
+a&b\\c&d
+\end{pmatrix}
+\end{array}\right.\qquad
+\left\{
+\begin{array}{ll}
+S:&W\to W\\
+\text{with}&\bm w\mapsto\bm B\bm w\\
+&\bm B=\begin{pmatrix}
+p&q&r\\
+s&t&u\\
+v&w&x
+\end{pmatrix}
+\end{array}
+\right.
+\]
+How does $T\otimes S:V\otimes W\to V\otimes W$ look like?
+\begin{itemize}
+\item
+Suppose $\{e_1,e_2\},\{f_1,f_2,f_3\}$ are usual basis of $V,W$, respectively.
+Then the basis of $V\otimes W$ is given by:
+\[
+\mathcal{C}=\{e_1\otimes f_1,e_1\otimes f_2,e_1\otimes f_3,e_2\otimes f_1,e_2\otimes f_2,e_2\otimes f_3\}.
+\]
+\item
+As a result, we can compute $(T\otimes S)(e_i\otimes f_j)$ for $i=1,2$ and $j=1,2,3$. For instance,
+\begin{align*}
+(T\otimes S)(e_1\otimes e_1)&=T(e_1)\otimes S(e_1)\\
+&=(ae_1+ce_2)\otimes(pe_1+se_2+ve_3)\\
+&=
+(ap)e_1\otimes e_1+(as)e_1\otimes e_2+(av)e_1\otimes e_3+(cp)e_2\otimes e_1+(cs)e_2\otimes e_2+(cv)e_2\otimes e_3
+\end{align*}
+\item
+Therefore, we obtain a matrix representation for the linear transformation $(T\otimes S)$:
+
+\end{itemize}
+We want a matrix representation for $(T\otimes S)$:
+\[
+(T\otimes S)_{\mathcal{C},\mathcal{C}}
+=
+\begin{pmatrix}
+aB&bB\\
+cB&dB
+\end{pmatrix},
+\]
+which is a large matrix formed by taking all possible products between the elements of $\bm A$ and those of $\bm B$.
+This operation is called the \emph{Kronecker Tensor Product}, see the command \textit{kron} in MATLAB for detail.
+
+
+\end{example}
+\begin{proposition}
+More generally, given the linear operator $T:V\to V$ and $S:W\to W$, 
+let $\mathcal{A}=\{v_1,\dots,v_n\},\mathcal{B}=\{w_1,\dots,w_m\}$ be a basis of $V,W$ respectively, with
+\[
+\begin{array}{ll}
+(T)_{\mathcal{A},\mathcal{A}}=(a_{ij})
+&
+(S_{\mathcal{B},\mathcal{B}})=(b_{ij}):=B
+\end{array}
+\]
+As a result, $(T\otimes S)_{\mathcal{C},\mathcal{C}}=A\otimes B$, where 
+$\mathcal{C}=\{v_1\otimes w_1,\dots, v_n\otimes w_m\}$, and $A\otimes B$ denotes the Kronecker tensor product, defined as the matrix
+\[
+\begin{pmatrix}
+a_{1,1}B&\cdots&a_{1,n}B\\
+\vdots&\ddots&\vdots\\
+a_{n,1}B&\cdots&a_{n,n}B
+\end{pmatrix}.
+\]
+\end{proposition}
+\begin{proof}
+Following the similar procedure as in Example~(\ref{exp:13:2}) and applying the relation
+\begin{align*}
+(T\otimes S)(v_i\otimes w_j)&=T(v_i)\otimes S(w_j)\\
+&=\left(
+\sum_{k=1}^na_{ki}v_k
+\right)
+\otimes
+\left(
+\sum_{\ell=1}^mb_{\ell j}w_\ell
+\right)\\
+&=\sum_{k=1}^n\sum_{\ell=1}^m(a_{ki}b_{\ell j})v_k\otimes w_{\ell}
+\end{align*}
+\end{proof}
+
+\begin{proposition}
+The operation $T\otimes S$ satisfies all the properties of tensor product.
+For example,
+\begin{align*}
+(aT_1+bT_2)\otimes S &= a(T_1\otimes S)+b(T_2\otimes S)\\
+T\otimes(cS_1+dS_2) &= c(T\otimes S_1)+d(T\otimes S_2)
+\end{align*}
+Therefore, the usage of the notion ``$\otimes$'' is justified for the definition of $T\otimes S$.
+\end{proposition}
+\begin{proof}[Proof using matrix multiplication]
+For instance, consider the operation $(T+T')\otimes S$, with $(T)_{\mathcal{A},\mathcal{A}}=(a_{ij})$, $(T')_{\mathcal{A},\mathcal{A}}=(c_{ij}), (S)_{\mathcal{B},\mathcal{B}}=B$.
+
+We compute its matrix representation directly:
+\begin{align*}
+((T+T')\otimes S)_{\mathcal{C},\mathcal{C}}
+&=
+(T+T')_{\mathcal{A},\mathcal{A}}\otimes (S)_{\mathcal{B},\mathcal{B}}\\
+&=
+[(T)_{\mathcal{A},\mathcal{A}}+(T')_{\mathcal{A},\mathcal{A}}]\otimes (S)_{\mathcal{B},\mathcal{B}}\\
+&=
+(T)_{\mathcal{A},\mathcal{A}}\otimes (S)_{\mathcal{B},\mathcal{B}}
++
+(T')_{\mathcal{A},\mathcal{A}}\otimes (S)_{\mathcal{B},\mathcal{B}}
+\end{align*}
+where the last equality is by the addictive rule for kronecker product for matrices.
+Therefore,
+\[
+((T+T')\otimes S)_{\mathcal{C},\mathcal{C}}=
+(T\otimes S)_{\mathcal{C},\mathcal{C}} + 
+(T'\otimes S)_{\mathcal{C},\mathcal{C}}
+\implies
+(T+T')\otimes S
+=
+T\otimes S+T'\otimes S
+\]
+\end{proof}
+\begin{proof}[Proof using basis of $T\otimes S$]
+Another way of the proof is by computing 
+\[
+((T+T')\otimes S)(v_i\otimes w_j),
+\] 
+where $\{v_i\otimes w_j\mid 1\le i\le n,1\le j\le m\}$ forms a basis of $(T+T')\otimes S$:
+\begin{align*}
+((T+T')\otimes S)(v_i\otimes w_j)
+&=(T+T')(v_i)\otimes S(w_j)\\
+&=(T(v_i)+T'(v_i))\otimes S(w_j)\\
+&=T(v_i)\otimes S(w_j)+T'(v_i)\otimes S(w_j)\\
+&=(T\otimes S)(v_i\otimes w_j)+(T'\otimes S)(v_i\otimes w_j)
+\end{align*}
+Since $((T+T')\otimes S)(v_i\otimes w_j)$ coincides with $(T\otimes S + T'\otimes S)(v_i\otimes w_j)$ for all basis vectors $v_i\otimes w_j\in\mathcal{C}$, we imply
+\[
+(T+T')\otimes S = T\otimes S+T'\otimes S
+\]
+\end{proof}
+
+
+\begin{proposition}
+Let $A,C$ be linear operators from $V$ to $V$, and $B,D$ be linear operators from $W$ to $W$, then
+\[
+(A\otimes B)\circ(C\otimes D)=(AC)\otimes(BD)
+\]
+\end{proposition}
+
+\begin{proposition}
+Define linear operators $A:V\to V$ and $B:W\to W$ with $\dim(V),\dim(W)<\infty$.
+Then
+\[
+\det(A\otimes B) = (\det(A))^{\dim(W)}(\det(B))^{\dim(V)}
+\]
+\end{proposition}
+
+\begin{corollary}
+There exists a linear transformation 
+\[
+\begin{array}{ll}
+\Phi:&
+\text{Hom}(V,V)\otimes\text{Hom}(W,W)\to
+\text{Hom}(V\otimes W,V\otimes W)\\
+\text{with}&A\otimes B\mapsto A\otimes B
+\end{array}
+\]
+where the input of $\Phi$ is the tensor product of linear transformations, and the output is the linear transformation.
+\end{corollary}
+\begin{proof}
+Construct the mapping
+\[
+\begin{array}{ll}
+\Phi&:
+\text{Hom}(V,V)\times\text{Hom}(W,W)\to
+\text{Hom}(V\otimes W,V\otimes W)\\
+\text{with}&\Phi(A,B)=A\otimes B
+\end{array}
+\]
+The $\Phi$ is indeed bilinear: for instance, 
+\begin{align*}
+\Phi(pA+qC,B)&=(pA+qC)\otimes B\\
+&=p(A\otimes B)+q(C\otimes B)\\
+&=p\Phi(A,B)+q\Phi(C,B)
+\end{align*}
+This corollary follows from the universal property of tensor product.
+\end{proof}
+\begin{remark}
+If assuming that $\dim(V),\dim(W)<\infty$, we imply
+\begin{align*}
+\dim(\text{Input space of $\Phi$})&=\dim(\text{Hom}(V,V))\dim(\text{Hom}(W,W))\\
+&=
+[\dim(V)\dim(V)]
+\cdot
+[\dim(W)\dim(W)]
+=
+[\dim(V)\dim(W)]^2\\
+&=[\dim(V\otimes W)]^2\\
+&=\dim(\text{Hom}(V\otimes W,V\otimes W))\\
+&=\dim(\text{Output space of $\Phi$})
+\end{align*}
+Therefore, is $\Phi$ is an isomorphism?
+If so, then every linear operator $\alpha:V\otimes W\to V\otimes W$ can be expressed as
+\[
+\alpha = A_1\otimes B_1+\cdots+A_k\otimes B_k
+\]
+where $A_i:V\to V$ and $B_j:W\to W$.
+\end{remark}
+
+
+
+
+
+
+
+
+
+

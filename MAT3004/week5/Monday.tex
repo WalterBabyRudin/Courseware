@@ -1,0 +1,316 @@
+
+\chapter{Week5}
+
+\section{Monday}\index{week5_Tuesday_lecture}
+
+Let $G$ be a finite group with $H\le G$. Then $G$ can be partitioned into the left cosets or the right cosets of $H$. However, the left cosets and the right cosets are usually different.
+\begin{example}
+Let $G=S_3$ and $H=\{(),(12)\}$, it is eaily seen that
+\[
+G = H\sqcup (13)H\sqcup(23)H
+=
+H\sqcup H(13)\sqcup H(23)
+\]
+However, we see that
+\[
+\begin{array}{ll}
+(13)H\ne H(13),
+&
+(23)H\ne H(23)
+\end{array}
+\]
+We are interested in the case when the left coset of H and the right coset of H are always the same.
+
+\end{example}
+\begin{definition}[normal subgroup]
+Let $G$ be a group. A subgroup $H\le G$ is \emph{normal} if
+\[
+\begin{array}{ll}
+aH=Ha,
+&
+\forall a\in G
+\end{array}
+\]
+We denote this by $H\trianglelefteq G$ and $H\triangleleft G$ when $H<G$.
+\end{definition}
+Normal subgroups have several equivalent definitions:
+\begin{theorem}
+Let $G$ be a group and $H\le G$. The following statements are equivalent:
+\begin{enumerate}
+\item
+$H\trianglelefteq G$
+\item
+$a^{-1}Ha\subseteq H$, for $\forall a\in G,h\in H$
+\item
+$a^{-1}Ha = H$, for $\forall a\in G$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+The non-trivial case is (2) implies (3). Since (2) holds for all $a\in G$, it holds for $a^{-1}$, i.e.,
+\[
+(a^{-1})^{-1}Ha^{-1}\subseteq H\implies
+aHa^{-1}\subseteq H\implies
+H\subseteq a^{-1}Ha
+\]
+\end{proof}
+\begin{example}
+\begin{enumerate}
+\item
+Any group $G$ contains the trivial normal subgroups, i.e. ,$1$ and $G$
+\item
+Let $G=S_3, N=\{(),(123),(132)\}, H_1=\{(),(12)\},H_2=\{(),(13)\},H_3=\{(),(23)\}$, then $N\triangleleft G$ but $H_i$'s are not.
+\item
+Let $n\in\mathbb{N}^+$, then $\mbox{SL}(n,\mathbb{R})\triangleleft\mbox{GL}(n,\mathbb{R})$
+\item
+Let $n\in\mathbb{N}^+$, then $A_n\triangleleft S_n$. (question)
+\item
+Let $H,K$ be groups and $G=H\times K$. Then $H\times 1$ and $1\times K$ are normal subgroups of $G$.
+\end{enumerate}
+\end{example}
+\begin{proposition}
+Let $i,j,k$ be such that
+\[
+i^2=j^2=k^2=ijk=-1\in\mathbb{R},
+\]
+show that the \emph{quaternion group}
+\[
+Q_8=\gen{i,j,k}
+\]
+has order $8$, and every its subgroup is normal.
+\end{proposition}
+\begin{proof}
+Since $i^2=j^2=k^2=-1,ij=k,jk=i,ki=j$, any element from the set $Q_8$ can be written as the form $\pm i^{m_1}j^{m_2}k^{m_3}$ for $m_i\in\mathbb{N}$ with $m_1+m_2+m_3=1$. Hence, the set $Q_8$ has at most $8$ elements, i.e., the order should be no more than $8$. Furthermore, note that $\pm1,\pm i,\pm j,\pm k\in Q_8$, which means the $|Q_8|=8$.
+
+Also, due to Lagrange's theorem, every subgroup can only have order $1,2,4,8$, and the subgroup with order $1$ or $8$ are trivial normal subgroups; the subgroup with order $4$ has index $2$, i.e., is normal. After computation, we find the only one subgroup with order $2$ is $\{1,-1\}$, which is normal obviously.
+\end{proof}
+\begin{remark}
+Every subgroup of an abelian group is normal, but the converse is not true (e.g., see example above). In general, a group $G$ is \emph{Dedekind} if every its subgroups is normal; and if $G$ is non-abelian but with all normal subgroups, then $G$ is \emph{Hamiltonian group}.
+\end{remark}
+
+\begin{theorem}
+Let $G$ be a group with $H\trianglelefteq G$, then the set $[G:H]$ forms a \emph{quotient group} (factor group) $G/H$ under the operation defined as:
+\[
+(aH)(bH):=(ab)H,\qquad
+\forall a,b\in G
+\]
+\end{theorem}
+Note that the proof is incomplete, we need to check the well-defineness of operation.
+\begin{proof}
+To examine that $G/H$ is indeed a group:
+\begin{itemize}
+\item
+$(ab)H$ is also a left cosets
+\item
+associative
+\item
+$H$ is identity
+\item
+$a^{-1}H$ is inverse
+\end{itemize}
+\end{proof}
+\begin{example}
+For $n\in\mathbb{N}^+$, the abelian group $\mathbb{Z}$ contains a normal subgroup $n\mathbb{Z}$, and $\mathbb{Z}/n\mathbb{Z}$ is a cyclic group of order $n$.
+\end{example}
+\begin{proposition}
+Let $G$ be a group, then the \emph{center}
+\[
+Z(G):=\{z\in G\mid zg = gz,\forall g\in G\}
+\]
+forms a normal subgroup of $G$.
+\end{proposition}
+Question for Proposition 3.5
+\begin{proof}
+First, show that $z_1,z_2\in Z(G)$ implies $z_1z_2^{-1}\in Z(G)$. Next, show that $g^{-1}zg=z$ for all $g\in G$ and $z\in Z(G)$.
+\end{proof}
+\begin{example}
+\begin{enumerate}
+\item
+Let $G$ be an abelian group, then $Z(G)=G$, i.e., $Z(G) $ is essentially the largest abelian subgroup of $G$
+\item
+Let $n\ge3$ be an integer, then $Z(S_n)=1$.
+\item
+Let $n\ge 3$ be an integer, then $Z(\mathbb{Z}_n\times S_n) = \mathbb{Z}_n\times 1$.
+\item
+\[
+Z(\mbox{GL}(2,\mathbb{R}))=\{\diag(a,b):ab\ne0\}
+\]
+\end{enumerate}
+\end{example}
+\subsection{Derived subgroups}
+\begin{definition}[derived subgroup]
+Let $G$ be a group and $a,b\in G$. The \emph{commutator} of $a,b$ is:
+\[
+[a,b]:=a^{-1}b^{-1}ab
+\]
+The  \emph{derived subgroup} (\emph{commutator subgroup}) of $G$ is
+\[
+G':=\gen{[a,b]| a,b\in G}
+\]
+\end{definition}
+\begin{proposition}
+The $G'$-coset partition defines an equivalence relation on $G$ such that $ab\sim_{G'}ba$ for $\forall G$.
+\end{proposition}
+\begin{proof}
+First show that $x\sim_{G'}y$  iff $xy^{-1}\in G'$.
+
+Then it's trivial that $aba^{-1}b^{-1}\in G'$.
+\end{proof}
+Note that the $L$-coset parititon $a\sim_Lb$ means that $aH=bH$.
+\begin{remark}
+If $G'\triangleleft G$, then $G/G'$ is an abelian group. Note that $G'$ is normal since
+\[
+a^{-1}ha=[a,h^{-1}]h\in G'
+\]
+\end{remark}
+\begin{theorem}
+Let $G$ be a group, then $G'\triangleleft G$ and $G/G'$ is abelian.
+\end{theorem}
+\begin{corollary}
+Let $G$ be a group such that $G''=1$, then $G$ is abelian
+\end{corollary}
+\begin{proof}
+$\{\{a\}\mid a\in G\}$ is abelian implies $G$ is abelian.
+\end{proof}
+\begin{remark}
+The derived subgroup is the smallest normal subgraoup such that the quotient group $G/G'$ is abelian, i.e., any quotient group $G/H$ is abelian iff $H$ contains $G'$.
+\end{remark}
+\begin{theorem}
+Let $G$ be a group and $H\triangleleft G$, then $G/H$ is abelian iff $G'\le H$.
+\end{theorem}
+\begin{proof}
+Necessity. Since $G/H$ is abelian, we have
+\[
+ab H=baH\implies
+abh_1=bah_2\implies
+[a,b]=h_2h_1'\in H\implies
+\gen{[a,b]|a,b\in G}\in H
+\]
+
+Suffiency. Note that
+\[
+a^{-1}b^{-1}ab\in G'\subseteq H\implies
+a^{-1}b^{-1}ab=h\implies
+ab\sim_Hba,\forall a,b\in G
+\]
+\end{proof}
+\begin{theorem}
+Let $n\in\mathbb{N}^+$, then $A_n=S_n'$ ($A_n$ denotes the group of even permutations). Moreover, when $n\ge5$, $A_n'=A_n$.
+\end{theorem}
+Recall that a permutation is called an even permutation if it can be written as a product of an even number of transpositions.
+
+\begin{proof}
+Note that $S_n/A_n=A_n\sqcup\tau A_n$, and therefore abelian. Thus $A_n\ge S'_n$. It suffices to show $S_n'\ge A_n$, Note that
+\[
+A_n=\gen{(12i)|i=3,\dots,n}
+\]
+Therefore $(12i)=(12)^{-1}(1i)^{-1}(12)(1i)\in S_n'$ implies $A_n\le S_n'$.
+
+When $n\ge 5$, note that $A_n'\le A_n$. On the other hand,
+\[
+(12i) = (1a2)^{-1}(1bi)^{-1}(1a2)(1bi)\in A_n'\implies
+A_n\le A_n'
+\]
+\end{proof}
+\begin{remark}
+In general, a group satisfying $G'=G$ is perfect. The alternating groups are concrete examples of perfect groups.
+\end{remark}
+\begin{proposition}
+The group $\mbox{SL}(2,\mathbb{R})$ is perfect.
+\end{proposition}
+\begin{proof}
+Note that any element is a product of $\begin{pmatrix}
+1&x\\0&x
+\end{pmatrix}$ and $\begin{pmatrix}
+1&0\\y&1
+\end{pmatrix}$ and these two basis can be written as the form $[a,b]$.,e.g.,
+\[
+\begin{pmatrix}
+1&x\\0&1
+\end{pmatrix}=[\begin{pmatrix}
+1&x\\0&1
+\end{pmatrix}\begin{pmatrix}
+(\sqrt{2})^{-1}&0\\0&\sqrt{2}
+\end{pmatrix}]
+\]
+\end{proof}
+\begin{definition}[Simple]
+Every group $G$ contains the trivial normal subgroups $1$ and $G$. If these are only normal subgroups contained in $G$, then we say $G$ is \emph{simple}.
+\end{definition}
+\begin{definition}[Conjugacy Class]
+Let $G$ be a group and $a,b\in G$. If there exists $g\in G$ such that $g^{-1}ag=b$, then $a,b$ are \emph{conjugate}, and $b$ is a conjugate of $a$.  The conjugacy class with representative $a$ is a collectio nof all conjugates of $a$:
+\[
+\mbox{Cl}(a)=\{g^{-1}ag\mid g\in G\}
+\]
+\end{definition}
+\begin{proposition}
+The conjugacy class defines an equivalence relation on $G$; and $\mbox{Cl}(z)=\{z\}$ for each $z\in G$.
+\end{proposition}
+\begin{theorem}
+Let $G$ be a finite group with $r$ disjoint conjugacy classes of size $c_1,\dots,c_r\ge2$. Let $|Z(G)|=c_0$, then
+\[
+|G| = \sum_{i=0}^rc_i
+\]
+\end{theorem}
+\begin{proof}
+Note that $x\in Cl(z)$ with $z\in Z(G)$ iff $x=z$. Hence the conjugacy class with only one element must be of the form $\{z\}$, $z\in Z(G)$. Thererfore,
+\[
+|G|=\sum_{i=0}^rc_i
+\]
+\end{proof}
+
+\begin{theorem}
+The alternating group $A_5$ is simple.
+\end{theorem}
+\begin{proof}[Solution.]
+Let $\sigma\in N\triangleleft A_5$ be non-identity, then if we can show that $N=A_5$, which is a contradiction, then we show that $A_5$ is simple.
+
+Note that $A_5$ is generated by the $3-$cycles, i.e., every element $\sigma$ of $A_n$ can be written as
+\[
+\sigma=C_1C_2\cdots C_k,
+\]
+with $C_i$ to be $3$-cycles.
+
+Note that $N$ contains a non-trivial even permutation $\sigma$, which must be of the form $(abcde)$ or $(ab)(cd)$ or $(abc)$.
+\begin{itemize}
+\item
+When $\sigma=(abcde)$, let $\alpha = (ab)(cd)$. then $N$ also contains:
+\[
+\alpha\sigma\alpha^{-1}=(ab)(cd)(abcde)(ab)(cd)=(adceb)
+\]
+and therefore contains
+\[
+\sigma\sigma^{-1}=(aec)
+\]
+\item
+When $\sigma=(ab)(cd)$, let $\beta=(abe)$, then $N$ also contains
+\[
+\sigma' =\beta\sigma\beta^{-1}=(becd)
+\]
+and therefore contains
+\[
+\sigma\sigma^{-1}=(abe)
+\]
+\end{itemize}
+If $N$ contains a signle $3$-cycles, since $3$-cycles are mutually conjugate, $N$ will contain any other $3$-cycles. Therefore $N=A$, which is a contradiction.
+\end{proof}
+\begin{proof}[Solution 2]
+Let $N$ be a normal subgroup of $A_5$, then it is a union of some of the conjugacy classes of $A_5$. Since the order of $N$ must divide $60$, a short calculation shows that no union of some of these conjugacy classes that includes $\{e\}$ has order a divisor of $60$, unless $A_5=\{e\}$ or $A_5$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

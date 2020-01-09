@@ -1,0 +1,372 @@
+\section{Friday}\index{week7_Thursday_lecture}
+
+\subsection{Polynomials}
+\begin{definition}[polynomial]
+Let $k$ be a field, and $f=\sum_{i=0}^nc_ix^i$ be a polynomial in $k[x]$. An element $a\in k$ is a root of $f$ if
+\[
+f(a)=\sum_{i=0}^nc_ia^i=0
+\]
+in $k$.
+\end{definition}
+question: what is $k[x]$?
+\begin{corollary}
+For all $f\in k[x]$, $a\in k$, then there exists $q\in k[x]$ such that
+\[
+f=q(x-a)+f(a)
+\]
+\end{corollary}
+\begin{proof}
+By division theorem, there exists $q,r\in k[x]$ such that
+\[
+f=q\cdot (x-a)+r,\quad
+\mbox{deg}r<\mbox{deg}(x-a)=1
+\]
+which implies $r$ is a constant. Evaluate both sides for $x=a$, we have
+\[
+f(a)=r.
+\]
+\end{proof}
+\begin{proposition}[root theorem]
+Let $k$ be a field, $f$ a polynomial is $k[x]$. Then $a\in k$ is a root of $f$ iff $(x-a)$ divides $f$ in $k[x]$.
+\end{proposition}
+\begin{proof}
+For forward direction, there exists $q\in k[x]$ such that
+\[
+f=q(x-a)+f(a)=q(x-a)\implies (x-a)|f
+\]
+For the reverse direction, if $f=q(x-a)$ for some $q\in k[x]$, then $f(a)=q(a)(a-a)=0$, i.e., $a$ is a root of $f$.
+\end{proof}
+\begin{theorem}
+Let $k$ be a field, $f$ a nonzero polynomial in $k[x]$
+\begin{enumerate}
+\item
+If $f$ has some degree $n$, then it has at most $n$ roots in $k$
+\item
+If $f$ has degree $n$ and $a_1,\dots,a_n\in k$ are distinct roots of $f$, then
+\[
+f=c\prod_{i=1}^n(x-a_i)
+\]
+for some $c\in k$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+\begin{enumerate}
+\item
+We show the first part by induction. Suppose it holds for all nonzero polynomails with degree strictly less than $n$, and $\mbox{deg}f=n$. If $f$ has no roots in $k$, the proof is complete, otherwise suppose a root $a\in k$. There exists $q\in k[x]$ such that
+\[
+f=q(x-a)
+\]
+For the any other root $b\in k$, we have 
+\[
+0=q(b)(b-a)
+\]
+Since $k$ is a firld, it has no zero divisors, which implies $q(b)=0$, since $b-a\ne0$. Thus $b$ is a root of $q$. Since $\mbox{deg}q<n$, by induction we imply $q$ has at most $n-1$ roots, i.e., $f$ has at most $n-1$ roots that are different from $a$.
+\item
+If $n=1$, then $f=c_0+c_1x$ for some $c_i\in k$ with $c_1\ne0$, which implies
+\[
+0=f(a_1)=c_0+c_1a_1\implies c_0=-c_1a_1\implies
+f=-c_1a_1+c_1x=c_1(x-a_1)
+\]
+Suppose $n>1$, and the claim holds for all $n'\in\mathbb{N}$ such that $n'<n$. By previuos claim, there exists $q\in k[x]$ such that
+\[
+f=q(x-a_n)
+\]
+Since $\mbox{deg}q=n-1$, and for $1\le i<n$, we have
+\[
+0=f(a_i)=q(a_i)(a_i-a_n)\implies q(a_i=0),
+\]
+which implies $a_1,\dots,a_{n-1}$ are $n-1$ distinct roots of $q$ as well. Thus there exists $c\in k$ s.t.
+\[
+q=c(x-a_1)\cdots(x-a_{n-1}),
+\]
+which follows that
+\[
+f=q(x-a_n)=c(x-a_1)\cdots(x-a_n)
+\]
+\end{enumerate}
+\end{proof}
+
+\begin{corollary}
+Let $k$ be a field. Let $f,g$ be nonzero polynomails in $k[x]$. Let $n=\max\{\mbox{deg}f,\mbox{deg}g\}$. If $f(a)=g(a)$ for $n+1$ distinct $a\in k$, then $f=g$.
+\end{corollary}
+\begin{proof}
+Let $h=f-g$, then $\mbox{deg}h\le n$. There are $n+1$ distinct elements $a\in k$ s.t. $h(a)=0$. If $h\ne0$, then it is a nonzero polynomial of degree $\le n$ which has $n+1$ distinct roots, which is a constraction. $h=0$ implies $f=g$.
+\end{proof}
+\begin{definition}
+A polynomail in $k[x]$ is called a \emph{monic polynomial} if its leading coefficient is $1$.
+\end{definition}
+\begin{theorem}
+Let $k$ be a field, then the ring $k[x]$ is a PID.
+\end{theorem}
+\begin{corollary}
+Let $k$ be a field, and $f,g$ be nonzero polynomials in $k[x]$. There exists a unique monic polynomial $d\in k[x]$ with the following properties:
+\begin{enumerate}
+\item
+$(f,g)=(d)$
+\item
+$d$ divides both $f$ and $g$, i.e., there exists $a,b\in k[x]$ s.t. $f=ad,g=bd$
+\item
+There are polynomials $p,q\in k[x]$ such that $d=pf+qg$
+\item
+If $h\in k[x]$ is a divisor of $f,g$, then $h$ divides $d$.	
+\end{enumerate}
+This $d\in k[x]$ is called the \emph{greatest common divisor} (GCD) of $f$ and $g$. We say $f$ and $g$ are \emph{relatively prime} if their GCD is 1.
+\end{corollary}
+\begin{proof}
+By the PID theorem, there exists $d=\sum_{n=0}^\infty a_ix^i\in k[x]$ such that $(d)=(f,g)$. Replacing $d$ with $a_n^{-1}d$, we assume $d$ is a monic polynomial. It remains to show that $d$ is unique. 
+
+Suppose $(d)=(d')$, there exists nonzero $p,q\in k[x]$ such that
+\[
+d'=pd,\quad
+d=qd'
+\]
+which follows that
+\[
+\mbox{deg}d'=\mbox{deg}d+\mbox{deg}p,\quad
+\mbox{deg}d=\mbox{deg}q+\mbox{deg}d'=\mbox{deg}q+\mbox{deg}d+\mbox{deg}p,
+\]
+i.e., $\mbox{deg}p=\mbox{deg}q=0$. Thus $\mbox{deg}d=\mbox{deg}d'$. Comparing the leading coefficients of $d'$ and $pd$, we have $p=1$, i.e., $d=d'$.
+
+The remaining part follows similarly.
+\end{proof}
+\begin{definition}[Irreducible]
+Let $R$ be a commutative ring. A non-zero element $p\in R$ which is not a unit is said to be \emph{irreducible} if $p=ab$ implies that either $a$ or $b$ is a unit.
+\end{definition}
+\begin{example}
+The set of irreducible elements in the ring $\mathbb{Z}$ is
+\[
+\{\pm p\mid p\mbox{ is a prime number}\}
+\]
+\end{example}
+Let $k$ be a field.
+\begin{proposition}
+A polynomial $f\in k[x]$ is a unit iff it is a \emph{nonzero} constant polynomial.
+\end{proposition}
+\begin{proposition}
+A nonzero nonconstant polynoimial $p\in k[x]$ is \emph{irreducible} iff there is no $f,g\in k[x]$ with $\mbox{deg}f,\mbox{deg}g<\mbox{deg}p$, such that $fg=p$.
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+\item
+Suppose $p$ is irreducible, and $p=fg$ for some $f,g\in k[x]$ such that $\mbox{deg}f,\mbox{deg}g<\mbox{deg}p$. Then $p=fg$ implies that $\mbox{deg}f,\mbox{deg}g$ are both positive. By previous lemma, both $f,g$ are non-units, which is a contradiction.
+\item
+Conversely, suppose $p$ is a nonzero non-unit in $k[x]$, which is not equal to $fg$ for $\forall f,g\in k[x]$ with $\mbox{deg}f,\mbox{deg}g<\mbox{deg}p$. Then $p=ab$ for $a,b\in k[x]$ implies that either $a$ or $b$ must have the same degree as $p$, and the otehr factor must be a nonzero constant, i.e., a unit in $k[x]$. Thus $p$ is irreducible.
+\end{enumerate}
+\end{proof}
+
+\begin{proposition}[Euclid's Lemma]
+Let $k$ be a field. Let $f,g$ be polynomials in $k[x]$. Let $p$ be an irreducible polynomial in $k[x]$. If $p|fg$ in $k[x]$, then $p|f$ or $p|g$.
+\end{proposition}
+\begin{proof}
+Suppose $p$ not divides $f$, then any \emph{common divisor} of $p$ and $f$ must have degree strictly less than $\mbox{deg}p$. Since $p$ is irreducible, this implies that any common divisor of $p$ and $f$ is a nonzero constant. Thus the GCD of $p$ and $f$ is 1. There exists $a,b\in k[x]$ such that
+\[
+ap+bf=1\implies
+apg+bfg=g
+\]
+Since $p$ divides the LHS, it also divides the RHS.
+\end{proof}
+\begin{proposition}
+If $f,g\in k[x]$ are relatively prime, and both divide $h\in k[x]$, then $fg|h$.
+\end{proposition}
+question
+\begin{theorem}[Unique Factorization]
+Let $k$ be a field. Every non-constant polynomial $f\in k[x]$ may be written as
+\[
+f=cp_1\cdots p_n
+\]
+where $c$ is a non-zero constant, and each $p_i$ is a monic irreducible polynomials in $k[x]$. The factorization is \emph{unique} up to the ordering of the factors.
+\end{theorem}
+\begin{proof}
+Similar to the proof of unique factorization for $\mathbb{Z}$
+\end{proof}
+\begin{theorem}
+Let $k$ be a field, $p$ be a polynomial in $k[x]$. The following statements are equivalent:
+\begin{enumerate}
+\item
+$k[x]/(p)$ is a field
+\item
+$k[x]/(p)$ is an integral domain
+\item
+$p$ is irreducible in $k[x]$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+\begin{enumerate}
+\item
+(2) implies (3): If $p$ is not irreducible, then there exists $f,g\in k[x]$ with degree strictly less than that of $p$, such that $p=fg$.
+
+It's clear that $p$ does not divide $f$ or $g$ in $k[x]$. The equivalence classes $\bar f$ and $\bar g$ of $f$ and $g$, respectively, modulo $(p)$ is not equal to zero in $k[x]/(p)$. (question) On the other hand, $\bar f\cdot\bar g=\bar{fg}=\bar p=0$ in $k[x]/(p)$, which implies that $k[x]/(p)$ is not an integral domain, which is a contradction.
+\item
+(3) implies (1): By definiton, the multiplicative identity $1$ of a field is different from addictive identity $0$. We first check that the equivalence lcass $1\in k[x]$ in $k[x]/(p)$ is not zero. Since $p$ is irreducible, we have $\mbox{deg}p>0$, and $1\notin(p)$. Therefore $1+(p)\ne 0+(p)$ in $k[x]/(p)$.
+
+Next, we need to show the existence of multiplicative inverse of any nonzero element in $k[x]/(p)$. Given any $f\in k[x]$ whose equivalence $\bar f$ modulo $(p)$ is nonzero in $k[x]/(p)$, we want to constracut $\bar{f}^{-1}$. Since $\bar{f}\ne0$ in $k[x]/(p)$, we have $f-0\notin(p)$, i.e., $p$ does not divide $f$. Since $p$ is irreducible, we have $gcd(p,f)=1$. There exists $g,h\in k[x]$ such that $fg+hp=1$. Thus $\bar{f}^{-1}=\bar{g}$. This is becasue $fg-1=hp$ implies $fg-1\in(p)$, i.e., $\bar{f}\bar{g}=\bar{fg}=1$ in $k[x]/(p)$.
+
+
+\end{enumerate}
+\end{proof}
+\subsection{Polynomials over $\mathbb{Z}$ and $\mathbb{Q}$}
+\begin{theorem}
+Let $f=a_0+a_1x+\cdots+a_nx^n$ be a polynomial in $\mathbb{Q}[x]$, with $a_i\in\mathbb{Z}$. Every rational root $r$ of $f$ in $\mathbb{Q}$ has the form $r=b/c$ $(b,c\in\mathbb{Z})$, where $b|a_0$ and $c|a_n$
+\end{theorem}
+\begin{proof}
+Let $r=b/c$ be a rational root of $f$, where $b,c$ are relatively prime integers. We have
+\[
+0=\sum_{i=1}^na_i(b/c)^i
+\]
+Multiplying both sides above equation by $c^n$, we have
+\[
+0=a_0c^n+a_1c^{n-1}b+\cdots+a_nb^n
+\]
+or equivalently,
+\[
+a_0c^n=-(a_1c^{n-1}+\cdots+a_nb^n)
+\]
+Since $b$ divides the RHS, and $b,c$ are relatively prime, $b$ must divide $a_0$. Similarly,
+\[
+a_nb^n=-(a_0c^n+\cdots+a_{n-1}cb^{n-1})
+\]
+It is clear that $c$ divides $a_n$.
+\end{proof}
+\begin{definition}
+A polynomial $f\in\mathbb{Z}[x]$ is said to be \emph{primitive} if the gcd of its coefficients is 1.
+\end{definition}
+\begin{remark}
+Note that if $f$ is monic, i.e., its leading coefficient is 1, then it is primitive. If $d$ is the gcd of the coefficients of $f$, then $\frac{1}{d}f$ is a primitive polynomial in $\mathbb{Z}[x]$.
+\end{remark}
+\begin{theorem}[Gauss's Lemma]
+If $f,g$ are both primitive, then $fg$ is primitive.
+\end{theorem}
+\begin{proof}
+Write $f=\sum_{k=0}^ma_kx^k$ and $g=\sum_{k=0}^nb_kx^k$, then $fg=\sum_{k=0}^{m+n}c_kx^k$, where
+\[
+c_{k}=\sum_{i+j=k}a_ib_j.
+\]
+Assume that $fg$ is not primitive, then there exists a prime $p$ such that $p$ divides $c_k$ for $k=0,1,\dots,m+n$. Since $f$ is primitive, there exists smallest $u$ s.t. $a_u$ is not dividible by $p$; similarly, a smallest $v$ s.t. $b_v$ is not divisible by $p$. We have
+\[
+c_{u+v}=\left(\sum_{i+j=u+v,(i,j)\ne(u,v)}a_ib_j\right)+a_ub_v,
+\]
+which implies that
+\[
+a_ub_v=c_{u+v}-
+\left(\sum_{i+j=u+v,i<u}a_ib_j\right)
+-
+\left(\sum_{i+j=u+v,i>u}a_ib_j\right)
+\]
+By the minimum conditons on $u$ and $v$, each term on the RHS of the above equation is divisible by $p$. Thus $p$ divides $a_u$ and $b_v$, which implies that $p$ divides either $a_u$ or $b_v$, which is a contradiction.
+\end{proof}
+\begin{proposition}
+Every nonzero $f\in\mathbb{Q}[x]$ has a unique factorization:
+\[
+f=c(f)f_0,
+\]
+where $c(f)$ is a positive rational number, and $f_0$ is a primitive polynomial in $\mathbb{Z}[x]$.
+\end{proposition}
+\begin{definition}
+The rational number $c(f)$ is called the \emph{content} of $f$.
+\end{definition}
+\begin{proof}
+\begin{itemize}
+\item
+Write $f=\sum_{k=0}^n(a_k/b_k)x^k$, where $a_k,b_k\in\mathbb{Z}$. Let $B=b_0b_1\cdots b_n$, then $g:=Bf$ is a polynomial in $\mathbb{Z}[x]$. Let $d$ be the gcd of the coefficients of $g$. Let $D=\pm d$, where the sign is chosen such that $D/B>0$. Observe that $f=c(f)\cdot f_0$, where 
+\[
+c(f)=D/B
+\]
+and
+\[
+f_0=\frac{B}{D}f=\frac{1}{D}g
+\]
+is a primitive polynomial in $\mathbb{Z}[x]$.
+\item
+Suppose $f=ef_1$ for some positive $e\in\mathbb{Q}$ and primitive $f_1\in\mathbb{Z}[x]$, which follows that
+\[
+ef_1=c(f)f_0\implies uf_1=vf_0,
+\]
+where $(u,v)$ are relatively prime positive integers. By Euclide's lemma, the above equation implies that $v$ divides each coefficient of $f_1$, and $u$ divides each coefficient of $f_0$. Since $f_0$ and $f_1$ are primitive, we conclude that $u=v=1$, which implies $e=c(f)$
+\end{itemize}
+\end{proof}
+\begin{corollary}
+For $f\in\mathbb{Z}[x]$, we have $c(f)\in\mathbb{Z}$
+\end{corollary}
+\begin{proof}
+Let $d$ be the gcd of the coefficients of $f$, and then $1/df$ is a primitive polynomial, and 
+\[
+f=d\left(\frac{1}{d}f\right)
+\]
+is a factorization of $f$ into a product of a positive rational number and a primitive polynomial in $\mathbb{Z}[x]$. Thus, by the uniquesness of $c(f)$ and $f_0$, we have $c(f)=d\in\mathbb{Z}$.
+\end{proof}
+\begin{corollary}
+Let $f,g,h$ be nonzero polynomails in $\mathbb{Q}[x]$ such that $f=gh$, then $f_0=g_0h_0$
+\end{corollary}
+\begin{proof}
+The condition $f=gh$ implies that
+\[
+c(f)f_0=c(g)c(h)g_0h_0
+\]
+where $f_0,g_0,h_0$ are primitive polynomials and $c(f),c(g),c(h)$ are positive rational numbers. Note that $g_0h_0$ is primitive as well. By the uniqueness of $c(f)$ and $f_0$, we have $f_0=g_0h_0$
+\end{proof}
+\begin{theorem}[Gauss's Lemma]
+Let $f$ be a nonzero polynomial in $\mathbb{Z}[x]$. If $f=GH$ for some $G,H\in\mathbb{Q}[x]$, then $f=gh$ for some $g,h\in\mathbb{Z}[x]$, wher e $\mbox{deg}g=\mbox{deg}G,\mbox{deg}h=\mbox{deg}H$. Consequently, if $f$ cannot be factored into a product of polynomials of smaller degrees in $\mathbb{Z}[x]$, then it is irreducible as a polynomial in $\mathbb{Q}[x]$.
+\end{theorem}
+\begin{proof}
+Suppose $f=GH$ for some $G,H\in\mathbb{Q}[x]$, then $f=c(f)f_0=c(G)c(H)G_0H_0$, where $G_0$ and $H_0$ are primitive polynomials in $\mathbb{Z}[x]$, and $c(G)c(H)=c(f)$ by the uniqueness of the content of a polynomial. Since $f\in\mathbb{Z}[x]$, its content $c(f)$ lies in $\mathbb{Z}$. Thus $g=c(f)G_0$ and $h=H_0$ are polynomials in $\mathbb{Z}[x]$, with $\mbox{deg}g=\mbox{deg}G,\mbox{deg}h=\mbox{deg}H$, such that $f=gh$.
+\end{proof}
+Let $p$ be a prime, and then $\mathbb{F}_p=\mathbb{Z}/p\mathbb{Z}\cong\mathbb{Z}_p$, which is a field, sinc e$p$ is a prime. For $a\in\mathbb{Z}$, let $\bar{a}$ denote the residue of $a$ in $\mathbb{F}_p$. Exercise: show that $\bar{a}=\bar{a_p}$, where $a_p$ is the remainder of the division of $a$ by $p$.
+\begin{theorem}
+Let $f=\sum_{k=0}^na_kx^k$ be a polynomial in $\mathbb{Z}[x]$ such that $p$ not divides $a_n$. If $\bar f=\sum_{k=0}^n\overline{a_k}x^k$ is irreducible in $\mathbb{F}_p[x]$, then $f$ is irreducible in $\mathbb{Q}[x]$.
+\end{theorem}
+\begin{proof}
+Suppose $\bar f$ is irreducible in $\mathbb{F}_p[x]$, but $f$ is not irreducible in $\mathbb{Q}[x]$. By Gauss's theorem, there exists $g,h\in\mathbb{Z}][x]$ such that $\mbox{deg}(g),\mbox{deg}(h)<\mbox{deg}(f)$ and $f=gh$. Since $p$ not divides $a_n$, we have $\mbox{deg}(\bar f)=\mbox{deg}(f)$.
+
+Moreover, $\overline{gh}=\bar g\cdot\bar h$. Therefore, $\bar f=\bar{gh}=\bar g\bar h$, where $\mbox{deg}\bar g,\bar h<\mbox{deg}\bar f$, which contradicts to the irreduciblity of $\bar f$ in $\mathbb{F}_q[x]$.
+
+Hence, $f$ is irreducible in $\mathbb{Q}[x]$
+\end{proof}
+\begin{proof}
+The polynomial $f(x)=x^4-5x^3+2x+3\in\mathbb{Q}[x]$ is irreducible.
+
+Consider $\bar f=x^4-\bar 5x^3+\bar 2x+\bar 3=x^4+x^3+1$ in $\mathbb{F}_2[x]$.
+
+Since $\bar f(0)\ne0,\bar f(1)\ne0$, it has no linear factors.  It is a product of two quadratic factors, which is a contradction. 
+\end{proof}
+
+\begin{theorem}[Eisenstein's Criterion]
+Let $f=a_0+a_1x+\cdots+a_nx^n$ be a polynomial in $\mathbb{Z}[x]$. If there exists a prime $p$ such that $p|a_i$ for $0\le i< n$, but $p$ not divides $a_n$, $p^2$ not divdes $a_0$, then $f$ is irreducible in $\mathbb{Q}[x]$
+\end{theorem}
+\begin{proof}
+Suppose $f$ is not irreducible in $\mathbb{Q}[x]$, then by Gauss's theorem, there exists $g=\sum_{k=0}^lb_kx^k$ and $h=\sum_{k=0}^{n-l}c_kx^k\in\mathbb{Z}[x]$, with $\mbox{deg}(g),\mbox{deg}(h)<\mbox{deg}(f)$, such that $f=gh$.
+
+Consider the image of these polynomials in $\mathbb{F}_p[x]$, we have
+\[
+\bar{f}=\bar g\bar h=\bar{a_n}x^n
+\]
+which means $\bar g$ and $\bar h$ are divisors of $\bar{a_n}x^n$. Note that $\bar f$ admits unique factorization. which follows that
+\[
+\bar g=\bar{b_u}x^u,
+\qquad
+\bar h=\bar{c_{n-u}}x^{n-u}
+\]
+for some $u\in\{0,1,2,\dots,l\}$. 
+
+Argue that $u<l$ is impossible, and therefore $\bar g=\bar{b_l}x^l,\bar h=\bar{c_{n-1}}x^{n-l}$. In particular, $\bar{b_0}=\bar{c_0}=0$, which implies $p$ divides both $b_0$ and $c_0$. Therefore $p^2|a_0=b_0c_0$, which is a contradction.
+\end{proof}
+\begin{example}
+The polynomial $x^5+3x^4-6x^3+12x+3$ is irrreducible in $\mathbb{Q}[x]$.
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

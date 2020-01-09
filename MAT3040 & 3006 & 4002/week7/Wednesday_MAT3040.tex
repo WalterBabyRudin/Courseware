@@ -1,0 +1,323 @@
+
+\section{Wednesday for MAT3040}\index{Wednesday_lecture}
+\paragraph{Reviewing}
+\begin{itemize}
+\item
+Given the polynomial $f(x)\in\mathbb{F}[x]$, we extend it into the linear operator $f(T):V\to V$.
+\item
+The minimal polynomial $m_T(x)$ is defined to be the polynomial with least degree such that 
+\[
+m_T(T)=\bm0_{V\to V},
+\]
+i.e., $[m_T(T)]\bm v=0_{\bm V},\forall\bm v\in V$.
+\item
+The minimial polynomial of a vector $\bm v$ relative to $T$ is defined to be the polynomial $m_{T,\bm v}(x)$ with the least degree such that
+\[
+m_{T,\bm v}(T)(\bm v)=0
+\]
+\item
+If $f(T) = \bm0_{V\to V}$, then we imply $m_T(x)\mid f(x)$.
+If $[g(T)]({\bm w})=0_V$, following the similar argument, we imply $m_{T,\bm w}(x)\mid g(x)$.
+\item
+In particular, $m_T(T)\bm w=\bm0$, which implies $m_{T,\bm w}(x)\mid m_T(x)$.
+\end{itemize}
+\subsection{Cayley-Hamiton Theorem}
+Let's raise an motivative example first:
+
+\begin{example}
+Consider the matrix and its induced mapping $\bm A=\begin{pmatrix}
+1&0\\0&2
+\end{pmatrix}$. It has the characteristic polynomial
+\[
+\mathcal{X}_{A}=(x-1)(x-2).
+\]
+\begin{itemize}
+\item
+Note that $m_A(x)$ cannot be with degree one, since otherwise $m_A(x)=x-k$ with some $k$, and
+\[
+m_A(\bm A) = \bm A-k\bm I=\begin{pmatrix}
+1-k&0\\0&2-k
+\end{pmatrix}\ne\bm0,\quad\forall k,
+\]
+which is a contradiction.
+\item
+However, one can verify that the $m_A(x)$ is with degree $2$:
+\[
+m_A(x) = (x-1)(x-2).
+\]
+\item
+The minimial polynomial with eigenvectors can be with degree 1:
+\[
+\bm w=[0,1]\trans\implies
+(A-2I)\bm w=\bm0\implies
+m_{A,\bm w}(x) = x-2
+\]
+\end{itemize}
+\end{example}
+
+\begin{remark}
+More generally, given an eigen-pair $(\lambda,\bm v)$, the minimal polynomial of an $\bm v$ has the explicit form
+\[
+m_{T,\bm v}(x) =  (x-\lambda)\implies
+(x-\lambda)\mid m_T(x)
+\]
+Now we want to relate the characterstic polynomial $m_T(x)$ with $\mathcal{X}_T(x)$.
+Suppose that
+\begin{equation}\label{Eq:7:1}
+\mathcal{X}_T(x) = (x-\lambda_1)^{e_1}\cdots(x-\lambda_k)^{e_k}\in\mathbb{F}[x].
+\end{equation}
+Then we imply
+\begin{itemize}
+\item
+$\lambda_i$ is an eigenvalue of $T$;
+\item
+$(x-\lambda_i)\mid m_T(x)$;
+\end{itemize}
+which implies that $(x-\lambda_1)\cdots(x-\lambda_k)\mid m_T(x)$.
+
+Furthermore, (a). does $m_T(x)$ possess other factors, e.g., does there exist $\mu\ne\lambda_i, i=1,\dots,k$ such that $(x-\mu)\mid m_T(x)$?
+(b). does $(x-\lambda_i)^{f_i}\mid m_T(x)$ when $f_i>e_i$?
+
+The answer is no for both question~(a) and (b).
+\end{remark}
+\begin{theorem}[Cayley-Hamilton]
+$m_T(x)\mid\mathcal{X}_T(x)$. In particular, $\mathcal{X}_T(T)=\bm0$.
+\end{theorem}
+The nice equality in (\ref{Eq:7:1}) does not necessarily hold. 
+Sometimes $\mathcal{X}_{T}(x)$ cannot be factorized into linear factors in $\mathbb{F}[x]$, e.g., $A=\begin{pmatrix}
+0&-1\\1&0
+\end{pmatrix}$ in $\mathbb{R}$.
+
+However, for every $f(x)\in\mathbb{F}[x]$, we can extend $\mathbb{F}$ into the algebraically closed set $\overline{F}\supseteq\mathbb{F}$ such that
+\[
+f(x) = (x-\lambda_1)^{e_1}\cdots(x-\lambda_k)^{e_k}
+\]
+where $\lambda_i\in\overline{\mathbb{F}}$.
+
+For example, for $f(x) = x^2+1\in\mathbb{R}[x]$, we can extend $\mathbb{R}$ into $\mathbb{C}$ to obtain
+\[
+f(x) = (x+i)(x-i).
+\]
+
+Therefore, the general proof outline for the Cayley-Hamilton Theorem is as follows:
+\begin{itemize}
+\item
+Consider the case where $m_T(x),\mathcal{X}_T(x)$ are both in $\overline{F}[x]$
+\item
+Show that $m_T(x)\mid\mathcal{X}_T(x)$ under $\overline{F}[x]$.
+\end{itemize}
+
+Before the proof, let's study the invariant subspaces, which leads to the decomposition of charactersitc polynomial:
+\paragraph{Assumption}
+From now on, we assume that $V$ is finite dimensional by default.
+\begin{definition}[Invariant Subspace]
+An \emph{invariant subspace} of a linear operator $T:V\to V$ is a subspace $W\le V$ that is preserved by T, i.e., $T(W)\subseteq W$. We also call $W$ as $T$-invariant.
+\end{definition}
+\begin{remark}
+If $W\leq V$ is $T$-invariant, then the restriction of the linear operator $T:V \to V$ induces the linear operator
+\[
+T\mid_W : W \to W.
+\]
+\end{remark}
+\begin{example}
+\begin{enumerate}
+\item
+$V$ itself is $T$-invariant.
+\item
+For the eigenvalue $\lambda$, the associated $\lambda$-eigenspace $U=\ker(T-\lambda I)$ is $T$-invariant.
+\item
+More generally, 
+$U=\ker(g(T))$ is $T$-invariant for any polynomial $g$:
+
+If $\bm v\in\ker(g(T))$, i.e., $g(T)\bm v=\bm0$, it suffices to show $T(\bm v)\in\ker(g(T))$:
+\begin{align*}
+g(T)[T(\bm v)] &= (a_mT^m+\cdots+a_0I)[T(\bm v)]\\
+&=
+(a_mT\circ T^m+\cdots+a_1T\circ T+a_0T\circ I)(\bm v)\\
+&=
+T[g(T)\bm v]=T(\bm 0)=\bm0
+\end{align*}
+\item
+For $\bm v\in\ker(T-\lambda I)$, $U=\Span\{\bm v\}$ is $T$-invariant.
+\end{enumerate}
+\end{example}
+
+\begin{proposition}
+Suppose that $T:V\to V$ is a linear transformation and 
+$W\le V$ is $T$-invariant, then we construct the subspace mapping and the recipe mapping
+\begin{subequations}
+\begin{equation}
+\begin{array}{ll}
+T\mid_W:&W\to W\\
+\text{with}&\bm w\mapsto T(\bm w)
+\end{array}
+\end{equation}
+\begin{equation}
+\begin{array}{ll}
+\tilde{T}:&V/W\to V/W\\
+\text{with}&\bm v+W\mapsto T(\bm v)+W
+\end{array}
+\end{equation}
+\end{subequations}
+\[
+\text{(Here the well-definedness of the recipe mapping $\tilde{T}$ is shown in Hw2, Exercise 4),}
+\]
+which leads to the decomposition of the charactersitic polynomial:
+\[
+\mathcal{X}_T(x) = \mathcal{X}_{T\mid_W}(x)\mathcal{X}_{\tilde{T}}(x).
+\]
+\end{proposition}
+\begin{proof}
+Suppose $\mathcal{C} = \{\bm v_1,\dots,\bm v_k\}$ is a basis of $W$, and extend it into the basis of $V$, denoted as 
+\[
+\mathcal{B}=\{\bm v_1,\dots,\bm v_k,\bm v_{k+1},\dots,\bm v_n\}
+\]
+Therefore, $\overline{\mathcal{B}} = \{\bm v_{k+1}+W,\dots,\bm v_n+W\}$ is a basis of $V/W$.
+By Homework 2, Question 5, the representation $(T)_{\mathcal{B},\mathcal{B}}$ can be written as the block matrix
+\[
+(T)_{\mathcal{B},\mathcal{B}} = \begin{pmatrix}
+(T|_{W})_{\mathcal{C},\mathcal{C}}&\times\\
+\bm0&(\tilde{T})_{\overline{\mathcal{B}},\overline{\mathcal{B}}}
+\end{pmatrix}_{(k+(n-k))\times(k+(n-k))}
+\]
+Therefore, the characteristic polynomial of $T$ can be calculated as:
+\begin{align*}
+\mathcal{X}_T(x)&= \det((T)_{\mathcal{B},\mathcal{B}} - xI)\\
+&=\det((T|_{U})_{\mathcal{C},\mathcal{C}} - xI)\cdot\det((\tilde{T})_{\overline{\mathcal{B}},\overline{\mathcal{B}}} - xI)
+\end{align*}
+\end{proof}
+
+\begin{proposition}\label{pro:7:12}
+Suppose that 
+\[
+\mathcal{X}_T(x) = (x-\lambda_1)\cdots(x-\lambda_n)
+\]
+where $\lambda_i$'s are not necessarily distinct.
+Then there exists a basis of $V$, say $\mathcal{A}$, such that
+\[
+(T)_{\mathcal{A},\mathcal{A}}=
+\begin{pmatrix}
+\lambda_1&\times&\times&\times\\
+0&\lambda_2&\cdots&\times\\
+0&\cdots&\ddots&\times\\
+0&0&\cdots&\lambda_n
+\end{pmatrix}
+\]
+\end{proposition}
+%\begin{remark}
+%This proposition is the generalization of the eigenvalue decomposition studied in Linear Algebra:
+%\begin{definition}[Eigenvalue Decomposition]
+%A matrix $\bm A\in\mathbb{R}^{n\times n}$ (or $\mathbb{C}^{n\times n}$) is said to admit an \emph{eigenvalue decomposition} if there exists a nonsingular $\bm V\in \mathbb{C}^{n\times n}$ and a collection of scalars $\lambda_1,\dots,\lambda_n\in\mathbb{C}$ such that
+%\[
+%\bm A=\bm V\bm\Lambda\bm V^{-1}
+%\]
+%where $\bm\Lambda=\diag(\lambda_1,\dots,\lambda_n)$.
+%\end{definition}
+%\end{remark}
+
+\begin{proof}
+The proof is by induction on $n$, i.e., suppose the results hold for all vector spaces with dimension no more than $n-1$, and we aim to show this result holds for dimension~$n$.
+\begin{enumerate}
+\item
+\textbf{Step 1}:
+Argue that there exists the associated eigenvector $\bm v$ of $\lambda_1$ under the linear operator $T$.
+
+Consider any basis $\mathcal{M}$, by MAT2040, there exists associated eigenvector of $\lambda_1$, say $\bm y\in\mathbb{C}^n$ such that
+\[
+(T)_{\mathcal{M},\mathcal{M}}\cdot\bm y = \lambda_1\bm y
+\]
+Since the operator $(\cdot)_{\mathcal{M}}:V\to\mathbb{C}^n$ is an isomorphism, there exists $\bm v\in V\setminus\{\bm0\}$ such that $(\bm v)_{\mathcal{M}} = \bm y$. It follows that
+\[
+(T)_{\mathcal{M},\mathcal{M}}(\bm v)_{\mathcal{M}} = \lambda_1(\bm v)_{\mathcal{M}}\implies
+(T\bm v)_{\mathcal{M}} = (\lambda_1\bm v)_{\mathcal{M}}\implies
+T\bm v = \lambda_1\bm v
+\]
+\item
+\textbf{Step 2}:
+Dimensionality reduction of $\mathcal{X}_T(x)$:
+Construct $W=\Span\{\bm v\}$, which is $T$-invariant.
+By the proof of proposition~(\ref{pro:7:12}), we have 
+%there is a basis of $V$,say $B:=\{\bm v,\bm h_2,\dots,\bm h_n\}$, such that
+%\[
+%(T)_{\mathcal{B},\mathcal{B}}=\begin{pmatrix}
+%(T|_W)_{\{\bm v\}}&\times\\\bm0&(\tilde{T})_{\overline{\mathcal{B}},\overline{\mathcal{B}}}
+%\end{pmatrix}
+%=
+%\begin{pmatrix}
+%\lambda_1&\times\\\bm0&(\tilde{T})_{\overline{\mathcal{B}},\overline{\mathcal{B}}}
+%\end{pmatrix}
+%\]
+%where 
+$\tilde{T}:V/W\to V/W$ admits the characteristic polynomial
+\[
+\mathcal{X}_{\tilde{T}}(x) = (x-\lambda_2)\cdots(x-\lambda_n)
+\]
+\item
+\textbf{Step 3:}
+Applying the induction, 
+there exists basis $\overline{\mathcal{C}}$ of $V/W$, i.e.,
+\[
+\overline{\mathcal{C}} = \{\bm w_2+W,\dots,\bm w_n+W\}
+\]
+such that
+\[
+(\tilde{T})_{\overline{\mathcal{C}},\overline{\mathcal{C}}}
+=
+\begin{pmatrix}
+\lambda_2&\times&\times&\times\\
+0&\lambda_3&\cdots&\times\\
+0&\cdots&\ddots&\times\\
+0&0&\cdots&\lambda_n
+\end{pmatrix}
+\]
+\item
+\textbf{Step 4:}
+Therefore, we construct the set $\mathcal{A}:=
+\{\bm v,\bm w_2,\dots,\bm w_n\}$.
+We claim that 
+\begin{itemize}
+\item
+$\mathcal{A}$ is a basis of $V$~(left as exercise in Hw2, Question 2)
+\item
+\[
+(T)_{\mathcal{A},\mathcal{A}}=\begin{pmatrix}
+\lambda_1&\times\\\bm0&(\tilde{T})_{\overline{\mathcal{C}},\overline{\mathcal{C}}}
+\end{pmatrix}=\begin{pmatrix}
+\lambda_1&\times&\times&\times\\
+0&\lambda_2&\cdots&\times\\
+0&\cdots&\ddots&\times\\
+0&0&\cdots&\lambda_n
+\end{pmatrix}
+\]
+(This statement is also left as exercise in Hw2, Question 5.)
+\end{itemize}
+\end{enumerate}
+\end{proof}
+
+\begin{proposition}\label{pro:7:13}
+Suppose that $\mathcal{X}_T(x) = (x-\lambda_1)\cdots(x-\lambda_n)$, then $\mathcal{X}_T(T)=\bm0$.
+\end{proposition}
+\begin{remark}
+One special case is that $\bm A = \diag(\lambda_1,\dots,\lambda_n)$.
+The results for proposition~(\ref{pro:7:13}) gives
+\[
+(A-\lambda_1\bm I)\cdots(A-\lambda_n\bm I)\text{ is a zero matrix}
+\]
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

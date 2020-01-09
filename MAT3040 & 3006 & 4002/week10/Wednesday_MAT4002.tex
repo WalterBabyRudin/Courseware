@@ -1,0 +1,251 @@
+\section{Wednesday for MAT4002}\index{Monday_lecture}
+\subsection{Reviewing On Groups}
+\begin{example}
+Let $D_{2n}$ be the regular polygon $P$ with $2n$ sides in $\mathbb{R}^2$, centered at the origin.
+It's clear that $D_{2n}$ is \emph{invariant} with $2n$ rotations, or with 2 reflections.
+Let $a$ denote the rotation of $D_{2n}$ clockwise by degree $\pi/n$, and $b$ denote the reflection over lines through the origin.
+
+As a result, $\{e,a,a^2,\dots,a^{n-1}\}$ forms a group; and $\{e,b\}$ forms a group.
+
+Therefore, all elements of $D_g$ can be obtained by $a^ib^j, 0\le i\le 3, 0\le j\le 1$.
+
+Any finite operations of rotation~(the rotation degree is a multiple of $\pi/n$) and reflection can be represented as $a^ib^j$.
+
+Geometrically, we can check that $ba = a^{n-1}b$. 
+\end{example}
+
+\begin{definition}[Product Group]
+Let $G,H$ be two groups. The \emph{product group} $(G\times H,*)$ is defined as
+\[
+\begin{array}{ll}
+&G\times H=\{(g,h)\mid g\in G,h\in H\}\\\text{with}&(g_1,h_1)*(g_2,h_2)=(g_1g_2,h_1h_2)
+\end{array}
+\]
+\end{definition}
+
+
+For example, $(\mathbb{R}\times\mathbb{R},+)=\{(x,y)\mid x,y\in\mathbb{R}\}$ coincides with the usual $\mathbb{R}^2$, where 
+\[
+(x,y)*(x',y')=(x+x',y+y')
+\] 
+\begin{definition}
+A map between two groups $\phi:G\to H$ is a \emph{homomorphism} if
+\[
+\phi(g_1*g_2)=\phi(g_1)*\phi(g_2)
+\]
+In other words, a homomorphism is a map preserving multiplications of groups.
+\end{definition}
+\begin{remark}
+Follow the similar idea as in MAT3040 knowledge, if $\phi:G\to H$ is a homomorphism, then $\phi(e_G) = e_H$.
+\end{remark}
+
+\begin{example}
+Let $G=(\mathbb{R},+,0)$, and $H=\{H_2,*,I_2\}$, with $H_2$ of the form
+\[
+H_2=\left\{
+\begin{pmatrix}
+1&x\\0&1
+\end{pmatrix}\middle| x\in\mathbb{R}
+\right\}
+\]
+Define a mapping
+\[
+\begin{array}{ll}
+\phi:&G\to H\\\text{with}&x\mapsto\begin{pmatrix}
+1&x\\0&1
+\end{pmatrix}
+\end{array}
+\]
+Then $\phi$ is a homorphism:
+\begin{align*}
+\phi(x*_{\mathbb{R}}y)&=\phi(x+y)\\
+&=\begin{pmatrix}
+1&x+y\\0&1
+\end{pmatrix}\\
+&=\begin{pmatrix}
+1&x\\0&1
+\end{pmatrix}\begin{pmatrix}
+1&y\\0&1
+\end{pmatrix}\\&=\phi(x)*_{H_2}\phi(y)
+\end{align*}
+
+\end{example}
+
+
+\begin{definition}[Isomorphism]
+A homomorphism $\phi:G\to H$ is an isomorphism if $\phi$ is bijective.
+The isomorphism between $G$ and $H$ is denoted as $G\cong H$.
+\end{definition}
+
+Actually, a group can be represented as a Cayley Table:
+\[
+G=\begin{array}{c|cccc}
+\circ & g_1 & g_2 & \cdots & g_n \\
+\hline
+g_1 & g_1\circ g_1 & g_1\circ g_2 & \cdots & g_1\circ g_n \\
+g_2 & g_2\circ g_1 & g_2\circ g_2 & \cdots & g_2\circ g_n \\
+\vdots & \vdots & \ddots & \vdots & \vdots \\
+g_n & g_n\circ g_1 & g_n\circ g_2 & \cdots & g_n\circ g_n
+\end{array},\qquad
+H=\begin{array}{c|cccc}
+\circ & h_1 & h_2 & \cdots & h_n \\
+\hline
+h_1 & h_1\circ h_1 & h_1\circ h_2 & \cdots & h_1\circ h_n \\
+h_2 & h_2\circ h_1 & h_2\circ h_2 & \cdots & h_2\circ h_n \\
+\vdots & \vdots & \ddots & \vdots & \vdots \\
+h_n & h_n\circ h_1 & h_n\circ h_2 & \cdots & h_n\circ h_n
+\end{array}
+\]
+The groups $G\cong H$ if and only if we can find a bijective $\phi:G\to H$ such that, the Cayley Table of $(H,\circ)$ can be generated from the Cayley Table of $(G,\circ)$ by replacing each entry of $G$
+ with its image under $\phi$.
+
+\subsection{Free Groups}
+\begin{definition}
+\begin{itemize}
+\item
+Let $S$ be a (finite) set, which is considered as an ``alphabet''.
+\item
+Define another set $S^{-1}:=\{x^{-1}\in x\in S\}$. We insist that $S\cap S^{-1}=\emptyset$.
+\item
+A \emph{word} in $S$ is a finite sequence $w=w_1\cdots w_m$,
+where $m\in\mathbb{N}^+\cup\{0\}$, and each $w_i=\in \cup S^{-1}$.
+In particular, when $m=0$, we view $w$ as the empty sequence, denoted as $\emptyset$.
+\item
+The \emph{concatenation} of two words $x_1\cdots x_m$ and $y_1\cdots y_n$ is the word $x_1\cdots x_my_1\cdots y_n$
+\item
+Two words $w,w'$ are \emph{equivalent}, denoted as $w\sim w'$, if there are words $w_1,\dots,w_n$ and $w=w_1,w'=w_n $ such that
+\[
+w_i = \cdots y_1xx^{-1}y_2\cdots,\qquad
+w_{i+1}=\cdots y_1y_2\cdots
+\]
+or
+\[
+w_{i}=\cdots y_1y_2\cdots,\qquad
+w_{i+1}=\cdots y_1xx^{-1}y_2\cdots
+\]
+for some $x\in S\cup S^{-1}$.
+\end{itemize}
+\end{definition}
+\begin{example}
+For example, $S=\{a,b\}$ and $S^{-1}=\{a^{-1}b^{-1}\}$ and 
+\begin{align*}
+w&=aabab^{-1}b^{-1}a^{-1}abaabb^{-1}a\\
+w'&=aabab^{-1}b^{-1}a^{-1}abaaa
+\end{align*}
+Here $w$ and $w'$ differs by $bb^{-1}$. Therefore, $w\sim w'$, and $w$ is said to be a elementary expansion of $w'$.
+\end{example}
+\begin{remark}
+We insist that $(s^{-1})^{-1}=s,\forall s^{-1}\in S^{-1}$,
+since otherwise for $x=s^{-1}\in S^{-1}$, we cannot define $(s^{-1})^{-1}$.
+
+Moreover, for 
+\begin{align*}
+w&=aabab^{-1}b^{-1}a^{-1}abaabb^{-1}a\\
+w''&=aabab^{-1}b^{-1}baabb^{-1}a,
+\end{align*}
+$w$ and $w''$ differs by $a^{-1}a$, i.e., $a^{-1}(a^{-1})^{-1}$, and therefore $w\sim w''$.
+\end{remark}
+\begin{definition}[Free Group]
+The \emph{free group} $F(S)$ is defined to be the equivalence class of words, i.e., 
+\[
+[w]:=\{\text{$w'$ is a word in $S$}\mid w\sim w'\}\in F(S)
+\]
+\end{definition}
+
+\begin{remark}
+$F(S)$ is indeed a group:
+\begin{itemize}
+\item
+$[w]*[w']=[ww']$ (concatenation)
+check $w_1\sim w_2,u_1\sim u_2$ implies $w_1u_1\sim w_2u_2$
+\item
+Identity element: $e=[\emptyset]$
+\item
+Inverse element: $[x_1\cdots x_n]^{-1}=[x_n^{-1}\cdots x_1^{-1}]$
+\end{itemize}
+\end{remark}
+\begin{example}
+Let $S=\{a\}$ and $S^{-1}=\{a^{-1}\}$.
+Any word $w$ has the form
+\[
+w=a\cdots aa^{-1}\cdots a^{-1}a\cdots aa^{-1}\cdots a^{-1}\cdots
+\]
+In shorthand, we denote $w$ as $w=\cdots a^p(a^{-1})^qa^r(a^{-1})^s\cdots$, and
+\begin{align*}
+[w]=[\cdots a^p(a^{-1})^qa^r(a^{-1})^s\cdots]
+&=
+[\cdots a^{p-1}(a^{-1})^{q-1}a^r(a^{-1})^s\cdots]\\
+&=[\cdots a^{p-1}(a^{-1})^{q-2}a^{r-1}(a^{-1})^s\cdots],
+\end{align*}
+e.g., we can always eliminate the adjacent terms $a$ and $a^{-1}$ up to equivalence class.
+Therefore, $F(S) = \{\cdots,[a^{-2}],[a^{-1}],[\emptyset],[a],[a^2],\cdots\}$.
+
+It's clear that $F(S)\cong\mathbb{Z}$, where the isomorphism $\phi:\mathbb{Z}\to F(S)$ is $\phi(n) = [a^n]$.
+\end{example}
+\begin{example}
+Let $S=\{a,b\}$ and $S^{-1}=\{a^{-1},b^{-1}\}$.
+In this case, $[ab]\ne[ba]$, and $[ab^{-1}a^2b^2a^{-2}b]$ cannot be reduced further.
+
+Since $S$ is not an abelian group in such case, we imply $F(S)\not\cong\mathbb{Z}\times\mathbb{Z}$.
+\end{example}
+
+\subsection{Relations on Free Groups}
+
+\begin{definition}[Group With Relations]
+Let $S$ be a set.
+A \emph{group with relations} is written as
+\[
+G=\langle S\mid R(S)\rangle
+\]
+where
+\begin{itemize}
+\item
+$R(S)$ consists of elements in $F(S)$
+\item
+Every element in $G$ can be written as the form $[w]\in F(S)$, and we insist that $[w]=[w']$ in $G$ if
+\begin{itemize}
+\item
+$w$ and $w'$ differ by some $xx^{-1}, x\in S\cup S^{-1}$, or
+\item
+$w$ and $w'$ differ by some element $z\in R(S),$ or its inverse.
+\end{itemize}
+\end{itemize}
+\end{definition}
+\begin{example}
+Let $G=\langle a,b\mid a^2,b^2,abab^{-1}a^{-1}b^{-1}\rangle$, we want to enumerate all possible elements in $G$.
+Obseve that
+\begin{align*}
+[b^{-1}]&=[b^{-1}b^2]=[b],\quad \text{similarly }[a^{-1}]=[a]\\
+[bab]&=[abab^{-1}a^{-1}b^{-1}bab]=[abab^{-1}b]=[aba]
+\end{align*}
+As a result,
+\begin{itemize}
+\item
+$[a^{-n}]=[a^n]$ and $[b^{-n}]=[b^n]$
+\item
+$[a^{2n+1}]=[a],[b^{2n+1}]=[b],[a^{2n}]=[\emptyset],[b^{2n}]=[\emptyset]$
+\item
+For another type of element of $G$, it must be of the form $[\cdot abababab\cdots]$.
+
+Each $aba$ can be changed into $bab$, and finally it will be reduced into the form $[ab]$.
+\end{itemize}
+Therefore, the elements in $G$ are
+\[
+[\emptyset],[a],[b],[ab],[ba],[aba]
+\]
+In fact, $G\cong S_3$.
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

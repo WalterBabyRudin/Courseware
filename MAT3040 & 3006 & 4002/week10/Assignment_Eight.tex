@@ -1,0 +1,48 @@
+\section{Assignment Eight}\index{Assignment_Eight}
+\begin{enumerate}
+\item
+Let $\bm A$ be an $n\x n$ matrix. Show that $\bm A\trans\bm A$ and $\bm A\bm A\trans$ are \textit{similar}.
+\item
+Let $\bm A$ be $m\times n$ ($m\ge n$) matrix with singular value decomposition $\bm U\Sigma\bm V\trans$. Let $\Sigma^+$ denote the $n\times m$ matrix
+\[
+\begin{pmatrix}
+\frac{1}{\sigma_1}&&&0&\dots&0\\
+&\ddots&&\vdots&\ddots&\vdots\\
+&&\frac{1}{\sigma_n}&0&\dots&0\\
+\end{pmatrix}
+\]
+And we define $\bm A^+=\bm V\Sigma^+\bm U\trans$
+\begin{enumerate}
+\item
+Show that
+\[
+\bm A\bm A^+=\begin{bmatrix}
+\bm I_n&\bm0\\\bm0&\bm0
+\end{bmatrix}\qquad\text{and}\qquad
+\bm A^+\bm A=\bm I_n.
+\]
+(Note that $\bm A^+$ is called the \emph{pseudo-inverse} of $\bm A$.)
+\item
+If $\rank(\bm A)=n$, Show that $\hat{\bm x}=\bm A^+\bm b$ satisfies the normal equation $\bm A\trans\bm A\bm x=\bm A\trans\bm b.$
+\end{enumerate}
+\item
+Suppose $\bm A\in\mathbb{R}^{m\x n}(m\ge n)$ has an SVD 
+\[
+\bm A=\sigma_1\bm u_1\bm v_1\trans+\dots+\sigma_n\bm u_n\bm v_n\trans
+\]
+where $\sigma_1\ge\sigma_2\ge\dots\ge\sigma_n\ge0.$
+\begin{enumerate}
+\item
+Prove that $\|\bm A\|_{F}^2=\sum_{i=1}^{n}\sigma_i^2$.
+\item
+Let $\bm A_k$ be the \textit{best rank-k approximation} of $\bm A$, what is $\|\bm A-\bm A_k\|_{F}$?
+\end{enumerate}
+\item
+Suppose the \textit{maximal singular value} of $\bm A\in\mathbb{R}^{m\x n}$ is $\sigma_1$, prove 
+\[
+\sigma_1=\max_{\bm x,\bm y}\bm x\trans\bm A\bm y
+\]
+where $\bm x\in\mathbb{R}^m,\bm y\in\mathbb{R}^n,\|\bm x\|=\|\bm y\|=1.$
+\item
+Let $\bm A$ be a \textit{symmetric positive definite} $n\x n$ matrix. Show that $\bm A$ can be factored into a product $\bm Q\bm Q\trans$, where $\bm Q$ is an $n\x n$ matrix whose columns are \textit{mutually orthogonal.}
+\end{enumerate}

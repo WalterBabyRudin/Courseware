@@ -1,0 +1,129 @@
+\section{Monday for MAT4002}\index{Monday_lecture}
+\subsection{Continuous Functions on Compact Space}
+
+\begin{proposition}\label{pro:5:3}
+Let $f:X\to Y$ be continuous function on topological spaces, with $A\subseteq X$ compact. Then $f(A)\subseteq Y$ is compact.
+\end{proposition}
+\begin{proof}
+Let $\{U_i\mid i\in I\}$ be an open cover of $f(A)$, i.e.,
+\[
+f(A)\subseteq\bigcup_{i\in I}U_i,\quad U_i\in\mathcal{T}_Y
+\]
+It follows that $\{f^{-1}(U_i)\mid i\in I\}$ is an open cover of $A$:
+\[
+A\subseteq f^{-1}\left(\bigcup_{i\in I}U_i\right)=\bigcup_{i\in I}f^{-1}(U_i)
+\]
+By the compactness of $A$, there exists finite subcover of $A$:
+\[
+A\subseteq\bigcup_{k=1}^nf^{-1}(U_{i_k}),
+\]
+which implies the constructed finite subcover of $f(A)$:
+\begin{align*}
+f(A)&\subseteq f(\cup_{k=1}^nf^{-1}(U_{i_k}))\\
+&=\bigcup_{k=1}^nU_{i_k}
+\end{align*}
+\end{proof}
+
+\begin{corollary}
+\begin{enumerate}
+\item
+Suppose that $X$ is compact, and the mapping $f:X\to\mathbb{R}$ is continuous, then $f(X)$ is closed and bounded, i.e., there exists $m,M\in X$ such that $f(m)\le f(x)\le f(M),\ \forall x\in X$.
+\item
+Suppose moreover that $X$ is connected, then
+\[
+f(X)=[f(m),f(M)].
+\]
+\end{enumerate}
+\end{corollary}
+
+\begin{theorem}
+The space $X,Y$ are compact iff $X\times Y$ is compact under product topology.
+\end{theorem}
+\begin{proof}
+\begin{enumerate}
+\item
+\textit{Sufficiency:}
+Given that $X\times Y$ is compact, consider the projection mapping (which is continuous):
+\[
+\left\{
+\begin{aligned}
+P_X&:X\times Y\to X\\
+P_Y&:X\times Y\to Y
+\end{aligned}
+\right.
+\]
+By applying proposition~(\ref{pro:5:3}), $P_X(X\times Y)=X,P_Y(X\times Y)=Y$ are both compact.
+\item
+\textit{Necessity:}
+Suppose that $\{W_i\}_{i\in I}$ is an open cover of $X\times Y$. Each open set $W_i$ can be written as:
+\[
+W_i = \bigcup_{j\in\mathcal{J}_i}U_{ij}\times V_{ij},\quad
+U_{ij}\in\mathcal{T}_X,V_{ij}\in\mathcal{T}_Y.
+\]
+It follows that 
+\[
+X\times Y = \bigcup_{(i,j)\in K}U_{ij}\times V_{ij},\quad
+K=\{(i,j)\mid i\in I, j\in\mathcal{J}_i\}
+\]
+Therefore, it suffices to show $\{U_{ij}\times V_{ij}\mid (i,j)\in K\}$ has a finite subcover of $X\times Y$.
+\begin{itemize}
+\item
+Note that $X\times\{y\}\subseteq\bigcup_{(i,j)\in K}U_{ij}\times V_{ij}$ is compact for each $y\in Y$, which implies there exists finite $S_y\in K$ such that 
+\[
+X\times\{y\}\subseteq\bigcup_{s\in S_y}U_{s}\times V_{s}
+\]
+\item
+w.l.o.g., assume that $y\in V_s,\forall s\in S_y$, since we can remove the $U_s\times V_s$ such that $y\notin V_s$.
+Define the set $V_y:=\cap_{s\in S_y}V_s$, which is an open set containing $y$. We imply $\{V_y\}_{y\in Y}$ forms an open cover of $Y$.
+By the compactness of $Y$, 
+\[
+\{V_{y_1},\dots,V_{y_m}\}
+\]
+forms a finite subcover of $Y$.
+\item
+For each $\ell=1,\dots,m$,
+\[
+X\times \{y_\ell\}\subseteq 
+\bigcup_{s\in S_{y_\ell}}U_s\times V_s
+\]
+Note that for any $(x,y)\in X\times Y$, there exists $\ell\in\{1,\dots,m\}$ such that $y\in V_{y\ell}$, i.e., $y\in V_s$ for $\forall s\in S_{y\ell}$.
+Therefore,
+\[
+X\times Y = \bigcup_{\ell=1}^m\bigcup_{s\in S_{y_\ell}}U_s\times V_s
+\]
+\end{itemize}
+Now pick
+\[
+I'=\{i\in I\mid (i,j)\in\cup_{\ell=1}^m S_{y_\ell}\},
+\]
+we imply $X\times Y = \bigcup_{i'\in I'}W_i$ and $I'$ is finite.
+\end{enumerate}
+\end{proof}
+\begin{theorem}\label{The:5:3}
+Suppose that $X$ is compact, $Y$ is Hausdorff, $f:X\to Y$ is continuous, bijective, then $f$ is a \emph{homeomorphism}.
+\end{theorem}
+\begin{proof}
+It suffices to show $f^{-1}$ is continuous.
+Therefore, it suffices to show $(f^{-1})^{-1}(V)$ is closed, given that $V$ is closed in $X$:
+
+Let $V\subseteq X$ be closed. Then $V$ is compact, which implies $f(V)$ is compact. 
+Since $f(V)\subseteq Y$ is Hausdorff, we imply $f(V)$ is compact, i.e., $f(V)$ is closed.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,258 @@
+
+\section{Wednesday for MAT3040}
+
+\paragraph{Reviewing}
+Unitary Operators
+\[
+\inp{T\bm v}{T\bm w}=\inp{\bm v}{\bm w},\ \forall \bm v,\bm w\in V.
+\]
+\subsection{Unitary Operator}
+\begin{example}
+Let $V=\mathbb{R}^n$ with usual inner product.
+For the linear operator $T(\bm v) =\bm A\bm v$, $T$ is orthogonal if and only if $\bm A\trans\bm A=\bm I$.
+
+Let $V=\mathbb{C}^n$ with usual inner product.
+For the linear operator $T(\bm v) =\bm A\bm v$, $T$ is unitary if and only if $\bm A\Her\bm A=\bm I$.
+\end{example}
+
+\begin{proposition}
+Let $T:V\to V$ be a linear operator on a vector space over $\mathbb{K}$ satisfying $T'T=I$.
+Then for all eigenvalues $\lambda$ of $T$, we have $|\lambda|=1$.
+\end{proposition}
+
+\begin{proof}
+Suppose we have the eigen-pair $(\lambda,\bm v)$, then
+\begin{align*}
+\inp{T\bm v}{T\bm v}&=\inp{\bm v}{\bm v}\\
+\Longleftrightarrow\inp{\lambda\bm v}{\lambda\bm v}&=\inp{\bm v}{\bm v}\\
+\Longleftrightarrow\bar{\lambda}\lambda \inp{\bm v}{\bm v}&=\inp{\bm v}{\bm v}
+\end{align*}
+Since $\inp{\bm v}{\bm v}\ne0$ $(\bm v\ne\bm0)$, we imply $|\lambda|^2=1$, i.e., $|\lambda|=1$.
+\end{proof}
+
+
+\begin{proposition}
+Let $T:V\to V$ be an operator on a finite dimension $V$ over $\mathbb{K}$ satisfying $T'T=I$.
+If $U\le V$ is $T$-invariant, then $U$ is also $T^{-1}$-invariant.
+\end{proposition}
+\begin{proof}
+Since $T'T=I$, i.e., $T$ is invertible, we imply $0$ is not a root of $\mathcal{X}_T(x)$, i.e., $0$ is not a root of $m_T(x)$.
+Since $m_T(0)\ne0$, $m_T(x)$ has the form
+\[
+m_T(x) = x^m+\cdots+a_1x+a_0,\ a_0\ne0,
+\]
+which follows that
+\[
+m_T(T)=T^m+\cdots+a_0I=0
+\implies
+T(T^{m-1}+\cdots+a_1I)=-a_0I
+\]
+Or equivalently,
+\[
+T\left(
+-\frac{1}{a_0}
+(T^{m-1}+\cdots+a_1I)
+\right)=I
+\]
+Therefore, 
+\[
+T^{-1} = -\frac{1}{a_0}T^{m-1}-\cdots-\frac{a_2}{a_0}T-\frac{a_1}{a_0}I,
+\]
+i.e., the inverse $T^{-1}$ can be expressed as a polynomial involving $T$ only.
+
+Sicne $U$ is $T$-invariant, we imply $U$ is $T^m$-invariant for $m\in\mathbb{N}$, and therefore $U$ is $T^{-1}$-invariant since $T^{-1}$ is a polynomial of $T$.
+\end{proof}
+
+\begin{proposition}
+Let $T:V\to V$ satisfies $T'T=I$ $(\dim(V)<\infty)$, then
+$U\le V$ is $T$-invariant implies $U^\perp$ is $T$-invariant.
+\end{proposition}
+\begin{proof}
+Let $v\in U^\perp$, it suffices to show $T(v)\in U^\perp$.
+
+For all $u\in U$, we have
+\begin{align*}
+\inp{u}{T(v)}&=\inp{T'(u)}{v}=\inp{T^{-1}(u)}{v}
+\end{align*}
+Since $U$ is $T^{-1}$-invaraint, we imply $T^{-1}(u)\in U$, and therefore 
+\[
+\inp{u}{T(v)}=\inp{T^{-1}(u)}{v}=0\implies
+T(v)\in U^\perp.
+\]
+\end{proof}
+
+\begin{theorem}
+Let $T:V\to V$ be a unitary operator on finite dimension $V$ (over $\mathbb{C}$), then there exists an orthonormal basis $\mathcal{A}$ such that
+\[
+(T)_{\mathcal{A},\mathcal{A}} = \diag(\lambda_1,\dots,\lambda_n),\ |\lambda_i|=1,\ \forall i.
+\]
+\end{theorem}
+
+\begin{proof}[Proof Outline]
+Note that $\mathcal{X}_T(x)$ always admits a root in $\mathbb{C}$, so we can always find an eigenvector $\bm v\in V$ of $T$.
+
+Then the theorem follows by the same argument before on seld-adjoint operators.
+\begin{itemize}
+\item
+Consider $U=\Span\{\bm v\}$
+\item
+$V=U\oplus U^\perp$ and $U^\perp$ is $T$-invariant
+\item
+Use induction on the unitary operator $T\mid_{U^\perp}:U^\perp\to U^\perp$
+\end{itemize}
+\end{proof}
+\begin{remark}
+\begin{itemize}
+\item
+The argument fails for orthogonal operators
+\[
+\begin{array}{ll}
+T&:\mathbb{R}\to\mathbb{R}^2,\\
+\text{with}&T(\bm v)=\bm A\bm v\\
+\text{where}&\bm A=\begin{pmatrix}
+\cos\theta&-\sin\theta\\
+\sin\theta&\cos\theta
+\end{pmatrix}
+\end{array}
+\]
+The matrix $\bm A$ is not diagonalizable over $\mathbb{R}$.
+It has no real eigenvalues.
+
+However, if we treat $\bm A$ as $T:\mathbb{C}^2\to\mathbb{C}^2$ with $T(\bm v)=\bm A\bm v$, then $\bm A\Her\bm A=\bm I$, and therefore $T$ is unitary.
+Then $\bm A$ is diagonalizable over $\mathbb{C}$ with eigenvalues $e^{i\theta},e^{-i\theta}$
+\item
+As a corollary of the theorem, for all $\bm A\in M_{n\times n}(\mathbb{C})$ satisfying $\bm A\Her\bm A=\bm I$, there exists $P\in M_{n\times n}(\mathbb{C})$ such that 
+\[
+P^{-1}AP=\diag(\lambda_1,\dots,\lambda_n),\quad
+|\lambda_i|=1,
+\]
+where $P=(\bm u_1,\dots,\bm u_n)$, with $\{\bm u_1,\dots,\bm u_n\}$ forming orthonormal basis of $\mathbb{C}^n$.
+
+In fact, 
+\[
+P\Her P=\begin{pmatrix}
+\bm u_1\Her
+\\
+\vdots\\
+\bm u_n\Her
+\end{pmatrix}\begin{pmatrix}
+\bm u_1&\cdots&\bm u_n
+\end{pmatrix}
+=
+\begin{pmatrix}
+\inp{\bm u_1}{\bm u_1}&\cdots&\inp{\bm u_1}{\bm u_n}\\
+\vdots&\ddots&\vdots\\
+\inp{\bm u_n}{\bm u_1}&\cdots&\inp{\bm u_n}{\bm u_n}
+\end{pmatrix}
+\]
+
+Conclusion: all matrices $\bm A\in M_{n\times n}(\mathbb{C})$ with $\bm A\Her\bm A=\bm I$ can be written as
+\[
+\bm A = \bm P^{-1}\diag(\lambda_1,\dots,\lambda_n)\bm P,
+\]
+with some $\bm P$ satisfying $\bm P\Her\bm P=\bm I$.
+\end{itemize}
+\end{remark}
+\paragraph{Notation}
+Let $U(n)=\{\bm A\in M_{n\times n}(\mathbb{C})\mid \bm A\Her\bm A=\bm I)\}$ be the unitary group, then all $\bm A\in U(n)$ can be diagonalized by 
+\[
+A=P^{-1}\diag(\lambda_1,\dots,\lambda_n)P,\quad
+P\in U(n).
+\]
+
+\subsection{Normal Operators}
+
+\begin{definition}[Normal]
+Let $T:V\to V$ be a linear operator over a $\mathbb{C}$ inner product vector space $V$.
+We say $T$ is \emph{normal}, if
+\[
+T'T=TT'
+\]
+\end{definition}
+
+\begin{example}
+\begin{itemize}
+\item
+All self-adjoint operators are normal:
+\[
+T=T'\implies TT'=T'T=T^2
+\]
+\item
+All (finite-dimensional) unitary operators are normal:
+\[
+T'T=TT'=I
+\]
+\end{itemize}
+\end{example}
+
+
+\begin{proposition}
+Let $T$ be a normal operator on $V$.
+Then
+\begin{enumerate}
+\item
+$\|T(\bm v)\| = \|T'(\bm v)\|,\forall\bm v\in V$.
+
+In particular, $T(\bm v)=0$ if and only if $T'(\bm v)=0$
+\item
+$(T-\lambda I)$ is also a normal operator, for any $\lambda\in\mathbb{C}$
+\item
+$T(\bm v) = \lambda\bm v$ if and only if $T'(\bm v)=\bar{\lambda}\bm v$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+\item
+\begin{align*}
+\inp{T\bm v}{T\bm v}&=\inp{T'T\bm v}{\bm v}\\
+&=\inp{TT'\bm v}{\bm v}\\
+&=\overline{\inp{\bm v}{TT'\bm v}}\\
+&=\overline{\inp{T'\bm v}{T'\bm v}}\\
+&=\inp{T'\bm v}{T'\bm v}
+\end{align*}
+Therefore, $\|T(\bm v)\|^2=\|T'(\bm v)\|^2$, i.e.,
+$\|T(\bm v)\|=\|T'(\bm v)\|$.
+\item
+By hw4, $(T-\lambda I)' = T'-\overline{\lambda} I$.
+It suffices to check
+\[
+(T-\lambda I)'(T-\lambda I)=(T-\lambda I)(T-\lambda I)',
+\]
+Expanding both sides out gives the desired result, i.e.,
+\[
+(T-\lambda I)'(T-\lambda I)
+=(T'-\bar{\lambda}I)(T-\lambda I)
+=T'T-\bar{\lambda}T-\lambda T'+\lambda\bar{\lambda}I
+\]
+and
+\[
+(T-\lambda I)(T-\lambda I)'
+=
+(T-\lambda I)(T'-\bar{\lambda}I)
+=
+TT'-\bar{\lambda}T-\lambda T'+\lambda\bar{\lambda}I
+\]
+\item
+The proof for (3) will be discussed in the next lecture.
+\end{enumerate}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

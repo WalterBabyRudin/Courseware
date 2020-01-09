@@ -1,0 +1,317 @@
+
+\section{Wednesday for MAT3040}\index{Wednesday_lecture}
+\subsection{Remarks for the Change of Basis}
+\paragraph{Reviewing}
+\begin{itemize}
+\item
+$[\cdot]_{\mathcal{A}}:V\to\mathbb{F}^n$ denotes coordinate vector mapping
+\item
+Change of Basis matrix: $\mathcal{C}_{\mathcal{A}',\mathcal{A}}$
+\item
+$T:V\to W$, $\mathcal{A}=\{\bm v_1,\dots,\bm v_n\}$ and $\bm B=\{\bm w_1,\dots,\bm w_m\}$.
+
+$\text{Hom}_{\mathbb{F}}(V,W)\to M_{m\times n}(\mathbb{F})$
+\end{itemize}
+
+\begin{example}
+Let $V=\mathbb{P}_3[x]$ and $\mathcal{A}=\{1,x,x^2,x^3\}$.
+
+Let $T:V\to V$ defined as $p(x)\mapsto p'(x)$:
+\[
+\left\{
+\begin{aligned}
+T(1)&=0\cdot1+0\cdot x+0\cdot x^2+0\cdot x^3\\
+T(x)&=1\cdot1+0\cdot x+0\cdot x^2+0\cdot x^3\\
+T(x^2)&=0\cdot1+2\cdot x+0\cdot x^2+0\cdot x^3\\
+T(x^3)&=0\cdot1+0\cdot x+3\cdot x^2+0\cdot x^3\\
+\end{aligned}
+\right.
+\]
+
+We can define the change of basis matrix for a linear transformation $T$ as well, w.r.t. $\mathcal{A}$ and $\mathcal{A}$:
+\[
+\mathcal{C}_{\mathcal{A},\mathcal{A}}=\begin{pmatrix}
+0&1&0&0\\0&0&2&0\\0&0&0&3\\0&0&0&0
+\end{pmatrix}
+\]
+
+Also, we can define a different basis $\mathcal{A}'=\{x^3,x^2,x,1\}$ for the output space for $T$, say $T:V_\mathcal{A}\to V_{\mathcal{A}'}$:
+\[
+(T)_{\mathcal{A},\mathcal{A}'}
+=\begin{pmatrix}
+0&0&0&0\\0&0&0&3\\0&0&2&0\\0&1&0&0
+\end{pmatrix}
+\]
+
+Our observation is that the corresponding coordinate vectors before and after linear transformation admits a matrix multiplication:
+
+\begin{align*}
+(2x^2+4x^3)&\xrightarrow{T} ((4x+12x^2))\\
+(2x^2+4x^3)_{\mathcal{A}}
+=
+\begin{pmatrix}
+0\\0\\2\\4
+\end{pmatrix}&\qquad
+(4x+12x^2)_{\mathcal{A}}
+=
+\begin{pmatrix}
+0\\4\\12\\0
+\end{pmatrix}\\
+\begin{pmatrix}
+0&1&0&0\\0&0&2&0\\0&0&0&3\\0&0&0&0
+\end{pmatrix}\begin{pmatrix}
+0\\0\\2\\4
+\end{pmatrix}&=\begin{pmatrix}
+0\\4\\12\\0
+\end{pmatrix}\\
+\mathcal{C}_{\mathcal{A}\mathcal{A}}\cdot
+(2x^2+4x^3)_{\mathcal{A}}
+&=
+(4x+12x^2)_{\mathcal{A}}
+\end{align*}
+\end{example}
+
+\begin{theorem}[Matrix Representation]\label{The:3:3}
+Let $T:V\to W$ be a linear transformation of finite dimensional vector sapces. Let $\mathcal{A},\mathcal{B}$ the ordered basis of $V,W$, respectively.
+Then the following diagram holds:
+\begin{figure}[H]
+\centering
+\includegraphics[width=6cm]{week3/p_2}
+\caption{Diagram for the matrix reprentation, where $n:=\dim(V)$ and $m:=\dim(W)$}
+\end{figure}
+namely, for any $\bm v\in V$,
+\[
+(T)_{\mathcal{B},\mathcal{A}}(\bm v)_{\mathcal{A}}
+=
+(T\bm v)_{\mathcal{B}}
+\]
+Therefore, we can compute $T\bm v$ by matrix multiplication.
+\end{theorem}
+Therefore, linear transformation corresponds to coordinate matrix multiplication.
+
+\begin{proof}
+Suppose $\mathcal{A}=\{\bm v_1,\dots,\bm v_n\}$ and $\mathcal{B}=\{\bm w_1,\dots,\bm w_n\}$.  The proof of this theorem follows the same procedure of that in Theorem~(\ref{The:3:1})
+\begin{enumerate}
+\item
+We show this result for $\bm v=\bm v_j$ first:
+\begin{align*}
+\text{LHS}&=[\alpha_{ij}]\bm e_j=
+\begin{pmatrix}
+\alpha_{1j}\\\vdots\\\alpha_{nj}
+\end{pmatrix}
+\\
+\text{RHS}&=(T\bm v_j)_{\mathcal{B}}
+=
+\left(
+\sum_{i=1}^m\alpha_{ij}\bm w_i
+\right)_{\mathcal{B}}
+=
+\begin{pmatrix}
+\alpha_{1j}\\\vdots\\\alpha_{nj}
+\end{pmatrix}
+\end{align*}
+\item
+Then we show the theorem holds for any $\bm v:=\sum_{j=1}^nr_j\bm v_j$ in $V$:
+\begin{subequations}
+\begin{align}\label{Eq:3:8}
+(T)_{\mathcal{B}\mathcal{A}}(\bm v)_{\mathcal{A}}
+&=
+(T)_{\mathcal{B}\mathcal{A}}
+\left(
+\sum_{j=1}^nr_j\bm v_j
+\right)_{\mathcal{A}}\\
+&=
+(T)_{\mathcal{B}\mathcal{A}}
+\left(
+\sum_{j=1}^nr_j(\bm v_j)_{\mathcal{A}}
+\right)\\
+&=
+\sum_{j=1}^nr_j(T)_{\mathcal{B}\mathcal{A}}(\bm v_j)_{\mathcal{A}}\\
+&=
+\sum_{j=1}^nr_j(T\bm v_j)_{\mathcal{B}}\\
+&=
+\left(
+\sum_{j=1}^nr_j(T\bm v_j)
+\right)_{\mathcal{B}}\\
+&=
+\left[
+T
+(
+\sum_{j=1}^nr_j\bm v_j
+)
+\right]_{\mathcal{B}}\\
+&=(T\bm v)_{\mathcal{B}}
+\end{align}
+\end{subequations}
+The justification for (\ref{Eq:3:8}) is similar to that shown in Theorem~(\ref{The:3:1}). The proof is complete.
+\end{enumerate}
+
+
+
+
+
+\end{proof}
+
+\begin{remark}
+Consider a special case for Theorem~(\ref{The:3:3}), i.e., $T=\text{id}$ and $\mathcal{A},\mathcal{A}'$ are two ordered basis for the input and output space, respectively. Then the result in Theorem~(\ref{The:3:3}) implies
+\[
+\mathcal{C}_{\mathcal{A}',\mathcal{A}}(\bm v)_{\mathcal{A}}=(\bm v)_{\mathcal{A}'}
+\]
+i.e., the matrix representation theorem~(\ref{The:3:3}) is a general case for the change of basis theorem~(\ref{The:3:1})
+\end{remark}
+
+\begin{proposition}[Functoriality]\label{pro:3:6}
+Suppose $V,W,U$ are finite dimensional vector spaces,
+and let $\mathcal{A},\mathcal{B},\mathcal{C}$ be the ordered basis for $V,W,U$, respectively. 
+Suppose that
+\[
+\begin{array}{ll}
+T:V\to W,
+&
+S:W\to U
+\end{array}
+\]
+are given two linear transformations, then
+\[
+(S\circ T)_{\mathcal{C},\mathcal{A}}
+=
+(S)_{\mathcal{C},\mathcal{B}}(T)_{\mathcal{B},\mathcal{A}}
+\]
+
+Composition of linear transformation corresponds to the multiplication of change of basis matrices.
+\end{proposition}
+\begin{proof}
+Suppose the ordered basis $\mathcal{A}=\{\bm v_1,\dots,\bm v_n\}$, $\mathcal{B}=\{\bm w_1,\dots,\bm w_m\}$, $\mathcal{C}=\{\bm u_1,\dots,\bm u_p\}$. By defintion of change of basis matrices, 
+\begin{align*}
+T(\bm v_j)&=\sum_i(T_{\mathcal{B},\mathcal{A}})_{ij}\bm w_i\\
+S(\bm w_i)&=\sum_k(S_{\mathcal{C},\mathcal{B}})_{ki}\bm u_k
+\end{align*}
+
+We start from the $j$-th column of $(S\circ T)_{\mathcal{C},\mathcal{A}}$ for $j=1,\dots,n$, namely
+\begin{subequations}
+\begin{align}
+(S\circ T)_{\mathcal{C},\mathcal{A}}
+(\bm v_j)_{\mathcal{A}}
+&=
+(S\circ T(\bm v_j))_{\mathcal{C}}\label{Eq:3:9:a}\\
+&=
+\left[S\circ
+\left(
+\sum_i(T_{\mathcal{B},\mathcal{A}})_{ij}\bm w_i\right)
+\right]_{\mathcal{C}}\label{Eq:3:9:b}\\
+&=
+\sum_i(T_{\mathcal{B},\mathcal{A}})_{ij}
+\left(
+S(\bm w_i)
+\right)_{\mathcal{C}}\label{Eq:3:9:c}\\
+&=
+\sum_i(T_{\mathcal{B},\mathcal{A}})_{ij}
+\left(
+\sum_k(S_{\mathcal{C},\mathcal{B}})_{ki}\bm u_k
+\right)_{\mathcal{C}}\label{Eq:3:9:d}\\
+&=\sum_k\sum_i(S_{\mathcal{C},\mathcal{B}})_{ki}(T_{\mathcal{B},\mathcal{A}})_{ij}(\bm u_k)_{\mathcal{C}}\label{Eq:3:9:e}\\
+&=\sum_k(S_{\mathcal{C},\mathcal{B}}T_{\mathcal{B},\mathcal{A}})_{kj}(\bm u_k)_{\mathcal{C}}\label{Eq:3:9:f}
+\\
+&=
+\sum_k(S_{\mathcal{C},\mathcal{B}}T_{\mathcal{B},\mathcal{A}})_{kj}\bm e_k\label{Eq:3:9:g}\\
+&=\text{$j$-th column of }[S_{\mathcal{C}\mathcal{B}}T_{\mathcal{B},\mathcal{A}}]\label{Eq:3:9:h}
+\end{align}
+\end{subequations}
+where (\ref{Eq:3:9:a}) is by the result in theorem~(\ref{The:3:3}); 
+(\ref{Eq:3:9:b}) and (\ref{Eq:3:9:d}) follows from definitions of $T(\bm v_j)$ and $S(\bm w_i)$;
+(\ref{Eq:3:9:c}) and (\ref{Eq:3:9:e}) follows from the linearity of $\mathcal{C}$;
+(\ref{Eq:3:9:f}) follows from the matrix multiplication definition; 
+(\ref{Eq:3:9:g}) is because $(\bm u_k)_{\mathcal{C}}=\bm e_k$.
+
+Therefore, $(S\circ T)_{\mathcal{C}\mathcal{A}}$ and $(S_{\mathcal{C},\mathcal{B}})(T_{\mathcal{B},\mathcal{A}})$ share the same $j$-th column, and thus equal to each other.
+\end{proof}
+
+\begin{corollary}
+
+Suppose that $S$ and $T$ are two identity mappings $V\to V$, and consider $(S)_{\mathcal{A}'\mathcal{A}}$ and $(T)_{\mathcal{A},\mathcal{A}'}$ in proposition~(\ref{pro:3:6}), then
+\[
+(S\circ T)_{\mathcal{A}',\mathcal{A}'}
+=(S)_{\mathcal{A}'\mathcal{A}}
+(T)_{\mathcal{A},\mathcal{A}'}
+\]
+Therefore,
+\[
+\text{Identity matrix}
+=
+\mathcal{C}_{\mathcal{A}',\mathcal{A}}
+\mathcal{C}_{\mathcal{A},\mathcal{A}'}
+\]
+\end{corollary}
+
+\begin{proposition}
+Let $T:V\to W$ with $\dim(V)=n,\dim(W)=m$, and let
+\begin{itemize}
+\item
+$\mathcal{A},\mathcal{A}'$ be ordered basis of $V$
+\item
+$\mathcal{B},\mathcal{B}'$ be ordered basis of $W$
+\end{itemize}
+then the change of basis matrices admit the relation
+\begin{equation}\label{Eq:3:10}
+(T)_{\mathcal{B}',\mathcal{A}'}
+=
+\mathcal{C}_{\mathcal{B}',\mathcal{B}}
+(T)_{\mathcal{B},\mathcal{A}}
+\mathcal{C}_{\mathcal{A}\mathcal{A}'}
+\end{equation}
+Here note that $(T)_{\mathcal{B}',\mathcal{A}'},(T)_{\mathcal{B},\mathcal{A}}\in\mathbb{F}^{m\times n}$; $\mathcal{C}_{\mathcal{B}',\mathcal{B}}\in\mathbb{F}^{m\times m}$; and $\mathcal{C}_{\mathcal{A}\mathcal{A}'}\in\mathbb{F}^{n\times n}$.
+\end{proposition}
+
+\begin{proof}
+Let $\mathcal{A}=\{\bm v_1,\dots,\bm v_n\},\mathcal{A}'=\{\bm v_1',\dots,\bm v_n'\}$. Consider simplifying the $j$-th column for the LHS and RHS of (\ref{Eq:3:10}) and showing they are equal:
+\begin{align*}
+\text{LHS}&=(T)_{\mathcal{B}',\mathcal{A}'}\bm e_j\\
+&=(T)_{\mathcal{B}',\mathcal{A}'}(\bm v_j')_{\mathcal{A}'}\\
+&=(T\bm v_j')_{\mathcal{B}'}
+\end{align*}
+\begin{align*}
+\text{RHS}&=\mathcal{C}_{\mathcal{B}',\mathcal{B}}
+(T)_{\mathcal{B},\mathcal{A}}
+\mathcal{C}_{\mathcal{A}\mathcal{A}'}\bm e_j\\
+&=\mathcal{C}_{\mathcal{B}',\mathcal{B}}
+(T)_{\mathcal{B},\mathcal{A}}
+\mathcal{C}_{\mathcal{A}\mathcal{A}'}(\bm v_j')_{\mathcal{A}'}\\
+&=\mathcal{C}_{\mathcal{B}',\mathcal{B}}
+(T)_{\mathcal{B},\mathcal{A}}
+(\bm v_j')_{\mathcal{A}}\\
+&=\mathcal{C}_{\mathcal{B}',\mathcal{B}}
+(T\bm v_j')_{\mathcal{B}}\\
+&=(T\bm v_j')_{\mathcal{B}'}
+\end{align*}
+\end{proof}
+
+\begin{remark}
+Let $T:V\to V$ be a linear operator with $\mathcal{A},\mathcal{A}'$ being two ordered basisof $V$, then
+\[
+(T)_{\mathcal{A}'\mathcal{A}'}
+=
+\mathcal{C}_{\mathcal{A}',\mathcal{A}}
+(T)_{\mathcal{A}\mathcal{A}}\mathcal{C}_{\mathcal{A},\mathcal{A}'}
+=
+(\mathcal{C}_{\mathcal{A},\mathcal{A}'})^{-1}
+(T)_{\mathcal{A}\mathcal{A}}\mathcal{C}_{\mathcal{A},\mathcal{A}'}
+\]
+Therefore, the change of basis matrices $(T)_{\mathcal{A}'\mathcal{A}'}$ and $(T)_{\mathcal{A}\mathcal{A}}$ are similar to each other, which means they share the same eigenvalues, determinant, trace.
+
+Therefore, two similar matrices cooresponds to same linear transformation using different basis.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

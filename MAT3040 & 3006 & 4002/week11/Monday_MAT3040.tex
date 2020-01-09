@@ -1,0 +1,224 @@
+\chapter{Week11}
+\section{Monday for MAT3040}\index{Monday_lecture}
+\paragraph{Reviewing}
+Adjoint Operator: $\inp{T'(\bm v)}{\bm w}=\inp{\bm v}{T(\bm w)}$.
+
+\subsection{Self-Adjoint Operator}
+\begin{definition}[Self-Adjoint]
+Let $V$ be an inner product space and $T:V\to V$ be a linear operator.
+Then $T$ is \emph{self-adjoint} if $T'=T$.
+\end{definition}
+
+\begin{example}
+Let $V=\mathbb{C}^n$, and $\mathcal{B}=\{\bm e_1,\dots,\bm e_n\}$ be a orthonormal basis.
+Let $T:V\to V$ be given by
+\[
+T(\bm v)=\bm A\bm v,\quad
+\text{where $A\in M_{n\times n}(\mathbb{C})$.}
+\]
+Or equivalently, there exists basis $\mathcal{B}$ such that $(T)_{\mathcal{B},\mathcal{B}}=\bm A$.
+
+In such case, $T$ is self-adjoint if and only if 
+$(T')_{\mathcal{B},\mathcal{B}}=(T)_{\mathcal{B},\mathcal{B}}$, i.e.,
+$\overline{(T)_{\mathcal{B},\mathcal{B}}\trans}=(T)_{\mathcal{B},\mathcal{B}}$, i.e.,
+$\bm A\Her=\bm A$.
+
+Therefore, $T(\bm v)=\bm A\bm v$ is self-adjoint if and only if $\bm A\Her=\bm A$.
+
+Moreover, if $\mathbb{C}$ is replaced by $\mathbb{R}$, then $T$ is seld-adjoint if and only if $\bm A$ is symmetric.
+\end{example}
+\begin{remark}
+The notion of self-adjoint for linear operator is essentially the generalized notion of Hermitian for matrix that we have stuided in MAT2040.
+\end{remark}
+
+We also have some nice properties for self-adjoint, and the proof for which are essentially the same for the proof in the case of Hermitian matrices.
+\begin{proposition}\label{pro:11:1}
+If $\lambda$ is an eigenvalue of a self-adjoint operator $T$, then $\lambda\in\mathbb{R}$. 
+\end{proposition}
+\begin{proof}
+Suppose there is an eigen-pair $(\lambda,\bm w)$ for $\bm w\ne\bm0$, then
+\begin{align*}
+\lambda\inp{\bm w}{\bm w}&=\inp{\bm w}{\lambda\bm w}\\
+&=\inp{\bm w}{T(\bm w)}
+=\inp{T'(\bm w)}{\bm w}\\
+&=\inp{T(\bm w)}{\bm w}
+=\inp{\lambda\bm w}{\bm w}\\
+&=\bar{\lambda}\inp{\bm w}{\bm w}
+\end{align*}
+Since $\inp{\bm w}{\bm w}\ne0$ by non-degeneracy property, we have $\lambda=\bar{\lambda}$, i.e., $\lambda\in\mathbb{R}$.
+\end{proof}
+
+\begin{proposition}
+If $U\le V$ is $T$-invariant over the self-adjoint operator $T$, then so is $U^\perp$.
+\end{proposition}
+\begin{proof}
+It suffices to show $T(\bm v)\in U^\perp,\forall\bm v\in U^\perp$, i.e., for any $\bm u\in U$, check that
+\[
+\inp{\bm u}{T(\bm v)}=\inp{T'(\bm u)}{\bm v}=\inp{T(\bm u)}{\bm v}=0,
+\]
+where the last equality is because that $T(\bm u)\in U$ and $\bm v\in U^\perp$.
+Therefore, $T(\bm v)\in U^\perp$.
+\end{proof}
+
+\begin{theorem}\label{the:11:1}
+If $T:V\to V$ is self-adjoint, and $\dim(V)<\infty$, then there exists an orthonormal basis of eigenvectors of $T$, i.e., an orthonormal basis of $V$ such that any element from this basis is an eigenvector of $T$.
+\end{theorem}
+\begin{proof}
+We use the induction on $\dim(V)$:
+\begin{itemize}
+\item
+The result is trival for $\dim(V)=1$.
+\item
+Suppose that this theorem holds for all vector spaces $V$ with $\dim(V)\le k$, then we want to show the theorem holds when $\dim(V)=k+1$:
+
+Suppose that $T:V\to V$ is self-adjoint with $\dim(V)=k+1$, then consider 
+\[
+\mathcal{X}_T(x)=x^{k+1}+\cdots+a_1x+a_0,\quad a_i\in\mathbb{K},\ \text{where $\mathbb{K}$ denotes $\mathbb{R}$ or $\mathbb{C}$.}
+\]
+\begin{itemize}
+\item
+If $\mathbb{K}=\mathbb{C}$, then $\mathcal{X}_T(x)$ can be decomposed as
+\[
+\mathcal{X}_T(x)=(x-\lambda_1)\cdots(x-\lambda_{k+1})
+\]
+In paricular, we obtain the eigen-pair $(\lambda_1,\bm v)$
+\item
+If $\mathbb{K}=\mathbb{R}$, i.e., we treat real number as scalars, then
+\[
+\mathcal{X}_T(x)=(x-\lambda_1)\cdots(x-\lambda_{k+1}),\
+\text{where $\lambda_i\in\mathbb{C}$}.
+\]
+By proposition~(\ref{pro:11:1}), we imply all $\lambda_i$'s are in $\mathbb{R}$.
+Moreover, we also obtain the eigen-pair $(\lambda_1,\bm v)$
+\end{itemize}
+
+Consider $U=\Span\{\bm v\}$, then
+\begin{itemize}
+\item
+$U$ is $T$-invariant
+\item
+$V=U\oplus U^\perp$, since $V$ is finite dimensional
+\item
+$U^\perp$ is $T$-invariant.
+\end{itemize}
+Consider $T\mid_{U^\perp}$, which is a self-adjoint operator on $U^\perp$, with $\dim(U^\perp)=k$.
+
+By induction, there exists an orthonormal basis $\{\bm e_2,\dots,\bm e_{k+1}\}$ of eigenvectors of $T\mid_{U^\perp}$.
+
+Consider the basis $\mathcal{B}=\{\bm v'=\bm v/\|\bm v\|,\bm e_2,\dots,\bm e_{k+1}\}$. As a result,
+\begin{enumerate}
+\item
+$\mathcal{B}$ forms a basis of $V$
+\item
+All $\bm v',\bm e_i$ are of norm 1 eigenvectors of $T$.
+\item
+$\mathcal{B}$ is an orthonormal set, e.g., $\inp{\bm v'}{\bm e_i}=0$, where $\bm v'\in U$ and $\bm e_i\in U^\perp$.
+\end{enumerate}
+Therefore, $\mathcal{B}$ is a basis of orthonormal eigenvectors of $V$.
+\end{itemize}
+\end{proof}
+
+\begin{corollary}
+If $\dim(V)<\infty$, and $T:V\to V$ is self-adjoint, then there exists orthonormal basis $\mathcal{B}$ such that
+\[
+(T)_{\mathcal{B},\mathcal{B}}=\diag(\lambda_1,\dots,\lambda_n)
+\]
+In paticular, for all real symmtric matrix $\bm A\in\mathbb{S}^n$, there exists orthogonal matrix $P$ ($P\trans P=\bm I_n$) such that
+\[
+P^{-1}AP=\diag(\lambda_1,\dots,\lambda_n)
+\]
+\end{corollary}
+\begin{proof}
+\begin{enumerate}
+\item
+By applying theorem~(\ref{the:11:1}), there exists orthonormal basis of $V$, say $\mathcal{B}=\{\bm v_1,\dots,\bm v_n\}$ such that $T(\bm v_i)=\lambda_i\bm v_i$. Directly writing the basis representation gives
+\[
+(T)_{\mathcal{B},\mathcal{B}}=\diag(\lambda_1,\dots,\lambda_n).
+\]
+\item
+For the second part, consider $T:\mathbb{R}^n\to\mathbb{R}^n$ by $T(\bm v)=\bm A\bm v$.
+Since $\bm A\trans=\bm A$, we imply $T$ is self-adjoint.
+There exists orthonormal basis $\mathcal{B}=\{\bm v_1,\dots,\bm v_n\}$ such that
+\[
+(T)_{\mathcal{B},\mathcal{B}}=\diag(\lambda_1,\dots,\lambda_n).
+\]
+In particular, if $\mathcal{A}=\{\bm e_1,\dots,\bm e_n\}$, then $(T)_{\mathcal{A},\mathcal{A}}=\bm A$.
+We construct $P:=\mathcal{C}_{\mathcal{A},\mathcal{B}}$, which is the change of basis matrix from $\mathcal{B}$ to $\mathcal{A}$, then
+\[
+P=\begin{pmatrix}
+\bm v_1&\cdots&\bm v_n
+\end{pmatrix}
+\]
+and 
+\[
+P^{-1}(T)_{\mathcal{A},\mathcal{A}}P=(T)_{\mathcal{B},\mathcal{B}}
+\]
+Or equivalently, $P^{-1}AP=\diag(\lambda_1,\dots,\lambda_n)$, with 
+\[
+P\trans P=\begin{pmatrix}
+\bm v_1\trans\\\vdots\\\bm v_n\trans
+\end{pmatrix}\begin{pmatrix}
+\bm v_1&\cdots&\bm v_n
+\end{pmatrix}=\bm I
+\]
+\end{enumerate}
+\end{proof}
+\subsection{Orthononal/Unitary Operators}
+\begin{definition}
+A linear operator $T:V\to V$ over $\mathbb{K}$ with $\inp{T(\bm w)}{T(\bm v)}=\inp{\bm w}{\bm v},\forall \bm v,\bm w\in V$, is called
+\begin{enumerate}
+\item
+\emph{Orthogonal} if $\mathbb{K}=\mathbb{R}$
+\item
+\emph{Unitary} if $\mathbb{K}=\mathbb{C}$
+\end{enumerate}
+\end{definition}
+\begin{proposition}
+$T$ is orthogonal / unitary if and only if $T'\circ T=I$
+\end{proposition}
+\begin{proof}
+The reverse direction is by directly checking that 
+\[
+\inp{T(\bm w)}{T(\bm v)}=\inp{T'\circ T(\bm w)}{\bm v}=\inp{\bm w}{\bm v}
+\]
+The forward direction is by checking $T'\circ T(\bm w)=\bm w,\forall \bm w\in V$:
+\[
+\inp{T'\circ T(\bm w)}{\bm v}=\inp{T(\bm w)}{T(\bm v)}=\inp{\bm w}{\bm v}
+\implies
+\inp{T'\circ T(\bm w)-\bm w}{\bm v}=0,\forall \bm v\in V
+\]
+By non-degeneracy, $T'\circ T(\bm w)-\bm w=0$, i.e.,
+$T'\circ T(\bm w)=\bm w,\forall \bm w\in V$.
+\end{proof}
+
+\begin{example}
+Let $T:\mathbb{K}^n\to\mathbb{K}^n$ be given by $T(\bm v)=A\bm v$.
+Then $T$ is orthogonal implies $(T')_{\mathcal{B},\mathcal{B}}(T)_{\mathcal{B},\mathcal{B}}=I$.
+
+(Orthogonal) When $\mathbb{K}=\mathbb{R}$, then $A\trans A=I$
+
+(Unitary) When $\mathbb{K}=\mathbb{C}$, then $A\Her A=I$.
+\end{example}
+
+\begin{definition}[Orthogonal/Unitary Group]
+\[\text{Orthognoal Group}:
+O(n,\mathbb{R})=\{A\in M_{n\times n}(\mathbb{R})\mid A\trans A=I\}
+\]
+\[\text{Unitary Group}:
+U(n,\mathbb{C})=\{A\in M_{n\times n}(\mathbb{C})\mid A\Her A=I\}
+\]
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

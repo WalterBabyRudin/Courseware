@@ -1,0 +1,274 @@
+
+\section{Wednesday for MAT3040}
+
+\paragraph{Reviewing}
+Consider the mapping
+\[
+\begin{array}{ll}
+\phi:&V\to V^*\\
+\text{with}&\phi(\bm v) = \phi_{\bm v}\\
+\text{where}&\phi_{\bm v}(\bm w) = \inp{\bm v}{\bm w}
+\end{array}
+\]
+The Riesz Representation Theorem claims that 
+\begin{enumerate}
+\item
+$\phi$ is a $\mathbb{R}$-linear transformation.
+\item
+$\phi$ is injective.
+\item
+If $\dim(V)<\infty$, then $\phi$ is an isomorphism.
+\end{enumerate}
+\begin{proof}[Proof for Claim~(2)]
+Consider the equality $\phi(\bm v) = \phi_{\bm v}=0_{V^*}$, which implies
+\[
+\phi_{\bm v}(\bm w)=\inp{\bm v}{\bm w}=0,\forall\bm w\in V
+\]
+By the non-degenercy property, $\bm v=0_{\bm v}$, i.e., $\phi$ is injective.
+\end{proof}
+\begin{proof}[Proof for Claim~(3)]
+Since $\dim_{\mathbb{R}}(V)=\dim_{\mathbb{R}}(V^*)$, 
+and $\phi$ is injective as a $\mathbb{R}$-linear transformation, 
+we imply $\phi$ is an isomorphism from $V$ to $V^*$, where $V,V^*$ are treated as vector spaces over $\mathbb{R}$.
+\end{proof}
+
+\subsection{Orthogonal Complement}
+\begin{definition}[Orthogonal Complement]
+Let $U\le V$ be a subspace of an inner product space.
+Then the \emph{orthogonal complement} of $U$ is
+\[
+U^\perp
+=
+\{\bm v\in V\mid \inp{\bm v}{\bm u}=0,\forall \bm u\in U\}
+\]
+\end{definition}
+
+The analysis for orthogonal complement for vector spaces over $\mathbb{C}$ is quite similar as what we have studied in MAT2040.
+\begin{proposition}
+\begin{enumerate}
+\item
+$U^\perp$ is a subspace of $V$
+\item
+$U\cap U^\perp = \{0\}$
+\item
+$U_1\subseteq U_2$ implies $U_2^\perp\le U_1^\perp$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+\item
+Suppose that $\bm v_1,\bm v_2\in U^\perp$, where $a,b\in K$ ($K=\mathbb{C}$ or $\mathbb{R}$), 
+then for all $\bm u\in U$,
+\begin{align*}
+\inp{a\bm v_1+b\bm v_2}{\bm u}
+&=
+\bar{a}\inp{\bm v_1}{\bm u}
++
+\bar{b}\inp{\bm v_2}{\bm u}\\
+&=\bar{a}\cdot0+\bar{b}\cdot0=0
+\end{align*}
+Therefore, $a\bm v_1+b\bm v_2\in U^\perp$.
+\item
+Suppose that $\bm u\in U\cap U^\perp$, then we imply $\inp{\bm u}{\bm u}=0$.
+By the positive-definiteness of inner product, $\bm u=\bm0$.
+\item
+The statement~(3) is easy.
+\end{enumerate}
+\end{proof}
+
+\begin{proposition}\label{pro:10:2}
+\begin{enumerate}
+\item
+If $\dim(V)<\infty$ and $U\le V$, then $V=U\oplus U^\perp$
+\item
+If $U,W\le V$, then
+\begin{align*}
+(U+W)^\perp&=U^\perp\cap W^\perp\\
+(U\cap W)^\perp&\supseteq U^\perp +W^\perp\\
+(U^\perp)^\perp&\supseteq U
+\end{align*}
+Moreover, if $\dim(V)<\infty$, then these are equalities.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+\item
+Suppose that $\{\bm v_1,\dots,\bm v_k\}$ forms a basis for $U$, and by basis extension, we obtain $\{\bm v_1,\dots,\bm v_k,\bm v_{k+1},\dots,\bm v_n\}$ is a basis for $V$.
+
+By Gram-Schmidt Process, any finite basis induces an orthonormal basis. 
+
+Therefore, suppose that $\{\bm e_1,\dots,\bm e_k\}$ forms an orthonormal basis for $U$, and $\{\bm e_{k+1},\dots,\bm e_{n}\}$ forms an orthonormal basis for $U^\perp$.
+
+It's easy to show $V=U+U^\perp$ using orthonormal basis.
+\item
+\begin{enumerate}
+\item
+The reverse part $(U+W)^\perp\supseteq U^\perp\cap W^\perp$ is trivial;
+for the forward part, suppose $\bm v\in(U+W)^\perp$, then 
+\[
+\inp{\bm v}{\bm u+\bm w}=0,\ \forall\bm u\in U,\ \bm w\in W
+\]  
+Taking $\bm u\equiv\bm0$ in the equality above gives $\inp{\bm v}{\bm w}=0$, i.e., $\bm v\in U^\perp$.
+Similarly, $\bm v\in W^\perp$.
+\item
+Follow the similar argument as in (2a).
+If $\dim(V)<\infty$, then write down the orthonormal basis for $U^\perp+W^\perp$ and $(U\cap W)^\perp$.
+\item
+Follow the similar argument as in (2a).
+If $\dim(V)<\infty$, then 
+\[
+V=U^\perp\oplus (U^\perp)^\perp=U\oplus U^\perp.
+\]
+Therefore, $(U^\perp)^\perp=U$.
+\end{enumerate}
+\end{enumerate}
+\end{proof}
+
+\begin{proposition}
+The mapping $\phi:V\to V^*$ maps $U^\perp\le V$ injectively to $\text{Ann}(U)\le V^*$.
+If $\dim(V)<\infty$, then $U^\perp\cong\text{Ann}(U)$ as $\mathbb{R}$-vector spaces
+\end{proposition}
+\begin{proof}
+The injectivity of $\phi$ has been shown at the beginning of this lecture.
+For any $\bm v\in U^\perp$, we imply $\phi_{\bm v}(\bm u)=0,\forall\bm u\in U$, i.e., $\phi_{\bm v}\in\text{Ann}(U)$.
+
+Therefore, $\phi(U^\perp)\le\text{Ann}(U)$. 
+
+Provided that $\dim(V)<\infty$, by (1) in proposition~(\ref{pro:10:2}), 
+\[
+\dim(U)+\dim(U^\perp)=\dim(V)
+\]
+Since $\dim(U)+\dim(\text{Ann}(U))=\dim(V)$, we imply $\dim(U^\perp) = \dim(\text{Ann}(U))$.
+
+Moreover, 
+\[
+\phi:U^\perp\to\text{Ann}(U)
+\]
+is an isomorphism between $\mathbb{R}$-vector spaces $U^\perp$ and $\text{Ann}(U)$.
+\end{proof}
+
+\subsection{Adjoint Map}
+\paragraph{Motivation}
+Then we study the induced mapping based on a given linear operator $T$, denoted as $T'$.
+This induced mapping essentially plays the similar role as taking the Hermitian for a complex matrix.
+\paragraph{Notation}
+Previously we have studied the \emph{adjoint} of $T:V\to W$, denoted as $T^*:W^*\to V^*$.
+However, from now on, we use the same terminalogy but with different meaning.
+If $T:V\to V$ is a linear operator, then the \emph{adjoint} of $T$ is the linear operator $T':V\to V$ defined as follows.
+
+\begin{definition}[Adjoint]
+Let $T:V\to V$ be a linear operator between inner product spaces.
+The \emph{adjoint} of $T$ is defined as 
+$T':V\to V$ satisfying
+\begin{equation}\label{Eq:10:1}
+\inp{T'(\bm v)}{\bm w}=\inp{\bm v}{T(\bm w)},\ \forall \bm w\in V
+\end{equation}
+\end{definition}
+
+\begin{proposition}
+If $\dim(V)<\infty$, then $T'$ exists, and it is unique.
+Moreove, $T'$ is a linear map.
+\end{proposition}
+
+\begin{proof}
+Fix any $\bm v\in V$. Consider the mapping
+\[
+\alpha_{\bm v}: \bm w\xrightarrow{T}T(\bm w)\xrightarrow{\phi_{\bm v}}\inp{\bm v}{T(\bm w)}
+\]
+This is a linear transformation from $V$ to $\mathbb{F}$, i.e., $\alpha_{\bm v}\in V^*$
+
+By Riesz representation theorem, $\phi$ is an isomorphism from $V$ to $V^*$. 
+Therefore, for any $\alpha_{\bm v}\in V^*$, 
+there exists a vector $T'(\bm v)\in V$ such that
+\[
+\phi(T'(\bm v))=\alpha_{\bm v}\in V^*
+\]
+
+Or equivalently, $\phi_{T'(\bm v)}(\bm w)=\alpha_{\bm v}(\bm w),\forall \bm w\in V$, i.e., $\inp{T'(\bm v)}{\bm w}=\inp{\bm v}{T(\bm w)}$.
+
+Therefore, from $\bm v$ we have constructed $T'(\bm v)$ satisfying (\ref{Eq:10:1}).
+Now define $T':V\to V$ by $\bm v\mapsto T'(\bm v)$.
+
+\begin{itemize}
+\item
+Since the choice of $T'(\bm v)$ is unique by the injectivity of $\phi$, $T'$ is well-defined.
+\item
+Now we show $T'$ is a linear transformation:
+Let $\bm v_1,\bm v_2\in V,a,b\in K$. For all $\bm w\in V$, we have
+\begin{align*}
+\inp{T'(a\bm v_1+b\bm v_2)}{\bm w}&=\inp{a\bm v_1+b\bm v_2}{T(\bm w)}\\
+&=\bar{a}\inp{\bm v_1}{T(\bm w)}+\bar{b}\inp{\bm v_2}{T(\bm w)}\\
+&=\bar{a}\inp{T'(\bm v_1)}{\bm w}+\bar{b}\inp{T'(\bm v_2)}{\bm w}\\
+&=\inp{aT'(\bm v_1)+bT'(\bm v_2)}{\bm w}
+\end{align*}
+Therfore,
+\[
+\inp{T'(a\bm v_1+b\bm v_2) - [aT'(\bm v_1)+bT'(\bm v_2)]}{\bm w}=0,\ \forall \bm w\in V
+\]
+By the non-degeneracy of inner product,
+\[
+T'(a\bm v_1+b\bm v_2) - [aT'(\bm v_1)+bT'(\bm v_2)]=\bm0,
+\]
+i.e., $T'(a\bm v_1+b\bm v_2)=aT'(\bm v_1)+bT'(\bm v_2)$
+\end{itemize}
+\end{proof}
+
+
+\begin{example}
+Let $V=\mathbb{R}^n$, $\inp{\cdot}{\cdot}$ as the usual inner product. Consider the matrix-multiplication mapping
+\[
+\begin{array}{ll}
+T:&V\to V\\
+&T(\bm v)=A\bm v
+\end{array}
+\]
+Then $\inp{T'(\bm v)}{\bm w}=\inp{\bm v}{T(\bm w)}$ implies
+\begin{align*}
+(T'(\bm v))\trans\bm w&=\inp{\bm v}{\bm A\bm w}\\
+&=\bm v\trans\bm A\bm w\\
+&=(\bm A\trans\bm v)\trans\bm w
+\end{align*}
+Therfore, $T'(\bm v) = A\trans\bm v$.
+\end{example}
+
+\begin{proposition}\label{Pro:10:5}
+Let $T:V\to V$ be a linear transformation, $V$ a inner product space.
+Suppose that $\mathcal{B}=\{\bm e_1,\dots,\bm e_n\}$ is an orthonormal basis of $V$, then
+\[
+(T')_{\mathcal{B},\mathcal{B}}=\overline{((T)_{\mathcal{B},\mathcal{B}})\trans}
+\]
+\end{proposition}
+
+\begin{proof}
+Suppose that $(T)_{\mathcal{B},\mathcal{B}}=(a_{ij})$, where $T(\bm e_j)=\sum_{k=1}^na_{kj}\bm e_k$, then
+\begin{align*}
+\inp{\bm e_i}{T(\bm e_j)}&=\inp{\bm e_i}{\sum_{k=1}^na_{kj}\bm e_k}\\
+&=\sum_{k=1}^na_{kj}\inp{\bm e_i}{\bm e_k}\\
+&=a_{ij}
+\end{align*}
+Also, suppose $(T')_{\mathcal{B},\mathcal{B}}=(b_{ij})$, we imply $T'(\bm e_j) = \sum_{k=1}^nb_{ij}\bm e_k$, which follows that
+\[
+\inp{\bm e_i}{T'(\bm e_j)}=b_{ij}
+\implies
+\overline{\inp{T'(\bm e_j)}{\bm e_i}}=b_{ij}
+\implies
+\overline{\inp{\bm e_j}{T(\bm e_i)}}=b_{ij},
+\]
+i.e., $\overline{a_{ji}} = b_{ij}$.
+\end{proof}
+\begin{remark}
+Proposition~(\ref{Pro:10:5}) does not hold if $\mathcal{B}$ is not an orthonormal basis.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+

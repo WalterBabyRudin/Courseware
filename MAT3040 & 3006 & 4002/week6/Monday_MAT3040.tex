@@ -1,0 +1,78 @@
+\chapter{Week6}
+\section{Monday for MAT3040}\index{Monday_lecture}
+
+\subsection{Polynomials}
+We recall some useful properties of polynomial before studying eigenvalues/eigenvectors.
+\begin{definition}[Polynomial]
+\begin{enumerate}
+\item
+A polynomial over $\mathbb{F}$ has the form
+\[
+p(z)=a_mz^m+\cdots+a_1z+a_0,\quad (a_m\ne0).
+\]
+Here $a_mz^m$ is called the \emph{leading term} of $p(z)$; $m$ is called the degree; $a_m$ is called the \emph{leading coefficient}; $a_m,\cdots,a_0$ are called the coefficients of this polynomial.
+\item
+A polynomial over $\mathbb{F}$ is monic if its leading coefficient is $1_{\mathbb{F}}.$
+\item
+A polynomial $p(z)\in\mathbb{F}[z]$ is \emph{irreducible} if for any $a(z),b(z)\in\mathbb{F}[z]$, 
+\[
+p(z)=a(z)b(z)\implies
+\text{either $a(z)$ or $b(z)$ is a constant polynomial}.
+\]
+Otherwise $p(z)$ is \emph{reducible}.
+\end{enumerate}
+\end{definition}
+\begin{example}
+For example, the polynomial $p(x)=x^2+1$ is irreducible over $\mathbb{R}$; but $p(x) = (x-i)(x+i)$ is \emph{reducible} over $\mathbb{C}$.
+\end{example}
+
+\begin{theorem}[Division Theorem]
+For all $p,q\in\mathbb{F}[z]$ such that $p\ne0$, there exists unique $s,r\in\mathbb{F}[x]$ satisfying $\text{deg}(r)<\text{deg}(f)$, such that 
+\[
+p(z)=s(z)\cdot q(z)+r(z).
+\]
+Here $r(z)$ is called the \emph{remainder}.
+\end{theorem}
+
+
+\begin{example}
+Given $p(x)=x^4+1$ and $q(x)=x^2+1$, the junior school knowledge tells us that uniquely
+\[
+x^4+1 = (x^2-1)(x^2+1)+2.
+\]
+\end{example}
+
+\begin{theorem}[Root Theorem]
+For $p(x)\in\mathbb{F}[x]$, and $\lambda\in\mathbb{F}$, $x-\lambda$ divides $p$ if and only if $p(\lambda)=0$.
+\end{theorem}
+\begin{proof}
+\begin{enumerate}
+\item
+If $(x-\lambda)$ divides $p$, then $p=(x-\lambda)q$ for some $q\in\mathbb{F}[x]$. Thus clearly $p(\lambda)=0$.
+\item
+For the other direction, suppose that $p(\lambda)=0$. By division theorem, there exists $s,r\in\mathbb{F}[x]$ such that 
+\begin{equation}\label{Eq:6:1}
+p=(x-\lambda)s+r\quad \text{with deg$(r)<$deg$(x-\lambda)=1$.}
+\end{equation}
+Therefore, the polynomial $r$ must be  constant. 
+
+Substituting $\lambda$ into $x$ both sides in (\ref{Eq:6:1}), we have
+\[
+0 = p(\lambda)=0\cdot s+r\implies r=0.
+\]
+Therefore, $p = (x-\lambda)\cdot s$, i.e., $(x-\lambda)$ divides $p$.
+\end{enumerate}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+

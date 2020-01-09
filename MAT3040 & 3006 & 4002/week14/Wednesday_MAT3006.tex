@@ -1,0 +1,171 @@
+
+\section{Wednesday for MAT3006}\index{Wednesday_lecture}
+\subsection{Fubini's and Tonell's Theorem}
+
+
+\paragraph{Easiest Goal}:
+$E\in A\times B\in\mathcal{M}\otimes\mu$, $A\in\mathcal{M}_X,B\in\mathcal{M}_Y$, i.e.,
+\[
+\pi(A\times B) = m_X(A)m_Y(B)
+\]
+see graph
+\[
+\int m_X((A\times B)_y)\diff y \diff y = \int m_X(A)\mathcal{X}_(y)\diff y=m_X(A)\int\mathcal{X}_B(y)\diff y=
+m_X(A)m_Y(B)
+\]
+Similarly,
+\[
+\int m_Y((A\times B)_x)\diff x = m_X(A)m_Y(B)
+\]
+Therefore, the easier goal holds for $E=A\times B$.
+
+From easier goal to the real goal requires simply MCT.
+Now  the question is that how can we prove ``easier goal holds for $E\in A\times B$ implies easier goal holds for all $E\in\mathcal{M}\otimes\mathcal{M}$ ''
+
+\begin{definition}[Monotone Class]
+Let $X$ be any set. A \emph{monotone class} $\mathcal{T}$ is a collection of subsets of $X$ satisfying 
+\begin{enumerate}
+\item
+If $E_i\in\mathcal{T} (i\in\mathbb{N})$ and $E_i\subseteq E_{i+1},\forall i$, then
+\[
+\bigcup_{i=1}^\infty E_i\in\mathcal{T}
+\]
+\item
+If $F_i\in\mathcal{T} (i\in\mathbb{N})$ with $F_i\supseteq F_{i+1},\forall i$, then
+\[
+\bigcap_{i=1}^\infty F_i\in\mathcal{T}
+\]
+\end{enumerate}
+\end{definition}
+
+
+\begin{example}
+Let $X=\mathbb{R}$, then $\mathcal{M}$ (all Lebesgue measurable subsets) and $\mathcal{B}$ (all Borel measurable subsets) are monotone classes.
+More generally, all $\sigma$-algebra are monotone classes.
+\end{example}
+
+\begin{definition}[Smallest Monotone Class]
+For all colletion of subsets $S$ in $X$ (e.g., $S$ denotes all intervals in $X\in\mathbb{R}$),
+let $\mathcal{M}(S)$be the smallest monotone class containing $S$
+\end{definition}
+\begin{remark}
+As a result,
+\[
+\mathcal{M}(S)\subseteq\sigma(S)
+\]
+where $\sigma(S)$ is the smallest $\sigma$-algebra containing $S$.
+
+Question: when do we have $\mathcal{M}(S)=\sigma(S)$?
+\end{remark}
+
+\begin{theorem}[Monotone Class Theorem]
+Let $X$ be any set.
+If a family of subsets $S$ of $X$ forms an \emph{algebra}, i.e.,
+\[
+E_1,E_2\in S\implies E_1\cup E_2\in S,E_1\cap E_2\in S,E_1^c\in S,
+\]
+then $\mathcal{M}(S)=\sigma(S)$.
+\end{theorem}
+
+\begin{example}
+\begin{enumerate}
+\item
+Let $X=\mathbb{R}$, and $S=\{\text{all intervals}\}$.
+is \emph{not} an algebram e.g.,
+\[
+[1,2]\in S^1\implies [1,2]^c = (-\infty,1)\cup(2,\infty)\notin S^1.
+\]
+However, $S=\{\text{finite disjoint union of intervals}\}$ is an algebra.
+As a result, $\mu(S)=\sigma(S)=\mathcal{B}$ (borel $\sigma$-algebra)
+\item
+Let $X=\mathbb{R}^2$, and 
+\[
+S=\{\text{finite disjoint union of measurable rectangles }\cup_{i=1}^k(A_i\times B_i), A_i,B_i\in\mathcal{M}\}
+\]
+Then $S$ is an algebra, e.g., (see figure)
+\[
+(A\times B)^c = (A^c\times \mathbb{R})\cup(A\times B^c)
+\]
+is a disjoint union of 2 measurable rectangles.
+Therefore, $\mathcal{M}(S)=\sigma(S)=\mathcal{M}\otimes\mathcal{M}$
+\end{enumerate}
+\end{example}
+
+\begin{proposition}
+For all $E\in\mathcal{M}\otimes\mathcal{M}$, we have
+\[
+\pi(E) = \int m_Y(E_x)\diff x
+=
+\int m_X(E_y)\diff y\quad(*)
+\]
+\end{proposition}
+\begin{proof}
+Let 
+\[
+\mathcal{A} = \left\{E\in\mathcal{M}\otimes\mathcal{M}
+\middle|
+\begin{array}{l}
+x\mapsto m_Y(E_x)\text{ is a measurable function of $x$}\\
+y\mapsto m_X(E_y)\text{ is a measurable function of $y$}\\
+\text{(*) holds}
+\end{array}
+\right\}
+\]
+\begin{itemize}
+\item
+Claim 1: $\mathcal{A}$ is a monotone class
+\item
+Claim 2: All finite disjoint union of measurable rectangles 
+\[
+\bigcup_{i=1}^k(A_i\times B_i)\in\mathcal{A}
+\]
+\end{itemize}
+If claim~(1),(2) holds, then $\mathcal{A}$ is a monotone class containing all elements in 
+\[
+S=\{\text{finite disjoint union of measurable rectangles}\}
+\]
+Since $\mathcal{M}(S)$ is the smallest monotone class containing $S$, we imply
+\[
+\mathcal{M}(S)\subseteq\mathcal{A}
+\]
+By monotone class theorem, $\sigma(S)=\mathcal{M}(S)\subseteq\mathcal{A}$, i.e.,
+\[
+\mathcal{M}\times\mathcal{M} = \sigma(S)=\mathcal{M}(S)\subseteq\mathcal{A}
+\]
+Therefore, (*) holds for all $E\in\mathcal{A}=\mathcal{M}\times\mathcal{M}$.
+\end{proof}
+\begin{proof}[Proof of Claim 2]
+For any $E=\cup_{i=1}^k(A_i\times B_i)$, 
+\[
+m_Y(E_x)=\sum_{i=1}^k m_Y(B_i)\mathcal{X}_{A_i}(x)
+\]
+is a simple function on $x$, and therefore measurable.
+
+Similarly, 
+\[
+m_X(E_y) = \sum_{i=1}^km_X(A_i)\mathcal{X}_{B_i}(y)
+\]
+is also measurable.
+
+Therefore, (*) also holds for $E$ by the ``easiest goal''.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,252 @@
+
+\section{Wednesday for MAT3040}\index{Wednesday_lecture}
+\textbf{Reviewing: }Root Theorem: $p(\lambda)=0$ iff $(x-\lambda)$ divdes $p(x)$.
+\begin{corollary}
+A polynomial with degree $n$ has at most $n$ roots counting multiplicity.
+\end{corollary}
+For example, the polynomial $(x-3)^2$ has one root $x=3$ with multiplicity $2$. When counting multiplicity, we say the polynomial $(x-3)^2$ has two roots.
+
+\begin{definition}[Algebraically Closed]
+A field $\mathbb{F}$ is called \emph{algebraically closed} if every non-constant polynomial $p(x)\in\mathbb{F}[x]$ has a root $\lambda\in \mathbb{F}$.
+\end{definition}
+\begin{theorem}[Fundamental Theroem of Algebra]
+The set of complex numbers $\mathbb{C}$ is algebraically closed.
+\end{theorem}
+\begin{proof}
+One way is by complex analysis; Another way is by the topology on $\mathbb{C}\setminus\{0\}$.
+\end{proof}
+\begin{remark}
+By induction, we can show that every polynomial with degree $n$ on algebraically closed field $\mathbb{F}$ has \emph{exactly} $n$ roots, counting multiplicity.
+Therefore, for any $p(x)$ on algebraically closed field $\mathbb{F}$,
+\begin{equation}\label{Eq:6:2}
+p(x) = c(x-\lambda_1)\cdots(x-\lambda_n)
+\end{equation}
+for $c,\lambda_1,\dots,\lambda_n\in\mathbb{F}$.
+\end{remark}
+The polynomials on general field $\mathbb{F}$ may not necessarily be factorized as in~(\ref{Eq:6:2}) , but still admit unique factorization property:
+\begin{theorem}[Unique Factorization]
+Every $f(x) = a_nx^n+\cdots+a_0$ in $\mathbb{F}[x]$ can be factorized as
+\[
+f(x) = a_n[p_1(x)]^{e_1}\cdots[p_k(x)]^{e_k}
+\]
+where $p_i$'s are \emph{monic, irreducible,distinct}. Furthermore, this expression is unique up to the permutation of factors.
+\end{theorem}
+
+\begin{definition}[Factor]
+If $p(x) = q(x)s(x)$ with $p,q,s\in\mathbb{F}[x]$, then we say
+\begin{itemize}
+\item
+$p(x)$ is \emph{divisible} by $s(x)$;
+\item
+$s(x)$ is a \emph{factor} of $p(x)$;
+\item
+$s(x)|p(x)$
+\item
+$s(x)$ \emph{divides} $p(x)$
+\item
+$p(x)$ is \emph{multiple} of $s(x)$
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Common Factor]
+\begin{enumerate}
+\item
+The polynomial $g(x)$ is said to be a \emph{common factor} of $f_1,\dots,f_k\in\mathbb{F}[x]$ if
+\[
+\begin{array}{ll}
+g|f_i,
+i=1,\dots,k
+\end{array}
+\]
+\item
+The polynomial $g(x)$ is said to be a \emph{greatest common divisor} of $f_1,\dots,f_k$ if
+\begin{itemize}
+\item
+$g$ is \emph{monic}.
+\item
+$g$ is common factor of $f_1,\dots,f_k$
+\item
+$g$ is of largest possible (maximal) degree.
+\end{itemize} 
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+\begin{itemize}
+\item
+$\text{gcd}(f_1,\dots,f_k) = \text{gcd}(\text{gcd}(f_1,f_2),f_3,\dots,f_k)$
+$=\text{gcd}(\text{gcd}(f_1,f_2,f_3),\dots,f_k)$
+\item
+$\text{gcd}(f_1,\dots,f_k)$ is unique.
+\item
+If $\text{gcd}(f_1,\dots,f_k)=1$, we say $f_1,\dots,f_k$ is \emph{relatively prime}
+\item
+Polynomials $f_1,\dots,f_k$ are relatively prime does not necessarily mean $\text{gcd}(f_i,f_j)=1$ for any $i\ne j$.
+
+Counter-example:
+Let $a_1,\dots,a_n$ distinct irreducible polynomials, and
+\[
+f_i(x) = a_1(x)\cdots \hat{a}_i(x)\cdots a_n(x):=a_1\cdots a_{i-1}a_{i+1}\cdots a_n,
+\]
+then $\text{gcd}(f_1,\dots,f_n)=1$, but $\text{gcd}(f_i,f_j) = a_1\cdots\hat{a}_i\cdots\hat{a}_j\cdots a_n$, which does not necessarily equal to 1.
+\end{itemize}
+\end{remark}
+\begin{example}
+The $\text{gcd}(f_1,f_2)$ is easy to compute for factorized polynomials. For example, let $f_1(x) = (x^2+x+1)^3(x-3)^2x^4$ and
+$f_2(x)=(x^2+1)(x-3)^4x^2$ in $\mathbb{R}[x]$, then
+\[
+\text{gcd}(f_1,f_2) = (x-3)^2x^2
+\]
+\end{example}
+The question is how to find $\text{gcd}(f_1,f_2)$ for given un-factorized polynomials? 
+\begin{theorem}[Bezout]\label{The:6:7}
+Let $g = \text{gcd}(f_1,f_2)$, then there exists $r_1,r_2\in\mathbb{F}[x]$ such that
+\[
+g(x)  =r_1(x)f_1(x)+r_2(x)f_2(x)
+\]
+More generally, $g=\text{gcd}(f_1,\dots,f_k)$ implies there exists $r_1,\dots,r_k$ such that 
+\[
+g = r_1f_1+\cdots+r_kf_k
+\]
+\end{theorem}
+The derivation of $r_i$'s is by applying \emph{Euclidean algorithm}. For example, given $x^3+6x+7$ and $x^2+3x+2$, we imply 
+\[
+x^3+6x+7 - (x-3)(x^2+3x+2) = 13x+13
+\]
+and
+\[
+x^2+3x+2 - \frac{x+2}{13}(13x+13)=0
+\]
+Therefore, $\text{gcd}(x^3+6x+7,x^2+3x+2) = \text{gcd}(x^2+3x+2,13x+13)=x+2$.
+
+\subsection{Eigenvalues $\&$ Eigenvectors}
+\begin{definition}[Eigenvalues]
+Let $T:V\to V$ be a linear operator.
+\begin{enumerate}
+\item
+We say $\bm v\in V\setminus\{\bm0\}$ is an eigenvector of $T$ with eigenvalue $\lambda$ if 
+$T(\bm v) = \lambda\bm v$;
+\item
+Or equivalently, $\bm v\in\ker(T-\lambda I)$, the $\lambda$-eigenspace of $T$. Here the mapping $I:V\to V$ denotes identity map, i.e., $I(\bm v)=\bm v,\forall \bm v\in V$.
+\end{enumerate}
+\end{definition}
+\begin{definition}
+A vector $\bm v\in V\setminus\{\bm0\}$ is a \emph{generalized eigenvector} of $T$ with \emph{generalized eigenvalue} $\lambda$ 
+if $\bm v\in\ker((T-\lambda I)^k)$ for some $k\in\mathbb{N}^+$.
+\end{definition}
+Note that an eigenvector is a generalized eigenvector of $T$; while the converse does not necessarily hold.
+\begin{example}
+Consider the linear transformation $A:\mathbb{R}^2\to\mathbb{R}^2$ with
+\[
+\begin{array}{ll}
+A:&\mathbb{R}^2\to\mathbb{R}^2\\
+\text{with}&\bm x\to \bm A\bm x\\
+\text{where}&\bm A=\begin{pmatrix}
+1&1\\0&1
+\end{pmatrix}
+\end{array}
+\]
+\begin{enumerate}
+\item
+Note that $[1,0]\trans$ is an eigenvector with eigenvalue $1$, since
+\[
+A\begin{pmatrix}
+1\\0
+\end{pmatrix}=\begin{pmatrix}
+1\\0
+\end{pmatrix}
+\]
+\item
+However, $[0,1]\trans$ is not an eigenvector, since
+\[
+A\begin{pmatrix}
+0\\1
+\end{pmatrix}=\begin{pmatrix}
+1\\0
+\end{pmatrix}.
+\]
+Note that 
+\[
+(A-I)^2=\begin{pmatrix}
+0&1\\0&0
+\end{pmatrix},\quad
+(A-I)^3=\begin{pmatrix}
+0&0\\0&0
+\end{pmatrix}
+\]
+and therefore
+\[
+\begin{pmatrix}
+0\\1
+\end{pmatrix}\in\ker(A-I)^2,
+\]
+i.e., a generalized eigenvector with generalized eigenvalue $1$.
+\end{enumerate}
+\end{example}
+\begin{example}
+Consider $V=\mathcal{C}^\infty(\mathbb{R})$, which is a set of all infinitely differentiable functions.
+
+Define the linear operator $T:V\to V$ as $T(f) = f''$. 
+Then the $(-1)$-eigenspace of $T$ has $f\in V$ satisfying
+\[
+f''=-f
+\]
+From ODE course, we imply $\{\sin x,\cos x\}$ forms a basis of $(-1)$-eigenspace.
+\end{example}
+
+\paragraph{Assumption}
+From now on, we assume $V$ has finite dimension by default.
+
+\begin{definition}[Determinant]
+Let $T:V\to V$ be a linear operator.
+The \emph{determinant} of $T$ is given by
+\[
+\det(T)=\det((T)_{\mathcal{A},\mathcal{A}})
+\]
+where $\mathcal{A}$ is some basis of $V$.
+\end{definition}
+\begin{remark}
+Assume we have complete knowledge about $\det(M)$ for matrices for now.
+The determinant is well-defined, i.e., independent of the choice of basis $\mathcal{A}$. For another basis $\mathcal{B}$, we imply
+\[
+\det(T_{\mathcal{B},\mathcal{B}})
+=
+\det(C_{\mathcal{B},\mathcal{A}}T_{\mathcal{A},\mathcal{A}}
+C_{\mathcal{A},\mathcal{B}}
+)
+=
+\det(C_{\mathcal{B},\mathcal{A}})
+\det(T_{\mathcal{A},\mathcal{A}})
+\det(C_{\mathcal{A},\mathcal{B}})=\det(T_{\mathcal{A},\mathcal{A}})
+\]
+\end{remark}
+
+
+\begin{definition}[characteristic polynomial]
+The \emph{characteristic polynomial} $\mathcal{X}_T(x)$
+of $T:V\to V$ is defined as
+\[
+\mathcal{X}_T(x) = \det((T)_{\mathcal{A},\mathcal{A}} - xI)
+\]
+for any basis $\mathcal{A}$
+\end{definition}
+In the next few lectures, we will study
+\begin{itemize}
+\item
+Cayley-Hamilton Theorem
+\item
+Jordan Canonical Form
+\end{itemize}
+
+These theorems can be stated using matrices, and
+they both hold up to change of basis.
+We have a unified statement of these theorem using vecotor space rather than $\mathbb{R}^n$.
+
+
+
+
+
+
+
+
+

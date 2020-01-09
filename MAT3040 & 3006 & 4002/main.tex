@@ -1,0 +1,283 @@
+%% Run LaTeX on this file several times to get Table of Contents,
+\input{book_command}
+%\includeonly{
+%week1/Monday_MAT4002,
+%week1/Wednesday_MAT4002,
+%week2/Monday_MAT4002,
+%week2/Wednesday_MAT4002,
+%week3/Monday_MAT4002,
+%week3/Wednesday_MAT4002,
+%week4/Monday_MAT4002,
+%week4/Wednesday_MAT4002,
+%week5/Monday_MAT4002,
+%week5/Wednesday_MAT4002,
+%week6/Monday_MAT4002,
+%%week6/Wednesday_MAT3006,
+%week7/Monday_MAT4002,
+%week7/Wednesday_MAT4002,
+%%week8/Monday_MAT3006,
+%week8/Wednesday_MAT4002,
+%week9/Monday_MAT4002,
+%week9/Wednesday_MAT4002,
+%week10/Monday_MAT4002,
+%week10/Wednesday_MAT4002,
+%week11/Monday_MAT4002_new,
+%week11/Wednesday_MAT4002_new,
+%week12/Monday_MAT4002,
+%week12/Wednesday_MAT4002,
+%week13/Monday_MAT4002,
+%week13/Wednesday_MAT4002,
+%week14/Monday_MAT4002,
+%week15/Monday_MAT4002
+%%week14/Wednesday_MAT3040,
+%}
+%\includeonly{week15/Monday_MAT3006}
+\usepackage{pdfpages}
+\begin{document}
+%Hello
+\frontmatter
+%\includepdf[pages={1}]{book_cover/cover/FrontCover}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Setting up title pages, type in the appropriate names here:
+
+%\booktitle{A Journey \\ In \\
+%Pure Mathematics}
+
+\booktitle{A First Course \\ In \\ Topology}
+
+%\subtitle{MAT3006 $\&$ 3040 $\&$ 4002  Notebook}
+\subtitle{MAT4002 Notebook}
+
+\AuAff{
+Lecturer\\
+Prof. Daniel Wong\\ 
+The Chinese University of Hongkong, Shenzhen}
+\AuAff{
+Tex Written By\\
+Mr. Jie Wang\\ 
+The Chinese University of Hongkong, Shenzhen}
+%\AuAff{Prof. Ruoyu Sun\\ University of Illinois Urbana-Champaign}
+%% \\ will start a new line.
+
+
+
+%% Print Half Title and Title Page:
+\halftitlepage
+\titlepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright Page
+%\begin{copyrightpage}{year}
+%Title, etc
+%\end{copyrightpage}
+
+% Note, you must use \ to start indented lines, ie,
+% 
+% \begin{copyrightpage}{2004}
+% Survey Methodology / Robert M. Groves . . . [et al.].
+% \       p. cm.---(Wiley series in survey methodology)
+% \    ``Wiley-Interscience."
+% \    Includes bibliographical references and index.
+% \    ISBN 0-471-48348-6 (pbk.)
+% \    1. Surveys---Methodology.  2. Social 
+% \  sciences---Research---Statistical methods.  I. Groves, Robert M.  II. %
+% Series.\\
+%
+% HA31.2.S873 2004
+% 001.4'33---dc22                                             2004044064
+% \end{copyrightpage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Only Dedication (optional) 
+%\dedication{To my girlfriend Jianyu Yang}
+
+\tableofcontents
+
+%\listoffigures %optional
+%\listoftables  %optional
+
+
+
+% If your book has chapters written by different authors,
+% you'll need a Contributors page.
+
+% Use \begin{contributors}...\end{contributors} and
+% then enter each author with the \name{} command, followed
+% by the affiliation information.
+
+% \begin{contributors}
+% \name{Zhi-quan Luo,} Shenzhen Research Institute of Big Data, Lecturer
+%
+% \name{Ruoyu Sun,} Industrial and Enterprise Systems Engineering, Lecturer
+%
+% \name{Jie Wang,} The Chinese University of Hongkong, Shenzhen, Typer
+% \end{contributors}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Optional Preface:
+%\begin{preface}
+%\input{preface.tex}
+%\prefaceauthor{}
+%\where{CUHK(SZ)\\
+% \today}
+%\end{preface}
+% ie,
+% \begin{preface}
+% This is an example preface.
+% \prefaceauthor{R. K. Watts}
+% \where{Durham, North Carolina\\
+% September, 2004}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Optional Acknowledgments:
+
+\acknowledgments
+This book is taken notes from the MAT4002 in spring semester, 2019. These lecture notes were taken and compiled in \LaTeX~by Jie Wang, an undergraduate student in spring 2019. 
+The tex writter would like to thank Prof. Daniel Wong and some students for their detailed and valuable comments and suggestions, which significantly improved the quality of this notebook.
+Students taking this course may use the notes as part of their reading and reference materials. 
+This version of the lecture notes were revised and extended for many times, but may still contain many mistakes and typos, including English grammatical and spelling errors, in the notes. 
+It would be greatly appreciated if those students, who will use the notes as their reading or reference material, tell any mistakes and typos to Jie Wang for improving this notebook.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Optional notations:
+\begin{notations}
+\acro{$(X,\mathcal{T})$}{Topological space}
+\acro{$X\cong Y$}{The space $X$ is homeomorphic to space $Y$}
+\acro{$G\cong H$}{The group $G$ is isomorphic to group $H$}
+\acro{$p_X$}{Project mapping}
+\acro{$X\times Y$}{Product Topology}
+\acro{$X/\sim$}{Quotient Topology related to the topologcial space $X$ and the equivalence class $\sim$}
+\acro{$S^n$}{The $n$-sphere $\{\bm x\in\mathbb{R}^{n+1}\mid\|\bm x\|=1\}$}
+\acro{$D^n$}{The $n$-disk $\{\bm x\in\mathbb{R}^{n}\mid\|\bm x\|\le1\}$}
+\acro{$E^\circ,\partial E,\overline{E}$}{The interior, boundary, closure of $E$}
+\acro{$\mathbb{T}^2$}{The torus in $\mathbb{R}^3$}
+\acro{$\Delta^n$}{The $n$-simplex}
+\acro{$i:A\xhookrightarrow{} X$}{Inclusion mapping from $A\subseteq X$ to $X$}
+\acro{$K=(V,\Sigma)$}{(Abstract) Simplicial Complex}
+\acro{$|K|$}{Topological realization of the simplicial complex $K$}
+\acro{$\langle X\mid R\rangle$}{The presentation of a group}
+\acro{$H: f\stackrel{H}{\simeq}g$}{$f$ and $g$ are homotopic, where $H$ denotes the homotopy}
+\acro{$X\simeq Y$}{The space $X$ and $Y$ are homotopy equivalent}
+\acro{$\pi_1(X,x)$}{The fundamental group of $X$ w.r.t. the basepoint $x\in X$}
+\acro{$E(K,b)$}{The edge loop group of the space $K$ w.r.t. the basepoint $b$}
+\acro{$f_*$}{The induced homomorphism $f_*:\pi_1(X,x)\to\pi_1(Y,y)$ for $f:X\to Y$}
+\end{notations}
+\mainmatter
+\setcounter{page}{1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Optional introduction:
+%\begin{introduction}
+%
+%The word \textit {traffic} becomes \textit {teletraffic} in telecommunications, as communications becomes telecommunications to indicate technology use, e.g., conversation from some distance through phones or Internet. The term teletraffic covers all kinds of computer communication traffic and telecom traffic.  This book includes teletraffic loss models.
+%\end{introduction}
+\include{week1/Monday_MAT3040}
+\include{week1/Monday_MAT3006}
+\include{week1/Monday_MAT4002}
+\include{week1/Wednesday_MAT3040}
+\include{week1/Wednesday_MAT3006}
+\include{week1/Wednesday_MAT4002}
+
+\include{week2/Monday_MAT3040}
+\include{week2/Monday_MAT3006}
+\include{week2/Monday_MAT4002}
+\include{week2/Wednesday_MAT3040}
+\include{week2/Wednesday_MAT3006}
+\include{week2/Wednesday_MAT4002}
+
+\include{week3/Monday_MAT3040}
+\include{week3/Monday_MAT3006}
+\include{week3/Monday_MAT4002}
+\include{week3/Wednesday_MAT3040}
+\include{week3/Wednesday_MAT3006}
+\include{week3/Wednesday_MAT4002}
+
+\include{week4/Monday_MAT3040}
+\include{week4/Monday_MAT3006}
+\include{week4/Monday_MAT4002}
+\include{week4/Wednesday_MAT3040}
+\include{week4/Wednesday_MAT3006}
+\include{week4/Wednesday_MAT4002}
+
+
+\include{week5/Monday_MAT3040}
+\include{week5/Monday_MAT3006}
+\include{week5/Monday_MAT4002}
+\include{week5/Wednesday_MAT3040}
+\include{week5/Wednesday_MAT3006}
+\include{week5/Wednesday_MAT4002}
+
+\include{week6/Monday_MAT3040}
+\include{week6/Monday_MAT3006}
+\include{week6/Monday_MAT4002}
+\include{week6/Wednesday_MAT3040}
+\include{week6/Wednesday_MAT4002}
+
+\include{week7/Monday_MAT3040}
+\include{week7/Monday_MAT3006}
+\include{week7/Monday_MAT4002}
+\include{week7/Wednesday_MAT3040}
+\include{week7/Wednesday_MAT4002}
+
+%\include{week7/Monday_MAT3040}
+\include{week8/Monday_MAT3040}
+\include{week8/Monday_MAT3006}
+\include{week8/Monday_MAT4002}
+%\include{week8/Wednesday_MAT3040}
+\include{week8/Wednesday_MAT3006}
+\include{week8/Wednesday_MAT4002}
+
+
+\include{week9/Monday_MAT3040}
+\include{week9/Monday_MAT3006}
+\include{week9/Monday_MAT4002}
+\include{week9/Wednesday_MAT3040}
+\include{week9/Wednesday_MAT3006}
+\include{week9/Wednesday_MAT4002}
+
+\include{week10/Monday_MAT3040}
+\include{week10/Monday_MAT3006}
+\include{week10/Monday_MAT4002}
+\include{week10/Wednesday_MAT3040}
+\include{week10/Wednesday_MAT3006}
+\include{week10/Wednesday_MAT4002}
+
+\include{week11/Monday_MAT3040}
+\include{week11/Monday_MAT3006_new}
+\include{week11/Monday_MAT4002_new}
+\include{week11/Wednesday_MAT3040}
+\include{week11/Wednesday_MAT3006_new}
+\include{week11/Wednesday_MAT4002_new}
+
+\include{week12/Monday_MAT3040}
+\include{week12/Monday_MAT3006}
+\include{week12/Monday_MAT4002}
+\include{week12/Wednesday_MAT3040}
+\include{week12/Wednesday_MAT3006}
+\include{week12/Wednesday_MAT4002}
+
+
+\include{week13/Monday_MAT3040}
+\include{week13/Monday_MAT3006}
+\include{week13/Monday_MAT4002}
+\include{week13/Wednesday_MAT3040}
+\include{week13/Wednesday_MAT3006}
+\include{week13/Wednesday_MAT4002}
+
+
+\include{week14/Monday_MAT3040}
+\include{week14/Monday_MAT3006}
+\include{week14/Monday_MAT4002}
+
+\include{week15/Monday_MAT3040}
+\include{week15/Monday_MAT3006}
+\include{week15/Monday_MAT4002}
+\backmatter
+%\include{app01}
+%\includegraphics{AuthorIcon}
+
+\latexprintindex
+
+\end{document} 

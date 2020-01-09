@@ -1,0 +1,245 @@
+\section{Wednesday for MAT3006}\index{Monday_lecture}
+
+The quiz will be held on Wednesday.
+
+\paragraph{Reviewing}Let's go through the proof for Weierstrass Theorem quickly.
+\begin{itemize}
+\item
+Study $Q_n(x) = c_n(1-x^2)^n$ and construct the approximate function
+\[
+p_n(x) = \int_{-1}^1Q_n(t)f(x+t)\diff t
+\]
+\item
+Show that 
+\begin{align*}
+|p_n(x) - f(x)|&\le\int_{-1}^1|f(x+t) - f(x)|Q_n(t)\diff t\\
+&=
+\left(\int_{\delta}^1+\int_{\delta}^{-\delta}+ \int_{-1}^{-\delta}\right)|f(x+t)-f(x)|Q_n(t)\diff t\\
+&\le 4M\sqrt{n}(1-\delta^2)^n + \int_{\delta}^{-\delta}|f(x+t)-f(x)|Q_n(t)\diff t\\
+&\le 4M\sqrt{n}(1-\delta^2)^n + \varepsilon\cdot\int_{\delta}^{-\delta}Q_n(t)\diff t\\
+&\le 4M\sqrt{n}(1-\delta^2)^n + \varepsilon
+\end{align*}
+Therefore, $\|p_n-f\|_\infty\to0$ as $n\to\infty$.
+\item
+Generalization for $\forall g\in\mathcal{C}[0,1]$:
+Recall that we have assumed $f(0)=f(1)=0$. Now consider the general case, say
+\[
+\begin{array}{ll}
+g(0)=a,
+&g(1)=b.
+\end{array}
+\]
+Consider $f(x):=g(x) - l(x)$, where $l$ is the line segment from $(0,a)$ to $(1,b)$. Then we imply $|f(x) - p_n(x)|<\varepsilon$, i.e.,
+\[
+|g(x) - (p_n(x)+l(x))|<\varepsilon,\quad \forall x.
+\]
+\item
+Generlization for $\forall h\in\mathcal{C}[a,b]$: Recall that we have restrict $f$ is continuous on $[0,1]$. For any $h\in\mathcal{C}[a,b]$, define $g(x) = h((b-a)x + a)$ for $x\in[0,1]$. Therefore, $g\in\mathcal{C}[0,1]$, i.e., $|g(y) - p_n(y)|<\varepsilon,\forall y\in[0,1]$, which implies
+\[
+|h((b-a)y+a) - p_n(y)|<\varepsilon,\quad \forall y\in[0,1]
+\]
+Applying change of variables with $x=(b-a)y+a$, we imply
+\[
+\left|h(x) - p_n\left(\frac{x-a}{b-a}\right)\right|<\varepsilon,\quad \forall x\in[a,b],
+\]
+where $p_n(\cdot)$ is a polynomial function.
+
+
+\end{itemize}
+
+\subsection{Stone-Weierstrass Theorem}
+The motivation is to generalize the Weierstrass approximation into the space $\mathcal{C}(X)$, where $(X,d)$ is a general compact space. 
+Here $\mathcal{C}(X):=\{f:X\to\mathbb{R}\text{ is continuous}\}$. Note that
+\begin{itemize}
+\item
+$\mathcal{C}(X)$ has a norm:
+\[
+\|f\|_\infty :=\sup\{f(x)\mid x\in X\}
+\]
+This is well-defined, since $f(X)\subseteq\mathbb{R}$ is compact, i.e., closed and bounded.
+\item
+$(\mathcal{C}(X),d_\infty)$ is complete. The proof follows similarly from the proof that $\mathcal{C}[a,b]$ is complete (see Example~(\ref{exp:2:15})).
+\end{itemize}
+\begin{remark}
+If $X$ is not compact, then the norm $\|\cdot\|_\infty$ is \emph{not} well-defined on $\mathcal{C}(X)$, but this norm is still well-defined on the space
+\[
+\mathcal{C}_{b}(X)=\{f:X\to\mathbb{R}\mid \text{$f$ is continous and bounded}\}.
+\]
+If $X$ is compact, then $\mathcal{C}(X)=\mathcal{C}_{b}(X)$.
+\end{remark}
+
+\begin{definition}[Separation Property]
+Let $(X,d)$ be any metric space, and $\mathcal{A}\subseteq\mathcal{C}_b(X)$ is an algebra (closed under linear combination and pointwise product), then 
+\begin{enumerate}
+\item
+$\mathcal{A}$ is said to be equipped with the \emph{separation property} if for any $x_1\ne x_2\in X$, there exists $f\in\mathcal{A}$ such that $f(x_1)\ne f(x_2)$
+\item
+$\mathcal{A}$ is said to be equipped with the \emph{nonvanishing property} if for any $x\in X$, there exists $f\in\mathcal{A}$ such that $f(x)\ne0$.
+\end{enumerate}
+\end{definition}
+\begin{example}
+Suppose that $X:=S^1:=\{e^{i\theta}\mid\theta\in[0,2\pi]\}\subseteq\mathbb{C}\cong\mathbb{R}^2$, and consider the algebra
+\[
+\mathcal{A}=\langle g\rangle:=\Span\{1,g,g^2,\dots\}
+\]
+Define $g:S^1\to\mathbb{R}$ as $g(e^{i\theta}) = \cos\theta$. Note that
+\begin{enumerate}
+\item
+$\mathcal{A}$ does not satisfy the separation property: take $e^{i\theta},e^{i(2\pi-\theta)}$
+\item
+However, $\mathcal{A}$ satisfies the nonvanishing property. Consider the special element of $\mathcal{A}$: $f\equiv1$.
+\end{enumerate}
+\end{example}
+
+
+\begin{theorem}[Stone-Weierstrass Theorem]
+Let $(X,d)$ be a compact space, and $\mathcal{A}\subseteq\mathcal{C}(X)$ is an algebra.
+Then $\overline{A}= \mathcal{C}(X)$ iff $A$ satisfies both the \emph{nonvanishing} and \emph{separation} property.
+\end{theorem}
+Before going through the proof, we establish two lemmas below:
+\begin{proposition}\label{pro:4:12}
+If both $f,g$ belong to the algebra $\mathcal{A}$, then
+$\max\{f,g\}\in\mathcal{A}$ and $\min\{f,g\}\in\overline{\mathcal{A}}$.
+\end{proposition}
+\begin{proof}
+Since
+\begin{align*}
+\max\{f,g\}&=\frac{1}{2}(f+g)+\frac{1}{2}|f-g|\\
+\min\{f,g\}&=\frac{1}{2}(f+g)-\frac{1}{2}|f-g|,
+\end{align*}
+it suffices to show $|h|\in\overline{\mathcal{A}}$ given that $h\in\mathcal{A}$. 
+
+Let $M=\max\{|h(x)|\mid x\in X\}$. Consider the function (w.r.t. $t$) $|t|\in\mathcal{C}[-M,M]$. By Weierstrass approximation, there exists a polynomial $p$ such that $||t| - p(t)|<\varepsilon$, which implies 
+\[
+||h(x)| - p(h(t))|<\varepsilon.
+\]
+Note that $p(h(t))$ is a polynomial of $h(t)$, and therefore an element from the algebra $\mathcal{A}$. 
+Therefore, $|h|$ can be approximated by some element from $\mathcal{A}$, i.e., $|h|\in\overline{\mathcal{A}}$.
+\end{proof}
+
+
+\begin{proposition}\label{pro:4:13}
+Let $\mathcal{A}\subseteq\mathcal{C}(X)$ be an algebra satisfying the separation property and non-vanishing property. 
+Then for all $x_1\ne x_2\in X$, and any $\alpha,\beta\in\mathbb{R}$, 
+there exists $f\in\mathcal{A}$ such that 
+\[
+\left\{
+\begin{aligned}
+f(x_1)&=\alpha\\
+f(x_2)&=\beta
+\end{aligned}
+\right.
+\]
+\end{proposition}
+\begin{proof}
+By separation property, there exists $h\in\mathcal{A}$ such that 
+$h(x_1)\ne h(x_2)$. 
+\begin{enumerate}
+\item
+We claim that we can construct a new $h$ such that 
+\begin{equation}\label{Eq:4:5}
+\begin{array}{lll}
+h(x_1)\ne h(x_2),& h(x_1)\ne0,&h(x_2)\ne0
+\end{array}
+\end{equation}
+\begin{enumerate}
+\item
+If both $h(x_1),h(x_2)\ne0$, we have done.
+\item
+If not, suppose $h(x_1)=0$. By non-vanishing property, there eixsts $p\in\mathcal{A}$ such that $p(x_1)\ne0$. Then some linear transformation of $h$ and $p$ will do the trick. (hint: construct $t$ such that $h\leftarrow h + t\cdot p$ gives the desired result.)
+\end{enumerate}
+\item
+Now suppose the requirement~(\ref{Eq:4:5}) is met. Consider the function 
+\[
+f(x)=ah(x)+bh^2(x)\in\mathcal{A},
+\]
+where $a,b$ are two parameters to be determined. 
+
+Indeed, it suffices to find $a,b$ such that $f(x_1)=\alpha,f(x_2)=\beta$, or equivalently, solve the linear system
+\begin{align*}
+f(x_1)&=ah(x_1)+bh^2(x_1)=\alpha\\
+f(x_2)&=ah(x_2)+bh^2(x_2)=\beta
+\end{align*}
+Since the determinant of the linear system is not equal to $0$, $a,b$ can be clearly found.
+\end{enumerate}
+The proof is complete.
+\end{proof}
+
+\begin{proof}[Necessity part of the proof]
+Given that $\mathcal{A}$ has separation and non-vanishing,
+we aim to show $\overline{\mathcal{A}}=\mathcal{C}(X)$.
+\begin{enumerate}
+\item
+Take any $f\in\mathcal{C}(X)$. 
+By proposition~(\ref{pro:4:13}), for any $x,y\in X$, there exists $\phi_{x,y}\in\mathcal{A}$ such that
+\[
+\left\{
+\begin{aligned}
+\phi_{x,y}(x)&=f(x)\\
+\phi_{x,y}(y)&=f(y)
+\end{aligned}
+\right..
+\]
+Construct the open set $U_{x,y} = (f-\phi_{x,y})^{-1}((-\varepsilon,\varepsilon))$, i.e., 
+\[
+U_{x,y} = \{t\in X\mid \phi_{x,y}(t)-\varepsilon
+<f(t)<
+\phi_{x,y}(t)+\varepsilon
+\}.
+\]
+\item
+It's clear that $x,y\in U_{x,y}$. For fixed $y\in X$, the collection $\{U_{x,y}\}_{x\in X}$ forms an open cover of $X$. By the compactness of $X$, there exists the finite subcover
+\[
+\{U_{x_1,y},\dots,U_{x_N,y}\}\supseteq X.
+\]
+By proposition~(\ref{pro:4:12}), the function $\phi_y:=\max\{\phi_{x_1,y},\dots,\phi_{x_N,y}\}\in\overline{\mathcal{A}}$. Furthermore, for $\forall x\in X$, we imply there exists some $U_{x_i,y}\ni x$, i.e.,
+\[
+f(x)<\phi_{x_i,y}(x)+\varepsilon\implies
+f(x)<\phi_y(x)+\varepsilon, \ \forall x\in X.
+\]
+\item
+Also, consider $V_y = \cap_{i=1}^NU_{x_i,y}$, which is the open set containing $y$, and $\{V_y\}_{y\in X}$ covers $X$ (why?). Note that for any $x\in V_y$, we imply $x\in U_{x_i,y},\forall i$, i.e.,
+\[
+\phi_{x_i,y}(x)-\varepsilon<f(x),\quad \forall i\implies
+\phi_y(x)-\varepsilon<f(x),\ \forall x\in V_y.
+\]
+By the compactness of $X$ again, we take finite subcover $\{V_{y_j}\}_{j=1}^M$ and define
+\[
+\phi(x):=\min\{\phi_{y_1}(x),\dots,\phi_{y_M}(x)\}\in\overline{\mathcal{A}}.
+\]
+Therefore, for any $x\in X$ we imply $x\in V_{y_m}$, i.e.,
+\begin{equation}\label{Eq:4:6}
+\phi_{y_m}(x)-\varepsilon<f(x)\implies\phi(x)-\varepsilon<f(x)
+\end{equation}
+\item
+Also, from (2) we have obtained $f(x)<\phi_y(x)+\varepsilon$ for $\forall y\in X$. In particular,
+\begin{equation}\label{Eq:4:7}
+f(x)<\phi_{y_m}(x)+\varepsilon,\ \forall m=1,\dots,M
+\end{equation}
+Combining (\ref{Eq:4:6}) and (\ref{Eq:4:7}), we imply $|\phi(x)-f(x)|<\varepsilon$.
+\end{enumerate}
+Therefore, we have constructed a function $\phi\in\overline{\mathcal{A}}$ such that $|\phi(x)-f(x)|<\varepsilon$, which implies $f\in\overline{\overline{\mathcal{A}}}=\overline{\mathcal{A}}$. The proof is complete.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

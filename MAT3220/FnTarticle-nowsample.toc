@@ -1,0 +1,155 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\thispagestyle {empty}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Introduction to Linear Programming}{2}{chapter.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.1}Preliminaries}{2}{section.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Standard Form}{2}{paragraph*.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Dictionaries of an LP}{3}{paragraph*.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.2}Simplex Method}{5}{section.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Notations}{5}{paragraph*.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Simplex Method Algorithm}{5}{paragraph*.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Pivot Rules}{6}{paragraph*.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Two-Phase Simplex Method}{10}{paragraph*.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.3}Duality Results}{11}{section.1.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Duality problem is the best possible upper bounding problem}{11}{paragraph*.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Complentarity Slackness}{12}{paragraph*.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Geometry and Duality for Linear Programming}{14}{chapter.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}The polyhedral geometry}{14}{section.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.2}Fundamental Theorems for Linear Programming}{17}{section.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.3}More Theorems of Alternatives: the case for polyhedrons}{23}{section.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Notations}{23}{paragraph*.17}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Computational Complexity for Linear Programming}{25}{chapter.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.1}A case study}{25}{section.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Input size of a problem}{25}{paragraph*.18}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{The Running Time Complexity}{26}{paragraph*.19}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.2}Computational Complexity}{26}{section.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Polynomial Time Algorithm}{26}{paragraph*.20}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2.1}P $\&$ NP}{26}{subsection.3.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2.2}Dimensions and Parameters}{27}{subsection.3.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2.3}Other terminologies}{28}{subsection.3.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.3}Complexity of Linear Programming}{28}{section.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.3.1}LP is both NP and Co-NP}{28}{subsection.3.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.3.2}Is LP in P?}{29}{subsection.3.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{The Klee-Minty Example (n=3)}{29}{paragraph*.21}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{General Case}{31}{paragraph*.22}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}The KKT Condition for Nonlinear Programming}{33}{chapter.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.1}unconstrained Optimality Condition}{33}{section.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.2}Constrained Optimality Condition}{34}{section.4.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.2.1}Characteration of Tangent Cone}{35}{subsection.4.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}The Distribution and Installation}{36}{chapter.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.1}Pre-requisites}{36}{section.5.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.2}The Distribution}{36}{section.5.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.2.1}Folder \texttt {nowfnt}}{36}{subsection.5.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{journaldata}{37}{paragraph*.24}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{SampleArticle}{37}{paragraph*.25}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.2.2}Folder \texttt {nowfnttexmf}}{37}{subsection.5.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.3}Installation}{37}{section.5.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {6}Quick Start}{39}{chapter.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.1}\textbackslash documentclass}{39}{section.6.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.2}\textbackslash issuesetup}{40}{section.6.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.3}\textbackslash maintitleauthorlist}{40}{section.6.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.4}\textbackslash author and \textbackslash affil}{40}{section.6.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\textbackslash author}{40}{paragraph*.26}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\textbackslash affil}{40}{paragraph*.27}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.5}\textbackslash addbibresource}{40}{section.6.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {7}Style Guidelines and \LaTeX \ Conventions}{41}{chapter.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7.1}Abstract}{41}{section.7.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7.2}Acknowledgements}{41}{section.7.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7.3}References}{41}{section.7.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7.4}Citations}{42}{section.7.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.4.1}Example citations}{42}{subsection.7.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7.5}Preface and Other Special Chapters}{42}{section.7.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7.6}Long Chapter and Section Names}{43}{section.7.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7.7}Internet Addresses}{43}{section.7.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {8}Compiling Your FnT Article}{44}{chapter.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.1}Compiling Your Article Prior to Submission}{44}{section.8.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.2}Preparing the Final Versions}{45}{section.8.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{lastpage=}{45}{paragraph*.28}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.3}Compiling The Final Versions}{45}{section.8.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.4}Wednesday}{46}{section.8.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Knapsacle Problem}{46}{paragraph*.29}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {8.4.1}Label Correcting Methods}{47}{subsection.8.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {8.4.2}DP problems with perfect state information}{47}{subsection.8.4.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Linear Quadratic System}{47}{paragraph*.30}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {8.4.3}Linear Quadratic}{47}{subsection.8.4.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Riccati Equation}{49}{paragraph*.31}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Acknowledgements}{51}{chapter*.32}
+\defcounter {refsection}{0}\relax 
+\contentsline {part}{Appendices}{52}{chapter*.32}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {A}Journal Codes}{53}{appendix.A}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {B}Files Produced During Compilation}{55}{appendix.B}

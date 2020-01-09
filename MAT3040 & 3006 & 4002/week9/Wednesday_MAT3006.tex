@@ -1,0 +1,212 @@
+
+\section{Wednesday for MAT3006}\index{Wednesday_lecture}
+\subsection{Remarks on Measurable function}
+
+\begin{proposition}
+Let $f_n$ be a sequence of measurable functions $f_n:\mathbb{R}\to[-\infty,\infty]$.
+Then the functions
+\[
+\begin{array}{llll}
+\sup_{n\in\mathbb{N}}f_n(x),
+&
+\inf_{n\in\mathbb{N}}f_n(x),
+&
+\lim_{n\to\infty}\sup f_n(x),
+&
+\lim_{n\to\infty}\inf f_n(x)
+\end{array}
+\]
+are measurable.
+\end{proposition}
+\begin{proof}
+\begin{itemize}
+\item
+\begin{align*}
+\left(\sup_{n\in\mathbb{N}}f_n\right)^{-1}((a,\infty])&=\{x\in\mathbb{R}\mid \sup_n f_n(x)>a\}\\
+&=\{x\in\mathbb{R}\mid f_n(x)>a\text{ for some $a$}\}\\
+&=\bigcup_{n\in\mathbb{N}}f_n^{-1}((a,\infty])
+\end{align*}
+which is measurable due to the measurability of $f_n$.
+\item
+The proof for the measurablitiy of $\inf_nf_n(x),\lim_{n\to\infty}\sup f_n(x),\lim_{n\to\infty}\inf f_n(x)$ is directly by applying the formula
+\begin{align*}
+\inf f_n(x) &= -(\sup (-f_n(x)))\\
+\lim_{n\to\infty}\sup f_n(x) &= \lim_{m\to\infty}(\sup_{n\ge m}f_n(x))=\inf_{m\in\mathbb{N}}(\sup_{n\ge m}f_n(x))\\
+\lim_{n\to\infty}\inf f_n(x) &=-\lim_{n\to\infty}\sup (-f_n(x))
+\end{align*}
+\end{itemize}
+\end{proof}
+
+
+\begin{corollary}
+If $\{f_n\}$ is measurable, and $f_n(x)$ converges to $f(x)$ pointwisely a.e., then $f$ is measurable.
+\end{corollary}
+\begin{proof}
+By proposition~(\ref{pro:9:3}), w.l.o.g., $f_n(x)$ conveges to $f(x)$ pointwisely, which follows that
+\[
+f(x) := \lim_{n\to\infty}f_n = \lim_{n\to\infty}\sup f_n(x)
+\]
+i.e., $f$ is measurable due to the measurability of $\lim_{n\to\infty}\sup f_n(x)$.
+\end{proof}
+
+\subsection{Lebesgue Integration}
+\begin{definition}[Simple Function]
+A function $\phi:\mathbb{R}\to\mathbb{R}$ is \emph{simple} if 
+\begin{itemize}
+\item
+$\phi$ is measurable and
+\item
+$\{\phi(x)\mid x\in\mathbb{R}\}$ takes finitely many values.
+\end{itemize}
+
+More precisely, if the simple function $\phi$ takes distinct values $\alpha_1,\alpha_2,\dots,\alpha_k\in\mathbb{R}$ on disjoint non-empty sets $A_1,\dots,A_k\subseteq\mathbb{R}$, then
+\[
+\phi = \sum_{i=1}^k\alpha_i\mathcal{X}_{A_i}
+\]
+Note that $A_i$'s are measurable since $\phi^{-1}(\{\alpha_i\}) = A_i$
+\end{definition}
+\begin{remark}
+\begin{enumerate}
+\item
+All functions written in the form $\psi = \sum_{i=1}^{\ell}\beta_i\mathcal{X}_{B_i}$, where $B_i$'s are measurable, are simple;
+All simple functions can be expressed as the form $\psi = \sum_{i=1}^{\ell}\beta_i\mathcal{X}_{B_i}$~(where $B_i$'s are disjoint) uniquely, up to permutation of terms.
+This is called the canonical form.
+\item
+If $\phi_1,\phi_2$ are simple, then so are
+\[
+\begin{array}{llll}
+\phi_1+\phi_2,
+&
+\phi_1\cdot\phi_2,
+&
+\alpha\cdot\phi,
+\max(\phi_1,\phi_2),
+&
+h\circ\phi.
+\end{array}
+\]
+\text{for all function $h$}.
+\end{enumerate}
+\end{remark}
+
+\begin{definition}[Lebesgue integral for Simple Function]
+Given a simple function with the canonical form $\phi:=\sum_{i=1}^k\alpha_i\mathcal{X}_{\mathcal{A}_i}$,
+\begin{itemize}
+\item
+The Lebesgue integral for $\phi$~(over $\mathbb{R}$) is
+\[
+\int\phi\diff m = \sum_{i=1}^k\alpha_i m(A_i),
+\]
+\item
+The Lebesgue integral for $\phi$ over a measurable set $E$ is
+\[
+\int_E\phi\diff m = \int\phi\cdot\mathcal{X}_E\diff m = 
+\sum_{i=1}^k\alpha_im(A_i\cap E)
+\]
+\end{itemize}
+\end{definition}
+\begin{proposition}
+For any simple function $\phi = \sum_{i=1}^\ell\beta_i\mathcal{X}_{B_i}$,
+where $B_i$'s are not necessarily disjoint,
+we still have
+\begin{align*}
+\int\phi\diff m &= \sum_{i=1}^\ell \beta_im(B_i),\\
+\int(\phi+\psi)\diff m&=\int\phi\diff m+\int\psi\diff m,\quad\text{where $\psi$ is another simple function},\\
+\int\phi\diff m&\le \int\psi\diff m,\qquad\text{provided that $\phi\le\psi$}.
+\end{align*}
+\end{proposition}
+\begin{proof}
+It suffices to show the first equality. w.l.o.g., suppose $\phi=\beta_1\mathcal{X}_{B_1}+\beta_2\mathcal{X}_{B_2}$, which can be reformulated as the canonical form:
+\[
+\phi=(\beta_1+\beta_2)\mathcal{X}_{B_1\cap B_2}+\beta_1\mathcal{X}_{B_1\cap B_2^c}+\beta_2\mathcal{X}_{B_1^c\cap B_2}
+\]
+Then we can take the Lebesgue integration for $\phi$:
+\[
+\int\phi\diff m=(\beta_1+\beta_2)m(B_1\cap B_2)
++\beta_1 m(B_1\cap B_2^c)+\beta_2 m(B_1^c\cap B_2),
+\]
+which is equal to $\beta_1 m(B_1)+\beta_2 m(B_2)$ due to the caratheodory property~(definition~(\ref{def:8:2}))
+\end{proof}
+
+\begin{definition}[Lebesgue integral for Measurable Function]
+Let $f$ be a measurable function $f:\mathbb{R}\to[0,\infty]$.
+Then the Lebesgue integral of $f$ is given by:
+\begin{equation}\label{Eq:9:1}
+\int f\diff m = \sup\left\{\int\phi\diff m\middle| 0\le\phi\le f,\text{$\phi$ is simple}\right\}
+\end{equation}
+We say $f$ is integrable if $\int f\diff m<\infty$.
+\end{definition}
+\begin{remark}
+\begin{itemize}
+\item
+It's not appropriate if we try to define the Lebesgue integral by
+\begin{equation}\label{Eq:9:2}
+\int f\diff m = \inf\left\{\int\phi\diff m\middle| 0\le f\le \phi,\text{$\phi$ is simple}\right\}
+\end{equation}
+The problem is due to the function $f(x) = \frac{1}{\sqrt{x}}$ on $(0,1)$.
+Note that the function values can be arbitrarily large.
+
+Since a simple function takes only finitely many values, every simple function that is bounded below by $f$ has to be infinite on a set of non-zero measure.
+
+Therefore, the integral using your suggested infimum definition would be $\infty$, whereas the usual Lebesgue integral would have a finite value.
+\item
+Also, one can try to define $\int f\diff m$ for non-measurable function $f$. The problem is that 
+\[
+\int(f+g)\diff m\ne\int f\diff m+\int g\diff m\text{ in general}
+\]
+We will see the detailed reason later.
+\end{itemize}
+\end{remark}
+
+\begin{proposition}\label{pro:9:8}
+\begin{itemize}
+\item
+The formula (\ref{Eq:9:1}) and (\ref{Eq:9:2}) matches with each other for any simple functions $\phi\ge0$.
+\item
+For $\alpha\ge0$,
+\[
+\int\alpha f\diff m=\alpha\int f\diff m
+\]
+\item
+If $0\le f\le g$, then
+\[
+\int f\diff m\le\int g\diff m
+\]
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+omitted.
+\end{proof}
+\begin{proposition}[Markov Inequality]
+Suppose that $f:\mathbb{R}\to[0,\infty]$ is measurable, then 
+\[
+m(f^{-1}[\lambda,\infty])\le\frac{1}{\lambda}\int f\diff m
+\]
+\end{proposition}
+\begin{corollary}\label{cor:9:6}
+If $f:\mathbb{R}\to[0,\infty]$ is integrable, then $m(f^{-1}\{\infty\})=0$, i.e., $f$ is finite a.e.
+\end{corollary}
+
+
+\begin{proof}
+\begin{align*}
+m(f^{-1}\{\infty\})\le m(f^{-1}[\lambda,\infty])\le\frac{1}{\lambda}\int f\diff m,\ \forall \lambda\ge0.
+\end{align*}
+Since $\int f\diff m$ is finite, we imply $\frac{1}{\lambda}\int f\diff m$ can be arbitrarily small, i.e., $m(f^{-1}\{\infty\})=0$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

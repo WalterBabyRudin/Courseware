@@ -1,0 +1,556 @@
+
+\chapter{Week6}
+
+\section{Ring}\index{week6_Tuesday_lecture}
+\begin{definition}[Ring]
+A \emph{ring} $R=(R,+,*)$ is a set equipped with \emph{two} binary operations:
+\[
++,*:R\times R\to R,
+\]
+\begin{enumerate}
+\item
+$(R,+)$ is an \emph{abelian} group with an \emph{additive identity} $0$
+\item
+The multiplication $*$ is \emph{associative}, i.e.,
+\[
+(a*b)*c = a*(b*c),\quad
+\forall a,b,c\in R
+\]
+\item
+$R$ satisfies the \emph{distributive laws}: for $\forall a,b,c\in R$, we have
+\begin{enumerate}
+\item
+$a*(b+c) = a*b + a*c$
+\item
+$(a+b)*c = a*c + b*c$
+\end{enumerate}
+\end{enumerate}
+Moreover, if $R$ has a \emph{multiplicative identity} $1\in R$ such that
+\[
+1*a=a*1=a,\forall a\in R,
+\]
+then $R$ is called a \emph{unital ring}.
+\end{definition}
+Question for ring: Does the ring contain the additive inverse?
+\begin{example}
+\begin{enumerate}
+\item
+$\mathbb{Z},\mathbb{Q},\mathbb{R},\mathbb{C}$ are unital rings; $2\mathbb{Z}$ is a ring but not unital: since $1\notin2\mathbb{Z}$
+\item
+The set of polynomials $\mathbb{Z}[x],\mathbb{Q}[x],\mathbb{R}[x],\mathbb{C}[x]$ are \emph{unital rings}
+\item
+$\mathbb{Q}[\sqrt{2}] = \{a+b\sqrt{2}\mid a,b\in\mathbb{Q}\}$ is a unital ring
+\item
+$\bm M_2(\mathbb{Z})$ is a unital ring; $\{\begin{bmatrix}
+a&a\\a&a
+\end{bmatrix}\mid a\in\mathbb{Z}\}$ is also a unital ring (Question?)
+\item
+$\mathcal{C}[a,b]$ is a unital ring
+\item
+$(\mathbb{N},+,*)$ is \emph{not} a ring. (Question? Is the set $\mathbb{N}$ not containing $0$?)
+\end{enumerate}
+\end{example}
+\begin{remark}
+\begin{enumerate}
+\item
+We write $ab$ for $a*b$
+\item
+The additive identity $0$ for $R$ is \emph{unique}
+\item
+The additive inverse for any $r\in R$ is \emph{unique} (we pre-assume its existence)
+\item
+\emph{Commutativity} is required for addition but not necessarily for multiplication
+\item
+Each element in $R$ has an additive inverse, but not necessarily a multiplicative inverse, i.e., $\exists a\in R$ such that $ab\ne1$ for $\forall b\in R$.
+\end{enumerate}
+\end{remark}
+\begin{proposition}
+Each \emph{unital} ring $R$ contains a unique additive identity and a unique multiplicative identity
+\end{proposition}
+\begin{proof}
+It suffices to show the uniqueness of multiplicative identity. Suppose $r_1,r_2$ are two multiplicative identity of $R$, then $r_1=r_1r_2=r_2$.
+\end{proof}
+\begin{proposition}
+If $r\in R$ has a multiplicative inverse $r^{-1}$, then $r^{-1}$ is unique.
+\end{proposition}
+\begin{proof}
+Suppose $r_1^{-1},r_2^{-1}$ are two multiplicative inverse of $r$, then $rr_1^{-1}=rr_2^{-1}=1$, which follows that
+\[
+r_1^{-1} = r_1^{-1} (rr_2^{-1})=(r_1^{-1}r)r_2^{-1}=r_2^{-1}
+\]
+\end{proof}
+\begin{proposition}
+For each $r\in R$, we have $0r=r0=0$.
+\end{proposition}
+\begin{proof}
+By distributive laws,
+\[
+0r=(0+0)r=0r+0r,
+\]
+which follows that
+\[
+0=(0r+0r)+(-0r) = 0r+(0r+(-0r))=0r+0=0r.
+\]
+Question: Why not left-adding the term $0r$?
+
+Similarly, we have $r0=0$.
+\end{proof}
+
+\begin{proposition}
+For each $r\in R$, we have $(-1)(-r) = (-r)(-1)=r$.
+\end{proposition}
+\begin{proof}
+Consider the equation
+\[
+0 = 0(-r) = (1+(-1))(-r) = -r + (-1)(-r),
+\]
+which follows that $(-1)(-r)=r$.
+
+Similarly, $(-r)(-1)=r$.
+\end{proof}
+\begin{proposition}
+For each $r\in R$, we have $(-1)r=r(-1)=-r$.
+\end{proposition}
+\begin{proof}
+Consider the equation
+\[
+0=0r=(1+(-1))r=r+(-1)r
+\]
+which follows that $-r=(-1)r$
+\end{proof}
+
+\begin{proposition}
+If a ring $R$ contains only a single element, then $R=\{0\}$. We call such $R$ a \emph{zero} ring.
+\end{proposition}
+\begin{proposition}
+Let $R$ be a set with binary operations $+$ and $*$ such that $(R,+)$ is a group; $(R,*)$ is a monoid (i.e., associative and identity); $(R,+,*)$ satisfies the distributive laws. Then $+$ is commutative.
+\end{proposition}
+\begin{proof}
+Note that
+\begin{align*}
+(1+1)(x+y)&=(x+y)+(x+y)=x+y+x+y\\
+&=(1+1)x+(1+1)y=x+x+y+y
+\end{align*}
+\end{proof}
+
+\begin{definition}[Commutative]
+A ring $R$ is \emph{commutative} if its multiplication is \emph{commutative}:
+\[
+ab = ba,\forall ab\in R
+\]
+\end{definition}
+\begin{example}
+\begin{enumerate}
+\item
+$\mathbb{Z},\mathbb{Q},\mathbb{R},\mathbb{C}$ are commutative rings, and so are $\mathbb{Z}[x],\mathbb{Q}[x],\mathbb{R}[x],\mathbb{C}[x]$.
+\item
+The ring $\bm M_n(\mathbb{Z})$ is not commutative for $n>2$ (Question: is $n=2$ ok?)
+\end{enumerate}
+\end{example}
+\subsection{Modular Arithmetic}
+\begin{definition}[Congruent modulo]
+Let $m\in\mathbb{Z}^+$. Then for $\forall a,b\in\mathbb{Z}$, we say they are \emph{congruent modulo} $m$ if $m\mid(a-b)$, i.e., $a\equiv b(\bmod m)$.
+\end{definition}
+This modular congruent defines an equivalence relation on $\mathbb{Z}$.
+\begin{remark}
+\begin{enumerate}
+\item
+Consider the set $\mathbb{Z}_m=\{0,1,2,\dots,m-1\}$. For each $n\in\mathbb{Z}$, let $\bar n$ denote the remainder of $n$ divided by $m$, and therefore $\bar n\in\mathbb{Z}_m$. Here $\mathbb{Z}_m$ can be viewed as a collection of equivalence class representatives, i.e., for $\forall a\in\mathbb{Z}$, it congruent modulo $m$ to unique one element in $\mathbb{Z}_m$
+\item
+Define the operations
+\begin{align*}
+\bar{a}+\bar{b}&=\overline{a+b}\\
+\bar{a}*\bar{b}&=\overline{a*b}
+\end{align*}
+We can verify these operations are well-defined. Note that $(\mathbb{Z}_m,+)$ is a group; but $(\mathbb{Z}_m,*)$ is not necessarily a group, since the inverse of some element does not exist.
+\item
+Unless otherwise mentioned,
+\begin{itemize}
+\item
+$(\mathbb{Z}_m,+)$ denotes a group
+\item
+$(\mathbb{Z}_m,+,*)$ denotes a ring.
+\end{itemize}
+\item
+The modular congruence classes corresponds to the \emph{cosets} of $m\mathbb{Z}$ of $\mathbb{Z}$, and therefore $\mathbb{Z}/m\mathbb{Z}\cong\mathbb{Z}_m$.
+\end{enumerate}
+\end{remark}
+
+\begin{proposition}
+$(\mathbb{Z}_m,+,*)$ is a unital commutative ring.
+\end{proposition}
+\begin{proof}
+We have shown $(\mathbb{Z}_m,+)$ is a group. It suffices to show $(\mathbb{Z}_m,*)$ is a commutative monoid, and the distributive laws:
+\begin{enumerate}
+\item
+The associativity of multiplication is clear; the multiplication is commutative is easy to verify; the multiplicative identity is $1$
+\item
+\[
+\bar a*(\bar b+\bar c)=\bar a*\overline{b+c}=\overline{a*(b+c)}=\bar{ab}+\bar{ac}=\bar{a}*\bar{b}+\bar{a}*\bar{c}
+\]
+The commutativity gives another distributive law.
+
+\end{enumerate}
+
+
+\end{proof}
+\begin{proposition}
+Let $m\in\mathbb{Z}^+$, suppose $a\equiv c(\bmod m)$ and $b\equiv d(\bmod m)$, then
+\[
+\begin{array}{ll}
+a+b\equiv c+d(\bmod m),
+&
+ab\equiv cd(\mod m)
+\end{array}
+\]
+\end{proposition}
+\begin{proof}
+Since $x\equiv x'(\bmod m)$ iff $\bar{x}=\bar{x'}$; immediately we have
+\[
+\overline{a+b}=\bar a+\bar b=\bar c+\bar d=\overline{c+d};
+\]
+the other equality follows similarly.
+\end{proof}
+
+\subsection{Rings of Polynomials}
+\begin{definition}[polynomial over rings]
+Let $R$ be a \emph{commutative} ring. A \emph{polynomial} (in a variable $x$) over $R$ is a formal sum
+\[
+f(x)=\sum_{i=0}^na_ix^i
+\]
+with $a_i\in R$ and $n=0$ or the leading coefficient $a_n\ne0$. 
+\begin{enumerate}
+\item
+Here the degree of $f(x)$ is $\mbox{deg}(f)=n$
+\item
+$R[x]$ denotes the set of all polynomials over $R$.
+\item
+The addition and multiplication for any two elements $f:=\sum_{i=0}^ma_ix^i,g:=\sum_{i=1}^nb_ix^i$ in $R$ is given by:
+\begin{align*}
+f+g&:=\sum_{i=0}^{\max\{m,n\}}(a_i+b_i)x^i\\
+fg&:=\sum_{i=0}^{m+n}(\sum_{j+k=i}a_jb_k)x^i
+\end{align*}
+\end{enumerate}. 
+\end{definition}
+\begin{proposition}
+With $R$ defined above, ($R[x],+,*$) is a commutative ring.
+\end{proposition}
+\begin{proof}
+Note that $(R[x],+)$ forms an abelian group. 
+\begin{enumerate}
+\item
+The multiplication is associative
+\item
+$(R[x],*)$ has an identity element $f:=1$
+\item
+The multiplication is commutative
+\item
+The distributive laws are satisfied
+\end{enumerate}
+
+\end{proof}
+
+\begin{remark}
+A polynomial $f$ defines a function $f:R\to R$ by $a\mapsto f(a),$ but $f$ may not be determined by $f:R\to R$, e.g.,
+\[
+f(x)=1+x+x^2,g(x)=1,
+\]
+with the argument defined on $\mathbb{Z}_2$.
+\end{remark}
+\begin{proposition}
+Find a nonzero function $f(x)\in\mathbb{Z}_6[x]$ such that $f(x)\equiv0$, i.e., $f(x)=0$ for all $x\in\mathbb{Z}_6$.
+\end{proposition}
+\begin{proof}
+\[
+f(x) = x(x-1)(x-2)(x-3)(x-4)(x-5)
+\]
+\end{proof}
+Question: abuse of notation for $\mathbb{Z}_6[x]$.
+
+\subsection{Integral Domains and Fields}
+\begin{definition}[Integral Domain]
+Let $D$ be a ring. A \emph{nonzero} $r\in D$ is called a \emph{zero divisor} if there exists a non-zero $s\in D$ such that $rs=0$ or $sr=0$. If $D$ has no zero divisors, then $D$ is called a \emph{domain}. A \emph{domain} that is a \emph{commutative ring} is an \emph{integral domain}.
+\end{definition}
+\begin{example}
+\begin{enumerate}
+\item
+$\mathbb{Z},\mathbb{Q},\mathbb{R},\mathbb{C}$ are all integral domains, and so are $\mathbb{Z}[x],\mathbb{Q}[x],\mathbb{R}[x],\mathbb{C}[x]$. $R$ is an integral domain iff $R[x]$ is an integral domain.
+\item
+$\mathbb{Z}_6$ is \emph{not} an integral domain since $2*3\equiv0(\bmod 6)$. Thus $\mathbb{Z}_m$ is an integral domain iff $m$ is a prime.
+\item
+Let $R=C[-1,1]$, then $R$ is not a integral domain. Consider piecewise function.
+
+\end{enumerate}
+\end{example}
+\begin{proposition}
+Let $D$ be a commutative ring, then the followings are equivalent:
+\begin{enumerate}
+\item
+$D$ is an integral domain
+\item
+For $\forall$ nonzero $a,b\in D$, we have $ab\ne0$
+\item
+$D$ satisfies the \emph{cancellation law}:
+\[
+ca=cb,c\ne0\implies 
+a=b
+\]
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+It is clear that (1) is equivalent to (2);
+
+For (1) implies (3): If $ca=cb$, then by distributive laws:
+\[
+c[a+(-b)]=ca+c(-b)=cb+c(-b)=c[b+(-b)]=0,
+\]
+which implies $c=0$ or $a+(-b)=0$ by applying the definition of integral domain, which implies $a=b$.
+
+For (3) implies (1): suppose there exists nonzero $a,b\in D$ such that $ab=0$. Note that $0=a0$, which implies
+\[
+ab=a0\implies b=0,
+\]
+which is a contradiction.
+\end{proof}
+\begin{remark}
+The proposition above can be generalized into non-commutative rings. Question.
+\end{remark}
+\begin{definition}
+Let $R$ be a ring, then an element $a\in R$ is called a \emph{unit} if it has a \emph{multiplicative inverse} $a^{-1}\in R$ such that $aa^{-1}=a^{-1}a=1$.
+\end{definition}
+Question: Does such a ring \emph{unital}?
+\begin{example}
+\begin{enumerate}
+\item
+The only units of $\mathbb{Z}$ are $\pm1$
+\item
+Let $R:=\mathcal{F}(\mathbb{R})$, then a function $f\in R$ is a unit iff
+\[
+f(x)\ne0,\forall x\in\mathbb{R}
+\]
+\item
+Let $R:=\mathcal{C}(\mathbb{R})$, then $f\in R$ is a unit iff it is either \emph{strictly positive} or \emph{strictly negative}.
+
+\end{enumerate}
+\end{example}
+\begin{proposition}
+The only units of $\mathbb{Q}[x]$ are \emph{nonzero constants}.
+\end{proposition}
+\begin{proof}
+Take $f\in\mathbb{Q}[x]$ with $\mbox{deg}(f)\ge1$, aruge that $f$ cannot be unit. Then argue $f=0$ can not. For nonzero constant $f$, construct $g=1/f$ to be the inverse.
+\end{proof}
+\begin{definition}[Division Ring]
+A \emph{division ring} $R$ is a ring that all its nonzero elements are units; furthermore, if $R$ is also commutative, then $R$ is a field.
+\end{definition}
+\begin{example}
+\begin{enumerate}
+\item
+$\mathbb{Q},\mathbb{R},\mathbb{C}$ are fields, but $\mathbb{Z}$ is not
+\item
+$\mathbb{Q}[x],\mathbb{R}[x],\mathbb{C}[x]$ are not division rings.
+\item
+The \emph{quaternions}
+\[
+\mathbb{H}:=\{a+bi+cj+dk\mid a,b,c,d\in\mathbb{R},i^2=j^2=k^2=ijk=-1\}
+\]
+is a division ring with the usual addition and multiplication, but not a field.
+\end{enumerate}
+\end{example}
+\begin{proposition}
+A field is an integral domain.
+\end{proposition}
+\begin{proof}
+Assume not, then $rs=0$ implies $r^{-1}rss^{-1}=0$, which is a contradiction.
+\end{proof}
+\begin{proposition}
+Let $m\in\mathbb{Z}^+,k\in\mathbb{Z}_m^{\#}:=\mathbb{Z}_m\setminus\{0\}$. Let $d=\mbox{gcd}(k,m)$
+\begin{enumerate}
+\item
+If $d=1$, then $k$ is a unit.
+\item
+If $d>1$, then $k$ is a zero divisor.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+\item
+If $d=1$, there exists $a,b\in\mathbb{Z}$ such that
+\[
+ak+bm=1\implies \bar{a}\cdot k=1\implies\mbox{$k$ is a unit}
+\]
+If $d>1$, then $k=hd$ for some $h\in\mathbb{Z}_m$, which implies
+\[
+k\cdot(m/d)=hm=0,
+\]
+where $m/d\in\mathbb{Z}_m$
+\end{enumerate}
+\end{proof}
+The results are summarized as follows:
+\begin{align*}
+\{\mbox{zero divisors in }\mathbb{Z}_m\}&=\{k\in\mathbb{Z}_m^{\#}\mid\mbox{gcd}(k,m)>1\}\\
+\{\mbox{units in }\mathbb{Z}_m\}&:=\mathbb{Z}_m^*=\{k\in\mathbb{Z}_m^{\#}\mid\mbox{gcd}(k,m)=1\}
+\end{align*}
+\begin{proposition}
+$(\mathbb{Z}_m^*,\cdot)$ forms a group, called the group of units in $\mathbb{Z}_m$.
+\end{proposition}
+
+\begin{corollary}
+$\mathbb{Z}_m$ is a field iff $m$ is prime.
+\end{corollary}
+For each prime $p$, the field $\mathbb{Z}_p$ can be written as $\mathbb{F}_q$
+\begin{definition}[Euler's phi function]
+$\phi(n):=|\mathbb{Z}_n^*|$ is called the Euler's phi function, which denotes the number of units in the ring $\mathbb{Z}_m$.
+\end{definition}
+\begin{theorem}[Euler's Theorem]
+Let $n\in\mathbb{Z}^+,a\in\mathbb{Z}_n^*$ be such that $\mbox{gcd}(a,n)=1$. Then $a^{\phi(n)}\equiv1(\bmod n)$.
+\end{theorem}
+\begin{proof}
+It's clear that $\bar{a}\in\mathbb{Z}_n^*$. Suppose $\mathbb{Z}_n^*=\{u_1,\dots,u_{\phi(n)}\}$, and therefore
+\[
+u_{1}\bar a\cdots u_{\phi(n)}\bar a\equiv u_1\cdots u_{\phi(n)}(\bmod n),
+\]
+which implies $a^{\phi(n)}\equiv (u_1\cdots u_{\phi(n)})^2\equiv1(\bmod n)$
+\end{proof}
+\begin{proposition}
+Let $F=\mathbb{Q}[\sqrt{2}]=\{a+b\sqrt{2}\mid a,b\in\mathbb{Q}\}$, then $F$ is a field.
+\end{proposition}
+Question: A field $F$ can be equivalent to:
+\begin{enumerate}
+\item
+closed addition and multiplication
+\item
+Identity and inverse for addition and multiplication
+\item
+Associativity of $*$
+\item
+Distributive law
+\end{enumerate}
+\begin{proof}
+For the multiplicative inverse,
+\[
+(a+b\sqrt{2})=\frac{a}{a^2-2b^2}-\frac{b}{a^2-2b^2}\sqrt{2}
+\]
+\end{proof}
+\begin{proposition}
+Every finite integral domain $D$ with $1_D$ is a field
+\end{proposition}
+\begin{proof}
+Consider $aa_i=aa_j$ iff $i=j$ by applying the distributive law
+\end{proof}
+
+\begin{proposition}
+Every finite integral domain $D$ contains a multiplicative identity $1_D$
+\end{proposition}
+\begin{proof}
+\[
+xa^n=xa^m\implies xa^{n-m}=x
+\]
+\end{proof}
+\begin{definition}[Characteristic]
+Let $R$ be a ring. For each $n\in\mathbb{N},a\in R$, define
+\[
+\begin{array}{ll}
+n\circ a=\underbrace{a+\cdots+a}_{\text{$n$ terms}},
+&
+0\circ a = 0_R
+\end{array}
+\]
+then $n$ is called the \emph{characteristic} of the ring $R$; if such $n$ does not exist, then $R$ is of characteristic $0$. The characteristic of $R$ is denoted as $\mbox{char}(R)$. If $R=F$ is a field, then $\mbox{char}(F)$ is the \emph{characteristic} of the field $F$.
+\end{definition}
+\begin{example}
+\[
+\mbox{char}(\mathbb{Z}_n)=n
+\]
+\[
+\mbox{char}(\mathbb{Z})=\mbox{char}(\mathbb{Q})=\mbox{char}(\mathbb{R})=\mbox{char}(\mathbb{C})=0
+\]
+\end{example}
+\begin{proposition}
+The characteristic of an integral domain is either 0 or a prime,
+\end{proposition}
+\begin{proof}
+Consider 
+\[
+(m\circ a)*(n\circ a)=(m*n)\circ a=0
+\]
+which implies $k\circ a=0$ or $l\circ a=0$.
+\end{proof}
+Question: multiplication?
+
+
+\begin{theorem}
+Let $R$ be a \emph{unital} ring. If there exists a smallest $n\in\mathbb{Z}^+$ such that $n\circ 1=0$, then $\mbox{char}(R)=0$, otherwise $\mbox{char}(R)=0$
+\end{theorem}
+\begin{proof}
+Suppose there exists, then $\mbox{char}(R)\ge n$.
+\[
+n\circ a=a(1+\cdots+1)=a*(n\circ1)=0
+\]
+thus $\mbox{char}(R)\le n$.
+\end{proof}
+
+\subsection{Field of fractions}
+To make up a integral domain to be a field, we need to add some extra elements.
+\paragraph{Equivalence relation}
+Let $R$ be an integral domain and $S:=\{(a,b)\mid a,b\in R,b\ne0\}$
+\[
+(a,b)\sim(c,d)\mbox{ iff }ad=bc
+\]
+Define
+\[
+(a,b)+(c,d)=(ad+bc,bd);(a,b)*(c,d)=(ac,bd)
+\]
+
+\begin{proposition}
+Suppose $(a,b)\sim(a',b')$ and $(c,d)\sim(c',d')$, then
+\[
+(a,b)+(c,d)\sim(a',b')+(c',d'),\qquad
+(a,b)*(c,d)\sim(a',b')*(c',d')
+\]
+\end{proposition}
+\begin{definition}[Quotient set]
+Equipped with $(S,\sim)$, we define \emph{quotient} set $S/\sim$ to be the set of all equivalence classes of $S$ w.r.t. $\sim$
+\end{definition}
+
+
+\begin{example}
+For $\sim$ on $\mathbb{Z}$ s.t. $a\sim b$ iff $a\equiv b(\bmod 2)$, we have
+\[
+\mathbb{Z}/\sim  = \{2\mathbb{Z},2\mathbb{Z}+1\}
+\]
+\end{example}
+\begin{definition}[Fraction field]
+Equipped with $(S,\sim)$, where $S=\{(a,b)\mid a,b\in R,b\ne0\}$, we define \emph{fraction field} of $R$ to be the set $\mbox{Frac}(R):=S/\sim$, with the operation
+\begin{align*}
+[(a,b)]+[(c,d)]&=[(ad+bc,bd)]\\
+[(a,b)]*[(c,d)]&=[(ac,bd)]
+\end{align*}
+\end{definition}
+
+
+\begin{proposition}
+Let $R$ be an integral domain, then $\mbox{Frac}(R)$ forms a field with additive identity $0=[(0,1)]$ and the multiplicative identity $1=[(1,1)]$. The multiplicative inverse of a non-zero element $[(a,b)]\in\mbox{Frac}(R)$ is $[(b,a)]$
+\end{proposition}
+\begin{remark}
+When $R=\mathbb{Z}$, we find $[(a,b)]\in\mbox{Frac}(\mathbb{Z})$ since $a/b\in\mathbb{Q}$, and therefore $\mbox{Frac}(\mathbb{Z})\cong\mathbb{Q}$
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

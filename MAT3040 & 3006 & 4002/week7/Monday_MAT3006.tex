@@ -1,0 +1,224 @@
+\section{Monday for MAT3006}\index{Monday_lecture}
+Our first mid-term will be held on this Wednesday.
+\paragraph{Reviewing}
+In last lecture, we mainly talk about
+\begin{itemize}
+\item
+The extended real line
+\item
+Definition for limsup and liminf
+\item
+For interval $I$ of the form $(a,b)$, $[a,b)$, $(a,b]$ or $[a,b]$, we define
+\[
+m(I) := b-a
+\]
+\item
+We constructed a kind of function to measure the length of a given subset $E\subseteq\mathbb{R}$:
+\[
+m^*(E)=\inf\left\{
+\sum_{n=1}^\infty m(I_n)\middle|
+E\subseteq\bigcup_{n=1}^\infty I_n,\ \text{$I_n$ are open intervals}
+\right\}
+\]
+which is called the \emph{outer measure}.
+
+\end{itemize}
+\subsection{Remarks on the outer measure}
+\begin{proposition}\label{pro:7:8}
+\begin{enumerate}
+\item
+$m^*(\phi)=0$, $m^*(\{x\})=0$.
+\item
+$m^*(E+x) = m^*(E)$
+\item
+$m^*(I) = b-a$, where $I$ denotes any interval with endpoints $a$ or $b$.
+\item
+If $A\subseteq B$, then $m^*(A)\le m^*(B)$
+\item
+$m^*(kE) = |k|m^*(E)$
+\item
+$m^*(\cup_{m=1}^\infty E_n)\le \sum_{n=1}^\infty m^*(E_n)$ for subsets $E_n\subseteq\mathbb{R}$
+\end{enumerate}
+\end{proposition}
+\begin{remark}
+The trick in the proof to show $x\le y$ is by the argument $x\le y+\varepsilon,\forall \varepsilon>0$.
+\end{remark}
+(1),(2),(5) is clear.
+(4) is by one-line argument: 
+
+Suppose that $B\subseteq\cup_{n=1}^\infty I_n$, then $A\subseteq\cup_{n=1}^\infty I_n$.
+
+\begin{proof}[Proof for (3)]
+Consider $m^*([a,b])$ first. The proof for $m^*([a,b])\le b-a$ is by explicitly constructing a sequence of open intervals:
+\[
+[a,b]\subseteq(a-\frac{\varepsilon}{2},b+\frac{\varepsilon}{2})\cup(a,a)\cup\cdots
+\]
+It follows that 
+\begin{align*}
+m^*([a,b])&\le m((a-\frac{\varepsilon}{2},b+\frac{\varepsilon}{2}))+0+\cdots+0\\&=(b-a)+\varepsilon,\ \forall\varepsilon>0
+\end{align*}
+In particular, $m^*([a,b])\le b-a$.
+
+Conversely, the proof for $b-a\le m^*([a,b])$ is by implicitly constructing a sequence of open interval via the infimum. For all $\varepsilon>0$, there exists $I_n, \ n\in\mathbb{N}$ such that
+\[
+[a,b]\subseteq \cup_{n=1}^\infty I_n,\qquad
+\sum_{n=1}^\infty m(I_n)\le m^*([a,b])+\varepsilon.
+\]
+By Heine-Borel Theorem, there exists finite subcover 
+$[a,b]\subseteq \cup_{n=1}^k I_n$.
+Let $I_n = (\alpha_n,\beta_n)$, consider $\alpha:=\min\{\alpha_n\mid a\in I_n\}$ and $\beta:=\max\{\beta_n\mid b\in I_n\}$.
+Then we imply 
+\[
+[a,b]\subseteq(\alpha,\beta)\subseteq \cup_{n=1}^kI_n.
+\]
+It's clear that $\beta - \alpha\le \sum_{n=1}^km(I_n)$, which follows that
+\[
+b-a\le \beta-\alpha\le \sum_{n=1}^km(I_n)\le\sum_{n=1}^\infty m(I_n)\le m^*([a,b])+\varepsilon
+\]
+The proof is complete.
+
+The other cases of (3) follows similarly. For example, $m^*((a,b))$ can be lower bounded as: 
+\[
+m^*((a,b))+\varepsilon\ge m^*([a+\frac{\varepsilon}{2},b-\frac{\varepsilon}{2}])+\varepsilon=b-a
+\]
+\end{proof}
+\begin{proof}[Proof for (6)]
+The case for which $m^*(E_n)=\infty$ for some $n$ is trivial, since both sides clearly equal to infinite.
+Consider the case where $m^*(E_n)<\infty$ only.
+
+By definition, for each $E_n$ we can find $\{I_{n,k}\}_{k=1}^\infty$ such that 
+\[
+\begin{array}{ll}
+E_n\subseteq\cup_{k=1}^\infty I_{n,k},
+&
+\sum_{k=1}^\infty m(I_{n,k})\le m^*(E_n) + \frac{\varepsilon}{2^n}.
+\end{array}
+\]
+It follows that
+\begin{itemize}
+\item
+$\cup_{n=1}^\infty\cup_{k=1}^\infty I_{n,k}$ is a countable open cover of $\cup_{n=1}^\infty E_n$, i.e.,
+\[
+m^*(\cup_{n=1}^\infty E_n)\le \sum_{n,k}m(I_{n,k})
+\]
+\item
+\[
+\sum_{n,k}m(I_{n,k})\le \sum_{n=1}^\infty m^*(E_n)+\varepsilon
+\]
+\end{itemize}
+The proof is complete.
+\end{proof}
+The natural question is that when does the equality in (6) holds? 
+We will study it in next week. 
+
+\begin{definition}[Null Set]
+The set $E\subseteq\mathbb{R}$ is a \emph{null set} if
+$m^*(E)=0$.
+\end{definition}
+Null sets are the set of points which we can ``ignore'' when consider the length for sets.
+
+\begin{corollary}
+\begin{enumerate}
+\item
+If $E$ is null, so is any subset $E'\subseteq E$
+\item
+If $E_n$ is null for all $n\in\mathbb{E}$, so is $\cup_{n=1}^\infty E_n$
+\item
+All countable subsets of $\mathbb{R}$ are null.
+\end{enumerate}
+\end{corollary}
+\begin{proof}
+(1) follows from (4) in proposition~(\ref{pro:7:8});
+(2) follows from (6) in proposition~(\ref{pro:7:8});
+(3) follows from (1) and (6) in proposition~(\ref{pro:7:8}).
+\end{proof}
+
+In the remaining of this lecture let's discuss two interesting questions:
+\begin{enumerate}
+\item
+Are there any uncountable null sets?
+\item
+Both ``null'' and ``meagre'' is small.
+Is null = meagre?
+\end{enumerate}
+The classic example, cantor set is meagre, null, and uncountable:
+
+\begin{example}[Cantor Set]
+Starting from the interval $C_0=[0,1]$, one delete the open middle third $(1/3,2/3)$ from $C_0$, leaving two line segments: 
+\[
+C_1=[0,1/3]\cup[2/3,1].
+\]
+Next, the open middle third of each of these remaining segments is deleted, leaving four line segments:
+\[
+C_2=[0,1/9]\cup[2/9,1/3]\cup[2/3,7/9]\cup[8/9,1].
+\]
+Continuing this process infinitely, and define
+$C=\cap_{n=1}^\infty C_n$.
+\begin{enumerate}
+\item
+The cantor set $C$ is null, since $C\subseteq C_n$  for all $n$, i.e.,
+\[
+m^*(C)\le m^*(C_n) = (2/3)^n,\ \forall n\implies
+m^*(C)=0.
+\]
+\item
+The cantor set $C$ is uncountable:
+every element in $C$ can be expressed uniquely in ternary expression, i.e., only use 0,1,2 as digits.
+Suppose on the contrary that $C$ is countable, i.e., $C=\{c_n\}_{n\in\mathbb{N}}.$
+Then construct a new number such that $c\notin \{c_n\}_{n\in\mathbb{N}}$ by diagonal argument.
+\item
+$C$ is nowhere dense, i.e., $C$ is meagre:
+\begin{enumerate}
+\item
+Firstly, $C$ is closed, since intersection of closed sets is closed.
+\item
+Suppose on the contrary that $(\alpha,\beta)\subseteq C$ for some open interval $(\alpha,\beta)$, then 
+$(\alpha,\beta)\subseteq C_n = \sqcup_{k=1}^{2^n}[a_{n,k},b_{n,k}]$ for all $n$.
+Therefore, for any fixed $n$, $(\alpha,\beta)\subseteq[a_{n,k},b_{n,k}]$ for some $k$, which implies
+\[
+\beta-\alpha<b_{n,k} - a_{n,k}=\frac{1}{3^n},\ \forall n\in\mathbb{N}
+\]
+Therefore, $\beta-\alpha=0$, which is a contradiction.
+\end{enumerate}
+\end{enumerate}
+\end{example}
+\begin{remark}
+However, the answer for the second question is no.
+There exists a mergre set $S$ with $m^*(S)=\infty$; 
+and also a null set that is co-meagre.
+The construction of these examples are left as exercise.
+\end{remark}
+
+The outer measure $m^*$ is a special measure of the length of a given subset. Now we define the generalized measure of length:
+\begin{definition}[Measure]
+A meaasure of length for all subsets in $\mathbb{R}$ is a function $m$ satisfying
+\begin{enumerate}
+\item
+$m(\emptyset) = m(\{x\})=0$
+\item
+$m(\{a,b\}) = b-a$
+\item
+$m(A+x) = m(A),\forall x\in\mathbb{R}$
+\item
+If $A\subseteq B$, then $m(A)\le m(B)$
+\item
+$m(kA) = |k|m(A)$
+\item
+If $E_i\cap E_j = \emptyset,\forall i\ne j$, then 
+\[
+\sum_{i=1}^\infty m(E_i) = m(\cup_{i=1}^\infty E_i)
+\]
+\end{enumerate}
+\end{definition}
+Question: $m^*$ satisfies (1) to (5), does $m^*$ satisfies $(6)$ for any subsets? In other words, is outer measure the special case of the definition of measure?
+
+Answer: no.
+
+
+
+
+
+
+
+
+

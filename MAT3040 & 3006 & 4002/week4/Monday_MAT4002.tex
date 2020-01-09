@@ -1,0 +1,235 @@
+\section{Monday for MAT4002}\index{Monday_lecture}
+There will be a quiz next Monday. The scope is everything before CNY holiday. There will be one question with four parts for 40 minutes.
+\subsection{Hausdorffness}
+\paragraph{Reviewing}
+A topological space $(X,\mathcal{T})$ is said to be \emph{Hausdorff} (or satisfy the second separtion property), if given any distinct points $x,y\in X$, there exist disjoint open sets $U,V$ such that $U\ni x$ and $V\ni y$.
+
+\begin{proposition}
+If the topological space $(X,\mathcal{T})$ is Hausdorff,
+then all sequences $\{x_n\}$ in $X$ has at most one limit.
+\end{proposition}
+\begin{proof}
+Suppose on the contrary that 
+\[
+\{x_n\}\to a,\quad
+\{x_n\}\to b,\text{ with }a\ne b
+\]
+By separation property, there exists 
+$U,V\in\mathcal{T}$ and $U\cap V=\emptyset$ 
+such that $U\ni a$ and $V\ni b$.
+
+By tje openness of $U$, there exists $N$ such that $\{x_N,x_{N+1},\dots\}\subseteq U$, since $\{x_n\}\to a\in U$. Similarly, there exists $M$ such that $\{x_M,x_{M+1},\dots\}\subseteq V$. Take $K=\max\{M,N\}+1$, then $\emptyset\ne U\cap V\ni x_K$, which is a contradiction.
+\end{proof}
+
+\begin{proposition}
+Let $X,Y$ be Hausdorff spaces. Then $X\times Y$ is Hausdorff with product topology.
+\end{proposition}
+\begin{proof}
+Suppose that $(x_1,y_1)\ne (x_2,y_2)$ in $X\times Y$.
+Then $x_1\ne x_2$ or $y_1\ne y_2$.
+w.l.o.g., assume that $x_1\ne x_2$, then there exists $U,V$ open in $X$ such that
+$x_1\in U, x_2\in V$ with $U\cap V=\emptyset$.
+
+Therefore, we imply $(U\times Y), (V\times Y)\in\mathcal{T}_{X\times Y}$, and
+\[
+(U\times Y)\cap(V\times Y) = (U\cap V)\cap Y=\emptyset
+\]
+with $(x_1,y_1)\in U\times Y, (x_2,y_2)\in V\times Y$, i.e., $X\times Y$ is Hausdorff with product topology.
+\end{proof}
+The same argument applies if the second separation property is replaced by first separation property.
+
+\begin{proposition}
+If $f:X\to Y$ is an injective continuous mapping, then $Y$ is Hausdorff implies $X$ is Hausdorff.
+\end{proposition}
+\begin{proof}
+Suppose that $Y$ satisfies the second separation property. For given $a\ne b$ in $X$, we imply $f(a)\ne f(b)$ in $Y$. Therefore, there exists $U\ni f(a),V\ni f(b)$ with $U\cap V=\emptyset$. It follows that
+\[
+\begin{array}{ll}
+a\in f^{-1}(U),b\in f^{-1}(V),
+&
+f^{-1}(U)\cap f^{-1}(V) = f^{-1}(U\cap V)=\emptyset,
+\end{array}
+\]
+i.e., $X$ is Hausdorff.
+\end{proof}
+
+\begin{corollary}
+If $f:X\to Y$ is homeomorphic, then $X$ is Hausdorff iff $Y$ is Hausdorff, i.e., 
+Hausdorffness is a topological property 
+(i.e., a property that is preserved under homeomorphism).
+\end{corollary}
+
+\subsection{Connectedness}
+\begin{definition}[Connected]
+The topological space $(X,\mathcal{T})$ is \emph{disconnected} if there are open $U,V\in\mathcal{T}$ such that
+\begin{equation}\label{Eq:3:13}
+\begin{array}{lll}
+U\ne\emptyset,
+V\ne\emptyset,
+&
+U\cap V=\emptyset,
+&
+U\cup V = X.
+\end{array}
+\end{equation}
+If no such $U,V\in\mathcal{T}$ exist, then $X$ is \emph{connected}.
+\end{definition}
+
+\begin{proposition}
+Let $(X,\mathcal{T})$ be topological spaces.
+TFAE (i.e., the followings are equivalent):
+\begin{enumerate}
+\item
+$X$ is connected
+\item
+The \emph{only} subset of $X$ which are both open and closed are $\emptyset$ and $X$
+\item
+Any continuous function $f:X\to\{0,1\}$ ($\{0,1\}$ is equipped with discrete topology) is a constant function.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(1) implies (2): Suppose that $U\subseteq X$ is both open and closed. 
+Then $U,X\setminus U$ are both open and disjoint, and $U\cup(X\setminus U) = X$.
+By connnectedness, either $U=\emptyset$ or $X\setminus U=\emptyset$.
+Therefore, $U=\emptyset$ or $X$.
+
+(2) implies (3): 
+Note that  $U = f^{-1}(\{0\})$ and $V = f^{-1}(\{1\})$ are open disjoint sets in $X$ satisfying $U\cup V = X$.
+By the connectedness of $X$, either $(U,V)=(X,\emptyset)$ or $(V,U)=(\emptyset,X)$. In either case, we imply $f$ is a constant function.
+
+
+(3) implies (2): 
+Suppose that $U\subseteq X$ is both open and closed. 
+Construct the mapping
+\[
+f(x) = \left\{
+\begin{aligned}
+0,&\quad x\in U\\
+1,&\quad x\in X\setminus U
+\end{aligned}
+\right.
+\]
+It's clear that $f$ is continuous, and therefore $f(x)=0$ or $1$. 
+Therefore $U=\emptyset$ or $X$.
+
+(2) implies (1): Suppose on the contrary that there exists open $U,V$ such that (\ref{Eq:3:13}) holds. By (\ref{Eq:3:13}), we imply $U=X\setminus V$ is closed as well. Since $U\ne\emptyset$ and $U=\emptyset$ or $X$, we imply $U=X$, which implies $V=\emptyset$, which is a contradiction.
+\end{proof}
+
+\begin{corollary}
+The interval $[a,b]\subseteq\mathbb{R}$ is connnected
+\end{corollary}
+\begin{proof}
+Suppose on the contrary that there exists continuous function $f:[a,b]\to\{0,1\}$ that takes 2 values. Construct the mapping $\tilde f:[a,b]\to\mathbb{R}$
+\[
+\begin{array}{ll}
+&\tilde f:
+[a,b]
+\xrightarrow{f}\{0,1\}
+\xrightarrow{i}
+\mathbb{R},\\
+\text{with}&\tilde{f} = i\circ f.
+\end{array}
+\]
+Note that $\{0,1\}\subseteq \mathbb{R}$ denotes the subspace topology, we imply the inclusion mapping $i:\{0,1\}\to \mathbb{R}$ with $s\mapsto s$ is continuous. The composition of continuous mappings is continuous as well, i.e., $\tilde{f}$ is continuous.
+
+Since the function $f$ can take two values, there exists $p,q\in[a,b]$ such that $\tilde{f}(p)=i\circ f(p)=0$ and $\tilde{f}(q)=i\circ f(q)=1$. 
+By intermediate value theorem, there exists $r\in[a,b]$ such that 
+$\tilde f(r) = i\circ f(r)=1/2$, which implies $f(r)=\frac{1}{2}$, which is a contradiction.
+\end{proof}
+
+\begin{definition}[Connected subset]
+A non-empty subset $S\subseteq X$ is \emph{connected} if 
+$S$ with the subspace topology is connected 
+
+Equivalently, $S\subseteq X$ is connected if,
+whenever $U,V$ are open in $X$ such that $S\subseteq U\cup V$, and 
+$
+(U\cap V)\cap S=\emptyset
+$, one can imply either $U\cap S=\emptyset$ or $V\cap S=\emptyset$.
+\end{definition}
+
+\begin{proposition}\label{pro:4:9}
+If $f:X\to Y$ is continuous mapping, and the subset $A\subseteq X$ is connected, then $f(A)$ is connected. 
+In other words, the continuous image of a connected set is connected.
+\end{proposition}
+
+\begin{proof}
+Suppose that $U,V\subseteq Y$ is open such that
+\[
+\begin{array}{ll}
+f(A)\subseteq U\cup V,
+&
+(U\cap V)\cap f(A)=\emptyset.
+\end{array}
+\]
+Therefore we imply 
+\[
+\begin{array}{ll}
+A\subseteq f^{-1}(U)\cup f^{-1}(V),
+&
+(f^{-1}(U)\cap A)\cap(f^{-1}(V)\cap A)=\emptyset
+\end{array}
+\]
+By connectedness of $A$, either $f^{-1}(U)\cap A=\emptyset$ or $f^{-1}(V)\cap A=\emptyset$. 
+Therefore, $f(A)\cap U=\emptyset$ or $f(A)\cap V=\emptyset$, i.e., $f(A)$ is connected.
+\end{proof}
+
+\begin{proposition}\label{pro:4:10}
+If $\{A_i\}_{i\in I}$ are connnected and $A_i\cap A_j\ne\emptyset$ for $\forall i,j\in I$, then the set $\bigcup_{i\in I}A_i$ is connected.
+\end{proposition}
+
+\begin{proof}
+Suppose the function $f:\cup_{i\in I}A_i\to\{0,1\}$ is a continuous map. Then we imply that its restriction $f|_{A_i} = f\circ i: A_i\to\{0,1\}$ is continuous for all $i\in I$. Thus $f|_{A_i}$ is a constant for all $i\in I$. Due to the non-empty intersection of $A_i,A_j$ for $\forall i,j\in I$, we imply $f$ is constant.
+\end{proof}
+
+\begin{proposition}
+If $X,Y$ are connnected, then $X\times Y$ is connected using product topology.
+\end{proposition}
+\begin{proof}
+It's clear that $X\times \{y_0\}$ is connected in $X\times Y$ for fixed $y_0$; and $\{x_0\}\times Y$ is connected for fixed $x_0$.
+
+Therefore, for fixed $y_0\in Y$, construct $B=X\times \{y_0\}$ and $C_x=\{x\}\times Y$, which follows that
+\[
+B\cap C_x=\{(x,y_0)\}\ne\emptyset,\forall x\in X\implies
+B\cup\left\{\bigcup_{x\in X}C_x\right\}=X\times Y\text{ is connected.}
+\]
+\end{proof}
+
+\begin{definition}[Path Connectes]
+Let $(X,\mathcal{T})$ be a topological space. 
+\begin{enumerate}
+\item
+A path connecting 2 points $x,y\in X$ is a continuous function $\tau:[0,1]\to X$ with $\tau(0)=x,\tau(1)=y$.
+\item
+$X$ is path-connected if any 2 points in $X$ can be connected by a path.
+\item
+The set $A\subseteq X$ is path-connected, if $A$ sastisfies the condition using subspace topology.
+
+Or equivalently,  $A$ is path-connected if for any 2 points in $X$, there exists a continuous $t:[0,1]\to X$ with $t(x)\in A$ for any $x$, connecting the 2 points.
+\end{enumerate}
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
