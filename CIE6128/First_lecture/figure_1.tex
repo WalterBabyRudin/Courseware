@@ -1,0 +1,26 @@
+\documentclass{article}
+
+\usepackage{graphics}
+\usepackage{tikz}
+\usepackage[pdftex,active,tightpage]{preview}
+\usetikzlibrary{positioning,arrows,shapes,chains,fit,scopes}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\setlength\PreviewBorder{0mm} % use to add a border around the image
+\PreviewEnvironment{tikzpicture}
+\pgfrealjobname{survey}
+\begin{document}
+\beginpgfgraphicnamed{survey-f1}
+ \begin{tikzpicture}
+\begin{axis}[ xlabel={$x$}, ylabel={$y$}
+,axis lines=middle
+,samples=41, grid, thick
+,domain=-1.1:1.3
+,legend pos=north east
+]
+\addplot+[no marks] {(x^7-1)^2};
+\addlegendentry{$y=(w^7-1)^2$}
+\end{axis}
+\end{tikzpicture}
+\endpgfgraphicnamed
+\end{document}

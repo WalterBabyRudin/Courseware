@@ -1,0 +1,33 @@
+\documentclass{article}
+
+\usepackage{graphics}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage[pdftex,active,tightpage]{preview}
+\usetikzlibrary{positioning,arrows,shapes,chains,fit,scopes}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{multido}
+\usepackage{pstricks}
+\setlength\PreviewBorder{0mm} % use to add a border around the image
+\PreviewEnvironment{tikzpicture}
+\pgfrealjobname{survey}
+\begin{document}
+\tikzstyle{int}=[draw, fill=blue!20, minimum size=2em]
+\tikzstyle{init} = [pin edge={to-,thin,black}]
+
+\beginpgfgraphicnamed{survey-f1}
+\begin{tikzpicture}
+\draw (0,0) grid (4,4);
+\node at (.5,.5){1};
+\node at (3.5,.5){1};
+\node at (1.5,1.5){1};
+\node at (1.5,3.5){1};
+\node at (3.5,3.5){1};
+\draw (0,4.3) --node[midway, above]{$x_1$} (2,4.3);
+\draw (-0.3,4) --node[midway, left]{$x_2$} (-0.3,2);
+\draw (1,-0.3) --node[midway, below]{$x_3$} (3,-0.3);
+\draw (4.3,1) --node[midway, right]{$x_4$} (4.3,3);
+\end{tikzpicture}
+\endpgfgraphicnamed
+\end{document}

@@ -1,0 +1,867 @@
+\chapter{Dynamic Programming with imperfect information}
+\paragraph{Motivation}
+We have assumed so far that the controller has access to the exact value of the current state, which may be unrealistic in pratice.
+We model the situation that at each stage the controller may receive some observations about the value of the current state, which may be corrupted by stochastic uncertainty.
+
+\section{Imperfect State Problem Setting}
+\begin{itemize}
+\item
+Observation Space: $Z_k$, where
+\[
+\begin{array}{ll}
+z_0=h_0(x_0,v_0),
+&
+z_k=h_k(x_k,u_{k-1},v_k),\quad
+k=1,\dots,N-1
+\end{array}
+\]
+\item
+Observation disturbance: $v_k\in V_k$, characterized by
+\[
+P_{v_k}(\cdot\mid 
+x_{k:0},u_{k-1:0},\omega_{k-1:0}
+),
+\]
+i.e., depends on the whole history of the sytem up to the period $k-1$.
+\item
+The initial state $x_0$ may be unknown, but the distribution $P_{x_0}$ is known.
+\item
+The probability distribution for disturbance of underlying dynamics, say $\omega_k$ is known, denoted as, $P_{\omega_k}(\cdot\mid x_k,u_k)$, which depends explicitly on $x_k$ and $u_k$ but not the prior disturbances $\omega_0,\dots,\omega_k,v_0,\dots,v_{k-1}$.
+\item
+Control: $u_k\in U_k$. We assume that $U_k$ does not depend on $x_k$ (why?)
+\item
+Information vector: the information available to the controller at stage $k$, to make its decision $u_k$, denoted as
+\begin{align*}
+I_0&=z_0,\\
+I_k&=(z_{0:k},u_{0:k-1}),\ k=1,\dots,N-1
+\end{align*}
+\item
+The goal is to derive the policy
+\[
+\pi = (\mu_0(I_{0}),\dots,\mu_{N-1}(I_{N-1}))
+\]
+where $\mu_k(\cdot):I_k\to I_k$ for $k=0,\dots,N-1$, to minimize the cost function
+\[
+J_\pi = \mathbb{E}_{x_0,\omega_k,v_k, k=0,\dots,N-1}\left\{g_N(x_N)+\sum_{k=0}^{N-1}g_k(x_k,\mu_k(I_k),\omega_k)\right\}
+\]
+subject to
+\begin{enumerate}
+\item
+the underlying dynamics equation
+\begin{equation}
+x_{k+1} = f_k(x_k,\mu_k(I_k),\omega_k), \ k=0,1,\dots,N-1\\
+\end{equation}
+\item
+the measurement equation
+\begin{equation}
+\begin{aligned}
+z_0&=h_0(x_0,v_0)\\
+z_k&=h_k(x_k,\mu_{k-1}(I_{k-1}),v_k), \ k=1,\dots,N-1
+\end{aligned}
+\end{equation}
+\end{enumerate}
+\end{itemize}
+
+\section{Reformulation as a perfect state information system}
+\begin{itemize}
+\item
+Dynamics:
+\begin{align*}
+I_0&=z_0\\
+I_{k+1}&=(I_k,z_{k+1},u_k), k=0,1,\dots,N-2
+\end{align*}
+\item
+State: $I_k:=(z_{0:k},u_{0:k-1})$
+\item
+Control: $u_k\in U_k$
+\item
+Disturbance: we view $z_{k+1}$ as the noise, and its distribution only depends on the state $I_k$ and control $u_k$.
+\item
+Stage Cost:
+Since we have
+\[
+\mathbb{E}\{g_k(x_k,u_k,\omega_k)\}
+=
+\mathbb{E}\left\{
+\mathbb{E}_{x_k,\omega_k}
+\{g_k(x_k,u_k,\omega_k)\mid I_k,u_k\}
+\right\}
+\]
+we imply the stage cost can be reformulated as a function of the state $I_k$ and the control $u_k$:
+\[
+\tilde{g}_k(I_k,u_k)
+=
+\mathbb{E}_{x_k,\omega_k}
+\{g_k(x_k,u_k,\omega_k)\mid I_k,u_k\}
+\]
+\end{itemize}
+Therefore, the dynamic programming algorithm applies as follows:
+\begin{subequations}
+\begin{enumerate}
+\item
+New cost function:
+\begin{equation}
+\mathbb{E}\left\{
+\tilde{g}_N(I_N)+\sum_{k=0}^{N-1}\tilde{g}_k(I_k,u_k)
+\right\}
+\end{equation}
+\item
+New cost-to-go function:
+\begin{align}
+J_N(I_N)&=\tilde{g}_N(I_N)=\mathbb{E}_{x_{N-1},\omega_{N-1}}
+g_{N}(f_{N-1}(x_{N-1},u_{N-1},\omega_{N-1}))
+\\
+J_k(I_k)&=\min_{u_k\in U_k}
+\left\{
+\tilde{g}_k(I_k,u_k)
++
+\mathbb{E}
+[J_{k+1}(I_{k+1})\mid I_k,u_k]
+\right\},\ k=0:N-1\label{Eq:4:3:c}
+\end{align}
+Or more precisely,
+\begin{align}
+J_k(I_k)&=\min_{u_k\in U_k}
+ \Bigg\{
+\mathbb{E}_{x_k,\omega_k,z_{k+1}}
+g_k(x_k,u_k,\omega_k)\nonumber\\
+&+J_{k+1}(I_k,z_{k+1},u_k)\mid I_k,u_k
+ \Bigg\},\ k=0:N-2\label{Eq:4:3:d}\\
+ J_{N-1}(I_{N-1})&=\min_{u_{N-1}\in U_{N-1}}
+  \Bigg\{
+ \mathbb{E}_{x_{N-1},\omega_{N-1}}
+ g_{N-1}(x_{N-1},u_{N-1},\omega_{N-1})\nonumber\\
+ &+g_{N}(f_{N-1}(x_{N-1},u_{N-1},\omega_{N-1}))\mid I_{N-1},u_{N-1}
+  \Bigg\}\label{Eq:4:3:e}
+\end{align}
+\end{enumerate}
+
+\end{subequations}
+
+
+
+
+We need the conditional distribution $P(x_k\mid I_k)$ and $P(z_{k+1}\mid I_k)$.
+
+\section{Examples for Imperfect State Information Programming}
+\subsection{Slotted Aloha}
+\begin{itemize}
+\item
+Dynamics:
+\[
+x_{k+1}=x_k+a_k-t_k
+\]
+\item
+Measurement:
+\[
+z_{k+1}=
+\left\{
+\begin{aligned}
+\text{Success},&\quad\text{with probability $(1-u_k)^{x_k}$}\\
+\text{collision},&\quad\text{with probability $x_ku_k(1-u_k)^{x_k-1}$}
+\end{aligned}
+\right.
+\]
+\end{itemize}
+How to model?
+\subsection{Machine Repair Example}
+\begin{itemize}
+\item
+State Transition:
+\[
+\begin{array}{ll}
+p(P\to P) = \frac{2}{3},&p(P\to\bar{P})=\frac{1}{3}\\
+p(\bar{P}\to {P})=0,&p(\bar{P}\to \bar{P})=1
+\end{array}
+\]
+\item
+Inspection:
+\[
+\begin{array}{ll}
+p(z=G\mid x=P) = \frac{3}{4},&p(z=B\mid x=P) = \frac{1}{4}\\
+p(z=G\mid x=P) = \frac{1}{4},&p(z=B\mid x=\bar{P}) = \frac{3}{4}
+\end{array}
+\]
+Two possible actions can be taken after each inspection:
+\begin{itemize}
+\item
+C: continue operation of the machine
+\item
+S: stop the machine and determine its state through accurate diagonastic.
+If it is in bad state $\bar{P}$, then back to good $P$
+\end{itemize}
+\item
+The cost for decision $C$ is $0$; for decision $S$ is $1$.
+
+At each stage if the state is $\bar{P}$ then cost $2$; if the state is $P$ then cost $0$.
+\item
+Total Horizon: 2.
+\end{itemize}
+We can model this problem more clear:
+\begin{itemize}
+\item
+State Space: $\{P,\bar{P}\}$;
+Control Space: $\{C,S\}$;
+Measurment Space: $\{G,B\}$
+\item
+State Transition:
+\[
+x_{k+1}=\omega_k,\ k=0,1
+\]
+where $\omega_k$ is a random variable depending on $x_k,u_k$:
+\begin{align*}
+P(\omega_k=P\mid (x_k,u_k)=(P,C))&=2/3\\
+P(\omega_k=\bar{P}\mid (x_k,u_k)=(P,C))&=1/3\\
+P(\omega_k=P\mid (x_k,u_k)=(\bar{P},C))&=0\\
+P(\omega_k=\bar{P}\mid (x_k,u_k)=(\bar{P},C))&=1\\
+P(\omega_k=P\mid (x_k,u_k)=(P,S))&=2/3\\
+P(\omega_k=\bar{P}\mid (x_k,u_k)=(P,S))&=1/3\\
+P(\omega_k=P\mid (x_k,u_k)=(\bar{P},S))&=2/3\\
+P(\omega_k=\bar{P}\mid (x_k,u_k)=(\bar{P},S))&=1/3
+\end{align*}
+\item
+Initial State Distribution:
+\[
+P(x_0=P)=2/3,\ P(x_0=\bar{P})=1/3
+\]
+\item
+Measurment Equation:
+\[
+z_k=v_k,\ k=0,1,
+\]
+where $v_k$ is a random variable depending on $x_k$:
+\begin{align*}
+P(v_k=G\mid x_k=P)=3/4\\
+P(v_k=B\mid x_k=P)=1/4\\
+P(v_k=G\mid x_k=\bar{P})=1/4\\
+P(v_k=B\mid x_k=\bar{P})=3/4
+\end{align*}
+\item
+Total Cost:
+\[
+g(x_0,u_0)+g(x_1,u_1)
+\]
+where 
+\[
+g(P,C)=0,\
+g(P,S)=1,\
+g(\bar{P},C)=2,\
+g(\bar{P},S)=1
+\]
+\end{itemize}
+
+We can apply the DP to solve this problem:
+\begin{itemize}
+\item
+Construct the information vector from stage $0$ to stage $N-1=1$:
+\[
+\begin{array}{ll}
+I_0=z_0,&
+I_1=(z_0,z_1,u_0)
+\end{array}
+\]
+\item
+Seek the controllers $\mu_0(I_0)$ and $\mu_1(I_1)$ to minimize the cost function
+\begin{align*}
+\mathbb{E}_{x_0,\omega_{0:1},v_{0:1}}
+&\Bigg\{
+g_0(x_0,\mu_0(I_0))
++
+g_1(x_1,\mu_1(I_1))
+\Bigg\}\\
+=
+\mathbb{E}_{x_0,\omega_{0:1},v_{0:1}}
+&\Bigg\{
+g_0(x_0,\mu_0(z_0))
++
+g_1(x_1,\mu_1(z_0,z_1,\mu_0(z_0)))
+\Bigg\}
+\end{align*}
+\item
+
+
+
+
+
+The cost function is
+\begin{align*}
+\mathbb{E}_{x_0,\omega_0,\omega_1,v_0,v_1}&
+\left\{
+g(x_0,u_0)+g(x_1,u_1)
+\right\}
+\\&=
+\mathbb{E}_{x_0,\omega_0,\omega_1,v_0,v_1}
+\left\{
+g(x_0,\mu_0(z_0))+g(x_1,\mu_1(z_0,z_1,\mu_0(z_0)))
+\right\}
+\end{align*}
+with
+\[
+\begin{array}{llll}
+g(P,C)=0,&g(P,S)=1,&g(\bar{P},C)=2,&g(\bar{P},S)=1
+\end{array}
+\]
+\item
+Thererfore, we construct the cost-to-go function:
+\begin{align*}
+J_2(I_2)&=0,\\
+J_1(I_1)&=\min_{u_{1}\in\{C,S\}}
+\Bigg\{
+\mathbb{E}_{x_1}g_1(x_1,u_1)\Bigg| I_{1}
+\Bigg\}\\
+&=\min
+\Bigg\{
+\mathbb{E}_{x_1}g_1(x_1,C)\Bigg| I_1,
+\mathbb{E}_{x_1}g_1(x_1,S)\Bigg| I_1
+\Bigg\}\\
+&=
+\min
+\Bigg\{
+\mathbb{E}_{x_1}g_1(x_1,C)\Bigg| I_1,
+1
+\Bigg\}\\
+&=\min
+\left\{
+2\cdot P(x_1=\bar{P}\mid I_1),
+1
+\right\}\\
+J_0(I_0)&=
+\min_{u_0\in\{C,S\}}
+\Bigg\{
+\mathbb{E}_{x_0}g_0(x_0,u_0)\mid I_0+
+\mathbb{E}_{z_1}\{J_1(z_0,z_1,u_0)\mid I_0,u_0\}
+\Bigg\}\\
+&=
+\min_{u_0\in\{C,S\}}
+\Bigg\{
+\mathbb{E}_{x_0}g_0(x_0,u_0)\mid I_0+
+\mathbb{E}_{z_1}\{J_1(z_0,z_1,u_0)\mid I_0,u_0\}
+\Bigg\}\\
+&=\min
+\Bigg\{
+2\cdot P(x_0=\bar{P}\mid I_0)+\mathbb{E}_{z_1}\{J_1(I_0,z_1,C)\mid I_0,C\},\\
+&
+1+\mathbb{E}_{z_1}\{J_1(I_0,z_1,S)\mid I_0,S\}
+\Bigg\}
+\end{align*}
+\section{Sufficient Statistics}
+The drawback for the DP algorithm above is that the information vector grows with $k$.
+Fortunately, sometimes we can find equivalent representations of the information contained in the observations that provide a significant reduction of the data to remember.
+\begin{definition}[Sufficient Statistic]
+The sufficient statistic is a function $S_k(I_k)$, which may be (greatly) smaller than the dimension of $I_k$, but summarize all essential content of $I_k$ for estimation or control purpose.
+
+Formally, consider a random variable $X$ with discrete values and probability distribution $P_{\theta}$ depending on an unknown parameter $\theta$.
+A statistic $S$ is sufficient for $\theta$ if
+\[
+P_{\theta}(X=x\mid S=t)=f(x,t),\forall x\in\mathcal{X}
+\]
+\end{definition}
+
+\begin{theorem}[Fisher Factorization Theorem]
+Given a family of distrbutions $\{P_{\theta}\}$ such that we have
+\[
+\diff P_{\theta}(x)=f(\theta,x)\diff\mu(x),\ \text{for some fixed measure $\mu$}.
+\]
+Suppose that $X$ is a discrete random variable and $f(\theta,x)$ denotes pmf (the probability for $\{X=x\}$), and $\mu$ is the counting measure.
+Then $S$ is a sufficient statistics for $\theta$ if we have
+\[
+f(\theta,x)=G(\theta,S(x))h(x),
+\]
+for some functions $G$ and $h$.
+\end{theorem}
+\begin{example}
+Consider the order statistics $S(X_1,\dots,X_n)=(X_{(1)},\dots,X_{(n)})$,
+where $X_{(i)}$ denotes the $i$-th smallest value in the sample.
+Note that $T$ is sufficient if $X_i$'s are i.i.d., since the joint pdf can be factorized as
+\[
+f(x_1,\dots,x_n)=\prod_{i=1}^nf(x_i)=\prod_{i=1}^nf(x_{(i)})
+\]
+\end{example}
+\paragraph{Application of sufficient statistics in DP}
+Since our observations form the information vector $I_k$, we are looking for a stiatistics $S_k(I_k)$ for each $k$ such that (\ref{Eq:4:3:c}) can be reformuated as
+\[
+\min_{u_k\in U_k}
+H_k(S_k(I_k),u_k)
+\]
+for some function $H_k$.
+The optimal control policy is given as a function of $S_k(I_k)$:
+\[
+\mu^*_k(I_k)=\bar{\mu}_k(S_k(I_k))
+\]
+
+
+
+
+
+
+the cost-to-go function is given by:
+\begin{align*}
+J_k(I_k)&=\min_{u_k\in U_k(I_k)=\{C,S\}}
+\{
+g(P,u_k)\cdot p(x_k=P\mid I_k,u_k)\\
+&+
+g(\bar{P},u_k)\cdot p(x_k=\bar{P}\mid I_k,u_k)\\
+&+\mathbb{E}_{z_{k+1}}\{J_{k+1}(I_k,u_k,z_{k+1})\mid I_k,u_k\}
+\},\ k=0,1
+\end{align*}
+and $J_2(I_2)=0$.
+\end{itemize}
+\begin{enumerate}
+\item
+Stage 1:
+\[
+J_1(I_1) = \min\{2\cdot p(x_1=\bar{P}\mid I_1),1\}
+\]
+Note that
+\begin{align*}
+p(x_1=\bar{P}\mid I_1)&=p(x_1=\bar{P}\mid z_0,z_1,u_0)\\
+&=\frac{p(x_1,z_1\mid z_0,u_0)}{p(z_1\mid z_0,u_0)}\\
+&=\frac{p(z_1\mid x_1,z_0,u_0)p(x_1\mid z_0,u_0)}{p(z_1\mid z_0,u_0)}\\
+&=\frac{p(z_1\mid x_1)p(x_1\mid z_0,u_0)}{p(z_1\mid z_0,u_0)}
+\end{align*}
+\item
+Stage 0:
+\begin{align*}
+J_0(I_0)&=\min[
+2p(x_0=\bar{P}\mid I_0,C)+\mathbb{E}_{z_1}\{J_1(I_0,z_1,C)\mid I_0,C\},\\
+&1+\mathbb{E}_{z_1}\{J_1(I_0,z_1,S)\mid I_0,S\}
+]
+\end{align*}
+
+\end{enumerate}
+
+\subsection{Conditional State Distribution serves as a Sufficient Statistic}
+In this section we asume that the probability for observation disturbance $v_{k+1}$ depends explicitly only on the immediately preceding state, control, and system disturbance $x_k,u_k,\omega_k$.
+\begin{theorem}
+For any $k$ and $I_k$, we have
+\[
+J_k(I_k) = \min_{u_k\in U_k}H_k(P_{x_k\mid I_k},u_k)=\bar{J}_k(P_{x_k\mid I_k})
+\]
+for some appropriate functions $H_k$ and $\bar{J}_k$.
+\end{theorem}
+\begin{remark}
+As a result, the optimal control can be computed as
+\[
+\mu_k(I_k)=\bar{\mu}_k(P_{x_k\mid I_k}),\ k=0,1,\dots,N-1
+\]
+which provides a decomposition of the controller in two parts:
+\begin{enumerate}
+\item
+Estimator: uses the measurement $z_k$ and control $u_{k-1}$ to generate probability distribution $P_{x_k\mid I_k}$
+\item
+Actuator: generates a control $u_k$ to the system, which is a function of the probability distribution $P_{x_k\mid I_k}$
+\end{enumerate}
+\end{remark}
+
+\subsection{The conditional state distribution recursion}
+This section aims to justify the recursion
+\[
+P_{x_{k+1}\mid I_{k+1}}  = \Phi_k(P_{x_k\mid I_k},u_k,z_{k+1})
+\]
+\paragraph{Propagation Step}
+We compute the conditional probability for $X_{k+1}$ according to our knowledge of the control input $u_k$ and information vector $I_k$:
+\begin{align*}
+P(X_{k+1}\mid I_k,u_k)&=\int P(X_{k+1}\mid I_k,u_k,x_k)\cdot\diff P(x_k\mid I_k,u_k)\\
+&=\int P(X_{k+1}\mid u_k,x_k)\diff P(x_k\mid I_k)
+\end{align*}
+Here $P(x_k\mid I_k,u_k)=P(x_k\mid I_k)$ since the control $u_k$ is a function of $I_k$;
+the distribution $P(X_k\mid I_k)$ is assumed known from the previous step;
+and $P(X_{k+1}\mid u_k,x_k)$ can be computed directly from the distribution of the system disturbance $\omega_k$.
+\paragraph{Update Step}
+We take the new measurement $z_{k+1}$ into account:
+\begin{align*}
+P(X_{k+1}\mid I_{k+1})&=P(X_{k+1}\mid I_k,u_k,z_{k+1})\\
+&=\mathcal{Z}P(z_{k+1}\mid X_{k+1},I_k,u_k)\cdot P(X_{k+1}\mid I_k,u_k)\\
+&=\mathcal{Z}P(z_{k+1}\mid X_{k+1},u_k)\cdot P(X_{k+1}\mid I_k,u_k)
+\end{align*}
+where $\mathcal{Z}$ denotes the normalization factor
+\[
+\mathcal{Z}=
+\left(
+\int P(z_{k+1}\mid x_{k+1},u_k)\diff P(x_{k+1}\mid I_k,u_k)
+\right)^{-1},
+\]
+and the distribution $P(z_{k+1}\mid X_{k+1},u_k)$ can be computed directly from the distribution of measurement noise $v_{k+1}$.
+
+\paragraph{Perfect State Information Reduction}
+In particular, the new DP formulation is given as:
+\begin{align*}
+\bar{J}_k(P_{x_k\mid I_k})
+&=
+\min_{u_k\in U_k}\Bigg[
+\mathbb{E}_{x_k,\omega_k,z_{k+1}}\Bigg\{g_k(x_k,u_k,\omega_k)\\
+&+\bar{J}_{k+1}(\Phi_k(P_{x_k\mid I_k},u_k,z_{k+1}))\Bigg| I_k,u_k\Bigg\}\Bigg],\quad k=0,\dots,N-2\\
+\bar{J}_{N-1}(P_{x_{N-1}\mid I_{N-1}})
+&=
+\min_{u_k\in U_k}\Bigg[
+\mathbb{E}_{x_{N-1},\omega_{N-1}}\Bigg\{g_{N-1}(x_{N-1},u_{N-1},\omega_{N-1})\\
+&+g_N(f_{N-1}(x_{N-1},u_{N-1},\omega_{N-1}))\Bigg|I_{N-1},u_{N-1}\Bigg\}\Bigg]
+\end{align*}
+The optimal cost is given by:
+\[
+J^*=\mathbb{E}_{z_0}\{\bar{J}_0(P_{x_0\mid z_0})\}
+\]
+
+\section{Linear Systems and Quadratic Cost}
+\begin{itemize}
+\item
+Dynamics of the system:
+\[
+x_{k+1}=A_kx_k+B_ku_k+\omega_k,\ k=0,\dots,N-1
+\]
+where the initial state $x_0$ is random with known distribution.
+\item
+Measurement Equation:
+\[
+z_k = C_kx_k+v_k,\ k=0,\dots,N-1
+\]
+where $z_k\in\mathbb{R}^s,x_k\in\mathbb{R}^n,C_k\in\mathbb{R}^{s\times n}$.
+\item
+The noise in the dynamics, say $\omega_k$, are assumed to be independent, and independent of $x_0$, with zero mean and finite covariance
+\item
+The observation noise $v_k$ are independent, and independent from $\omega_k$ and $x_0$ as well, with known distribution.
+\item
+The total cost is quadratic:
+\begin{equation}
+\mathbb{E}
+\Bigg\{
+x_N\trans Q_Nx_N
++
+\sum_{k=0}^{N-1}(x_k\trans Q_kx_k+u_k\trans R_ku_k)
+\Bigg\}
+\end{equation}
+\end{itemize}
+From the DP equation~(\ref{Eq:4:3:e}), we imply
+\begin{subequations}\label{Eq:4:5}
+\begin{align}
+J_{N-1}(x_{N-1})
+&=
+\min_{u_{N-1}\in U_{N-1}}
+\Bigg[
+\mathbb{E}_{x_{N-1},\omega_{N-1}}
+x_{N-1}\trans Q_{N-1}x_{N-1}+u_{N-1}\trans R_{N-1}u_{N-1}\nonumber\\
+&+(A_{N-1}x_{N-1}+B_{N-1}u_{N-1}+\omega_{N-1})\trans\nonumber\\
+&\cdot Q_N(A_{N-1}x_{N-1}+B_{N-1}u_{N-1}+\omega_{N-1})
+\Bigg]\\
+&=
+\mathbb{E}_{x_{N-1}}\Bigg\{
+x_{N-1}\trans(A_{N-1}\trans Q_NA_{N-1}+Q_{N-1})x_{N-1}\Bigg|I_{N-1}
+\Bigg\}\nonumber\\
+&
++
+\mathbb{E}_{\omega_{N-1}}\{\omega_{N-1}\trans Q_N\omega_{N-1}\}\nonumber\\
+&
++
+\min_{u_{N-1}\in U_{N-1}}
+\Bigg\{
+u_{N-1}\trans(B_{N-1}\trans Q_NB_{N-1}+R_{N-1})u_{N-1}\nonumber\\
+&+2\mathbb{E}\{x_{N-1}\mid I_{N-1}\}\trans A_{N-1}\trans Q_NB_{N-1}u_{N-1}\Bigg\}
+\end{align}
+\end{subequations}
+Therefore, the optimal policy for the last stage is given by:
+\begin{align*}
+u_{N-1}^*&=-M_{N-1}^{-1}\ell_{N-1}\\
+\text{where}\ 
+M_{N-1}&=B_{N-1}\trans Q_NB_{N-1}+R_{N-1}\\
+\ell_{N-1}&=B_{N-1}\trans Q_NA_{N-1}\mathbb{E}\{x_{N-1}\mid I_{N-1}\}
+\end{align*}
+
+\begin{theorem}\label{The:4:3}
+For all $k$, we have
+\begin{subequations}
+\begin{equation}
+J^*_k(I_k)=\mathbb{E}_{x_k}\{x_k\trans K_kx_k\mid I_k\}
++
+\sum_{j=k+1}^{N-1}\mathbb{E}_{x_j}\{e_j\trans P_{j}e_j\mid I_k\}
++
+\sum_{j=k+1}^{N-1}\mathbb{E}_{\omega_j}\{\omega_j\trans K_{j+1}\omega_j\}
+\end{equation}
+where 
+\begin{equation}
+e_k:=x_k-\mathbb{E}_{x_k}\{x_k\mid I_k\}
+\end{equation}
+and matrices $K_k,P_k$ are given recursively by the Riccati Equation.
+\end{subequations}
+\end{theorem}
+Note that $u_k$ does not influence the future error terms $e_{k+1},\dots,e_{N-1}$ at all!
+This is because of the linearity of the system and observation equations, and that the noises are independent of the control inputs.
+However, in general this situation may not necessarily hold.
+\begin{lemma}\label{lemma:4:4}
+For all $k$, there is a function $M_k$ such that
+\[
+e_k=M_k(x_0,\omega_{0:k-1},v_{0:k})
+\]
+independentof the policy being used.
+\end{lemma}
+\begin{proof}
+Consider two systems, one driven by some control inputs,
+and the other with zero control inputs:
+\[
+\left\{
+\begin{aligned}
+x_{k+1}&=A_kx_k+B_ku_k+\omega_k\\
+z_k&=C_kx_k+v_k
+\end{aligned}
+\right.\qquad
+\qquad
+\left\{
+\begin{aligned}
+\tilde{x}_{k+1}&=A_k\tilde{x}_k+\omega_k\\
+\tilde{z}_k&=C_k\tilde{x}_k+v_k
+\end{aligned}
+\right.
+\]
+Assume that $x_0=\tilde{x}_0$, and denote the information vector for two systems as 
+\[
+I_k=\{z_{0:k},u_{0:k-1}\},\quad
+\tilde{I}_k=\{\tilde{z}_{0:k}\}
+\]
+Define the transition matrix
+\[
+\Phi(k,\ell)
+=
+\left\{
+\begin{aligned}
+A_{k-1}\cdots A_{\ell},\ k>\ell\ge0\\
+I,&\ k=\ell
+\end{aligned}
+\right.
+\]
+which follows that
+\begin{align*}
+x_k&=
+\Phi(k,0)x_0+\sum_{\ell=0}^{k-1}\Phi(k,\ell+1)B_{\ell}u_{\ell}+\sum_{\ell=0}^{k-1}\Phi(k,\ell+1)\omega_{\ell}\\
+\tilde{x}_k&=
+\Phi(k,0)x_0+\sum_{\ell=0}^{k-1}\Phi(k,\ell+1)\omega_{\ell}\\
+\end{align*}
+Moreover,
+\begin{align*}
+\mathbb{E}\{x_k\mid I_k\}&=
+\Phi(k,0)\mathbb{E}\{x_0\mid I_k\}+\sum_{\ell=0}^{k-1}\Phi(k,\ell+1)B_{\ell}\mathbb{E}\{u_{\ell}\mid I_k\}\\&+\sum_{\ell=0}^{k-1}\Phi(k,\ell+1)\mathbb{E}\{\omega_{\ell}\mid I_k\}\\
+&=
+\Phi(k,0)\mathbb{E}\{x_0\mid I_k\}+\sum_{\ell=0}^{k-1}\Phi(k,\ell+1)B_{\ell}u_{\ell}\\&+\sum_{\ell=0}^{k-1}\Phi(k,\ell+1)\mathbb{E}\{\omega_{\ell}\mid I_k\}
+\end{align*}
+Therefore, we immediately get
+\begin{align*}
+x_k - \mathbb{E}\{x_k\mid I_k\}
+&=
+\Phi(k,0)(x_0-\mathbb{E}\{x_0\mid I_k\})
++\sum_{\ell=0}^{k-1}\Phi(k,\ell+1)(\omega_{\ell}-\mathbb{E}\{\omega_{\ell}\mid I_k\})\\
+&=\tilde{x}_k - \mathbb{E}\{\tilde{x}_k\mid I_k\}
+\end{align*}
+It suffices to show that $\mathbb{E}\{\tilde{x}_k\mid I_k\}=\mathbb{E}\{\tilde{x}_k\mid \tilde{I}_k\}$, or more precisely,
+$\text{Information}(I_k)=\text{Information}(\tilde{I}_k)$.
+Note that
+\[
+\tilde{z}_k=z_k - \sum_{\ell=0}^{k-1}\Phi(k,\ell+1)C_{\ell}B_{\ell}u_{\ell},
+\]
+and therefore this is true.
+
+
+\end{proof}
+Now we prove the Theorem~(\ref{The:4:3}).
+Applying (\ref{Eq:4:3:d}) and Lemma~(\ref{lemma:4:4}), we have
+\begin{equation}
+\begin{aligned}
+J_k(I_k)&=\mathbb{E}_{x_k}\{x_k\trans Q_kx_k\mid I_k\}
++
+\sum_{j=k+1}^{N-1}\mathbb{E}_{\omega_j}\{\omega_j\trans K_{j+1}\omega_j\}+\sum_{j=k+1}^{N-1}\mathbb{E}\{e_j\trans P_je_j\mid I_k\}\\
+&+\min_{u_k\in U_k}
+\Bigg\{
+u_k\trans R_ku_k
++
+\mathbb{E}\{x_{k+1}\trans K_{k+1}x_{k+1}\mid I_k\}
+\Bigg\}
+\end{aligned}
+\end{equation}
+Now simplify the minimization term:
+\begin{align*}
+&u_k\trans R_ku_k
++
+\mathbb{E}\{(A_kx_k+B_ku_k+\omega_k)\trans K_{k+1}(A_kx_k+B_ku_k+\omega_k)\mid I_k\}\\
+&=
+u_k\trans(R_k+B_k\trans K_{k+1}B_k)u_k
++
+2u_k\trans B_k\trans K_{k+1}A_k\mathbb{E}\{x_k\mid I_k\}\\
+&+\mathbb{E}\{x_k\trans A_k\trans K_{k+1}\trans A_kx_k\mid I_k\}
++
+\mathbb{E}_{\omega_k}\{\omega_k\trans K_{k+1}\omega_k\}
+\end{align*}
+Therefore we imply the optimal policy for each stage:
+\begin{align*}
+\mu_k^*(I_k)&=L_k\mathbb{E}\{x_k\mid I_k\}\\
+\text{with}\ L_k&=-(R_k+B_k\trans K_{k+1}B_k)^{-1}B_k\trans K_{k+1}A_k
+\end{align*}
+where $K_k,P_k$ are given recursively by the Riccati Equation.
+
+Substituting $\mu_k^*(I_k)$ into $J_k(I_k)$, we imply
+\begin{align*}
+J_k(I_k)&=\mathbb{E}_{x_k}\{x_k\trans (Q_k+A_k\trans K_{k+1}A_k)x_k\mid I_k\}+\sum_{j=k+1}^{N-1}\mathbb{E}_{\omega_j}\{\omega_j\trans K_{j+1}\omega_j\}\\&
++\sum_{j=k+1}^{N-1}\mathbb{E}\{e_j\trans P_je_j\mid I_k\}-
+\mathbb{E}\{x_k\mid I_k\}\trans P_k\mathbb{E}\{x_k\mid I_k\}
++
+\sum_{j=k+1}^{N-1}\mathbb{E}\{e_j\trans P_je_j\mid I_k\}
+\end{align*}
+
+Also, applying the identity
+\begin{equation}
+\mathbb{E}\{x_k\trans Mx_k\mid I_k\}
+=
+\mathbb{E}\{x_k\mid I_k\}\trans M\mathbb{E}\{x_k\mid I_k\}
++
+\mathbb{E}\{e_k\trans Me_k\mid I_k\}
+\end{equation}
+with $M=P_k$ into the forth term, we obtain the desired result.
+
+
+\begin{remark}
+The optimal control problem indeed decomposes into two successive parts:
+\begin{enumerate}
+\item
+Estimator: estimate the conditional mean $\mathbb{E}\{x_k\mid I_k\}$, i.e., the estimate $\hat{x_k}$ of $x_k$, given $I_k$, which minimizes $\mathbb{E}\{\|x_k-\hat{x}_k\|^2\mid I_k\}$
+\item
+Actuator: $u_k=L_k\mathbb{E}\{x_k\mid I_k\}$
+\end{enumerate}
+
+\end{remark}
+
+\paragraph{Steady State Policy}
+Consider the case where the system and measurement equations and the disturbance statistics are stationary.
+When the horizon tends to infinite, the optimal controller tends to the steady state policy
+\[
+\mu^*(I_k)=L\hat{x}_k
+\]
+where 
+\[
+L=-(R+B\trans KBB)^{-1}B\trans KA,
+\]
+where $K$ is the unique positive semi-definite symmetric equation of the algebraic Riccatic equation
+\[
+K = A\trans (K-KB(R+B\trans KB)^{-1}B\trans K)A+Q
+\]
+\section{Finite State Space Problems}
+The imperfect state problem is analytically solvable in two main cases.
+The first case is the linear quadratic controller discussed before, and the other concerns models with a finite state space $X$.
+In both cases, we should have an efficient way for computing the conditional distribution $P_{x_k\mid I_k}$.
+
+Several assumptions are made for general finite-state space case:
+\begin{itemize}
+\item
+Observation and control space are also finite
+\item
+The state transition provided a fixed control input is stationary
+\item
+The observation noise depends only on the current state and the proceding control.
+\end{itemize}
+
+\paragraph{Problem Formulation}
+Suppose in each stage we have finite number $n$ of possible states $X_k=X=\{1,\dots,n\},\forall k$.
+The distribution of the state $x_k$, given the observation $I_k$,
+is given by a vector of $n$ real numbers 
+\[
+p_k=[p_k^1,\dots,p_k^n]\trans,\quad
+\text{where }p_k^i = P(x_k=i\mid I_k)
+\]
+with $p_k$ belonging to the $(n-1)$-simplex
+\[
+p_k\in\Delta_{n-1}=\left\{
+[p_k^1,\dots,p_k^n]\trans\middle|p^i\ge0,\forall i,
+\sum_{i=1}^np^i=1
+\right\}
+\]
+\begin{itemize}
+\item
+We assume that $p_0$ is given, and $p_k$ can be obtained using recursion:
+\[
+p_{k+1}=\Phi(p_k,u_k,z_{k+1}).
+\]
+\item
+Now the terminal cost-go-go function can be written as
+\[
+\bar{J}_N(p_N)=p_N\trans G_N,
+\]
+where $G_N:=[g_{N}^1,\dots,g_N^n]\trans$ denotes costs for each possible state at stage $N$.
+Similarly, define the $n$-dimensional vector $g_k(u_k)$
+for each control $u_k$ at stage $k$ by
+\[
+\begin{array}{ll}
+&g_k(u_k)=[g_k^1(u_k),\dots,g_k^n(u_k)]\\
+\text{where}&g_k^i(u_k)=\mathbb{E}_{\omega_k}\{g_k(x_k,u_k,\omega_k)\mid x_k=i\}
+\end{array}
+\]
+Thus the cost-go-go function for stages $k\le N-1$ is given by:
+\begin{align*}
+\bar{J}_k(p_k)&=\min_{u_k\in U_k}
+\left\{
+p_k\trans g_k(u_k)
++
+\mathbb{E}_{z_{k+1}}
+\Bigg[
+\bar{J}_{k+1}(\Phi_k(p_k,u_k,z_{k+1}))\Bigg| p_k,u_k
+\Bigg]
+\right\}.
+\end{align*}
+\item
+For a given control $u$, define
+\[
+p_{ij}(u)=P(x_{k+1}=j\mid x_k=i,u_k=u)
+\]
+As a result, the conditional distribution of $z_{k+1}$ given $p_k$ and $u_k$ can be computed as
+\[
+p(z_{k+1}=z\mid p_k,u_k)=\sum_{i=1}^np_k^i\sum_{j=1}^np_{ij}(u_k)P(z_{k+1}=z\mid x_{k+1}=j,u_k)
+\]
+\end{itemize}
+
+\begin{theorem}
+The cost-to-go functions $\bar{J}_k$ in the DP algorithm are piecewise linear and concave.
+\end{theorem}
+
+\begin{example}[Machine Repair]
+We follow the machine repair example discussed before.
+Denote
+\[
+\begin{array}{ll}
+p_1=P(x_1=\bar{P}\mid I_1),
+&
+p_0=P(x_0=\bar{P}\mid I_0)
+\end{array}
+\]
+Then compute
+\[
+p_1=\Phi_0(p_0,u_0,z_0)
+\]
+and derive $\bar{J}_1(p_1)$ and $\bar{J}_0(p_0)$.
+Therefore,
+\[
+J^*=\mathbb{E}_{z_0}\{\bar{J}_0(P_{x_0\mid z_0})\}=\sum_iP(z_0=z_0^i)\bar{J}_0(P_{x_0\mid z_0^i})
+\]
+
+
+
+
+
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

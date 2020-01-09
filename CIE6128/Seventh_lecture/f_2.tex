@@ -1,0 +1,45 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.8}
+\usepackage{amsmath}
+\begin{document}
+\pgfplotsset{
+  compat=1.8,
+  colormap={whitered}{color(0cm)=(white); color(1cm)=(orange!75!red)}
+}
+
+\begin{tikzpicture}
+  \begin{axis}[
+    colormap name=whitered,
+    3d box,
+    width=15cm,
+    view={25}{25},
+    enlargelimits=false,
+    grid=major,
+    domain=-4:4,
+    y domain=-2:2,
+    samples=21,
+    xlabel=$u$,
+    ylabel=$v$,
+    zlabel={$F(u,v)$},
+    colorbar,
+    colorbar style={
+        at={(1,0)},
+        anchor=south west,
+        height=0.1*\pgfkeysvalueof{/pgfplots/parent axis height},
+        title={Landscape}
+        }
+    ]
+    \addplot3 [y domain = -4:4, surf]
+      {(1-x*y)^2};
+%
+%
+%    \addplot3 [domain = -0.5:4.7, samples = 31, samples y = 0, thick, smooth]
+%        (x,-2,{-0.6+4*exp(-0.5*(x+3))*(3*cos(4*x*180/pi)+2.5*cos(2*x*180/pi))});
+%    \addplot3 [y domain=-2:0,surf]
+%        {-0.7+4*exp(-0.5*(x+3))*(3*cos(4*x*180/pi)+2.5*cos(2*x*180/pi))
+%         + 0.5*y*y*4};
+
+  \end{axis}
+\end{tikzpicture}
+\end{document}

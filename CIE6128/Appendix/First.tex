@@ -1,0 +1,552 @@
+%\chapter{Introduction to Linear Programming}
+\chapter{Basic Algorithms for Nonlinear Programming}
+
+\section{Gradient Algorithms}
+\subsection{Preliminaries: convergence analysis}
+Consider an iterative algorithm for solving the optimization problem $\min f(x)$, producing iterates $\{x^0,x^1,\dots\}$.
+\begin{enumerate}
+\item
+The possible error measurements are as follows. The stopping criteria depends on these error measurements.
+\begin{itemize}
+\item
+$e(x^k):=\|x^k-x^*\|$;
+\item
+$e(x^k) = f(x^k) - f(x^*)$;
+\end{itemize}
+where $x^*$ denotes the underlying optimal solution.
+\item
+We say the algorithm converges if $\lim_{k\to\infty}e(x^k) = 0$
+\item
+There are different types of convergence rate:
+\begin{enumerate}
+\item
+R-linear convergence: there exists $a\in(0,1)$ such that $e(x^k)\le Ca^k$;
+\item
+Q-linear convergence: there exists $a\in(0,1)$ such that $\frac{e(x^{k+1})}{e(x^k)}\le a$;
+\item
+Sub-linear convergence: $e(x^k)\le C/k^p$ for some $p>0$.
+\end{enumerate}
+\end{enumerate}
+question: when say about convergence rate, do we need to specify which error measurements we use?
+\subsection{The (Sub)gradient algorithm for Unconstrained Optimization}
+Consider an unconstrained optimization problem $\min f(x)$, where $f$ may not necessarily be smooth. Let $\{t_k>0\mid k=0,1,\dots\}$ be a sequence of step-sizes. Let's study the simpleest first order optimization algorithm.
+\begin{algorithm}[htb] 
+\caption{The (Sub)gradient Algorithm} 
+\label{alg:GA} 
+\begin{algorithmic}[0] %show number in each rows
+\REQUIRE ~ %算法的输入参数：Input
+Initial guess $x^0\in\mathcal{X}$
+\ENSURE ~ %算法的输出：Output
+Optimal solution $\hat x$
+\STATE \textbf{For $k=0,1,\dots,$ do}
+\begin{itemize}
+\item
+Take $d^k\in\partial f(x^k)$;
+\item
+$x^{k+1} \leftarrow x^k - t_kd^k $
+\end{itemize}
+\textbf{end for.}
+\label{code:GA}
+\end{algorithmic}
+\end{algorithm}
+\paragraph{Worst Case Bounds}
+Consier a \emph{convex optimization model} where $f$ is a completely unknown function. 
+The first order type algorithm esentially produces a sequence of iterates $\{x^k\mid k=0,1,2,\dots\}$ in such a way that $x^k$ is in the \emph{affine space} spanned by
+\[
+x^0,g(x^0),\dots,g(x^{k-1}),\ \text{where }g(\cdot) = \partial f(\cdot).
+\]
+\begin{itemize}
+\item
+Suppose $f$ is \emph{Lipschitz continuous} and no other information is known, we can construct an example such that
+\[
+\min_{x\in\text{Span}\{x^0,g(x^0),\dots,g(x^{k-1})\}}f(x) - f(x^*)\ge \mathcal{O}(\frac{1}{\sqrt{k}}),\ \forall k=1,2,\dots,\lfloor\frac{n}{2}\rfloor
+\]
+Therefore, the first order type algorithm can never reach the convergence rate faster than $\mathcal{O}(\frac{1}{\sqrt{k}})$.
+\item
+Additionally, if we know $f$ is \emph{differentiable} and $\nabla f$ is \emph{Lipschitz continuous}, then we can construct an example such that
+\[
+\min_{x\in\text{Span}\{x^0,g(x^0),\dots,g(x^{k-1})\}}f(x) - f(x^*)\ge \mathcal{O}(\frac{1}{k^2}),\ \forall k=1,2,\dots,\lfloor\frac{n}{2}\rfloor
+\]
+Therefore, the first order type algorithm can never reach the convergence rate faster than $\mathcal{O}(\frac{1}{k^2})$ for optimizing this class of function.
+\end{itemize}
+
+\subsection{Gradient Algorithm with Exact Line-Search}
+First we discuss the optimization with a uniform convex function. This assumption is by default unless specifically mentioned. A nice Q-linear convergence result is obtained:
+\begin{theorem}\label{The:5:1}
+Suppose there exists $0< m\le M$ such that
+$0\succ mI\succeq \nabla^2f(x)\succeq MI$ (i.e., $f$ is \emph{uniformly convex}), and an exact line search is performed per iteration:
+\[
+t_k:=\arg\min_tf(x^k - t\nabla f(x^k)),
+\]
+then
+\begin{equation}\label{Eq:5:1}
+f(x^{k+1}) - f(x^*)\le \left(1-\frac{m}{M}\right)[f(x^k) - f(x^*)]
+\end{equation}
+\end{theorem}
+\begin{proof}
+\begin{itemize}
+\item
+\textbf{(Uniform Convexity implies Strongly Convexity)}
+For $\forall \bm x_1,\bm x_2\in\text{dom}(f)$, by mean-value theorem,
+\[
+f(\bm x_2) = f(\bm x_1) + \inp{\nabla f(\bm x_1)}{\bm x_2-\bm x_1} + \frac{1}{2}(\bm x_2-\bm x_1)\trans\nabla^2f(\bm\xi)(\bm x_2-\bm x_1),
+\]
+where $\bm\xi$ is some number between $\bm x_2$ and $\bm x_1$. Applying the uniform convexity of $f$, we derive the strongly convexity property:
+\begin{equation}\label{Eq:5:2}
+\frac{m}{2}\|\bm x_1-\bm x_2\|_2^2\le f(\bm x_2)-f(\bm x_1) - \inp{\nabla f(\bm x_1)}{\bm x_2-\bm x_1}\le\frac{M}{2}\|\bm x_1-\bm x_2\|_2^2
+\end{equation}
+\item
+\textbf{(Applying Strongly Convexity Property)}
+On the one hand, by setting $\bm x_1 = \bm x^*$ and $\bm x_2 = \bm x$ in (\ref{Eq:5:2}), we obtain:
+\begin{equation}
+\frac{m}{2}\|\bm x-\bm x^*\|_2^2\le f(\bm x)-f(\bm x^*) \le\frac{M}{2}\|\bm x-\bm x^*\|_2^2
+\end{equation}
+On the other hand, by setting $\bm x_1 = \bm x$ and $\bm x_2 = \bm x^*$ in (\ref{Eq:5:2}), we obtain
+\begin{align*}
+\frac{m}{2}\|\bm x-\bm x^*\|_2^2&\le f(\bm x^*)-f(\bm x) - \inp{\nabla f(\bm x)}{\bm x^*-\bm x}\\
+&\le f(\bm x^*)-f(\bm x) + \|\nabla f(\bm x)\|\cdot\|\bm x^*-\bm x\|\\
+&\le -\frac{m}{2}\|\bm x-\bm x^*\|_2^2+\|\nabla f(\bm x)\|\cdot\|\bm x^*-\bm x\|
+\end{align*}
+which implies $m\|\bm x-\bm x^*\|\le\|\nabla f(\bm x)\|$. Similarly, we get
+\begin{equation}
+m\|\bm x-\bm x^*\|\le\|\nabla f(\bm x)\|\le M\|\bm x-\bm x^*\|
+\end{equation}
+\item
+\textbf{(Upper Bounding left and right side of (\ref{Eq:5:1}))}
+Moreover, we upper bounding the left side of (\ref{Eq:5:1}) by setting $\bm x_2 = \bm x^{k+1}$ and $\bm x_1 = \bm x^k$ in (\ref{Eq:5:2}):
+\begin{equation}\label{Eq:5:5}
+\begin{aligned}
+f(\bm x^{k+1}) - f(\bm x^k)&\le \inp{\nabla f(\bm x^k)}{\bm x^{k+1} - \bm x^k}+\frac{M}{2}\|\bm x^{k+1}-\bm x^k\|^2\\
+&\le-\frac{1}{2M}\|\nabla f(x^k)\|^2
+\end{aligned}
+\end{equation}
+where the second inequality is active when $\bm x^{k+1} = \bm x^k - \frac{1}{M}\nabla f(\bm x^k)$. On the other hand, by setting $\bm x_2 = \bm x^*$ and $\bm x_1 = \bm x^k$ in (\ref{Eq:5:2}), we obtain
+\begin{equation}\label{Eq:5:6}
+\begin{aligned}
+f(\bm x^k) - f(\bm x^*)&\le \inp{\nabla f(x^k)}{\bm x^k - \bm x^*}-\frac{m}{2}\|\bm x^k-\bm x^*\|_2^2\\
+&\le \|\nabla f(x^k)\|\|\bm x^k - \bm x^*\| - \frac{m}{2}\|\bm x^k-\bm x^*\|_2^2\\
+&\le \frac{1}{2m}\|\nabla f(\bm x^k)\|^2
+\end{aligned}
+\end{equation}
+Therefore, substituting (\ref{Eq:5:6}) into (\ref{Eq:5:5}), we obtain
+\[
+f(\bm x^{k+1}) - f(\bm x^k)\le -\frac{m}{M}[f(\bm x^k) - f(\bm x^*)]
+\]
+Or equivalently,
+\[
+f(\bm x^{k+1}) - f(\bm x^*)\le\left(1-\frac{m}{M}\right)[f(\bm x^k) - f(\bm x^*)]
+\]
+\end{itemize}
+\end{proof}
+question: this proof also holds for $t_k = \frac{1}{M}$. Thus what is the intuition behind the line search.
+
+question: is uniformly convex and strongly convex talking about the same thing?
+
+
+
+\subsection{Gradient Algorithm with Diminishing Step Sizes}
+Consider a pre-scribed diminishing step size $\{\alpha_k\}\to0$ but satisfies the infinite travel condition $\sum_{k=1}^\infty\alpha_k=\infty$. 
+
+In this case, for sufficiently large $k$, we have $\alpha_k\le\frac{1}{M}$ and simiar to the idea in (\ref{Eq:5:5}),
+\[
+f(\bm x^{k+1}) \le f(\bm x^k) - \frac{\alpha_k}{2}\|\nabla f(\bm x^k)\|^2
+\]
+which implies that $\nabla f(\bm x^k)$ cannot be bounded away from 0 whenever $f(\bm x^k)$ is finitely lower bounded. In other words, if a finite minimum exists for $f(\bm x^k)$, then the iterates satisfy $\lim_{k\to\infty}\inf\|\nabla f(\bm x^k)\|=0$.
+
+We can further show the whole sequence $f(\bm x^k)$ converges:
+\begin{proof}
+w.l.o.g., assume the inequality below holds for $k=1,2,\dots$, i.e., $\alpha_k\le\frac{1}{M}$:
+\[
+f(\bm x^{k+1}) \le f(\bm x^k) - \frac{\alpha_k}{2}\|\nabla f(\bm x^k)\|^2
+\]
+Therefore, for any $k=1,2,\dots$,
+\begin{align*}
+f(\bm x^{k+1}) - f(\bm x^*)&\le f(\bm x^k) - f(\bm x^*)- \frac{\alpha_k}{2}\|\nabla f(\bm x^k)\|^2\\
+&\le (1-m\alpha_k)[f(\bm x^k) - f(\bm x^*)]
+\end{align*}
+where the second inequality is by applying (\ref{Eq:5:6}). It follows that
+\[
+f(\bm x^n)-f(\bm x^*)\le [f(\bm x^1) - f(\bm x^*)]\prod_{k=1}^n(1-m\alpha_k)\to0,
+\]
+i.e., $\lim_{n\to\infty}f(\bm x^n) = f(\bm x^*)$.
+
+There is another way to show the convergence of $\{\nabla f(\bm x^k)\}$:
+\[
+\|\nabla f(\bm x^n)\|^2\le 2M[f(\bm x^n)-f(\bm x^*)]\implies
+\lim_{n\to\infty}\nabla f(\bm x^k)=\bm0.
+\]
+\end{proof}
+We summarize the results above as a theorem for the convergence of the gradient algorithm with diminishing step sizes:
+\begin{theorem}
+Suppose there exists $0< m\le M$ such that
+$0\succ mI\succeq \nabla^2f(x)\succeq MI$ (i.e., $f$ is \emph{uniformly convex}), and the dimishing step size is performed per iteration:
+\[
+\alpha_k\to0,\text{ but }\sum_{k=1}^\infty\alpha_k=\infty,
+\]
+then either $f(\bm x^k)\to-\infty$ or else $\{f(\bm x^k)\}$ converges to a finite value and $\nabla f(\bm x^k)\to\bm0$.
+\end{theorem}
+
+\subsection{Gradient Algorithm with Armijo's Rule}
+Consider a general iterative descent algorithm $\bm x^{k+1} = \bm x^k + \alpha_k\bm d^k$. The Armiijo's rule for choosing step sizes is as follows:
+\begin{quotation}
+Let $\gamma\in(0,1)$ (question: 1/2?). Start with $s>0$ and continue with $\beta s,\beta^2s,\dots,$ until $\beta^{\ell}s$ falls within the set of $\alpha$ with the condition
+\[
+f(\bm x^k) - f(\bm x^k + \alpha\bm d^k) \ge -\gamma \alpha\cdot \nabla\trans f(\bm x^k)\bm d^k
+\]
+\end{quotation}
+In this case we have $\alpha_k = s\beta^{\ell}$ and
+\begin{subequations}
+\begin{align}
+f(\bm x^k)&\ge f(\bm x^k +\alpha_k\bm d^k) - \gamma\alpha_k \nabla\trans f(\bm x^k)\bm d^k\label{Eq:5:7:a}\\
+f(\bm x^k)&< f(\bm x^k +\alpha_k/\beta \bm d^k) - \gamma \alpha_k/\beta\cdot \nabla\trans f(\bm x^k)\bm d^k\label{Eq:5:7:b}
+\end{align}
+\end{subequations}
+We can analysis the convergence result for gradient algorithm, i.e., $\bm d^k = -\nabla f(\bm x^k)$:
+\begin{itemize}
+\item
+From the (\ref{Eq:5:7:b}) and the Taylor expansion on $f(\bm x^k +\alpha_k\bm d^k)$ we obtain:
+\[
+f(\bm x^k)+\gamma \alpha_k/\beta\cdot \nabla\trans f(\bm x^k)\bm d^k<f(\bm x^k)+\alpha_k/\beta \nabla\trans f(\bm x^k)\bm d^k + \frac{M}{2}(\alpha_k/\beta)^2\|\bm d^k\|^2
+\]
+Or equivalently, $\alpha_k>\frac{2\beta(1-\gamma)}{M}$
+\item
+Combining the (\ref{Eq:5:7:a}), (\ref{Eq:5:6}) and the bound on $\alpha_k$, we obtain
+\[
+f(\bm x^k+\alpha_k\bm d^k)\le f(\bm x^k) - 4\beta\gamma(1-\gamma)\frac{m}{M}[f(\bm x^k) - f(\bm x^*)]
+\]
+\end{itemize}
+
+Therefore, we get the Q-linear convergence for Armijo's rule:
+\[
+f(\bm x^{k+1}) - f(\bm x^*)\le \left(1-4\beta\gamma(1-\gamma)\frac{m}{M}\right)[f(\bm x^k) - f(\bm x^*)]
+\]
+
+
+\subsection{The Gradient Algorithm for non-strongly convex case}
+The estimations of convergence so far are based on the assumption that $m>0$. Now we discuss the case where $m=0$. The function is convex but not necessarily strongly convex.
+
+Assume that the set of optimal solutions is a bounded set, and that there is a bounded \emph{level set}.
+If still apply the exact line search, the iterates will be bounded. Note that the inequalities below still hold:
+\begin{align*}
+f(\bm x+\alpha\bm d)&\le f(\bm x) - \frac{1}{2M}\|\nabla f(\bm x)\|^2\\
+f(\bm x) - f(\bm x^*)&\le \|\nabla f(\bm x)\|\cdot\|\bm x-\bm x^*\|
+\end{align*}
+
+Assume that $\|\bm x^k - \bm x^*\|\le C$, and let $e(\bm x^k) = f(\bm x^k) - f(\bm x^*)$, Using the inequalities above, it's easy to show that
+\[
+e(\bm x^{k+1})\le e(\bm x^k) - c [e(\bm x^k)]^2,\ \text{where }c = \frac{1}{2MC^2}.
+\]
+which follows that
+\begin{align*}
+\frac{1}{e(\bm x^{k+1})}&\ge\frac{1}{e(\bm x^k)}+\frac{c}{1-c\cdot e(\bm x^k)}\\
+&\ge\frac{1}{e(\bm x^k)}+c\\&\ge\cdots\\
+&\ge\frac{1}{e(\bm x^1)}+k\cdot c
+\end{align*}
+Therefore, we obtain the \emph{sublinear rate of convergence}:
+\[
+e(\bm x^{k+1}) \le \frac{e(\bm x^1)}{1+ k(c\cdot e(\bm x^1))}
+\]
+
+\subsection{Linear Convergence without Second Order Differentiability}
+
+Acutally, the assumptions on the existence of $\nabla^2f$ is unnecessaryin Theorem~(\ref{The:5:1}). We can weaken the condition by the inequality below to obtain the same linear convergence result:
+\begin{equation}\label{Eq:5:8}
+\sigma\|\bm x-\bm y\|^2\le \inp{\nabla f(\bm x)-\nabla f(\bm y)}{\bm x-\bm y}\le L\|\bm x-\bm y\|^2,\ \forall \bm x,\bm y,
+\end{equation}
+where $0<\sigma\le L<\infty$.
+\begin{remark}
+\begin{itemize}
+\item
+The condition (\ref{Eq:5:8}) can be implied by uniform convexity.
+\item
+The interpretation of (\ref{Eq:5:8}) is that, restricting $f$ to any line segment between $\bm x$ and $\bm y$, the function $h(t):=f(x + t(y-x))$ satisfies
+\[
+0\le \frac{h'(t) - h'(s)}{t-s}\le L,\quad\forall 0\le s<t\le1,
+\]
+i.e., the slope of $\nabla f$ is bounded.
+\item
+The condition (\ref{Eq:5:8}) implies the strong convexity, which can be shown by appying the directional derivative and (\ref{Eq:5:8}):
+\[
+\frac{\sigma}{2}\|\bm y-\bm x\|^2\le f(\bm y) - f(\bm x) - \inp{\nabla f(\bm x)}{\bm y-\bm x}\le\frac{L}{2}\|\bm y-\bm x\|^2
+\]
+\end{itemize}
+\end{remark}
+Therefore, we can use the same logic to show the following inequalities:
+\begin{align*}
+f(\bm x-\alpha\nabla f(\bm x)) - f(\bm x)&\le-\frac{1}{2L}\|\nabla f(\bm x)\|^2\\
+\sigma\|\bm x-\bm x^*\|^2&\le\|\nabla f(\bm x)\|\|\bm x-\bm x^*\|\\
+f(\bm x^*)&\ge f(\bm x) - \frac{1}{2\sigma}\|\nabla f(\bm x)\|^2
+\end{align*}
+nad therefore,
+\[
+f(\bm x-\alpha\nabla f(\bm x)) - f(\bm x^*)\le\left(1-\frac{\sigma}{L}\right)[f(\bm x) - f(\bm x^*)].
+\]
+
+\section{The Pure Newton's Method}
+Now we discuss a particularly important method in optimization: Newton’s method.
+\paragraph{Motivation}
+This method is a \emph{linearlization scheme} for solving a nonlinear equation.
+\begin{itemize}
+\item
+For scalar form of nonlinear equation $g(x)=0$, we apply Taylor's expansion on the root $\hat x$:
+\[
+g(\hat x) = g(x) + g'(x)(\hat x - x) + {o}(|\hat x-x|)
+\]
+Ignoring the high order part we get an approximation, i.e., iterative formula
+\[
+\bar x = x - \frac{g(x)}{g'(x)}.
+\]
+\item
+Consider a $n$-dimensional equation $g_{1:n}(x_1,\dots,x_n) = 0$, we have a similar solution
+\[
+g(\hat{\bm x}) = g(\bm x) + J(g(\bm x))\cdot (\hat{\bm x} - \bm x) + {o}(\|\hat{\bm x}-\bm x\|)
+\]
+where $J(g(\bm x))$ denotes the Jacobian matrix of $g$:
+\[\mathbb{R}^{n\times n}\ni
+J(g(\bm x)):=\left[\frac{\partial g_i(\bm x)}{\partial x_j}\right]
+\]
+\end{itemize}
+Therefore, the unconstrained optimization problem suffices to solve a nonlinear equation $\nabla f(\bm x)=0$, and the iterative formula is 
+\[
+\begin{array}{ll}
+\bar{\bm x} = \bm x - [\nabla^2f(\bm x)]^{-1}\nabla f(\bm x),
+&
+\mbox{(Newton's Method)}
+\end{array}
+\]
+\begin{remark}
+\begin{enumerate}
+\item
+Newton’s direction may not necessarily exist;
+\item
+It is a descent direction for strongly convex functions;
+\item
+However, the function may not necessarily decrease even for strongly convex function.
+\item
+It minimizes a strongly convex \emph{quadratic} function in just \emph{one} step.
+\item
+The pure form of Newton's method can be modified by taking another step length.
+\end{enumerate}
+\end{remark}
+
+\subsection{Local Convergence Analysis}
+We analysis the convergence rate for Newton's method under the convexity and continuity conditions first:
+\begin{quotation}
+\textbf{Assumption}:
+The function $f$ is \emph{convex}, \emph{twice continuously differentiable}, and that $\nabla^2f(\bm x^*)$ is non-singular for local minimum $\bm x^*$.
+\end{quotation}
+A key inequality for the analysis is
+\[
+\nabla f(\bm y) = \nabla f(\bm x) + \int_0^1\nabla^2f(\bm x+t(\bm y - \bm x))\cdot(\bm y-\bm x)\diff t
+\]
+Suppose that $\bm x^k$ is close to $\bm x^*$ enough, then $\nabla^2f(\bm x^k)$ is non-singular as well due to the continuity of determinant function. It follows that
+\begin{subequations}
+\begin{align*}
+&\bm x^{k+1} - \bm x^* = \bm x^k - \bm x^* - [\nabla^2f(\bm x^k)]^{-1}\nabla f(\bm x^k)\\
+&=[\nabla^2f(\bm x^k)]^{-1} [\nabla^2f(\bm x^k)(\bm x^k - \bm x^*) - \nabla f(\bm x^k)]\\
+&=[\nabla^2f(\bm x^k)]^{-1} \left[\nabla^2f(\bm x^k)(\bm x^k - \bm x^*) - \int_0^1\nabla^2f(\bm x^* + t(\bm x^k - \bm x^*)) (\bm x^k-\bm x^*)\diff t\right]\\
+&=[\nabla^2f(\bm x^k)]^{-1}
+\left\{
+\int_0^1
+[\nabla^2f(\bm x^k) - \nabla^2f(\bm x^* + t(\bm x^k - \bm x^*))]
+(\bm x^k-\bm x^*)\diff t
+\right\}
+\end{align*}
+\end{subequations}
+Thererfore,
+\[
+\|\bm x^{k+1} - \bm x^*\|
+\le
+\|\bm x^{k} - \bm x^*\|
+\cdot
+\|[\nabla^2f(\bm x^k)]^{-1}\|
+\cdot
+\int_0^1
+\|\nabla^2f(\bm x^k) - \nabla^2f(\bm x^* + t(\bm x^k - \bm x^*))]\|\diff t
+\]
+
+Since $\bm x^k$ is close to $\bm x^*$, $\|[\nabla^2f(\bm x^k)]^{-1}\|$ is bounded. Since $\nabla^2f(\bm x)$ is continuous, the integration term goes to zero as $\|\bm x^k - \bm x^*\|\to0$. Thus we imply $\|\bm x^{k+1} - \bm x^*\| = o(\|\bm x^k - \bm x^*\|)$, ensuring a superlinear convergence.
+
+\begin{quotation}
+\textbf{Extra Assumption}:
+The term $\nabla^2f(\bm x)$ is \emph{Lipschitz continuous}: there exists $L_2>0$ such that
+\[
+\|\nabla^2f(\bm x) - \nabla^2 f(\bm y)\|\le L_2\|\bm x-\bm y\|,\quad \forall \bm x,\bm y.
+\]
+\end{quotation}
+
+This extra assumption will ensure a \emph{quadratic convergence rate}:
+\begin{align*}
+&\|\bm x^{k+1} - \bm x^*\|\\&\le
+\|[\nabla^2f(\bm x^k)]^{-1}\|\cdot \|\bm x^{k} - \bm x^*\|\cdot \int_0^1
+\|\nabla^2f(\bm x^k) - \nabla^2f(\bm x^* + t(\bm x^k - \bm x^*))]\|\diff t\\
+&\le\frac{L_2}{2}\|[\nabla^2f(\bm x^k)]^{-1}\|\cdot \|\bm x^{k} - \bm x^*\|^2.
+\end{align*}
+
+\begin{quotation}
+\textbf{Further Assumption}:
+Based on the previous two assumptions, we assume that $f$ is \emph{strongly convex}.
+\end{quotation}
+In this case, it is easy to show that
+\[
+\|\bm x^{k+1} - \bm x^*\|\le\frac{L_2}{2m}\|\bm x^k - \bm x^*\|^2.
+\]
+This inequality introduces a \emph{region of attraction}, i.e., 
+as soon as $\bm x^k$ falls into the neighborhood of $\bm x^*$ with radius $2m/L_2$, the iterates will be trapped in the neighborhood and converge to $\bm x^*$ \emph{quadratically}.
+
+\begin{remark}
+The pure form of Newton's method, however, has several drawbacks:
+\begin{enumerate}
+\item
+It in general does not guarantees global convergence if no additional assumption is given.
+Fortunartely, if $f$ is strongly convex, then the Newton's method with \emph{line-search} (e.g., with Armijo's step-length rule) will be globally convergent with a globally linear convergence rate.
+\item
+If $f$ is not \emph{strictly} convex, then $\nabla^2f$ may be singular. Even worse, if $f$ is not convex, then the Newton's direction may not be a \emph{descent direction}. In next section we will discuss how to handle such a situation.
+\end{enumerate}
+\end{remark}
+
+\section{Practical Implementation of Newton's method}
+\subsection{Cholesky Factorization}
+First let's introduce a technique in optimization algorithms that can reduce computational complexity: the \emph{Cholesky factorization}.
+
+Consider the case where $\nabla^2f(\bm x^k)\succ0$, and the Newton's direction can be found by solving the linear system
+\[
+\nabla^2f(\bm x^k)\bm d = -\nabla f(\bm x^k).
+\]
+Directly computing the inverse of $\nabla^2f(\bm x^k)$ is computationally expansive, which motivates us to apply the \emph{Cholesky factorization} as follows:
+\begin{enumerate}
+\item
+First apply the Cholesky factorization to get $\nabla^2f(\bm x^k) = \bm L_k\bm L_k\trans$, where $\bm L_k$ is a lower triangular matrix, resulting in the following Newton's equation
+\[
+\bm L_k\bm L_k\trans\bm d = -\nabla f(\bm x^k).
+\]
+\item
+Firstly solve the lower triangular system below by forward substitution:
+\[
+\bm L_k\bm y = -\nabla f(\bm x^k)
+\]
+The complexity for this process is $\mathcal{O}(n^2)$.
+\item
+Then solve the triangular system below by backforward substitution:
+\[
+\bm L_k\trans\bm d = \bm y_k
+\]
+Again, this step takes complexity $\mathcal{O}(n^2)$.
+\end{enumerate}
+
+The basic Cholesky factorization algorithm is as follows:
+\begin{algorithm}[htb] 
+\caption{Basic Cholesky factorization Algorithm} 
+\label{alg:CFA} 
+\begin{algorithmic}[0] %show number in each rows
+\REQUIRE ~ %算法的输入参数：Input
+A positive definite $n\times n$matrix $\bm A$
+\ENSURE ~ %算法的输出：Output
+Lower triangular matrix $\bm L$ such thtat $\bm A=\bm L\bm L\trans$
+\STATE \textbf{For $j=1:n$, do}
+\begin{itemize}
+\item
+\textbf{For $i=j+1:n$, do}
+\begin{itemize}
+\item
+$l_{ij} = \left(a_{ij} - \sum_{k=1}^{j-1}l_{jk}l_{ik}\right)/l_{jj}$
+\end{itemize}
+\textbf{end for.}\\
+$l_{jj} = \left(a_{jj} - \sum_{k=1}^{j-1}l_{jk}^2\right)^{1/2}$.
+\end{itemize}
+\textbf{end for.}
+\label{code:GA}
+\end{algorithmic}
+\end{algorithm}
+\begin{remark}
+If $\bm A$ is not positive semidefinite, then at a certain stage we will encounter a $j$ such that \[a_{jj} - \sum_{k=1}^{j-1}l_{jk}^2<0.\]
+In that case, the Cholesky decomposition cannot proceed. 
+Note that the Cholesky decomposition takes about $\mathcal{O}(n^3)$ operations.
+\end{remark}
+
+\subsection{Modified Newton's method}
+In case the Hessian matrix is not positive definite, the following remedies can be applied:
+\begin{quotation}
+If there occurs $a_{jj} - \sum_{k=1}^{j-1}l_{jk}^2<0$ for a certain $j$, then we simply increase $a_{jj}$ so that the quantity becomes positive again. (question: increase how much?)
+\end{quotation}
+
+This remedy has the same effect of changing $\nabla^2f(\bm x^k)$ into $\nabla^2f(\bm x^k)+\Delta^k\succ0$, where $\Delta^k$ is non-negative (question: positive or non-negative?) diagonal, which suffices to solve the regularized equation
+\[
+(\nabla^2f(\bm x^k)+\Delta^k)\bm d = -\nabla f(\bm x^k).
+\]
+Moreover, we may use the direction with Armijo's line search technique to guarantee the global convergence. (how to show?)
+
+\subsection{The Trust Region Approach}
+Another way to handle the case that $\nabla^2f(\bm x^k)$ is indefinite is to use the \emph{trust region approach}. It is the complement of the line search approach.
+
+The direction $\bm d^k$ for each iteration suffices to consider the trust region subproblem
+\[
+\begin{array}{ll}
+\min&\inp{\nabla f(\bm x^k)}{\bm d} + \frac{1}{2}\bm d\trans\nabla^2f(\bm x^k)\bm d\\
+\mbox{such that}&\|\bm d\|\le\delta
+\end{array}
+\]
+where $\delta>0$ is called the trust region radius.
+\begin{remark}
+It can be shown that when $\delta$ is sufficiently small, $f(\bm x^k+\bm d^k)<f(\bm x^k)$, i.e., $\bm d^k$ is the descent direction.
+This trust region subproblem can be efficiently solved (question: which method? curious about it)
+\end{remark}
+
+\subsection{Implementation of Least Squares Problem}
+Consider solving the \emph{nonlinear least square problem} (NLSP)
+\[
+\begin{array}{ll}
+\min&f(x) = \frac{1}{2}\sum_{i=1}^mf_i^2(x)
+\end{array}
+\]
+Firstly note that
+\begin{align*}
+\nabla f(x)&=\sum_{i=1}^mf_i(x)\nabla f_i(x)\\
+\nabla^2f(x)&=\sum_{i=1}^m[\nabla f_i(x)\nabla\trans f_i(x) + f_i(x)\nabla^2f_i(x)]
+\end{align*}
+
+The so-called Gauss-Newton method is a \emph{quasi-Newton's method}, specialized to this NLSP:
+\[
+\bm x^{k+1} = \bm x^k - \alpha_k
+\left(
+\sum_{i=1}^m\nabla f_i(\bm x^k)\nabla\trans f_i(\bm x^k) 
+\right)^{-1}\left(
+\sum_{i=1}^mf_i(\bm x^k)\nabla f_i(\bm x^k)\right)
+\]
+\begin{remark}
+It works well when $f_i$'s are not \emph{too linear}, or when at the optimality, $f_i$'s are close to zero.
+\end{remark}
+
+A variantion of the Gauss-Newton's method operates as follows:
+\[
+\bm x^{k+1} = \bm x^k - \alpha_k
+\left(
+\sum_{i=1}^m\nabla f_i(\bm x^k)\nabla\trans f_i(\bm x^k) +\lambda_k\bm I
+\right)^{-1}\left(
+\sum_{i=1}^mf_i(\bm x^k)\nabla f_i(\bm x^k)\right)
+\]
+which is called the \emph{Levenberg-Marquardt method}.
+
+Note that if consider solving the equation $f_{1:n}(\bm x_{1:n})=\bm0$, the Gauss-Newton direction is just the Newton direction itself.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

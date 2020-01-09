@@ -1,0 +1,15 @@
+\documentclass[tikz,border=3mm]{standalone}
+\usepackage{pgfplots}
+\begin{document}
+\begin{tikzpicture}
+    \begin{axis}[
+    xlabel=$w$,
+    ylabel=$F(w)$,
+    domain=-5:5,samples=400,
+    legend pos=  north west,]
+        \addplot+[mark=none] {(1-max(x,0))^2};
+        \addlegendentry{$F(w)=(1-\max\{w,0\})^2$};
+    \end{axis}
+\end{tikzpicture}
+
+\end{document}

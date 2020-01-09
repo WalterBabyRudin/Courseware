@@ -1,0 +1,281 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\thispagestyle {empty}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Introduction to Dynamic Programming}{2}{chapter.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.1}Dynamic Programming Setting}{2}{section.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1.1}Basic Structure of Stochastic DP}{3}{subsection.1.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1.2}Inventory Control Example}{4}{subsection.1.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1.3}Deterministic Finite-State Problem}{4}{subsection.1.1.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1.4}Stochastic Finite-State Problem}{5}{subsection.1.1.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1.5}Formal Setting of DP}{5}{subsection.1.1.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1.6}Significance of Feedback}{7}{subsection.1.1.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Variants of DP}{8}{paragraph*.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.2}Dynamic Programming Solving}{8}{section.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.1}Principle of Optimality}{8}{subsection.1.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.2}DP algorithm for scheduling problem}{8}{subsection.1.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Tail Problem of Length 1: }{9}{paragraph*.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Tail Problem of Length 2: }{9}{paragraph*.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Tail Problem of Length 3: }{9}{paragraph*.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Tail Problem of Length 4: }{9}{paragraph*.10}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.3}Stochastic Inventory Example}{10}{subsection.1.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.4}Formal Dynamic Programming Algorithm}{10}{subsection.1.2.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.5}Linear-Quadratic Analytic Example}{10}{subsection.1.2.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.6}State Augmentation}{11}{subsection.1.2.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Example}{11}{paragraph*.12}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Dynamic Programming for Deterministic System}{13}{chapter.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}Deterministic Finite-State Problem}{13}{section.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{DP algorithms}{14}{paragraph*.14}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.2}Generic Stochastic Path Problems}{15}{section.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2.1}HMM setting and solving}{16}{subsection.2.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.3}General Shortest Path Algorithms}{17}{section.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.3.1}Label Correcting Methods}{17}{subsection.2.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Notations}{18}{paragraph*.16}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Dynamic Programming with perfect information}{21}{chapter.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.1}Linear-Quadratic Problems}{21}{section.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Asymptotic Behavior}{22}{paragraph*.19}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Random System Matrices}{24}{paragraph*.21}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.2}Inventory Control}{25}{section.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Optimal Policy}{26}{paragraph*.23}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.3}Optimal Stopping Problem}{28}{section.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Asset Selling}{29}{paragraph*.25}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Future Analysis}{30}{paragraph*.26}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Dynamic Programming with imperfect information}{32}{chapter.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Motivation}{32}{paragraph*.27}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.1}Imperfect State Problem Setting}{32}{section.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.2}Reformulation as a perfect state information system}{33}{section.4.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.3}Examples for Imperfect State Information Programming}{35}{section.4.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.3.1}Slotted Aloha}{35}{subsection.4.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.3.2}Machine Repair Example}{35}{subsection.4.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.4}Sufficient Statistics}{38}{section.4.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Application of sufficient statistics in DP}{39}{paragraph*.28}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.4.1}Conditional State Distribution serves as a Sufficient Statistic}{40}{subsection.4.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.4.2}The conditional state distribution recursion}{41}{subsection.4.4.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Propagation Step}{41}{paragraph*.29}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Update Step}{41}{paragraph*.30}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Perfect State Information Reduction}{42}{paragraph*.31}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.5}Linear Systems and Quadratic Cost}{42}{section.4.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Steady State Policy}{46}{paragraph*.32}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.6}Finite State Space Problems}{46}{section.4.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Problem Formulation}{47}{paragraph*.33}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}Suboptimal Control}{49}{chapter.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Curse of Dimensionality}{49}{paragraph*.34}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.1}Certainty Equivalence Control}{49}{section.5.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{An Offline Alternative for CEC}{50}{paragraph*.35}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.1.1}Variantions of CEC}{51}{subsection.5.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{CEC with Heuristics}{51}{subsubsection*.36}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Partially Stochastic Certainty Equivalent Control}{51}{subsubsection*.37}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.1.2}Caution, Probing, and Dual Control}{53}{subsection.5.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.1.3}Two Phase Control and Identifiability}{54}{subsection.5.1.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.1.4}Certanity Equivalent Control and Identifiability}{56}{subsection.5.1.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.2}Open-Loop Feedback Control}{57}{section.5.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Assumption}{57}{paragraph*.38}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Partial Open-Loop Feedback Control}{60}{paragraph*.39}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.3}Limited Lookahead Policies}{60}{section.5.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.3.1}Performance Bounds for Limited Lookahead Policies}{60}{subsection.5.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Notations}{60}{paragraph*.40}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.4}Computational Issues for limited Lookahead}{63}{section.5.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.4.1}Rollout Algorithms}{64}{subsection.5.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{One-step Lookahead policy}{64}{paragraph*.41}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Main Difficulty}{65}{paragraph*.42}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {6}Infinite Horizon Problem}{67}{chapter.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Problem Setting}{67}{paragraph*.43}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Preview}{68}{paragraph*.44}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Problem Formulation}{68}{paragraph*.45}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.0.1}Stochastic Shortest Path Problems}{69}{subsection.6.0.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Assumptions}{69}{paragraph*.46}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Error Bound for Value Iteration}{74}{paragraph*.47}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Policy Iteration}{75}{paragraph*.48}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Linear Programming}{76}{paragraph*.49}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.1}Discounted Problems}{77}{section.6.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.2}Average cost per stage problems}{78}{section.6.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Assumption}{78}{paragraph*.50}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.2.1}Value Iteration}{79}{subsection.6.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.2.2}Bellman Equation}{80}{subsection.6.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.2.3}Policy Iteration}{80}{subsection.6.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.2.4}Stochastic Shortest Path}{80}{subsection.6.2.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.2.5}Bellman Equation}{81}{subsection.6.2.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.2.6}Discounted Problems}{82}{subsection.6.2.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Value Iteration}{82}{paragraph*.51}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{ System performance of stationary policy $\mu $ }{82}{paragraph*.52}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Policy Iteration}{82}{paragraph*.53}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {7}The Distribution and Installation}{83}{chapter.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7.1}Pre-requisites}{83}{section.7.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7.2}The Distribution}{83}{section.7.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.2.1}Folder \texttt {nowfnt}}{83}{subsection.7.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{journaldata}{84}{paragraph*.54}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{SampleArticle}{84}{paragraph*.55}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.2.2}Folder \texttt {nowfnttexmf}}{84}{subsection.7.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7.3}Installation}{84}{section.7.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {8}Quick Start}{86}{chapter.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.1}\textbackslash documentclass}{86}{section.8.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.2}\textbackslash issuesetup}{87}{section.8.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.3}\textbackslash maintitleauthorlist}{87}{section.8.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.4}\textbackslash author and \textbackslash affil}{87}{section.8.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\textbackslash author}{87}{paragraph*.56}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\textbackslash affil}{87}{paragraph*.57}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.5}\textbackslash addbibresource}{87}{section.8.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {9}Style Guidelines and \LaTeX \ Conventions}{88}{chapter.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {9.1}Abstract}{88}{section.9.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {9.2}Acknowledgements}{88}{section.9.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {9.3}References}{88}{section.9.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {9.4}Citations}{89}{section.9.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {9.4.1}Example citations}{89}{subsection.9.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {9.5}Preface and Other Special Chapters}{89}{section.9.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {9.6}Long Chapter and Section Names}{90}{section.9.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {9.7}Internet Addresses}{90}{section.9.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {10}Compiling Your FnT Article}{91}{chapter.10}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {10.1}Compiling Your Article Prior to Submission}{91}{section.10.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {10.2}Preparing the Final Versions}{92}{section.10.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{lastpage=}{92}{paragraph*.58}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {10.3}Compiling The Final Versions}{92}{section.10.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {10.4}Wednesday}{93}{section.10.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Knapsacle Problem}{93}{paragraph*.59}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {10.4.1}Label Correcting Methods}{94}{subsection.10.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {10.4.2}DP problems with perfect state information}{94}{subsection.10.4.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Linear Quadratic System}{94}{paragraph*.60}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {10.4.3}Linear Quadratic}{94}{subsection.10.4.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Riccati Equation}{96}{paragraph*.61}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Acknowledgements}{98}{chapter*.62}
+\defcounter {refsection}{0}\relax 
+\contentsline {part}{Appendices}{99}{chapter*.62}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {A}Journal Codes}{100}{appendix.A}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {B}Files Produced During Compilation}{102}{appendix.B}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{References}{103}{appendix*.65}

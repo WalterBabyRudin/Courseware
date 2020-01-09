@@ -1,0 +1,834 @@
+\chapter{Suboptimal Control}
+
+\paragraph{Curse of Dimensionality}
+In most cases, the modeling step leads to state-space explosion.
+Moreover, some problem data is unknown until shortly before the control is needed, thus seriously constraining the amount of time available for the DP computation.
+
+\section{Certainty Equivalence Control}
+The certainty equivalent controller (CEC) is a heuristic controller that applies the 
+certainty equivalence and separation principles of linear quadratic control theory,
+even if the assumption does not formally hold for the problem.
+Given a finite horizon problem with horizon $N$, and possibly imperfect state information,
+the heuristic is given for computing the cost-go-go function at stage $k$ as follows:
+\begin{enumerate}
+\item
+Given the information vector $I_k$, compute the state estimate 
+$\bar{x}_k(I_k)$, e.g., the conditional mean estimate $\bar{x}_k(I_k):=\mathbb{E}\{x_k\mid I_k\}$
+\item
+Fix the process disturbances $\{w_i\}_{i\ge k}$ at some typical deterministic value, e.g.,
+$\bar{\omega}_i(x_i,u_i) = \mathbb{E}\{\omega_i\,mid x_i,u_i\}$.
+If we know that the $\omega_i$ are i.i.d. with zero mean, we just fix them to $0$.
+\item
+Solve the \emph{deterministic perfect state information} optimal control problem
+\[
+\begin{array}{ll}
+\min&g_N(x_N)+\sum_{j=k}^Ng_i(x_i,u_i,\bar{\omega}_i(x_i,u_i))\\
+\text{subject to}&\text{initial condition }x_k=\bar{x}_k(I_k)\\
+&\text{constraints }u_i\in U_i,\ i=k:N-1\\
+&\text{dynamics } x_{i+1}=f_i(x_i,u_i,\bar{\omega}_i(x_i,u_i)),\ i=k:N-1
+\end{array}
+\]
+\item
+Use only the first element $\bar{u}_k=\bar{\mu}_k(I_k)$ in the control sequence found.
+We land in a new state $x_{k+1}$ an and make a new observation $z_{k+1}$.
+Now repeat from step 1.
+\end{enumerate}
+
+\begin{remark}
+The step~(1) is unnecessary once we have perfect state information;
+The deterministic optimization probelm in step~(3) must be solved at each stage $k$;
+Under some good structures these problems can be solved efficiently such as convexity;
+the implementation of the CEC requires no storage of the type required for the optimal feedback controller.
+\end{remark}
+
+\paragraph{An Offline Alternative for CEC}
+We can solve the optimal control problems by solving these problems as a priori off-line.
+In particular, we use DP to solve the problem
+\begin{subequations}
+\begin{align}
+\min\quad&g_N(x_N)+\sum_{k=0}^{N-1}g_k(x_k,\mu_k(x_k),\bar{\omega}_k(x_k,u_k))\\
+\text{subject to }&x_{k+1}=f_k(x_k,\mu_k(x_k),\bar{\omega}_k(x_k,u_k)),\ \mu_k(x_k)\in U_k,k\ge0
+\end{align}
+w.r.t. a feedback policy, denoted as $\pi^d = \{\mu_0^d,\dots,\mu_{N-1}^d\}$.
+\end{subequations}
+Then we store the functions $\mu_0^d,\dots,\mu_{N-1}^d$.
+In step 3, there is no need to solve any optimization problem any more, and we just apply
+$\bar{\mu}_k(I_k)=\mu_k^d(\bar{x}_k(I_k))$ in step 4.
+
+\begin{remark}
+The CEC is optimal for linear quadratic problems, as shown in previous chapter.
+However, it's possible to construct examples where the CEC performs strictly worse than the optimal open-loop controller.
+\end{remark}
+\subsection{Variantions of CEC}
+\subsubsection{CEC with Heuristics}
+w.l.o.g., assume we are doing the perfect state information problem, and we aim to design some heuristic to find a \emph{suboptimal} control sequence for the problem $\{\bar{u}_k,\dots,\bar{u}_{N-1}\}$ to the problem
+\[
+\begin{array}{ll}
+\min&g_N(x_N)+\sum_{j=k}^Ng_i(x_i,u_i,\bar{\omega}_i(x_i,u_i))\\
+\text{subject to}&\text{initial condition $x_k$ is given}\\
+&\text{constraints }u_i\in U_i,\ i=k:N-1\\
+&\text{dynamics } x_{i+1}=f_i(x_i,u_i,\bar{\omega}_i(x_i,u_i)),\ i=k:N-1
+\end{array}
+\]
+The idea is to use minimization over the first control $u_k$ and use the heuristic only for the remaining stages $k+1:N-1$.
+In particular, we find the control $\bar{u}_k$ at stage $k$ such that
+\[
+\bar{u}_k = \arg\min_{u_k\in U_k(x_k)}g_k(x_k,u_k,\bar{\omega}_k(x_k,u_k))+H_{k+1}(f_k(x_k,u_k,\bar{\omega}_k(x_k,u_k)))
+\]
+where $H_{k+1}$ is the heuristic cost-go-go function, i.e., $H_{k+1}(x_{k+1})$ is the cost-go-go function starging from a state $x_{k+1}$ using heuristic, by assuming that the future disturbances will be equal to their typical values $\bar{\omega}_i(x_i,u_i), i=k+1:N-1$.
+Note that $H_{k+1}(x_{k+1})$ is an approximation of the optimal cost-to-go function $J^*_{k+1}(x_{k+1})$
+
+\subsubsection{Partially Stochastic Certainty Equivalent Control}
+Sometimes we take into account the stochastic nature of disturances, but still treat these problems as perfect state information:
+\begin{enumerate}
+\item
+First generate the optimal policy $\{\mu_0^p(x_0),\dots,\mu_{N-1}^p(x_{N-1})\}$ for the stochastic perfect state information problem
+\[
+\begin{array}{ll}
+\min&\mathbb{E}\Bigg\{
+g_N(x_N)+\sum_{k=0}^{N-1}g_k(x_k,\mu_k(x_k),\omega_k)
+\Bigg\}\\
+\text{subject to}&\text{constraints }\mu_k(x_k)\in U_k,\ k=0:N-1\\
+&\text{dynamics } x_{k+1}=f_k(x_k,u_k,\omega_k),\ k=0:N-1
+\end{array}
+\]
+\item
+Then apply the control input at stage $k$ as
+\[
+\bar{\mu}_k(I_k) = \mu_k^p(\bar{x}_k(I_k))
+\]
+\end{enumerate}
+
+
+\begin{example}[Aloha]
+In previous perfect state information chapter we have shown that the optimal policy is
+\[
+\mu_k(x_k)=\min\left\{\frac{1}{x_k},1\right\}
+\]
+Therefore, the partially stochastic CEC policy is given by:
+\[
+\bar{\mu}_k(I_k)=\min\left\{
+\frac{1}{\bar{x}_k(I_k)},1
+\right\}
+\]
+
+\end{example}
+\begin{example}[Systems with unknown parameters]\label{exp:5:2}
+Sometimes the system parameters are not known exactly or change over time.
+One alternative is to formulate the stochastic control problem such that the unknown parameters are dealt with directly.
+In particular, it can be transformed into imperfect state information problem using state augmentation:
+\begin{enumerate}
+\item
+Suppose that the system equation is of the form
+\[
+x_{k+1}=f_k(x_k,\theta,u_k,\omega_k)
+\]
+where $\theta$ is a vector of unknown parameters with a given priori probability distribution.
+\item
+We introduce an additional state variable $y_k=\theta$, and obtain a new system equation
+\[
+\begin{pmatrix}
+x_{k+1}\\y_{k+1}
+\end{pmatrix}
+=
+\begin{pmatrix}
+f_k(x_k,\theta,u_k,\omega_k)
+\\
+y_k
+\end{pmatrix}
+\]
+Or equivalently, $\tilde{x}_{k+1}=\tilde{f}_k(\tilde{x}_k,u_k,\omega_k)$.
+The initial condition is given by $\tilde{x}_0=(x_0,\theta)$.
+The resulting problem fits into our framework.
+\item
+Since $\theta$ is unobservable, we are faced with a problem of imperfect state information, even if we know the state $x_k$ exactly.
+Therefore, typically an optimal solution cannot be found, but suboptimal solution could be found using partially stochastic CEC.
+\item
+Suppose that for a fixed parameter vector $\theta$, we are able to derive the optimal policy
+\[
+\{\mu_0^*(I_0,\theta),\dots,\mu_{N-1}^*(I_{N-1},\theta)\}
+\]
+Then the partially stochastic CEC policy takes the form
+\[
+\bar{\mu}_k(I_k) = \mu^*_k(I_k,\bar{\theta}_k(I_k))
+\]
+where $\bar{\theta}_k(I_k)$ is some estimate of $\theta$, based on the information vector $I_k$.
+
+
+\end{enumerate}
+\end{example}
+
+
+\subsection{Caution, Probing, and Dual Control}
+\begin{enumerate}
+\item
+Caution: fully understand the system dynamics
+\item
+Probing: obtain lower objective cost
+\end{enumerate}
+\begin{example}[Control Objective $\&$ Parameter Estimation]
+Consider the perfect state information system setting
+\begin{align*}
+\text{linear scalar system}\quad&x_{k+1}=x_k+bu_k+\omega_k,\ k=0:N-1\\
+\text{Quadratic Terminal Cost}\quad&\mathbb{E}\{x_N^2\}\\
+\text{disturbance distribution}\quad&\omega_k\sim\mathcal{N}(0,\sigma^2_{\omega})
+\end{align*}
+except that $b$ is unknown, with a prior probability distribution of $b$:
+\[
+b\sim\mathcal{N}(\bar{b},\sigma_b^2)
+\]
+\begin{enumerate}
+\item
+When $N=1$, we may verify that 
+\[
+\mathbb{E}\{x_1^2\}=x_0^2+2\bar{b}x_0u_0+(\bar{b}^2+\sigma_b^2)u_0^2+\sigma_{\omega}^2
+\]
+and the minimizer of $u_0$ is
+\[
+u_0=-\frac{\bar{b}}{\bar{b}^2+\sigma_b^2}x_0
+\]
+with the optimal cost
+\[
+\frac{\sigma_b^2}{\bar{b}^2+\sigma_b^2}x_0^2+\sigma_{\omega}^2
+\]
+The optimal control here is cautious in that the optimal $|u_0|$ decreases as the uncertainty in $b$ increases.
+\item
+When $N=2$, the optimal cost-to-go function at stage $1$ is 
+\begin{equation}\label{Eq:5:2}
+J_1(I_1) = \frac{\sigma_b^2(1)}{(\bar{b}(1))^2+\sigma_b^2(1)}x_1^2+\sigma_{\omega}^2
+\end{equation}
+where $I_1=(x_0,u_0,x_1)$ denotes the information vector, and
+\[
+\begin{array}{ll}
+\bar{b}(1)=\mathbb{E}\{b\mid I_1\},
+&
+\sigma_b^2(1)=\mathbb{E}\{(b-\bar{b}(1))^2\mid I_1\}
+\end{array}
+\]
+where $\bar{b}(1)$ and $\sigma_b^2(1)$ can be obtained from the equation $x_1=x_0+bu_0+\omega_0$.
+The formulat for $\sigma_b^2(1)$ is given by
+\[
+\sigma_b^2(1) = \frac{\sigma_b^2\sigma_{\omega}^2}{u_0^2\sigma_b^2+\sigma_{\omega}^2}
+\]
+Therefore, to achieve small error variance$\sigma_b^2(1)$, we should apply a control $u_0$ that is large in absolute value.
+However, when $|u_0|$ is large, then $|x_1|$ will also be large, which is not desirable in view of Eq.~(\ref{Eq:5:2}).
+Therefore, there is a tradeoff between the control objective and the parameter estimation.
+\end{enumerate}
+\end{example}
+
+\subsection{Two Phase Control and Identifiability}
+Return to example~(\ref{exp:5:2}).
+We separate the control process into two phases, a \emph{parameter identification phase} and a \emph{control phase}.
+
+One drawback is that the information gathered during the identification phase is not used to adjust the control law until the begining of the second phase.
+Furthermore, it's not always easy to determine when to terminate one phase and start the other.
+
+Another drawback is that the control process may make some of the unknown parameters \emph{invisible} to the identification phase, which is best explained by the example below:
+\begin{example}
+Consider the perfect state information system setting
+\begin{align*}
+\text{linear scalar system}\quad&x_{k+1}=ax_k+bu_k+\omega_k,\ k=0:N-1\\
+\text{Quadratic Terminal Cost}\quad&\mathbb{E}\left\{\sum_{k=1}^Nx_k^2\right\}\\
+\text{disturbance distribution}\quad&\mathbb{E}\omega_k=0
+\end{align*}
+except that the parameters $a$ and $b$ is unknown. For fixed $a$ and $b$, the control law is
+\[
+\mu_k^*(x_k)=-\frac{a}{b}x_k.
+\]
+Consider the two-phase method. 
+During the first phase the control law 
+\begin{equation}\label{Eq:5:3}
+\tilde{\mu}_k(x_k)=\gamma x_k:=-\frac{\bar{a}}{\bar{b}}x_k
+\end{equation}
+is used.
+At the end of the first phase, the control law is changed into
+\begin{equation}
+\bar{\mu}_k(x_k)=-\frac{\hat a}{\hat b}x_k,
+\end{equation}
+where $\hat a$ and $\hat b$ are the estimates obtained from the identification process.
+However, with the control law~(\ref{Eq:5:3}), the closed-loop system is changed into
+\[
+x_{k+1}=(a+b\gamma)x_k+\omega_k,
+\]
+i.e., the identification process can at best identify the value of $(a+b\gamma)$ but not the values of both $a$ and $b$, i.e., we cannot identify pairs $(a_1,b_1)$ and $(a_2,b_2)$ once $a_1+b_1\gamma=a_2+b_2\gamma$,
+\begin{enumerate}
+\item
+One way to rescue is to add an additional known input $\delta_k$ into the control (\ref{Eq:5:3}):
+\[
+\tilde{\mu}_k(x_k)=\gamma x_k+\delta_k
+\]
+Then the closed-loop system becomes 
+\[
+x_{k+1} = (a+b\gamma x_k)+b\delta_k+\omega_k,
+\]
+and the knowledge for $\{x_k\}$ and $x_{k+1}$ makes possible to identify $(a+b\gamma)$ and $b$.
+\item
+The second way is to change the structure of the system by introducing a one-unit delay in the control feedback.
+Therefore, we consider the control of the form
+\[
+u_k = \hat{\mu}_k(x_{k-1})=\gamma x_k
+\]
+and then the closed-loop system becomes 
+\[
+x_{k+1} =ax_k+b\gamma x_{k-1}+\omega_k
+\]
+Given $\gamma$ and $\{x_k\}$, it's possible to identify both $a$ and $b$.
+However, introducing a control delay makes the system less responsive to control.
+\end{enumerate}
+\end{example}
+
+
+
+\subsection{Certanity Equivalent Control and Identifiability}
+The certainty equivalent control approach incorporated the parameter estimation process into the control law as they are generated, and they are treated as if they were the real values.
+
+Consider the sytem $x_{k+1}=f_k(x_k,\theta,u_k,\omega_k)$ again.
+Suppose that for each possible value of $\theta$, the control law $\pi^*(\theta)=\{\mu_{0:N-1}^*(\cdot,\theta)\}$ is optimal w.r.t. a certain cost $J_{\pi}(x_0,\theta)$.
+The suboptimal control used at time $k$ is 
+\[
+\begin{array}{ll}
+&\hat{\mu}_k(I_k) = \mu^*(x_k,\hat{\theta}_k)\\
+\text{with}&\hat{\theta}\text{ is an estimate of $\theta$ based on $I_k$}
+\end{array}
+\]
+
+Unfortunately, the parameter estimates $\hat{\theta}_k$ may not necessarily converge to the true value $\theta$, i.e., the CEC is not asymptotically optimal.
+Suppose for simplicity that the system is stationary with a prior transition probabilities $P\{x_{k+1}\mid x_k,u_k,\theta\}$ and that the control law used is stationary:
+\[
+\hat{\mu}_k(I_k) = \mu^*(x_k,\hat{\theta}_k),\quad
+k=0,1,\dots
+\]
+There are three systems of interest here:
+\begin{enumerate}
+\item
+The system \emph{believed} to be true:
+\[
+P\{x_{k+1}\mid x_k,\mu_k^*(x_k,\hat{\theta}_k),\hat{\theta}_k\}
+\]
+\item
+Underlying true closed-loop system:
+\[
+P\{x_{k+1}\mid x_k,\mu^*(x_k,\hat{\theta}_k),\theta\}
+\]
+\item
+The optimal cost-loop system regarding to the underlying system:
+\[
+P\{x_{k+1}\mid x_k,\mu^*(x_k,\theta),\theta\}
+\]
+\end{enumerate}
+It's possible that
+\begin{enumerate}
+\item
+$\hat{\theta}_k$ does not converge into anything
+\item
+$\hat{\theta}_k$ converges to a parameter $\hat{\theta}\ne\theta$:
+suppose that some $\hat{\theta}\ne\theta$ we have
+\[
+P\{x_{k+1}\mid x_k,\mu^*(x_k,\hat{\theta}),\hat{\theta}\}
+=
+P\{x_{k+1}\mid x_k,\mu^*(x_k,\hat{\theta}),{\theta}\}
+\]
+Then the identification process locks into a wrong parameter no matter how long information is collected.
+\end{enumerate}
+\section{Open-Loop Feedback Control}
+A  variation of CEC, called open-loop feedback control, does not fix the process disturbances, but still solves at eacg stage an open-loop control problem.
+The computation is more complicated than step 3 in CEC, since it involves the computation of some expected values.
+
+\paragraph{Assumption}
+The observation disturbance $v_{k+1}$ depends explicitly only on the immediate preceding state, control, and the system disturbance $x_k,u_k,\omega_k$.
+As a result, $P_{x_k\mid I_k}$ is a sufficient statistic for the imperfect information state problem.
+Then the OLFC proceeds as follows at stage $k$: (question: this assumption is needed in CEC?)
+\begin{enumerate}
+\item
+Given $I_k$, compute $P_{x_k\mid I_k}$
+\item
+Compute an optimal \emph{open-loop} control sequence $\{\bar{u}_k,\dots,\bar{u}_{N-1}\}$ for the problem
+\[
+\begin{array}{ll}
+\min&\mathbb{E}\Bigg\{
+g_N(x_N)+\sum_{i=k}^{N-1}g_i(x_i,u_i,\omega_i)\Bigg|I_k
+\Bigg\}\\
+\text{s.t.}&x_{i+1}=f_i(x_i,u_i,\omega_i),\ u_i\in U_i,\ i\ge k
+\end{array}
+\]
+As a result, $\bar{\mu}_k(I_k) = \bar{u}_k$, then go to step 1 again.
+\end{enumerate}
+\begin{remark}
+Different between OLFC and partially stochastic CEC?
+The partially stochastic CEC does not involve the expectation over $x_k$; the OLFC deals with the expectation over $x_k$. (right?)
+\end{remark}
+
+A nice property of the OLFC is that it performs at least as well as an optimal open-loop policy, i.e., a sequence $\{u_0^*,u_1^*,\dots,u_{N-1}^*\}$ that is the optimal solution for 
+\[
+\begin{array}{ll}
+\min&\bar{J}(u_0,\dots,u_{N-1})=\mathbb{E}\Bigg\{
+g_N(x_N)+\sum_{k=0}^{N-1}g_k(x_k,u_k,\omega_k)
+\Bigg\}\\
+\text{subject to}&x_{k+1}=f_k(x_k,u_k,\omega_k),\ u_k\in U_k,\ k=0,\dots,N-1
+\end{array}
+\]
+
+\begin{proposition}
+The cost $J_{\bar{\pi}}$ corresponding to an OLFC satisfies
+\[
+J_{\bar{\pi}}\le J_0^*,
+\]
+where $J_0^*$ is the cost corresponding to an optimal open-loop policy.
+\end{proposition}
+\begin{proof}
+\begin{itemize}
+\item
+\begin{subequations}
+Let $\bar{\pi}=\{\bar{\mu}_0,\dots,\bar{\mu}_{N-1}\}$ be the OLFC, with the cost
+\begin{equation}\label{Eq:5:5:a}
+J_{\bar{\pi}} = \mathbb{E}_{z_0}\{\bar{J}_0(I_0)\},
+\end{equation}
+where $\bar{J}_0$ is obtained from the recusive algorithm:
+\begin{align}
+\bar{J}_{N-1}(I_{N-1})&=
+\mathbb{E}_{x_{N-1},\omega_{N-1}}\Bigg\{
+g_N(f_{N-1}(x_{N-1},\bar{\mu}_{N-1}(I_{N-1}), \omega_{N-1}))
+\nonumber\\
+&+g_{N-1}(x_{N-1},\bar{\mu}_{N-1},\omega_{N-1})\Bigg| I_{N-1}
+\Bigg\}\\
+\bar{J}_{k}(I_{k})&=\mathbb{E}_{x_{k},\omega_{k},v_{k+1}}
+\Bigg\{
+g_k(x_k, \bar{\mu}_k(I_k),\omega_k)\\
+&+\bar{J}_{k+1}(I_k,
+h_{k+1}(f_k(\bar{\mu}_k(I_k),\omega_k),\bar{\mu}_k(I_k),v_{k+1}),
+\bar{\mu}_k(I_k)
+)\Bigg|I_k\Bigg\},\nonumber\\
+&\quad\quad k=0,\dots,N-1
+\end{align}
+where $h_k(x_k,u_{k-1},v_k)$ denotes the measurement equation.
+\end{subequations}
+\item
+Define the intermediate function $J_k^c(I_k)$ for $k=0:N-1$:
+\[
+J_k^c(I_k)=\min_{u_i\in U_i, i=k,\dots,N-1}
+\mathbb{E}
+\Bigg\{
+g_N(x_N)+\sum_{i=k}^{N-1}g_i(x_i,u_i,\omega_i)\Bigg|I_k
+\Bigg\}
+\]
+Since we can write $J_0^*$ as 
+\[
+J_0^* = \min_{u_0,\dots,u_{N-1}}\mathbb{E}_{z_0}\mathbb{E}\{\text{cost}\mid z_0\},
+\]
+and $\mathbb{E}_{z_0}\{J_0^c(z_0)\}$ can be expanded as
+\[
+\mathbb{E}_{z_0}\Bigg\{
+\min_{u_0,\dots,u_{N-1}}\mathbb{E}\{\text{cost}\mid z_0\}
+\Bigg\},
+\]
+and due to the inequality $\mathbb{E}\{\min(\cdot)\}\le \min(\mathbb{E}\{\cdot\})$, we have
+\[
+\mathbb{E}_{z_0}\{J_0^c(z_0)\}\le J_0^*.
+\]
+\item
+Now we will show that
+\begin{equation}\label{Eq:5:6}
+\bar{J}_k(I_k)\le J_k^c(I_k),\quad\forall I_k,k
+\end{equation}
+Then by~(\ref{Eq:5:5:a}) we imply
+\[
+J_{\bar{\pi}}\le.
+\]
+We will show that (\ref{Eq:5:6}) by induction.
+By definition,
+\[
+\bar{J}_{N-1}(I_{N-1})=J_{N-1}^c(I_{N-1}),\quad\forall I_{N-1}.
+\]
+\begin{subequations}
+Assume that 
+\begin{equation}
+\bar{J}_{k+1}(I_{k+1})\le J_{k+1}^c(I_{k+1}),\quad\forall I_{k+1}
+\end{equation}
+Then we imply
+\begin{align}
+\bar{J}_{k}(I_{k})&=\mathbb{E}_{x_k,\omega_k,v_{k+1}}
+\Bigg\{
+g_k(x_k,\bar{\mu}_k(I_k),\omega_k)\nonumber\\
+\nonumber&+\bar{J}_{k+1}(I_k,
+h_{k+1}(f_k(x_k,\bar{\mu}(I_k),\omega_k),\bar{\mu}_k(I_k),v_{k+1}),
+\bar{\mu}_k(I_k)
+)\Bigg|I_k
+\Bigg\}\nonumber\\
+&\le
+\mathbb{E}_{x_k,\omega_k,v_{k+1}}
+\Bigg\{
+g_k(x_k,\bar{\mu}_k(I_k),\omega_k)\nonumber\\
+\nonumber&+{J}_{k+1}^c(I_k,
+h_{k+1}(f_k(x_k,\bar{\mu}(I_k),\omega_k),\bar{\mu}_k(I_k),v_{k+1}),
+\bar{\mu}_k(I_k)
+)\Bigg|I_k
+\Bigg\}\nonumber\\
+&=\mathbb{E}_{x_k,\omega_k,v_{k+1}}
+\Bigg\{
+\min_{u_{k+1:N-1}}\mathbb{E}\Bigg\{g_k(x_k,\bar{\mu}_k(I_k),\omega_k)\nonumber\\
+&+\sum_{i=k+1}^{N-1}g_i(x_i,u_i,\omega_i)+g_N(x_N)\Bigg|I_{k+1}\Bigg\}\Bigg|I_k\Bigg\}\nonumber\\
+&\le \min_{u_{k+1:N-1}}\mathbb{E}\Bigg\{
+g_N(x_N)+g_k(x_k,\bar{\mu}_k(I_k),\omega_k)\nonumber\\
+&+\sum_{i=k+1}^{N-1}g_i(x_i,u_i,\omega_i)\Bigg|I_k\Bigg\}\nonumber\\
+&=J_k^c(I_k)\nonumber
+\end{align}
+
+
+\end{subequations}
+
+
+\end{itemize}
+
+
+
+
+
+\end{proof}
+
+\paragraph{Partial Open-Loop Feedback Control}
+The POLFC uses past measurement to cmompute $P_{x_k\mid I_k}$, but the control input is computed based on the fact that some of the measurements will be taken in the future, and the remaining measurements will not be taken.
+
+\section{Limited Lookahead Policies}
+The limited lookahead polies replies on an \emph{approximation}
+$\tilde{J}_k(\cdot)$ of the cost-to-go function in the DP algorithm.
+For the perfect state problem, the \emph{one-step looahead policy} takes at sstage $k$ and the state $x_k$, the control $\bar{\mu}_k(x_k)$ that minimizes
+\begin{equation}
+\min_{u_k\in U_k(x_k)}\mathbb{E}\Bigg\{
+g_k(x_k,u_k,\omega_k)+\tilde{J}_{k+1}(f_k(x_k,u_k,\omega_k))
+\Bigg\}
+\end{equation}
+where $\tilde{J}_{k+1}$ is the approximation of $J_{k+1}$ in the DP recusion step, with additional $\tilde{J}_N=g_N$.
+Similarly, we consider a two-step looahead polciy, where $\tilde{J}_{k+1}$ itself is obtained using a one-step lookahead
+\begin{align*}
+\tilde{J}_{k+1}(x_{k+1})&=\min_{u_{k+1}\in U_{k+1}(x_{k+1})}
+\mathbb{E}\Bigg\{
+g_{k+1}(x_{k+1},u_{k+1},\omega_{k+1})\\
+&+\tilde{J}_{k+2}(f_{k+1}(x_{k+1},u_{k+1},\omega_{k+1}))
+\Bigg\}
+\end{align*}
+where $\tilde{J}_{k+2}$ is some approximation of the cost-to-go function $J_{k+2}$.
+Moreover, the minimization over $U_k$ for $\bar{\mu}_k(x_k)$ can be done approximately.
+\subsection{Performance Bounds for Limited Lookahead Policies}
+\paragraph{Notations}
+Let $\bar{J}_k(x_k)$ denote the underlying policy evaluation for the limited lookahead policy $\{\bar{\mu}_0,\dots,\bar{\mu}_{N-1}\}$ (right?).
+
+\begin{proposition}\label{pro:5:2}
+\begin{subequations}
+Assume that for all $x_k$ and $k$, we have
+\begin{equation}\label{Eq:5:9:a}
+\min_{u_k\in\bar{U}_k(x_k)}\mathbb{E}\Bigg\{
+g_k(x_k,u_k,\omega_k)+\tilde{J}_{k+1}(f_k(x_k,u_k,\omega_k))
+\Bigg\}\le\tilde{J}_k(x_k)
+\end{equation}
+Then the cost-to-go function $\bar{J}_k$ corresponding to a one-step lookahead policy that uses $\tilde{J}_k$ and $\bar{U}_k(x_k)$ satisfy for all $x_k$ and $k$,
+\begin{equation}
+\bar{J}_k(x_k)\le \min_{u_k\in\bar{U}_k(x_k)}
+\mathbb{E}
+\Bigg\{
+g_k(x_k,u_k,\omega_k)
++
+\tilde{J}_{k+1}(f_k(x_k,u_k,\omega_k))
+\Bigg\}
+\end{equation}
+\end{subequations}
+\end{proposition}
+\begin{proof}
+Introduce a new function
+\begin{equation}
+\hat{J}_k(x_k)=\min_{u_k\in\bar{U}_k(x_k)}\mathbb{E}\Bigg\{
+g_k(x_k,u_k,\omega_k)+\tilde{J}_{k+1}(f_k(x_k,u_k,\omega_k))
+\Bigg\},
+\end{equation}
+with $\hat{J}_N=g_N$.
+It suffices to show that $\bar{J}_k(x_k)\le \hat{J}_k(x_k),\forall x_k,k$.
+
+We use the backward induction on $k$.
+Since we have $\bar{J}_N(x_N)=\hat{J}_N(x_N)=g_N(x_N)$ for all $x_N$, assume that $\bar{J}_{k+1}(x_{k+1})\le\hat{J}_{k+1}(x_{k+1}),\forall x_{k+1}$, which implies that
+\begin{subequations}
+\begin{align*}
+\bar{J}_k(x_k)&=\mathbb{E}\{g_k(x_k,\bar{\mu}_k,\omega_k)+\bar{J}_{k+1}(f_k(x_k,\bar{\mu}_k(x_k),\omega_k))\}\\
+&\le \mathbb{E}\{g_k(x_k,\bar{\mu}_k,\omega_k)+\hat{J}_{k+1}(f_k(x_k,\bar{\mu}_k(x_k),\omega_k))\}\\
+&\le \mathbb{E}\{g_k(x_k,\bar{\mu}_k,\omega_k)+\tilde{J}_{k+1}(f_k(x_k,\bar{\mu}_k(x_k),\omega_k))\}\\
+&=\hat{J}_k(x_k)
+\end{align*}
+\end{subequations}
+Furthermore, $\bar{J}_k(x_k)\le \hat{J}_k(x_k)$.
+\end{proof}
+
+\begin{remark}
+Note that the cost-go of the one-step lookahead policy is no greater than the lookahead approximation on which it is based.
+This provides a good upper bound on $\bar{J}_k(x_k)$.
+\end{remark}
+We can verify the critical assumption~(\ref{Eq:5:9:a}) for few interesting special cases:
+
+\begin{example}[Rollout Algorithm]
+Suppose that $\tilde{J}_k(x_k)$ is the cost-to-go for some given (suboptimal) heuristic policy $\pi$.
+The resulting one-step lookahead function \emph{restricted to $\pi$} is given by:
+\[
+\tilde{J}_k(x_k)=\mathbb{E}\Bigg\{
+g_k(x_k,\mu_k(x_k),\omega_k)
++
+\tilde{J}_{k+1}(f_k(x_k,\mu_k(x_k),\omega_k))
+\Bigg\}
+\]
+which implies
+\[
+\tilde{J}_k(x_k)\ge \min_{u_k\in\bar{U}_k(x_k)}\mathbb{E}\Bigg\{
+g_k(x_k,\mu_k(x_k),\omega_k)
++
+\tilde{J}_{k+1}(f_k(x_k,\mu_k(x_k),\omega_k))
+\Bigg\}
+\]
+Therefore, the rollout algorithm performs better than the heuristic on which it is based.
+\end{example}
+
+\begin{example}[Rollout Algorithm with multiple Heuristics]
+Suppose that $\tilde{J}_k(x_k)$ is the minimum of the cost-to-go functions corresponding to $m$ heurstics:
+\[
+\tilde{J}_k(x_k) = \min\{J_{\pi_1,k}(x_k),\dots,J_{\pi_m,k}(x_k)\}
+\]
+By the DP algorithm,
+\[
+J_{\pi_j,k}(x_k)=\mathbb{E}\Bigg\{
+g_k(x_k,\mu_{j,k}(x_k),\omega_k)+J_{\pi_j,k+1}(f_k(x_k,\mu_{j,k}(x_k),\omega_k))
+\Bigg\}
+\]
+which implies
+\begin{align*}
+J_{\pi_j,k}(x_k)&=\mathbb{E}\Bigg\{
+g_k(x_k,\mu_{j,k}(x_k),\omega_k)+\tilde{J}_{k+1}(f_k(x_k,\mu_{j,k}(x_k),\omega_k))
+\Bigg\}\\
+&\ge
+\min_{u_k\in\bar{U}_k(x_k)}\mathbb{E}\Bigg\{
+g_k(x_k,\mu_{j,k}(x_k),\omega_k)+\tilde{J}_{k+1}(f_k(x_k,\mu_{j,k}(x_k),\omega_k))
+\Bigg\}
+\end{align*}
+Taking minimum on the LHS over $j$ gives
+\[
+\tilde{J}_k(x_k)\ge \min_{u_k\in\bar{U}_k(x_k)}\mathbb{E}\Bigg\{
+g_k(x_k,\mu_{j,k}(x_k),\omega_k)+\tilde{J}_{k+1}(f_k(x_k,\mu_{j,k}(x_k),\omega_k))
+\Bigg\}
+\]
+\end{example}
+In general, the assumption~(\ref{Eq:5:9:a}) is not satisfied, but we also obtain an upper bound:
+\begin{proposition}
+Define $\tilde{J}_k,k=0,\dots,N$ with $\tilde{J}_N(x_N)=g_N(x_N)$ for all $x_N$, and let $\pi=\{\bar{\mu}_0,\dots,\bar{\mu}_{N-1}\}$ be policies such that
+\begin{equation}
+\mathbb{E}\{g_k(x_k,\bar{\mu}_k(x_k),\omega_k)
++
+\tilde{J}_{k+1}(f_k(x_k,\bar{\mu}_k(x_k),\omega_k))
+\}
+\le
+\tilde{J}_k(x_k)+\delta_k,\ \forall x_k,k
+\end{equation}
+Then for any $x_k$ and $k$ we have
+\[
+J_{\pi,k}(x_k)\le \tilde{J}_k(x_k)+\sum_{i=k}^{N-1}\delta_i
+\]
+\end{proposition}
+\begin{proof}
+We apply the backwards induction on $k$.
+In particular, we have $\tilde{J}_N(x_N)=g_N(x_N)=J_{\pi,N}(x_N)$ for any $x_N$.
+Assume that
+\[
+J_{\pi,k+1}(x_{k+1})\le \tilde{J}_{k+1}(x_{k+1})+\sum_{i=k+1}^{N-1}\delta_i,
+\]
+then we imply
+\begin{align*}
+J_{\pi,k}&=\mathbb{E}\Bigg\{
+g_k(x_k,\bar{\mu}_k(x_k),\omega_k)
++
+J_{\pi,k+1}(f_k(x_k,\bar{\mu}_k(x_k),\omega_k))
+\Bigg\}\\
+&\le
+\mathbb{E}\Bigg\{
+g_k(x_k,\bar{\mu}_k(x_k),\omega_k)
++
+\tilde{J}_{k+1}(f_k(x_k,\bar{\mu}_k(x_k),\omega_k))
+\Bigg\}+\sum_{i=k+1}^{N-1}\delta_i\\
+&\le
+\tilde{J}_k(x_k)+\delta_k+\sum_{i=k+1}^{N-1}\delta_i
+\end{align*}
+
+\end{proof}
+\section{Computational Issues for limited Lookahead}
+\begin{enumerate}
+\item
+Nonlinear programming can be used to compute the One-step lookahead policy or the multi-step version when $U_k(x_k)$ is not a discrete set. 
+\begin{example}[Two-state Stochastic Programming]
+In the first stage we choose $u_0$ from $U_0\in\mathbb{R}^m$ with cost $g_(u_0)$. Then we follow an uncertain event represented by a random variable $\omega$ taking possible values $\omega^1,\dots,\omega^r$. Once $\omega^j$ occurs, we need to choose $u_1^j$ from the set $U_1(u_0,\omega^j)\subseteq\mathbb{R}^m$ at a cost $g_1(u_1^k,\omega^j)$.
+Therefore, we need to solve
+\[
+\begin{array}{ll}
+\min&g_0(u_0)+\sum_{j=1}^rg_1(u_1^j,\omega^j)\\
+\text{with}&u_0\in U_0,\ u_1^j\in U_1(u_0,\omega^j),\ j=1,\dots,r
+\end{array}
+\]
+It can be viewed as a two-stage perfect state information problem, where
+$x_1=\omega_0$ denotes the stae equation, $\omega_0$ can take values $\omega^1,\dots,\omega^r$, the cost for first stage is $g_0(u_0)$, the cost for second stage is $g_1(x_1,u_1)$.
+
+\end{example}
+This example can be generalized into basic problems for DP with horizon $N=2$.
+Suppose $\omega_0$ and $\omega_1$ are random variables taking values $\omega^1,\dots,\omega^r$.
+The optimal cost is 
+\begin{align*}
+J_0(x_0)&=\min_{u_0\in U_0(x_0)}
+\Bigg[
+\sum_{j=1}^rp^j\Bigg\{
+g_0(x_0,u_0,\omega^j)\\
+&+
+\min_{u_1^j\in U_1(f_0(x_0,u_0,\omega^j))}\Bigg[
+\sum_{i=1}^rp^i\Bigg\{ g_1(f_0(x_0,u_0,\omega^j), u_1^j,\omega^i)\\
+&+g_2(f_1(f_0(x_0,u_0,\omega^j), u_1^j,\omega^i))\Bigg\}\Bigg]\Bigg\}\Bigg]
+\end{align*}
+which is equivalent to solving the nonlinear programming problem
+\begin{align*}
+\text{minimize}\quad&\sum_{j=1}^rp^j\Bigg\{g_0(x_0,u_0,\omega^j)+\sum_{i=1}^r\Bigg\{g_1(f_0(x_0,u_0,\omega^j),u_1^j,\omega^i)\\
+&+g_2(f_1(f_0,u_0,\omega^j),u_1^j,\omega^i)\Bigg\}\Bigg\}\\
+\text{with}\quad&u_0\in U_0(x_0),\ u_1^j\in U_1(f_0(x_0,u_0,\omega^j))
+\end{align*}
+\item
+The choice of approximation functions $\tilde{J}_k$ can be computed in a variety of ways:
+\begin{enumerate}
+\item
+Problem Approximation:
+Approximate the optimal cost-to-go with some cost derived from a related but simpler problem
+\item
+Parametric Cost-to-Go Approximation:
+Approximate the optimal cost-to-go with a function of a suitable parametric form, e.g., Neuro-Dynamic Programming
+\item
+Rollout Approach: Approximate the optimal cost-to-go with the cost of some suboptimal policy, 
+which is calculated either analytically or by simulation.
+
+\end{enumerate}
+
+
+\end{enumerate}
+
+\subsection{Rollout Algorithms}
+\paragraph{One-step Lookahead policy}
+At each stage $k$ and state $x_k$, we use the control $\bar{\mu}_k(x_k)$ that attains minimum for the expression
+\[
+\begin{array}{ll}
+\min_{u_k\in U_k(x_k)}&\mathbb{E}\left\{
+g_k(x_k,u_k,\omega_k)
++
+\tilde{J}_{k+1}(f_k(x_k,u_k,\omega_k))
+\right\}\\
+\text{where}&\tilde{J}_N=g_N\\
+&\tilde{J}_{k+1}\text{ is the approximation to the true cost-to-go $J_{k+1}$}
+\end{array}
+\]
+In the rollout algorithm, $\tilde{J}_{k+1}$ is the cost-to-go of heuristic policy, called the base policy.
+\begin{proposition}\label{pro:5:4}
+The rollout algorithm achieves no worse cost than the base heuristic starting from the same state
+\end{proposition}
+
+\paragraph{Main Difficulty}
+Calculating $\tilde{J}_k(x_k)$ is computationally intensive if the cost-to-go of the base policy cannot be analytically calculated.
+\begin{itemize}
+\item
+Involve the monte carlo simulation if the problem is stochastic
+\item
+Things improve in the deterministic case.
+\end{itemize}
+
+\begin{example}[Quiz Problem]
+A person is given $N$ questions; answering correctly question $i$ has probability $p_i$, reward $v_i$. Quiz terminates at the first incorrect answer.
+The problem is to choose the ordering of questions to maximize the total expected reward.
+
+The optimal policy is to use the index policy: answer questions in decreasing order of $p_iv_i/(1-p_i)$
+
+With minor changes in the problem, the index policy will not be optimal:
+\begin{itemize}
+\item
+A limit on the maximum number of questions that can be answered
+\item
+Time windows, sequence-dependent rewards, precedence constraints
+\end{itemize}
+
+Rollout with the index policy as base policy:
+convenient since at a given state, the index policy and its expected reward can be easily calculated.
+\end{example}
+
+\begin{proof}[Proof for proposition~(\ref{pro:5:4})]
+It suffices to check the assumption shown in proposition~(\ref{pro:5:2}):
+
+Since $\tilde{J}_k(x_k)$ is the cost-to-go function based on the policy $\{\mu_k(x_k)\}$, we imply
+\begin{align*}
+\tilde{J}_k(x_k)&=\mathbb{E}\Bigg\{
+g_k(x_k,\mu_k(x_k),\omega_k)
++
+\tilde{J}_{k+1}(f_k(x_k,\mu_k(x_k),\omega_k))
+\Bigg\}\\
+&\ge
+\min_{u_k\in U_k(x_k)}\mathbb{E}\Bigg\{
+g_k(x_k,u_k,\omega_k)
++
+\tilde{J}_{k+1}(f_k(x_k,u_k,\omega_k))
+\Bigg\}
+\end{align*}
+Therefore, applying proposition~(\ref{pro:5:2}) gives
+\begin{align*}
+\bar{J}_k(x_k)&\le \min_{u_k\in U_k(x_k)}\mathbb{E}\Bigg\{
+g_k(x_k,u_k,\omega_k)
++
+\tilde{J}_{k+1}(f_k(x_k,u_k,\omega_k))
+\Bigg\}\\
+&\le \mathbb{E}\Bigg\{
+g_k(x_k,\mu_k(x_k),\omega_k)
++
+\tilde{J}_{k+1}(f_k(x_k,\mu_k(x_k),\omega_k))
+\Bigg\}=\tilde{J}_k(x_k)
+\end{align*}
+\end{proof}
+\begin{proof}[Alternative Proof for proposition~(\ref{pro:5:4})]
+Define
+\begin{align*}
+\bar{J}_k(x_k):&\text{cost to go for the rollout policy}\\
+H_k(x_k):&\text{cost to go for the base policy}
+\end{align*}
+We claim that $\bar{J}_k(x_k)\le H_k(x_k)$ for all $x_k,k$:
+We show this claim by induction. We have $\bar{J}_N(x_N)=H_N(x_N)$ for all $x_N$.
+Assume that
+\[
+\bar{J}_{k+1}(x_{k+1})\le H_{k+1}(x_{k+1}),\ \forall x_{k+1}
+\]
+It follows that for all $x_k$,
+\begin{align*}
+\bar{J}_k(x_k)&=\mathbb{E}\Bigg\{
+g_k(x_k,\bar{\mu}_k(x_k),\omega_k)+\bar{J}_{k+1}(f_k(x_k,\bar{\mu}_k(x_k),\omega_k))\Bigg\}\\
+&\le \mathbb{E}\Bigg\{
+g_k(x_k,\bar{\mu}_k(x_k),\omega_k)+H_{k+1}(f_k(x_k,\bar{\mu}_k(x_k),\omega_k))
+\Bigg\}\\
+&\le 
+\mathbb{E}\Bigg\{
+g_k(x_k,{\mu}_k(x_k),\omega_k)+H_{k+1}(f_k(x_k,{\mu}_k(x_k),\omega_k))
+\Bigg\}\\
+&=H_k(x_k)
+\end{align*}
+
+
+
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

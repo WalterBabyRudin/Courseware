@@ -1,0 +1,20 @@
+\documentclass[tikz,border=3mm]{standalone}
+\usepackage{pgfplots}
+\begin{document}
+\begin{tikzpicture}
+    \begin{axis}[
+    xlabel=$w$,
+    ylabel=Error Function,
+    ymin=-4, ymax=5,
+    xmin=-1,xmax=7,
+    legend pos=  north west,]
+        \addplot+[mark=none,dashed] {(1-min(max(x,0),2))^2};
+        \addlegendentry{$E_1$};
+        \addplot+[mark=none,dashed] {(2-2*min(max(x-2.3,0),2))^2-3};
+        \addlegendentry{$E_2$};
+        \addplot+[mark=none,ultra thick] {(1-min(max(x,0),2))^2+(2-2*min(max(x-2.3,0),2))^2-3};
+        \addlegendentry{$E= E_1+E_2$};
+    \end{axis}
+\end{tikzpicture}
+
+\end{document}

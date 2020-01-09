@@ -1,0 +1,342 @@
+\chapter{Taming Explosion/Vanishing: Initialization}
+
+\section{Reviewing}
+\begin{enumerate}
+\item
+Does Xevier intialization allow $W_{ij}^{\ell}\sim C\cdot\text{rand}$?
+
+No. From the assignment we know that $\mathbb{E}W_{ij}^{\ell}$ should be zero.
+\item
+How to pick variance of $W_{i,j}$ for non-linear activation functions?
+\begin{itemize}
+\item
+Relu activiation: twice the variance.
+\item
+other types of activiation: to be discussed today
+\end{itemize}
+\item
+Does the Chain rule work for derivative of matrix over vector?
+
+Not directly. We need to derive a different form
+
+\end{enumerate}
+
+
+
+\section{Motivation}
+Three topics to be discussed today:
+\begin{itemize}
+\item
+The difference for training \emph{wide} versus \emph{narrow} neural network
+\item
+Mean-field approximation
+\item
+Dynamical Isometry (spectrum analysis)
+\end{itemize}
+
+The motivation is that engineers believe that the initialization for training a neural network is important, otherwise the gradient explosion/vanishing will happen.
+These topics discuss the initialization with connection to gradient explosion/vanishing from different perspectives.
+
+
+\begin{example}\label{exp:3:1}
+Review the code in section~(\ref{sec:2:3}). This experiment has seveal limitations:
+\begin{itemize}
+\item
+It only shows the signal strength does not change too much over linear networks, but what will happen if the signal undergoes a non-linear activation.
+\item
+It only shows that the signal strength does not change too much after one-layer. Does it assert that after more layers, the signal strength still remains nearly the same?
+\begin{itemize}
+\item
+Last time we have shown that $\mathbb{E}(\|z^{\ell}\|^2)\approx\mathbb{E}(\|z^{\ell-1}\|^2)$.
+Therefore, it seems to be true that 
+\[
+\mathbb{E}(\|z^L\|^2)\approx
+\mathbb{E}(\|z^{L-1}\|^2)\approx
+\cdots\approx\mathbb{E}(\|x\|^2)
+\]
+\item
+However, we can run a simulation to verify the cases.
+If we set $L\leftarrow100,d\leftarrow10$, and run the following code in MATLAB:
+\begin{verbatim}
+clear;
+L = 100;
+d = 10;		% dimension for weight matrix W
+maxit = 1;	% maximum iteration number	
+
+x = ones(d,1);  norm0 = norm(x);
+for i = 1:maxit
+    for l = 1:L
+        W = randn(d,d)/sqrt(d);
+        x = W*x;
+    end
+    rato = norm(x)/norm0
+end
+\end{verbatim}
+Then we find that the ratio of output signal strength over the input signal strength is below $10^{-3}$.
+\end{itemize}
+\end{itemize}
+\end{example}
+We should give some more precise theoretical analysis.
+\begin{enumerate}
+\item
+Firstly we give a rigorous proof for that the signal strength after one-layer linear network keeps nearly the same for Xaiver Initialization.
+Consider the input vector $x=\bm 1\in\mathbb{R}^d$ and after one-layer linear network, $z=Wx\in\mathbb{R}^d$ such that $W_{i,j}\sim\mathcal{N}(0,1/d)$.
+Therfore,
+\[
+z=\begin{pmatrix}
+\sum_{j=1}^d W_{1,j}\\
+\sum_{j=1}^d W_{2,j}\\
+\vdots\\
+\sum_{j=1}^d W_{d,j}
+\end{pmatrix}
+\implies
+\|z\|^2 =\sum_{i=1}^d\underbrace{\left(\sum_{j=1}^d W_{i,j}\right)^2}_{\xi_i}
+\]
+where $d\cdot \xi_i$ is the sum of the square of $d$ i.i.d standard normal random variables, i.e.,
+$d\cdot \xi_i\sim \chi^2(d)$. Therefore,
+\[
+\mathbb{E}[\xi_i] = 1.
+\]
+Moreover, 
+\begin{align*}
+\mathbb{P}(|\xi_i - 1|\le\epsilon) &= \mathbb{P}(|\chi^2(d)-d|\le \epsilon\cdot d)\\
+&\triangleq 
+1 - F((1-\epsilon)d,d) - (1-F((1+\epsilon)d,d))\\
+&\ge 1 - ((1-\epsilon)e^{\epsilon})^{d/2}- ((1+\epsilon)e^{-\epsilon})^{d/2}
+\end{align*}
+where $F(x,d)$ denotes teh cdf of the random variable $\chi^2(d)$, and the last inequality follows from the \emph{Chernoff bounds} on the lower and upper tails of $F(\cdot,d)$.
+Therefore, we conclude that the signal strength after one-layer is close to the original with high probability.
+\item
+Then consider the signal strength after multi-layer linear network. Unrigorously, suppose that in each layer $\xi_i\approx1+\varepsilon$, and $\|z^{\ell}\|^2 = \|z^{\ell-1}\|^2(1+\varepsilon)$.
+Therefore, the final signal strength
+\[
+\|z^L\|^2 \approx\|z^{L-1}\|^2(1+\epsilon)\approx\cdots\approx\|x\|^2(1+\varepsilon)^L
+\]
+Here the parameter $\varepsilon$ depends on $d$, i.e., the number of neuros in each layer. Roughly speaking, $\epsilon = \mathcal{O}(1/d)$.
+As a result,
+\[
+\|z^L\|^2 = \|x\|^2 (1\pm\frac{1}{d})^L\approx \|x\|^2e^{L/d}.
+\]
+\end{enumerate}
+
+\begin{remark}
+\begin{enumerate}
+\item
+The signal strength ratio $\|z^L\|^2/\|x\|^2=\mathcal{O}(\exp(L/d))$,
+where $L$ is the depth of the layers, $d$ is the number of neuros in each layer. 
+Therefore, $L/d$ controls the width of the neural network.
+When $L/d$ is very large, i.e., the neural network is very narrow, it's likely that gradient explosion/vanishing will happen.
+\item
+For the toy example of fully connected linear network we have tried before, i.e., in Example~(\ref{exp:3:1}), when $L/d>10$, the gradient explosion/vanishing will happen;
+it works well if we set $L/d<1/10$. 
+\item
+This theoretical analysis also depends on other factors such as input data and architecture. For instance, if we train CIFAR10/MINST using super-small $L/d$ 
+(e.g., $d=3\text{million}$ neurals in the widest layer, $L>50$ layers, and $L/d$ small),
+we still cannot train it well.
+This is different from our prediction that when $L/d$ is small then one can train it well. It might be related to CNN, but could also be related to other issues such as landscape.
+\end{enumerate}
+\end{remark}
+\paragraph{Bibliography}
+For different neural network architectures such as CNN, we need to perform the similar experiments but with ``fair'' criteria. The paper (\cite{Glorot10understandingthe}) checked the CNN architecture. 
+No one have ever performed the similar verifications for SOTA architecture.
+
+The paper (\cite{NIPS2018_7338}) gives total regiorous proof for previous theoretical analysis based on the martingale theory:
+\begin{itemize}
+\item
+Failure mode 1:
+the signal strength normalized by the size in each layer
+scale in the final layer increases/decreases exponentially with the depth,
+i.e.,
+$\mathbb{E}[M_L]\triangleq\mathbb{E}[1/d\|z^L\|^2]\to0$ or $\infty$ as $L\to\infty$
+\item
+Failure mode 2: The empirical variance of the signal strength normalized by the size in each layer, say $\text{Var}\{M_{1:L}\}$, grows exponentially with the depth. More precisely,
+\[
+\mathbb{E}\left[\text{Var}\{M_{1:L}\}\right]=\mathcal{O}\left(
+\exp\left(\sum_{i=1}^L\frac{1}{d_i}\right)\right)
+\]
+In particular, if all $d_i$'s are the same, then $\mathbb{E}\left[\text{Var}\{M_{1:L}\}\right]=\mathcal{O}(\exp(L/d))$.
+\end{itemize}
+There is some gap between Ruoyu Sun's claim and the work in this paper. What Ruoyu Sun claimed is that the variance of $M_L$ depends on $\exp(L/d)$;
+but this paper claims that the empirical variance of $M_{1:L}$ depends on $\exp(L/d)$.
+Nevertheless, the paper actually proved that the variance of $M_L$ depends on $\exp(L/d)$ in their theorem, but they did not advertise this result in the abstract and introduction.
+In summary, this paper and others give a formal theory of why super-deep $\&$ super-narrow neural networks are hard to train.
+\section{General Activation}
+Now we discuss the answer to Question 2 raised at the beginning of this lecture.
+\paragraph{Problem Setting}
+Given input vector $X\in\mathbb{R}^{d\times 1}$ and random weight matrix $W\in\mathbb{R}^{d\times d}$. 
+Define the output vector $z=\phi(Wx)$, where $\phi:\mathbb{R}\to\mathbb{R}$ is a given activation function. 
+We are interested in the sufficient condition ensuring $\mathbb{E}[\|z\|^2]=\mathbb{E}[\|x\|^2]$.
+
+\subsection{The scalar-input one-layer case}
+Consider the case where $d=1$ and $L=1$. 
+Then $x\in\mathbb{R}$ and $z=\phi(wx)$ with $w\sim\mathcal{N}(0,c)$.
+We want to choose $c$ such that $\mathbb{E}[z^2]=x^2$.
+This problem reduces to solving a non-linear equation in terms of $c$:
+\[
+x^2=\mathbb{E}[z^2]=\mathbb{E}_w[(\phi(wx))^2]=\int (\phi(tx))^2\diff t\frac{1}{\sqrt{2\pi}}e^{-1/2t^2}
+\]
+
+\subsection{The vector-input one-layer case}
+Then consider the case where $d>1$ and $L=1$. First write down $z$ explicitly in terms of $x$ and $w$:
+\[
+z = \phi(Wx)
+\implies
+\begin{pmatrix}
+z_1\\\vdots\\ z_d
+\end{pmatrix}=
+\begin{pmatrix}
+\phi(\sum_{j=1}^dw_{1j}x_j)\\
+\vdots\\
+\phi(\sum_{j=1}^dw_{dj}x_j)
+\end{pmatrix}
+\]
+As a result,
+\[
+\|z\|^2 = \sum_{i=1}^d\phi\left(\sum_{j=1}^d w_{ij}x_j\right)^2,
+\]
+which implies
+\begin{align*}
+\mathbb{E}[\|z\|^2] &= \mathbb{E}\left[
+\sum_{i=1}^d\phi\left(\sum_{j=1}^dw_{ij}x_j\right)^2
+\right]\\
+&=d\cdot\mathbb{E}\left[
+\phi\left(\sum_{j=1}^dw_{ij}x_j\right)^2
+\right]=\|x\|^2
+\end{align*}
+where the last inequality is because that $\left\{\phi\left(\sum_{j=1}^dw_{ij}x_j\right)^2\right\}_{i=1:d}$ are i.i.d.
+This is a single equation on scalar $c$, which is solvable.
+
+\subsection{The vector-input multi-layer case}
+We cannot apply the techniques similar as in the previous two cases.
+For instance, consider the case where $d=1$ and $L=2$. If we have 
+\[
+z^2 = \sigma(w^2\sigma(w^1x))
+\]
+Then we know the pdf of $w^1x$ for fixed $x$, but it's hard to know the pdf of 
+$z^1\triangleq\sigma(w^1x)$. It's even harder to know the pdf of $z^2 = \sigma(w^2z^1)$.
+Instead, for the linear activation case, we have 
+\[
+\mathbb{E}\xi_1\xi_2\xi_3=\mathbb{E}\xi_1\mathbb{E}\xi_2\mathbb{E}\xi_3,\quad\text{provided that $\xi_{1:3}$ are independent}
+\]
+However, the expectation $\mathbb{E}(\xi_1(\phi(\xi_2(\phi(\xi_3)))))$ is hard to compute.
+
+\paragraph{Mean-field approximation}
+The solution is to apply the mean-field approximation, the idea in which is to approximate intermediate variabeles by Gaussian random variables.
+\begin{proposition}[Informal Claim]
+Suppose that the $(\ell-1)$-th layer has $d_{\ell-1}$ neurons, which is denoted as $h^{\ell-1}_{1:d_{\ell-1}}$.
+The variables for the pre-activation in $\ell$-th layer, denoted as $h^{\ell}=W^{\ell} \phi(h^{\ell-1})$ (or $h_i^{\ell} = \sum_{j=1}^{d_{\ell-1}}W_{ij}^{\ell}\phi(h^{\ell-1}_j)$ for $i=1:d_{\ell}$) can be approximated by Gaussian random variables, provided that $d_{\ell-1}$ is very large.
+As $d_{\ell-1}\to\infty$, the variable $h^{\ell}_{1:d_{\ell}}$ converge to Gaussain.
+\end{proposition}
+This method is first applied in the paper (\cite{NIPS2016_6322}) to analysis the propagation of the variance of pre-activations. 
+This technique is a novel application of the central limit theorem~(\cite{Bill86}):
+\begin{theorem}[Lyapunov Central Limit Theorem]
+The sum of $n$ independent random variables $X_1,\ldots,X_n$ converges to a Gaussian random variable as $n\to\infty$, provided that Lyapunov’s condition is satisfied.
+\end{theorem}
+Now we apply the mean-field approximation technique in some examples, although the $\infty$-width neural network assumption is not satisfied:
+\begin{example}
+Consider the case where $d=1$ and $L=3$. We have
+\[
+h^1=w^1\phi(x),
+h^2=w^2\phi(h^1),
+h^3=w^3\phi(h^2)
+\]
+with $w^{1:3}\sim\mathcal{N}(0,\sigma_w^2)$ and $x\sim\mathcal{N}(0,q_{\text{in}})$. In order to control the signal strength of $h^3$, it suffices to control its variance~(why?).
+
+By the hint in the note\footnote{Ruoyu Sun, Mean-field Approximation: Step-by-Step Approach}, we have
+\[
+\mathbb{E}[h^1]=0,\quad
+\text{Var}(h^1) =\mathbb{E}[\|wx\|^2] =\sigma_w^2\int_{-\infty}^{\infty}\phi(t\sqrt{q_{\text{in}}})^2
+\frac{1}{\sqrt{2\pi}}\exp\left(-\frac{t^2}{2}\right)\diff t
+\]
+Similarly, we have
+\[
+q^2 = \sigma_w^2\int_{-\infty}^{\infty}\phi(t\sqrt{q^1})^2\frac{1}{\sqrt{2\pi}}\exp\left(-\frac{t^2}{2}\right)\diff t,
+\]
+where $q^i \triangleq \text{Var}(h^i)$ for $i=1,2$.
+
+The general form for $q^{\ell}$ can be computed recursively:
+\[
+q^{\ell}=T(q^{\ell-1})\triangleq
+\sigma_w^2\int_{-\infty}^{\infty}\phi(t\sqrt{q^{\ell-1}})^2\frac{1}{\sqrt{2\pi}}\exp\left(-\frac{t^2}{2}\right)\diff t
+\]
+\end{example}
+
+\begin{remark}
+It's not true for the case $d=1$, since $h^{\ell}$ are actually not Gaussian.
+In multi-dimension case, this statement becomes more rigorous.
+For neural network with infinite-width, if $\mathbb{E}w_{ij}^{\ell}=0$ and $\text{Var}(w_{ij}^{\ell})=\sigma_w^2/\text{fan-out}$,
+then
+\begin{equation}\label{Eq:3:1}
+q^{\ell} = T(q^{\ell-1};\sigma_w^2)\triangleq\sigma_w^2\int\phi(t\sqrt{q^{\ell-1}})^2\frac{1}{\sqrt{2\pi}}\exp\left(-\frac{t^2}{2}\right)\diff t
+\end{equation}
+\end{remark}
+\begin{example}
+We can use the Eq.~(\ref{Eq:3:1}) to find proper $\sigma_w^2$ such that $\{q^{\ell}\}$ does not explode or vanish.
+\begin{itemize}
+\item
+For linear neural network, Eq.~(\ref{Eq:3:1}) reduces to 
+\[
+q^{\ell}=\sigma_w^2q^{\ell-1}.
+\]
+Therefore, we choose $\sigma_w^2=1$, which is the Xavier initialization.
+\item
+For relu activation, Eq.~(\ref{Eq:3:1}) reduces to 
+\[
+q^{\ell}=\frac{1}{2}\sigma_w^2q^{\ell-1}
+\]
+Therefore, we choose $\sigma_w^2=2$, which is the Kaiming initialization.
+\item
+For other types of activation, e.g., $q^{\ell}=(q^{\ell-1})^2\sigma_w^2$, it's difficult to pick $\sigma_w^2$ only to get the desired result. In this case, we pick $\sigma_w^2=1$ and $q^1=1$.
+Note that $q^1=\sigma_w^2\|x\|^2\frac{1}{d_0}$. 
+One key message here is that to achieve the desired stability of signal propagation, one needs to properly choose the input strength $q^0$ such that $q^1$ is the fixed point of the propagation equation ~(\ref{Eq:3:1}). We just gave a toy example that the fixed point is $q^1=1$, but in general, the fixed point $q^*=T(q^*)$ has no closed-form and needs to be computed by other methods.
+\end{itemize}
+\end{example}
+
+
+
+\section{Dynamical Isometry}
+The motivation is that for neural network with input $x\in\mathcal{X}$ and output $y=\mathcal{W}(x)\in\mathcal{Y}$, we want to have $\|x\|\approx\|y\|$.
+\paragraph{Bibliography}
+Dynamical Isometry has gain popularity in the research of deep learning.
+It is first raised in the paper (\cite{DBLP}) to analysis the behavior of deep non-linear networks.
+Following the previous work, the same authors also extends the dynamical isometry theory to a large number of activation functions (\cite{Pennington2018TheEO}).
+This theory also has some applications in practical training. 
+The paper (\cite{pmlr-v80-xiao18a}) applies dynamical isometry theory to train $10000$-layer vanilla CNN without tricks such as Batch Normalization or ResNet.
+The paper (\cite{li2018on}) applies this theory to tranin a deep autoencoder without any other tricks as well.
+The paper (\cite{08987}) applies this theory to train $10000$-long LSTM.
+The Dynamical Isometry is the peak of the design of initialization. There are other examples for the smart design of initalization.
+The paper (\cite{zhang2018residual}) proposes a \emph{FixUp Initialization} scheme to train ResNet without Batch Normalization, which is based on another analysis.
+
+\subsection{Dynamical Isometry for Linear Networks}
+For linear network case, given $y=W^L\cdots W^1x$, the goal is to ensure $\|y\|\approx\|x\|$.
+The previous technique is to choose $W^{\ell}$ to be  a Gaussain matrix.
+
+There is another perspective from singular values. It suffices to let singular values of $W^{\ell}$ to be close to 1.
+The simplest solution~(\cite{Saxe14exactsolutions}) is to set $W^{\ell}$ is an orthogonal matrix, provided that $d_0=\cdots=d_L$, and the intuition is that the norm is orthogonal invariant.
+\begin{proposition}[Key Observation for Orthogonality]
+If $W^{\ell}$ are orthogonal matrices for $\ell=1,\dots,L$, and $d\triangleq d_0=\cdots=d_L$, then
+\begin{align*}
+\|z^{\ell}\|&=\|x\|,\quad\forall \ell\\
+\|e^{\ell}\|&=\|e\|,\quad\forall \ell\\
+\left\|\frac{\partial F}{\partial W^{\ell}}\right\|&=2\|e\|\|x\|,\quad\forall \ell
+\end{align*}
+\end{proposition}
+The paper (\cite{Saxe14exactsolutions}) also runs simulation and finds that the orthogonal initialization in deep neural linear network, unlike the case for Gaussian initialization, enjoys \emph{depth-independent} training time.
+
+The goal that we want to achieve, i.e., all singular values of $W^L\cdots W^0$ are close to 1, is called the \emph{dynamical isometry}.
+
+\begin{remark}
+There are two reasons that people prefer not to use orthogonal initialization.
+The first is that the initialization for CNN is totally different since it is not a fully connected neural network;
+the second is that the case for non-linear network will change a lot.
+\end{remark}
+
+In the next lecture we will talk about the non-linear network. In particular, we will talk about the \emph{DeltaOrthogonal} frequently used in tensorflow.
+
+
+
+
+
+
+
+

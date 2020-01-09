@@ -1,0 +1,104 @@
+\documentclass[examplefnt,biber]{nowfnt} % creates the journal version, needs biber version
+%wrapper for book and ebook are created automatically.
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{bm}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{smartdiagram}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.8}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+\newcommand{\cupdot}{\mathbin{\mathaccent\cdot\cup}}
+\newcommand{\trans}{^{\mathrm T}}
+\newcommand{\Her}{^{\mathrm H}}
+% a few definitions that are *not* needed in general:
+\newcommand{\ie}{\emph{i.e.}}
+\newcommand{\eg}{\emph{e.g.}}
+\newcommand{\etc}{\emph{etc}}
+\newcommand{\now}{\textsc{now}}
+\newcommand{\diff}{\,\mathrm{d}}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\row}{row}
+\DeclareMathOperator{\col}{col}
+\DeclareMathOperator{\Range}{Range}
+\DeclareMathOperator{\im}{Im}
+\DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
+\DeclareMathOperator{\Proj}{Proj}
+\newcommand{\degree}{^\circ}
+\DeclareMathOperator{\diag}{diag}
+\newcommand*\conj[1]{\bar{#1}}
+\DeclareMathOperator{\eig}{eig}
+\DeclareMathOperator{\trace}{trace}
+\DeclareMathOperator{\range}{range}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\tr}{tr}
+%\newcommand{\diff}{\mathrm{d}}
+\renewcommand{\algorithmicrequire}{ \textbf{Input:}} %Use Input in the format of Algorithm
+\renewcommand{\algorithmicensure}{ \textbf{Output:}} %UseOutput in the format of Algorithm
+
+
+%ARTICLE TITLE
+%\title{Using the Foundations and Trends\textsuperscript{\textregistered} \LaTeX\ Class}
+\title{Lecture Notes for CIE6128}
+
+
+%ARTICLE SUB-TITLE
+%\subtitle{Instructions for Creating an FnT Article}
+
+
+%AUTHORS FOR COVER PAGE 
+% separate authors by \and, item by \\
+% Don't use verbatim or problematic symbols.
+% _ in mail address should be entered as \_
+% Pay attention to large mail-addresses ...
+
+%if there are many author twocolumn mode can be activated.
+%\booltrue{authortwocolumn} %SEE DOCUMENTATION
+\maintitleauthorlist{
+\textbf{Lecturer}\\
+Ruoyu Sun \\
+Assistant Professor, University of Illinois\\
+sundirac@gmail.com\\
+\and
+\textbf{Lecturer}\\
+Mingyi Hong \\
+Assistant Professor, University of Minnesota\\
+poborskypaul@gmail.com
+\and
+\textbf{Tex Written By}\\
+Jie Wang\\
+Undergraduate Student, CUHK(SZ)\\
+116010214@link.cuhk.edu.cn
+}
+
+%ISSUE DATA AS PROVIDED BY NOW
+\issuesetup
+{%
+ copyrightowner={J.~Wang},
+ pubyear       = 2019,
+ firstpage     = 1, %Explain
+ lastpage      = 112
+ }
+
+%BIBLIOGRAPHY FILE
+%\addbibresource{sample.bib}ci
+%\addbibresource{testfnt.bib}
+\addbibresource{bib/sample-now.bib}
+
+\usepackage{mwe}
+
+%AUTHORS FOR ABSTRACT PAGE
+%\author[1]{Heezemans, Alet}
+%\author[2]{Casey,Mike}
+
+%\affil[1]{now publishers, Inc.; alet.heezemans@nowpublishers.com}
+%\affil[2]{now publishers, Inc.; mike.casey@nowpublishers.com}
+
+\articledatabox{\nowfntstandardcitation}
