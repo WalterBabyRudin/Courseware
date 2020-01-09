@@ -1,0 +1,355 @@
+
+\chapter{Week1}
+\section{Differentiation}
+\begin{definition}[Forward and Backforward Difference Formula]
+\[
+f'(x_0)=\frac{f(x_0+h)-f(x_0)}{h}-\frac{h}{2}f''(\xi)
+\]
+Consider the Taylor expansion, we have
+\[
+f''(x_0)=\frac{1}{h^2}[f(x_0-h)-2f(x_0)+f(x_0+h)]-\frac{h^2}{12}f^{(4)}(\xi)
+\]
+\end{definition}
+\begin{definition}[General Derivative Approximation]
+The interpolation formula gives
+\[
+f(x)=\sum_{k=0}^nf(x_k)L_k(x)+\frac{(x-x_0)\cdots(x-x_n)}{(n+1)!}f^{(n+1)}(\xi_x)
+\]
+Differentiating both sides gives ($x_j$ is one of the node points)
+\[
+f'(x_j)=\sum_{k=0}^nf(x_k)L_k'(x_j)+\frac{1}{(n+1)!}f^{(n+1)}(\xi_{x_j})\prod_{k=0,k\ne j}^n(x_j-x_k)
+\]
+\end{definition}
+\begin{remark}
+Three-point formula:
+\begin{align*}
+f'(x_j)&=f(x_0)\left[\frac{2x_j-x_1-x_2}{(x_0-x_1)(x_0-x_2)}\right]+f(x_1)\left[\frac{2x_j-x_0-x_2}{(x_1-x_0)(x_1-x_2)}\right]\\
+&+f(x_2)\left[\frac{2x_j-x_0-x_1}{(x_2-x_0)(x_2-x_1)}\right]+\frac{1}{6}f^{(3)}(\xi_j)\prod_{k=0,k\ne j}^2(x_j-x_k)
+\end{align*}
+Substituting $x_j=x_0,x_1,x_2$, we obtain:
+\begin{align*}
+f'(x_0)&=\frac{1}{2h}[-3f(x_0)+4f(x_0+h)-f(x_0+2h)]+\frac{h^2}{3}f^{(3)}(\xi_0)\\
+f'(x_0)&=\frac{1}{2h}[-f(x_0-h)+f(x_0+h)]-\frac{h^2}{6}f^{(3)}(\xi_1)
+\end{align*}
+\end{remark}
+\begin{definition}[Richardson Extrapolation]
+For the approximation with the form
+\[
+M=N_1(h)+K_1h^2+K_2h^4+\cdots
+\]
+we have the approximation
+\[
+N_j(h)=N_{j-1}(\frac{h}{2})+\frac{N_{j-1}(h/2) - N_{j-1}(h)}{4^{j-1}-1}
+\]
+where $N_j(h)$ has order $O(h^{2j})$
+\end{definition}
+round-off error in $N_1(h/2^k)$; we recommend comparing the final diagonal entries to ensure accuracy.
+
+\begin{definition}[Quadrature formula]
+\[
+\int_a^bf(x)\diff x\approx\sum_{i=0}^na_if(x_i)
+\]
+where
+\begin{align*}
+a_i&=\int_a^bL_i(x)\diff x\\
+E(f)&=\frac{1}{(n+1)!}\int_a^b\prod_{i=0}^n(x-x_i)f^{(n+1)}(\xi_x)\diff x
+\end{align*}
+\end{definition}
+\begin{enumerate}
+\item
+Trapezoidal Rule:
+\[
+\int_a^bf(x)\diff x=\frac{h}{2}[f(x_0)+f(x_1)]-\frac{h^3}{12}f'(\xi)
+\]
+Seperating into subintervals $[x_{k-1},x_k]$, we have, with $h=(b-a)/n$,
+\[
+\int_a^bf(x)\diff x=\frac{h}{2}\left[f(a)+2\sum_{j=1}^{n-1}f(x_j)+f(b)\right]-\frac{b-a}{12}h^2f''(\mu)
+\]
+\item
+Simpson's rule: for $h=(x_2-x_0)/2$,
+\[
+\int_{x_0}^{x_2}f(x)\diff x=\frac{h}{3}[f(x_0)+4f(x_1)+f(x_2)]-\frac{h^5}{90}f^{(4)}(\xi)
+\]
+Error Bound: Taylor expansion of $f(x)$, and bound the integrand
+\[
+\frac{1}{24}\int_{x_0}^{x_2}f^{(4)}(\xi_x)(x-x_1)^4=\left.\frac{f^{(4)}(\xi_1)}{120}(x-x_1)^5\right|_{x_0}^{x_2}=\frac{f^{(4)}(\xi_1)}{60}h^5
+\]
+Seperating into subintervals $[x_0,x_2],[x_2,x_4],\dots,[x_{n-2},x_n]$, we have, with $h=(b-a)/n$,
+\begin{align*}
+\int_a^bf(x)\diff x&=\sum_{j=1}^{n/2}\left\{\frac{h}{3}[f(x_{2j-2}+4f(x_{2j-1})+f(x_{2j}))]\right\}\\
+\mbox{Error}&=-\frac{h^5}{90}\sum_{j=1}^{n/2}f^{(4)}(\xi_j)
+=
+-\frac{h^5}{90}\frac{n}{2}f^{(4)}\mu=-\frac{b-a}{180}h^4f^{(4)}(\mu)
+\end{align*}
+\item
+Composite Mid-point rule: for subintervals $[x_{-1},x_1],\dots,[x_{n-1},x_{n+1}]$ with centers $x_0,x_2,\dots,x_n$, and $h=(b-a)/(n+2)$
+\[
+\int_a^bf(x)\diff x=2h\sum_{j=0}^{n/2}f(x_{2j})+\frac{b-a}{6}h^2f''(\mu)
+\]
+\end{enumerate}
+
+
+\begin{definition}[Degree of Precision]
+The degree of precision of a quadrature formula is $n$ if and only if the error is zero for all polynomials of degree $k = 0,1,\cdots,n$, but is not zero for some polynomial of degree $n + 1.$
+\end{definition}
+\begin{definition}[Romberg Method]
+First column: for $k=2,\dots,n$, $h_k=(b-a)/(2^{k-1})$
+\[
+R_{k,1}=\frac{1}{2}\left[
+R_{k-1,1}+h_{k-1}\sum_{i=1}^{2^{k-2}}f(a+(2i-1)h_k)
+\right]
+\]
+For $k=j,j+1,\dots$,
+\[
+R_{k,j}=R_{k,j-1}+\frac{1}{4^{j-1}-1}(R_{k,j-1}-R_{k-1,j-1})
+\]
+\end{definition}
+Stopping Criteria: $|R_{n-1,n-1}-R_{n,n}|<\mbox{tol}$ and $|R_{n-2,n-2}-R_{n-1,n-1}|<\mbox{tol}$. Ensure two differently generated sets of approximations agree within the specified tolerance.
+\begin{definition}[Gauss-Quadrature Rule]
+Generate Legendre poylnomial $P_0(x)=1,P_1(x)=x$,
+\[
+(n+1)P_{n+1}(x)=(2n+1)xP_n(x)-nP_{n-1}(x)
+\]
+Let $\{x_0,\dots,x_n\}$ be rooots of $P_{n+1}(x)$, and
+\[
+w_i=\int_{-1}^1l_i(x)\diff x=\int_{-1}^1\prod_{j=0,j\ne i}^n\frac{x-x_j}{x_i-x_j}\diff x,\quad i=0,1,\dots,n
+\]
+which implies
+\[
+\int_{-1}^1f(x)\diff x=\sum_{j=0}^nw_if(x_i)+\frac{f^{(2n+2)}(\xi)}{(2n+2)!}\int_{-1}^1\prod_{i=0}^n(x-x_i)^2\diff x
+\]
+\end{definition}
+\begin{definition}[Pivoting]
+Why: small $a_{kk}^{(k)}$ leads big error. 
+\begin{itemize}
+\item
+Partial: select an element in the same column that is below the diagonal and has the largest absolute value.
+\item
+Scaled partial: first compute scale $s_i$ for each row; then do the same as partial
+\end{itemize}
+\end{definition}
+\begin{proposition}
+\begin{itemize}
+\item
+$\|\bm A\|_1=\max_{1\le j\le n}\sum_{i=1}^m|a_{ij}|$
+\item
+$\|\bm A\|_2=\sqrt{\lambda_{\max}(\bm A\trans\bm A)}$. If $\bm A$ symmetric, then $\|\bm A\|_2=\rho(\bm A)=\max|\lambda(\bm A)|$
+\item
+$\|\bm A\|_\infty=\max_{1\le i\le m}\sum_{j=1}^n|a_{ij}|$
+\item
+$\rho(\bm A)\le\|\bm A\|$ for any natural norm.
+\item
+$\bm A$ is convergent iff $\rho(\bm A)<1$.
+\end{itemize}
+\end{proposition}
+\begin{proof}
+For eigen-pair ($\lambda,\bm x$) with $\|\bm x\|=1$,
+\[
+|\lambda|=\|\lambda\bm x\|\le\|\bm A\|\|\bm x\|=\|\bm A\|
+\]
+\end{proof}
+\begin{definition}[Jacobi's Method]
+\[
+x_i^{(k)} = \frac{1}{a_{ii}}\left[\sum_{j=1,j\ne i}^n(-a_{ij}x_j^{(k-1)})
++b_i
+\right]
+\]
+Or for the matrix form $\bm x^{(k)}=\bm T_j\bm x^{(k-1)}+\bm c$:
+\[
+\bm x^{(k)}=\bm D^{-1}(\bm L+\bm U)\bm x^{(k-1)}+\bm D^{-1}\bm b,
+\]
+where $\bm D$ are the diagonal of $\bm A$; $-\bm L,-\bm U$ are the strictly lower and upper part of $\bm A$.
+\end{definition}
+
+\begin{definition}[Gauss-Seidel Method]
+\[
+x_i^{(k)}=\frac{1}{a_{ii}}
+\left[
+-\sum_{j=1}^{i-1}(a_{ij}x_j^{(k)})-\sum_{j=i+1}^n(a_{ij}x_j^{k-1})+b_i
+\right]
+\]
+Or for the matrix form $\bm x^{(k)}=\bm T_g\bm x^{(k-1)}+\bm c_g$:
+\[
+(\bm D-\bm L)\bm x^{(k)}=\bm U\bm x^{(k-1)}+\bm b\implies
+\bm x^{(k)}=(\bm D-\bm L)^{-1}\bm U\bm x^{(k-1)}+(\bm D-\bm L)^{-1}\bm b
+\]
+\end{definition}
+\begin{proposition}
+If $\rho(\bm T)<1$, then $(\bm I-\bm T)^{-1}$ exists, and
+\[
+(\bm I-\bm T)^{-1}=\bm I+\bm T+\bm T^2+\cdots
+\]
+\end{proposition}
+\begin{proposition}
+The iteration
+$
+\bm x^{(k)}=\bm T\bm x^{(k-1)}+\bm c
+$
+converges to the unique solution to 
+\[
+\bm x=\bm T\bm x+\bm c
+\]
+iff $\rho(\bm T)<1$. The error bound holds:
+\begin{itemize}
+\item
+$\|\bm x-\bm x^{(k)}\|\le\|\bm T\|^k\|\bm x^{(0)}-\bm x\|$
+\item
+$\|\bm x-\bm x^{(k)}\|\le\frac{\|\bm T\|^k}{1-\|\bm T\|}\|\bm x^{(1)}-\bm x^{(0)}\|$
+\item
+$\|\bm x-\bm x^{(k)}\|\approx[\rho(\bm T)]^k\|\bm x^{(0)}-\bm x\|$
+\end{itemize}
+\end{proposition}
+\begin{proof}
+Converse: Express $\bm x^{(k)}$ as
+\[
+\bm x^{(k)}=\bm T^k\bm x^{(0)}+(\bm T^{k-1}+\cdots+\bm T+\bm I)\bm c
+\]
+Forward: Assume converge to $\bm x$, and therefore
+\[
+\bm x-\bm x^{(k)}=\bm T(\bm x-\bm x^{(k-1)})=\cdots=\bm T^k(\bm x-\bm x^{(0)})
+\]
+for arbitrary $\bm x^{(0)}.$ Taking limit implies $\lim_{k\to\infty}\bm T^k\bm z=\bm0$ for any $\bm z$.
+\end{proof}
+
+\begin{proposition}
+Sufficient condition for convergence of Jacobi and Gauss-Seidel method: $\bm A$ is strictly diagonally dominant, i.e., $|a_{ii}|>\sum_{j=1,j\ne i}^n|a_{ij}|$
+\end{proposition}
+\begin{proposition}
+For $a_{ij}\le0, i\ne j$ and $a_{ii}>0$, one and only one conditon holds:
+\begin{itemize}
+\item
+$0\le\rho(\bm T_g)<\rho(\bm T_j)<1$
+\item
+$1<\rho(\bm T_j)<\rho(\bm T_g)$
+\item
+$\rho(\bm T_j)=\rho(\bm T_g)=0$
+\item
+$\rho(\bm T_j)=\rho(\bm T_g)=1$
+\end{itemize}
+\end{proposition}
+\begin{definition}[Gauss-Seidel Method and Relaxation]
+\[
+ x_i^{(k)}= x_i^{(k-1)}+\frac{r_{ii}^{(k)}}{a_{ii}}
+\]
+Relaxation:
+\[
+x_i^{(k)}= x_i^{(k-1)}+\omega\frac{r_{ii}^{(k)}}{a_{ii}}
+\]
+Or equivalently, ($\omega<1$ is under-relaxation methods, $\omega>1$ is over-relaxation methods.)
+\[
+x_i^{(k)}=
+(1-\omega)x_i^{(k-1)}+
+\frac{\omega}{a_{ii}}
+\left[
+-\sum_{j=1}^{i-1}(a_{ij}x_j^{(k)})-\sum_{j=i+1}^n(a_{ij}x_j^{k-1})+b_i
+\right]
+\]
+\[
+\bm x^{(k)}=(\bm D-\omega\bm L)^{-1}[(1-\omega)\bm D+\omega\bm U]\bm x^{(k-1)}
++
+\omega(\bm D-\omega\bm L)^{-1}\bm b
+\]
+\end{definition}
+\begin{proposition}
+If $a_{ii}\ne0$, then $\rho(T_\omega)\ge|\omega-1|$, o.e., the SOR method converges only when $0<\omega<2$; sufficient condition for convergence: $\bm A$ is PD and $0<\omega<2$.
+\end{proposition}
+\begin{proposition}
+If $\bm A$ is PD and tridiagonal, then $\rho(\bm T_g)=[\rho(T_j)]^2<1$, the optimal choice is
+\[
+\omega=\frac{2}{1+\sqrt{1-[\rho(T_j)]^2}}
+\]
+under this choice, we have $\rho(\bm T_\omega)=\omega-1$
+\end{proposition}
+\begin{enumerate}
+\item
+Direct method: Gaussian Eliminiation;
+
+Advantage: Exact method, no truncation error;
+
+Disadvantage: Computationally expansive, large round off error
+
+Suitable: linear systems of small dimension 
+\item
+Iterative method:
+
+Advantage: efficient in terms of both computer storage and computation
+
+Disadvantage: not so efficient for small dimension
+
+Suitable for: large linear sparse systems
+\end{enumerate}
+\begin{definition}
+The condition number of nonsingular matrix $\bm A$ is $K(\bm A)=\|\bm A\|\|\bm A^{-1}\|$.
+
+If close to $1$, then $\bm A$ is well-conditioned, otherwise ill-conditioned.
+\end{definition}
+
+\begin{theorem}
+For natural norm,
+\[
+\|\tilde{\bm x}-\bm x\|\le\|\bm A^{-1}\|\|\bm r\|=K(\bm A)\frac{\|\bm r\|}{\|\bm A\|}
+\]
+\[
+\frac{\|\tilde{\bm x}-\bm x\|}{\|\bm x\|}\le\|\bm A\|\|\bm A^{-1}\|\frac{\|\bm r\|}{\|\bm b\|}=K(\bm A)\frac{\|\bm r\|}{\|\bm b\|},\quad
+\bm x\ne0,\bm b\ne0
+\]
+\end{theorem}
+\begin{proof}
+Consider the first equality and $\|\bm b\|\le\|\bm A\|\|\bm x\|$
+\end{proof}
+
+\begin{theorem}
+Suppose $\bm A$ is nonsingular and $\|\delta\bm A\|\le\frac{1}{\|\bm A\|}$, the solution $\tilde{\bm x}$ to $(\bm A+\delta\bm A)\bm x=\bm b+\delta\bm b$ has the bound
+\[
+\frac{\|\tilde{\bm x}-\bm x\|}{\|\bm x\|}\le\frac{K(\bm A)\|\bm A\|}{\|\bm A\|-K(\bm A)\|\delta\bm A\|}\left(
+\frac{\|\delta\bm b\|}{\|\bm b\|}+\frac{\delta\bm A}{\|\bm A\|}
+\right)
+\]
+\end{theorem}
+\begin{proposition}
+For $\bm A\in\mathbb{R}^{n\times n}$, $\mbox{cond}(\bm A\trans\bm A)=[\mbox{cond}(\bm A)]^2$
+\end{proposition}
+\begin{theorem}
+For column full rank $\bm A\in\mathbb{R}^{m\times n}$, we have $\bm A=\bm Q\bm R$, for $\bm Q\in\mathbb{R}^{m\times n}$ with orthogonal columns, $\bm R\in\mathbb{R}^{n\times n}$ is an upper triangular matrix.
+
+As a result, the least square solution becomes
+\[
+\bm x^*=\bm R^{-1}\bm Q\trans\bm b
+\]
+\end{theorem}
+Gram-Schmidt Process: numerically unstable; ease of implementation
+\begin{theorem}[Householder matrix]
+For given vector $\bm x$ and unit vector $\bm g$, define $\b, H:=\bm I-2\bm u\bm u\trans$,
+\[
+\bm{Hx}=\|\bm x\|\bm g,\quad
+\bm u=\frac{\bm x-\|\bm x\|g}{\|\bm x-\|\bm x\|g\|}
+\]
+\[
+\bm H_2=\begin{pmatrix}
+1&0\\0&\tilde{\bm H}_2
+\end{pmatrix}
+\]
+Define $\bm Q=\bm H_n\cdots\bm H_1$, and $\bm Q\bm A=\bm R=[\bm R_1;\bm0]$, which implies
+\[
+\bm A=[\bm Q_1,\bm Q_2]\begin{pmatrix}
+\bm R_1\\\bm0
+\end{pmatrix}=\bm Q_1\bm R_1
+\]
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

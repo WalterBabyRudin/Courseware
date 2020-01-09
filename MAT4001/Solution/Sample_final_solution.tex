@@ -1,0 +1,544 @@
+\section{Final Exam Solutions}\index{Final Exam Solutions}
+\subsection{Sample Exam Solution}
+\begin{enumerate}
+%q1
+\item
+\begin{enumerate}
+%part a
+\item
+Since we have
+\begin{align*}
+D(\sin x)&=0\sin x+1\cos x+0\sin 2x+0\cos 2x\\
+D(\cos x)&=-1\sin x+0\cos x+0\sin 2x+0\cos 2x\\
+D(\sin 2x)&=0\sin x+0\cos x+0\sin 2x+2\cos 2x\\
+D(\cos 2x)&=0\sin x+0\cos x+(-2)\sin 2x+0\cos 2x.
+\end{align*}
+the matrix representation for the basis $\{\sin x,\cos x,\sin 2x,\cos 2x\}$ is given by
+\[
+\begin{bmatrix}
+0&1&0&0\\-1&0&0&0\\0&0&0&2\\0&0&-2&0
+\end{bmatrix}
+\]
+%part b
+\item
+\begin{itemize}
+\item
+Firstly, we show $\{\sin x,\cos x,\sin 2x,\cos 2x\}$ are four eigenvectors of $\bm D^2$:
+\begin{align*}
+\bm D^2(\sin x)&=\frac{\diff^2}{\diff x^2}(\sin x)=(-1)\x\sin x\\
+\bm D^2(\cos x)&=\frac{\diff^2}{\diff x^2}(\cos x)=(-1)\x\cos x\\
+\bm D^2(\sin 2x)&=\frac{\diff^2}{\diff x^2}(\sin 2x)=(-4)\x\sin 2x\\
+\bm D^2(\cos 2x)&=\frac{\diff^2}{\diff x^2}(\cos 2x)=(-4)\x\cos 2x
+\end{align*}
+\item
+Secondly, we show $\{\sin x,\cos x,\sin 2x,\cos 2x\}$ are independent:\\
+Given 
+\[
+\alpha_1\sin x+\alpha_2\cos x+\alpha_3\sin 2x+\alpha_4\cos 2x=0
+\]
+where $\alpha_i$'s are scalars for $i=1,2,3,4$.
+\begin{itemize}
+\item
+If we set $x=0$, then we derive:
+\[
+0\alpha_1+\alpha_2+0\alpha_3+\alpha_4=0.
+\]
+\item
+If we set $x=\pi$, then we derive:
+\[
+0\alpha_1-\alpha_2+0\alpha_3+\alpha_4=0.
+\]
+\item
+If we set $x=\frac{\pi}{2}$, then we derive:
+\[
+\alpha_1+0\alpha_2+0\alpha_3-\alpha_4=0.
+\]
+\item
+If we set $x=\frac{\pi}{4}$, then we derive:
+\[
+\frac{\sqrt{2}}{2}\alpha_1+\frac{\sqrt{2}}{2}\alpha_2+\alpha_3+0\alpha_4=0.
+\]
+\end{itemize}
+Solving the linear system of equations $\left\{\begin{aligned}
+0\alpha_1+\alpha_2+0\alpha_3+\alpha_4&=0\\
+0\alpha_1-\alpha_2+0\alpha_3+\alpha_4&=0\\
+\alpha_1+0\alpha_2+0\alpha_3-\alpha_4&=0\\
+\frac{\sqrt{2}}{2}\alpha_1+\frac{\sqrt{2}}{2}\alpha_2+\alpha_3+0\alpha_4&=0.
+\end{aligned}\right.$,\\ we derive
+\[
+\alpha_1=\alpha_2=\alpha_3=\alpha_4=0.
+\]
+Hence $\{\sin x,\cos x,\sin 2x,\cos 2x\}$ are independent.
+\end{itemize}
+In conclusion, $\{\sin x,\cos x,\sin 2x,\cos 2x\}$ are four \textit{linearly independent} eigenvectors of $\bm D^2.$
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+We only need to find \textit{least squares solution} $\bm x^*$ to $\bm{Lx}=\bm b$, where 
+\[
+\bm L=\begin{bmatrix}
+1&1\\
+1&2\\
+1&3
+\end{bmatrix}\qquad
+\bm x=\begin{bmatrix}
+C\\D
+\end{bmatrix}\qquad
+\bm b=\begin{bmatrix}
+2\\1\\3
+\end{bmatrix}.
+\]
+Take on trust that we only need to solve $\bm L\trans\bm L\bm x=\bm L\trans\bm b.$
+\[
+\text{Since }\bm L\trans\bm L=\begin{bmatrix}
+3&6\\6&14
+\end{bmatrix},\qquad
+\bm L\trans\bm b=\begin{bmatrix}
+6\\13
+\end{bmatrix}
+\]
+We derive 
+\[\bm x=\begin{bmatrix}
+3&6\\6&14
+\end{bmatrix}^{-1}\begin{bmatrix}
+6\\13
+\end{bmatrix}
+=\frac{1}{3\x14-6\x6}\begin{bmatrix}
+14&-6\\-6&3
+\end{bmatrix}\begin{bmatrix}
+6\\13
+\end{bmatrix}=\frac{1}{6}\begin{bmatrix}
+6\\3
+\end{bmatrix}=\begin{bmatrix}
+1\\\frac{1}{2}
+\end{bmatrix}.\]
+Thus the fit line is $y=1+\frac{1}{2}x.$
+\item
+The eigenvalue for $\bm P$ is $\lambda=1.$ when $\bm A$ is $m\x n$ matrix with $m>n$; the eigenvalues for $\bm P$ are $\lambda=0$ or $\lambda=1$ when $\bm A$ is square matrix.
+\\
+\textbf{Reason: }Suppose $\bm A$ is $m\x n$$(m\ge n)$ matrix with $\rank(\bm A)=n$.\\
+\begin{itemize}
+\item
+Firstly we notice that $\bm P$ is \textit{idemponent}:
+\[
+\begin{aligned}
+\bm P^2&=\left[\bm A(\bm A\trans\bm A)^{-1}\bm A\trans\right]\left[\bm A(\bm A\trans\bm A)^{-1}\bm A\trans\right]\\
+&=\bm A(\bm A\trans\bm A)^{-1}\bm A\trans\bm A(\bm A\trans\bm A)^{-1}\bm A\trans\\
+&=\bm A(\bm A\trans\bm A)^{-1}\bm A\trans=\bm P.
+\end{aligned}
+\]
+\item
+Secondly, we show that the possible eigenvalues for $\bm P$ could only be $0$ or $1$:\\
+If $\lambda$ is the eigenvalue for $\bm P$, then there exists \emph{nonzero} $\bm x\in\mathbb{R}^{m\x 1}$ s.t.
+\[
+\bm{Px}=\lambda\bm x
+\]
+By postmultiplying $\bm P$ we derive
+\[
+\bm P^2\bm x=\lambda\bm P\bm x
+\implies
+\bm P\bm x=\lambda\bm P\bm x
+\implies
+(\lambda-1)(\bm{Px})=\bm0.
+\]
+Hence we derive that $\lambda=1$ or $\bm{Px}=\bm0.$\\
+\begin{itemize}
+\item
+If $\bm{Px}=\bm0$, where $\bm x\in\mathbb{R}^{m\x 1}$ is a nonzero vector,\\
+then by postmultiplying $\bm A\trans$ we obtain:
+\[
+\bm A\trans\left[\bm A(\bm A\trans\bm A)^{-1}\bm A\trans\right]\bm x=\bm A\trans\bm 0=\bm0
+\implies
+\bm A\trans\bm x=\bm0.
+\]
+Since $\bm A$ has \textit{independent columns}, we obtain $\dim(\col(\bm A))=\rank(\bm A)=n.$ \\
+Thus $\rank(\bm A\trans)=n.$\\
+Since $\rank(\bm A\trans)+\dim(N(\bm A\trans))=m$, we derive $N(\bm A\trans)=m-n.$
+\begin{enumerate}
+\item
+If $m>n$, then $N(\bm A\trans)>0$, $0$ could be eigenvalue for $\bm P$.\\
+\begin{itemize}
+\item
+We can construct an eigenvector for $\bm P$ associated with eigenvalue $\lambda=0$:\\
+For any nonzero $\bm x\in N(\bm A\trans)$, we have
+\[
+\bm A\trans\bm x=\bm0.
+\]
+By postmultiplying $\bm A(\bm A\trans\bm A)^{-1}$ we derive
+\[
+\bm A(\bm A\trans\bm A)^{-1}\bm A\trans\bm x=\bm0
+\implies
+\bm{Px}=\bm0.
+\]
+which means $\bm x$ is the eigenvalue for $\bm P$ associated with eigenvalue $\lambda=0$.
+\end{itemize}
+\item
+If $m=n$, then $N(\bm A\trans)=0$, $0$ cannot be eigenvalue for $\bm P$.
+\end{enumerate}
+\end{itemize}
+\item
+Finally we construct an eigenvector for $\bm P$ associated with eigenvalue $\lambda=1$:\\
+For any $\bm t\in\mathbb{R}^{n\x 1}$, we construct $\bm{\hat x}=\bm{At}$. Then we notice
+\[
+\bm P\bm{\hat x}=\bm A(\bm A\trans\bm A)^{-1}\bm A\trans\bm A\bm t=\bm{At}=\bm{\hat x}
+\]
+Hence $\lambda=1$ must be the eigenvalue for $\bm P$.
+\end{itemize}
+In conclusion, for $m\x n$ matrix $\bm A$($m\ge n$),
+\begin{itemize}
+\item
+When $m=n$, the only possible eigenvalue for $\bm P$ is $\lambda=1$.
+\item
+When $m\ge n$, the possible eigenvalues for $\bm P$ are $\lambda=0$ or $\lambda=1$.
+\end{itemize}
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+True.\\
+\textbf{Reason: }For symmetric $\bm A\succ0$, $\bm A$ has all positive eigenvalues.
+\begin{itemize}
+\item
+Firstly we show $\bm A$ is invertible:\\
+We assume there exists $\bm x_0\ne\bm0$ that is in $N(\bm A)$. In other words, there exists $\bm x_0\ne\bm0$ such that
+\[
+\bm A\bm x_0=\bm0
+\]
+which means $0$ is the eigenvalue for $\bm A$. Since $\bm A$ has all positive eigenvalues, it makes a contradiction. \\Hence $N(\bm A)=\{\bm 0\}$, $\bm A$ is invertible.
+\item
+Secondly, we show $\bm A^{-1}\succ0$:\\
+Since $\bm A\succ0$, $\bm x\trans\bm A\bm x>0$ for $\forall$ nonzero $\bm x$.\\
+We define $\bm y=\bm{Ax}$, obviously, $\range(\bm A)=\mathbb{R}^{n}-N(\bm A)=\mathbb{R}^{n}-\{\bm0\}$.\\
+Hence $\bm y$ also denotes arbitrary nonzero vector in $\mathbb{R}^{n}$. And
+\[
+\bm y\trans\bm A^{-1}\bm y=\bm x\trans\bm A\trans\bm A^{-1}\bm A\bm x=\bm x\trans\bm A\trans\bm x=\bm x\trans\bm A\bm x>0.
+\]
+Equivalently, $\bm A^{-1}\succ0.$ 
+\end{itemize}
+\item
+False.\\
+\textbf{Reason: }Let me raise a counter example: \\For $\bm A=\begin{bmatrix}
+1&i\\0&0
+\end{bmatrix}$, $\bm x=\begin{bmatrix}
+-i\\1
+\end{bmatrix}$ is in $N(\bm A)$, $\bm y=\bm A\trans\begin{bmatrix}
+1\\0
+\end{bmatrix}=\begin{bmatrix}
+1\\i
+\end{bmatrix}$ is in $C(\bm A\trans)$.\\
+But the inner product of $\bm x$ and $\bm y$ is not zero:
+\[
+\inp{\bm x}{\bm y}=\bm y\Her\bm x=\begin{bmatrix}
+1&-i
+\end{bmatrix}\begin{bmatrix}
+-i\\1
+\end{bmatrix}=-2i\ne0.
+\]
+Hence $\bm x$ and $\bm y$ are not perpendicular.
+\item
+True.\\
+\textbf{Reason: }If $\rank(\bm A)=0$, then $\dim(\col(\bm A))=0$. However, any vector space with zero dimension could only be the space $\{\bm 0\}.$\\
+Hence the column space of $\bm A$ is $\{0\}$, which means all columns of $\bm A$ are $\bm0.$ Hence all elements of $\bm A$ are 0. Thus $\bm A=\bm0.$
+\item
+True.\\
+\textbf{Reason: }For $\forall\bm x\in N(\bm A)$ and $\forall\bm y\in C(\bm A\trans)$, there exists vector $\bm u$ such that $\bm y=\bm A\trans\bm u$.\\
+Thus we derive
+\[
+\bm x\trans\bm y=\inp{\bm x}{\bm y}=\inp{\bm x}{\bm A\trans\bm u}=\bm u\trans\bm A\bm x=\bm u\trans\bm 0=0.
+\]
+\item
+True.\\
+\textbf{Reason: }We do the eigendecomposition for $\bm A$ and $\bm B$:
+\[
+\bm A=\bm U_1\Sigma_1\bm U_1\trans\qquad
+\bm B=\bm U_2\Sigma_2\bm U_2\trans
+\]
+where $\bm U_1,\bm U_2$ are both orthogonal matrix.\\
+Then we define $\bm U:=\begin{bmatrix}
+\bm U_1&\bm0\\\bm 0&\bm U_2
+\end{bmatrix}$, we find that 
+\[\bm U\trans\bm U=\begin{bmatrix}
+\bm U_1\trans\bm U_1&\bm0\\\bm0&\bm U_2\trans\bm U_2
+\end{bmatrix}=\begin{bmatrix}
+\bm I&\bm0\\\bm0&\bm I
+\end{bmatrix}=\bm I.\]
+Hence $\bm U$ is a matrix with orthonormal columns. Moreover, $\bm U$ is a square matrix. Hence it is a orthogonal matrix.\\
+And we find that $\begin{bmatrix}
+\bm A&\bm0\\\bm0&\bm B
+\end{bmatrix}$ could be decomposed as
+\[
+\begin{bmatrix}
+\bm A&\bm0\\\bm0&\bm B
+\end{bmatrix}=\begin{bmatrix}
+\bm U_1&\bm0\\\bm0&\bm U_2
+\end{bmatrix}\begin{bmatrix}
+\Sigma_1&\\&\Sigma_2
+\end{bmatrix}\begin{bmatrix}
+\bm U_1\trans&\bm0\\\bm0&\bm U_2\trans
+\end{bmatrix}=\bm U\begin{bmatrix}
+\Sigma_1&\\&\Sigma_2
+\end{bmatrix}\bm U\trans
+\]
+Hence $\begin{bmatrix}
+\bm A&\bm0\\\bm0&\bm B
+\end{bmatrix}$ is also diagonalizable.
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+We set $\bm u_k=\begin{bmatrix}
+y_{k}\\z_{k}
+\end{bmatrix}$. The rule
+\[
+\left\{
+\begin{aligned}
+y_{k+1}&=0.8y_k+0.3z_k\\
+z_{k+1}&=0.2y_k+0.7z_k
+\end{aligned}
+\right.
+\]
+can be written as $\bm u_{k+1}=\begin{bmatrix}
+0.8&0.3\\0.2&0.7
+\end{bmatrix}\bm u_k$. And $\bm u_0=\begin{bmatrix}
+0\\5
+\end{bmatrix}.$\\
+We set $\bm A=\begin{bmatrix}
+0.8&0.3\\0.2&0.7
+\end{bmatrix}$ and $\bm D=\begin{bmatrix}
+0.5&0\\0&1
+\end{bmatrix}$.
+\begin{itemize}
+\item
+In order to show $\bm A$ and $\bm D$ are similar, we construct our $\bm S$ such that
+\[
+\bm{AS}=\bm{SD}
+\]
+We set $\bm S=\begin{pmatrix}
+a&b\\c&d
+\end{pmatrix}$, then $\bm{AS}=\bm{SD}$ can be written as:
+\[
+\begin{bmatrix}
+0.8&0.3\\0.2&0.7
+\end{bmatrix}\begin{pmatrix}
+a&b\\c&d
+\end{pmatrix}=\begin{pmatrix}
+a&b\\c&d
+\end{pmatrix}\begin{bmatrix}
+0.5&0\\0&1
+\end{bmatrix}
+\]
+\[
+\implies
+\begin{bmatrix}
+0.8a+0.3c&0.8b+0.3d\\
+0.2a+0.7c&0.2b+0.7d
+\end{bmatrix}=\begin{bmatrix}
+0.5a&b\\0.5c&d
+\end{bmatrix}.
+\]
+The linear system of equation could be converted as
+\[
+\left\{
+\begin{aligned}
+0.8a+0.3c&=0.5a\\
+0.8b+0.3d&=b\\
+0.2a+0.7c&=0.5c\\
+0.2b+0.7d&=d
+\end{aligned}\right.
+\implies
+\left\{
+\begin{aligned}
+a+c&=0\\
+2b-3d&=0
+\end{aligned}\right.
+\]
+If we set $a=1,b=3$, we get $c=-1,d=2.$ \\Thus $\bm S=\begin{bmatrix}
+1&3\\-1&2
+\end{bmatrix}$ is one special solution.\\
+Thus $\bm{AS}=\begin{bmatrix}
+0.5&3\\-0.5&2
+\end{bmatrix}=\bm{SD}\implies\bm A=\bm S\bm D\bm S^{-1}$. Hence $\bm A$ is similar to $\bm D$.
+\item
+And then we can compute $\bm A^k$:
+\begin{align*}
+\bm A^k&=(\bm S\bm D\bm S^{-1})^k\\
+&=\bm S\bm D^k\bm S^{-1}\\
+&=\begin{bmatrix}
+1&3\\-1&2
+\end{bmatrix}\begin{bmatrix}
+0.5&0\\0&1
+\end{bmatrix}^k\begin{bmatrix}
+1&3\\-1&2
+\end{bmatrix}^{-1}\\
+&=\begin{bmatrix}
+1&3\\-1&2
+\end{bmatrix}\begin{bmatrix}
+0.5^k&0\\0&1
+\end{bmatrix}\frac{1}{5}\begin{bmatrix}
+2&-3\\1&1
+\end{bmatrix}\\
+&=\frac{1}{5}\begin{bmatrix}
+2\x(\frac{1}{2})^k+3&(-3)\x(\frac{1}{2})^k+3\\
+(-2)\x(\frac{1}{2})^k+2&3\x(\frac{1}{2})^k+2
+\end{bmatrix}.
+\end{align*}
+\item
+Hence by induction, $\bm u_k=\bm A^k\bm u_0=\frac{1}{5}\begin{bmatrix}
+2\x(\frac{1}{2})^k+3&(-3)\x(\frac{1}{2})^k+3\\
+(-2)\x(\frac{1}{2})^k+2&3\x(\frac{1}{2})^k+2
+\end{bmatrix}\begin{bmatrix}
+0\\5
+\end{bmatrix}=\begin{bmatrix}
+(-3)\x(\frac{1}{2})^k+3\\3\x(\frac{1}{2})^k+2
+\end{bmatrix}.$
+\end{itemize}
+The general formula for $y_k$ and $z_k$ is $\left\{\begin{aligned}
+y_k&=(-3)\x(\frac{1}{2})^k+3\\z_k&=3\x(\frac{1}{2})^k+2
+\end{aligned}\right.$.\\
+Thus $\left\{\begin{aligned}
+\lim_{k\rightarrow\infty}
+y_k&=3\\
+\lim_{k\rightarrow\infty}
+z_k&=2
+\end{aligned}\right.$.
+\item
+For real symmetric matrix $\bm D=\begin{bmatrix}
+0.5&0\\0&1
+\end{bmatrix}$, SVD decomposition is just eigendecomposition.\\
+Obviously, the eigenvalues for $\bm D$ is $\lambda_1=0.5,\lambda_2=1.$
+\begin{itemize}
+\item
+When $\lambda=0.5$, one eigenvector for $\bm D$ is $\bm x_1=\begin{bmatrix}
+1&0
+\end{bmatrix}.$
+\item
+When $\lambda=1$, one eigenvector for $\bm D$ is $\bm x_2=\begin{bmatrix}
+0&1
+\end{bmatrix}.$
+\end{itemize}
+Hence we construct $\bm Q=\begin{bmatrix}
+\bm x_1&\bm x_2
+\end{bmatrix}=\begin{bmatrix}
+1&0\\0&1
+\end{bmatrix}.$\\
+$\bm D$ has the factorization
+\[
+\bm D=\bm Q\begin{pmatrix}
+0.5&\\&1
+\end{pmatrix}\bm Q\trans=\begin{bmatrix}
+1&0\\0&1
+\end{bmatrix}\begin{bmatrix}
+0.5&\\&1
+\end{bmatrix}\begin{bmatrix}
+1&0\\0&1
+\end{bmatrix}.
+\]
+\end{enumerate}
+\item
+We do the eigendecomposition for $\bm A$:
+\[
+\bm A=\bm Q\bm D\bm Q\trans.
+\]
+where $\bm Q$ is orthogonal matrix, $\bm D$ is diagonal matrix.\\
+Then if we set $\bm y:=\bm Q\trans\bm x$, we find that
+\[
+R(\bm x,\bm A)=\frac{\bm x\trans\bm A\bm x}{\bm x\trans\bm x}=\frac{\bm x\trans\bm Q\bm D\bm Q\trans\bm x}{\bm x\trans\bm x}
+=\frac{\bm y\trans\bm D\bm y}{\bm y\trans\bm y}
+=R(\bm y,\bm D)
+\]
+Given any $\bm A$, we can always convert it into diagonal matrix $\bm D$. Hence without loss of generality, we set $\bm A$ is a diagonal matrix such that
+\[
+\bm A=\diag(\lambda_1,\lambda_2,\dots,\lambda_n).
+\]
+For diagonal matrix $\bm A$, we derive
+\[
+R(\bm x,\bm A)=\frac{\bm x\trans\bm A\bm x}{\bm x\trans\bm x}=\frac{\sum_{i=1}^{n}\lambda_ix_i^2}{\sum_{i=1}^{n}x_i^2}
+\]
+\begin{enumerate}
+\item
+\[
+\sum_{i=1}^{n}\lambda_ix_i^2\ge\sum_{i=1}^{n}\lambda_1x_i^2=\lambda_1\sum_{i=1}^{n}x_i^2
+\implies
+R(\bm x,\bm A)=\frac{\sum_{i=1}^{n}\lambda_ix_i^2}{\sum_{i=1}^{n}x_i^2}\ge\lambda_1,\qquad\forall\bm x\ne0.
+\]
+When $\bm x=(1,0,0,\dots,0)$, we can get the equality.
+\item
+Firstly we compute the eigenvector $\bm x_1$ for $\bm A$ associated with $\lambda_1$:
+\[
+(\lambda_1\bm I-\bm A)\bm x_1=\bm0
+\implies
+\begin{pmatrix}
+0& & & &\\
+& \lambda_2-\lambda_1 & &\\
+&&\ddots&\\
+&&&\lambda_n-\lambda_1
+\end{pmatrix}\bm x_1=\bm0
+\implies
+\bm x_1=\begin{pmatrix}
+\alpha\\0\\\vdots\\0
+\end{pmatrix}.
+\]
+where $\alpha$ is a scalar.\\
+Hence $\bm y\perp\bm x\implies\bm y=(0,y_2,\dots,y_n)$. i.e. the first element of $\bm y$ is zero.\\
+\[
+\sum_{i=1}^{n}\lambda_iy_i^2=\sum_{i=2}^{n}\lambda_iy_i^2\ge\sum_{i=2}^{n}\lambda_2y_i^2=\lambda_2\sum_{i=2}^{n}y_i^2
+\implies
+R(\bm y,\bm A)=\frac{\sum_{i=1}^{n}\lambda_iy_i^2}{\sum_{i=1}^{n}y_i^2}\ge\lambda_2,
+\]
+for $\forall\bm y\in\bm x_1^{\perp}-\{\bm 0\}.$\\
+When $\bm y=(0,1,0,\dots,0)$, we get the equality.
+\item
+For $\forall\bm v=(b_1,b_2,\dots,b_n)$, there exists $(\beta_1,\beta_2)\ne\bm0$ such that $(\beta_1,\beta_2)\perp(b_1,b_2)$.\\
+Hence we construct $\bm y_*=(\beta_1,\beta_2,0,0,\dots,0)$. Then 
+\[\bm y_*\trans\bm A\bm y=\lambda_1\beta_1^2+\lambda_2\beta_2^2\le\lambda_2(\beta_1^2+\beta_2^2)=\lambda_2\bm y_*\trans\bm y_*\implies R(\bm y_*,\bm A)\le\lambda_2.\]
+Moreover, $\bm y_*\trans\bm v=0.$
+Thus we derive
+\[
+\min_{\bm y\trans\bm v=0}R(\bm y,\bm A)\le R(\bm y_*,\bm A)\le\lambda_2.
+\]
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+Suppose $\bm x=\begin{bmatrix}
+x_1&x_2&x_3
+\end{bmatrix}\trans\in\mathbb{R}^{3}$, then 
+\[
+\begin{aligned}
+\bm x\trans\bm Z\bm x&=5x_1^2+5x_2^2+7x_3^2+2x_1x_2+8x_1x_3+6x_2x_3\\
+&=(x_1^2+x_2^2+2x_1x_2)_(4x_1^2+4x_3^2+8x_1x_3)+
+(3x_2^2+3x_3^2+6x_2x_3)\\
+&=(x_1+x_2)^2+4(x_1+x_3)^2+3(x_2+x_3)^2+x_2^2\\
+&\ge0.
+\end{aligned}
+\]
+Hence $\bm Z\succeq0.$
+\item
+Suppose $\bm x=\begin{bmatrix}
+x_1&x_2&\cdots&x_n
+\end{bmatrix}\trans\in\mathbb{R}^{n}$, then 
+\begin{align*}
+\bm x\trans\bm M\bm x
+&=\sum_{i,j=1}^{n}M_{ij}x_ix_j=\sum_{i=1}^{n}M_{ii}x_i^2+\sum_{j\ne i}M_{ij}x_ix_j\\
+&=2\sum_{1\le i<j\le n}M_{ij}x_ix_j+\sum_{i=1}^{n}M_{ii}x_i^2\\
+&=\sum_{1\le i<j\le n}(2M_{ij}x_ix_j+|M_{ij}|x_i^2+|M_{ij}|x_j^2)
+-\sum_{1\le i<j\le n}(|M_{ij}|x_i^2+|M_{ij}|x_j^2)
++\sum_{i=1}^{n}M_{ii}x_i^2
+\\
+&=\sum_{1\le i<j\le n}(2M_{ij}x_ix_j+|M_{ij}|x_i^2+|M_{ij}|x_j^2)
++\sum_{i=1}^{n}(M_{ii}x_i^2-\sum_{j\ne i}|M_{ij}|)x_i^2
+\end{align*}
+Notice that $(M_{ii}x_i^2-\sum_{j\ne i}|M_{ij}|)\ge0$ since $\bm M$ is diagonal dominant.
+\\And if we define 
+$\sigma_{ij}=\left\{
+\begin{aligned}
+1,&M_{ij}\ge0\\
+0,&M_{ij}<0
+\end{aligned}\right.$, then we obtain:
+\[
+\bm x\trans\bm M\bm x=\sum_{1\le i<j\le n}|M_{ij}|(x_i+\sigma_{ij}x_j)^2
++\sum_{i=1}^{n}(M_{ii}x_i^2-\sum_{j\ne i}|M_{ij}|)x_i^2\ge0.
+\]
+Hence $\bm M\succeq0.$
+\end{enumerate}\end{enumerate}

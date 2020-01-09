@@ -1,0 +1,143 @@
+%\chapter{Introduction to Linear Programming}
+\chapter{Graph Coloring}
+
+\paragraph{Problem Setting}
+
+\begin{definition}[Colourable]
+Consider an undirected graph $G$ without loops.
+$G$ is $c$-colourable if 
+each vertex can be assigned one of $c$ colours such that
+the adjacent vertices have different colours.
+\end{definition}
+\begin{definition}[Chromatic]
+If $G$ is $k$-colourable but not $(k-1)$-colourable, then $G$ is called $k$-chromatic, and $\mathcal{X}(G)=k$.
+\end{definition}
+w.l.o.g., assume that $G$ is simple, loopless, and connected.
+
+What is the chromatic number of:
+\begin{itemize}
+\item
+Complete graph $K_n$?
+\item
+The null graph (has no edges)?
+\item
+A bipartite graph?
+\item
+A path? A tree?
+\item
+A cycle? even or odd cycle?
+\end{itemize}
+
+
+\paragraph{Applications of Graph colouring}
+\begin{enumerate}
+\item
+Exam period arranging:
+The vertices are classes. The class $v$ and $w$ are adjacent if $v,w$ belong to the same student.
+\item
+What is the minimum phases needed for the traffic light so that all cars in all lanes can go through the
+intersection?
+The vertices are traffice lanes. The lanes $i$ and $j$ are adjacent if there is a collision between them.
+\end{enumerate}
+\section{Facts about Colourability}
+\begin{theorem}
+Let $G$ be a simple graph with maximum vertex degree $\Delta$. Then $G$ is $(\Delta+1)$-colourable.
+\end{theorem}
+\begin{proof}
+By induction on the number of vertices.
+For the null graph with one vertex, it is 1-colourable.
+Consider simple graph $G$ with $n$ vertices. Delete any vertex $v$ of $G$ and its incident edges, the resultant graph $G'$ has $(n-1)$ vertices and degree at most $\Delta$, which is $(\Delta+1)$ colourable. Therefore, $G$ is $(\Delta+1)$-colourable by assigning a colour to $v$ that is different to all of its adjacent vertices.
+\end{proof}
+
+\begin{theorem}[Stronger Result for Colourability]
+Let $G$ be a simple connected graph, and $\Delta(G)$ denote the maximum vertex degree of $G$.
+If $G$ is neither a complete graph nor an odd cycle, then $G$ is $\Delta$-colourable, i.e., $\mathcal{X}(G)\le\Delta(G)$.
+\end{theorem}
+\begin{remark}
+Brooks’ theorem give a tight bound for the chromatic number if a graph is regular, or “close” to regular, but it is not very helpful for graphs where a few vertices have very large degree
+\end{remark}
+\begin{theorem}[Colourability for Planar Graphs]
+Every simple planar graph is $6$-colourable.
+\end{theorem}
+\begin{proof}
+Clearly, the result holds for all graphs with 6 or fewer vertices. Now we consider a planar graph $G$ with $n$ vertices, and assume that all simple planar graphs with $n - 1$ vertices are 6-colourable.
+
+Recall that a simple planar graph must have a vertex $v$ with degree at most $5$.
+Removing this vertex and its incident edges, we obtain a graph with $n-1$ vertices that is $6$-colourable. Assign a colour to $v$ that is different to its 5 neighbours.
+\end{proof}
+
+\begin{theorem}[Colourability for Planar Graphs]
+Every simple planar graph is $5$-colourable.
+\end{theorem}
+\begin{proof}
+Clearly, the result holds for all graphs with 5 or fewer vertices. Now we consider a planar graph $G$ with $n$ vertices, and assume that all simple planar graphs with $n - 1$ vertices are 5-colourable.
+
+Recall that a simple planar graph must have a vertex $v$ with degree at most $5$.
+Removing this vertex and its incident edges, we obtain a graph with $n-1$ vertices that is $5$-colourable.
+\begin{itemize}
+\item
+If this $v$ has degree no more than $4$, we are done.
+\item
+Otherwise $v$ has degree $5$ with neighbours $v_1,\dot,v_5$. If all $v_i$'s are pairwise adjacent, $K_5\subseteq G$, i.e., $G$ cannot be planar. Suppose $v_1$ and $v_2$ are not adjacent. The graph contracting $(v,v_1)$ and $(v,v_2)$ are $5$-colurable. We colour $v_1$ and $v_2$ with the colour assigned to the combined vertex in $G'$, and colour $v$ with a colour different from $v_1,v_2$, and the colours of $v_3,v_4,v_5$.
+\end{itemize}
+\end{proof}
+
+\begin{theorem}
+Every simple planar graph is $4$-colourable.
+\end{theorem}
+
+\begin{remark}
+a graph is obtained if a point is assigned in each county, and a line segment joins the points of two counties that share a boundary.
+Therefore, the $4$-colour problem for maps is equivalent to the $4$-colour vertex colouring problem for planar graphs.
+\end{remark}
+
+
+\section{Colouring Edges}
+\begin{definition}
+Consider an undirected graph $G$ without loops.
+$G$ is $h$-edge-colourable if each edge can be assigned one of $h$ colours such that the adjacent edges have different colours.
+
+If $G$ is $k$-edge-colourable but not $(k-1)$-colourable, then $k$ is called the \emph{chromatic index} of $G$, denoted as $\mathcal{X}'(G)$.
+ \end{definition}
+We assume that $G$ is loopless and connected, but multiple edges are allowed.
+
+\begin{theorem}[Edge Colouring for Complete Graphs]
+For $n\ge2$, $\mathcal{X}'(K_n)=n$ for odd $n$,
+and $\mathcal{X}'(n)=n-1$ for even $n$.
+\end{theorem}
+\begin{proof}
+Assume $n\ge3$.
+\begin{itemize}
+\item
+For odd $n$, consider an $n$-cycle in $K_n$. Colour the edges of the cycle with a different colour for each edge. Colour each remaining edge automatically. We have a $n$-colurable scheme.
+The maximum number of edges with the same colour~(non-adjacent) is $(n-1)/2$, so the maximum number of coloured edges is $\mathcal{X}'(K_n)\cdot (n-1)/2$, i.e., $\mathcal{X}'(K_n)=n$
+\item
+For even $n$, consider $K_{n-1}$ obtained by removing one vertex $v$ and its incident edges, which is $n-1$ coloruable. Colour that edge that joints each vertex to $v$ with the missing colour.
+\end{itemize}
+\end{proof}
+
+\begin{theorem}
+For a bipartite graph $G$ with maximum vertex degree $\Delta$, $\mathcal{X}'(G)=\Delta$.
+\end{theorem}
+\begin{proof}
+The proof is by induction on the number of edges; we show that if all but one of the edges has been coloured using $\Delta$ colours, then the remaining edge can also be coloured to obtain a $\Delta$-colouring of $G$. We call this an augmentation.
+\end{proof}
+
+\begin{theorem}
+If $G$ is a simple grpah, then $\Delta(G)\le\mathcal{X}'(G)\le\Delta(G)+1$
+\end{theorem}
+However, determining whether a graph belongs to Class I or Class II is not easy.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

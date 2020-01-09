@@ -1,0 +1,62 @@
+\documentclass{article}
+
+\usepackage{graphics}
+\usepackage{tikz}
+\usepackage[pdftex,active,tightpage]{preview}
+\usetikzlibrary{positioning,arrows,shapes,chains,fit,scopes}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\setlength\PreviewBorder{0mm} % use to add a border around the image
+\PreviewEnvironment{tikzpicture}
+\pgfrealjobname{survey}
+\pgfplotsset{width=15cm,compat=1.13}
+
+
+\definecolor{1st}{HTML}{b88b4d}
+\definecolor{2nd}{HTML}{ded94c}
+\definecolor{3rd}{HTML}{ff362e}
+\definecolor{4th}{HTML}{db79c0}
+
+
+\begin{document}
+\beginpgfgraphicnamed{survey-f1}
+\begin{tikzpicture}
+\begin{axis}[
+    %title={Temperature dependence of CuSO$_4\cdot$5H$_2$O solubility},
+    legend style = {font=\Large},
+    label style = {font=\Large},
+    xlabel={Total Time $t_f$ (s)},
+    ylabel={Minimax Energy Consumption (Joule)},
+    xmin=1000, xmax=2420,
+    ymin=10000, ymax=16000,
+    xtick={1200,1600,2400},
+    ytick={10000,12000,14000,16000},
+    legend pos=outer north east,
+    ymajorgrids=true,
+    grid style=dashed,
+]
+ \addlegendentry{Certain Heuristic}
+\addplot[
+    color=blue,
+    mark=square,
+    ]
+    coordinates {
+    (1200,12716)
+    (1600,12576)
+    (2400,12050)
+    };
+    \addplot[
+    color=red,
+    mark=square,
+    ]
+    coordinates {
+    (1200,14900)
+    (1600,14892)
+    (2400,14887)
+    };
+    \addlegendentry{Optimized Solution}
+ 
+\end{axis}
+\end{tikzpicture}
+\endpgfgraphicnamed
+\end{document}

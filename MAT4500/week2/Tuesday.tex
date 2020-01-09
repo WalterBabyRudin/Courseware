@@ -1,0 +1,118 @@
+
+\chapter{Week2}
+
+\section{Tuesday}\index{Tuesday_lecture}
+\begin{remark}
+One can generalize the ``independence'' of two events / $\sigma$-algebras / random variables to a countable collection.
+\end{remark}
+
+\begin{example}
+If two random variables $X,Y:\Omega\to\mathbb{R}$ are independent, provided that $X$ and $Y$ are integrable, i.e.,
+\[
+\begin{array}{ll}
+\mathbb{E}|X|<\infty,
+&
+\mathbb{E}|Y|<\infty,
+\end{array}
+\]
+then we have $\mathbb{E}[XY]=\mathbb{E}|X|\mathbb{E}|Y|$
+\end{example}
+\subsection{Stochastic Process}
+Stochastic processes are mathematical models that are used to describe random phenomena evolving in the time. 
+
+Therefore, we need to have a time set $T$ as parameters. $T$ can be \emph{non-negative} integers $\mathbb{Z}_+$ (i.e., discrete process), or be $[0,\infty)$ (i.e., continuous process). 
+
+\begin{definition}[Stochastic Process]
+A stochastic process $\{x_t\}_{t\in T}$ is a collection of parameterized random variables, which is defined on $(\Omega,\mathcal{F},\mathbb{P})$, and taking values in $\mathbb{R}^n$.
+\end{definition}
+\begin{remark}
+A stochastic process $\{X_t\}$ can be viewed as a function: $T\times\Omega\to\mathbb{R}^n$.
+\end{remark}
+
+\begin{definition}
+\begin{enumerate}
+\item
+For fixed $t\in T$, the function $\omega\to X_t(\omega)$ is a random variable.
+\item
+For fixed $\omega\in\Omega$, 
+\[
+t\mapsto X_t(\omega)
+\]
+is called a sample path.
+\item
+The stochastic process $\{X_t\}_{t\in T}$ is \emph{continuous} (resp. right-continuous, right-continuous with left limit) if the sample path $t\mapsto X_t(\omega)$ are continuous (resp. right-continuous, right-continuous with left limit), almost surely.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+A function $f:(a,b)\to\mathbb{R}$ is called \emph{right-continuous} at $t_0\in(a,b)$ if the right limit of $f$ exists at $t_0$ and equal to $f(t_0)$.
+
+The function $f$ is called \emph{right-continuous with left limit exists} at $t_0\in(a,b)$ if the limit of $f$ exists at $t_0$ , and the left limit of $f$ exists at $t_0$.
+\end{remark}
+
+\begin{example}[Possion Process]
+Let $\{\xi_j\}_{j\ge1}$ be i.i.d. random variables with possion distribution with intensity $\lambda$. Let $T_0=0$ and $T_n=\sum_{j=1}^n\xi_j$. For each $t\ge0$, define $x_t=n$ if $T_n\le t<T_{n+1}$.
+
+Then for fixed $\omega$, the function $t\to X_t(\omega)$ is a step function, with jump possibly at random time $T_n$, and is right-continuous with left-limit exists at $T_n$.
+\end{example}
+\begin{definition}
+If $\{X_t\}_{t\in T}$ is a stochastic process taking values in $\mathbb{R}^n$, the joint distribution of $x_{t_1},x_{t_2},\dots,x_{t_k}$ for given $t_1,t_2,\dots,t_k\in T$,
+\[
+\mu_{t_1,t_2,\dots,t_k}(F_1\times\cdots\times F_k)
+=
+\mathbb{P}(x_{t_1}\in F_1,\cdots,x_{t_k}\in F_k),
+\]
+where $F_1,\dots,F_k$ are Borel sets in $\mathbb{R}^n$. This $\mu_{t_1,t_2,\dots,t_k}$ is also called \emph{finite-dimensional distribution}, which is a probability measure on $\mathbb{R}^n\times\cdots\times\mathbb{R}^n$
+\end{definition}
+
+\begin{example}[Brownian Motion]
+Given a probability space $(\Omega,\mathcal{F},\mathbb{P})$, for fixed $x\in\mathbb{R}$, define
+\[
+\mathbb{P}(y;t,x)=\frac{1}{\sqrt{2\pi t}}\exp\left(
+-\frac{(y-x)^2}{2t},y\in\mathbb{R},t>0
+\right)
+\]
+The Brownian motion $\{B_t\}_{t\ge0}$ is a continuous stochastic process, and the distribution of $\{B_t\}$ with $t_0=0,B_0=x$ is given by:
+\[
+\begin{aligned}
+\mathbb{P}&(B_{t_1}\in F_1,\dots,B_{t_k}\in F_k)
+=\\
+&\int_{F_1\times\cdots\times F_k}p(t_1,x,x_1)p(t_2-t_1,x_1,x_2)\cdots p(t_k-t_{k-1},x_{k-1},x_k)\diff(x_1,\dots,x_k)
+\end{aligned}
+\]
+
+\end{example}
+\begin{remark}
+If $\{x_t\}_{t\ge0}$ is a continuous stochastic process and we need to deal with such kind of set below
+\[
+F=\{\omega\mid x_t(\omega)\in[0,1),\forall t\le1\}
+\]
+Such set $F$ may be not measurable, i.e., $F$ may not be an event. Then $\mathbb{P}(F)$ does not make sense. Therefore, we need the additional conditions.
+\end{remark}
+\paragraph{Exercise}
+Let $\{x_t\}_{t\ge0}$ be a stochastic process on $(\Omega,\mathcal{F},\mathbb{P})$ and take values in $\mathbb{R}^n$. Let $\bm B$ be a Borel subset. If $T$ is a countable set (or can be finite), then
+\[
+\{\omega\mid x_t(\omega)\in\bm B,\forall t\in T\}\text{ is measurable} = \bigcap_{t\in T}\{\omega:X_t(\omega)\in\bm B\}.
+\]
+We can also show that $\sup_{t\in T}|x_t(\omega)|$ is measurable.
+
+\begin{definition}
+Let $\{x_t\}_{t\ge0}$ and $\{Y_t\}_{t\ge0}$ be two stochastic process. We call $\{Y_t\}$ be a version of $\{x_t\}$ if for every $t\ge0$,
+\[
+\mathbb{P}\{w\mid x_t(\omega)=Y_t(\omega)\}=1,
+\]
+then $\{x_t\}$ and $\{Y_t\}$ are also called to be equivalent.
+\end{definition}
+\begin{remark}
+If $\{Y_t\}_{t\ge0}$ is a version of $\{x_t\}_{t\ge0}$, then they have the same joint distribution.
+\end{remark}
+
+
+
+
+
+
+
+
+
+

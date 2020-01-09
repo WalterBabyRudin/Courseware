@@ -1,0 +1,220 @@
+\subsection{Solution to Assignment Three}
+\begin{enumerate}
+\item\begin{proof}[Solution.]
+\begin{enumerate}
+\item
+\begin{equation}
+\begin{split}
+\bm M\bm M^{-1} &= (\bm I - \bm u\bm v\trans)(\bm I + \frac{\bm u\bm v\trans}{1-\bm v\trans\bm u})\\ 
+&= \bm I + \frac{\bm u\bm v\trans}{1-\bm v\trans\bm u} - \bm u\bm v\trans - \frac{\bm u\bm v\trans\bm u\bm v\trans}{1-\bm v\trans\bm u}\\ &=
+\bm I + \frac{\bm u\times\bm v\trans - (\bm u\bm v\trans\bm u)\times\bm v\trans}{1-\bm v\trans \bm u} - \bm u\bm v\trans \\ &=\bm I + \frac{\bm u\times (1 - \bm v\trans\bm u)\times\bm v\trans}{1-\bm v\trans \bm u} - \bm u\bm v\trans \\&=\bm I + \bm u\bm v\trans - \bm u\bm v\trans= \bm I
+\end{split}
+\end{equation}
+\item
+\begin{equation}
+\begin{split}
+\bm M\bm M^{-1} &= (\bm A - \bm u\bm v\trans)(\bm A^{-1}+ \frac{\bm A^{-1}\bm u\bm v\trans\bm A^{-1}}{1-\bm v\trans\bm A^{-1}\bm u})\\
+&=\bm I +\frac{\bm A\bm A^{-1}\bm u\bm v\trans\bm A^{-1}}{1-\bm v\trans\bm A^{-1}\bm u} - \bm u\bm v\trans\bm A^{-1} - \frac{\bm u\bm v\trans\bm A^{-1}\bm u\bm v\trans\bm A^{-1}}{1-\bm v\trans\bm A^{-1}\bm u}\\ &= \bm I + \frac{\bm I\bm u\bm v\trans\bm A^{-1}}{1 - \bm v\trans\bm A^{-1}\bm u} - \bm u\bm v\trans\bm A^{-1} - \frac{\bm u\bm v\trans\bm A^{-1}\bm u\bm v\trans\bm A^{-1}}{1-\bm v\trans\bm A^{-1}\bm u}\\ &= \bm I + \frac{\bm u\bm v\trans\bm A^{-1} - \bm u\bm v\trans\bm A^{-1}\bm u\bm v\trans\bm A^{-1}}{1-\bm v\trans\bm A^{-1}\bm u} - \bm u\bm v\trans\bm A^{-1} \\
+&= \bm I + \frac{(\bm u - \bm u\bm v\trans\bm A^{-1}\bm u)\bm v\trans\bm A^{-1}}{1 - \bm v\trans\bm A^{-1}\bm u} - \bm u\bm v\trans\bm A^{-1}\\ 
+&= \bm I + \frac{\bm u(1-\bm v\trans\bm A^{-1}\bm u)\bm v\trans\bm A^{-1}}{1- \bm v\trans\bm A^{-1}\bm u} - \bm u\bm v\trans\bm A^{-1}\qquad\text{note $1-\bm v\trans\bm A^{-1}\bm u$ is scalar}\\ &= \bm I + \bm u\bm v\trans\bm A^{-1} - \bm u\bm v\trans\bm A^{-1}= \bm I.
+\end{split}
+\end{equation}
+\item
+\begin{equation}
+\begin{split}
+\bm M\bm M^{-1} &= (\bm I_{n} - \bm U\bm V)(\bm I_{n}+\bm U(\bm I_{m} - \bm V\bm U)^{-1}\bm V)
+\\&= \bm I_{n} + \bm U(\bm I_{m} - \bm V\bm U)^{-1}\bm V - \bm{UV} - \bm{UV}\bm U(\bm I_{m} - \bm V\bm U)^{-1}\bm V\\
+&=\bm I_{n}+\bm U\times(\bm I_{m} - \bm V\bm U)^{-1}\bm V - (\bm{UVU})\times(\bm I_{m} - \bm V\bm U)^{-1}\bm V - \bm{UV} \\&= \bm I_{n} + (\bm U-\bm{UVU})(\bm I_{m} - \bm V\bm U)^{-1}\bm V - \bm{UV}\\&=\bm I_{n} + (\bm U\bm I_{m}-\bm{UVU})(\bm I_{m} - \bm V\bm U)^{-1}\bm V - \bm{UV}\\
+&=\bm I_{n}+\bm U(\bm I_{m}-\bm{VU})(\bm I_{m}-\bm{VU})^{-1}\bm V - \bm{UV} \\&= \bm I_{n} + \bm U\bm V - \bm{UV} = \bm I_{n}.
+\end{split}
+\end{equation}
+\item
+\begin{equation}
+\begin{split}
+\bm M\bm M^{-1} &= (\bm A - \bm U\bm W^{-1}\bm V)(\bm A^{-1} + \bm A^{-1}\bm U(\bm W - \bm V\bm A^{-1}\bm U)^{-1}\bm V\bm A^{-1})\\
+& = \bm I_{n} + \bm U(\bm W - \bm V\bm A^{-1}\bm U)^{-1}\bm V\bm A^{-1} - \bm U\bm W^{-1}\bm V\bm A^{-1} \\&\qquad- \bm U\bm W^{-1}\bm V\bm A^{-1}\bm U(\bm W - \bm V\bm A^{-1}\bm U)^{-1}\bm V\bm A^{-1}\\
+&= \bm I_{n} + \bm U\{(\bm W - \bm V\bm A^{-1}\bm U)^{-1} - \bm W^{-1} - \bm W^{-1}\bm V\bm A^{-1}\bm U(\bm W - \bm V\bm A^{-1}\bm U)^{-1}\}\bm V\bm A^{-1}\\
+&=\bm I_{n} + \bm U\{\bm I_{m}(\bm W - \bm V\bm A^{-1}\bm U)^{-1} - \bm W^{-1}(\bm W - \bm V\bm A^{-1}\bm U)(\bm W - \bm V\bm A^{-1}\bm U)^{-1}\\&\qquad - \bm W^{-1}\bm V\bm A^{-1}\bm U(\bm W - \bm V\bm A^{-1}\bm U)^{-1}\}\bm V\bm A^{-1}\\
+&= \bm I_{n} + \bm U(\bm I_{m} - \bm W^{-1}(\bm W - \bm V\bm A^{-1}\bm U) - \bm W^{-1}\bm V\bm A^{-1}\bm U)(\bm W - \bm V\bm A^{-1}\bm U)^{-1}\bm V\bm A^{-1}\\
+& = \bm I_{n} + \bm U(\bm I_{m} - \bm I_{m}+\bm W^{-1}\bm V\bm A^{-1}\bm U - \bm W^{-1}\bm V\bm A^{-1}\bm U)(\bm W - \bm V\bm A^{-1}\bm U)^{-1}\bm V\bm A^{-1}\\
+&=\bm I_{n} + \bm U\times\bm 0\times(\bm W - \bm V\bm A^{-1}\bm U)^{-1}\bm V\bm A^{-1} = \bm I_{n}
+\end{split}
+\end{equation}
+\end{enumerate}
+\end{proof}
+\item
+\begin{proof}[Solution.]
+\begin{enumerate}
+\item
+$\bm A^2 - \bm B^2$ is symmetric. The reason is that 
+\[
+(\bm A^2 - \bm B^2)\trans = (\bm A\bm A)\trans - (\bm B\bm B)\trans = \bm A\trans\bm A\trans - \bm B\trans\bm B\trans = \bm A\bm A - \bm B\bm B = \bm A^{2} - \bm B^{2}.
+\]
+\item
+$(\bm A + \bm B)(\bm A-\bm B)$ may not be symmetric. Let me raise a counterexample to explain it:\\
+Suppose $\bm A = \begin{bmatrix}
+1&7\\7&0
+\end{bmatrix}$, $\bm B = \begin{bmatrix}
+2&5\\5&1
+\end{bmatrix}$. Then $\bm A+\bm B = \begin{bmatrix}
+3&12\\12&1
+\end{bmatrix},$ $\bm A-\bm B = \begin{bmatrix}
+-1&2\\2&-1
+\end{bmatrix}$. The product $(\bm A + \bm B)(\bm A-\bm B)$ is given by:
+\[
+(\bm A + \bm B)(\bm A-\bm B) = \begin{bmatrix}
+21&-6\\-10&23
+\end{bmatrix}
+\]
+which is obviously \textit{not symmetric.}
+\item
+$\bm{ABA}$ is symmetric. The reason is that 
+\[
+(\bm{ABA})\trans = \bm A\trans\bm B\trans\bm A\trans = \bm A\bm B\bm A
+\]
+\item
+$\bm{ABAB}$ may not be symmetric, let me raise a counterexample to explain it:\\
+Suppose $\bm A = \begin{bmatrix}
+1&7\\7&0
+\end{bmatrix}$, $\bm B = \begin{bmatrix}
+2&5\\5&1
+\end{bmatrix}$. Then the product $\bm{ABAB}$ is given by:
+\[
+\bm{ABAB} = \begin{bmatrix}
+1537&864\\1008&1393
+\end{bmatrix}
+\]
+which is obviously \textit{not symmetric.}
+\end{enumerate}
+\end{proof}
+\item
+\begin{proof}[Solution.]
+Starting from $\bm A = \bm{LDU}$, then $\bm A = \bm L(\bm U\trans)^{-1}\times(\bm U\trans\bm D\bm U)$.
+\begin{itemize}
+\item
+$\bm L(\bm U\trans)^{-1}$ is lower triangular with unit diagonals. \\
+\textit{Reason: }$\bm U$ is upper triangular, hence $\bm U\trans$ is lower triangular, its inverse $(\bm U\trans)^{-1}$ is also lower triangular. And $\bm L$ is also lower triangular. Hence the product $\bm{L}(\bm U\trans)^{-1}$ remains lower triangular. Since $\bm L$ and $\bm U$ has unit diagonals, their transformation $\bm{L}(\bm U\trans)^{-1}$ also has unit diagonals.
+\item
+$\bm U\trans\bm D\bm U$ is symmetric. The reason is that
+\[
+(\bm U\trans\bm D\bm U)\trans = \bm U\trans\bm D\trans (\bm U\trans)\trans = \bm U\trans\bm D\bm U
+\]
+\end{itemize}
+In conclusion, here lists a new factorization of $\bm A$ into \textit{triangular} times \textit{symmetric}.
+\end{proof}
+\item
+\begin{proof}[Solution]
+\begin{enumerate}
+\item
+\[\bm{AX} + \bm B = \bm C\implies
+\bm{AX} = \bm C- \bm B \implies
+\bm{X} = \bm A^{-1}(\bm C- \bm B).\]
+Since $\bm A = \begin{bmatrix}
+5&3\\3&2
+\end{bmatrix}$, we obtain $\bm A^{1} = \frac{1}{10-9}\begin{bmatrix}
+2&-3\\-3&5
+\end{bmatrix} = \begin{bmatrix}
+2&-3\\-3&5
+\end{bmatrix}$.\\
+\[
+\implies\bm X = \bm A^{-1}(\bm C- \bm B) =\begin{bmatrix}
+2&-3\\-3&5
+\end{bmatrix}\begin{bmatrix}
+4-6&-2-2\\-6-2&3-4
+\end{bmatrix} = \begin{bmatrix}
+20&-5\\-34&7
+\end{bmatrix}.
+\]
+\item
+\[
+\bm{XA}+\bm B = \bm C\implies \bm{XA} = \bm C-\bm B\implies \bm{X} = (\bm C-\bm B)\bm A^{-1}.
+\]
+Hence the solution is given by
+\[
+\bm{X} = (\bm C-\bm B)\bm A^{-1} = \begin{bmatrix}
+-2&-4\\-8&-1
+\end{bmatrix}\begin{bmatrix}
+2&-3\\-3&5
+\end{bmatrix} = \begin{bmatrix}
+8&-14\\-13&19
+\end{bmatrix}.
+\]
+\item
+\[
+\bm{AX} +\bm B = \bm X\implies (\bm A-\bm I)\bm X = -\bm B
+\implies \bm X = -(\bm A-\bm I)^{-1}\bm B
+\]
+Hence the soluion is given by
+\[
+\bm{X} = -(\bm A-\bm I)^{-1}\bm B = -\begin{bmatrix}
+5-1&3\\3&2-1
+\end{bmatrix}^{-1}\begin{bmatrix}
+6&2\\2&4
+\end{bmatrix} = -\frac{1}{4-9}\begin{bmatrix}
+1&-3\\-3&4
+\end{bmatrix}\begin{bmatrix}
+6&2\\2&4
+\end{bmatrix} = \begin{bmatrix}
+0&-2\\-2&2
+\end{bmatrix}.
+\]
+\item
+\[
+\bm{XA}+\bm C = \bm X\implies \bm X(\bm A-\bm I) = -\bm C\implies \bm X = -\bm C(\bm A-\bm I)^{-1}
+\]
+Hence the solution is given by
+\[
+\bm X = -\bm C(\bm A-\bm I)^{-1} = -\begin{bmatrix}
+4&-2\\-6&3
+\end{bmatrix}\begin{bmatrix}
+-0.2&0.6\\0.6&-0.8
+\end{bmatrix} = \begin{bmatrix}
+2&-4\\-3&6
+\end{bmatrix}.
+\]
+\end{enumerate}
+\end{proof}
+\item
+\begin{proof}[Solution.]
+Firstly, we show $t_{jj}=u_{jj}r_{jj}$ for $j=1,\dots,n$:
+\[
+\begin{split}
+t_{jj} &= \sum_{k=1}^{n}u_{jk}r_{kj}\\
+&=\sum_{k=1,j<k}u_{jk}r_{kj} + u_{jj}r_{jj} + \sum_{k=1,j>k}u_{jk}r_{kj}\\
+&=\sum_{k=1,j<k}u_{jk}\times0 + u_{jj}r_{jj} + \sum_{k=1,j>k}0\times r_{kj}\\
+&=u_{jj}r_{jj}
+\end{split}
+\]
+Secondly, we show that $t_{ij} = 0$ if $i>j$ for $i,j\in \{1,2,\dots,n\}:$
+\[
+\begin{split}
+t_{ij}&=\sum_{k=1}^{n}u_{ik}r_{kj}\\
+&=\sum_{k=1,k<i}^{n}u_{ik}r_{kj}+u_{ii}r_{ij}+\sum_{k=1,k>i}^{n}u_{ik}r_{kj}\\
+&=\sum_{k=1,k<i}^{n}0\times r_{kj}+u_{ii}\times 0+\sum_{k=1,k>i}^{n}u_{ik}\times 0\\
+&=0
+\end{split}
+\]
+Hence $t_{ij} = 0$ for $i<j$. Hence $\bm T$ is upper triangular.
+\end{proof}
+\item
+\begin{proof}[Solution.]
+\begin{enumerate}
+\item
+\[\bm A = \begin{bmatrix}
+0&1&0&1&0\\1&0&1&1&0\\0&1&0&0&0\\1&1&0&0&1\\0&0&0&1&0
+\end{bmatrix}\]
+\item
+\[\bm A^{2} = \begin{bmatrix}
+2&1&1&1&1\\1&3&0&1&1\\1&0&1&1&0\\1&1&1&3&0\\1&1&0&0&1
+\end{bmatrix}\]
+It tells us that there are 2 walks of length 2 that from $v_1$ to $v_1$; 1 walk of length 2 that from $v_1$ to $v_2$; 1 walk of length 2 that from $v_1$ to $v_3$; 1 walk of length 2 that from $v_1$ to $v_4$; 1 walk of length 2 that from $v_1$ to $v_5$.
+\item
+\[
+\bm A^{3} = \begin{bmatrix}
+2&4&1&4&1\\4&2&3&5&1\\1&3&0&1&1\\4&5&1&2&3\\1&1&1&3&0
+\end{bmatrix}
+\]
+There are $a_{23}=3$ walks of length 3 from $v_2$ to $v_3$. There are $1+1+5=7$ walks of length 3 from $v_2$ to $v_4$.
+\end{enumerate}
+\end{proof}
+\end{enumerate}

@@ -1,0 +1,559 @@
+% !Mode:: "TeX:DE:UTF-8:Main"
+%
+%
+%JOURNAL CODE  SEE DOCUMENTATION
+
+\documentclass[examplefnt,biber]{nowfnt} % creates the journal version, needs biber version
+%wrapper for book and ebook are created automatically.
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{bm}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\newcommand{\cupdot}{\mathbin{\mathaccent\cdot\cup}}
+\newcommand{\trans}{^{\mathrm T}}
+\newcommand{\Her}{^{\mathrm H}}
+% a few definitions that are *not* needed in general:
+\newcommand{\ie}{\emph{i.e.}}
+\newcommand{\eg}{\emph{e.g.}}
+\newcommand{\etc}{\emph{etc}}
+\newcommand{\now}{\textsc{now}}
+\newcommand{\diff}{\,\mathrm{d}}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\row}{row}
+\DeclareMathOperator{\col}{col}
+\DeclareMathOperator{\Range}{Range}
+\DeclareMathOperator{\im}{Im}
+\DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
+\DeclareMathOperator{\Proj}{Proj}
+\newcommand{\degree}{^\circ}
+\DeclareMathOperator{\diag}{diag}
+\newcommand*\conj[1]{\bar{#1}}
+\DeclareMathOperator{\eig}{eig}
+\DeclareMathOperator{\trace}{trace}
+\DeclareMathOperator{\range}{range}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\tr}{tr}
+%\newcommand{\diff}{\mathrm{d}}
+\renewcommand{\algorithmicrequire}{ \textbf{Input:}} %Use Input in the format of Algorithm
+\renewcommand{\algorithmicensure}{ \textbf{Output:}} %UseOutput in the format of Algorithm
+
+
+%ARTICLE TITLE
+%\title{Using the Foundations and Trends\textsuperscript{\textregistered} \LaTeX\ Class}
+\title{Lecture Notes for MAT4004}
+
+
+%ARTICLE SUB-TITLE
+%\subtitle{Instructions for Creating an FnT Article}
+
+
+%AUTHORS FOR COVER PAGE 
+% separate authors by \and, item by \\
+% Don't use verbatim or problematic symbols.
+% _ in mail address should be entered as \_
+% Pay attention to large mail-addresses ...
+
+%if there are many author twocolumn mode can be activated.
+%\booltrue{authortwocolumn} %SEE DOCUMENTATION
+%\maintitleauthorlist{
+%Alet Heezemans \\
+%now publishers, Inc. \\
+%alet.heezemans@nowpublishers.com
+%\and
+%Mike Casey \\
+%now publishers, Inc. \\
+%mike.casey@nowpublishers.com
+%}
+
+%ISSUE DATA AS PROVIDED BY NOW
+\issuesetup
+{%
+ copyrightowner={A.~Heezemans and M.~Casey},
+ volume        = xx,
+ issue         = xx,
+ pubyear       = 2018,
+ isbn          = xxx-x-xxxxx-xxx-x,
+ eisbn         = xxx-x-xxxxx-xxx-x,
+ doi           = 10.1561/XXXXXXXXX,
+ firstpage     = 1, %Explain
+ lastpage      = 18
+ }
+
+%BIBLIOGRAPHY FILE
+%\addbibresource{sample.bib}ci
+%\addbibresource{testfnt.bib}
+\addbibresource{bib/sample-now.bib}
+
+\usepackage{mwe}
+
+%%AUTHORS FOR ABSTRACT PAGE
+%\author[1]{Heezemans,Alet}
+%\author[2]{Casey,Mike}
+%
+%\affil[1]{now publishers, Inc.; alet.heezemans@nowpublishers.com}
+%\affil[2]{now publishers, Inc.; mike.casey@nowpublishers.com}
+
+\articledatabox{\nowfntstandardcitation}
+
+\begin{document}
+\makeabstracttitle
+\begin{abstract}
+This document is the typed lecture notes for MAT4004
+
+\end{abstract}
+
+
+\input First_lecture/First.tex
+\input Second_lecture/First.tex
+\input Third_lecture/First.tex
+\input Fourth_lecture/First.tex
+\input Fifth_lecture/First.tex
+\input Sixth_lecture/First.tex
+\input eigth_lec/First.tex
+\input ninth_lec/First.tex
+\input tenth_lec/First.tex
+\input eleth_lec/First.tex
+%%\input Sixth_lecture/First.tex
+%\label{intro}
+%\chapter{The Distribution and Installation}
+%\label{c-intro} % a label for the chapter, to refer to it later
+%
+%%This document explains to typesetters how to install and use the \LaTeX\ style files for Foundations and Trends journal articles from Now Publishers. 
+%
+%
+%
+%\section{Pre-requisites}
+%You will need a working LaTeX installation. We recomend using pdflatex to process the files. You will also need
+%biber.exe installed. This is distributed as part of the latest versions of LiveTex and MikTex. If you have
+%problems, please let us know.
+%
+%\section{The Distribution}
+%The distribution contains 2 folders: \texttt{nowfnt}  and \texttt{nowfnttexmf}. 
+%
+%\subsection{Folder \texttt{nowfnt}}
+%This folder contains the following files using a flat stucture required to compile a FnT issue:
+%
+%%This folder contains the class files both as a texmf structure in the folder \texttt{nowtexmf} and as a flat files.
+%%The following files are required to compile a FnT issue (comprising an article, a book, and an e-book version):
+%%
+%\begin{itemize}
+%\setlength{\parsep}{0pt}
+%\setlength{\itemsep}{0pt}
+%\item essence\_logo.eps
+%\item essence\_logo.pdf
+%\item now\_logo.eps
+%\item now\_logo.pdf
+%\item nowfnt.cls
+%\item nowfnt-biblatex.sty
+%%\item <jrnlcode>-editorialboard.tex
+%%\item <jrnlcode>-journaldata.tex
+%\item NOWFnT-data.tex 
+%\end{itemize}
+%
+%
+%
+%\noindent It also contains the following folders:
+%
+%
+%\paragraph{journaldata}
+%A set of data files containing the journal-specific data for each journal. There
+%are three files per journal:
+%
+%<jrnlcode>-editorialboard.tex
+%
+%<jrnlcode>-journaldata.tex
+%
+%<jrnlcode>-seriespage.tex
+%
+%\noindent <jrnlcode> is the code given in Appendix~\ref{App:journalcodes}. You will need these three files to compile your article.
+%
+%\paragraph{SampleArticle}
+%This folder contains this document as an example of an article typeset in our class file. The document is called
+%{\texttt FnTarticle.tex}. It also contains this PDF file and the .bib file.
+%
+%\subsection{Folder \texttt{nowfnttexmf}}
+%This folder contains all the files required in a texmf structure for easy installation.
+%
+%\section{Installation}
+%If your \LaTeX\ installation uses a localtexmf folder, you can copy the {\texttt nowtexmf} folder to the localtexmf
+%folder and make it known to your \TeX\ installation. You can now proceed to use the class file as normal.
+%
+%If you prefer to use the flat files, you will need to 
+%%These instructions assume that you have a working \LaTeX\ installation version. In principle, the installation 
+%%process only requires you to copy the files to a place in your \LaTeX\ environment and make your environment 
+%%aware that they exist. Or, if you want a quick start, 
+%copy all the required files each time into the folder in which you are compiling the article. Do not 
+%forget to copy the three data files for the specific journal from the folder {\texttt journaldata}.
+%
+%You may need to configure your \TeX\ editor to be able to run the programs. If you have problems 
+%installing these files in your own system, please contact us. 
+%We use Computer Modern fonts for some of the journals. You will need to make sure that these
+% fonts are installed. Refer to your system documentation on how to do this.
+%
+%
+%
+%
+%\chapter{Quick Start}
+%\label{prep}
+%
+%The now-journal class file is designed is such a way that you should be able to use any commands you normally would. 
+%However, do \textbf{not} modify any class or style files included in our distribution. If you do so, we will reject your files.
+%
+%The preamble contains
+%a number of commands for use when making the final versions of your manuscript once it has been accepted and you have been instructed by 
+%our production team. 
+%
+%\section{\textbackslash documentclass}
+%%\paragraph{\textbackslash documentclass}
+%The options to this command enable you to choose the journal for which you 
+%producing content and to indicate the use of biber.
+%
+%
+%\begin{verbatim}
+%\documentclass[<jrnlcode>,biber]{nowfnt}.
+%\end{verbatim}
+%
+%
+%\noindent<jrnlcode> is the pre-defined code identifying each journal. See Appendix~\ref{App:journalcodes} for the appropriate <jrnlcode>.\\ 
+%
+%%\noindent For Foundations and Trends\textsuperscript{\textregistered} in Accounting, use ACC, so:
+%%
+%%\begin{verbatim}
+%%\documentclass[ACC,biber]{nowfnt}.
+%%\end{verbatim}
+%
+%%
+%%\stopsamplehere %stops a sample. Should be in a place where a \clearpage makes sense.
+%
+%
+%\section{\textbackslash issuesetup}
+%These commands are only used in the final published version. Leave these as the
+%default until our production team instructs you to change them.
+%%
+%%With the exception of "firstpage" and "lastpage" enter the parameters as provided by the publisher.
+%%\paragraph{firstpage=}
+%%This is the first page number in the sequential numbering of the journal volume. This can
+%%be left as "XX" until the final version of the article is produced. This will be provided by the publisher.
+%%\paragraph{lastpage=}
+%%This is the last page number in the sequential numbering of the journal volume. This can
+%%be left as "XX" until the final version of the article is produced. This will be need to be
+%%added after the first compilation of the final article. It is the last page number of that run.
+%
+%
+%\section{\textbackslash maintitleauthorlist}
+%This is the authors list for the cover page. Use the name, affilliation and email address.
+%Separate each line in the address by \verb+\\+.
+%
+%
+%Separate authors by \textbackslash and.
+% Do not use verbatim or problematic symbols.
+%\_ (underscore) in email address should be entered as \verb+\_+.
+% Pay attention to long email addresses.
+%
+%If your author list is too long to fit on a single page 
+%you can use double column.
+%In this case, precede the {\textbackslash maintitleauthorlist} command with the following:
+%\begin{verbatim}
+%\booltrue{authortwocolumn} 
+%\end{verbatim}
+%
+%\section{\textbackslash author and \textbackslash affil}
+%These commands are used to typeset the authors and the afilliations on the 
+%abstract page of the article and in the bibliographic data.
+%\paragraph{\textbackslash author} uses an optional number to match the
+%author with the affiliation. The author name is written <surname>, <firstname>.
+%\paragraph{\textbackslash affil} uses an optional number to match the
+%author with the author name. The content is <affililiation>; <email address>.
+%
+%\section{\textbackslash addbibresource}
+%Use this to identify the name of the bib file to be used. 
+%%You can specify multiple bib files by using multiple \textbackslash addbibresource commands.
+%
+%%\section{\textbackslash creditline}
+%%Creates a footnote to give credit to someone or something. It is not an Acknowledgement
+%%for which the defined environment should be used.
+%
+%
+%\chapter{Style Guidelines and \LaTeX\ Conventions}
+%
+%In this section, we outline guidelines for typesetting and using \LaTeX\ that you should follow when preparing
+%your document
+%
+%\section{Abstract}
+%Ensure that the abstract is contained within the
+%\begin{verbatim}
+%\begin{abstract}
+%\end{verbatim} environment.
+%
+%\section{Acknowledgements}
+%Ensure that the acknowledgements are contained within the 
+%\begin{verbatim}
+%\begin{acknowledgements}
+%\end{verbatim} environment.
+%
+%
+%\section{References}
+%now publishers uses two main reference styles. One is numeric and the other is author/year.
+%The style for this is pre-defined in the  \LaTeX\ distribution and must not be altered. The style used for
+%each journal is given in the table in Appendix~\ref{App:journalcodes}.
+%Consult the sample-now.bib file for an example of different reference types. 
+%
+%The References section is generated by placing the following commands at the 
+%end of the file.
+%\begin{verbatim}
+%\backmatter 
+%\printbibliography
+%\end{verbatim}
+%
+%\section{Citations}
+%Use standard \textbackslash cite, \textbackslash citep and \textbackslash citet commands to generate
+%citations.
+%
+%Run biber on your file after compiling the article. This will automatically create
+%the correct style and format for the References.
+%
+%\subsection{Example citations}
+%This section cites some sample references for your convenience. These are in author/year format and
+%the output is shown in the References at the end of this document.\\
+%\\
+%\noindent Example output when using \texttt{citet}: 
+%\citet{arvolumenumber} is a citation of reference 1 and
+%\citet{ber1995} is a citation of reference 2. \\
+%\\
+%\noindent Example output when using \texttt{citep}: 
+%\citep{beditorvolumenumber} is a citation of reference 3 and
+%\citep{inproceedings} is a citation of reference 4.
+%
+%
+%\section{Preface and Other Special Chapters}
+%
+%If you want to include a preface, it should be defined as follows:
+%\begin{quote}
+%\begin{verbatim}
+%\chapter*{Preface}
+%\markboth{\sffamily\slshape Preface}
+%  {\sffamily\slshape Preface}
+%\end{verbatim}
+%\end{quote}
+%This ensures that the preface appears correctly in the running headings.
+%
+%You can follow a similar procedure if you want to include additional
+%unnumbered chapters (\eg, a chapter on notation used in the paper),
+%though all such chapters should precede Chapter 1.
+%
+%Unnumbered chapters should not include numbered sections. If you want
+%to break your preface into sections, use the starred versions of
+%\texttt{section}, \texttt{subsection}, \etc.
+%
+%
+%\section{Long Chapter and Section Names}
+%
+%If you have a very long chapter or section name, it may not appear nicely
+%in the table of contents, running heading, document body, or some subset of these.
+%It is possible to have different text appear in all three places if needed
+%using the following code:
+%\begin{quote}
+%\begin{verbatim}
+%\chapter[Table of Contents Name]{Body Text Name}
+%\chaptermark{Running Heading Name}
+%\end{verbatim}
+%\end{quote}
+%Sections can be handled similarly using the \texttt{sectionmark} command
+%instead of \texttt{chaptermark}.
+%
+%For example, the full name should always appear in the table of contents, but
+%may need a manual line break to look good. For the running heading,
+%an abbreviated version of the title should be provided. The appearance of the long
+%title in the body may look fine with \LaTeX's default line breaking method
+%or may need a manual line break somewhere, possibly in a different place from
+%the contents listing.
+%
+%Long titles for the article itself should be left as is, with no manual line
+%breaks introduced. The article title is used automatically in a
+%number of different places by the class file and manual line breaks will
+%interfere with the output. If you have questions about how the title appears
+%in the front matter, please contact us.
+%
+%\section{Internet Addresses}
+%
+%The class file includes the \texttt{url} package, so you should wrap
+%email and web addresses with \texttt{\textbackslash url\{\}}. This will
+%also make these links clickable in the PDF. 
+%
+%
+%\chapter{Compiling Your FnT Article}
+%During the first run using the class file, a number of new files will be created
+%that are used to create the book and ebook versions during the final
+%production stage. You can ignore these until preparing the final versions
+%as described in Section~\ref{s:Final}. A complete list of the files produced
+%are given in Appendix~\ref{App:filelist}.
+%
+%\section{Compiling Your Article Prior to Submission}
+%To compile an article prior to submission proceed as follows:
+%\begin{description}
+%%\item [Step 1:] Create a folder with the name of the article code provided by our production department on initial instruction, for example ACC-054.
+%%Name  the main file <article code>.tex, for example ACC-054.tex, in the newly created folder. 
+%%(This folder must also contain all the source files and the necessary style files if they are not in a known path.)
+%\item [Step 1:] Compile the \LaTeX\ file using pdflatex.
+%\item [Step 2:] Run biber on your file.
+%\item [Step 3:] Compile again using pdfLaTeX. Repeat this step.
+%\item [Step 4:] Inspect the PDF for bad typesetting. The output PDF should be similar to FnTarticle.pdf. Work from the first page when making adjustments to resolve bad line breaks and bad page breaks. Re-run pdfLaTeX on the file to check the output after each change.
+%\end{description}
+%
+%\section{Preparing the Final Versions}
+%
+%If you choose the option to compile the final versions of your PDF for publication,
+% you will receive a set of data from our production team upon final acceptance. 
+%With the exception of  "lastpage", enter the data into the \verb+\issuesetup+ command in the preamble.   
+%
+%
+%\paragraph{lastpage=}
+%This is the last page number in the sequential numbering of the journal volume. You will need to enter this
+%once you have compiled the article once (see below).
+%
+%
+%\section{Compiling The Final Versions}\label{s:Final}
+%
+%The final versions should be created once you received all the bibliographic data from our Production Team
+%and you've entered it into the preamble. You will be creating a final online journal version pdf; a printed book version pdf;
+%and an ebook version pdf.
+%\begin{description}
+%%\item [Step 1:] Create a folder with the name of the article code provided by our production department on initial instruction, for example ACC-054.
+%%Name  the main file <article code>.tex, for example ACC-054.tex, in the newly created folder. 
+%%(This folder must also contain all the source files and the necessary style files if they are not in a known path.)
+%\item [Step 1:] Compile the \LaTeX\ file using pdfLaTeX.\cite{arvolumeonly}
+%\item [Step 2:] Run biber on your file.
+%\item [Step 3:] Compile again using pdfLaTeX. Repeat this step.
+%\item [Step 4:] Inspect the PDF for bad typesetting. The output PDF should be similar to FnTarticle.pdf. Work from the first page when making adjustments to resolve bad line breaks and bad page breaks. Re-run pdfLaTeX on the file to check the output after each change.
+%\item [Step 5:] When you are happy with the output make a note of the last page number and enter this in  \verb+\issuesetup+.
+%\item [Step 6:] Compile the article again.
+%\item [Step 7:] Open the file <YourFilename>-nowbook.tex. This will generate the printed book version pdf.
+%\item [Step 8:] Compile the \LaTeX\ file using pdflatex.
+%\item [Step 9:] Run biber on your file.
+%\item [Step 10:] Compile again using pdfLaTeX. Repeat this step.
+%\item [Step 11:] Repeat steps 7-10 on the file: <YourFilename>-nowebook.tex. This will generate the ebook version pdf.
+%\item [Step 12:] Repeat steps 7-10 on the file: <YourFilename>-nowplain.tex. This will generate a plain version pdf of your article. If you intend to post your article in an online repository, please use this version.
+%\end{description}
+%
+%\input Wednesday_week3.tex
+%
+%% end of main matter
+%
+%\begin{acknowledgements}
+%The authors are grateful to Ulrike Fischer, who designed the style files, and
+%Neal Parikh, who laid the groundwork for these style files.
+%\end{acknowledgements}
+%
+%\appendix
+%\chapter{Journal Codes}\label{App:journalcodes}
+%\vspace*{-1.2in}
+%The table below shows the journal codes to be used in  \verb+\documentclass+.
+%
+%\noindent For Example: \verb+\documentclass[ACC,biber]{nowfnt}+
+%
+%\begin{table}[h]
+%\begin{tabular}{lcc}
+%{\textbf Journal} & {\textbf <jrnlcode> } & {\textbf Ref. Style }\\
+%\hline
+%%\hline
+%\small
+%Annals of Corporate Governance & ACG & Author/Year \\
+%\small
+%Annals of Science and Technology Policy & ASTP & Author/Year \\
+%\small
+%FnT Accounting & ACC & Author/Year \\
+%\small
+%FnT Comm. and Information Theory & CIT & Numeric \\
+%\small
+%FnT Databases & DBS & Author/Year \\
+%\small
+%FnT Econometrics & ECO & Author/Year \\
+%\small
+%FnT Electronic Design Automation & EDA & Author/Year \\
+%\small
+%FnT Electric Energy Systems & EES & Author/Year \\
+%\small
+%FnT Entrepreneurship & ENT & Author/Year \\
+%\small
+%FnT Finance & FIN & Author/Year \\
+%\small
+%FnT Human-Computer Interaction & HCI & Author/Year \\
+%\small
+%FnT Information Retrieval & INR & Author/Year \\
+%\small
+%FnT Information Systems & ISY & Author/Year \\
+%\small
+%FnT Machine Learning & MAL & Author/Year \\
+%\small
+%FnT Management & MGT & Author/Year \\
+%\small
+%FnT Marketing & MKT & Author/Year \\
+%\small
+%FnT Networking & NET & Numeric \\
+%\small
+%& & \textit{Continues}
+%\end{tabular}
+%\end{table}
+%
+%\begin{table}[t!]
+%\begin{tabular}{lcc}
+%{\textbf Journal} & {\textbf <jrnlcode> } & {\textbf Ref. Style }\\
+%\hline
+%\small
+%FnT Optimization & OPT & Numeric \\
+%\small
+%FnT Programming Languages & PGL & Author/Year \\
+%\small
+%FnT Robotics & ROB & Author/Year \\
+%\small
+%FnT Privacy and Security & SEC & Author/Year \\
+%\small
+%FnT Signal Processing & SIG & Numeric \\
+%\small
+%FnT Systems and Control & SYS & Author/Year \\
+%\small
+%FnT Theoretical Computer Science & TCS & Numeric \\
+%\small
+%FnT Technology, Information and OM & TOM & Author/Year \\
+%\small
+%FnT Web Science & WEB & Author/Year \\
+%\end{tabular}
+%\end{table}
+%
+%\chapter{Files Produced During Compilation}\label{App:filelist}
+%\vspace*{-1.8in}
+%The files that are created during compilation are listed below. The 
+%additional *.tex files are used during the final production process only.
+%See Section~\ref{s:Final}.
+%\begin{verbatim}
+%<YourFilename>-nowbook.tex                                                
+%<YourFilename>-nowchapter.tex                                             
+%<YourFilename>-nowebook.tex                                               
+%<YourFilename>-nowechapter.tex                                            
+%<YourFilename>-nowsample.tex 
+%<YourFilename>-nowplain.tex                                             
+%<YourFilename>.aux                                                        
+%<YourFilename>.bbl                                                        
+%<YourFilename>.bcf                                                        
+%<YourFilename>.blg                                                        
+%<YourFilename>.log                                                        
+%<YourFilename>.out                                                        
+%<YourFilename>.pdf                                                        
+%<YourFilename>.run.xml                                                    
+%<YourFilename>.synctex.gz                                                 
+%<YourFilename>.tex                                                        
+%<YourFilename>.toc                                                                 
+%\end{verbatim}
+%
+%%BACKMATTER SEE DOCUMENTATION
+%\backmatter  % references, restarts sample
+%
+%\printbibliography
+
+\end{document}

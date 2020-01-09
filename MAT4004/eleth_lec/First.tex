@@ -1,0 +1,239 @@
+%\chapter{Introduction to Linear Programming}
+\chapter{Planar}
+
+\begin{definition}[Planar]
+An undirected graph is \emph{planar}
+if it can be drawn in the plane without \emph{edges crossing}.
+Such a way of drawing is a \emph{plane drawing} of the graph,
+or an \emph{embedding} of the graph in the plane.
+\end{definition}
+For example, $K_4$ is a planar graph, and only two way of drawing are plane drawings.
+
+\paragraph{Characterisation of Planar Graphs}
+\begin{itemize}
+\item
+Relationships among vertices, edges, and faces?
+\item
+Smallest non-planar graph?
+\item
+Necessary condition and sufficient conditions for a graph to be planar?
+\item
+Dual of a planar graph?
+\item
+Measure of non-planarity?
+\end{itemize}
+
+\begin{definition}[Regular Polyhedron]
+A \emph{regular polygon} is a convex figure (in 2-dimensions) where all edges are of same length and all (internal) angles at the vertices are the same.
+
+A \emph{regular polyhedron} is a solid (convex) figure (in 3 dimensions) with \emph{all faces} being congruent regular polygons, with the same number arranged around each vertex.
+\end{definition}
+\begin{remark}
+For any plane drawing~(embedding) of a planar graph, the plane is divided into faces. 
+The face unbounded by the edges of the embedding is called the \emph{infinite} face.
+A planar graph can have different embeddings, but the number of faces in any embedding is the same.
+\end{remark}
+\section{Euler’s Polyhedral Formula}
+\begin{theorem}[Euler]
+Let $G$ be a plane drawing of connected planar graph with $n$ vertices and $m$ edges.
+Let $f$ be the number of faces of $G$. Then
+\[
+n-m+f=2
+\]
+\end{theorem}
+\begin{proof}
+The proof is by induction on the number of edges $m$.
+For $m=0$, we imply $n=1,f=1$, i.e., $n-m+f=2$.
+Assume that the formula holds for all planar connected graphs with at most $m-1$ edges, and let $G$ be a plane drawing of a graph with $m$ edges.
+\begin{itemize}
+\item
+If $G$ is a tree, then $n=m+1$ and $f=1$, i.e., $n-m+f=2$
+\item
+If $G$ is not a tree, let $e$ be an edge in some cycle of $G$, and $G-e$ is a connected planar graph with $n$ vertices, $m-1$ edges, and $f-1$ faces. By induction hypothesis, $n-(m-1)+(f-1)=2$, which follows that $n-m+f=2$.
+\end{itemize}
+\end{proof}
+
+\begin{corollary}
+Let $G$ be a plane graph with $n$ vertices, $m$ edges and $f$ faces, $k$ components, then
+\[
+n-m+f=k+1
+\]
+\end{corollary}
+
+\begin{corollary}
+\begin{enumerate}
+\item
+Let $G$ be a simple connected planar graph with $n\ge3$ vertices and $m$ edges, then $m\le 3n-6$.
+\item
+If in addition, $G$ has no $3$-cycles, then $m\le 2n-4$.
+\end{enumerate}
+\end{corollary}
+\begin{proof}
+Bound the number of faces, i.e., each face is bounded by at least 3 edges, and each edge is on the boundary of at most two faces. Therefore, we have $3f\le 2m$, i.e., $3(m-n+2)\le 2m$.
+
+If there is no $3$-cycles, then each face is bounded by at least $4$ edges, and therefore $4f\le 2m$, i.e., $4(m-n+2)\le 2m$
+\end{proof}
+
+\begin{corollary}
+Each simple planar graph contaisn a vertex of degree at most $5$.
+\end{corollary}
+\begin{proof}
+w.l.o.g., consider the connected graph with at least $3$ vertices.
+If each vertex has degree at least $6$, then $6n\le 2m$, i.e., $3n\le m\le 3n-6$, which is a contradiction.
+\end{proof}
+
+
+\section{Non-planar Graphs}
+\begin{theorem}
+The graph $K_{3,3}$ is non-planar.
+\end{theorem}
+\begin{theorem}
+The graph $K_5$ is non-planar.
+\end{theorem}
+\begin{proof}
+We can show the non-planarity of $K_5,K_{3,3}$ by Euler’s Polyhedral Formula:
+\begin{itemize}
+\item
+For $K_5$, $n=5,m=10$, i.e., $3n-6=9<m$, contradiction
+\item
+For $K_{3,3}$, $n=6,m=9$, without $3$ cycles, i.e., $2n-4=8<m$, contradiction.
+\end{itemize}
+\end{proof}
+\begin{remark}
+Every subgraph of a planar graph is planar;
+Every graph with a non-planar subgraph must be non-planar;
+Every graph that ‘contains’ either $K_5$ or $K_{3,3}$ must be non-planar.
+\end{remark}
+
+\begin{definition}[homeomorphism]
+When we replace an edge with a $2$-edge path with a new vertex, we say that the edge has been sub-divided.
+We say two graphs are \emph{homeomorphic} if they can be expanded from the same graph by edge sub-division.
+\end{definition}
+
+\begin{theorem}
+A graph is planar if and only if it contains no sub-graph homeomorphic to $K_5$ or $K_{3,3}$
+\end{theorem}
+
+Consider a graph $H$ obtained from a graph $G$ by \emph{contracting} an edge.
+\begin{lemma}
+If the graph $G$ is planar, then so is any graph $H$ obtained from $G$ by \emph{contracting} an edge.
+\end{lemma}
+\begin{theorem}
+If a graph $G$ is contractible to either $K_5$ or $K_{3,3}$, then $G$ cannot be planar.
+\end{theorem}
+\section{Geometric Dual of a Planar Graph}
+\begin{definition}[Geometric Dual]
+Consider a plane drawing of a planar graph $G$, its geometric dual $G^*$ is contructed as follows:
+\begin{enumerate}
+\item
+There is a vertex $v^*$ of $G^*$ for each face of $G$
+\item
+If edge $e$ in $G$ separates two faces of $G$, then there is an edge $e^*$ in $G^*$ incident to the two vertices in $G^*$ corresponding to two faces
+\item
+If edge $e$ is incident to only one face, then there is a corresponding self-loop in $G^*$.
+\end{enumerate}
+\end{definition}
+ 
+\begin{lemma}
+Let $G$ be a connected planar graph, then $G^*$ is also a connected planar graph.
+Let $G$ be a planar graph with $n$ vertices, $m$ edges, $f$ faces, and $G^*$ be the geometric dual with $n^*$ vertices, $m^*$ edges, and $f^*$ faces, then
+\[
+n^*=f,\quad
+m^*=m,\quad
+f^*=n
+\]
+\end{lemma}
+
+\begin{theorem}
+If G is a planar connected graph, then $G^{**}$ is isomorphic to G.
+\end{theorem}
+\begin{definition}
+A planar graph may also have self-dual, i.e., isomorphic to its geometric dual.
+\end{definition}
+\begin{theorem}
+Let $G$ be a planar graph and $G^*$ be a geometric dual of $G$.
+Then a set of edges of $G$ form a cycle in $G$ if and only if the corresponding set of edges of $G^*$ form an \emph{edge cutset} of $G^*$;
+\end{theorem}
+\begin{proof}
+Assume $G$ is connected.
+If $C$ is a cycle of $G$, then $C$ encloses one or more finite faces of $G$, corresponding to a non-empty set of vertices $V^*$ in $G^*$. The edges in $G^*$ corresponding to the edges of $C$ form an edge cutset separating $V^*$ from the rest of the graph $G^*$.
+
+If $K^*$ is a cutset of $G^*$ separting the vertex sets $V_1^*,V_2^*$ of $G^*$. 
+w.l.o.g., $V_1^*$ does not contain the vertex corresponding to the infinite face. 
+For any two adjacent faces in $G$ corresponding to $v_1^*\in V_1^*,v_2^*\in V_2^*$, 
+the edge separating the two faces must be in the cutset $K^*$.
+Therefore, the edges in $G$ corresponding to the edges in the cutset $K^*$ forms a cycle.
+\end{proof}
+\begin{corollary}
+A set of edges in $G$ forms a cutset of $G$ iff the corresponding edges in $G^*$ form a cycle in $G^*$.
+\end{corollary}
+\begin{definition}
+A graph $G^*$ is an abstract dual of a graph $G$ if there is a one-to-one correspondence between the edges of $G$ and $G^*$ such that:
+a set of edges form a cycle in $G$ if and only if the corresponding edges form an edge cutset of $G^*$
+\end{definition}
+The concept of the abstract dual generalises that of a geometric dual. If $G$ is a plane graph, then its geometric dual is an abstract dual.
+\begin{proposition}
+$K_5,K_{3,3}$ has no abstract dual.
+\end{proposition}
+\begin{theorem}
+A graph is planar if and only if it has an abstract dual
+\end{theorem}
+
+\section{Crossing Number}
+\begin{definition}[Crossing Number]
+The crossing number $\text{cr}(G)$ of a graph $G$ is the minimum number of edge crossing that can occur when the graph is drawn in the plane.
+\end{definition}
+
+\begin{lemma}
+For a graph $G$ with $n\ge3$ vertices and $m$ edges, $\text{cr}(G)\ge m-3n+6$
+\end{lemma}
+\begin{proof}
+For planar graph $m\le 3n-6$. Suppose $G$ is non-planar with $\text{cr}(G)=c$.
+For a plane drawing of $G$, ``replace'' each crossing with a new vertex (and 2 new edges). The resulting graph is planar and $(m+2c)\le 3(n+c)-6$, i.e., $c\ge m-3n+6$.
+\end{proof}
+\begin{lemma}
+For a complete bipartite graph $K_{p,q}$,
+\[
+\text{cr}(K_{p,q})\le\lceil p/2
+\rceil
+\lceil (p-1)/2
+\rceil
+\lceil q/2
+\rceil
+\lceil (q-1)/2
+\rceil
+\]
+\end{lemma}
+\begin{remark}
+This bound is shown to be tight when $p\le q$ and 
+\begin{itemize}
+\item
+either $p\le 6$
+\item
+or $p=7,q\le10$
+\end{itemize}
+\end{remark}
+
+
+\begin{definition}[Thickness]
+The thickness of a graph $G$ is the fewest number of planar subgraphs whose union yields $G$.
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

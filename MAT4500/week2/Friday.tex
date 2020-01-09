@@ -1,0 +1,133 @@
+
+%\chapter{Week2}
+
+\section{Thursday}\index{week2_Friday_lecture}
+Earning $\&$ learning
+\subsection{Discrte Time Markov Chains}
+Given 
+\begin{itemize}
+\item
+time index $T=\{0,1,2,\dots\}$
+\item
+discrte set of states (alphabet): $\mathcal{S}$
+\item
+$X_n$ denotes the state at time $n$
+\item
+Transition probabilities (Time homogeneous):
+\[
+\begin{array}{ll}
+P_{ij} = \mathbb{P}\{X_{n+1} = j\mid X_n = i\}
+&
+i,j\in\mathcal{S}
+\end{array}
+\]
+\end{itemize}
+$X = \{X_n: n=0,1,\dots\}$ satisfies the Markov property, i.e., for each $n\ge 1$ for $i_0,i_1,\dots,i,j\in\mathcal{S}$,
+\[
+\mathbb{P}\{X_{n+1} = j\mid X_n = i, X_0 = i_0,X_1 = i_1,\dots,X_{n-1} = i_{n-1}\}  = P_{ij}
+\]
+Given the current information, the past information is irralevant for future information.
+
+\paragraph{Example 1: simple random walk}
+Suppose toss a coin at each time, and you go right if get a head; go left if get a tail. $i$ denotes the location. We have the conditional probability
+\[
+\mathbb{P}\{X_{n+1}=i+1\mid X_n = i,X_{n-1},\dots,X_0\}
+=
+\mathbb{P}\{X_{n+1}=i+1\mid X_n = i\}=p
+\]
+In this case the transition probability matrix has infinite dimension. 
+
+Given $\mathcal{S}=\{0,1\}$ and the transition probability matrix
+\[
+P=\begin{pmatrix}
+\alpha&1-\alpha\\1 - \beta&\beta
+\end{pmatrix}=\begin{pmatrix}
+3/4&1/4\\1/2&1/2
+\end{pmatrix}
+\]
+
+\begin{theorem}
+Given a function
+\[
+\begin{array}{ll}
+f:(i,u)\in\mathcal{S}\times\mathbb{R}^+,
+&
+f(i,u)\in\mathcal{S}
+\end{array}
+\]
+$\{U_n: n=1,2,\dots\}$ is an i.i.d. sequence. $X_{n+1} = f(X_n,U_{n+1})$. Then $\{X_n: n=1,2,\dots\}$ is a DTMC.
+\end{theorem}
+
+\paragraph{Application 1}
+Suppose $U_n$ is a coin toss at time $n$, i.e., 
+\[
+\begin{array}{ll}
+\mathbb{P}(U_n = 1) = p,
+&
+\mathbb{P}(U_n = -1) = q
+\end{array}
+\]
+and define $f: (i,u)\in\mathbb{Z}\times\{-1,1\} = i+u\in\mathbb{Z}$
+
+\paragraph{Transient Probabilities}
+\[
+\mathbb{P}X_4 = 3,X_2 = 1|X_1 = 2
+=
+\mathbb{P}[X_2 = 1|X_1 = 2]
+\mathbb{P}[X_4 =3 |X_2 = 1]
+=
+P_{21}(P^2)_{13}=.2
+\]
+Then we show how to compute the expectation:
+\[
+\mathbb{E}X_3|X_0 = 1
+=
+1\cdots \mathbb{P}[X_3 = 1|X_0 = 1]
++
+2\cdots \mathbb{P}[X_3 = 2|X_0 = 1]
++
+3\cdots \mathbb{P}[X_3 = 3|X_0 = 1]
+=
+\begin{pmatrix}
+.4&.48&.12
+\end{pmatrix}\begin{pmatrix}
+1\\2\\3
+\end{pmatrix}
+\]
+and the variance also depends on the distribution:
+\[
+\mbox{Var}(X_3|X_0 = 1)
+=
+\mathbb{E}X_3^2|X_0 = 1 - b^2
+\]
+where
+\[
+\mathbb{E}X_3^2|X_0=\begin{pmatrix}
+.4&.48&.12
+\end{pmatrix}\begin{pmatrix}
+1^2\\2^2\\3^2
+\end{pmatrix}
+\]
+Find the expected profit on day 3:
+\[
+\mathbb{E}g(X_3)|X_0 = 1
+=
+\mathbb{E}_{X_3|X_0 = 1}
+g(X_3)|X_0 = 1
+=
+\begin{pmatrix}
+.4&.48&.12
+\end{pmatrix}\begin{pmatrix}
+-5\\1\\10
+\end{pmatrix}=-.23
+\]
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,147 @@
+%\chapter{Introduction to Linear Programming}
+\chapter{Shortest Path}
+\paragraph{Problem setting}
+Now we turn the attention to directed graphsm where there is a cost associated with each arc:
+\begin{itemize}
+\item
+How to find a shortest path from a given (origin) node to a given (destination) node?
+\item
+How to find a shortest path from a given (origin) node to each other node?
+\end{itemize}
+\section{Dijkstra's Algorithm}
+\begin{algorithm}[htb] 
+\caption{Dijkstra's Algorithm} 
+\label{alg:SM} 
+\begin{algorithmic}[1] %show number in each rows
+\REQUIRE ~~\\ %算法的输入参数：Input
+The graph $G=(N,A)$ with cost function $c$ on arcs
+\ENSURE ~~\\ %算法的输出：Output
+Shortest path from origin $s$ to destination $t$
+\STATE 
+Initialize OPEN list $S:=\emptyset$, $T= N$; $d(i)=M$ for each $i\in N$; $d(s)=0$, $\text{pred}(s)=0$;
+\STATE
+\textbf{While $|S|<n$, do}
+\begin{itemize}
+\item
+Let $i=\arg\min\{d(k)\mid k\in T\}$; $S:=S\cup\{i\}$; $T:=T\setminus\{i\}$;
+\begin{itemize}
+\item
+for each $(i,j)\in A$,
+
+if $d(j)>d(i)+c(i,j)$, then $d(j)= d(i)+c(i,j)$; $\text{pred}(j)=i$;
+\end{itemize}
+\end{itemize}
+\textbf{End While}
+\end{algorithmic}
+\end{algorithm}
+
+\begin{remark}
+The Dijkstra’s algorithm does not work for negative arc lengths.
+\end{remark}
+\paragraph{Efficiency of Dijkstra's Algorithm}
+\begin{itemize}
+\item
+Initialization: $O(n)$
+\item
+Iteration: repeat for $n$ times
+\begin{itemize}
+\item
+Termination: $O(1)$
+\item
+Finding minimum: $O(n)$ comparisons. Indeed, the data structure technique can help to reduce into $O(m\log n)$ operations using binary heaps, and $O(m+n\log n)$ operations using Fiboniacci heaps.
+\end{itemize}
+\item
+Updating: $O(m)$ in total
+\end{itemize}
+Thus Dijkstra’s algorithm takes $O(n)+n(O(1)+O(n))+O(m)=O(n^2)$ steps.
+
+
+\section{All-Pairs Shortest Paths}
+Given a directed graph $G=(N,A)$ with arc lengths $c$. Here we allow negative arc length but assume $G$ has no cycles of negative length.
+
+\begin{theorem}[Optimality Condition]
+For every pair of nodes $(i,j)$, let $d[i,j]$ denote the length of a directed path from $i$ to $j$.
+Then $d[i,j]$ is the shortest path from $i$ to $j$ for all $i,j\in N$ if and only if
+\begin{enumerate}
+\item
+$d[i,j]\le d[i,k]+d[k,j]$ for $\forall i,j,k\in N$
+\item
+$d[i,j]\le c(i,j)$ for all $(i,j)\in A$
+\end{enumerate}
+\end{theorem}
+
+An obvious label correcting type algorithm is developed based on the optimality condition.
+We start with some labels $d[i,j]$, and update the labels until the optimality conditions are satisfied.
+\begin{algorithm}[htb] 
+\caption{Dijkstra's Algorithm} 
+\label{alg:SM} 
+\begin{algorithmic}[1] %show number in each rows
+\STATE 
+Initialize 
+\begin{align*}
+d[i,j]&=\infty,\forall[i,j]\in N\times N\\
+d[i,i]&=0,\forall i\in N\\
+d[i,j]&=c(i,j),\ \text{for each $(i,j)\in A$}
+\end{align*}
+\STATE
+While there exists 3 nodes $i,j,k$ such that $d[i,j]>d[i,k]+d[k,j]$,
+\[
+\text{do }d[i,j]:=d[i,k]+d[k,j]
+\]
+End While
+\end{algorithmic}
+\end{algorithm}
+
+
+
+\begin{algorithm}[htb] 
+\caption{Floyd-Warshall Algorithm} 
+\label{alg:SM} 
+\begin{algorithmic}[1] %show number in each rows
+\STATE 
+Initialize 
+\begin{align*}
+d[i,j]&=\infty,\forall[i,j]\in N\times N\\
+pred[i,j]&=0,\forall [i,j]\in N\times N\\
+d[i,i]&=0,\ \forall i\in N;
+d[i,j]&=c(i,j),\ \forall (i,j)\in A
+\end{align*}
+\STATE
+For each $k=1:n$, for each $[i,j]\in N\times N$, if $d[i,j]>d[i,k]+d[k,j]$, then
+\[
+d[i,j]=d[i,k]+d[k,j]\text{ and }pred[i,j]=pred[k,j]
+\]
+\end{algorithmic}
+\end{algorithm}
+\begin{remark}
+By adding one more test when updating the labels in the Floyd-Warshall algorithm, we can detect negative cycles if they exist in the graph:
+\begin{itemize}
+\item
+If $i=j$, check if $d[i,i]<0$
+\item
+If $i\ne j$, check if $d[i,j]<-nC$, where $C$ is the largest arc length.
+\end{itemize}
+If either two cases are true, then the graph contains a negative cycle.
+\end{remark}
+
+\paragraph{Faster Implementation of Dijkstra’s Algorithm}
+Consider large and sparse graphs, i.e., the number of edges $m$ is much smaller than $n^2$.
+We can apply the modified Dijkstra’s algorithm $n$ times, which is faster than Floyd-Warshall algorithm.
+With a $d$-heap implementation, which is a technique in Data structure, the Dijkstra’s algorithm takes
+\[
+O(m\log_dn+nd\log_dn)\text{ operations}
+\]
+Taking $d=\max\{2,\lceil m/n\rceil\}$, we conclude that Dijkstra’s algorithm take $O(m\log_2n)$ steps in this case.
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,140 @@
+\section{Final Exam}\index{Sample Exam}
+DURATION OF EXAMINATION: 2 hours and 35 minutes in-class\\
+\textit{This examination paper includes $6$ pages and $6$ problems. You are responsible for ensuring that
+your copy of the paper is complete. Bring any discrepancy to the attention of your invigilator.}\\
+\begin{enumerate}
+\item \textbf{(20 points)} \textit{Matrix representation for linear transformation}\\
+\begin{enumerate}
+\item
+Let $T$ be the transformation
+\begin{gather*}
+T:\{\textbf{polynomials of degree $\le4$}\}\mapsto\{\textbf{polynomials of degree $\le4$}\}\\
+\qquad\qquad\qquad\qquad\qquad T(p)=(x-2)\frac{\diff p}{\diff x}
+\end{gather*}
+Show that $T$ is a \textit{linear transformation} and write down a \textit{matrix representation} of $T$ with respect to basis $\{1,x,x^2,x^3,x^4\}$ for the input and output space.\\
+\item
+If a polynomial $f(x)$ satisfies
+\[
+T(f)=\lambda f,
+\]
+we say $f$ is an \textit{eigenvector} of $T$. Find two \textit{linearly independent} eigenvectors of $T$.
+\end{enumerate}
+\newpage
+\item \textbf{(20 points)} \textit{Least Square Method}\\
+\begin{enumerate}
+\item
+Find the projection of $\bm z=\begin{bmatrix}
+1\\0\\1
+\end{bmatrix}$ onto the column space of $\begin{bmatrix}
+1&-1\\1&-1\\-2&4
+\end{bmatrix}.$\\
+\item
+Let $\mathcal{A}:\mathbb{R}^{2\x 1}\mapsto\mathbb{R}^{2\x 2}$ be a mapping defined as
+\[
+\mathcal{A}\begin{bmatrix}
+a\\b
+\end{bmatrix}=\begin{bmatrix}
+a+b&a-b\\-2a+4b&0
+\end{bmatrix},\forall a,b\in\mathbb{R}.
+\]
+Define $\kappa=\{\bm{Ax}|\bm x\in\mathbb{R}^{2\x 1}\}$.\\
+Find the best approximation of $\bm B=\begin{bmatrix}
+1&2\\7&1
+\end{bmatrix}$ in the space $\kappa$.\\
+\textit{Hint: Consider $\begin{bmatrix}
+1&2\\7&1
+\end{bmatrix}$ and $\begin{bmatrix}
+a+b&a-b\\-2a+4b&0
+\end{bmatrix}$ as $\mathbb{R}^{4\x 1}$ vector.\\
+Then you only need to find the best approximation of $\begin{pmatrix}
+1\\2\\7\\1
+\end{pmatrix}$ onto the set $\{\bm{Ax}|\bm x\in\mathbb{R}^{2\x 1}\}$, where $\bm A=\begin{bmatrix}
+1&1\\1&-1\\-2&4\\0&0
+\end{bmatrix}.$}
+\end{enumerate}
+\newpage
+\item \textbf{(20 points)} \\
+True or False. No justifications are required.
+\begin{enumerate}
+\item
+If all the entries of a square matrix $\bm A$ are \textit{positive}, then $\bm A^{-1}$ exist.\\
+\item
+If $\bm Q$ is an \textit{orthogonal matrix}, then $\det(\bm Q)=\pm1$.\\
+\item
+If $\bm A$ is a \textit{negative definite} matrix, then its singular values have the same absolute values as its eigenvalues.\\
+\textit{Hint: Note that $\bm A$ is said to be negative definite when $-\bm A$ is positive definite.}\\
+\item
+If $\bm A$ is an $n\x n$ matrix with \textit{characteristic polynomial} $p_{\bm A}(t)=t^n$, then $\bm A=\bm 0.$\\
+\item
+If $\bm A$ is the sum of 5 rank one matrices, then $\rank(\bm A)\le5.$
+\end{enumerate}
+\newpage
+\item \textbf{(20 points)} \textit{SVD decomposition} \\
+The question is about the matrix
+\[
+\bm A=\begin{bmatrix}
+0&-1\\4&0
+\end{bmatrix}
+\]
+\begin{enumerate}
+\item
+Find its eigenvalues and eigenvectors, write the vector $\bm u=\begin{bmatrix}
+2\\0
+\end{bmatrix}$ as a combination of those eigenvectors.\\
+\item
+Do the SVD decomposition to derive $\bm A=\bm U\Sigma\bm V\trans$ in two steps:
+\begin{itemize}
+\item
+First, compute $\bm V$ and $\Sigma$ using the matrix $\bm A\trans\bm A$.
+\item
+Second, find the (\textit{orthonormal}) columns of $\bm U$.
+\end{itemize}
+\end{enumerate}
+\newpage
+\item \textbf{(15+5 points)} \textit{Eigenvalues and Eigenvectors}\\
+\begin{enumerate}
+\item
+Suppose $\bm A,\bm B\in\mathbb{R}^{n\x n}$ can can be \textit{diagonalized} by the same matrix, prove that $\bm{AB}=\bm{BA}.$\\
+\textit{Hint: Note that $\bm A$ is said to be diagonalized by $\bm S$ if $\bm S^{-1}\bm A\bm S$ is diagonal.}\\
+\item
+Suppose $\bm A,\bm B\in\mathbb{R}^{n\x n}$ satisfy $\bm{AB}=\bm{BA}$, and both $\bm A$ and $\bm B$ are diagonalizable. $\bm A$ has $n$ \textit{distinct} eigenvalues. Prove that $\bm A,\bm B$ can can be \textit{diagonalized} by the same matrix.\\
+\textit{Hint: Suppose $\bm A$ has eigenvectors $\bm v_1,\dots,\bm v_n$. You can express $\bm B\bm v_i$ as linear combination of $\bm v_1,\dots,\bm v_n$. Then you can express $\bm A(\bm B\bm v_i)$ and $\bm B(\bm A\bm v_i)$. Finally compute $\bm A(\bm B\bm v_i)-\bm B(\bm A\bm v_i)$ to derive something.}\\
+\item \textbf{(bonus question)}\\
+Prove part $(b)$ without the assumption that $\bm A$ has $n$ \textit{distinct} eigenvalues. (i.e. $\bm A$ might have \emph{repeated} eigenvalues)\\
+\textit{Hint: Since $\bm A$ is diagonalizable, there exists $\bm Q$ such that $\bm Q^{-1}\bm A\bm Q=\bm D$, where $\bm D$ is diagonal. Then you should express $\bm D$. Then you compute $\bm Q^{-1}\bm B\bm Q=\bm C$, i.e. partition $\bm C$ in the same way of $\bm D$. Next you should show us that $\bm C$ is block diagonal. Then you construct \emph{diagonal} matrix $\bm T_*$ that diagonalize $\bm C$. Finally you construct $\bm P$ that diagonalize both $\bm A$ and $\bm B$.}
+\end{enumerate}
+\newpage
+\item \textbf{(10 points)} \textit{Positive definite}\\
+Suppose $\bm A,\bm B\in\mathbb{R}^{n\x n}$, where $\bm A=\begin{bmatrix}
+a_{ij}
+\end{bmatrix}_{i,j=1}^{n}, \bm B=\begin{bmatrix}
+b_{ij}
+\end{bmatrix}_{i,j=1}^{n}$.\\
+Define the \emph{Hadamard product} $\bm A\circ\bm B$ as an $n\x n$ matrix with entries
+\[
+\begin{bmatrix}
+\bm A\circ\bm B
+\end{bmatrix}_{ij}=a_{ij}b_{ij}.
+\]
+For example, if $\bm A=\begin{bmatrix}
+1&2\\3&7
+\end{bmatrix},\bm B=\begin{bmatrix}
+0&\pi\\1&e
+\end{bmatrix},$ then $\bm A\circ\bm B=\begin{bmatrix}
+0&2\pi\\3&7e
+\end{bmatrix}.$\\
+Prove the following statements:
+\begin{enumerate}
+\item
+$\rank(\bm A\circ\bm B)\le\rank(\bm A)\rank(\bm B)$;
+\\
+\textit{Hint: Extend Hadamard product into vector. Then it's easy to verify that $(\bm A\circ\bm B)\circ\bm C=\bm A\circ\bm C+\bm B\circ\bm C$ and $(\bm u_1\bm v_1\trans)\circ(\bm u_2\circ\bm v_2\trans)=(\bm u_1\circ\bm u_2)\x(\bm v_1\circ\bm v_2)\trans$. Then you can do SVD decomposition for $\bm A$ and $\bm B$ (vector form, related to rank.) Then you can express $\bm A\circ\bm B$ as the sum of some matrices with rank 1.}
+\\
+\item
+If $\bm A\succeq0,\bm B\succeq0$ and $\bm A,\bm B$ are \textit{symmetric matrix}, prove that
+\[
+\bm A\circ\bm B\succeq0.
+\]
+\textit{Hint: Note that $\bm A=\bm R\trans\bm R$, where $\bm R$ is square. Then you should express $\bm R\trans\bm R$ into vector form. Similarly, you can express $\bm B$ into vector form. Then you compute $\bm A\circ\bm B$ and show it is PSD by definition.}
+\end{enumerate}
+\end{enumerate}

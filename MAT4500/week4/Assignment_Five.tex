@@ -1,0 +1,77 @@
+\section{Assignment Five}\index{Assignment_Five}
+\begin{enumerate}
+\item
+Prove the following properties of \textit{similarity}:
+\begin{enumerate}
+\item
+Any square matrix $\bm A$ is \textit{similar} to itself.
+\item
+If $\bm B$ is \textit{similar} to $\bm A$, then $\bm A$ is \textit{similar} to $\bm B$.
+\item
+If $\bm A$ is \textit{similar} to $\bm B$ and $\bm B$ is \textit{similar} to $\bm C$, then $\bm A$ is \textit{similar} to $\bm C$.
+\end{enumerate}
+\item
+Consider the linear operator
+\[
+L\left(\begin{bmatrix}
+x\\y
+\end{bmatrix}\right)=\begin{bmatrix}
+3x\\x-y
+\end{bmatrix}
+\]
+on $\mathbb{R}^2$, use a \textit{similarity transformation} to find the \textit{matrix representation} with respect to the basis
+\[
+B=\left\{
+\begin{bmatrix}
+1\\2
+\end{bmatrix},\begin{bmatrix}
+2\\3
+\end{bmatrix}
+\right\}
+\]
+\item
+Let $\mathbb{R}[x]$ be the vector space of all real polynomials in $x$. Determine whether the
+following sets are subspaces of $\mathbb{R}[x]$. Justify your answer.
+\begin{enumerate}
+\item
+All polynomials $f(x)$ of degree $\ge3$.
+\item
+All polynomials $f(x)$ satisfying $f(1)+2f(2)=1$.
+\item
+All polynomials $f(x)$ satisfying $f(x)=f(1-x)$.
+\end{enumerate}
+\item
+Let $V=\{a+bx+cy+dx^2+exy+fy^2|a,b,c,d,e,f\in\mathbb{R}\}$, where $x,y$ are \textit{variables}. Then $V$ is just the set of all polynomials in $x$ and $y$ of degree two or less. One can show that
+$V$ is a vector space in which the same way as we showed $\mathbb{P}_2$ is a vector space.\\
+Now consider the function
+\[
+T:V\mapsto V\text{ by }T(f)=\frac{\partial f}{\partial x}-\frac{\partial f}{\partial y}
+\]
+where $f$ denotes  arbitrary vector in $V$.
+\begin{enumerate}
+\item
+Prove that $T$ is a \textit{linear transformation}.
+\item
+Find bases for $kernel(T)$.
+\end{enumerate}
+\item
+Let $S$ be the subspace of $C[a,b]$ spanned by $e^x$,$xe^x$ and $x^2e^x$. Let $D$ be the \textit{differentiation
+operator} of $S$. 
+Find the \textit{matrix representation} of $D$ with respect to $\{e^x,xe^x,x^2e^x\}$.
+\item
+Suppose all vectors $x$ in the unit square $0\le x_1\le 1,0\le x_2\le 1$ are transformed to $\bm{Ax}.$
+($\bm A$ is 2 by 2)
+\begin{enumerate}
+\item
+What's the shape of the \textit{transformed} region (all $\bm{Ax}$)?
+\item
+For which matrices $\bm A$ is that region a \textit{square}?
+\end{enumerate}
+\item
+\begin{enumerate}
+\item
+Show the column space of $\bm A\bm A\trans$ and $\bm A$ are the same.
+\item
+Show the rank of $\bm A\trans\bm A,\bm A\bm A\trans,\bm A\trans,\bm A$ are the same.
+\end{enumerate}
+\end{enumerate}

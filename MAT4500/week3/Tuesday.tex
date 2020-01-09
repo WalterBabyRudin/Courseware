@@ -1,0 +1,188 @@
+
+\chapter{Week3}
+
+\section{Tuesday}\index{week3_Tuesday_lecture}
+
+\subsection{Uniform Integrability}
+\begin{definition}[$L_1$-convergence]
+We say $f_n\to f$ in $L^1$ if
+\[
+\lim_{n\to\infty}\int_S|f_n-f|\diff\mu=0
+\]
+\end{definition}
+
+The \emph{uniform integrability} for a family of integrable random variables is used to handle the convergence of random variables in $L^1$.
+
+\begin{proposition}\label{Pro:3:1}
+If a random variable $X$ is integrable, i.e., $X\in L^1(\Omega,\mathcal{F},\mathbb{P})$, then for any given $\varepsilon>0$, there exists $\delta>0$ such that for any $F\in\mathcal{F}$ with $\mathbb{P}(F)<\delta$, we have
+\[
+\mathbb{E}[|X|;F]:=\mathbb{E}[|X|1_F]=\int_F|X|\diff\mathbb{P}<\varepsilon
+\]
+\end{proposition}
+\begin{proof}
+Suppose the conclusion is false, then there exists some $\varepsilon_0>0$, and a sequence of $\{F_n\}$ with each $F_n\in\mathcal{F}$ such that
+\[
+\mathbb{P}(F_n)<\frac{1}{2^n},\qquad
+\mathbb{E}[|X|;F_n]\ge\varepsilon_0.
+\]
+Let $H:=\lim_{n\to\infty}\sup F_n$. Note that $\sum_n\mathbb{P}(F_n)<\sum\frac{1}{2^n}<\infty$. 
+
+By applying the Borel-Centelli lemma, we have $\mathbb{P}(H)=0$.
+
+However, with the reverse fatou's lemma, since $1_H(w)=\lim_{n\to\infty}\sup 1_{F_n}(w),$
+\[
+\int|X|1_H\diff\mathbb{P}\ge\lim\sup\int|X|1_{F_n}\diff\mathbb{P}
+\]
+since $\{|X|1_{F_n}\}$ is dominated by the integrable random variable $|X|$.
+
+Therefore,
+\[
+\mathbb{E}[|X|;H]\ge
+\lim\sup\mathbb{E}[|X|;F_n]\ge\varepsilon_0
+\]
+which contradicts with $\mathbb{P}(H)=0$.
+\end{proof}
+
+\begin{corollary}
+Suppose $X\in L^1(\Omega,\mathcal{F},\mathbb{P})$.
+Then for any given $\varepsilon>0$, there exists $K\ge0$,
+such that $\mathbb{E}[|X|;|X|>K]:=\int_{|X|>K}|X|\diff\mathbb{P}<\varepsilon$.
+\end{corollary}
+\begin{proof}
+Note that
+\begin{align*}
+\mathbb{E}[|X|]&=\mathbb{E}[|X|;|X|>K]+\mathbb{E}[|X|;|X|\le K]\\
+&\ge \mathbb{E}[K;|X|>K]
+=K\mathbb{E}[1_{|X|>K}]\\&=K\mathbb{P}(|X|>K)
+\end{align*}
+Therefore, we imply
+\[
+\mathbb{P}(|X|>K)\le\frac{\mathbb{E}|X|}{K}
+\]
+Applying Proposition~(\ref{Pro:3:1}), we choose $K$ large enough such that $\frac{\mathbb{E}|X|}{K}<\delta$.
+
+Therefore, $\mathbb{P}(|X|>K)<\delta$, which implies
+\[
+\int_{|X|>K}|X|\diff\mathbb{P}<\varepsilon.
+\]
+
+\end{proof}
+
+\begin{definition}
+A class $\mathcal{C}$ of random variables are called \emph{uniform integrable} if and only if for any given $\varepsilon>0$, there exists $K\ge0$ such that
+\[
+\mathbb{E}[|X|;|X|>K]<\varepsilon,\qquad
+\forall X\in\mathcal{C}
+\]
+\end{definition}
+
+\begin{remark}
+Note that for such uniform integrable class $\mathcal{C}$, we choose $\varepsilon_1=1$, then there exists $K_1\ge0$ such that
+\begin{align*}
+\forall X\in\mathcal{C},\
+\mathbb{E}[|X|]&=\mathbb{E}[|X|;|X|>K_1]+\mathbb{E}[|X|;X\le K_1]\\
+&\le\varepsilon_1+K_1=1+K_1,
+\end{align*}
+i.e., class $\mathcal{C}$ is uniformly bounded in $L^1$.
+\end{remark}
+
+The reverse is not true:
+\begin{example}
+Take $(\Omega,\mathcal{F},\mathbb{P})=([0,1],\mathcal{B}[0,1],\text{Leb})$
+
+Let $E_n:=(0,\frac{1}{n})$, and set 
+\[
+X_n(\omega)=n1_{E_n}(\omega)=\left\{
+\begin{aligned}
+n,&\quad\text{if }\omega\in E_n\\
+0,&\quad\text{if }\omega\notin E_n
+\end{aligned}
+\right.
+\]
+Then $\mathbb{E}[X_n]=1, \forall n$, which implies that $\{X_n\}$ are uniformly bounded in $L^1$.
+
+However, for any $K\ge0$, as long as $n>K$, 
+\[
+\mathbb{E}[|X_n|;|X_n|>K]=1
+\]
+Therefore, $X_n$'s are not uniformly integrable.
+
+Ovserve that $X_n\to0$ a.s., but $1=\mathbb{E}|X_n|$ not converging to 0.
+\end{example}
+
+Question: what about $L^p$-boundness for $p>1$?
+
+\begin{theorem}
+Suppose a class $\mathcal{C}$ of random variables are uniformly bounded in $L^p$ ($p>1$):
+\[
+\exists A>0,\text{ s.t. }\mathbb{E}[|X|^p]<A,\forall x\in\mathcal{C}
+\]
+Then the class $\mathcal{C}$ is uniformly integrable (UI).
+\end{theorem}
+
+\begin{proof}
+Note that
+\begin{align*}
+\mathbb{E}[|X|;|X|>K]=\int_{|X|>K}|X|\diff\mathbb{P}
+&\le
+\int_{|X|>K}\frac{|X|^p}{K^{p-1}}\diff\mathbb{P}
+=
+\frac{1}{K^{p-1}}\int_{|X|>K}|X|^p\diff\mathbb{P}\\
+&\le\frac{1}{K^{p-1}}\int_{\Omega}|X|^p\diff\mathbb{P}\\
+&\le\frac{1}{K^{p-1}}A,\quad\forall x\in\mathcal{C}
+\end{align*}
+If $X>K$, then $X^p>K^{p-1}X$.
+
+Therefore, for any given $\varepsilon>0$, choose $K$ to be such that $\frac{A}{K^{p-1}}\le\varepsilon$.
+
+\end{proof}
+
+\begin{theorem}
+Suppose that a class $\mathcal{C}$ of random variables are dominated by an integrable random variable $Y$:
+\[
+|X(\omega)|\le Y(\omega),\ \quad
+\forall\omega\in\Omega,\forall X\in\mathcal{C},
+\mathbb{E}|Y|<\infty
+\]
+then the class $\mathcal{C}$ is UI.
+\end{theorem}
+
+\begin{proof}
+Note that since $|X(\omega)|\le Y(\omega),\forall\omega$, then
+\[
+\{\omega\mid |X(\omega)>K|\}\subset
+\{\omega\mid|Y(\omega)|>K\}
+\]
+Therefore,
+\[
+\int_{|X|>K}|X|\diff\mathbb{P}\le
+\int_{|Y|>K}|X|\diff\mathbb{P}\le
+\int_{|Y|>K}|Y|\diff\mathbb{P}
+\]
+Since $Y$ is integrable, by Corollary 2.5.2, for any given $\varepsilon>0$, there exists $K\ge0$ such that
+\[
+\int_{|Y|>K}|Y|\diff\mathbb{P}<\varepsilon.
+\]
+This implies that $\forall X\in\mathcal{C}$,
+\[
+\int_{|X|>K}|X|\diff\mathbb{P}<\varepsilon.
+\]
+\end{proof}
+
+\begin{theorem}
+Let $X\in L^1(\Omega,\mathcal{F},\mathbb{P})$, and $\{\mathcal{G}_\alpha\}_{\alpha\in\mathcal{A}}$ be a sequence of sub-$\sigma$-algebra of $f$. Denote the class
+\[
+\mathcal{C}:=\left\{\mathbb{E}[X\mid G_\alpha]\right\}_{\alpha\in\mathcal{A}}
+\]
+Then the class $\mathcal{C}$ is UI.
+\end{theorem}
+
+
+
+
+
+
+
+
+
+

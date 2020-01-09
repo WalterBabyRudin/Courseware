@@ -1,0 +1,458 @@
+\subsection{Solution to Assignment Four}
+\begin{enumerate}
+%%%%%%q1%%%%%%%%%
+\item
+\begin{proof}[Solution.]
+\begin{enumerate}
+%$$$$$parta
+\item
+\[
+\begin{bmatrix}
+1&2&3&1&-3\\2&5&5&4&9\\3&7&8&5&6
+\end{bmatrix}\xLongrightarrow[\text{Add $(-3)\times$Row 1 to Row 3}]{\text{Add $(-2)\times$Row 1 to Row 2}}
+\begin{bmatrix}
+1&2&3&1&-3\\0&1&-1&2&15\\0&1&-1&2&15
+\end{bmatrix}\xLongrightarrow{\text{Add $(-1)\times$Row 2 to Row 3}}
+\]
+\[
+\begin{bmatrix}
+1&2&3&1&-3\\0&1&-1&2&15\\0&0&0&0&0
+\end{bmatrix}
+\xLongrightarrow{\text{Add $(-2)\times$Row 2 to Row 1}}
+\begin{bmatrix}
+1&0&5&-3&-33\\0&1&-1&2&15\\0&0&0&0&0
+\end{bmatrix}\text{(rref)}
+\]
+%part b
+\item
+We write $\bm{Ax} = \bm b$ in argumented matrix form:
+\[
+\left[\begin{array}{ccccc|c}
+1&2&3&1&-3&1\\2&5&5&4&9&1\\3&7&8&5&6&2
+\end{array}\right]
+\]
+We convert $\bm A$ into $\bm U$(rref):
+\[
+\left[\begin{array}{ccccc|c}
+1&0&5&-3&-33&3\\0&1&-1&2&15&-1\\0&0&0&0&0&0
+\end{array}\right]
+\]
+Hence we only need to solve
+\[
+\left\{\begin{aligned}
+x_1+5x_3-3x_4-33x_5&=3\\
+x_2-x_3+2x_4+15x_5&=-1
+\end{aligned}\right.
+\implies
+\left\{\begin{aligned}
+x_1&=3-5x_3+3x_4+33x_5\\
+x_2&=-1+x_3-2x_4-15x_5
+\end{aligned}\right.
+\]
+Hence all solutions is given by
+\[
+\bm x = \begin{pmatrix}
+x_1\\x_2\\x_3\\x_4\\x_5
+\end{pmatrix} = \begin{pmatrix}
+3-5x_3+3x_4+33x_5\\-1+x_3-2x_4-15x_5\\x_3\\x_4\\x_5
+\end{pmatrix} = \begin{pmatrix}
+3\\-1\\0\\0\\0
+\end{pmatrix}+
+x_3\begin{pmatrix}
+-5\\1\\1\\0\\0
+\end{pmatrix}+
+x_4\begin{pmatrix}
+3\\-2\\0\\1\\0
+\end{pmatrix}+x_5\begin{pmatrix}
+33\\-15\\0\\0\\1
+\end{pmatrix}
+\]
+where $x_3,x_4,x_5$ can be taken arbitrarily.
+%%%part c
+\item
+We write $\bm{Ax} = \bm b$ in argumented matrix form:
+\[
+\left[\begin{array}{ccccc|c}
+1&2&3&1&-3&b_1\\2&5&5&4&9&b_2\\3&7&8&5&6&b_3
+\end{array}\right]
+\]
+We convert $\bm A$ into $\bm U$(rref):
+\[
+\left[\begin{array}{ccccc|c}
+1&0&5&-3&-33&4b_1-b_2
+\\0&1&-1&2&15&-2b_1+b_2
+\\0&0&0&0&0&-b_1-b_2+b_3
+\end{array}\right]
+\]
+\begin{itemize}
+\item
+When $-b_1-b_2+b_3\ne 0$, there is \emph{no solution.}
+\item
+When $-b_1-b_2+b_3=0$, we only need to solve 
+\[
+\left\{\begin{aligned}
+x_1+5x_3-3x_4-33x_5&=5b_1-2b_2\\
+x_2-x_3+2x_4+15x_5&=-2b_1+b_2
+\end{aligned}\right.
+\implies
+\left\{\begin{aligned}
+x_1&=4b_1-b_2-5x_3+3x_4+33x_5\\
+x_2&=-2b_1+b_2+x_3-2x_4-15x_5
+\end{aligned}\right.
+\]
+Hence all solutions is given by
+\[
+\bm x = \begin{pmatrix}
+x_1\\x_2\\x_3\\x_4\\x_5
+\end{pmatrix} =
+\begin{pmatrix}
+4b_1-b_2-5x_3+3x_4+33x_5\\-2b_1+b_2+x_3-2x_4-15x_5\\x_3\\x_4\\x_5
+\end{pmatrix}=\begin{pmatrix}
+4b_1-b_2\\-2b_1+b_2\\0\\0\\0
+\end{pmatrix}+x_3\begin{pmatrix}
+-5\\1\\1\\0\\0
+\end{pmatrix}+x_4\begin{pmatrix}
+3\\-2\\0\\1\\0
+\end{pmatrix}+x_5\begin{pmatrix}
+33\\-15\\0\\0\\1
+\end{pmatrix}
+\]
+\end{itemize}
+\end{enumerate}
+\end{proof}
+%q2
+\item
+\begin{proof}
+\begin{enumerate}
+%part a
+\item
+We set $v_1=\begin{pmatrix}
+1\\-2\\2
+\end{pmatrix},v_2=\begin{pmatrix}
+2\\-2\\4
+\end{pmatrix},v_3=\begin{pmatrix}
+-3\\3\\6
+\end{pmatrix}.$ Then we claim that $\dim(\Span\{v_1,v_2,v_3\}) = 3$. Hence we only need to show that $v_1,v_2,v_3$ forms the basis for $\Span \{v_1,v_2,v_3\}.$ Hence we only need to show they are ind. Thus we only need to show $\bm{Ax} = \begin{bmatrix}
+v_1&v_2&v_3
+\end{bmatrix}x = \bm 0$ has unique solution. Thus we only need to show $\bm A = \begin{bmatrix}
+v_1&v_2&v_3
+\end{bmatrix}$ is invertible:
+\[
+\bm A = \begin{bmatrix}
+1&2&-3\\-2&-2&3\\2&4&6
+\end{bmatrix}\xLongrightarrow[\text{Add $(-2)\times$Row 1 to Row 3}]{\text{Add $2\times$Row 1 to Row 2}}
+\begin{bmatrix}
+1&2&-3\\0&2&-3\\0&0&12
+\end{bmatrix}\xLongrightarrow[\text{Row 3$\times\frac{1}{12}$}]{\text{Row 2$\times\frac{1}{2}$}}
+\begin{bmatrix}
+1&2&-3\\0&1&-\frac{3}{2}\\0&0&1
+\end{bmatrix}(\text{rref})
+\]
+Hence $\rank(\bm A) = 3$. Thus $\bm A$ is full rank, which means $\bm A$ is invertible.
+\item
+We do elimination to convert $\bm A$ into its rref form:
+\[
+\begin{bmatrix}
+1&-2&3&2\\-1&2&-2&-1\\2&-4&5&3
+\end{bmatrix}\xLongrightarrow[\text{Add $(-2)\times$Row 1 to Row 3}]{\text{Add $1\times$Row 1 to Row 2}}
+\begin{bmatrix}
+1&-2&3&2\\0&0&1&1\\0&0&-1&-1
+\end{bmatrix}
+\]
+\[
+\xLongrightarrow[\text{Add $(-3)\times$Row 2 to Row 3}]{\text{Add $1\times$Row 2 to Row 3}}
+\begin{bmatrix}
+1&-2&0&-1\\0&0&1&1\\0&0&0&0
+\end{bmatrix}\text{(rref)}
+\]
+Hence $\rank(\bm A)=\dim(\col(\bm A)) =2$. Hence dimension of $\col(\bm A)$ is 2.
+%%part c
+\item
+We convert $\bm B$ into rref:
+\[
+\bm B=\begin{bmatrix}
+1&3&2\\2&1&4\\4&7&8
+\end{bmatrix}\implies
+\bm R = \begin{bmatrix}
+1&0&2\\0&1&0\\0&0&0
+\end{bmatrix}\text{(rref)}
+\]
+Thus we only need to compute the solution to $\bm{Ux} = \bm 0$.\\
+If $x_3=1$, then $x_1=-2,x_2=0$.\\
+Hence the basis for $N(\bm R)$ is $\begin{pmatrix}
+-2\\0\\1
+\end{pmatrix}$. Hence $\dim(N(\bm B)) = \dim(N(\bm R))=1.$
+%%part d
+\item
+The linear combination of $(x-2)(x+2),x^2(x^4-2),x^6-8$ is given by:
+\[
+m_1(x-2)(x+2)+m_2x^2(x^4-2)+m_3(x^6-8) = (m_2+m_3)x^6 + (m_1-2m_2)x^2+(-4m_1-8m_3)
+\]
+where $m_1,m_2,m_3\in\mathbb{R}$.\\
+\begin{itemize}
+\item
+Firstly we show $\{x^4-4,x^6-8\}$ span the space $\Span\{(x-2)(x+2),x^2(x^4-2),x^6-8\}$:\\
+Given any vector \[(m_2+m_3)x^6 + (m_1-2m_2)x^2+(-4m_1-8m_3)\in\Span\{(x-2)(x+2),x^2(x^4-2),x^6-8\}\]  for $\forall m_1,m_2,m_3\in\mathbb{R}$,\\ we construct $a_1 = m_2+m_3,a_2=m_1-2m_2$. Then the linear combination of $x^6-8$ and $x^4-4$ with coefficient $a_1,a_2$ is exactly
+\[
+a_2(x^4-4)+a_1(x^6-8)=(m_2+m_3)x^6 + (m_1-2m_2)x^2+(-4m_1-8m_3)
+\]
+Hence 
+\[
+(m_2+m_3)x^6 + (m_1-2m_2)x^2+(-4m_1-8m_3)\in\Span\{x^4-4,x^6-8\}
+\]
+\[\implies \Span\{(x-2)(x+2),x^2(x^4-2),x^6-8\}\subset\Span\{x^4-4,x^6-8\}\]
+Conversely, by setting $m_1=2a_1+a_2,m_2=a_1,m_3=0$ we can show $\Span\{x^4-4,x^6-8\}\subset\Span\{(x-2)(x+2),x^2(x^4-2),x^6-8\}$.\\
+Hence $\Span\{x^4-4,x^6-8\}=\Span\{(x-2)(x+2),x^2(x^4-2),x^6-8\}$
+\end{itemize}
+Then we show $x^4-4,x^6-8$ are ind.:\\
+\[\text{Given }
+a_1(x^4-4)+a_2(x^6-8) =0\implies
+a_2x^6+a_1x^4+(-4a_1-8a_2)=0
+\]
+\[
+\implies \left\{\begin{aligned}
+a_2=0\\a_1=0\\-4a_1-8a_2=0
+\end{aligned}\right.
+\implies \left\{\begin{aligned}
+a_1=0\\a_2=0
+\end{aligned}\right.
+\]
+Hence $x^4-4,x^6-8$ are ind. They form the basis for the space $\Span\{(x-2)(x+2),x^2(x^4-2),x^6-8\}$.\\
+Hence $\dim(\Span\{(x-2)(x+2),x^2(x^4-2),x^6-8\})=2.$
+%%part e
+\item
+Firstly, it's easy to verify that $5$ and $\cos^2x$ are ind.\\
+Next, let's show $\Span\{5,\cos^2x\}=\Span\{5,\cos 2x,\cos^2x\}$:\\
+Any linear combination of $\{5,\cos 2x,\cos^2x\}$ is given by:
+\[
+5m_1+m_2\cos 2x+m_3\cos^2x = (2m_2+m_3)\cos^2x+(5m_1-m_2)
+\]
+where $m_1,m_2,m_3\in\mathbb{R}$.\\
+Any linear combination of $\{5,\cos^2x\}$ is given by:
+\[
+5n_1+n_2\cos^2x
+\]
+where $n_1,n_2\in\mathbb{R}$.
+\begin{itemize}
+\item
+if we construct $n_1=m_1-\frac{1}{5}m_2,n_2=2m_2+m_3$, then it means any linear combination of $\{5,\cos 2x,\cos^2x\}$ can be expressed in form of $\{5,\cos^2x\}$. \\Hence $\Span\{5,\cos 2x,\cos^2x\}\subset\{5,\cos^2x\}$.
+\item
+if wr construct $m_1=n_1+\frac{1}{10}n_2,m_2=\frac{1}{2}n_2,m_3=0$, then it means any linear combination of $\{5,\cos^2x\}$ can be expressed in form of $\{5,\cos 2x,\cos^2x\}$.\\
+Hence $\Span\{5,\cos^2x\}\subset\{5,\cos 2x,\cos^2x\}$.
+\end{itemize}
+Hence $\Span\{5,\cos^2x\}=\{5,\cos 2x,\cos^2x\}$. $\{5,\cos^2x\}$ is the basis for $\Span\{5,\cos 2x,\cos^2x\}.$ Hence $\dim(\Span\{5,\cos 2x,\cos^2x\})=2.$
+\end{enumerate}
+\end{proof}
+%%q3
+\item
+\begin{proof}[Solution.]
+\begin{enumerate}
+\item
+It can have \emph{no} or \emph{infinitely many} solutions.\\
+Since $r<m$ and $r<n$, matrix $\bm A$ is not full rank. When reducing $\bm A$ into rref, there must exist row that contains all zero entries. For its augmented matrix which is rref, when the right hand side is zero for the zero row in the left, it has \emph{infinitely many} solutions; when the right hand side is nonzero for the zero rwo in the left, it has \emph{no} solutions.
+\item
+It has \emph{infinitely many} solutions.\\
+Since $r=m$ and $r<n$, $\bm A$ is full rank. Hence $\bm{Ax} = \bm b$ has at least one solutions. Since $\dim(N(\bm A)) = n-r>0$, there exists \emph{infinitely many} solutions for $\bm{Ax} = \bm 0$. Sicne $\bm x_{\text{complete}} = \bm x_p + \bm x_{\text{special}}$, $\bm{Ax} = \bm b$ has \emph{infinitely many} solutions.
+\item
+It has \emph{no} or \emph{unique} solution.\\
+Since $r<m$ and $r=n$, the rref of $\bm A$ must be of the form $\bm R = \begin{bmatrix}
+\bm I\\\bm 0
+\end{bmatrix}$. If $\bm d$ has nonzero entries for the zero rows in the left side equation, then $\bm{Rx} = \bm d$(And the orignal $\bm{Ax} = \bm b$) has no solution. If $\bm d$ has all zero entries for the zero rows in the left side equation, then $\bm{Rx} = \bm d$(And the orignal $\bm{Ax} = \bm b$) has unique solution.
+\end{enumerate}
+\end{proof}
+%%q4
+\item
+\begin{proof}
+\begin{enumerate}
+
+%%part a
+\item
+For any given ind. vectors $v_1,v_2,\dots,v_n$, suppose $v$ is the any vector in $\bm V$.\\
+\begin{itemize}
+\item
+Let's show $v_1,v_2,\dots,v_n,v$ must be dep:\\
+It suffices to show $c_1v_1+\dots+c_nv_n+c_{n+1}v=\bm 0$ has nontrival solution for $c_1,\dots,c_{n+1}\in\mathbb{R}$.
+\[
+\Longleftrightarrow \bm{Ax} = \bm 0\text{ has nontrival solution, where $\bm A=\left[\begin{array}{c|c|c|c}
+v_1&\dots&v_n&v
+\end{array}\right]$}
+\]
+which is obviously true since $\bm A$ is a $n\times n+1$ matrix $(n<n+1)$
+\item
+Hence there exists $(c_1,c_2,\dots,c_{n+1})\ne(0,0,\dots,0)$ such that \[c_1v_1+\dots+c_nv_n+c_{n+1}v=\bm 0\]
+If $c_{n+1}=0$, then we have $(c_1,c_2,\dots,c_{n})\ne(0,0,\dots,0)$ such that \[c_1v_1+\dots+c_nv_n=\bm 0,\] which contradicts that $v_1,\dots,v_n$ are ind.\\
+Hence $c_{n+1}\ne0$. Then any $v\in\bm V$ could be expressed as:
+\[
+v = -\frac{c_1}{c_{n+1}}v_1-\frac{c_2}{c_{n+1}}v_2-\dots-\frac{c_n}{c_{n+1}}v_n
+\]
+which means $v_1,v_2,\dots,v_n$ spans $\bm V$. And they are ind. 
+\end{itemize}
+So they form a basis for $\bm V$.
+%%part b
+\item
+Suppose $v_1\dots,v_n$ spans $\bm V$. We assume that they are dep. Hence there exists $(c_1,c_2,\dots,c_n)\ne(0,0,\dots,0)$ such that 
+\[
+c_1v_1+c_2v_2+\dots+c_nv_n=\bm 0
+\]
+WLOG, we set $c_n\ne0$. Hence we could express $v_n$ as:
+\[
+v_n=-\frac{c_1}{c_n}v_1-\frac{c_2}{c_n}v_2-\dots-\frac{c_{n-1}}{c_n}v_{n-1}
+\]
+\begin{itemize}
+\item
+We claim that $v_1,v_2,\dots,v_{n-1}$ still spans $\bm V$:\\
+For any vector $v\in\bm V$, since $v_1,\dots,v_n$ spans $\bm V$, $v$ could be expressed in form of $v_1,\dots,v_n$:
+\[
+v=m_1v_1+\dots+m_nv_n
+\]
+where $m_1,\dots,m_n\in\mathbb{R}.$\\
+Hence it could also  be expressed in form of $v_1,\dots,v_{n-1}$:
+\[
+\begin{aligned}
+v&=m_1v_1+\dots+m_n(-\frac{c_1}{c_n}v_1-\frac{c_2}{c_n}v_2-\dots-\frac{c_{n-1}}{c_n}v_{n-1})\\
+&=(m_1-\frac{m_nc_1}{c_n})v_1+(m_2-\frac{m_nc_2}{c_n})v_2-\dots-(m_{n-1}-\frac{m_nc_{n-1}}{c_n})v_{n-1}
+\end{aligned}
+\]
+Hence $v_1.v_2,\dots,v_{n-1}$ still spans $\bm V$.
+\item
+If $v-_1,v_2,\dots,v_n$ still dep, we continue eliminating vectors until we get ind. vectors, say, $v_1,v_2,\dots,v_k$. Hence $\dim(\bm V) = k<n$. which contradicts $\dim(\bm V)=n$.
+\end{itemize}
+\end{enumerate}
+\end{proof}
+%%q5
+\item
+\begin{proof}
+\begin{enumerate}
+%%parta
+\item
+Suppose $u_1+v_1$ is one vector in $\bm{U+V}$ s.t. $u_1\in\bm U,v_1\in\bm V$; $u_2+v_2$ is one vector in $\bm{U+V}$ s.t. $u_2\in\bm U,v_2\in\bm V$.\\ Hence we claim addition and scalar multiplication is still closed under $\bm{U+V}:$
+\[
+(u_1+v_1)+(u_2+v_2)=(u_1+u_2)+(v_1+v_2)\qquad c(u_1+v_1)=cu_1+cv_1
+\]
+where c is a scalar.
+\begin{itemize}
+\item
+Since $u_1,u_2\in\bm U$, $u_1+u_2\in\bm U$. Similarly, $v_1+v_2\in\bm V$. 
+\\Hence $(u_1+u_2)+(v_1+v_2)=(u_1+v_1)+(u_2+v_2)\in\bm{U+V}$.
+\item
+Since $u_1\in\bm U$, $cu_1\in\bm U$. Similarly, $cv_1\in\bm U$.\\
+Hence $cu_1+cv_1=c(u_1+v_1)\in\bm{U+V}$
+\end{itemize}
+Hence addition and scalar multiplication is still closed under $\bm{U+V}$. Hence $\bm{U+V}$ is still a subspace of $W.$
+%%part b
+\item
+If $w_1,w_2\in\bm{U\cap V}$, then $w_1,w_2\in\bm U$ and $w_1,w_2\in\bm V$. Thus the linear combintation of $w_1,w_2$ is still in $\bm U$ and $\bm V$:
+\[
+a_1w_1+a_2w_2\in\bm U\qquad a_1w_1+a_2w_2\in\bm V
+\]
+where $a_1,a_2$ is a scalar.\\
+Hence $a_1w_1+a_2w_2\in\bm{U\cap V}$. Hence $\bm{U\cap V}$ is also a subspace of $\bm W$.
+%%part c
+\item
+$\dim(\bm U)=2$. The set $\{\bm e_1,\bm e_2\}$ is a basis for $\bm U$.\\
+$\dim(\bm V)=2$. The set $\{\bm e_2,\bm e_3\}$ is a basis for $\bm V$.\\
+$\dim (\bm{U\cap V})=1$. The set $\{\bm e_2\}$ is a basis for $\bm{U\cap V}$.\\
+$\dim(\bm U+\bm V)=3$. The set $\{\bm e_1,\bm e_2,\bm e_3\}$ is a basis for $\bm U+\bm V$.
+\item
+%%part d
+Let $\bm U$ and $\bm V$ be subspaces of $\mathbb{R}^{n}$ such that $\bm{U\cap V}=\{\bm 0\}$.\\
+If either $\bm U = \{0\}$ or $\bm U=\{0\}$ the result is obvious.\\
+Assume that both subspaces are nontrivial with $\dim(\bm U) = m > 0$ and $\dim(\bm V) = n > 0$. \\
+Let $\{u_1, . . . , u_m\}$ be a basis for $\bm U$ and let $\{v_1, . . . , v_n\}$ be a basis for $\bm V$. 
+These vectors $u_1,u_2,\dots,u_m,v_1,v_2,\dots,v_n$ spans $\bm{U+V}$. \\
+\begin{itemize}
+\item
+We claim that these vectors form a basis for $\bm{U+V}$. It suffices to show they are ind:\\
+If we have the condition
+\[
+c_1u_1+c_2u_2+\dots+c_mu_m+c_{m+1}v_1+\dots+c_{m+n}v_n=\bm 0
+\]
+where $c_1,\dots,c_{m+n}$ are scalars,\\
+if we set $\bm u = c_1u_1+c_2u_2+\dots+c_mu_m$ and $\bm v = c_{m+1}v_1+\dots+c_{m+n}v_n$, then we have 
+\[
+\bm u + \bm v = \bm 0
+\]
+Hence $\bm u=-\bm v$. Then $\bm u,\bm v\in\bm U$ and $\bm u,\bm v\in\bm V$. Hence $\bm u,\bm v\in\bm{U\cap V}$.\\
+Hence $\bm u,\bm v = \bm 0$ since $\bm{U\cap V} = \{\bm 0\}$. Thus we have
+\[\begin{aligned}
+c_1u_1+c_2u_2+\dots+c_mu_m&=\bm 0\\
+c_{m+1}v_1+c_{m+2}v_2+\dots+c_{m+n}v_n&=\bm 0
+\end{aligned}
+\]
+By the independence of $u_1,\dots,u_m$ and the independence of $v_1,\dots,v_n$ it
+follows that
+\[
+c_1=c_2=\dots=c_{m+n}=0
+\]
+\item
+Thus $\{u_1,u_2,\dots,u_m,v_1,v_2,\dots,v_n\}$ form a basis for $\bm U+\bm V$.
+\end{itemize}
+Hence $\dim(\bm U+\bm V) = m+n$.
+\end{enumerate}
+\end{proof}
+\item
+\begin{proof}
+For any vector $\bm y\in\range(\bm{A+B})$, there exists vector $\bm x$ such that 
+\[(\bm{A+B})\bm x = \bm y\]
+Also, we can express $\bm y$ as sum of vectors in range of $\bm A$ and $\bm B$:
+\[
+\begin{aligned}
+\bm y &=(\bm{A+B})\bm x&=\bm{Ax}+\bm{Bx}
+\end{aligned}
+\]
+Hence we obtain
+\[
+\range(\bm{A+B})\subset\range(\bm A) + \range(\bm B)
+\]
+Assume one basis for $\range(\bm A)$ is $\{a_1,\dots,a_s\}$; $\bm B = \left[\begin{array}{c|c|c}
+B_1&\dots&B_n
+\end{array}\right]$ one basis for $\range(\bm B)$ is $\{b_1,\dots,b_t\}$. Thus we obtain:
+\[
+\begin{aligned}
+\dim(\range(\bm A)+\range(\bm B))&=\dim(a_1,\dots,a_s,b_1,\dots,b_t)\\&\le s+t\\&=\dim(\range(\bm A))+\dim(\range(\bm B))\\&=\rank(\bm A)+\rank(\bm B)
+\end{aligned}
+\]
+Hence we have 
+\[
+\begin{aligned}
+\rank(\bm{A+B}) &= \dim(\range(\bm{A+B}))\\
+&\le\dim(\range(\bm A)+\range(\bm B))\\
+&\le\rank(\bm A)+\rank(\bm B)
+\end{aligned}
+\]
+\end{proof}
+\item
+\begin{proof}
+\begin{enumerate}
+\item
+We assume $\bm{A} = \left[\begin{array}{c|c|c}
+A_1&\dots&A_n
+\end{array}\right]$, $\bm{B} = \left[\begin{array}{c|c|c}
+B_1&\dots&B_n
+\end{array}\right]\trans$.
+\\Hence $\bm{AB}$ could be expressed as:
+\[
+\bm{AB} = A_1B_1+\dots+A_nB_n
+\]
+which means every column of $\bm{AB}$ is a linear combination of columns of $\bm A$. Assume one basis for $\col(\bm A)$ is $a_1,\dots,a_s$. Then $\{a_1,\dots,a_s\}$ can also span $\col(\bm{AB})$. 
+\\Hence $\rank(\bm{AB})=dim(\col(\bm{AB}))\le\dim(\col(\bm A))=\rank(\bm A)$
+\item
+We use the conclusion of part(a) to derive this statement:\\
+If $\rank(\bm B)=n$, then $\bm B$ is invertible, $\bm A = \bm{AB}\bm B^{-1}$.\\
+Since product $\bm{AB}$ is a $m\times n$ matrix, $\bm B^{-1}$ is a $n\times n$ matrix, by part(a), $\rank(\bm{AB}\bm B^{-1})\le\rank(\bm{AB})$.\\
+In conclusion,
+\[
+\rank(\bm A) = \rank(\bm{AB}\bm B^{-1})\le\rank(\bm{AB})\le\rank(\bm A)
+\]
+The equality must be satisfied, hence we have $\rank(\bm{AB})=\rank(\bm A)$.
+\end{enumerate}
+\end{proof}
+\item
+\begin{proof}
+We assume $\{v_1,\dots,v_{n-1}\}$ form a basis for $\mathbb{R}^{n}$. \\
+It is equivalent to $\bm{Ax} = \bm b$ must have a solution $\forall \bm b\in\mathbb{R}^{n}$ and $\bm A = \left[\begin{array}{c|c|c}
+v_1&\dots&v_{n-1}
+\end{array}\right]$.
+However, since $\bm A$ is $n\times (n-1)$ matrix, the number of equations is greater than number of unknowns, this system may not have a solution, which forms a contradiction!
+\end{proof}
+\end{enumerate}

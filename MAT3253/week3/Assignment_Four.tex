@@ -1,0 +1,103 @@
+\section{Assignment Four}\index{Assignment_Four}
+\begin{enumerate}
+\item
+Let
+\[
+\bm A=\begin{bmatrix}
+1&2&3&1&-3\\2&5&5&4&9\\3&7&8&5&6
+\end{bmatrix}
+\]
+\begin{enumerate}
+\item
+Compute the \textit{reduced row echelon form} $\bm U$ of $\bm A$.
+\item
+Compute all solutions of $\bm{Ax}=\bm b$, where $\bm b=\begin{bmatrix}
+1&1&2
+\end{bmatrix}\trans.$
+\item
+Compute all solutions of $\bm{Ax}=\bm b$, where $\bm b=\begin{bmatrix}
+b_1&b_2&b_3
+\end{bmatrix}\trans.$\\
+Note:Identify when there is \textit{no solution}, and when the solution \textit{exists}, write down all solutions in terms of $b_1,b_2,b_3$.
+\end{enumerate}
+\item
+In each of the following, determine the \textit{dimension} of the space:
+\begin{enumerate}
+\item
+$\Span\left\{
+\begin{pmatrix}
+1\\-2\\2
+\end{pmatrix},\begin{pmatrix}
+2\\-2\\4
+\end{pmatrix},\begin{pmatrix}
+-3\\3\\6
+\end{pmatrix}
+\right\};$
+\item
+$\col(\bm A)$, where $\bm A=\begin{bmatrix}
+1&-2&3&2\\-1&2&-2&-1\\2&-4&5&3
+\end{bmatrix};$
+\item
+$N(\bm B)$, where $\bm B=\begin{bmatrix}
+1&3&2\\2&1&4\\4&7&8
+\end{bmatrix};$
+\item
+$\Span\{(x-2)(x+2),x^2(x^4-2),x^6-8\};$
+\item
+$\Span\{5,\cos 2x,\cos^2 x\}$ as a \textit{subspace} of $C[-\pi,\pi].$\\
+$C[-\pi,\pi]$ denotes the space of \textit{continuous functions defined on the domain $C[-\pi,\pi].$}
+\end{enumerate}
+\item
+Let $\bm A$ be an $6\x n$ matrix of rank $r$. For each pair of values of $r$ and $n$ below, how many solutions could one have for the linear system $\bm{Ax}=\bm b$? Explain your answers.
+\begin{enumerate}
+\item
+$n=7,r=5;$
+\item
+$n=7,r=6;$
+\item
+$n=5,r=5.$
+\end{enumerate}
+\item
+Prove the following proposition:\\
+Let $\bm V$ be a vector space of dimension $n>0$, then
+\begin{enumerate}
+\item
+Any set of n \textit{linearly independent} vectors in $\bm V$ form a basis.
+\item
+Any set of $n$ vectors that span $\bm V$ form a basis.
+\end{enumerate}
+\textit{Hint: refer to theorem(\ref{theorem_3.3})}
+\item
+\begin{enumerate}
+\item
+Assume $\bm U.\bm V$ are subspaces of a vector space $\bm W$.\\
+Define $\bm U+\bm V=\{u+v|u\in\bm U,v\in\bm V\}$, i.e. each vector in $\bm U+\bm V$ is the sum of one vector in $\bm U$ and one vector in $\bm V$.\\
+Prove that $\bm U+\bm V$ is a subspace of $\bm W$.
+\item
+Prove the intersection $\bm U\cap\bm V=\{x|x\in\bm U\text{ and }x\in\bm V\}$ is also a subspace of $\bm W.$
+\item
+In $\mathbb{R}^4$, let $\bm U$ be the subspace of all vectors of the form $\begin{bmatrix}
+u_1&u_2&0&0
+\end{bmatrix}\trans$, and let $\bm V$ be the subspace of all vectors of the form $\begin{bmatrix}
+0&v_2&v_3&0
+\end{bmatrix}\trans.$ What are the dimensions of $\bm U,\bm V,\bm U\cap\bm V,\bm U+\bm V$?
+\item
+If $\bm U\cap\bm V=\{\bm0\}$, prove that $\dim(\bm U+\bm V)=\dim(\bm U)+\dim(\bm V).$
+\end{enumerate}
+\item
+Let $\bm A$ and $\bm B$ be $m\x n$ matrices. Prove that 
+\[
+\rank(\bm A+\bm B)\le\rank(\bm A)+\rank(\bm B).
+\]
+\item
+Let $\bm A\in\mathbb{R}^{m\x n}$ is an arbitrary matrix, $\bm B\in\mathbb{R}^{n\x n}$ is a square matrix. Prove that
+\begin{enumerate}
+\item
+$\rank(\bm{AB})\le\rank(\bm A);$
+\item
+If $\rank(\bm B)=n$, then $\rank(\bm{AB})=\rank(\bm A).$
+\end{enumerate}
+\item
+Prove that any $(n-1)$ vectors in $\mathbb{R}^n$ cannot form a basis.\\
+Note: this is a corollary of theorem$(\ref{theorem_3.2})$. You should prove it by assuming theorem$(\ref{theorem_3.2})$ is unknown. You may check the proposition$(\ref{solution_for_undetermined_system})$ as hint.
+\end{enumerate}

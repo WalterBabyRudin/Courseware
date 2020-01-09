@@ -1,0 +1,377 @@
+
+\chapter{Week4}
+
+\section{Convergence}\index{week4_Friday_lecture}
+
+\begin{definition}[Convergent]
+An infinite sequence $\{z_n\}$ of complex numbers has a limit $z_0$, if for $\forall$ $\varepsilon>0$, there exists a positive integer $n_0$ such that
+\[
+\begin{array}{ll}
+|z_n-z|<\varepsilon,
+&
+\mbox{whenever }n>n_0
+\end{array}
+\]
+We say the sequence $z_n$ converges to $z$ and write as
+\[
+\lim_{n\to\infty}z_n=z
+\]
+When the sequence does not have a limit, then it diverges.
+\end{definition}
+The uniqueness of limit of a seuqnece is guaranteed.
+
+\begin{proposition}
+For $z_n=x_n+iy_n$, we have 
+\[
+\lim_{n\to\infty}z_n=x+iy
+\]
+if and only if
+\[
+\begin{array}{lll}
+\lim_{n\to\infty}x_n=x,
+&
+\mbox{and}
+&
+\lim_{n\to\infty}y_n=y
+\end{array}
+\]
+\end{proposition}
+
+\begin{definition}[Convergent Series]
+An infinite \emph{series} $\sum_{n=1}^\infty z_n$ of complex numbers converges to the sum $S$ if the partial sum sequences
+\[
+S_N=\sum_{n=1}^Nz_n
+\]
+converges to $S$, then we write
+\[
+\sum_{n=1}^\infty z_n=S.
+\]
+\end{definition}
+
+\begin{proposition}
+For $z_n=x_n+iy_n$, we have 
+\[
+\sum_{n=1}^\infty z_n=X+iY
+\]
+if and only if
+\[
+\begin{array}{lll}
+\sum_{n=1}^\infty x_n=X
+&
+\mbox{and}
+&
+\sum_{n=1}^\infty y_n=Y
+\end{array}
+\]
+\end{proposition}
+
+\begin{proposition}
+The series $\sum_{n=1}^\infty z_n$ converges implies that $\lim_{n\to\infty}z_n=0$.
+\end{proposition}
+
+\begin{definition}[Absolute Convergence]
+The series $\sum_{n=1}^\infty z_n$ is said to be \emph{absolutely convergent} if
+\[
+\sum_{n=1}^\infty|z_n|
+\]
+converges, i.e., $\sum_{n=1}^\infty|x_n|$ and $\sum_{n=1}^\infty|y_n|$ converge.
+\end{definition}
+\begin{proposition}
+Absolute convergence implies convergence
+\end{proposition}
+
+\begin{definition}[Remainder]
+The \emph{remainder} $\rho_N$ of a series after $N$ terms is defined by:
+\[
+\rho_N=\sum_{n=N+1}^\infty S_n
+\]
+\end{definition}
+\begin{proposition}
+A series converges to a number $S$ iff the sequence of remainders tends to zero.
+\end{proposition}
+
+It's easy to verifty that
+\[
+\sum_{n=0}^\infty z_n=\frac{1}{1-z},\qquad\mbox{whenever }|z|<1
+\]
+with the aid of partial sums and remainders.
+
+\subsection{Taylor Series}
+\begin{definition}[Power Series]
+The power series has the form
+\[
+\sum_{n=0}^\infty a_n(z-z_0)^n
+\]
+\end{definition}
+
+\begin{theorem}[Convergent of Taylor Series]
+Suppose $f$ is \emph{analytic} on $|z-z_0|<R$, then 
+\begin{equation}
+f(z)=\sum_{n=0}^\infty \frac{f^{(n)}(z_0)}{n!}(z-z_0)^n,
+\end{equation}
+for $|z-z_0|<R$, i.e., $f(z)$ admits its Taylor expansion at $z=z_0$ in this rigion.
+\end{theorem}
+\begin{remark}
+Typically, when $z_0=0$, we say this series is the \emph{Maclaurin series}.
+\end{remark}
+\begin{proof}
+\textbf{Step 1: Applying Cauchy Integral Formula.}
+For fixed $z$, let $r:=|z-z_0|<R$ and take $r_0$ such that $r<r_0<R$. Construct a contour $C_0:\{z\in\mathbb{C}\mid |z-z_0|=r_0\}$ in the positive sense, which follows that
+\begin{subequations}
+\begin{align}
+f(z)&=\frac{1}{2\pi i}\int_{C_0}\frac{f(s)}{s-z}\diff s\label{Eq:4:2:b}
+\end{align}
+
+\textbf{Step 2: Expand $1/(s-z)$.} With some calculation, we obtain
+\begin{align}\label{Eq:4:2}
+\frac{1}{s-z}&=\frac{1}{s-z_0}\cdot\frac{1}{1-\frac{z-z_0}{s-z_0}}\\
+&=\frac{1}{s-z_0}\left\{1+\frac{z-z_0}{s-z_0}+\cdots+(\frac{z-z_0}{s-z_0})^{N-1}+\frac{(\frac{z-z_0}{s-z_0})^{N}}{1 - \frac{z-z_0}{s-z_0}}\right\}\label{Eq:4:2:d}\\
+&=\frac{1}{s-z_0}+\frac{z-z_0}{(s-z_0)^2}+\cdots+\frac{(z-z_0)^{N-1}}{(s-z_0)^N}+\frac{(z-z_0)^N}{(s-z)(s-z_0)^N}\label{Eq:4:2:e}
+\end{align}
+where $(\ref{Eq:4:2:d})$ is because that
+\[
+\frac{1}{1-c}=1+c+c^2+\cdots+c^{N-1}+\frac{c^N}{1-c}. 
+\]
+Substituting (\ref{Eq:4:2:e}) into (\ref{Eq:4:2:b}), we obtain
+\begin{align*}
+f(z)&=\frac{1}{2\pi i}\int_{C_0}\left\{\frac{f(s)}{(s-z_0)}+\frac{f(s)(z-z_0)}{(s-z_0)^2}+\cdots+\frac{f(s)(z-z_0)^{N-1}}{(s-z_0)^N}+\frac{f(s)(z-z_0)^N}{(s-z)(s-z_0)^N}
+\right\}\\
+&=f(z_0)+f'(z_0)(z-z_0)+\cdots+\frac{f^{(N-1)}(z_0)}{(N-1)!}(z-z_0)^{N-1}+\rho_N(z)
+\end{align*}
+with
+\begin{equation}\label{Eq:4:2:e}
+\rho_N(z)=\frac{(z-z_0)^B}{2\pi i}\int_{C_0}\frac{f(s)}{(s-z)(s-z_0)^N}\diff s
+\end{equation}
+
+\textbf{Step 3: Show that $\rho_N(z)$ is convergent.}
+\begin{align}
+|\rho_N(z)|&\le\frac{|z-z_0|^N}{2\pi}\int_{C_0}\frac{|f(s)|}{|s-z||s-z_0|^N}|\diff s|\\
+&\le\frac{r^N}{2\pi}\int_{C_0}\frac{M}{(r_0-r)r_0^N}|\diff s|\\
+&=\frac{Mr_0}{r_0-r}\left(\frac{r}{r_0}\right)^N
+\end{align}
+where we suppose $|f(s)|\le M$ on $C_0$; and $|s-z|\ge|s-z_0| - |z-z_0| = r_0-r$. Therefore,
+\[
+\rho_N(z)\to0
+\]
+since $r<r_0$ and $(r/r_0)^N\to0$.
+\end{subequations}
+
+
+
+
+\end{proof}
+
+\begin{example}
+\begin{enumerate}
+\item
+For $f(z)=e^z$, which is analytic for $|z-0|<\infty$, thus we have
+\[
+e^z=\sum_{n=0}^\infty\frac{z^n}{n!},\qquad |z|<\infty
+\]
+\item
+For $f(z)=\sin z=\frac{e^{iz} - e^{-i}}{2i}$, which is analytic for $|z-0|<\infty$, thus we have $f^{(2n)}(0)=0; f^{(2n+1)}(0)=(-1)^n$, and therefore
+\[
+\sin z=\sum_{n=0}^\infty\frac{(-1)^n}{(2n+1)!}z^{2n+1},\qquad |z|<\infty
+\]
+\item
+For $f(z)=\frac{1}{1-z}$, which is analytic for $|z-0|<1$, we have $f^{(0)}=n!$, and therefore
+\[
+\frac{1}{1-z}=\sum_{n=0}^\infty\frac{n!}{n!}z^n=\sum_{n=0}^\infty z^n,\qquad |z|<1
+\]
+\item
+For $f(z)=\frac{1}{z}\cdot\frac{1}{1+z}$, we have
+\[
+\frac{1}{1+z}=\sum_{n=0}^\infty(-z)^n,\qquad |z|<1,
+\]
+and therefore
+\[
+\frac{1}{z+z^2}=\frac{1}{z}+\sum_{n=1}^\infty(-1)^nz^{n-1},\qquad 0<|z|<1
+\]
+\end{enumerate}
+\end{example}
+\subsection{Laurent Series}
+We cannot apply Taylor expansion at a non-analytic point. Fortunately, we can find another series representation for $f(z)$ that involving positive and negative powers of $(z-z_0)$
+\begin{definition}[Laurent Series]
+The \emph{Laurent series} has the form
+\[
+\sum_{n=0}^\infty a_n(z-z_0)^n+\sum_{n=1}^\infty\frac{b_n}{(z-z_0)^n}
+\]
+\end{definition}
+\begin{theorem}
+Suppose $f$ is analytic throughout an \emph{annular domain} $R_1<|z-z_0|<R_2$. Let $C$ be any \emph{positively oriented simple closed contour} around $z_0$ and lying in that domain. Then
+\begin{subequations}
+\begin{equation}
+f(z)=\sum_{n=0}^\infty a_n(z-z_0)^n+\sum_{n=1}^\infty\frac{b_n}{(z-z_0)^n},\qquad
+R_1<|z-z_0|<R_2
+\end{equation}
+with
+\begin{align}
+a_n&=\frac{1}{2\pi i}\int_C\frac{f(z)}{(z-z_0)^{n+1}}\diff z,\qquad n=0,1,2,\dots\\
+b_n&=\frac{1}{2\pi i}\int_C\frac{f(z)}{(z-z_0)^{-n+1}}\diff z,\qquad n=1,2,\dots
+\end{align}
+\end{subequations}
+
+\end{theorem}
+\begin{remark}
+The Laurent series is often written as the form
+\[
+f(z)=\sum_{n=-\infty}^\infty c_n(z-z_0)^n,\qquad R_1<|z-z_0|<R_2,
+\]
+where
+\[
+c_n=\frac{1}{2\pi i}\int_C\frac{f(z)}{(z-z_0)^{n+1}}\diff z,\qquad n=0,\pm1,\pm2,\dots
+\]
+When $f$ is analytic on $|z-z_0|<R_2$, we have $b_n=0,a_n=\frac{f^{(n)}(z_0)}{n!}$, i.e., the Laurent series reduces to the Taylor series.
+\end{remark}
+\begin{proof}
+\begin{itemize}
+\item
+For fixed $z$ in the domain, let $r=|z-z_0|$, and construct two positively oriented contours $C_i:\{z\in\mathbb{C}\mid|z-z_0|=r_i\},i=1,2$ such that $R_1<r_1<r<r_2<R_2$. (The reaon why we don't use the boundary is that the function is not analytic on the boundary but only interior to)
+\item
+Construct a circle $\gamma:\{s\in\mathbb{C}\mid s = z + \delta e^{i\theta},0\le\theta\le2\pi\}$, where the $\delta$ is picked such that $\gamma$ is contained in the interior between $C_1,C_2$. By Cauchy Integral Formula,
+\begin{equation}
+\int_{C_2}\frac{f(s)\diff s}{s-z}=\int_{C_1}\frac{f(s)\diff s}{s-z}+\int_{\gamma}\frac{f(s)\diff s}{s-z}
+\end{equation}
+Or equivalently,
+\[
+f(z)=\frac{1}{2\pi i}\int_{C_2}\frac{f(s)\diff s}{s-z}+\frac{1}{2\pi i}\int_{C_1}\frac{f(s)\diff s}{z-s}
+\]
+\item
+By applying the same trick as (\ref{Eq:4:2}), we have
+\begin{subequations}
+\begin{equation}
+f(z)=\sum_{n=0}^{N-1}a_n(z-z_0)^n+\rho_N(z)+\sum_{n=1}^N\frac{b_n}{(z-z_0)^n}+\sigma_N(z)
+\end{equation}
+with
+\begin{align}
+a_n&=\frac{1}{2\pi i}\int_{C_2}\frac{f(s)\diff s}{(s-z_0)^{n+1}}\\
+b_n&=\frac{1}{2\pi i}\int_{C_1}\frac{f(s)\diff s}{(s-z_0)^{-n+1}}\\
+\rho_N(z)&=\frac{(z-z_0)^N}{2\pi i}\int_{C_2}\frac{f(s)\diff s}{(s-z)(s-z_0)^N}\\
+\sigma_N(z)&=\frac{(z-z_0)^{-N}}{2\pi i}\int_{C_1}\frac{f(s)\diff s}{(z-s)(s-z_0)^{-N}}
+\end{align}
+\end{subequations}
+\item
+Then we bound the term $\rho_N(z)$ and $\sigma_N(z)$. Suppose $|f(s)|\le M$ on $C_1,C_2$, and note that $|s-z|\ge r_2-r$ for $s\in C_2$; $|z-s|\ge r-r_1$ for $s\in C_1$:
+\begin{align*}
+\rho_N(z)&\le\frac{Mr_2}{r_2-r}\left(\frac{r}{r_2}\right)^N\\
+\sigma_N(z)&\le\frac{Mr_1}{r-r_1}\left(\frac{r_1}{r}\right)^N
+\end{align*}
+\item
+Finally, note that
+\begin{align*}
+a_n&=\frac{1}{2\pi i}\int_{C}\frac{f(s)\diff s}{(s-z_0)^{n+1}}\\
+b_n&=\frac{1}{2\pi i}\int_{C}\frac{f(s)\diff s}{(s-z_0)^{-n+1}}\\
+\end{align*}
+
+
+
+
+
+\end{itemize}
+\end{proof}
+
+\begin{example}
+\begin{enumerate}
+\item
+\[
+f(z)=\frac{1}{z-1} - \frac{1}{z-2}
+\]
+This function has two singular points $1,2$. We take $z_0=0$.
+\begin{itemize}
+\item
+When $z\in D_1=\{z:|z|<1\}$, we obtain the Taylor expansion:
+\[
+f(z)=-\sum_{n=0}^\infty z^n+\sum_{n=0}^\infty\frac{z^n}{2^{n+1}}=\sum_{n=0}^\infty(2^{-n-1}-1)z^n
+\]
+\item
+When $z\in D_2=\{z:1<|z|<2\}$, we obtain the Laurent series:
+\[
+f(z)=\sum_{n=0}^\infty\frac{z^n}{2^{n+1}}+\sum_{n=1}^\infty\frac{1}{z^n}
+\]
+\item
+When $z\in D_3=\{z:|z|>2\}$, we obtain
+\[
+f(z)=\sum_{n=1}^\infty\frac{1-2^{n-1}}{z^n}
+\]
+\end{itemize}
+\item
+Expand $f(z)=\frac{-z}{(z-1)(z-3)}$ near $z_0=1$, and find the domain of expansion.
+
+The expansion should be the laurent series with domain of expansion $0<|z-1|<2$.
+\[
+f(z)=\frac{1/2}{z-1}-\frac{3/2}{z-3}=\frac{1/2}{z-1}+\sum_{n=0}^\infty\frac{3}{2^{n+2}}(z-1)^n
+\]
+
+
+
+
+
+\end{enumerate}
+\end{example}
+\subsection{Power Series}
+For power series
+\begin{equation}\label{Eq:4:6}
+\sum_{n=0}^\infty a_n(z-z_0)^n
+\end{equation}
+, first we study the range of its convergence.
+\begin{theorem}\label{The:4:3}
+If the power series (\ref{Eq:4:6}) converges at $z=z_1(\ne z_0)$, then it is \emph{absolutely convergent} at each point in the disk $|z-z_0|<|z_1-z_0|$.
+\end{theorem}
+\begin{proof}
+For any point $z$ around the disk, we have, we have
+\[
+\left|\frac{z-z_0}{z_1-z_0}\right|:=q<1,
+\]
+which follows that
+\[
+|a_n(z-z_0)^n|=|a_n(z_1-z_0)^n|\left|\frac{z-z_0}{z_1-z_0}\right|^n\le Mq^n,
+\]
+where $|a_n(z_1-z_0)^n|\le M$ since $z_1$ makes the series convergent. By Comparison test, we conclude (\ref{Eq:4:6}) is absolutely convergent.
+\end{proof}
+\begin{definition}[Uniform convergence]
+The series (\ref{Eq:4:6}) is said to be \emph{uniformly convergent} for $|z-z_0|<R$ if as $N\to\infty$,
+\[
+\sup_{|z-z_0|<R}|\rho_N(z)|\to0
+\]
+\end{definition}
+
+\begin{theorem}
+If the power series (\ref{Eq:4:6}) converges at $z=z_1(\ne z_0)$, then it must be uniformly convergent for any closed circle $|z-z_0|\le \rho$ ($\rho<|z_1-z_0|$).
+\end{theorem}
+\begin{proof}
+Notice that for any $\rho<|z_1-z_0|$, for any $z$ in that closed circle, we have
+\[
+|a_n(z-z_0)^n|\le |a_n\rho^n|
+\]
+Due to the conclusion in Theorem(\ref{The:4:3}), we conclude $\sum_{n=1}^\infty |a_n|\rho^n$ is convergent, and therefore $(\ref{Eq:4:6})$ is uniformly convergent.
+
+\end{proof}
+Now we are curious about whether the power series is analytic. First we show under which condition does the power series is continuous.
+\begin{theorem}
+The series (\ref{Eq:4:6}) represents a continuous function at each point inside the circle of convergence.
+\end{theorem}
+
+\begin{theorem}
+The sum $S(z)$ of power series is analytic at each point $z$ interior to the circle convergence of that series.
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

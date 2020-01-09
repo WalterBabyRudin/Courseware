@@ -1,0 +1,347 @@
+%\chapter{Introduction to Linear Programming}
+\chapter{Bipartite Matching}
+
+
+
+\paragraph{Problem Setting}
+Consider an undirected loopless graph $G=(V,E)$
+
+\begin{definition}[Matching]
+A subset $M\subseteq E$ is a matching in $G$, if no two edges in $M$ are adjacent (i.e., incident to the same vertex)
+\end{definition}
+
+\begin{definition}[Saturation]
+A matching $M$ saturates a vertex $v$ if there is some edge in $M$ incident to $v$
+
+Otherwise, $v$ is called unsaturated, exposed, or unmatched
+
+A matching $M$ in $G$ is \emph{perfect} if it saturates every vertex of $G$.
+\end{definition}
+
+\section{Max Cardinality Bipartite Matching}
+Given a \emph{bipartite} graph, we want to find the matching with the most number of edges.
+\begin{definition}[M-alternating]
+An $M$-alternating path in $G$ for the matching $M$ is a path whose edges are alternately in $M$ and $E\setminus M$.
+
+An $M$-augmenting path in $G$ for the matching $M$ is an $M$-alternating path whose first and last vertices are \emph{unsaturated}.
+\end{definition}
+
+\begin{theorem}[Berge]
+A matching $M$ in $G$ is a maximum cardinality matching iff $G$ contains no $M$-augmenting path.
+\end{theorem}
+\begin{proof}
+Necessity:
+If $G$ contains the $M$-augmenting path $\{e_1,\dots,e_k\}$, then $M$ is not of maximum cardinality, i.e., $M'=(M\setminus\{e_2,e_4,\dots\})\cup\{e_1,e_3,\dots\}$ is a matching with one more edge.
+
+Sufficiency:
+Suppose $M$ is not a max cardinality matching. Then we will show there exists an $M$-augmenting path.
+Let $M^*$ be a maximum cardinality matching. Construct $E'=M\Delta M^*$, i.e., the symmetric difference of $M$ and $M^*$, i.e., the edges are either in $M$ or $M^*$, but not both..
+Let $H=(V',E')$ be the subgraph of $G$ spanned by $E'$
+
+Each vertex of $H$ is of degree either $1$ or $2$. Therefore, each component of $H$ is either a cycle with edges alternately in $M$ and $M^*$, or a path with edges alternately in $M$ and $M^*$.
+Sicne $M^*$ contains more edges than $M$, there must be an alternating path that starts and ends with edges in $M^*$, i.e., an $M$-augmenting path.
+
+\end{proof}
+
+\begin{enumerate}
+\item
+Let $M$ be a matching for the bi-partite graph $G=(X\cup Y,E)$.
+Set all vertices as unlabelled. ($M$ can be the empty matching)
+\item
+\begin{enumerate}
+\item
+For all unsaturated vertices, label it as $\emptyset$
+\item
+If there is no-unscanned vertex, \emph{STOP}.
+\item
+Scan labelled vertex $i$ as follows:
+\begin{enumerate}
+\item
+If $i\in X$: For all unlabelled vertex $j$ with $(i,j)\in E$, label $j$ with label {i}. Go to step~(2b)
+\item
+If $i\in Y$, if $i$ is unmatched, go to step 3. Otherwise, label the $j$ with label {i} such that $(i,j)\in M$. 
+Go to step~(2b)
+\end{enumerate}
+\end{enumerate}
+\item
+Find an augmenting path by back-tracking from $i$.
+For all edges in the $M$-augmenting path that are in $M$, remove from $M$, for all edges in the $M$-augmenting path that are not in $M$, add to $M$.
+Go to step~1.
+\end{enumerate}
+
+\begin{example}
+To be added
+\end{example}
+
+\paragraph{Computational Complexity}
+Find an augmenting path: $\mathcal{O}(m)$.
+Number of possible augmentations: $\mathcal{O}(\min(|X|,|Y|))$
+
+\paragraph{Characertizaiton of maximum cardinality bipartite matching}
+\begin{definition}
+For $S\subseteq V$, the neighbour set of $S$ in $G$ is the set of all vertices adjacent to vertices in $S$, denoted as $\mathcal{N}(S)$.
+\end{definition}
+
+\begin{theorem}
+Let $G=(X\cup Y,E)$ be a bipartite graph.
+Then $G$ contains a matching that saturates every vertex in $X$ iff
+\[
+|\mathcal{N}(S)|\ge|S|,\quad
+\forall S\subseteq X
+\]
+\end{theorem}
+Note: to be added.
+
+\begin{corollary}
+Let $G=(X\cup Y,E)$ be a regular bipartite graph with $|X|\le |Y|$.
+Then $G$ contains a complete matching, i.e., one that saturates every vertex in $X$. 
+\end{corollary}
+\begin{proof}
+Consider any $S\subseteq X$. Since $G$ is a regular graph, suppose that every vertex has degree $k$, then there are $k|S|$ edges incident to $S$.
+Let $T=\mathcal{N}(S)$, then $S\subseteq\mathcal{N}(T)$.
+The number od edges connecting $T$ to $\mathcal{N}(T)$ is $kT=k\mathcal{N}(S)$.
+Only some subsets of there edges are conneted to $S$, i.e., 
+\[
+k|S|\le k\mathcal{N}(S)
+\]
+\end{proof}
+
+\begin{definition}[vertex cover]
+A \emph{vertex cover} of $G=(V,E)$ is a subset of vertices $K\subseteq V$ such that 
+every edge in $E$ is incident to some vertex in $K$
+\end{definition}
+We say that a vertex cover $K$ is minimum if $G$ has no vertex cover of smaller size.
+
+\begin{theorem}
+Let $G=(X\cup Y,E)$ be a bi-partite graph.
+Then the size of a maximum cardinality matching of $G$ equals to the size of a minimum vertex cover of $G$
+\end{theorem}
+\begin{proof}
+Let $M^*$ be the maximum cardinality matching and $K^*$ be a minimum vertex cover.
+It's clear that we need $|M^*|$ vertices to cover the edges of the matching $M^*$, i.e., $M^*\le|K^*|$.
+
+Let $U$ be the set of vertices in $X$ that are un-saturated w.r.t $M^*$; 
+$Z$ be the set of vertices $v$ in $Y$, such that there is an $M^*$-alternating path to $v$ from some vertex in $U$;
+$W$ be the set of vertices in $X$ such that there is an $M^*$-alternating path from some vertex in $U$.
+
+Since $M^*$ is of maximum cardinality matching, vertices in $U$ are the only vertices in $W$ that remains unsaturated.
+Also, every vertex in $Z$ is saturated, since otherwise $M^*$-augmenting path exists. ALso, every neighbour of a vertex in $W$ must be in $Z$, since otherwise $M^*$-augmenting path exists.
+Therefore, $\mathcal{N}(W)=Z$.
+
+Constrcut $\tilde{K}=(X\setminus W)\cup Z$. Every edge of $G$ must be incident to a vertex in $\tilde{K}$, since otherwise there is an edge incident to a vertex in $W$ and a vertex in $Y\setminus Z$, contradicting to $\mathcal{N}(W)=Z$.
+
+Therefore, $\tilde{K}$ is a vertex cover, such that $|\tilde{K}|=|M^*|$.
+\end{proof}
+
+\section{Weighted Bipartite Matching}
+Problem: given a bipartite graph $G=(X\cup Y,E)$ and edge weights $w:E\to\mathbb{R}$, find a matching of maximum total edge weight.
+
+\paragraph{LP Review}
+Consider the primal LP:
+\[
+\begin{array}{ll}
+\max&cx\\
+\text{such that}&Ax\le b\\
+&x\ge0
+\end{array}
+\]
+The dual LP is 
+\[
+\begin{array}{ll}
+\min&yb\\
+\text{with}&yA\ge c\\
+&y\ge0
+\end{array}
+\]
+Since both x and y are non-negative, it is easy to see that the weak duality result holds:
+\[
+cx\le yAx\le yb
+\]
+If we find $(x,y)$ that is primal and dual feasible, and the complementarity condition holds:
+\[
+(yA-c)x=y(Ax-b)=0
+\]
+then x is optimal for (P) and y is optimal for (D) and the optimal values
+of (P) and (D) are the same.
+
+The complementary slackness conditions can be stated as:
+\begin{itemize}
+\item
+$x_j>0$ implies $\sum_iy_iA_{ij}=c_j$ for $j=1:n$
+\item
+$y_i>0$ implies $\sum_jA_{ij}x_j=b_j$ for $i=1:n$ 
+\end{itemize}
+
+The linear programming for max weight bipartite matching is given by:
+\[(M)\qquad
+\begin{array}{ll}
+\min&\sum_{(i,j)\in E}w_{ij}x_{ij}\\
+\text{with}&\sum_{j\in Y}x_{ij}\le 1,\ \forall i\in X\\
+&\sum_{i\in X}x_{ij}\le 1,\ \forall j\in Y\\
+&x_{ij}\ge0,\ \forall(i,j)\in E
+\end{array}
+\]
+The dual problem is
+\[(DM)\qquad
+\begin{array}{ll}
+\min&\sum_{i\in X}u_i+\sum_{j\in Y}v_j\\
+\text{with}&u_i+v_j\ge w_{ij},\ \forall(i,j)\in E\\
+&u_i\ge0,\ \forall i\in X\\
+&v_j\ge0,\ \forall j\in Y
+\end{array}
+\]
+
+The complementarity conditions are:
+\begin{itemize}
+\item
+$x_{ij}>0$ implies $u_i+v_j=w_{ij}$ for all $(i,j)\in E$
+\item
+$u_i>0$ implies $\sum_jx_{ij}=1$ for $i\in X$
+\item
+$v_j>0$ implies $\sum_ix_{ij}=1$ for $j\in Y$
+\end{itemize}
+The idea of the Hungarian algorithm is to construct a pair of primal and dual solutions to (M) and (DM) that are feasible and satisfy conditions (1) and (3) but not necessarily (2). Then iteratively improve the solutions until optimality attained.
+
+Start with a null matching $(x_{ij}=0)$ and set dual variables $v_j=0,u_i=W=\max\{w_{ij}\mid (i,j)\in E\}$.
+
+We find an augmenting path to maintain feasibility and complementary slackness conditions (1) and (3). So, we use only edges where $w_{ij}=u_i+v_j$. 
+If augmentation is possible, one more of condition (2) will be satisfied.
+Otherwise,  change the value of the dual variables.
+
+Consider an augmenting forest from all unmatched (exposed) vertices in $X$. Let $F$ be the vertices in this augmenting forest.
+Suppose we increase $v_j$ for $j\in F\cap Y$ and decrease $u_i$ for $i\in F\cap X$. 
+Consider the following cases:
+\begin{itemize}
+\item
+$i\in F,j\in F$: $(u_i-\delta)+(v_j+\delta)=w_{ij}$, no change
+\item
+$i\in F,j\notin F$: $(u_i-\delta)+(v_j)\ge w_{ij}$, LHS decrease
+\item
+$i\notin F,j\in F$: $u_i+(v_j+\delta)\ge w_{ij}$: LHS increase
+\item
+$i\notin F,j\notin F$: $u_i+v_j\ge w_{ij}$: no change.
+\end{itemize}
+For feasibility,we need $\delta=\min\{u_i+v_j-w_{ij}\mid i\in X,j\in Y\}$.
+How big can $\delta$ be? We want it to be big enough so that
+\begin{itemize}
+\item
+we can add one more edge to augmenting forest
+\item
+some $u_i$ are driven to zero; one or more complementarity condition~(2) is satisfied
+\end{itemize}
+Note that at every stage, the current matching is of maximum weight among all matchings of the same cardinality.
+
+\paragraph{Hungarian Algorithm for Max Weight Bipartite Matching}
+\begin{enumerate}
+\item
+Step 1: initialization:
+Let $M=\emptyset, u_i=W\equiv\max\{w_{ij}\mid (i,j)\in E\},\forall i\in X$.
+For all $j\in Y$, set $v_j=0$ and $\pi_j=\infty$
+\item
+Step 2: scan:
+\begin{enumerate}
+\item
+Label $L(i)=\text{Start}$ for all unmatched vertex $i\in X$, and
+\[
+\text{LIST}=\{i\in X\mid\text{$i$ is unmatched}\}
+\]
+\item
+If LIST is empty, go to step 4.
+\item
+Remove a vertex $k$ from LIST:
+\begin{itemize}
+\item
+if $k\in X$, then for all $(k,j)\notin M$, set $\pi_j=\min\{\pi_j,u_k+v_j-w_{kj}\}$.
+If $\pi_j$ is reduced, then set $L(j)=k$l
+if $\pi_j$ is reduced to zero, add $j$ into LIST
+\item
+if $k\in Y$, if $k$ is unmatched, go to step 3. Otherwise, find the unique edge $(k,i)\in M$, set $L(i)=k$, add $i$ into LIST. Go to step2~(b)
+\end{itemize}
+\end{enumerate}
+\item
+Step 3: Augment:
+Update $M$, i.e., Trace augmenting path using $L(k),\dots$ , and switch edges along augmenting path to be in and out of the matching.
+Reset all labels, i.e., set all $L(i)$ to null for all $i\in X\cup Y,\pi_j=\infty,\forall j\in Y$, Go to step2~(a)
+\item
+Step 4: Update Dual:
+let $\delta=\min\{\delta_1,\delta_2\}$, where
+\begin{align*}
+\delta_1&=\min\{u_i:i\in X\}\\
+\delta_2&=\min\{\pi_j: \pi>0,j\in Y\}
+\end{align*}
+Set $u_i\leftarrow u_i-\delta$ for all $i\in X\cap F$, i.e. ,$L(i)\ne\text{Null}$.
+Set $v_j\leftarrow v_j+\delta$ for all $j\in Y\cap F$, i.e., $\pi_j=0$.
+Set $\pi_j\leftarrow \pi_j-\delta$ for all $j\in Y,j\notin F$, i.e., $\pi_j>0$
+
+If any $\pi_j$ is reduced to zero, add $j$ into LIST.
+If $\delta=\delta_1$, stop. Otherwise, go to step~(1b)
+\end{enumerate}
+
+
+
+
+\paragraph{Hungarian Algorithm}
+\begin{enumerate}
+\item[0.]
+Step 0 (Initialize): Let $M=\emptyset,u_i=W:=\max\{w_{ij}\mid(i,j)\in E\},\forall i\in X$, and $v_j=0,\forall j\in Y$, and $\pi_j=\infty$.
+\item
+Step 1 (Scan):
+\begin{enumerate}
+\item
+Denote Label $L(i)=\emptyset$ for all unmatched vertex $i\in X$, and $\text{LIST}=\{i\in X\mid\text{$i$ is unmatched}\}$.
+\item
+If $\text{LIST}$ is empty, go to step 3.
+\item
+Remove a vertex $k$ from $\text{LIST}$:
+\begin{enumerate}
+\item
+For $k\in X$, for all $(k,j)\notin M$, set $\pi_j=\min\{\pi_j,u_k+v_k-w_{kj}\}$.
+If $\pi_j$ is reduced, set $L(j)=k$;
+If $\pi_j$ is reduced to zero, add $j$ into $\text{LIST}$
+\item
+For $k\in Y$, if $k$ is unmatched, go to step 2.
+Otherwise, find the unique edge $(k,i)\in M$, set $L(i)=k,$ add $i$ to LIST.
+Go to step (1b)
+\end{enumerate}
+\end{enumerate}
+\item
+Step 2 (Augment):
+Update $M$ by trace augmenting path using $L(k),\dots$, and switch edges along augmenting path to be in and out of the matching.
+Reset all labels: set all $L(i)$ to Null for all $i\in X\cup Y$, $\pi_j=\infty,\forall j\in Y$.
+Go to step (1a)
+\item
+Step 3 (Update Dual):
+Let $\delta=\min\{\delta_1,\delta_2\}$, where $\delta_1=\min\{u_i\mid i\in X\},\delta_2=\min\{\pi_j\mid \pi>0,j\in Y\}$.
+Then 
+\[
+\begin{array}{l}
+u_i\leftarrow u_i-\delta,\forall i\in X\cap F,\\
+v_j\leftarrow v_j+\delta,\forall j\in Y\cap F,\\
+\pi_j\leftarrow\pi_j-\delta,\forall j\in Y,j\notin F
+\end{array}
+\]
+If any $\pi_j$ reduced to zero, add $j$ to LIST. 
+If $\delta=\delta_1$, stop, otherwise go to step~(1b)
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,242 @@
+\subsection{Solution to Assignment Five}
+\begin{enumerate}
+%q1
+\item\begin{proof}
+\begin{enumerate}
+%part a
+\item
+For square matrix $\bm A$, there exists identity matrix $\bm I$, such that $\bm A=\bm I^{-1}\bm A\bm I$. Hence $\bm A$ is \textit{similar} to itself.
+%part b
+\item
+If $\bm B$ is similar to $\bm A$, then there exists invertible matrix $\bm S_1$ such that $\bm B=\bm S_1^{-1}\bm A\bm S_1$. Hence we obtain:
+\[
+\bm S_1\bm B=\bm A\bm S_1\implies 
+\bm A=\bm S_1\bm B\bm S_1^{-1}
+\]
+If we set $\bm S_2=\bm S_1^{-1}$, then we have
+\[
+\bm A=\bm S_2^{-1}\bm B\bm S_2
+\]
+Thus $\bm A$ is \emph{simialr} to $\bm B$.
+%part c
+\item
+Since $\bm A$ is similar to $\bm B$, $\bm B$ is similar to $\bm C$, there exists invertible matrices $\bm S_1,\bm S_2$ such that
+\[
+\bm A=\bm S_1^{-1}\bm B\bm S_1\quad\text{and}\quad
+\bm B=\bm S_2^{-1}\bm C\bm S_2
+\]
+It follows that 
+\[\begin{aligned}
+\bm A&=\bm S_1^{-1}(\bm S_2^{-1}\bm C\bm S_2)\bm S_1\\
+     &=(\bm S_1^{-1}\bm S_2^{-1})\bm C(\bm S_2\bm S_1)\\
+     &=(\bm S_2\bm S_1)^{-1}\bm C(\bm S_2\bm S_1)
+\end{aligned}
+\]
+If we set $\bm S_3=\bm S_2\bm S_1$, since $\bm S_1,\bm S_2$ are invertible, then $\bm S_3$ is invertible.\\
+Hence $\bm A=\bm S_3^{-1}\bm C\bm S_3$. Thus $\bm A$ is \emph{simialr} to $\bm C$.
+\end{enumerate}\end{proof}
+%%q2
+\item\begin{proof}[Solution.]
+Obviously, $L$ is a linear operator defined by $L(\bm x)=\bm{Ax}$, where 
+\[
+\bm A=\begin{pmatrix}
+3&0\\1&-1
+\end{pmatrix}
+\]
+We set $\bm S=\begin{bmatrix}
+b_1&b_2
+\end{bmatrix}$, where $b_1,b_2$ are the ordered vector in basis $\bm B$. \\
+We use similartiy transformation to compute the matrix representation $\bm D$ with respect to basis $B$:
+\[
+\begin{aligned}
+\bm D &=\bm S^{-1}\bm A\bm S\\
+      &=\begin{bmatrix}
+1&2\\2&3
+\end{bmatrix}^{-1}\begin{pmatrix}
+3&0\\1&-1
+\end{pmatrix}\begin{bmatrix}
+1&2\\2&3
+\end{bmatrix}
+      &=\begin{bmatrix}
+-11&-20\\7&13
+\end{bmatrix}
+\end{aligned}
+\]
+\end{proof}
+%%q3
+\item\begin{proof}[Solution.]
+\begin{enumerate}
+%part a
+\item
+No, since the zero function $f(x)\equiv0$ does not belong to this set.
+%part b
+\item
+No, since the zero function $f(x)\equiv0$ does not belong to this set.
+%part c
+\item
+Yes.\begin{itemize}
+\item
+Firstly this set belongs to $\mathbb{R}[x]$.
+\item
+Secondly, given zero function $f(x)\equiv0$, for any $x\in\mathbb{R}$, we have $f(x)=0=f(1-x)$. Hence this set contains zero function $f(x)\equiv0$.
+\item
+Thirdly, given two function $f,g$ in this set, we have 
+\[f(x)=f(1-x)\quad \text{and}\quad g(x)=g(1-x) \text{   for all $x\in\mathbb{R}$.}\]
+Then we set any linear combination of $f$ and $g$ to be $T=\alpha_1 f+\alpha_2 g$, where $\alpha_1,\alpha_2$ are scalars.\\
+For any $x\in\mathbb{R}$, we have
+\[
+\begin{aligned}
+T(x)  &= \alpha_1 f(x)+\alpha_2 g(x)\\
+      &= \alpha_1 f(1-x)+\alpha_2 g(1-x)\\
+      &= T(1-x)
+\end{aligned}
+\]
+Hence $T=\alpha_1 f+\alpha_2 g$ also belongs to this set.
+\end{itemize}
+In conclusion, this set is \emph{subspace} of $\mathbb{R}[x]$.
+\end{enumerate}
+\end{proof}
+% q4
+\item\begin{proof}
+\begin{enumerate}
+%part a
+\item
+Given $f,g\in\bm V$, we have
+\[
+\begin{aligned}
+T(\alpha_1f+\alpha_2g)&=\frac{\partial }{\partial x}(\alpha_1f+\alpha_2g)-\frac{\partial}{\partial y}(\alpha_1f+\alpha_2g)\\
+                      &=\alpha_1\frac{\partial f}{\partial x}+\alpha_2\frac{\partial g}{\partial x}-\alpha_1\frac{\partial f}{\partial y}-\alpha_2\frac{\partial g}{\partial y}\\
+                      &=\alpha_1(\frac{\partial f}{\partial x}-\frac{\partial f}{\partial y})+\alpha_2(\frac{\partial f}{\partial x}-\frac{\partial f}{\partial y})\\
+                      &=\alpha_1T(f)+\alpha_2T(g)
+\end{aligned}
+\]
+where $\alpha_1,\alpha_2$ are scalars. It immediately follows that $T$ is a transformation.
+%part b
+\item
+Given any $f=a+bx+cy+dx^2+exy+fy^2\in\bm V$, $f\in\ker T$ if and only if $\frac{\partial}{\partial x}f-\frac{\partial}{\partial y}f=0$. Thus $f\in\ker T$ if and only if $b+2dx+ey-(c+ex+2fy)=0$. Hence $f\in\ker T$ if and only if
+\begin{gather*}
+b-c=0\\2d-e=0\\e-2f=0
+\end{gather*}
+The general solution is given by
+\[
+\begin{pmatrix}
+a\\b\\c\\d\\e\\f
+\end{pmatrix}=m_1\begin{pmatrix}
+1\\0\\0\\0\\0\\0
+\end{pmatrix}+m_2\begin{pmatrix}
+0\\1\\1\\0\\0\\0
+\end{pmatrix}+m_3\begin{pmatrix}
+0\\0\\0\\1\\2\\1
+\end{pmatrix}
+\]
+where $m_1,m_2,m_3\in\mathbb{R}$.\\
+Therefore, $f\in\ker T$ if and only if for any $m_1,m_2,m_3\in\mathbb{R}$,
+\[
+\begin{aligned}
+f&=m_1+m_2x+m_2y+m_3x^2+2m_3xy+m_3y^2\\
+ &=m_1\x1+m_2(x+y)+m_3(x^2+2xy+y^2)
+\end{aligned}
+\]
+Obviously, the set $\{1,x+y,x^2+2xy+y^2\}$ is ind. and it spans $\ker T$ by the above argument. Hence $\{1,x+y,x^2+2xy+y^2\}$ is a basis for $\ker T$.
+\end{enumerate}\end{proof}
+%q5
+\item
+\begin{proof}[Solution.]
+\begin{gather*}
+D(e^x)=1\cdot e^x+0\cdot xe^x+0\cdot x^2e^x\\
+D(xe^x)=1\cdot e^x+1\cdot xe^x+0\cdot x^2e^x\\
+D(x^2e^x)=0\cdot e^x+2\cdot xe^x+1\cdot x^2e^x
+\end{gather*}
+Thus, the matrix representation of $D$ with respect to $\{e^x,xe^x,x^2e^x\}$ is given by
+\[
+\bm A=\begin{bmatrix}
+1&1&0\\0&1&2\\0&0&1
+\end{bmatrix}.
+\]
+\end{proof}
+% q6
+\item
+\begin{proof}[Solution.]
+\begin{enumerate}
+%paet a
+\item
+The transformed region will be a \emph{parallelogram}.\\
+In order to find the shape we only need to focus on the corner point $O(0,0),A(1,0),B(1,1),C(0,1)$. Suppose the matrix $\bm A$ is $\begin{bmatrix}
+a&b\\c&d
+\end{bmatrix}$. By matrix multiplication we find $OABC$ is transformed into $O_1A_1B_1C_1$ such that
+\[
+O_1=(0,0)\qquad A_1=(a,c)\qquad B_1=(a+c,b+d)\qquad C_1=(b,d)
+\]
+Since vector $\overrightarrow{O_1B_1}=\overrightarrow{O_1A_1}+\overrightarrow{O_1C_1}$, we find area $O_1A_1B_1C_1$ is a \emph{parallelogram}.
+%part b
+\item
+In order to get a square, we have to let the inner product of two adjacent sides of the parallelogram to be zero:
+\[
+\overrightarrow{O_1A_1}\cdots\overrightarrow{O_1C_1}=ab+cd=0.
+\]
+And then we have to let all sides to have the same length:
+\[
+|\overrightarrow{O_1A_1}|^2=|\overrightarrow{O_1C_1}|^2\implies  a^2+c^2=b^2+d^2
+\]
+Finally we derive $b=\pm c, a=\mp d$. Hence when matrix $\bm A$ is of this form:
+\[
+\bm A=b\begin{bmatrix}
+0&1\\1&0
+\end{bmatrix}+d\begin{bmatrix}
+-1&0\\0&1
+\end{bmatrix}\text{ or }
+\bm A=b\begin{bmatrix}
+0&1\\-1&0
+
+\end{bmatrix}+d\begin{bmatrix}
+1&0\\0&1
+\end{bmatrix}
+\]
+where $b,d\in\mathbb{R}$, it will transform the unit square into another square. 
+\end{enumerate}
+\end{proof}
+%%q 7
+\item
+\begin{proof}
+\begin{enumerate}
+%part a
+\item
+\begin{itemize}
+\item
+Firstly we show $\col(\bm A\bm A\trans)\subset\col(\bm A)$:
+\\ For any $\bm b\in\col(\bm A\bm A\trans)$, there exists $\bm x_0$ such that $\bm A\bm A\trans\bm x_0=\bm b$, which implies $\bm A(\bm A\trans\bm x_0)=\bm b$. Hence there exists vector $(\bm A\trans\bm x_0)$ such that 
+\[
+\bm A(\bm A\trans\bm x_0)=\bm b
+\]
+Hence $\bm b\in\col(\bm A)$. Hence $\col(\bm A\bm A\trans)\subset\col(\bm A)$.
+\item
+In part $b$ we will show $\rank(\bm A\bm A\trans)=\rank(\bm A)$. Hence $\dim(\col(\bm A\bm A\trans))=\dim(\col(\bm A))$. 
+\item
+We assume $\dim(\col(\bm A\bm A\trans))=\dim(\col(\bm A))=n$, the basis for $\col(\bm A)$ is $\{v_1,v_2,\dots,v_n\}$. Thus since $\col(\bm A\bm A\trans)\subset\col(\bm A)$, basis $\{v_1,v_2,\dots,v_n\}$ must span $\col(\bm A\bm A\trans)$. Since $\dim(\col(\bm A\bm A\trans))=n$, $\{v_1,v_2,\dots,v_n\}$ must be the basis for $\col(\bm A\bm A\trans)$.
+\item
+Since $\col(\bm A\bm A\trans)$ and $\col(\bm A)$ have the same basis, we obtain $\col(\bm A\bm A\trans)=\col(\bm A)$.
+\end{itemize}
+%part b
+\item
+\begin{itemize}
+\item
+Firstly, we show $N(\bm A)\subset N(\bm A\trans\bm A)$:\\
+For any $\bm x_0\in N(\bm A)$, we have $\bm A\bm x_0=\bm 0$. Thus by postmultiplying $\bm A\trans$ we have $\bm A\trans\bm A\bm x_0=\bm 0$. Hence $\bm x_0\in N(\bm A\trans\bm A)$.
+\item
+Then we show $N(\bm A\trans\bm A)\subset N(\bm A)$:\\
+For any $\bm x_0\in N(\bm A\trans\bm A)$, we have $\bm A\trans\bm A\bm x_0=\bm 0$. Thus by postmultiplying $\bm x_0\trans$ we have $\bm x_0\trans\bm A\trans\bm A\bm x_0=\bm 0$, which implies $\lVert \bm A\bm x_0\rVert^2=\bm x_0\trans\bm A\trans\bm A\bm x_0=\bm 0$. Hence $\bm A\bm x_0=\bm 0$. Hence $\bm x_0\in N(\bm A)$.
+\end{itemize}
+Hence we obtain $N(\bm A)\subset N(\bm A\trans\bm A)$ and $N(\bm A\trans\bm A)\subset N(\bm A)$, which implies $N(\bm A)= N(\bm A\trans\bm A)$.\\
+If we assume $\bm A$ is $m\times n$ matrix, then $\rank(\bm A\trans\bm A)+\dim(N(\bm A\trans\bm A))=n=\rank(\bm A)+\dim(N(\bm A))$. 
+\begin{itemize}
+\item
+Since $\dim(N(\bm A\trans\bm A))=\dim(N(\bm A))$, we obtain $\rank(\bm A\trans\bm A)=\rank(\bm A)$.
+\item
+Similarly, we obtain $\rank(\bm A\bm A\trans)=\rank(\bm A\trans)$ by changing $\bm A$ into $\bm A\trans$.
+\item
+Obviously, $\rank(\bm A\trans)=\dim(\row(\bm A\trans))=\dim(\col(\bm A))=\rank(\bm A)$.
+\end{itemize}
+In conclusion, $\rank(\bm A\bm A\trans)=\rank(\bm A\trans)=\rank(\bm A)=\rank(\bm A\trans\bm A)$.
+\end{enumerate}
+\end{proof}
+\end{enumerate}

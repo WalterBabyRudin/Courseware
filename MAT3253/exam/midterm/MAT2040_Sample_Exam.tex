@@ -1,0 +1,91 @@
+
+\chapter{Midterm}
+
+\section{Sample Exam}\index{Sample Exam}
+DURATION OF EXAMINATION: 2 hours in-class\\
+\textit{This examination paper includes $6$ pages and $6$ problems. You are responsible for ensuring that
+your copy of the paper is complete. Bring any discrepancy to the attention of your invigilator.}\\
+\begin{enumerate}
+\item \textbf{(30 points)} \textit{Solving a linear system of equations}\\
+For a real number $c$, consider the linear system:
+\begin{align}
+x_1+x_2+cx_3+x_4&=c\\
+-x_2+x_3+2x_4&=0\\
+x_1+2x_2+x_3-x_4&=-c
+\end{align}
+do the following:
+\begin{enumerate}
+\item
+Write out the \textit{coefficient matrix} of the system.\\
+\item
+Write out the \textit{augmented matrix} for this system and calculate its \textit{row-reduced echelon form.}\\
+\item
+Write out the complete set of solutions in \textit{vector form.}\\
+\item
+What is the \textit{rank} of the coefficient matrix $\bm A$? Justify your answer.\\
+\item
+Find a \textit{basis}  of the subspace of solutions when $c=0$.
+\end{enumerate}
+\newpage
+\item \textbf{(20 points)} \textit{Vector space}\\
+Find a \textit{basis} for each of the following spaces.
+\begin{itemize}
+\item
+Space of $n\x n$ \textit{skew symmetric matrices} (i.e. those matrix satisfying $\bm A=-\bm A\trans$)\\
+\item
+The space of all \textit{polynomials} of the form $ax^2+bx+2a+3b$, where $a,b\in\mathbb{R}.$\\
+\item
+$\Span\{x-1,x+1,2x^2-2\}.$
+\end{itemize}
+\newpage
+\item \textbf{(15 points)} \textit{Matrix multiplications}\\
+Prove the following statements:
+\begin{enumerate}
+\item
+Define the set of $n\x n$ \textit{diagonol matrices} to be $\kappa$. Prove that for a diagonal matrix $\bm D$ with \textit{distinct} elements (i.e. $\bm D_{ii}\ne\bm D_{jj},\forall i\ne j$), the set $\{\bm A\in\mathbb{R}^{n\x n}|\bm{AD}=\bm{DA}\}$ is exactly $\kappa$.\\
+\item
+If an $n\x n$ matrix $\bm A$ satisfies $\bm{AB}=\bm{BA}$ for any $n\x n$ matrix $\bm B$, then $\bm A$ must be of the form $c\bm I$, where $c$ is a scalar.
+\end{enumerate}
+\newpage
+\item \textbf{(10 points)} \textit{Matrix Inverse}\\
+\begin{enumerate}
+\item
+Compute the inverse of the matrix $\begin{pmatrix}
+5&4\\4&5
+\end{pmatrix}.$
+\item
+Compute the inverse of the matrix $\begin{pmatrix}
+a&b\\c&d
+\end{pmatrix}$ if exists. When does the inverse of the matrix exist?
+\end{enumerate}
+\newpage
+\item \textbf{(15 points)} \textit{Matrix rank}\\
+\begin{enumerate}
+\item
+Suppose $\bm u\in\mathbb{R}^{n\x 1}$ satisfies $\|\bm u\|=1$. What is the rank of the matrix $\bm I-\bm u\bm u\trans$?\\
+\item
+Suppose $\bm u\in\mathbb{R}^{n\x 1}$ satisfies $\|\bm u\|=1$. Define $\bm P=\bm I-\bm u\bm u\trans$. What is the rank of $\bm P^2$? What about $\bm P^5$?\\
+\item
+Suppose $\bm x,\bm y\in\mathbb{R}^{n\x 1}$. What is the rank of the matrix $\bm I-\bm x\bm y\trans$?\end{enumerate}
+\newpage
+\item \textbf{(20 points)} \\
+State your answers. No justifications are required.
+\begin{enumerate}
+\item
+We know $a^2-b^2=(a+b)(a-b)$, where $a,b\in\mathbb{R}$. When $\bm A,\bm B$ are square matrices, can we
+represent $\bm A^2-\bm B^2$ by only $(\bm A+\bm B)(\bm A-\bm B)$?\\
+\item
+True or False: If $\bm A$ and $\bm B$ are \textit{invertible}, then $\bm A+\bm B$ is also \textit{invertible}.\\
+\item
+True or False: The set of all \textit{real-valued} functions on $\mathbb{R}$ such that $f(1)=0$ is a \textit{vector space}.\\
+\item
+True or False: The product of two \textit{invertible} $n\x n$ matrices is \textit{invertible}\\
+\item
+True or False: If two matrices have the same \textit{reduced row echelon form}, then they have the
+same \textit{column space}.\\
+\item
+True or False: If two columns of the square $\bm A$ are the same, then $\bm A$ \textit{cannot} be invertible.\\
+\item
+True or False: For an $m\x n$ matrice $\bm A$, $\rank(\bm A)+\dim(\row(\bm A))=n.$
+\end{enumerate}
+\end{enumerate}

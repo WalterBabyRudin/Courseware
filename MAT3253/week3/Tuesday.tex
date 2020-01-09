@@ -1,0 +1,158 @@
+
+\chapter{Week3}
+
+\section{Tuesday}\index{week3_Tuesday_lecture}
+\begin{theorem}[Optimality Condition]
+\begin{itemize}
+\item
+primal feasible: $\bm{Ax}=\bm b,\bm x\ge0$
+\item
+Dual feasible: $\bm{A}\trans\bm y\le\bm c$
+\item
+Complementarity: $\bm x\circ \bm s=\bm0$, i.e., $x_i\cdot (c_i-\bm A_i\trans\bm y)=\bm0$ for each $i$.
+\end{itemize}
+\end{theorem}
+\begin{remark}
+(Primal) Simplex method:
+\begin{enumerate}
+\item
+Always keep primal feasibility:
+\item
+Always keep complementarity:
+
+Define $\bm y=(\bm A_B^{-1})\trans\bm c_B$ as the dual solution. The reduced costs vector is $\bm c\trans-\bm c_B\trans\bm A_B^{-1}\bm A=\bm c-\bm y\trans\bm A$
+\item
+Not necessarily keep dual feasible until get the optimal solution, i.e., it will seeks solution that is dual feasible.
+\end{enumerate}
+\end{remark}
+\paragraph{Dual Simplex method}
+Dual Simplex method remains both dual feasiblity and complementarity conditions in each iteration but seeks primal feasibility.
+
+Cases for applying dual simplex method:
+\begin{itemize}
+\item
+There is a dual BFS available but no primal BFS available.
+\item
+$\bm b$ is changed by a large amount or a constraint isadded, i.e., lose the primal feasible solution.
+\end{itemize}
+
+\paragraph{Interior Point Method}
+Consider the relaxed version of optimality condition:
+\begin{align*}
+\bm{Ax}&=\bm b,\bm x\ge0\\
+\bm{A}\trans\bm y+\bm s&=\bm c,\bm s\ge0\\
+x_i\cdot s_i&=\mu,\quad\forall i,\mbox{small }\mu_i>0
+\end{align*}
+Keep decreasing $\mu$ and finally get the solution to LP.
+\begin{remark}
+\begin{itemize}
+\item
+The optimal solution output from interior point method may not necessarily BFS. If the optimal solution is unique, it is BFS.
+\item
+Initial solution for the interior point method can be found by solving the auxiliary problem.
+\item
+The complexity for interior point method is $O(n^{3.5})$
+\item
+The interior point method gives stable running time compared with simplex method.
+\item
+Interior point method always find the optimal solution with maximum possible number of \emph{non-zeros}.
+\item
+Interior point method finds high-rank solution (the center of all optimal solutions); but the simplex method finds the low-rank solution.
+\end{itemize}
+\end{remark}
+
+\subsection{Reviewing}
+\paragraph{Linear optimization formulation}
+Standard Form LP Transformation
+\[
+\begin{array}{ll}
+\min&\bm c\trans\bm x\\
+\mbox{such that}&\bm{Ax}=\bm b\\
+&\bm x\ge\bm0
+\end{array}
+\]
+
+Maximin / minimax objective
+
+Absolute values in objective function or constraints.
+\begin{theorem}
+The BFS for standard LP is equivalent to extreme point.
+\end{theorem}
+\begin{theorem}
+If there is a feasible solution, then there is a basic feasible solution; If there is a optimal solution, then there is a basic feasible optimal solution.
+\end{theorem}
+Care about corollary
+
+\paragraph{Simplex method}
+\begin{enumerate}
+\item
+Understand how simplex method works, and cases for unbounded, infeasible
+\item
+Apply simplex method to solve small LPs
+\item
+Read and interpret simplex tableau (make use of it to avoid inverse calculation)
+\item
+Apply two-phase method
+\end{enumerate}
+
+
+
+
+\paragraph{Duality Theory}
+\begin{enumerate}
+\item
+Be able to constrauct the dual for any LP.
+\item
+Know the (strong/weak) duality theorems and apply them in different situations.
+\item
+Be able to write down the complentarity conditions and apply them
+
+
+
+\end{enumerate}
+
+
+
+\paragraph{Sensitivity Analysis}
+Related to duality theory; 
+
+
+
+
+\paragraph{Complexity Theory and interior method}
+Complexity of LP:
+\begin{enumerate}
+\item
+No guarntee of simplex method to achieve polynomial time
+\item
+Interior point can achieve polynomial time
+\end{enumerate}
+
+Properties of simplex method
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

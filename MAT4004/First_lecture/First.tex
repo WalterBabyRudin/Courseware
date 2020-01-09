@@ -1,0 +1,163 @@
+\chapter{Definition}
+
+\begin{definition}[Graph]
+A graph $G=(V,E)$ consists of a non-empty finite set $V$ of elements called \emph{vertices};
+and a finite family of \emph{unordered} pairs of vertices called \emph{edges}.
+\begin{enumerate}
+\item
+The edge $e=\{v,w\}$ is said to join the vertices $v$ and $w$
+\item
+The vertex $v$ is \emph{adjacent} to the vertex $w$ if there exists an edge $\{v,w\}$
+\item
+The edge $e$ is also said to be \emph{incident} to $v$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Simple]
+Multiple (parallel) edges are the edges joining the same pair of vertices;
+Loops are the edges of the form $\{v,v\}$;
+A \emph{loopless} graph with \emph{no} multiple edges is called a \emph{simple} graph.
+\end{definition}
+
+\begin{definition}[Isomorphism]
+Two graphs $G_1$ and $G_2$ are \emph{isomorphic} if
+there is a one-to-one correspondence between the vertices of $G_1$ and the vertices of $G_2$
+such that
+the number of edges joining any two vertices of $G_1$ equals the number of edges joining the corresponding pair of vertices in $G_2$.
+\end{definition}
+
+\begin{definition}[Adjacent $\&$ Incident]
+Two vertices are \emph{adjacent} if there is an edge joining them;
+the edges are \emph{incident} to the edge;
+two edges are \emph{adjacent} if they share a common vertex.
+\end{definition}
+
+\begin{definition}
+The \emph{degree} of a vertex $v$, say $\text{deg}(v)$, is the number of edges incident to $v$.
+\end{definition}
+
+In particular, a loop contributes $2$ to the $\text{deg}(v)$;
+a vertex with degree $0$ is an \emph{isolated} vertex;
+a vertex of degree $1$ is an \emph{end-vertex}.
+
+\begin{definition}[Degree sequence]
+The \emph{degree sequence} of a graph is the sequence of degrees of its vertices, 
+written in \emph{non-decreasing} order. 
+\end{definition}
+
+\begin{theorem}
+In any graph, the sum of all the vertex-degrees is an \emph{even} number.
+\end{theorem}
+\begin{corollary}
+In any graph, the number of vertices with \emph{odd} degree is \emph{even}.
+\end{corollary}
+
+\begin{definition}
+A graph $H$ is a \emph{subgraph} of a graph $G=(V,E)$,
+if each of its vertices belong to $V(G)$,
+and each of its edges belongs to $E(G)$.
+\end{definition}
+
+\begin{definition}
+The subgraphs can be obtained by the following operations:
+\begin{enumerate}
+\item
+$G-e$: removing edge $e$
+\item
+$G-F$: removing the set of edges $F$
+\item
+$G-v$: removing vertex $v$ and all its incident edges
+\item
+$G-S$: removing the vertices in the set $S$ and all edges incident to any vertex in $S$
+\item
+$G\setminus e$: \emph{contracting} edge $e$. (question: identifying endpoints of $e$ and delete the possible parallel edges)
+\end{enumerate}
+
+\end{definition}
+
+
+\begin{definition}[Complement]
+If $G$ is a simple graph, its complement, denoted as $\bar{G}$, has the same vertex set,
+while two vertices are adjacent in $\bar{G}$ if and only if thery are not adjacent in $G$.
+\end{definition}
+
+\begin{definition}[Null $\&$ Complete]
+A \emph{null} graph is the one where the edge set is empty;
+a simple graph where each distinct pair of vertices are adjacent is a \emph{complete} graph;
+a complete graph on $n$ vertices is denoted as $K_n$.
+\end{definition}
+
+\begin{definition}[Walk $\&$ Path $\&$ Cycle]
+\begin{enumerate}
+\item
+A walk consists of a sequence of edges, one following after another
+\item
+A walk in which no vertex appears \emph{more than once} is called a path
+\item
+A walk in which no vertex appears \emph{more than once}, except for begining and end vertices which coincide, is called a \emph{cycle}.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Bipartite]
+If the vertex set of a graph consists of the union of two \emph{disjoint} sets $A$ and $B$ such that each edge of $G$ joints a vertex in $A$ and a vertex in $B$, then $G$ is a \emph{bipartite} graph.
+Moreover, if each vertex in $A$ is joined to each vertex in $B$ by an edge, it is a \emph{complete bipartite graph}, denoted as $K_{|A|,|B|}$.
+\end{definition}
+
+\begin{definition}[Directed Graph]
+The graph $G=(N,A)$ is a \emph{directed graph} (or \emph{digraph}) if $V$ is a finite set of nodes and $A$ is a finite family of \emph{directed edges} (\emph{arcs}).
+Each arc in $A$, denoted as $(v,w)$, is an ordered pair of nodes.
+
+The diagraph $D$ is simple if the arcs are all distinct, and there are no loops.
+\end{definition}
+\begin{definition}[Underlying Graph]
+The underlying graph $G = (N,E)$ of a directed graph $G = (N,A)$ has the same node set; 
+every edge $e = \{v,w\}$ of $E$ corresponds to an arc $(v,w)\in A$.
+
+Question: does underlying graph mean the \emph{undirected} graph?
+\end{definition}
+
+\begin{definition}[Out $\&$ In-degree]
+Recall that the edge $(v,w)$ is \emph{incident} from $v$ and \emph{incident} to $w$.
+The \emph{out-degree} of vertex $v$ is the number of edges \emph{incident from} $v$;
+the \emph{in-degree} of vertex $v$ is the number of edges \emph{incident to} $v$.
+\end{definition}
+\begin{theorem}
+In any digraph, the sum of all the \emph{in-degrees} is equal to the sum of all the \emph{out-degrees}.
+\end{theorem}
+\begin{proof}
+Question
+Each edge $(v,w)$ contribute 1 to the in-degree and 1 to the out-degree.
+\end{proof}
+
+\begin{definition}[Adjacency matrix]
+The \emph{adjacency matrix} for an \emph{undirected graph} $G=(V,E)$ is a $|V|\times|V|$ square matrix where the element $(i,j)$ is the number of edges joining the vertices $i$ and $j$.
+\end{definition}
+\begin{definition}[Incidence matrix]
+The \emph{incidence matrix} for an \emph{undirected graph} $G=(V,E)$ is a $|V|\times|E|$ matrix,
+where the element $(i,j)$ is $1$ if the vertex $i$ is incident to edge $j$.
+\end{definition}
+
+\begin{definition}[Node-Arc Incidence matrix]
+The \emph{node-arc incidence matrix} for a directed graph $G=(V,E)$ is a $|V|\times|E|$ matrix where the element $(i,j)$ is $1$ if edge $j$ is incident from vertex $i$,
+and is $-1$ if edge $j$ is incident to $i$.
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

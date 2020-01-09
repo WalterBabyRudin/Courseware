@@ -1,0 +1,173 @@
+\subsection{Solution to Assignment Two}
+\begin{enumerate}
+\item
+\begin{proof}[Proof.]
+\begin{proof}[Sufficiency.]\qquad \\
+If $\bm M$ is invertible, then there exists matrix $\bm N$ such that $\bm M\bm N = \bm N\bm M = \bm I$.
+\[\implies
+(\bm{ABC})\bm N = \bm I,\bm N(\bm{ABC})=\bm I.
+\implies
+\bm A(\bm{BCN}) = \bm I,(\bm{NAB})\bm C = \bm I.
+\]
+$\implies \bm{BCN}$ is the right inverse of $\bm A$, $\bm{NAB}$ is the left inverse of $\bm C$. 
+\\Hence $\bm A$ and $\bm C$ is invertible.\\
+Moreover, $(\bm{ABC})\bm N = \bm I \implies (\bm{AB})\bm{CN} = \bm I$. Hence $\bm{CN}$ is the right inverse of $\bm{AB}$. 
+\\Hence $\bm{AB}$ is invertible. Hence there exists $(\bm{AB})^{-1}$ such that $((\bm{AB})^{-1})(\bm{AB}) = \bm I$.\\$\implies ((\bm{AB})^{-1}\bm A)\bm B = \bm I$. Hence $(\bm{AB})^{-1}\bm A$ is the left inverse of $\bm B$. \\Hence $\bm B$ is invertible.
+\begin{proof}[Necessity.]\qquad \\
+If $\bm A,\bm B,\bm C$ is invertible, then there exist $\bm A^{-1},\bm B^{-1},\bm C^{-1}$ such that \[\bm A\bm A^{-1} = \bm I,\bm B\bm B^{-1} = \bm I,\bm C\bm C^{-1} = \bm I.\]
+\[
+\begin{split}
+\implies \bm{ABC}(\bm C^{-1}\bm B^{-1}\bm A^{-1}) &=\bm{AB}(\bm C\bm C^{-1})(\bm B^{-1}\bm A^{-1}) = \bm{AB}\bm I(\bm B^{-1}\bm A^{-1}) 
+\\&= \bm{AB}(\bm B^{-1}\bm A^{-1}) = \bm A(\bm B\bm B^{-1})\bm A^{-1} = \bm A\bm I\bm A^{-1} \\
+&= \bm A\bm A^{-1} = \bm I.
+\end{split}
+\]
+Hence $\bm C^{-1}\bm B^{-1}\bm A^{-1}$ is the right inverse of $\bm{ABC}$. Hence $\bm{ABC}$ is invertible.
+\end{proof}
+\end{proof}
+\end{proof}
+\item
+\begin{proof}[Solution.]
+The inverse are respectively given by 
+\[
+\begin{array}{lll}
+\begin{bmatrix}
+\bm I&\bm 0\\-\bm C&\bm I
+\end{bmatrix},
+&
+\begin{bmatrix}
+\bm A^{-1}&\bm 0\\ -\bm D^{-1}\bm C\bm A^{-1}&\bm D^{-1}
+\end{bmatrix},
+&
+\begin{bmatrix}
+-\bm D&\bm I\\\bm I&\bm 0
+\end{bmatrix}.
+\end{array}
+\]
+\begin{itemize}
+\item
+\[
+\begin{bmatrix}
+\bm I&\bm 0\\\bm C&\bm I
+\end{bmatrix}
+\begin{bmatrix}
+\bm I&\bm 0\\-\bm C&\bm I
+\end{bmatrix} = \begin{bmatrix}
+\bm I\bm I+\bm 0(-\bm C)&\bm I\bm 0+\bm 0\bm I\\
+\bm C\bm I+\bm I(-\bm C)&\bm C\bm 0+\bm I\bm I
+\end{bmatrix}= \begin{bmatrix}
+\bm I&\bm 0\\\bm 0&\bm I
+\end{bmatrix}
+\]
+Hence $\begin{bmatrix}
+\bm I&\bm 0\\-\bm C&\bm I
+\end{bmatrix}$ is the right inverse of $\begin{bmatrix}
+\bm I&\bm 0\\\bm C&\bm I
+\end{bmatrix}$, hence $\begin{bmatrix}
+\bm I&\bm 0\\-\bm C&\bm I
+\end{bmatrix}$ is the inverse of $\begin{bmatrix}
+\bm I&\bm 0\\\bm C&\bm I
+\end{bmatrix}$.
+
+
+\item
+\[
+\begin{bmatrix}
+\bm A&\bm 0\\\bm C&\bm D
+\end{bmatrix}\begin{bmatrix}
+\bm A^{-1}&\bm 0\\ -\bm D^{-1}\bm C\bm A^{-1}&\bm D^{-1}
+\end{bmatrix}
+ = \begin{bmatrix}
+\bm A\bm A^{-1}+\bm 0(-\bm D^{-1}\bm C\bm A^{-1})&\bm A\bm 0+\bm 0\bm D^{-1}\\
+\bm C\bm A^{-1}+\bm D(-\bm D^{-1}\bm C\bm A^{-1})&\bm C\bm 0+\bm D\bm D^{-1}
+\end{bmatrix}
+=\begin{bmatrix}
+\bm I&\bm 0\\\bm 0&\bm I
+\end{bmatrix}
+\]
+Hence $\begin{bmatrix}
+\bm A^{-1}&\bm 0\\ -\bm D^{-1}\bm C\bm A^{-1}&\bm D^{-1}
+\end{bmatrix}$ is the right inverse of $\begin{bmatrix}
+\bm A&\bm 0\\\bm C&\bm D
+\end{bmatrix}$, hence  $\begin{bmatrix}
+\bm A^{-1}&\bm 0\\ -\bm D^{-1}\bm C\bm A^{-1}&\bm D^{-1}
+\end{bmatrix}$ is the inverse of $\begin{bmatrix}
+\bm A&\bm 0\\\bm C&\bm D
+\end{bmatrix}$.
+\item
+\[
+\begin{bmatrix}
+\bm 0&\bm I\\\bm I&\bm D
+\end{bmatrix}\begin{bmatrix}
+-\bm D&\bm I\\\bm I&\bm 0
+\end{bmatrix} = 
+\begin{bmatrix}
+\bm 0(-\bm D)+\bm I\bm I & \bm 0\bm I+\bm I\bm 0\\
+\bm I(-\bm D)+\bm D\bm I & \bm I\bm I+\bm D\bm 0
+\end{bmatrix} = \begin{bmatrix}
+\bm I&\bm 0\\\bm 0&\bm I
+\end{bmatrix}
+\]
+Hence $\begin{bmatrix}
+-\bm D&\bm I\\\bm I&\bm 0
+\end{bmatrix}$ is the right inverse of $\begin{bmatrix}
+\bm 0&\bm I\\\bm I&\bm D
+\end{bmatrix}$, hence $\begin{bmatrix}
+-\bm D&\bm I\\\bm I&\bm 0
+\end{bmatrix}$ is the inverse of $\begin{bmatrix}
+\bm 0&\bm I\\\bm I&\bm D
+\end{bmatrix}$.
+\end{itemize}
+\end{proof}
+
+\item
+\begin{proof}[Solution.]
+Firstly, we do Elimination for this matrix:
+\[
+\begin{bmatrix}
+2&c&c\\c&c&c\\8&7&c
+\end{bmatrix}
+\xLongrightarrow[\bm E_{21} = \begin{bmatrix}
+1&0&0\\0&1&0\\-\frac{c}{2}&0&1
+\end{bmatrix}]{\bm E_{31} = \begin{bmatrix}
+1&0&0\\-4&1&0\\0&0&1
+\end{bmatrix}}
+\begin{bmatrix}
+2&c&c\\0&c-\frac{c^2}{2}&c-\frac{c^2}{2}\\0&7-4c&-3c
+\end{bmatrix}
+\]
+Notice that $c-\frac{c^2}{2}\ne 0$, otherwise the second row has no nonzero entries, the Gaussian Elimination cannot continue.
+\[
+\xLongrightarrow{\bm E_{32} = \begin{bmatrix}
+1&0&0\\0&1&0\\0&\frac{4c-7}{c-c^2/2}&1\end{bmatrix}}
+\begin{bmatrix}
+2&c&c\\0&c-\frac{c^2}{2}&c-\frac{c^2}{2}\\0&0&c-7
+\end{bmatrix}
+\]
+In order to continue the Gaussian Elimination, we have to let three pivots not equal to zero, hence we have $c-\frac{c^2}{2}\ne0, c-7\ne 0.$\\
+Hence $c\ne 0, c\ne 2, c\ne 7.$
+\end{proof}
+\item
+\begin{proof}[Solution.]\qquad 
+\begin{enumerate}
+\item
+True, because if the whole row has no nonzero entries, the pivot in this row doesn't exist, the Gaussian Elimination cannot continue, hence there doesn't exist the inverse.
+\item
+False, for example, for matrix $\bm A = \begin{bmatrix}
+1&1\\1&1
+\end{bmatrix}$, if we do elimination, we obtain \[\begin{bmatrix}
+1&1\\1&1
+\end{bmatrix}\implies \begin{bmatrix}
+1&1\\0&0
+\end{bmatrix}\]so we cannot continue Gaussian Elimination as the second row has no pivot, hence $\bm A$ is not invertible.
+\item
+True, if $\bm A$ is invertible, we have $\bm A\bm A^{-1} = \bm I$. Hence $\bm A$ is the left inverse of $\bm A^{-1}$. Hence $\bm A$ is the inverse of $\bm A^{-1}$.
+\item
+True, if $\bm A\trans$ is invertible, there exists $\bm B$ such that $\bm B\bm A\trans = \bm I$.
+\[
+\implies (\bm B\bm A\trans)\trans = (\bm A\trans)\trans(\bm B)\trans = \bm A\bm B\trans = \bm I
+\]
+Hence $\bm B\trans$ is the right inverse of $\bm A$. Hence $\bm B$ is the inverse of $\bm A$.
+\end{enumerate}
+\end{proof}
+\end{enumerate}
