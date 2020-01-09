@@ -1,0 +1,860 @@
+% !TEX encoding = UTF-8 Unicode
+
+\section{Friday}\index{Friday_lecture}
+
+\subsection{Matrix Multiplication}
+\subsubsection{How to compute matrix multiplication quickly?}
+Given $m\times n$ matrix $\bm A$ and $n\times k$ matrix $\bm B$, then the result of $\bm{AB}$ should be a $m\times k$ matrix.
+
+Let’s show a specific example:
+\begin{example}
+Given $4\times 3$ matrix $\bm A$ and $3\times 2$ matrix $\bm B$, then the result of $\bm{AB}$ should be a $4\times 2$ matrix:
+\[
+\bm{AB}=\begin{bmatrix}
+1&2&3\\4&5&6\\7&8&9\\10&11&12
+\end{bmatrix}\begin{bmatrix}
+1&1\\1&0\\1&0
+\end{bmatrix}=\begin{bmatrix}
+\x&\x\\\x&\x\\\x&\x\\\x&\x
+\end{bmatrix}_{4\x 2}.
+\]
+\begin{itemize}
+\item
+The $(i,j)$th entry of the result should be the \emph{inner product} between the $i$th row of $\bm A$ and the $j$th
+column of $\bm B$. 
+
+SInce the result has $4\x 2$ entries, we have to process such progress $4\x 2$ times to obtain the final result.
+\item
+But we can try a more effecient method. We can calculate the \textit{entire row} of the result more
+easily. 
+\begin{itemize}
+\item
+For example, note that 
+\[
+\left[\begin{array}{@{}ccc@{}}
+\cellcolor{blue!20}1&\cellcolor{green!20}2&\cellcolor{red!20}3\\4&5&6\\7&8&9\\10&11&12
+\end{array}\right]\left[\begin{array}{@{}cc@{}}
+\rowcolor{blue!20}1&1\\
+\rowcolor{green!20}1&0\\
+\rowcolor{red!20}1&0
+\end{array}\right]=
+\left[\begin{array}{@{}cc@{}}
+\rowcolor{black!20}6&1\\\x&\x\\\x&\x\\\x&\x
+\end{array}\right].
+\]
+\emph{The first row of the result is the linear combination of the row of
+matrix $\bm B$, and the coefficients are entries of the first row of matrix $\bm A$:}
+\[
+\left[
+\begin{array}{c@{}}
+\cellcolor{blue!20}1
+\end{array}
+\right]\times
+\left[\begin{array}{cc@{}}
+\rowcolor{blue!20}1&1
+\end{array}\right]
++
+\left[
+\begin{array}{c@{}}
+\cellcolor{green!20}2
+\end{array}
+\right]\times
+\left[\begin{array}{cc@{}}
+\rowcolor{green!20}1&1
+\end{array}\right]
++
+\left[
+\begin{array}{c@{}}
+\cellcolor{red!20}3
+\end{array}
+\right]\times
+\left[\begin{array}{cc@{}}
+\rowcolor{red!20}1&1
+\end{array}\right]=
+\left[
+\begin{array}{cc@{}}
+\rowcolor{black!20}6&1
+\end{array}
+\right].
+\]
+\item
+On the other hand, we can also calculate the \textit{entire column} of the result quickly:
+\[
+\left[\begin{array}{>{\columncolor{blue!20}}c>{\columncolor{green!20}}c>{\columncolor{red!20}}c@{}}
+1&2&3\\4&5&6\\7&8&9\\10&11&12
+\end{array}\right]\left[\begin{array}{cc@{}}
+\cellcolor{blue!20}1&1\\
+\cellcolor{green!20}1&0\\
+\cellcolor{red!20}1&0
+\end{array}\right]=
+\left[\begin{array}{>{\columncolor{black!20}}cc@{}}
+6&\x\\15&\x\\24&\x\\33&\x
+\end{array}\right].
+\]
+\emph{The first column of the result is the linear combination of the column of matrix $\bm A$, and
+the coefficients are entries of the first column of matrix $\bm B$:}
+\[
+\left[\begin{array}{>{\columncolor{blue!20}}c@{}}
+1\\4\\7\\10
+\end{array}\right]\left[\begin{array}{c@{}}
+\cellcolor{blue!20}1
+\end{array}\right]
++
+\left[\begin{array}{>{\columncolor{green!20}}c@{}}
+2\\5\\8\\11
+\end{array}\right]\left[\begin{array}{c@{}}
+\cellcolor{green!20}1
+\end{array}\right]
++
+\left[\begin{array}{>{\columncolor{red!20}}c@{}}
+3\\6\\9\\12
+\end{array}\right]\left[\begin{array}{c@{}}
+\cellcolor{red!20}1
+\end{array}\right]
+=
+\left[\begin{array}{>{\columncolor{red!20}}c@{}}
+6\\15\\24\\33
+\end{array}\right].
+\]
+\end{itemize}
+\end{itemize}
+You can do the remaining calculation by yourself, and the final result is given by:
+\[
+\bm{AB}=\begin{bmatrix}
+1&2&3\\4&5&6\\7&8&9\\10&11&12
+\end{bmatrix}_{4\x 3}\x\begin{bmatrix}
+1&1\\1&0\\1&0
+\end{bmatrix}_{3\x 2}=\begin{bmatrix}
+6&1\\15&4\\24&7\\33&10
+\end{bmatrix}_{4\x 2}.
+\]
+\end{example}
+\subsection{Elementary Matrix}
+So let’s review the concept for elementary matrix by an example:
+\begin{remark}
+In this course you can think there is \emph{only one} type of elementary matrix. This may contradict what
+you see in the textbook.
+\end{remark}
+\begin{definition}[Elementary Matrix]
+An elementary matrix $\bm E_{ij}$ is a matrix that its \textit{diagonal entries} are all $1$ and the $(i,j)$th column is a \textit{scalar}, and the remaining entries are all \textit{zero}.
+\end{definition}
+
+For example, the matrix $\bm A=\begin{pmatrix}
+1&0&0\\0&1&0\\4&0&1
+\end{pmatrix}$ is elementary matrix.
+
+\begin{example}
+Given vector $\bm b=\begin{bmatrix}
+b_1&b_2&b_3
+\end{bmatrix}\trans$ and elementary matrix $\bm E_{31}=\begin{bmatrix}
+1&0&0\\0&1&0\\-l_{31}&0&1
+\end{bmatrix}$, the effct of \textit{postmultiplying} $\bm E_{31}$ for $\bm b$ has the same effect of doing row operation:
+\[
+\bm E_{31}\bm b=\begin{bmatrix}
+b_1\\b_2\\b_3-l_{31}b_1
+\end{bmatrix}
+\]
+
+Let’s do more practice. Given matrix $\bm E_{21}=\begin{bmatrix}
+1&0&0\\-l_{21}&1&0\\0&0&1
+\end{bmatrix}$, we can calculate the result of $\bm E_{21}\x(\bm E_{31}\bm b)$ and $\bm E_{21}\bm E_{31}$:
+\begin{gather*}
+\bm E_{21}\x(\bm E_{31}\bm b)=\begin{bmatrix}
+1&0&0\\-l_{21}&1&0\\0&0&1
+\end{bmatrix}\times\begin{bmatrix}
+b_1\\b_2\\b_3-l_{31}b_1
+\end{bmatrix}=\begin{bmatrix}
+b_1\\b_2-l_{21}b_1\\b_3-l_{31}b_1
+\end{bmatrix}\\
+\bm E_{21}\bm E_{31}=\begin{bmatrix}
+1&0&0\\-l_{21}&1&0\\0&0&1
+\end{bmatrix}\begin{bmatrix}
+1&0&0\\0&1&0\\-l_{31}&0&1
+\end{bmatrix}
+=\begin{bmatrix}
+1&0&0\\-l_{21}&1&0\\-l_{31}&0&1
+\end{bmatrix}
+\end{gather*}
+Additionally, we can use matrix multiplication to derive the result of $(\bm E_{21}\bm E_{31})\times\bm b$:
+\[
+(\bm E_{21}\bm E_{31})\times\bm b=\begin{bmatrix}
+1&0&0\\-l_{21}&1&0\\-l_{31}&0&1
+\end{bmatrix}\begin{bmatrix}
+b_1\\b_2\\b_3
+\end{bmatrix}=\begin{bmatrix}
+b_1\\b_2-l_{21}b_1\\b_3-l_{31}b_1
+\end{bmatrix}
+\]
+
+Amazingly, we find that the result of $\bm E_{21}\x(\bm E_{31}\bm b)$ is actually the same as $(\bm E_{21}\bm E_{31})\times\bm b$, which is one of the properties of matrix.
+\end{example}
+\subsection{Properties of Matrix}
+Operations on matrix has the following properties:
+\begin{enumerate}
+\item
+$\bm A(\bm B+\bm C)=\bm{AB}+\bm{AC}.$
+\item
+$\bm{AB}\ne\bm{BA}$, i.e., $\bm{AB}$ doesn’t \textit{necessarily} equal to $\bm{BA}$.
+\begin{remark}
+In some special cases, $\bm{AB}$ may equal to $\bm{BA}$. For example, for elementary matrix, we have $\bm E_{21}\bm E_{31}=\bm E_{31}\bm E_{21}$, this means the order of row operation can be changed sometimes.
+
+However, for most cases the equality is not satisfied. given row vector $\bm a=\begin{bmatrix}
+a_1&a_2&a_3
+\end{bmatrix}$ and column vector $\bm b=\begin{pmatrix}
+b_1\\b_2\\b_3
+\end{pmatrix}$, the result of $\bm{ab}$ and $\bm{ba}$ is given by:
+\begin{gather*}
+\bm{ab}=\begin{pmatrix}
+a_1&a_2&a_3
+\end{pmatrix}\begin{pmatrix}
+b_1\\b_2\\b_3
+\end{pmatrix}=a_1b_1+a_2b_2+a_3b_3\\
+\bm{ba}=\begin{pmatrix}
+b_1\\b_2\\b_3
+\end{pmatrix}\begin{pmatrix}
+a_1&a_2&a_3
+\end{pmatrix}=\begin{pmatrix}
+b_1a_1&b_1a_2&b_1a_3\\
+b_2a_1&b_2a_2&b_2a_3\\
+b_3a_1&b_3a_2&b_3a_3
+\end{pmatrix}.
+\end{gather*}
+\end{remark}
+\item
+\emph{Block Multiplication}. We use an example to show the process of block multiplicaion:
+\begin{example}
+Given two matrices $\bm A$ and $\bm B$, we want to compute $\bm C:=\bm A\x\bm B$, which can be done by \emph{block multiplication}. We can partition $\bm A$ and $\bm B$ with appropriate sizes. For example, 
+\[\begin{array}{ll}
+\bm A=\left[
+\begin{array}{@{}cc|c@{}}
+4&0&4\\
+6&6&8\\
+\hline
+-9&5&-8
+\end{array}
+\right]
+=\begin{bmatrix}
+\bm A_1&\bm A_2\\\bm A_3&\bm A_4
+\end{bmatrix},
+&
+\bm B=\left[
+\begin{array}{@{}cc|c@{}}
+8&-3&-7\\
+3&-7&-4\\
+\hline
+4&-4&1
+\end{array}
+\right]=\begin{bmatrix}
+\bm B_1&\bm B_2\\\bm B_3&\bm B_4
+\end{bmatrix}.
+\end{array}
+\]
+Then $\bm A$ and $\bm B$ could be considered as $2\times 2$ \emph{block matrices}. As a result, $\bm C$ have $2\times 2$ blocks:
+\[
+\bm{AB}=\begin{bmatrix}
+\bm A_1&\bm A_2\\\bm A_3&\bm A_4
+\end{bmatrix}\begin{bmatrix}
+\bm B_1&\bm B_2\\\bm B_3&\bm B_4
+\end{bmatrix}=\begin{bmatrix}
+\bm{A_1B_1}+\bm{A_2B_3}&\bm{A_1B_2}+\bm{A_2B_4}\\\bm{A_3B_1}+\bm{A_4B_3}&\bm{A_3B_2}+\bm{A_4B_4}
+\end{bmatrix}
+=\begin{bmatrix}
+\bm C_1&\bm C_2\\\bm C_3&\bm C_4
+\end{bmatrix}
+\]
+As a result, there is an effective way to calculate $\bm C_1$, that is the block multiplication method
+shown below:
+\[
+\bm C_1=\bm{A_1B_1}+\bm{A_2B_3}
+=\begin{bmatrix}
+4&0\\6&6
+\end{bmatrix}\begin{bmatrix}
+8&-3\\3&-7
+\end{bmatrix}+\begin{bmatrix}
+4\\-8
+\end{bmatrix}\begin{bmatrix}
+4&-4
+\end{bmatrix}=\begin{bmatrix}
+48&-28\\34&-28
+\end{bmatrix}.
+\]
+You can do the remaining calculation to get result of $\bm{AB}$:
+\[
+\bm{AB}=\bm C=\left[\begin{array}{@{}cc|c@{}}
+48&-28&-24\\34&-28&-74\\\hline-89&24&35
+\end{array}\right].
+\]
+\end{example}
+There are also two useful ways to compute $\bm{AB}$:
+\begin{itemize}
+\item
+If $\bm B$ has $k$ columns, we can partition $\bm B$ into $k$ blocks to compute $\bm{AB}$:
+\[
+\bm{AB}=\bm A\x
+\left[
+\begin{array}{@{}c|c|c|c@{}}
+B_1&B_2&\dots&B_k
+\end{array}\right]
+=\left[
+\begin{array}{@{}c|c|c|c@{}}
+\bm AB_1&\bm AB_2&\dots&\bm AB_k
+\end{array}\right].
+\]
+\item
+If $\bm A$ has $m$ rows, we can partition $\bm A$ into $m$ blocks to compute $\bm{AB}$:
+\[
+\bm{AB}=\left[\begin{array}{@{}c@{}}
+\bm A_1\\
+\hline
+\bm A_2\\
+\hline
+\dots\\
+\hline
+\bm A_{m}
+\end{array}\right]\x\bm B
+=\left[\begin{array}{@{}c@{}}
+\bm A_1\bm B\\
+\hline
+\bm A_2\bm B\\
+\hline
+\dots\\
+\hline
+\bm A_{m}\bm B
+\end{array}\right]
+\]
+\end{itemize}
+\end{enumerate}
+\subsection{Permutation Matrix}
+Note that there also exists one kind of matrix $\bm P$ such that postmultiplying $\bm P$ for arbitararily matrix $\bm A$ has the same effect of interchanging two rows of $\bm A$.
+
+For example, if $\bm P=\begin{bmatrix}
+0&1\\1&0
+\end{bmatrix}$ and $\bm A=\begin{bmatrix}
+1&2\\3&4
+\end{bmatrix}$, then by postmultiplying $\bm P$ for $\bm A$ we obtain:
+\[
+\bm{PA}=\begin{bmatrix}
+0&1\\1&0
+\end{bmatrix}\begin{bmatrix}
+1&2\\3&4
+\end{bmatrix}=\begin{bmatrix}
+3&4\\1&2
+\end{bmatrix}.
+\]
+
+This progress has the same effect of interchanging the first row and the second row of $\bm A$.
+
+This kind of matrix is called \emph{permutaion matrix}:
+\begin{definition}[Permutation Matrix]
+$\bm P$ is a \emph{permutation matrix} if postmultiplying $\bm P$ for matrix $\bm A$ has the same effect of interchanging rows of matrix $\bm A$.
+\end{definition}
+\begin{definition}[Row Exchange Matrix]
+$\bm P$ is a \emph{row exchange matrix} if postmultiplying $\bm P$ for matrix $\bm A$ has the same effect of interchanging only two rows of matrix $\bm A$.
+
+We use the notation $\bm P_{ij}$ to denote a matrix that has the effect of exchanging row $i$ and row $j$ of $\bm A$.
+\end{definition}
+
+The way to obtain $\bm P_{ij}$ is simple. After an identity matrix’s $i$th and $j$th row being exchanged, we could obtain the row exchange matrix $\bm P_{ij}$.
+
+Let’s raise some examples to show what is row exchange matrix:
+\begin{example}
+$\bm P_{23}$ has the effect of exchanging $2$th row and $3$th row of arbitarary matrix. It is converted from an identity matrix:
+\begin{gather*}
+\bm I=\begin{bmatrix}
+1&0&0\\0&1&0\\0&0&1
+\end{bmatrix}
+\xLongrightarrow{\text{Interchange row $2$ and $3$}}
+\begin{bmatrix}
+1&0&0\\0&0&1\\0&1&0
+\end{bmatrix}=\bm P_{23}.\\
+\bm I=\begin{bmatrix}
+1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&1
+\end{bmatrix}
+\xLongrightarrow{\text{Interchange row $2$ and $3$}}
+\begin{bmatrix}
+1&0&0&0\\0&0&1&0\\0&1&0&0\\0&0&0&1
+\end{bmatrix}=\bm P_{23}.
+\end{gather*}
+Postmultiplying by $\bm P_{23}$ exchanges row $2$ and row $3$ of any matrix:
+\[
+\begin{bmatrix}
+1&0&0\\0&0&1\\0&1&0
+\end{bmatrix}
+\left[
+\begin{array}{cc@{}}
+6&7\\
+\rowcolor{blue!20}
+15&4\\
+\rowcolor{green!20}
+24&3
+\end{array}
+\right]=
+\left[
+\begin{array}{cc@{}}
+6&7\\
+\rowcolor{green!20}
+24&3\\
+\rowcolor{blue!20}
+15&4
+\end{array}
+\right]
+\qquad\text{and}\qquad
+\begin{bmatrix}
+1&0&0&0\\0&0&1&0\\0&1&0&0\\0&0&0&1
+\end{bmatrix}
+\left[
+\begin{array}{c@{}}
+6\\
+\rowcolor{green!20}
+24\\
+\rowcolor{blue!20}
+15\\
+4
+\end{array}\right]
+=\left[
+\begin{array}{c@{}}
+6\\
+\rowcolor{blue!20}
+15\\
+\rowcolor{green!20}
+24\\
+4
+\end{array}\right]
+\]
+\end{example}
+\begin{remark}
+You may be confused about the concept between \textit{permutation matrix} and \textit{row exchange matrix.} The row exchange matrix is a special case of permutation matrix, but permutation matrix could exchange several rows. For example, row 1,2,3,4 could be changed into row 4,3,2,1.
+\end{remark}
+Before talking about the properties of permutation matrix, let’s introduce the definition for
+nonsingular and inverse matrix:
+\begin{definition}[Nonsigular matrix]
+Let $\bm A$ be an $n\x n$ matrix, the following statements are equivalent:
+\begin{enumerate}
+\item
+$\bm A$ is \emph{nonsingular} or \emph{invertible}.
+\item
+There exists a matrix $\bm B$ such that $\bm{AB}=\bm{BA}=\bm I$. And the matrix $\bm B$ is said to be the \emph{inverse} of $\bm A$, and we can write $\bm B=\bm A^{-1}.$
+\item
+After multiplying finite numbers of \emph{elementary matrix}, $\bm A$ can be converted to identity matrix $\bm I.$
+\item
+The system of equations $\bm{Ax}=\bm b$ has a unique solution.
+\end{enumerate}
+If matrix $\bm A$ is \emph{not} nonsingular, this matrix is called \emph{singular}.
+\end{definition}
+We are interested in the inverse of permutation matrix.
+\begin{proposition}
+\begin{enumerate}
+\item
+For a permutation matrix $\bm P$, it can always be decomposed into finite multiplications of row
+exchange matrices $\bm P_{ij}$:
+\[
+\bm P=\bm P_{i_1j_1}\bm P_{i_2j_2}\ldots\bm P_{i_nj_n}
+\]
+\item
+The inverse of a row exchange matrix is actually equal to itself:
+\[
+\bm P_{ij}\bm P_{ij}=\bm I
+\Longleftrightarrow
+\bm P_{ij}^{-1}=\bm P_{ij}
+\]
+\item
+For a permutation matrix written as $\bm P=\bm P_{i_1j_1}\bm P_{i_2j_2}\ldots\bm P_{i_nj_n},$ its inverse matrix is given by:
+\[
+\bm P^{-1}=\bm P_{i_nj_n}^{-1}\bm P_{i_{n-1}j_{n-1}}^{-1}\ldots\bm P_{i_1j_1}^{-1}
+=\bm P_{i_nj_n}\bm P_{i_{n-1}j_{n-1}}\ldots\bm P_{i_1j_1}
+\]
+\item
+For a $n\x n$ permutation matrix $\bm P$ and a $n\x n$ matrix $\bm A$ given by:
+\[
+\bm P=\left[\begin{array}{@{}c|ccc@{}}
+1&0&0&0\\
+\hline
+0&&&\\
+\vdots&&\bm P_{(n-1)\x(n-1)}&\\
+0&&&
+\end{array}\right]\qquad
+\bm A=\left[\begin{array}{@{}c|ccc@{}}
+a_{11}&a_{12}&\dots&a_{1n}\\
+\hline
+0&&&\\
+\vdots&&\bm A_{(n-1)\x(n-1)}&\\
+0&&&
+\end{array}\right]
+\]
+the multiplication result $\bm{PA}$ has the form:
+\[
+\bm P\bm A=\left[\begin{array}{@{}c|ccc@{}}
+a_{11}&a_{12}&\dots&a_{1n}\\
+\hline
+0&&&\\
+\vdots&&\bm P_{(n-1)\x(n-1)}\bm A_{(n-1)\x(n-1)}&\\
+0&&&
+\end{array}\right]
+\]
+\end{enumerate}
+\end{proposition}
+\begin{proof}[Proofoutline.]
+\begin{itemize}
+\item
+For proposition $2$, it is because that if we exchange two rows of any matrix $\bm A$, and then we
+exchange the same rows again, the effect is cancelled out!
+\item
+For proposition 3, it is because that we just need to do  the reverse order of our process in order to
+obtain the inverse matrix.
+\end{itemize}
+\end{proof}
+\subsection{LU decomposition}
+After learning matrix multiplication, we should be familiar some basic results of matrix multiplication:
+\begin{enumerate}
+\item
+\emph{Product of upper triangular matries is also an upper triangular matrix.}
+\[
+\left[
+    \begin{array}{@{}ccccc@{}}
+    \x    & \x       & \x    & \x    & \x \\ \cline{1-1}
+    \bord & \x       & \x    & \x    & \x \\ \cline{2-2}
+          & \bord    & \x    & \x    & \x \\ \cline{3-3}
+          & \bigzero & \bord & \x    & \x \\ \cline{4-4}
+          &          &       & \bord & \x \\ \cline{5-5}
+  \end{array}\right]
+  \left[
+    \begin{array}{@{}ccccc@{}}
+    \x    & \x       & \x    & \x    & \x \\ \cline{1-1}
+    \bord & \x       & \x    & \x    & \x \\ \cline{2-2}
+          & \bord    & \x    & \x    & \x \\ \cline{3-3}
+          & \bigzero & \bord & \x    & \x \\ \cline{4-4}
+          &          &       & \bord & \x \\ \cline{5-5}
+  \end{array}\right]
+  =
+  \left[
+    \begin{array}{@{}ccccc@{}}
+    \x    & \x       & \x    & \x    & \x \\ \cline{1-1}
+    \bord & \x       & \x    & \x    & \x \\ \cline{2-2}
+          & \bord    & \x    & \x    & \x \\ \cline{3-3}
+          & \bigzero & \bord & \x    & \x \\ \cline{4-4}
+          &          &       & \bord & \x \\ \cline{5-5}
+  \end{array}\right].
+\]
+\item
+\emph{Product of diagonal matrices is also a diagonal matrix.}
+\[
+\left[
+    \begin{array}{@{}ccccc@{}}
+    d_1    &        &     &     &  \\ \cline{1-1}
+    \bord & d_2       &     & \bigzero    &  \\ \cline{2-2}
+          & \bord    & \ddots    &     &  \\ \cline{3-3}
+          & \bigzero & \bord & \ddots    &  \\ \cline{4-4}
+          &          &       & \bord & d_n \\ \cline{5-5}
+  \end{array}\right]
+  \left[
+    \begin{array}{@{}ccccc@{}}
+    e_1    &        &     &     &  \\ \cline{1-1}
+    \bord & e_2       &     & \bigzero    &  \\ \cline{2-2}
+          & \bord    & \ddots    &     &  \\ \cline{3-3}
+          & \bigzero & \bord & \ddots    &  \\ \cline{4-4}
+          &          &       & \bord & e_n \\ \cline{5-5}
+  \end{array}\right]
+  =
+  \left[
+    \begin{array}{@{}ccccc@{}}
+    d_1e_1    &        &     &     &  \\ \cline{1-1}
+    \bord & d_2e_2       &     & \bigzero    &  \\ \cline{2-2}
+          & \bord    & \ddots    &     &  \\ \cline{3-3}
+          & \bigzero & \bord & \ddots    &  \\ \cline{4-4}
+          &          &       & \bord & d_ne_n \\ \cline{5-5}
+  \end{array}\right].
+\]
+\end{enumerate}
+Just like permutation matrix, there are also some intersting properties of elementary matrix:
+\begin{proposition}
+\item
+The inverse of an elementary matrix is also an elementary matrix.
+\end{proposition}
+\begin{example}
+$\bm E_{21}=\begin{bmatrix}
+1&0&0\\-2&1&0\\0&0&1
+\end{bmatrix}$ is an elementary matrix, the result of postmultiplying $\bm E_{21}$ for identity matrix is given by:
+\[
+\bm E_{21}\bm I=\begin{bmatrix}
+1&0&0\\-2&1&0\\0&0&1
+\end{bmatrix}
+\]
+which has the same effect of adding $(-2)\x$ row $1$ to row $2$ of $\bm I$. How to get the identity matrix again? We just need to add $2\x$ row $1$ to row $2$ of $\bm I$, which could be viewed as postmultiply another elementary matrix for $\bm I$:
+\[
+\overline{\bm E_{21}}(\bm E_{21}\bm I)=\overline{\bm E_{21}}\bm E_{21}=\overline{\bm E_{21}}\begin{bmatrix}
+1&0&0\\-2&1&0\\0&0&1
+\end{bmatrix}
+=\begin{bmatrix}
+1&0&0\\2&1&0\\0&0&1
+\end{bmatrix}\begin{bmatrix}
+1&0&0\\-2&1&0\\0&0&1
+\end{bmatrix}
+=\begin{bmatrix}
+1&0&0\\0&1&0\\0&0&1
+\end{bmatrix}=\bm I.
+\]
+Hence, $\overline{\bm E_{21}}$ is the inverse matrix of $\bm E_{21}$, which is also an elementary matrix.
+\end{example}
+
+The elementary matrix $\bm E_{ij} (i<j)$ is a lower triangular matrix; and $\bm E_{ij} (i>j)$ is an upper triangular matrix. Let’s look at an example:
+\begin{example}
+Let’s try Gaussian Elimination for a matrix that is nonsingular. Here we use elementary matrix to describle row operation above the arrow (without row exchange):
+\[
+\bm A=\begin{bmatrix}
+2&1&1\\4&-6&0\\-2&7&2
+\end{bmatrix}\xLongrightarrow{\bm E_{21}}
+\begin{bmatrix}
+2&1&1\\0&-8&-2\\-2&7&2
+\end{bmatrix}\xLongrightarrow{\bm E_{31}}
+\begin{bmatrix}
+2&1&1\\0&-8&-2\\0&8&3
+\end{bmatrix}\xLongrightarrow{\bm E_{32}}
+\begin{bmatrix}
+2&1&1\\0&-8&-2\\0&0&1
+\end{bmatrix}=\bm U
+\]
+In this process we have 
+\[
+\begin{array}{lll}
+\bm E_{21}=\begin{bmatrix}
+1&0&0\\-2&1&0\\0&0&1
+\end{bmatrix},
+&
+\bm E_{31}=\begin{bmatrix}
+1&0&0\\0&1&0\\1&0&1
+\end{bmatrix},
+&
+\bm E_{32}=\begin{bmatrix}
+1&0&0\\0&1&0\\0&1&1
+\end{bmatrix}.
+\end{array}
+\]
+Finally we convert $\bm A$ into an upper triangular matrix $\bm U$. Let’s do the reverse of this process to find some interesting results:
+\begin{gather*}
+\bm E_{32}\bm E_{31}\bm E_{21}\bm A=\bm U\\
+\implies
+\bm E_{32}^{-1}\bm E_{32}\bm E_{31}\bm E_{21}\bm A=\bm E_{32}^{-1}\bm U
+\implies
+\bm E_{31}\bm E_{21}\bm A=\bm E_{32}^{-1}\bm U\\
+\cdots\implies
+\bm A=\bm E_{21}^{-1}\bm E_{31}^{-1}\bm E_{32}^{-1}\bm U:=\bm{LU},
+\end{gather*}
+where $\bm L=\bm E_{21}^{-1}\bm E_{31}^{-1}\bm E_{32}^{-1}$, which is lower triangular matrix.
+
+Hence, we successfully decompose matrix $\bm A$ into the multiplication of a lower triangular matrix $\bm L$
+and a upper triangular matrix $\bm U$.
+\end{example}
+Actually, any nonsingular matrix \textit{without row exchanges, i.e., does not require the row exchange during the Gaussian Elimination}, could be decomposed as the multiplication of a lower triangular matrix with a upper triangular matrix $\bm U$, which is called \emph{LU decomposition}.
+\subsubsection{One Square System = Two Triangular Systems}
+When considering the \textit{nonsingular} case without row exchanges, recall what we have done before this lecture: 
+\begin{quotation}
+we are working on $\bm A$ and $\bm b$ in \emph{one} equation $\bm{Ax}=\bm b$. 
+\end{quotation}
+To somplify computation, we aim to deal with $\bm A$ and $\bm b$ in \emph{separate} equations. The LU decomposition can help us do that:
+\begin{enumerate}
+\item
+\emph{Decomposition:} By Gaussian elimination on matrix $\bm A$, we can decompose $\bm A$ into matrix multiplications: $\bm A=\bm{LU}.$
+\item
+\emph{Solve:} forward elimination on $\bm b$ using $\bm L$, then back substitution for $\bm x$ using $\bm U$.
+\begin{remark}
+\paragraph{The detail of Solve process}
+\begin{enumerate}
+\item
+First, we apply forward elimination on $\bm b$. In other words, we are actually solving $\bm{Ly}=\bm b$ for $\bm y$. 
+\item
+After getting $\bm y$, we then do
+back substitution for $\bm x$. In other words, we are actually solving $\bm{Ux}=\bm y$ for $\bm x$. 
+\end{enumerate}
+\paragraph{One square system $=$ Two triangular systems}
+During this process, the original system $\bm{Ax}=\bm b$ is converted into two triangular systems:
+\[
+\begin{array}{ll}
+\mbox{\emph{Forward and Backward}}
+&
+\mbox{Solve $\bm{Ly}=\bm b$ and then solve $\bm{Ux}=\bm y$.}
+\end{array}
+\]
+\end{remark}
+There is nothing new about those steps. This is exactly what we have done all the time. We are really solving the triangular system $\bm{Ly}=\bm b$ as elimination went forward. Then we use back substitution to produce $\bm x$. An example shows what we actually
+did:
+\begin{example}
+Forward elimination on $\bm{Ax}=\bm b$ will result in equation $\bm{Ux}=\bm y$:
+\[
+\begin{array}{ll}
+\bm{Ax}=\bm b\Longleftrightarrow
+\left\{
+\begin{aligned}
+u+2v&=5\\4u+9v&=21
+\end{aligned}
+\right.
+&
+\mbox{forward elimination implies }
+\left\{
+\begin{aligned}
+u+2v&=5\\v&=1
+\end{aligned}
+\right.
+\Longleftrightarrow
+\bm{Ux}=\bm y.
+\end{array}
+\]
+We could express such process into matrix form:
+\paragraph{LU Decomposition}: We could decompose $\bm A$ into product of $\bm L$ and $\bm U$:
+\[
+\begin{array}{ll}
+\bm L=\begin{bmatrix}
+1&0\\4&1
+\end{bmatrix},
+&
+\bm U=\begin{bmatrix}
+1&2\\0&1
+\end{bmatrix}
+\end{array}
+\]
+\paragraph{$\bm{Ly}=\bm b$} In this system of equation, in oder to solve
+$\bm y$, we only need to multiply the inverse of $\bm L$ both sides:
+\[
+\begin{bmatrix}
+1&0\\4&1
+\end{bmatrix}\x\bm y=\begin{bmatrix}
+5\\21
+\end{bmatrix}\implies
+\bm y=\bm L^{-1}\begin{bmatrix}
+5\\21
+\end{bmatrix}=\begin{bmatrix}
+1&0\\-4&1
+\end{bmatrix}\begin{bmatrix}
+5\\21
+\end{bmatrix}=\begin{bmatrix}
+5\\1
+\end{bmatrix}.
+\]
+\paragraph{$\bm{Ux}=\bm y$} In this system of equation, in oder to solve
+$\bm x$, we only need to multiply the inverse of $\bm U$ both sides:
+\[
+\begin{bmatrix}
+1&2\\0&1
+\end{bmatrix}\x\bm x=\begin{bmatrix}
+5\\1
+\end{bmatrix}\implies
+\bm x=\bm U^{-1}\begin{bmatrix}
+5\\1
+\end{bmatrix}=\begin{bmatrix}
+1&-2\\0&1
+\end{bmatrix}\begin{bmatrix}
+5\\1
+\end{bmatrix}=\begin{bmatrix}
+3\\1
+\end{bmatrix}.
+\]
+Both \emph{Forward} and \emph{Back substitution} has $O(n^2)$ time complexity.
+\end{example}
+\end{enumerate}
+\subsection{LDU decomposition}
+The aim of LDU decomposition is to let the diagonal entries of $\bm U$ and $\bm L$ to be \emph{one}.
+
+Suppose we have decomposed $\bm A$ into $\bm{LU}$, where the upper triangular matrix $\bm U$ is given by:
+\[
+\left[
+    \begin{array}{@{}ccccc@{}}
+    d_1    & \x       & \x    & \x    & \x \\ \cline{1-1}
+    \bord & d_2       & \x    & \x    & \x \\ \cline{2-2}
+          & \bord    & d_3    & \x    & \x \\ \cline{3-3}
+          & \bigzero & \bord & d_4    & \x \\ \cline{4-4}
+          &          &       & \bord & d_5 \\ \cline{5-5}
+  \end{array}\right]
+\]
+If we want to set its diagonal entries of $\bm U$ to be all \emph{one}, we just need to multiply a matrix $\bm D^{-1}$ that is
+given by:
+\[
+\bm D^{-1}:=
+\left[
+    \begin{array}{@{}ccccc@{}}
+    d_1^{-1}    &        &     &     &  \\ \cline{1-1}
+    \bord & d_2^{-1}       &    &  \bigzero   &  \\ \cline{2-2}
+          & \bord    & d_3^{-1}    &     &  \\ \cline{3-3}
+          & \bigzero & \bord & d_4^{-1}    &  \\ \cline{4-4}
+          &          &       & \bord & d_5^{-1} \\ \cline{5-5}
+  \end{array}\right]
+\implies
+\bm D^{-1}\bm U=
+\left[
+    \begin{array}{@{}ccccc@{}}
+    1    & \x       & \x    & \x    & \x \\ \cline{1-1}
+    \bord & 1       & \x    & \x    & \x \\ \cline{2-2}
+          & \bord    & 1    & \x    & \x \\ \cline{3-3}
+          & \bigzero & \bord & 1    & \x \\ \cline{4-4}
+          &          &       & \bord & 1 \\ \cline{5-5}
+  \end{array}\right].
+\]
+We can convert LU decomposition into LDU decomposition by simply adding the multiplying factor $\bm D\bm D^{-1}$:
+\[
+\bm A=\bm L\bm U=\bm L\bm D\bm D^{-1}\bm U
+=\bm L\bm D(\bm D^{-1}\bm U)
+=\bm L\bm D\hat{\bm U},
+\]
+where $\hat{\bm U}=\bm D^{-1}\bm U$ is also an upper triangular matix.
+
+Here $\bm D$ is the inverse matrix of $\bm D^{-1}$:
+\[
+\bm D=\left[
+    \begin{array}{@{}ccccc@{}}
+    d_1    &        &     &     &  \\ \cline{1-1}
+    \bord & d_2       &    &  \bigzero   &  \\ \cline{2-2}
+          & \bord    & d_3    &     &  \\ \cline{3-3}
+          & \bigzero & \bord & d_4    &  \\ \cline{4-4}
+          &          &       & \bord & d_5 \\ \cline{5-5}
+  \end{array}\right]
+\]
+Note that the \textit{diagonal} entries of $\bm D$ are all \emph{pivots values} of $\bm U$.
+
+Similarly, we can also proceed this step again to let \textit{diagonal} entries of $\bm L$ to be \emph{one}.
+\begin{definition}[LDU Decomposition]
+In conclusion, we decompose matrix $\bm A$ into the form:
+\[
+\begin{array}{ll}
+\bm A=\bm L\bm D\bm U\\
+\mbox{where: }
+&
+\mbox{$\bm L$ is lower triangular matrix with unit entries in diagonal}\\
+&
+\mbox{$\bm D$ is diagonal matrix}\\
+&
+\mbox{$\bm U$ is upper triangular matrix with unit entries in diagonal}
+\end{array}
+\]
+This decomposition is called \emph{LDU decomposition}.
+\end{definition}
+Here is a property of LDU decomposition, the proof of which is omitted.
+\begin{proposition}
+\emph{LDU decomposition is unique to any matrix}. Let $\bm L,\bm L_1$ denote a lower triangular matrix, $\bm D,\bm D_1$ diagonal, and $\bm U,\bm U_1$ upper triangular. 
+
+If $\bm A=\bm{LDU}$, and also, $\bm A=\bm L_1\bm D_1\bm U_1$, then we have $\bm L=\bm L_1,\bm D=\bm D_1,\bm U=\bm U_1$.
+\end{proposition}
+\subsection{LU Decomposition with row exchanges}
+How can we handle row exchange in our $\bm{LU}$ decomposition? 
+
+Assume we are going to do
+Gaussian Elimination with matrix $\bm A$ with row exchange. 
+\begin{itemize}
+\item
+At first We can postmultiply some elementary matrices $\bm E$ to get
+$\bm{EEEA}$.
+\item
+Sometimes we need to multiply by $\bm P_{ij}$ to do \textit{row exchange} to continue Gaussian
+Elimination.
+\item
+So we may end our elimination with something like $\bm{PEEEEPEEEPEEEEA}$.
+\item
+If we can get all the elementary matrix $\bm L$ together, we could convert them into one single $\bm L$ that has
+the same effect as before.
+\item
+The key problem is that how can we get all the row exchange matrix $\bm P$ out from the elementary matrices?
+\end{itemize}
+\begin{theorem}
+If $\bm A$ is \textit{nonsingular}, then there exists a permutation matrix $\bm P$ such that $\bm{PA}=\bm{LU}$.
+\end{theorem}
+The proof is omitted.
+\begin{remark}
+For the nonsingular matrix $\bm A$ \emph{without} row exchange, we can always decompose it as $\bm A=\bm L\bm U$; but for the row exchange case, we have to postmultiply a specific permutation matrix to obtain such LU decomposition.
+\end{remark}

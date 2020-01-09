@@ -1,0 +1,758 @@
+% Use only LaTeX2e, calling the article.cls class and 12-point type.
+
+\documentclass[12pt]{article}
+
+% Users of the {thebibliography} environment or BibTeX should use the
+% scicite.sty package, downloadable from *Science* at
+% www.sciencemag.org/about/authors/prep/TeX_help/ .
+% This package should properly format in-text
+% reference calls and reference-list numbers.
+
+\usepackage{scicite}
+\usepackage{bm}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+	\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+ \DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
+ \newcommand{\trans}{^{\mathrm T}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+% Use times if you have the font installed; otherwise, comment out the
+% following line.
+
+\usepackage{times}
+
+% The preamble here sets up a lot of new/revised commands and
+% environments.  It's annoying, but please do *not* try to strip these
+% out into a separate .sty file (which could lead to the loss of some
+% information when we convert the file to other formats).  Instead, keep
+% them in the preamble of your main LaTeX source file.
+
+
+% The following parameters seem to provide a reasonable page setup.
+
+\topmargin 0.0cm
+\oddsidemargin 0.2cm
+\textwidth 16cm 
+\textheight 21cm
+\footskip 1cm
+
+
+%The next command sets up an environment for the abstract to your paper.
+
+\newenvironment{sciabstract}{%
+\begin{quote} \bf}
+{\end{quote}}
+
+
+% If your reference list includes text notes as well as references,
+% include the following line; otherwise, comment it out.
+
+\renewcommand\refname{References and Notes}
+
+% The following lines set up an environment for the last note in the
+% reference list, which commonly includes acknowledgments of funding,
+% help, etc.  It's intended for users of BibTeX or the {thebibliography}
+% environment.  Users who are hand-coding their references at the end
+% using a list environment such as {enumerate} can simply add another
+% item at the end, and it will be numbered automatically.
+
+\newcounter{lastnote}
+\newenvironment{scilastnote}{%
+\setcounter{lastnote}{\value{enumiv}}%
+\addtocounter{lastnote}{+1}%
+\begin{list}%
+{\arabic{lastnote}.}
+{\setlength{\leftmargin}{.22in}}
+{\setlength{\labelsep}{.5em}}}
+{\end{list}}
+
+
+% Include your paper's title here
+
+\title{An Unified Proof for the Theorems of Alternatives} 
+
+
+% Place the author information here.  Please hand-code the contact
+% information and notecalls; do *not* use \footnote commands.  Let the
+% author contact information appear immediately below the author names
+% as shown.  We would also prefer that you don't change the type-size
+% settings shown here.
+
+\author
+{Jie Wang\\
+\\
+\normalsize{School of Science and Engineering}\\
+\normalsize{The Chinese University of Hong Kong, Shenzhen}
+}
+
+% Include the date command, but leave its argument blank.
+
+\date{}
+
+
+
+%%%%%%%%%%%%%%%%% END OF PREAMBLE %%%%%%%%%%%%%%%%
+
+
+
+\begin{document} 
+
+% Double-space the manuscript.
+
+\baselineskip22pt
+
+% Make the title.
+
+\maketitle 
+
+
+
+% Place your abstract within the special {sciabstract} environment.
+
+\begin{abstract}
+Theorems of alternatives are very useful in applied mathematics in various ways, which is also a main focus of the mid-term exam for MAT3320.
+The purpose of the present paper is to prove theorems of alternatives in a unified way by directly making use of the Farkas' Lemma.
+\end{abstract}
+
+
+
+% In setting up this template for *Science* papers, we've used both
+% the \section* command and the \paragraph* command for topical
+% divisions.  Which you use will of course depend on the type of paper
+% you're writing.  Review Articles tend to have displayed headings, for
+% which \section* is more appropriate; Research Articles, when they have
+% formal topical divisions at all, tend to signal them with bold text
+% that runs into the paragraph, for which \paragraph* is the right
+% choice.  Either way, use the asterisk (*) modifier, as shown, to
+% suppress numbering.
+
+\section{Introduction}
+Farkas' Lemma is one of the theorems of alternatives for determining the existence of solutions for linear systems.
+The purpose of this reflective journal is to prove other theorems of alternatives by directly making use of the Farkas' Lemma.
+
+
+
+
+%
+%In this file, we present some tips and sample mark-up to assure your
+%\LaTeX\ file of the smoothest possible journey from review manuscript
+%to published {\it Science\/} paper.  We focus here particularly on
+%issues related to style files, citation, and math, tables, and
+%figures, as those tend to be the biggest sticking points.  Please use
+%the source file for this document, \texttt{scifile.tex}, as a template
+%for your manuscript, cutting and pasting your content into the file at
+%the appropriate places.
+%
+%{\it Science\/}'s publication workflow relies on Microsoft Word.  To
+%translate \LaTeX\ files into Word, we use an intermediate MS-DOS
+%routine \cite{tth} that converts the \TeX\ source into HTML\@.  The
+%routine is generally robust, but it works best if the source document
+%is clean \LaTeX\ without a significant freight of local macros or
+%\texttt{.sty} files.  Use of the source file \texttt{scifile.tex} as a
+%template, and calling {\it only\/} the \texttt{.sty} and \texttt{.bst}
+%files specifically mentioned here, will generate a manuscript that
+%should be eminently reviewable, and yet will allow your paper to
+%proceed quickly into our production flow upon acceptance \cite{use2e}.
+
+
+\section{Notations}
+We denote $\bm e$ as the column vector whose components are all ones. For given two vectors $\bm x,\bm y$, we define
+\begin{align*}
+\bm x&\ge\bm y,\quad\text{if $x_i\ge y_i,\forall i$};\\
+\bm x&\gvertneqq\bm y,\quad\text{if $x_i\ge y_i,\forall i, \bm x\ne\bm y$};\\
+\bm x&>\bm y,\quad\text{if $x_i> y_i,\forall i$}.
+\end{align*}
+Moreover, we use ($\bar{\text{I}}$) or ($\bar{\text{II}}$) to denote the \emph{negation} of the statement (I) or (II), respectively.
+%
+%
+%\begin{quote}
+%\begin{verbatim}
+%However, this record of the solar nebula may have been
+%partly erased by the complex history of the meteorite
+%parent bodies, which includes collision-induced shock,
+%thermal metamorphism, and aqueous alteration
+%({\it 1, 2, 5--7\/}).
+%\end{verbatim}
+%\end{quote}
+%
+%
+%\noindent Compiled, the last two lines of the code above, of course, would give notecalls in {\it Science\/} style:
+%
+%\begin{quote}
+%\ldots thermal metamorphism, and aqueous alteration ({\it 1, 2, 5--7\/}).
+%\end{quote}
+%
+%Under the same logic, the author could set up his or her reference list as a simple enumeration,
+%
+%\begin{quote}
+%\begin{verbatim}
+%{\bf References and Notes}
+%
+%\begin{enumerate}
+%\item G. Gamow, {\it The Constitution of Atomic Nuclei
+%and Radioactivity\/} (Oxford Univ. Press, New York, 1931).
+%\item W. Heisenberg and W. Pauli, {\it Zeitschr.\ f.\ 
+%Physik\/} {\bf 56}, 1 (1929).
+%\end{enumerate}
+%\end{verbatim}
+%\end{quote}
+%
+%\noindent yielding
+%
+%\begin{quote}
+%{\bf References and Notes}
+%
+%\begin{enumerate}
+%\item G. Gamow, {\it The Constitution of Atomic Nuclei and
+%Radioactivity\/} (Oxford Univ. Press, New York, 1931).
+%\item W. Heisenberg and W. Pauli, {\it Zeitschr.\ f.\ Physik} {\bf 56},
+%1 (1929).
+%\end{enumerate}
+%\end{quote}
+%
+%That's not a solution that's likely to appeal to everyone, however ---
+%especially not to users of B{\small{IB}}\TeX\ \cite{inclme}.  If you
+%are a B{\small{IB}}\TeX\ user, we suggest that you use the
+%\texttt{Science.bst} bibliography style file and the
+%\texttt{scicite.sty} package, both of which we are downloadable from our author help site
+%(http://www.sciencemag.org/about/authors/prep/TeX\_help/).  You can also
+%generate your reference lists by using the list environment
+%\texttt{\{thebibliography\}} at the end of your source document; here
+%again, you may find the \texttt{scicite.sty} file useful.
+%
+%Whether you use B{\small{IB}}\TeX\ or \texttt{\{thebibliography\}}, be
+%very careful about how you set up your in-text reference calls and
+%notecalls.  In particular, observe the following requirements:
+%
+%\begin{enumerate}
+%\item Please follow the style for references outlined at our author
+%  help site and embodied in recent issues of {\it Science}.  Each
+%  citation number should refer to a single reference; please do not
+%  concatenate several references under a single number.
+%\item Please cite your references and notes in text {\it only\/} using
+%  the standard \LaTeX\ \verb+\cite+ command, not another command
+%  driven by outside macros.
+%\item Please separate multiple citations within a single \verb+\cite+
+%  command using commas only; there should be {\it no space\/}
+%  between reference keynames.  That is, if you are citing two
+%  papers whose bibliography keys are \texttt{keyname1} and
+%  \texttt{keyname2}, the in-text cite should read
+%  \verb+\cite{keyname1,keyname2}+, {\it not\/}
+%  \verb+\cite{keyname1, keyname2}+.
+%\end{enumerate}
+%
+%\noindent Failure to follow these guidelines could lead
+%to the omission of the references in an accepted paper when the source
+%file is translated to Word via HTML.
+%
+%\section*{Handling Math, Tables, and Figures}
+%
+%Following are a few things to keep in mind in coding equations,
+%tables, and figures for submission to {\it Science}.
+%
+%\paragraph*{In-line math.}  The utility that we use for converting
+%from \LaTeX\ to HTML handles in-line math relatively well.  It is best
+%to avoid using built-up fractions in in-line equations, and going for
+%the more boring ``slash'' presentation whenever possible --- that is,
+%for \verb+$a/b$+ (which comes out as $a/b$) rather than
+%\verb+$\frac{a}{b}$+ (which compiles as $\frac{a}{b}$).  Likewise,
+%HTML isn't tooled to handle certain overaccented special characters
+%in-line; for $\hat{\alpha}$ (coded \verb+$\hat{\alpha}$+), for
+%example, the HTML translation code will return [\^{}$(\alpha)$].
+%Don't drive yourself crazy --- but if it's possible to avoid such
+%constructs, please do so.  Please do not code arrays or matrices as
+%in-line math; display them instead.  And please keep your coding as
+%\TeX-y as possible --- avoid using specialized math macro packages
+%like \texttt{amstex.sty}.
+%
+%\paragraph*{Displayed math.} Our HTML converter sets up \TeX\
+%displayed equations using nested HTML tables.  That works well for an
+%HTML presentation, but Word chokes when it comes across a nested
+%table in an HTML file.  We surmount that problem by simply cutting the
+%displayed equations out of the HTML before it's imported into Word,
+%and then replacing them in the Word document using either images or
+%equations generated by a Word equation editor.  Strictly speaking,
+%this procedure doesn't bear on how you should prepare your manuscript
+%--- although, for reasons best consigned to a note \cite{nattex}, we'd
+%prefer that you use native \TeX\ commands within displayed-math
+%environments, rather than \LaTeX\ sub-environments.
+%
+%\paragraph*{Tables.}  The HTML converter that we use seems to handle
+%reasonably well simple tables generated using the \LaTeX\
+%\texttt{\{tabular\}} environment.  For very complicated tables, you
+%may want to consider generating them in a word processing program and
+%including them as a separate file.
+%
+%\paragraph*{Figures.}  Figure callouts within the text should not be
+%in the form of \LaTeX\ references, but should simply be typed in ---
+%that is, \verb+(Fig. 1)+ rather than \verb+\ref{fig1}+.  For the
+%figures themselves, treatment can differ depending on whether the
+%manuscript is an initial submission or a final revision for acceptance
+%and publication.  For an initial submission and review copy, you can
+%use the \LaTeX\ \verb+{figure}+ environment and the
+%\verb+\includegraphics+ command to include your PostScript figures at
+%the end of the compiled PostScript file.  For the final revision,
+%however, the \verb+{figure}+ environment should {\it not\/} be used;
+%instead, the figure captions themselves should be typed in as regular
+%text at the end of the source file (an example is included here), and
+%the figures should be uploaded separately according to the Art
+%Department's instructions.
+
+
+\section{Theorems of Alternatives}
+
+\begin{theorem}[Farkas' Lemma]
+Either
+\begin{enumerate}
+\item[(I)]
+$\bm A\bm x=\bm b,\bm x\ge\bm0$ has a solution $\bm x$,
+
+or
+\item[(II)]
+$\bm A\trans\bm y\ge\bm0,\bm b\trans\bm y<0$ has a solution $\bm y$,
+\end{enumerate}
+but never both.
+\end{theorem}
+
+We will prove the following theorems, by applying the Farkas' Lemma directly.
+
+\begin{theorem}[Gordan's Theorem]
+Either
+\begin{enumerate}
+\item[(I)]
+$\bm A\bm x>\bm0$ has a solution $\bm x$,
+
+or
+\item[(II)]
+$\bm A\trans\bm y=\bm0,\bm y\gvertneqq\bm0$ has a solution $\bm y$,
+\end{enumerate}
+but never both.
+\end{theorem}
+\begin{proof}
+\begin{itemize}
+\item
+(I) implies ($\bar{\text{II}}$):
+If (I) holds for $\bm x$, and suppose on the contrary that (II) holds for $\bm y$. Then we imply
+\[
+\bm0=\bm x\trans(\bm A\trans\bm y)=(\bm A\bm x)\trans\bm y.
+\]
+Since $\bm{Ax}\ge\bm0,\bm y\ge\bm0$, the equality above holds if and only if $\bm y=\bm0$, which is a contradiction.
+\item
+($\bar{\text{I}}$) implies (II):
+If (I) does not hold, then the linear system below does not have a solution as well:
+\[
+\left\{
+\begin{aligned}
+\bm A\bm x-\theta\bm e&\ge\bm0\\
+\theta&>0
+\end{aligned}
+\right.
+\Longleftrightarrow
+\left\{
+\begin{aligned}
+\begin{bmatrix}
+\bm A&-\bm e
+\end{bmatrix}\begin{pmatrix}
+\bm x\\\theta
+\end{pmatrix}&\ge\bm0\\
+\begin{bmatrix}
+\bm 0\trans&-1
+\end{bmatrix}\begin{pmatrix}
+\bm x\\\theta
+\end{pmatrix}&<0
+\end{aligned}
+\right.
+\]
+By applying the reverse direction of Farkas' Lemma, we imply the linear system below has a solution:
+\[
+\left\{
+\begin{aligned}
+\bm A\trans\bm x&=\bm0\\
+\bm e\trans\bm x&=1\\
+\bm x&\ge\bm0
+\end{aligned}
+\right.
+\]
+Therefore, the statement (II) holds.
+\end{itemize}
+\end{proof}
+
+\begin{theorem}[Stiemke's Theorem]
+Either
+\begin{enumerate}
+\item[(I)]
+$\bm A\bm x\gvertneqq\bm0$ has a solution $\bm x$,
+
+or
+\item[(II)]
+$\bm A\trans\bm y=\bm0,\bm y>\bm0$ has a solution $\bm y$,
+\end{enumerate}
+but never both.
+\end{theorem}
+\begin{proof}
+\begin{itemize}
+\item
+(II) implies ($\bar{\text{I}}$):
+If (II) holds for $\bm y$, and suppose on the contrary that (I) holds for $\bm x$. Then we imply
+\[
+\bm0=\bm x\trans(\bm A\trans\bm y)=(\bm A\bm x)\trans\bm y.
+\]
+Since $\bm{Ax}\ge\bm0,\bm y>\bm0$, the equality above holds if and only if $\bm{Ax}=\bm0$, which is a contradiction.
+\item
+($\bar{\text{II}}$) implies (I):
+If (II) does not hold, then the linear system below does not have a solution as well:
+\[
+\left\{
+\begin{aligned}
+\bm A\trans\bm y&\ge\bm0\\
+-\bm A\trans\bm y&\ge\bm0\\
+\bm y-\theta\bm e&\ge\bm0\\
+\theta&>0
+\end{aligned}
+\right.
+\Longleftrightarrow
+\left\{
+\begin{aligned}
+\begin{bmatrix}
+\bm A\trans&\bm0\\-\bm A\trans&\bm0\\\bm I&-\bm e
+\end{bmatrix}\begin{pmatrix}
+\bm y\\\theta
+\end{pmatrix}&\ge\bm0\\
+\begin{bmatrix}
+\bm 0\trans&-1
+\end{bmatrix}\begin{pmatrix}
+\bm y\\\theta
+\end{pmatrix}&<0
+\end{aligned}
+\right.
+\]
+By applying the reverse direction of Farkas' Lemma, we imply the linear system below has a solution:
+\[
+\left\{
+\begin{aligned}
+\begin{bmatrix}
+\bm A&-\bm A&\bm I\\\bm0\trans&\bm0\trans&-\bm e\trans
+\end{bmatrix}\begin{pmatrix}
+\bm x_1\\\bm x_2\\\bm x_3
+\end{pmatrix}&=\begin{pmatrix}
+\bm 0\\-1
+\end{pmatrix}\\
+\bm x_1,\bm x_2,\bm x_3\ge\bm0
+\end{aligned}
+\right.
+\implies
+\bm A(\bm x_2-\bm x_1)=\bm x_3\gvertneqq\bm0,
+\]
+i.e., the statement (I) holds for $\bm x_2-\bm x_1$.
+
+\end{itemize}
+\end{proof}
+
+
+\begin{theorem}[Gale's Theorem]
+Assuming $\bm A\bm x\le\bm b$ is feasible.
+Either
+\begin{enumerate}
+\item[(I)]
+$\bm A\bm x\lvertneqq\bm b$ has a solution $\bm x$,
+
+or
+\item[(II)]
+$\bm A\trans\bm y=\bm0,\bm b\trans\bm y=\bm0,\bm y>\bm0$ has a solution $\bm y$,
+\end{enumerate}
+but never both.
+\end{theorem}
+\begin{proof}
+\begin{itemize}
+\item
+(II) implies ($\bar{\text{I}}$):
+If (II) holds for $\bm y$, and suppose on the contrary that (I) holds for $\bm x$. Then we imply
+\[
+\bm0=\bm x\trans(\bm A\trans\bm y)=(\bm A\bm x)\trans\bm y< \bm b\trans\bm y=\bm0,
+\]
+where the inequality is strict since $\bm y>\bm0$ and $\bm A\bm x\lvertneqq\bm b$. Therefore, we derive a contradiction.
+\item
+($\bar{\text{II}}$) implies (I):
+If (II) does not hold, then the linear system below does not have a solution as well:
+\[
+\left\{
+\begin{aligned}
+\bm A\trans\bm y&\ge\bm0\\
+-\bm A\trans\bm y&\ge\bm0\\
+\bm b\trans\bm y&\ge\bm0\\
+-\bm b\trans\bm y&\ge\bm0\\
+\bm y-\theta\bm e&\ge0\\
+\theta&>0
+\end{aligned}
+\right.
+\Longleftrightarrow
+\left\{
+\begin{aligned}
+\begin{bmatrix}
+\bm A\trans&\bm0\\
+-\bm A\trans&\bm 0\\
+\bm b\trans&\bm0\\
+-\bm b\trans&\bm 0\\
+\bm I&-\bm e
+\end{bmatrix}\begin{pmatrix}
+\bm y\\\theta
+\end{pmatrix}&\ge\bm0\\
+\begin{bmatrix}
+\bm 0\trans&-1
+\end{bmatrix}\begin{pmatrix}
+\bm y\\\theta
+\end{pmatrix}&<0
+\end{aligned}
+\right.
+\]
+By applying the reverse direction of Farkas' Lemma, we imply the linear system below has a solution:
+\[
+\left\{
+\begin{aligned}
+\begin{bmatrix}
+\bm A&-\bm A&\bm b&-\bm b&\bm I
+\\\bm0\trans&\bm0\trans&\bm0\trans&\bm0\trans&-\bm e\trans
+\end{bmatrix}\begin{pmatrix}
+\bm x_1\\\bm x_2\\\bm x_3\\\bm x_4\\\bm x_5
+\end{pmatrix}&=\begin{pmatrix}
+\bm 0\\-1
+\end{pmatrix}\\
+\bm x_1,\bm x_2,\bm x_3,\bm x_4,\bm x_5\ge\bm0
+\end{aligned}
+\right.
+\implies
+\bm A(\bm x_1-\bm x_2)+\bm b(x_3-x_4)=-\bm x_5\lvertneqq\bm0,
+\]
+Suppose we have a feasible solution $\bm x^0$ such that $\bm A\bm x^0\le\bm b$, which implies for any $N>0$,
+\[
+\bm A(\bm x_1-\bm x_2+N\bm x^0)+\bm b(x_3-x_4-N)\lvertneqq\bm0
+\]
+Therefore, we take sufficient large $N$ to make $x_3-x_4-N<0$, which follows that
+\[
+\bm A\left(\frac{1}{N-x_3-x_4}(\bm x_1-\bm x_2+N\bm x^0)\right)-\bm b\lvertneqq\bm0,
+\]
+i.e., the statement (I) holds for $(\bm x_1-\bm x_2+N\bm x^0)/(N-x_3-x_4)$.
+\end{itemize}
+\end{proof}
+
+\begin{theorem}[Tucker's Theorem]
+Assuming that $\bm A\ne\bm0$.
+Either
+\begin{enumerate}
+\item[(I)]
+$\bm A\bm x\gvertneqq\bm 0,\bm B\bm x\ge0,\bm C\bm x=\bm0$ has a solution $\bm x$,
+
+or
+\item[(II)]
+$\bm A\trans\bm u+\bm B\trans\bm v+\bm C\trans\bm w=\bm0,\bm u>\bm0,\bm v\ge\bm0$ has a solution $(\bm u,\bm v,\bm w)$,
+\end{enumerate}
+but never both.
+\end{theorem}
+\begin{proof}
+\begin{itemize}
+\item
+(II) implies ($\bar{\text{I}}$):
+If (II) holds for $(\bm u,\bm v,\bm w)$, and suppose on the contrary that (I) holds for $\bm x$. Then we imply
+\[
+\bm0=\bm x\trans(\bm A\trans\bm u+\bm B\trans\bm v+\bm C\trans\bm w)
+=
+(\bm A\bm x)\trans\bm u+(\bm B\bm x)\trans\bm v+(\bm C\bm x)\trans\bm w>\bm0
+\]
+where the inequality is strict 
+since $\bm A\bm x\gvertneqq\bm0$ and $\bm u>\bm0$. Therefore, we derive a contradiction.
+\item
+($\bar{\text{II}}$) implies (I):
+If (II) does not hold, then the linear system below does not have a solution as well:
+\[
+\left\{
+\begin{aligned}
+\bm A\trans\bm u+\bm B\trans\bm v+\bm C\trans\bm w&\ge0\\
+-\bm A\trans\bm u-\bm B\trans\bm v-\bm C\trans\bm w&\ge0\\
+\bm v&\ge0\\
+\bm u-\theta\bm e&\ge0\\
+\theta&>0
+\end{aligned}
+\right.
+\Longleftrightarrow
+\left\{
+\begin{aligned}
+\begin{bmatrix}
+\bm A\trans&\bm B\trans&\bm C\trans&0\\
+-\bm A\trans&-\bm B\trans&-\bm C\trans&0\\
+\bm0&\bm I&\bm0&0\\
+\bm I&\bm0&\bm0&-\bm e
+\end{bmatrix}\begin{pmatrix}
+\bm u\\\bm v\\\bm w\\\theta
+\end{pmatrix}&\ge\bm0\\
+\begin{bmatrix}
+\bm0\trans&\bm0\trans&\bm0\trans&-1
+\end{bmatrix}\begin{pmatrix}
+\bm u\\\bm v\\\bm w\\\theta
+\end{pmatrix}&<0
+\end{aligned}
+\right.
+\]
+By applying the reverse direction of Farkas' Lemma, we imply the linear system below has a solution:
+\[
+\left\{
+\begin{aligned}
+\begin{bmatrix}
+\bm A&-\bm A&\bm0&\bm I\\
+\bm B&-\bm B&\bm I&\bm 0\\
+\bm C&-\bm C&\bm 0&\bm 0\\
+0&0&0&-\bm e\trans
+\end{bmatrix}\begin{pmatrix}
+\bm x_1\\\bm x_2\\\bm x_3\\\bm x_4
+\end{pmatrix}&=\begin{pmatrix}
+\bm0\\\bm0\\\bm0\\-1
+\end{pmatrix}\\
+\bm x_1,\bm x_2,\bm x_3,\bm x_4\ge\bm0
+\end{aligned}
+\right.
+\implies
+\left\{
+\begin{aligned}
+\bm A(\bm x_2-\bm x_1)&=\bm x_4\gvertneqq\bm0\\
+\bm B(\bm x_2-\bm x_1)&=\bm x_2\ge\bm0\\
+\bm C(\bm x_2-\bm x_1)&=\bm0
+\end{aligned}
+\right.,
+\]
+i.e., the statement (I) holds for $\bm x_2-\bm x_1$.
+\end{itemize}
+\end{proof}
+
+
+\begin{theorem}[Motzkin's Theorem]
+Assuming  that $\bm A\ne\bm0$.
+Either
+\begin{enumerate}
+\item[(I)]
+$\bm A\bm x>0,\bm B\bm x\ge0,\bm C\bm x=\bm0$ has a solution $\bm x$,
+
+or
+\item[(II)]
+$\bm A\trans\bm u+\bm B\trans\bm v+\bm C\trans\bm w=\bm0,\bm u\gvertneqq\bm0,\bm v\ge\bm0$ has a solution $(\bm u,\bm v,\bm w)$,
+\end{enumerate}
+but never both.
+\end{theorem}
+
+\begin{proof}
+\begin{itemize}
+\item
+(I) implies ($\bar{\text{II}}$):
+If (I) holds for $\bm x$, and suppose on the contrary that (II) holds for $(\bm u,\bm v,\bm w)$. Then we imply
+\[
+\bm0=\bm x\trans(\bm A\trans\bm u+\bm B\trans\bm v+\bm C\trans\bm w)
+=
+(\bm A\bm x)\trans\bm u+(\bm B\bm x)\trans\bm v+(\bm C\bm x)\trans\bm w>\bm0
+\]
+where the inequality is strict 
+since $\bm A\bm x>\bm0$ and $\bm u\gvertneqq0$. Therefore, we derive a contradiction.
+\item
+($\bar{\text{I}}$) implies (II):
+If (I) does not hold, then the linear system below does not have a solution as well:
+\[
+\left\{
+\begin{aligned}
+\bm A\bm x-\theta\bm e&\ge0\\
+\bm B\bm x&\ge\bm0\\
+\bm C\bm x&\ge\bm0\\
+-\bm C\bm x&\ge\bm0\\
+\theta&>0
+\end{aligned}
+\right.
+\Longleftrightarrow
+\left\{
+\begin{aligned}
+\begin{bmatrix}
+\bm A&-\bm e\\
+\bm B&\bm0\\
+\bm C&\bm0\\
+-\bm C&\bm0\\
+\end{bmatrix}\begin{pmatrix}
+\bm x\\\theta
+\end{pmatrix}&\ge\bm0\\
+\begin{bmatrix}
+\bm0\trans&-1
+\end{bmatrix}\begin{pmatrix}
+\bm x\\\theta
+\end{pmatrix}&<0
+\end{aligned}
+\right.
+\]
+By applying the reverse direction of Farkas' Lemma, we imply the linear system below has a solution:
+\[
+\left\{
+\begin{aligned}
+\begin{bmatrix}
+\bm A\trans&\bm B\trans&\bm C\trans&-\bm C\trans\\
+-\bm e\trans&\bm0\trans&\bm0\trans&\bm0\trans
+\end{bmatrix}\begin{pmatrix}
+\bm x_1\\\bm x_2\\\bm x_3\\\bm x_4
+\end{pmatrix}&=\begin{pmatrix}
+\bm0\\-1
+\end{pmatrix}\\
+\bm x_1,\bm x_2,\bm x_3,\bm x_4\ge\bm0
+\end{aligned}
+\right.
+\implies
+\left\{
+\begin{aligned}
+\bm A\trans\bm x_1+\bm B\trans\bm x_2+\bm C\trans(\bm x_3-\bm x_4)&=0\\
+\bm x_1\gvertneqq\bm0, 
+\bm x_2&\ge\bm0
+\end{aligned}
+\right.,
+\]
+i.e., the statement (II) holds for $(\bm x_1,\bm x_2,\bm x_3-\bm x_4)$.
+\end{itemize}
+\end{proof}
+
+\section{Conclusion}
+Note that the equivalence of these theorems of alternatives can be shown by strong duality theorem \cite{R_1}.
+The purpose of this paper is not on the equivalence result, but presenting an alternative approach for showing these theorems of alternatives.
+
+
+\medskip
+ 
+\begin{thebibliography}{9}
+\bibitem{R_1} 
+Perng, Cherng-tiao. (2017). On a class of theorems equivalent to Farkas's lemma. \textit{Applied Mathematical Sciences}. 11. 2175-2184. 
+
+
+
+\end{thebibliography}
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

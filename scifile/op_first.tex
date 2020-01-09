@@ -1,0 +1,210 @@
+% Use only LaTeX2e, calling the article.cls class and 12-point type.
+
+\documentclass[11pt]{article}
+
+% Users of the {thebibliography} environment or BibTeX should use the
+% scicite.sty package, downloadable from *Science* at
+% www.sciencemag.org/about/authors/prep/TeX_help/ .
+% This package should properly format in-text
+% reference calls and reference-list numbers.
+
+\usepackage{scicite}
+\usepackage{bm}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+	\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{hyperref}
+ \DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
+ \newcommand{\trans}{^{\mathrm T}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+% Use times if you have the font installed; otherwise, comment out the
+% following line.
+
+\usepackage{times}
+
+% The preamble here sets up a lot of new/revised commands and
+% environments.  It's annoying, but please do *not* try to strip these
+% out into a separate .sty file (which could lead to the loss of some
+% information when we convert the file to other formats).  Instead, keep
+% them in the preamble of your main LaTeX source file.
+
+
+% The following parameters seem to provide a reasonable page setup.
+
+\topmargin 0.0cm
+\oddsidemargin 0.2cm
+\textwidth 16cm 
+\textheight 21cm
+\footskip 1cm
+
+
+%The next command sets up an environment for the abstract to your paper.
+
+\newenvironment{sciabstract}{%
+\begin{quote} \bf}
+{\end{quote}}
+
+
+% If your reference list includes text notes as well as references,
+% include the following line; otherwise, comment it out.
+
+\renewcommand\refname{References and Notes}
+
+% The following lines set up an environment for the last note in the
+% reference list, which commonly includes acknowledgments of funding,
+% help, etc.  It's intended for users of BibTeX or the {thebibliography}
+% environment.  Users who are hand-coding their references at the end
+% using a list environment such as {enumerate} can simply add another
+% item at the end, and it will be numbered automatically.
+
+\newcounter{lastnote}
+\newenvironment{scilastnote}{%
+\setcounter{lastnote}{\value{enumiv}}%
+\addtocounter{lastnote}{+1}%
+\begin{list}%
+{\arabic{lastnote}.}
+{\setlength{\leftmargin}{.22in}}
+{\setlength{\labelsep}{.5em}}}
+{\end{list}}
+
+
+% Include your paper's title here
+
+\title{A new first order method} 
+
+
+% Place the author information here.  Please hand-code the contact
+% information and notecalls; do *not* use \footnote commands.  Let the
+% author contact information appear immediately below the author names
+% as shown.  We would also prefer that you don't change the type-size
+% settings shown here.
+
+%\author
+%{Jie Wang\\
+%\\
+%\normalsize{School of Science and Engineering}\\
+%\normalsize{The Chinese University of Hong Kong, Shenzhen}
+%}
+
+% Include the date command, but leave its argument blank.
+
+\date{}
+
+
+
+%%%%%%%%%%%%%%%%% END OF PREAMBLE %%%%%%%%%%%%%%%%
+
+
+
+\begin{document} 
+
+% Double-space the manuscript.
+
+%\baselineskip22pt
+
+% Make the title.
+
+\maketitle 
+
+
+
+% Place your abstract within the special {sciabstract} environment.
+
+
+
+
+% In setting up this template for *Science* papers, we've used both
+% the \section* command and the \paragraph* command for topical
+% divisions.  Which you use will of course depend on the type of paper
+% you're writing.  Review Articles tend to have displayed headings, for
+% which \section* is more appropriate; Research Articles, when they have
+% formal topical divisions at all, tend to signal them with bold text
+% that runs into the paragraph, for which \paragraph* is the right
+% choice.  Either way, use the asterisk (*) modifier, as shown, to
+% suppress numbering.
+
+\section{Introduction}
+Professor Yin Zhang talked about a new first order method in his lecture. In particular, see the lecture note ``CIE6010'', page 34 in the website
+\begin{center}
+\url{
+https://walterbabyrudin.github.io/information/information.html
+}
+\end{center}
+In general, this first order method is as follows:
+\begin{itemize}
+\item
+Generate two initial guess $x^1,x^2$.
+\item
+For each iteration $T=1,2,\dots$
+\begin{itemize}
+\item
+Generate $x^3$ as follows:
+\begin{align*}
+S&\leftarrow x^{2} - x^1\\
+y&\leftarrow\nabla f(x^{2}) - \nabla f(x^1)\\
+\alpha&\leftarrow1\\
+D &\leftarrow \frac{1}{L}I + \frac{(S)\cdot (S)\trans}{(y)\trans(y)}\succ0\\
+x^3&\leftarrow x^{2} - \alpha \cdot D \cdot \nabla f(x^{2})
+\end{align*}
+\item
+Update $x^1\leftarrow x^2$ and $x^2\leftarrow x^3$
+\item
+When the stop criteria is satisfied, return $x^3$.
+\end{itemize}
+\end{itemize}
+This method can be used to efficiently solve the compressive sensing problem~(actually the L1 regularization problem)
+\[
+\min_{x\in\mathbb{R}^n}f(x)\equiv \phi_{\sigma}(Dx)+\frac{\mu}{2}\|Ax-b\|_2^2,
+\]
+where $\phi_{\sigma}(y)=\sum_i\sqrt{y_i^2+\sigma}$.
+Prof. Yin Zhang also writes his MATLAB script to implement this algorithm in file \textit{yzL1reg2d.p}.
+I also write my own script (see the file \textit{myL1reg2d}.)
+%
+%In this file, we present some tips and sample mark-up to assure your
+%\LaTeX\ file of the smoothest possible journey from review manuscript
+%to published {\it Science\/} paper.  We focus here particularly on
+%issues related to style files, citation, and math, tables, and
+%figures, as those tend to be the biggest sticking points.  Please use
+%the source file for this document, \texttt{scifile.tex}, as a template
+%for your manuscript, cutting and pasting your content into the file at
+%the appropriate places.
+%
+%{\it Science\/}'s publication workflow relies on Microsoft Word.  To
+%translate \LaTeX\ files into Word, we use an intermediate MS-DOS
+%routine \cite{tth} that converts the \TeX\ source into HTML\@.  The
+%routine is generally robust, but it works best if the source document
+%is clean \LaTeX\ without a significant freight of local macros or
+%\texttt{.sty} files.  Use of the source file \texttt{scifile.tex} as a
+%template, and calling {\it only\/} the \texttt{.sty} and \texttt{.bst}
+%files specifically mentioned here, will generate a manuscript that
+%should be eminently reviewable, and yet will allow your paper to
+%proceed quickly into our production flow upon acceptance \cite{use2e}.
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

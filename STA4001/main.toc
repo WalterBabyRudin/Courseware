@@ -1,0 +1,21 @@
+\select@language {english}
+\vskip -8pt
+\contentsline {schapter}{Acknowledgments}{vii}{chapter*.2}
+\vskip -8pt
+\contentsline {schapter}{Notations}{ix}{chapter*.3}
+\contentsline {chapter}{\numberline {1}Week1}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Tuesday}{1}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}News Vendor Problems}{1}{subsection.1.1.1}
+\contentsline {chapter}{\numberline {2}Week2}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Tuesday}{3}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Optimal order quantity}{3}{subsection.2.1.1}
+\contentsline {paragraph}{Discrete Case Optimization}{3}{subsection.2.1.1}
+\contentsline {paragraph}{Holding Cost for $h=.1$}{4}{subsection.2.1.1}
+\contentsline {paragraph}{Confidence Interval}{4}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Non-perishable Products}{4}{subsection.2.1.2}
+\contentsline {section}{\numberline {2.2}Thursday}{6}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Discrte Time Markov Chains}{6}{subsection.2.2.1}
+\contentsline {paragraph}{Example 1: simple random walk}{6}{subsection.2.2.1}
+\contentsline {paragraph}{Application 1}{7}{theoremeT.2.1}
+\contentsline {paragraph}{Transient Probabilities}{7}{theoremeT.2.1}
+\contentsfinish 
