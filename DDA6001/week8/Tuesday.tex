@@ -1,0 +1,79 @@
+
+\chapter{Week 8}
+
+\section{Monday}\index{Monday_lecture}
+\subsection{Convex Function}
+
+Convex functions are very useful to geometrically understand analytical results and to derive various inequalities.
+
+\begin{definition}[Convex]
+Function $f:G\to\mathbb{R}$ is said to be convex on the open interval $G\subseteq\mathbb{R}$ if for $p,q>0$ satisfying $p+q=1$,
+\[
+f(px+qy)\le pf(x)+qf(y),\quad\forall x,y\in G.
+\]
+\end{definition}
+
+\begin{proposition}[Linear Envelop of a Convex Function]\label{pro:8:1}
+$f$ is convex on $G$ if and only if there exists $c_x\in\mathbb{R}$ such that for any $x\in G$, 
+\[
+c_x(y-x)\le f(y)-f(x),\quad\forall y\in G.
+\]
+Further, for convex function $f$ on $G$, a) $f$ is continuous, b) $c_x$ is non-decreasing in $x\in G$,
+and c) $c_x=f'(x)$ if $f$ is differentiale at $x$.
+\end{proposition}
+
+\begin{proposition}[Jensen's Inequality]\label{pro:8:2}
+For a random variable $X$, a sub $\sigma$-field $\mathcal{G}$, and convex function $f$ on $\mathbb{R}$, if $\mathbb{E}[|X|]$ and $\mathbb{E}[|f(X)|]$ are finite, then
+\[
+f(\mathbb{E}[X\mid\mathcal{G}])\le \mathbb{E}[f(X)\mid\mathcal{G}]
+\]
+\end{proposition}
+\begin{proof}
+Applying Proposition~\ref{pro:8:1} with $y=X,x=\mathbb{E}[X\mid\mathcal{G}]$ gives
+\[
+f(X) - f(\mathbb{E}[X\mid\mathcal{G}])\ge c_{\mathbb{E}[X\mid\mathcal{G}]}(X - \mathbb{E}[X\mid\mathcal{G}]).
+\]
+Taking the conditional expectations of both sides given $\mathcal{G}$, we have
+\[
+\mathbb{E}\bigg(
+f(X) - f(\mathbb{E}[X\mid\mathcal{G}])\bigg|\mathcal{G}
+\bigg)\ge c_{\mathbb{E}[X\mid\mathcal{G}]}\mathbb{E}[X - \mathbb{E}[X\mid\mathcal{G}]\mid\mathcal{G}]=0.
+\]
+
+\end{proof}
+
+\begin{theorem}
+Let $f$ be a convex function on $\mathbb{R}$.
+If $X_{\cdot}$ is $\mathbb{F}$-martingale and if $\mathbb{E}[|X|]$ and $\mathbb{E}[|f(X_n)|]$ are finite for all $n\ge0$, then 
+$\{f(X_n):~n\ge0\}$ is an $\mathbb{F}$-submartingale.
+\end{theorem}
+\begin{proof}
+Applying proposition~\ref{pro:8:2} with $X=X_n,\mathcal{G}=\mathcal{F}_{n-1}$ gives
+\[
+ \mathbb{E}[f(X_n)\mid\mathcal{F}_{n-1}]-f(\mathbb{E}[X_n\mid\mathcal{F}_{n-1}])\ge0.
+\]
+Therefore, 
+\[
+ \mathbb{E}[f(X_n)\mid\mathcal{F}_{n-1}]\ge f(X_{n-1}).
+\]
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -25,25 +25,40 @@ $A_i\in\mathcal{F}, A_i\cap A_j=\emptyset$, then
 \end{itemize}
 \end{itemize}
 
-From observation to number: $\Omega\ni\omega\to X(\omega)\in\mathbb{R}$.
-Therefore, $X$ should be measurable, i.e.,
+
+The random variable $X$ is a mapping from a sample into a real number $\Omega\ni\omega\to X(\omega)\in\mathbb{R}$.
+Therefore, a random variable should be \emph{measurable}, i.e., 
 \[
 \{\omega\in\Omega; X(\omega)\in B\}:=\{X\in B\}:=X^{-1}(B)\in\mathcal{F}, ~~\forall B\in\mathcal{B}(\mathbb{R}).
 \]
-If $X$ is measurable, we call $X$ as a random variable.
-We can also show that
+Here is the formal definition of aa random variable:
+\begin{definition}[$\mathcal{F}$-Measurable / Random Variable]
+\begin{enumerate}
+\item
+A function $f:(\Omega,\mathcal{F})\to(\mathbb{R}^n,\mathcal{B}(\mathbb{R}^n))$ is called \emph{$\mathcal{F}$-measurable} if
 \[
-\{\omega\in\Omega; X(\omega)\in B\}\in\mathcal{F}\Longleftrightarrow
-\{X\le a\}\in\mathcal{F}
+f^{-1}(\bm B)=\{w\mid f(w)\in\mathcal{B}\}\in\mathcal{F},
 \]
+\mbox{for any $\bm B\in\mathcal{B}(\mathbb{R}^n)$.}
+\item
+A random variable $X$ is a function $X:(\Omega,\mathcal{F})\to(\mathbb{R}^n,\mathcal{B}(\mathbb{R}^n))$ and is $\mathcal{F}$-measurable.
+\end{enumerate}
+\end{definition}
+\begin{remark}
+By applying the definition of $\mathcal{B}(\mathbb{R}^n)$,
+\[
+\{\omega\in\Omega; X(\omega)\in B\}\in\mathcal{F},~\forall B\in\mathcal{B}(\mathbb{R})\Longleftrightarrow
+\{X\le a\}\in\mathcal{F},\forall a\in\mathbb{R}.
+\]
+\end{remark}
 
-
-\subsection{Representative value of random variable $X$}
-We define the random variable by the following three steps:
+\subsection{Expectation of random variable $X$}
+We define the representative value of a random variable by the following three steps:
 \begin{itemize}
 \item
-Consider first that $X$ is simple, i.e., taking finite many values.
-Assume that $X$ only takes $x_1,x_2,\ldots,x_n\in\mathbb{R}$.
+Consider first that $X$ is simple, i.e., taking finitely many values.
+Assume that $X$ only takes $x_1,x_2,\ldots,x_n\in\mathbb{R}$,
+then define the expectation of $X$ as:
 \[
 \mathbb{E}[X]:=\sum_{i=1}^m x_i\mathbb{P}(X=x_i),
 \]
@@ -62,11 +77,37 @@ n,&\quad\text{if $X(\omega)\ge n$}
 Taking $n\to\infty$, $X_n(\omega)\uparrow X(\omega)$.
 Define $\mathbb{E}[X] = \lim_{n\to\infty}\mathbb{E}[X_n]$.
 \item
-Consider finally $X$ is in the whole real line.
-\begin{align*}
-X_+(\omega) = \max\{0, X(\omega)\}\ge0
-\end{align*}
+Finally consider the general $X$ where the output is on the whole real line.
+Define
+\[
+\begin{array}{ll}
+X_+(\omega) = \max(X(\omega),0),
+&
+X_-(\omega) = \max(-X(\omega),0).
+\end{array}
+\]
+Then define the expectation of $X$ by
+\[
+\mathbb{E}[X] = \mathbb{E}[X_+] -  \mathbb{E}[X_-]
+\]
 \end{itemize}
+\begin{remark}
+The expectation $\mathbb{E}[X]$ does not fully characterizes the information about $X$.
+Instead, the distribution function defined below has full information.
+\[
+F(x)=\mathbb{P}(\{X\le x\}),\quad x\in\mathbb{R}
+\]
+We may view $F(x)$ as the set of the expectations $\mathbb{E}[f_x(X)]$ with the test function defined as
+\[
+f_x(u):=\bm 1\{u\le x\}.
+\]
+
+
+
+\end{remark}
+
+
+
 
 
 \begin{example}

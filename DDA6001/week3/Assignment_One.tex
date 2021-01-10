@@ -1,0 +1,114 @@
+\section{Assignment One}\index{Assignment One}
+\begin{enumerate}
+\item
+Consider the system
+\begin{align*}
+ax+2y+3z&=b_1\\
+ax+ay+4z&=b_2\\
+ax+ay+az&=b_3\\
+\end{align*}
+For what three values of $a$ will the \textit{elimination} fail to give the pivots? (\textit{Pivots means the first nonzero entry on rows.})
+\item
+It is impossible for a system of linear equations to have \textit{exactly} two solutions? Explain your answers. And you may consider the following questions as intuitions to derive your final solution.
+\begin{enumerate}
+\item
+In $\mathbb{R}^3$ if $(x,y,z)$ and $(X,Y,Z)$ are two solutions, what is another one?
+\item
+In $\mathbb{R}^3$ if $25$ planes meet at two points, where else do they meet?
+\item
+Extend the argument to $\mathbb{R}^n.$
+\end{enumerate}
+\item
+In the following system
+\begin{align*}
+x+4y-2z&=1\\
+x+7y-6z&=6\\
+3y+qz&=t
+\end{align*}
+\begin{enumerate}
+\item
+Which number $q$ makes this system \textit{singular}? Moreover, if this system is \textit{singular}, which right-hand side $t$ gives \textit{infinitely} many solutions?
+\item
+Find the solution that has $z=1.$
+\end{enumerate}
+\item
+By \emph{trial} and \emph{error}, find examples of $2\x 2$ matrices such that:
+\begin{enumerate}
+\item
+$\bm A^2=-\bm I$, where $\bm A$ has \textit{real} entries.
+\item
+$\bm B^2=\bm0$, where $\bm B\ne\bm0.$
+\item
+$\bm{CD}=-\bm{DC},$ where $\bm CD\ne\bm0.$
+\item
+$\bm{EF}=\bm0$, and no entries of $\bm E$ or $\bm F$ are zero.
+\end{enumerate}
+\item
+For \textit{real} matrices $\bm A,\bm B,\bm C$ in \textit{finite} field, prove the \textit{associativity product rule:}
+\[
+(\bm{AB})\bm C=\bm A(\bm{BC}).
+\]
+\item
+Matrices can be cut into blocks (which are smaller matrices). Here is a 4 by 6 matrix broken into blocks of size $2$ by $2$, in this example each block is just $\bm I$:
+\[
+\begin{aligned}
+\text{\emph{4 by 6 matrix}}\\
+\text{\emph{2 by 2 blocks}}
+\end{aligned}\qquad
+\bm A=\left[
+\begin{array}{@{}cc|cc|cc@{}}
+1&0&1&0&1&0\\
+0&1&0&1&0&1\\
+\hline
+1&0&1&0&1&0\\
+0&1&0&1&0&1
+\end{array}
+\right]=\begin{bmatrix}
+\bm I&\bm I&\bm I\\\bm I&\bm I&\bm I
+\end{bmatrix}.
+\]
+We give the definition for \textit{block multiplication}:
+\begin{definition}[Block Multiplication]
+If the cuts between columns of $\bm A$ match the cuts between rows of $\bm B$, then block multiplication of $\bm{AB}$ is allowed: 
+\[
+\begin{bmatrix}
+\bm A_{11}&\bm A_{12}&\bm A_{21}&\bm A_{22}
+\end{bmatrix}\begin{bmatrix}
+\bm B_{11}&\cdots\\\bm B_{21}&\cdots
+\end{bmatrix}=\begin{bmatrix}
+\bm A_{11}\bm B_{11}+\bm A_{12}\bm B_{21}&\cdots\\
+\bm A_{21}\bm B_{11}+\bm A_{22}\bm B_{21}&\cdots
+\end{bmatrix}.
+\]
+\end{definition}
+If we have $\bm A,\bm B$ such that
+\[
+\bm A\bm B=\left[
+\begin{array}{@{}cc|c@{}}
+\x&\x&\x\\
+\x&\x&\x\\
+\hline
+\x&\x&\x
+\end{array}\right]\left[
+\begin{array}{@{}cc|c@{}}
+\x&\x&\x\\
+\x&\x&\x\\
+\hline
+\x&\x&\x\\
+\end{array}\right],
+\]
+replace $\x$ by numbers to verify the block multiplication succeeds.
+\item
+\[
+\begin{array}{@{}cc|c@{}}
+4&0&4\\
+6&6&8\\
+\hline
+-9&5&-8
+\end{array}
+\bm A=\begin{bmatrix}
+a&a&a&a\\a&b&b&b\\a&b&c&c\\a&b&c&d
+\end{bmatrix}.
+\]
+Seperate $\bm A$ into $\bm L$ and $\bm U$. Moreover, Find four conditions on $a,b,c,d$ to let $\bm A$ have \textit{four} pivots.
+\end{enumerate}

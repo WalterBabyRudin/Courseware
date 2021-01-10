@@ -1,8 +1,8 @@
 \select@language {english}
 \vskip -8pt
-\contentsline {schapter}{Acknowledgments}{vii}{chapter*.2}
+\contentsline {schapter}{Acknowledgments}{ix}{chapter*.2}
 \vskip -8pt
-\contentsline {schapter}{Notations}{ix}{chapter*.3}
+\contentsline {schapter}{Notations}{xi}{chapter*.3}
 \contentsline {chapter}{\numberline {1}Week1}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}Tuesday}{1}{section.1.1}
 \contentsline {subsection}{\numberline {1.1.1}Difference between ODE and SDE}{1}{subsection.1.1.1}
@@ -19,9 +19,77 @@
 \contentsline {subsection}{\numberline {1.2.2}Stochastic Process}{10}{subsection.1.2.2}
 \contentsline {chapter}{\numberline {2}Week2}{13}{chapter.2}
 \contentsline {section}{\numberline {2.1}Tuesday}{13}{section.2.1}
-\contentsline {subsection}{\numberline {2.1.1}Stochastic Process}{13}{subsection.2.1.1}
-\contentsline {paragraph}{Exercise}{15}{exampleT.2.3}
-\contentsline {chapter}{\numberline {3}Week3}{17}{chapter.3}
-\contentsline {section}{\numberline {3.1}Tuesday}{17}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}Uniform Integrability}{17}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {2.1.1}More on Stochastic Process}{13}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Conditional Expectation}{15}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}Tips about Probability Theory}{18}{subsection.2.1.3}
+\contentsline {subsection}{\numberline {2.1.4}Reviewing on Real Analysis}{19}{subsection.2.1.4}
+\contentsline {section}{\numberline {2.2}Thursday}{22}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Uniform Integrability}{22}{subsection.2.2.1}
+\contentsline {chapter}{\numberline {3}Week3}{27}{chapter.3}
+\contentsline {section}{\numberline {3.1}Tuesday}{27}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Reviewing}{27}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Necessary and Sufficient Conditions for UI}{29}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Convergence of random variables}{30}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {3.1.4}Martingales in Discrete Time}{34}{subsection.3.1.4}
+\contentsline {section}{\numberline {3.2}Thursday}{35}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Stopping Time}{35}{subsection.3.2.1}
+\contentsline {chapter}{\numberline {4}Week4}{41}{chapter.4}
+\contentsline {section}{\numberline {4.1}Tuesday}{41}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Martingales in Discrete Time}{41}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Doob's Inequalities}{46}{subsection.4.1.2}
+\contentsline {section}{\numberline {4.2}Thursday}{48}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Doob's Maximal Inequality}{48}{subsection.4.2.1}
+\contentsline {chapter}{\numberline {5}Week5}{53}{chapter.5}
+\contentsline {section}{\numberline {5.1}Tuesday}{53}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Convergence of Martingales}{53}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Continuous-time Martingales}{58}{subsection.5.1.2}
+\contentsline {section}{\numberline {5.2}Thursday}{60}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Theorems for Continuous Time Martingales}{60}{subsection.5.2.1}
+\contentsline {chapter}{\numberline {6}Week6}{65}{chapter.6}
+\contentsline {section}{\numberline {6.1}Tuesday}{65}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Localization}{67}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}Introduction to Brownian Motion}{68}{subsection.6.1.2}
+\contentsline {section}{\numberline {6.2}Thursday}{69}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Properties of Brownian Motion}{69}{subsection.6.2.1}
+\contentsline {chapter}{\numberline {7}Week7}{73}{chapter.7}
+\contentsline {section}{\numberline {7.1}Tuesday}{73}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}Reflection Principle}{73}{subsection.7.1.1}
+\contentsline {subsection}{\numberline {7.1.2}Distributions of Brownian Motion}{76}{subsection.7.1.2}
+\contentsline {section}{\numberline {7.2}Thursday}{79}{section.7.2}
+\contentsline {subsection}{\numberline {7.2.1}Unbounded Variation of Brownian Motion}{79}{subsection.7.2.1}
+\contentsline {chapter}{\numberline {8}Weak 8}{83}{chapter.8}
+\contentsline {section}{\numberline {8.1}Thursday}{83}{section.8.1}
+\contentsline {subsection}{\numberline {8.1.1}Quadratic Variation}{83}{subsection.8.1.1}
+\contentsline {chapter}{\numberline {9}Week9}{87}{chapter.9}
+\contentsline {section}{\numberline {9.1}Tuesday}{87}{section.9.1}
+\contentsline {subsection}{\numberline {9.1.1}Introduction to Ito Calculus}{87}{subsection.9.1.1}
+\contentsline {section}{\numberline {9.2}Thursday}{92}{section.9.2}
+\contentsline {subsection}{\numberline {9.2.1}Approxiation by simple processes}{92}{subsection.9.2.1}
+\contentsline {chapter}{\numberline {10}Week10}{99}{chapter.10}
+\contentsline {section}{\numberline {10.1}Tuesday}{99}{section.10.1}
+\contentsline {subsection}{\numberline {10.1.1}Square Integrable Process}{99}{subsection.10.1.1}
+\contentsline {section}{\numberline {10.2}Thursday}{103}{section.10.2}
+\contentsline {subsection}{\numberline {10.2.1}Introduction to Ito Integral}{103}{subsection.10.2.1}
+\contentsline {subsection}{\numberline {10.2.2}Properties of Ito Integral}{108}{subsection.10.2.2}
+\contentsline {chapter}{\numberline {11}Week11}{111}{chapter.11}
+\contentsline {section}{\numberline {11.1}Tuesday}{111}{section.11.1}
+\contentsline {subsection}{\numberline {11.1.1}Quadratic Variation of Ito Integral}{111}{subsection.11.1.1}
+\contentsline {section}{\numberline {11.2}Thursday}{120}{section.11.2}
+\contentsline {subsection}{\numberline {11.2.1}Quadratic Covariation}{120}{subsection.11.2.1}
+\contentsline {subsection}{\numberline {11.2.2}Ito Integral for General Processes}{122}{subsection.11.2.2}
+\contentsline {paragraph}{Ito Integral for Simple Processes}{122}{subsection.11.2.2}
+\contentsline {paragraph}{Ito's Integral on $\mathcal {L}^2(M)$}{123}{definitionT.11.4}
+\contentsline {paragraph}{Ito's Integral on Locally Bounded Processes}{123}{definitionT.11.4}
+\contentsline {paragraph}{Ito's Integral on the class of semi-martingales}{124}{definitionT.11.6}
+\contentsline {chapter}{\numberline {12}Week12}{125}{chapter.12}
+\contentsline {section}{\numberline {12.1}Tuesday}{125}{section.12.1}
+\contentsline {subsection}{\numberline {12.1.1}Ito's Formula}{125}{subsection.12.1.1}
+\contentsline {subsection}{\numberline {12.1.2}Applications of Ito's Formula}{134}{subsection.12.1.2}
+\contentsline {paragraph}{Motivation for Martingale Representation Theorem}{137}{theoremeT.12.6}
+\contentsline {section}{\numberline {12.2}Thursday}{140}{section.12.2}
+\contentsline {subsection}{\numberline {12.2.1}Introduction to SDE}{140}{subsection.12.2.1}
+\contentsline {paragraph}{Motivation}{140}{subsection.12.2.1}
+\contentsline {chapter}{\numberline {13}Week13}{147}{chapter.13}
+\contentsline {section}{\numberline {13.1}Thursday}{147}{section.13.1}
+\contentsline {subsection}{\numberline {13.1.1}Fundamental Theorems in SDE}{147}{subsection.13.1.1}
 \contentsfinish 

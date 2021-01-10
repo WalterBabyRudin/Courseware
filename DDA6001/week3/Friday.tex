@@ -1,0 +1,168 @@
+% !TEX encoding = UTF-8 Unicode
+
+\section{Thursday}\index{Thursday_lecture}
+
+\subsection{Central Limit Theorem}
+The strong LLN indicates that $\overline{X}_n\to m$ a.s.
+It can be applied to real data $\{X_n(\omega), n\ge1\}$ to estimate $m$.
+We need to see how big $n$ is sufficient. 
+This may be answered by computing for a given error level $\varepsilon>0$,
+$\mathbb{P}(|\overline{X}_n- m|>\varepsilon)$.
+Therefore, we need to know the general distribution of $\overline{X}_n$, which is independent of the distribution of $X_n$.
+
+\begin{theorem}[Central Limit Theorem]
+Let $\{X_n\}_{n\ge1}$ be a sequence of i.i.d. random variables with finite $m=\mathbb{E}[X_1]$
+and finite $\sigma = \sqrt{V(X_1)}$, then the sample average $\overline{X}_n$ satisfies
+\[
+\mathbb{E}[\overline{X}_n]=m,\qquad
+V(\overline{X}_n) = \frac{\sigma^2}{n}
+\]
+Define the normalized random variable of $\overline{X}_n$ as
+\[
+Z_n = \frac{\overline{X}_n - m}{\sqrt{V(\overline{X}_n)}} = \frac{S_n - mn}{\sqrt{n}\sigma}.
+\]
+Then
+\[
+\lim_{n\to\infty}\mathbb{P}(Z_n\le x) = \Phi(x),\qquad x\in\mathbb{R},
+\]
+where $\Phi$ is the standard normal distribution function:
+\[
+ \Phi(x) = \int_{-\infty}^x\frac{1}{\sqrt{2\pi}}\exp\left(-\frac{1}{2}u^2\right)\diff u.
+\]
+\end{theorem}
+As a result, we have the following approximation:
+\[
+\mathbb{P}(|\overline{X}_n- m|>\varepsilon) 
+=\mathbb{P}\left(
+|Z_n|>\frac{\sqrt{n}}{\sigma}\varepsilon
+\right) = 2\left(
+1 - \Phi(\frac{\sqrt{n}}{\sigma}\varepsilon)
+\right).
+\]
+
+We have the following questions about central limit theorem:
+\begin{itemize}
+\item
+Is the $\Phi$ a distribution function?
+\item
+How to define convergence for distribution functions?
+\item
+How to show the central limit theorem?
+\end{itemize}
+
+\begin{proposition}
+The function $\Phi$ is a distribution function, where 
+\[
+ \Phi(x) \triangleq \int_{-\infty}^x\frac{1}{\sqrt{2\pi}}\exp\left(-\frac{1}{2}u^2\right)\diff u.
+\]
+\end{proposition}
+\begin{proof}
+It suffices to show that $\lim_{x\to\infty}\Phi(x)=1$. In other words, it suffices to show 
+\[
+\int_{-\infty}^\infty\int_{-\infty}^\infty\exp\left(-\frac{1}{2}u^2-\frac{1}{2}v^2\right)\diff u\diff v=2\pi.
+\]
+By the change of variable $\diff u\diff v = r\diff r\diff \theta$,
+\[
+\int_{-\infty}^\infty\int_{-\infty}^\infty\exp\left(-\frac{1}{2}u^2-\frac{1}{2}v^2\right)\diff u\diff v
+=
+\int_{0}^{2\pi}\int_0^\infty \exp\left(-\frac{1}{2}r^2\right)r\diff r\diff\theta=2\pi.
+\]
+\end{proof}
+
+\begin{definition}[Convergence for distribution functions]
+For a distribution function $F$, define $C_F$ as the set of all continuous points of $F$:
+\[
+C_F = \{x\in\mathbb{R}:~F(x-)=F(x)\}.
+\]
+\begin{enumerate}
+\item
+For distributions $F_n, n\ge1$ and $F$, we say $F_n\xrightarrow{w}F$ if
+\[
+\lim_{n\to\infty}F_n(x) = F(x).
+\]
+\item
+For random variables $X_n, n\ge1$ and $X$, we say $X_n\xrightarrow{d}X$ if the distribution of $X_n$ weakly converges to that of $X$.
+\end{enumerate}
+\end{definition}
+The discontinuous points are excluded for defining weak convergence, since otherwise the convergence mode will be too limited.
+
+\begin{example}[Examples of weak convergence]
+For a constant $a$, define distribution functions $F_n,F$ as
+\[
+F_n(x) = \left\{
+\begin{aligned}
+0,&\quad\text{if $x<a-1/n$}\\
+\frac{n}{2}(x - a + \frac{1}{n}),&\quad\text{if $a-1/n\le x < a+1/n$}\\
+1,&\quad\text{if $a+1/n\le x$}
+\end{aligned}
+\right.\qquad
+F(x)=\left\{
+\begin{aligned}
+0,&\quad\text{if $x<a$}\\
+1,&\quad\text{if $a\le x$}
+\end{aligned}
+\right.
+\]
+As a result,
+\[
+\lim_{n\to\infty}F_n(x) = \left\{
+\begin{aligned}
+0,&\quad\text{if $x<a$}\\
+\frac{1}{2},&\quad\text{if $x=a$}\\
+1,&\quad\text{if $x>a$}
+\end{aligned}
+\right.
+\]
+Therefore, $F_n(x)$ converges to $F(x)$ except for $x=a$.
+\end{example}
+
+\paragraph{General Guidance for Proving Central Limit Theorem}
+\begin{enumerate}
+\item
+Firstly define the characteristic function $\phi:\mathbb{R}\to\mathbb{C}$:
+\[
+\phi(\theta)\triangleq \int_0^\infty e^{-i\theta x}F(\diff x)
+\]
+Then showing the following facts.
+\item
+$\phi$ uniquely determines distribution function $F$.
+\item
+$F_n\xrightarrow{w}F$ if and only if $\phi_n(\theta)\to\phi(\theta),\forall \theta\in\mathbb{R}$.
+\item
+$\phi_n(\theta)$ for the distribution of $\frac{1}{\sigma\sqrt{n}}(S_n - mn)$ converges to $\exp(-\frac{1}{2}\theta^2)$ for all $\theta\in\mathbb{R}$.
+\end{enumerate}
+
+\subsection{Complex Numbers and Functions}
+
+\begin{definition}[Exponential Function]
+Define the \emph{exponential funciton} with variable $z\in\mathbb{C}$ as
+\[
+e^z = \sum_{n=0}^\infty\frac{1}{n!}z^n.
+\]
+Exponential function admits the Euler's formula:
+\[
+e^{iz} = \sum_{n=0}^\infty\frac{1}{n!}(iz)^n = \cos z + i\sin z.
+\]
+\end{definition}
+
+
+
+
+
+
+
+%
+%Normalization of r.v. $X$:
+%when $m\equiv \mathbb{E}[X]$ and $\sigma^2\equiv V(X)$, then the normalization of $X$ is
+%\[
+%Z \equiv \frac{1}{\sigma}(X-m)
+%\]
+%Consider the sample average $\overline{X}_n$,
+%\[
+%\mathbb{E}[\overline{X}_n]=m,\qquad
+%V(\overline{X}_n) = \frac{\sigma^2}{n}
+%\]
+%Thus the normalized r.v. of $\overline{X}_n$ is
+%\[
+%Z_n = \frac{\overline{X}_n - m}{\sqrt{V(\overline{X}_n)}} = \frac{S_n - mn}{\sqrt{n}\sigma}
+%\]

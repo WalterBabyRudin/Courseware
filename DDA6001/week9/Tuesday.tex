@@ -1,0 +1,295 @@
+
+\chapter{Week 9}
+
+\section{Monday}\index{Monday_lecture}
+\subsection{Classification of States}
+
+\paragraph{Motivation}
+Let $X_{\cdot}$ denote a Markov chain.
+We are interested in the transition probability $p_{i,j}^{(n)}$ for $i,j\in S$.
+We want to ask the following questions:
+\begin{enumerate}
+\item
+Is the limit $p_{i,j}^{(n)}$ exists as $n\to\infty$?
+\item
+If so, how to compute it?
+\end{enumerate}
+Before answering this question, we classify states in $S$ according to:
+\begin{itemize}
+\item
+Go to state $j$ from state $i$ with positive probability?
+\item
+Is it any period to return to the starting state?
+\item
+With probability 1 to return to the same state?
+The expectation time for return is finite?
+\end{itemize}
+
+\begin{definition}
+\begin{itemize}
+\item
+We say $i,j$ commute to each other if $i\Leftrightarrow j$;
+\item
+We say $C$ is irreducible if $i\Leftrightarrow j$ for any $i,j\in C$;
+\item
+We say $C$ is closed if $p_{i,j}=0$ for $\forall i\in C, j\in S\setminus C$.
+\end{itemize}
+\end{definition}
+The notion $\Rightarrow$ is an equivalence relation on $C$: 
+when $i\Rightarrow j$ and $j\Rightarrow k$, i.e., $p_{i,j}^{(\ell)}>0, p_{j,k}^{(m)}>0$, then
+\[
+p_{i,k}^{(\ell+m)}=\sum_{j'\in S}p_{i,j'}^{(\ell)}p_{j',k}^{(m)}\ge p_{i,j}^{(\ell)}p_{j,k}^{(m)}>0,
+\]
+which means that $i\Rightarrow k$.
+
+\begin{proposition}
+The state space $S$ of a Markov chain can be partitioned into mutually exclusive irreducible closed sets and the other set which does not contain any irreducible closed set.
+\end{proposition}
+\begin{proof}
+Construction of such set: 
+Let $C(i)=\{j\in S:~i\Leftrightarrow j\}$ if it is closed, otherwise $C(i)=\emptyset$.
+Finally, construct $T=S\setminus(\cup_{i\in S}C(i))$.
+\end{proof}
+
+This lemma suggests that we only need to consider an irreducible closed set to ask the question at the beginning.
+
+\begin{definition}[Stopping Time]
+\begin{itemize}
+\item
+Define the first time to get $j$ from $i$ as $\tau_j=\inf\{n\ge1:~X_n=j\}$, where $\tau_j=\infty$ if $X_n\ne j,\forall n$;
+\item
+Define the hitting probability
+$f_{i,j}^{(n)}=\mathbb{P}(\tau_j=n\mid X_0=i).
+$
+\end{itemize}
+\end{definition}
+
+\begin{proposition}[First Time Decomposition]
+When $n=0$, $p_{i,j}^{(0)}=1(i=j)$.
+When $n\ge1$,
+\[
+p_{i,j}^{(n)}=\sum_{\ell=1}^nf_{i,j}^{(\ell)}p_{j,j}^{(n-\ell)}.
+\]
+\end{proposition}
+\begin{proof}
+\begin{align*}
+\mathbb{P}(X_n=j\mid X_0=i)&=\sum_{\ell=1}^n\mathbb{P}(X_n=j, \tau_j=\ell\mid X_0=i)\\
+&=\sum_{\ell=1}^n\mathbb{P}(\tau_j=\ell\mid X_0=i)\mathbb{P}(X_n=j\mid \tau_j=\ell, X_0=i)\\
+&=\sum_{\ell=1}^n\mathbb{P}(\tau_j=\ell\mid X_0=i)\mathbb{P}(X_n=j\mid X_\ell=j)=\sum_{\ell=1}^nf_{i,j}^{(\ell)}p_{j,j}^{(n-\ell)}.
+\end{align*}
+\end{proof}
+
+\begin{definition}[Period]
+Let $\mathbb{N}=\{k\in\mathbb{Z}, k\ge1\}$,
+For $i\in S$, define the period of $i$ as
+\[
+d(i)=\text{GCD}\{n:~p_{i,i}^{(n)}>0\}
+\]
+We denote $d(i)=\infty$ if $p_{i,i}^{(n)}=0,\forall n$.
+\end{definition}
+
+\begin{proposition}
+For $i,j\in S$ with $i\ne j$, $i\Leftrightarrow j$ implies $d(i)=d(j)<\infty$.
+\end{proposition}
+\begin{proof}
+It suffices to show that $d(j)$ is a multiple of $d(i)$.
+Since $i\Leftrightarrow j$, there exists $\ell, m$ such that 
+$p_{i,j}^{(\ell)}>0, p_{j,i}^{(m)}>0$.
+For $n$ such that $p_{j,j}^{(n)}>0$,
+\[
+p_{i,i}^{(\ell+n+m)}\ge p_{i,j}^{(\ell)}p_{j,j}^{(n)}p_{j,i}^{(m)}>0,
+\]
+which means that $\ell+n+m$ is a multiple of $d(i)$.
+Since $\ell+m$ does so, $n$ is a multiple of $d(i)$.
+\end{proof}
+
+\begin{definition}[Aperiodic]
+An irreducible Markov chain is said to be aperiodic if some state has period $1$.
+\end{definition}
+The following gives an alternative for finding the period of a state.
+\begin{proposition}
+For $j\in S$, let $f(j)=\text{GCD}\{n:~f_{j,j}^{(n)}>0\}$.
+Then $f(j)=d(j)$.
+\end{proposition}
+\begin{proof}
+Note that $f(j)$ is a multiple of $d(j)$ since $p_{j,j}^{(n)}>0$.
+Conversely, pick any $n$ so that $p_{j,j}^{(n)}>0$.
+Then there exists $\ell_1$ so that $f_{j,j}^{(\ell_1)}p_{j,j}^{(n-\ell_1)}>0$.
+Inductively, $n=\ell_1+\cdots+\ell_k$, i.e., $n$ is a multiple of $f(j)$.
+Hence, $d(j)$ is a multiple of $f(j)$.
+\end{proof}
+
+\begin{definition}[Return-Time Classes]
+Define the following notation for $i,j\in S$:
+\[
+f_{i,j}^{(*)}=\mathbb{P}(\tau_j<\infty\mid X_0=i),\quad
+\mu_{i,j}=\left\{
+\begin{aligned}
+\mathbb{E}[\tau_j\mid X_0=i],&\quad\text{if $f_{i,j}^{(*)}=1$}\\
+\infty,&\quad\text{if $f_{i,j}^{(*)}<1$}
+\end{aligned}
+\right.
+\]
+\begin{enumerate}
+\item
+The state $i$ is transient if $f_{i,j}^{(*)}<1$;
+\item
+The state $i$ is recurrent if $f_{i,j}^{(*)}=1$;
+\item
+The state is positive recurrent if $f_{i,j}^{(*)}=1$ and $\mu_{i,i}<\infty$;
+\item
+The state is null recurrent if $f_{i,j}^{(*)}=1$ and $\mu_{i,i}=\infty$;
+\end{enumerate}
+\end{definition}
+
+Define the following series to characterize the relation between $\{f_{i,j}^{(n)}\}$ and $\{p_{i,j}^{(n)}\}$:
+\[
+F_{i,j}(z)=\sum_{n=1}^\infty f_{i,j}^{(n)}z^n,\qquad
+U_{i,j}(z)=\sum_{n=0}^\infty p_{i,j}^{(n)}z^n.
+\]
+\begin{proposition}
+For $i,j\in S$ and $0<z<1$,
+\[
+U_{i,j}(z)-1(i=j)=F_{i,j}(z)U_{j,j}(z).
+\]
+Moreover, $\lim_{z\to1-}F_{i,i}(z)=f_{i,i}^{(*)}$ and 
+$\lim_{z\to1-}\frac{1-F_{i,i}(z)}{1-z}=\mu_{i,i}$ if $f_{i,i}^{(*)}=1$.
+\end{proposition}
+
+\begin{proof}
+\begin{align*}
+U_{i,j}(z)-1(i=j)&=\sum_{n=1}^\infty z^n\sum_{\ell=1}^nf_{i,j}^{(\ell)}p_{j,j}^{(n-\ell)}=F_{i,j}(z)U_{j,j}(z).
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+If $i\Leftrightarrow j$, then $i$ and $j$ are in the same return-time class.
+\end{theorem}
+\begin{proof}
+The key is to show the identity
+\[
+(1-F_{j,j}(z))\ge c_{i,j}^{(\ell,m)}(z)(1-F_{i,i}(z))\ge0.
+\]
+\end{proof}
+\begin{proposition}
+\[
+f_{i,i}^{(*)}=p_{i,i}+\sum_{j\in S\setminus i}p_{i,j}f_{j,i}^{(*)}.
+\]
+\end{proposition}
+\begin{proof}
+\[
+\mathbb{P}(\tau_i<\infty\mid X_0=i)=p_{i,i}+\sum_{j\in S\setminus i}\mathbb{P}(\tau_i<\infty\mid X_1=j)\mathbb{P}(X_1=j\mid X_0=i).
+\]
+\end{proof}
+If there is some $j$ so that $p_{i,j}>0$ but $f_{j,i}^{(*)}=0$, then immediately $f_{i,i}^{(*)}<1$.
+
+
+\subsection{Renewal Equation}
+For a probability distribution $\{f_n:~n\ge1\}$, define the renewal equation by $u_0=1$,
+\[
+u_n=\sum_{\ell=1}^nf_{\ell}u_{n-\ell}.
+\]
+Specifically, we take $f_{\ell}=f_{j,j}^{(\ell)}$. Then $\{f_{\ell}\}$ is a distribution, and $p_{j,j}^{(n)}$ satisfies the renewal equation.
+The existence of the limit $u_n$ is answered by the following theorem:
+
+\begin{theorem}
+For the renewal equation, if $\text{GCD}\{n\ge1:~f_n>0\}=1$, then the solution $\{u_n~:n\ge1\}$ admits the limit
+\[
+\lim_{n\to\infty}u_n=\frac{1}{\mu}
+\]
+with $\mu=\sum_{\ell=1}^\infty\ell f_{\ell}$.
+\end{theorem}
+
+\subsection{Limit of State Distribution}
+
+\begin{theorem}\label{The:9:3}
+If state $j$ is transient, then
+\[
+\lim_{n\to\infty}p_{i,j}^{(n)}=0,\quad \forall i\in S.
+\]
+\end{theorem}
+\begin{proof}
+First consider $i=j$. 
+Since $j$ is transient, $F_{j,j}(1)<1$, and 
+\[
+\sum_{n=0}^\infty p_{j,j}^{(n)}=\lim_{z\to1-}U_{j,j}(z)=\frac{1}{1-F_{j,j}(1)}<\infty.
+\]
+Thus $p_{j,j}^{(n)}\to0$.
+
+For $i\ne j$, 
+\[
+p_{i,j}^{(n)}=\sum_{\ell=1}^\infty f_{i,j}^{(\ell)}1(\ell\le n)p_{j,j}^{(n-\ell)}
+\]
+Taking $n\to\infty$ gives the desired result.
+\end{proof}
+
+\begin{theorem}\label{The:9:4}
+If $j$ is aperiodic and recurrent, then
+\[
+\lim_{n\to\infty}p_{j,j}^{(n)}=\frac{1}{\mu_{j,j}},\quad
+\lim_{n\to\infty}p_{i,j}^{(n)}=f_{i,j}^{(*)}\frac{1}{\mu_{j,j}},
+\]
+where $\mu_{j,j}=\mathbb{E}[\tau_j\mid X_0=j]$.
+\end{theorem}
+
+\begin{proof}
+The first limit is by renewal theorem: 
+\[
+\mu_{j,j}=\sum_{j=1}^\infty \ell f_{j,j}^{(\ell)}=\mathbb{E}[\tau_j\mid X_0=j].
+\]
+The second limit is based on the first-time decomposition:
+\[
+p_{i,j}^{(n)}=\sum_{\ell=1}^n f_{i,j}^{(\ell)}p_{j,j}^{(n-\ell)}
+\]
+
+\end{proof}
+
+\begin{theorem}
+If $j$ is aperiodic and has period $d$, then
+\[
+\lim_{n\to\infty}p_{i,j}^{(nd)}=f_{i,j}^{(*)}\frac{d}{\mu_{j,j}}
+\]
+\end{theorem}
+\begin{proof}
+Construct the 1-step transition Markov process $Y_n=X_{nd}$, then
+\[
+\lim_{n\to\infty}p_{j,j}^{(nd)}=\frac{1}{\mathbb{E}[\tau_j^{(d)}\mid X_0=j]}
+\]
+\end{proof}
+
+\begin{theorem}
+If the Markov chain is aperiodic and irreducible, then
+\[
+\lim_{n\to\infty}p_{i,j}^{(n)}=\frac{1}{\mu_{j,j}}.
+\]
+\end{theorem}
+\begin{proof}
+It suffices to show $f_{i,j}^{(*)}=1$.
+\end{proof}
+
+\textbf{Remaining problems}
+\begin{itemize}
+\item
+What is the role of $p_{i,j}^{(n)}$ for large $n$ in application?
+\item
+In the positive recurrent case, the distribution $X_n$ weakly converges to a distribution?
+\item
+Is there any sufficient condition for $\mu_j<\infty$?
+\item
+Is there any simpler way to compute $\mu_j$?
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

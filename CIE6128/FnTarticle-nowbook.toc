@@ -1,0 +1,281 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Editor-in-Chief}{v}{section*.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{Associate Editors}{v}{section*.3}
+\defcounter {refsection}{0}\relax 
+\thispagestyle {empty}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Introduction to Deep Learning}{3}{chapter.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.1}Motivation}{3}{section.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Example: is AI like Alchemy?}{3}{paragraph*.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Comment from Ruoyu Sun}{4}{paragraph*.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.2}Outline}{4}{section.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Pre-requisite}{4}{paragraph*.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Course Objective and Audience}{5}{paragraph*.10}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.3}Neural Network Basis}{5}{section.1.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Why $\&$ When $\&$ How do we need neural-nets?}{6}{paragraph*.12}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.4}Gradient Explosion/Vanishing}{7}{section.1.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Solving by Classical Gradient Descent}{8}{paragraph*.13}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Back Propagation and Initialization}{9}{chapter.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}Review}{9}{section.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{How to rescue the gradient vanishing/explosion during DL training?}{10}{paragraph*.15}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.2}Back Propagation}{10}{section.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Understanding BP in Level I: Scalar Form of Gradient}{10}{paragraph*.16}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Step 1: Decompose into multiple paths}{11}{paragraph*.18}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Step 2: Take gradient of each path by Chain rule}{11}{paragraph*.19}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Step 3: Take the sum of results from each path}{12}{paragraph*.20}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Understanding BP in Level II: Matrix Form of Gradient}{12}{paragraph*.21}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{BP for General Deep Non-linear Network}{16}{paragraph*.23}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.3}Initialization methods for handling Training Difficulty}{17}{section.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Supporting Analysis}{18}{paragraph*.25}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Taming Explosion/Vanishing: Initialization}{21}{chapter.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.1}Reviewing}{21}{section.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.2}Motivation}{21}{section.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Bibliography}{24}{paragraph*.26}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.3}General Activation}{25}{section.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Problem Setting}{25}{paragraph*.27}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.3.1}The scalar-input one-layer case}{25}{subsection.3.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.3.2}The vector-input one-layer case}{25}{subsection.3.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.3.3}The vector-input multi-layer case}{26}{subsection.3.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Mean-field approximation}{26}{paragraph*.28}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.4}Dynamical Isometry}{28}{section.3.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Bibliography}{28}{paragraph*.29}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.4.1}Dynamical Isometry for Linear Networks}{29}{subsection.3.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Three Tricks in Training of Neural Network}{31}{chapter.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.1}Reviewing}{31}{section.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Motivation}{31}{paragraph*.30}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.2}Intialization: Dynamical Isometry}{32}{section.4.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{The possibility of dynamical isometry}{33}{paragraph*.32}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Why ``Orthogonal'' is ``Difficult''}{34}{paragraph*.34}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.3}Batch Normalization}{34}{section.4.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Motivation}{34}{paragraph*.35}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Method 1: Pure Algorithmic Correction}{36}{paragraph*.36}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Method 2: Constrained optimization}{36}{paragraph*.37}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Method 3: New way of Formulation}{36}{paragraph*.38}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Motivation for Batch Normalization\nobreakspace {}(BN)}{37}{paragraph*.39}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Gradient Computation if adding the BN}{38}{paragraph*.41}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.4}ResNet}{40}{section.4.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Motivation}{40}{paragraph*.43}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Solution}{42}{paragraph*.45}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}ResNet Initialization and Landscape Analysis}{43}{chapter.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.1}Reviewing}{43}{section.5.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.2}Initialization for ResNet}{44}{section.5.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Bibilogrphy}{46}{paragraph*.47}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Scaling of the Residuals}{46}{paragraph*.48}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Is normalization fundamental?}{47}{paragraph*.49}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.3}Landscape of Neural-Nets}{48}{section.5.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Motivation}{48}{paragraph*.50}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.3.1}Positive Result: Linear Network has nice landscape}{48}{subsection.5.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Scalar Case Analysis}{48}{paragraph*.51}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Re-thinking Convexity}{50}{paragraph*.53}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Bibliography}{51}{paragraph*.54}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.3.2}Negative Result: Nonlinearity doesn't necessarily imply Global-optimality for SOSP}{51}{subsection.5.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Relu Activation}{51}{paragraph*.55}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {6}Landscape Analysis and Representation}{55}{chapter.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.1}Reviewing}{55}{section.6.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Outline}{56}{paragraph*.59}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.2} Landscape analysis for non-linear neural-nets }{56}{section.6.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.2.1}Negative Result: The sum of two good-landscape function have good landscape }{56}{subsection.6.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.3}Over-Parameterized Networks}{58}{section.6.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Does Current Neural-net have too many parameters?}{59}{paragraph*.61}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Bibliography}{59}{paragraph*.62}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.3.1}Empirical Evidence for Landscape}{61}{subsection.6.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Bibliography}{61}{paragraph*.64}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.4}Representation Power}{61}{section.6.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Motivation}{61}{paragraph*.65}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Formulation of Representation Power}{62}{paragraph*.66}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Sufficient Condition for Enough Representation Power}{62}{paragraph*.67}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {7}Representation and GAN}{63}{chapter.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7.1}Reviewing}{63}{section.7.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7.2}Representation: depth separation}{64}{section.7.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.2.1}A simple proof of threhold activation has enough representation power}{64}{subsection.7.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Bibliography}{65}{paragraph*.69}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.2.2}Depth Separation (Analysis for ReLU Activation)}{66}{subsection.7.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Summarization}{68}{paragraph*.72}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7.3}GAN}{68}{section.7.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Motivation}{69}{paragraph*.73}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Discussion}{69}{paragraph*.74}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Motivation of W-GAN}{71}{paragraph*.75}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {8}Adversarial Learning}{73}{chapter.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.1}Introduction to Adversarial Learning}{73}{section.8.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Motivation}{73}{paragraph*.76}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Type of attacks}{74}{paragraph*.78}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Bibliography}{75}{paragraph*.79}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.2}Mathematical Formulation of Adversary Attack}{75}{section.8.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {8.2.1}Un-targetted Attack}{75}{subsection.8.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {8.2.2}Targetted Attack}{77}{subsection.8.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Solving Optimization Problems in Adversary Attack}{77}{paragraph*.81}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {8.2.3}Zeroth-order Optmization}{78}{subsection.8.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.3}Adversarial Defense}{78}{section.8.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {8.3.1}Certified Defense}{79}{subsection.8.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.4}Optimization Algorithms}{80}{section.8.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {8.4.1}Part I: Gradient Descent\nobreakspace {}(GD) method}{80}{subsection.8.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {9}Optimization Algorithms}{83}{chapter.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {9.1}Reviewing}{83}{section.9.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {9.2}Variants of Gradient Descent\nobreakspace {}(GD) Method}{83}{section.9.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {9.2.1}Scaled GD}{83}{subsection.9.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {9.2.2}Stochastic Gradient Descent\nobreakspace {}(SGD)}{86}{subsection.9.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {9.3}Momentum-based Method}{89}{section.9.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {9.3.1}Heavy-Ball Method}{89}{subsection.9.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {9.3.2}Adaptive Gradient methods\nobreakspace {}(AdaGrad)\nobreakspace {}\citep {Duchi2001}}{89}{subsection.9.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {9.3.3}RMS-Prop\nobreakspace {}\citep {RMSProp}}{90}{subsection.9.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {9.3.4}Adam\nobreakspace {}\citep {kingma-adam}}{90}{subsection.9.3.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Bibliography}{90}{paragraph*.85}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Summary}{91}{paragraph*.86}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {9.4}Nonconvex nonconcave minimax optimization}{91}{section.9.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {part}{Appendices}{93}{Item.88}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Basic Algorithms for Nonlinear Programming}{95}{appendix*.88}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {.1}Gradient Algorithms}{95}{section.Alph0.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {.1.1}Preliminaries: convergence analysis}{95}{subsection.Alph0.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {.1.2}The (Sub)gradient algorithm for Unconstrained Optimization}{96}{subsection.Alph0.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Worst Case Bounds}{96}{paragraph*.89}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {.1.3}Gradient Algorithm with Exact Line-Search}{97}{subsection.Alph0.1.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {.1.4}Gradient Algorithm with Diminishing Step Sizes}{99}{subsection.Alph0.1.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {.1.5}Gradient Algorithm with Armijo's Rule}{100}{subsection.Alph0.1.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {.1.6}The Gradient Algorithm for non-strongly convex case}{101}{subsection.Alph0.1.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {.1.7}Linear Convergence without Second Order Differentiability}{101}{subsection.Alph0.1.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {.2}The Pure Newton's Method}{102}{section.Alph0.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Motivation}{103}{paragraph*.90}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {.2.1}Local Convergence Analysis}{104}{subsection.Alph0.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {.3}Practical Implementation of Newton's method}{105}{section.Alph0.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {.3.1}Cholesky Factorization}{105}{subsection.Alph0.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {.3.2}Modified Newton's method}{107}{subsection.Alph0.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {.3.3}The Trust Region Approach}{107}{subsection.Alph0.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {.3.4}Implementation of Least Squares Problem}{107}{subsection.Alph0.3.4}

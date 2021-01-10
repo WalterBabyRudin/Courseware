@@ -1,0 +1,179 @@
+
+%\chapter{Week3}
+
+\section{Thursday}\index{week3_Tuesday_lecture}
+
+\subsection{Uniform Integrability}
+In this lecture, we discuss the uniform integrability, which is an useful tool to handle the convergence of random variables in $L^1$.
+\begin{definition}[$L_1$-convergence]
+Given a sequence of functions $\{f_n\}$, 
+we say $f_n\to f$ in $L^1$ if
+\[
+\lim_{n\to\infty}\int_S|f_n-f|\diff\mu=0.
+\]
+\end{definition}
+
+
+\begin{proposition}\label{Pro:3:1}
+Suppose that a random variable $X$ is integrable, denoted as $X\in L^1(\Omega,\mathcal{F},\mathbb{P})$, then 
+for any $\varepsilon>0$, there exists $\delta>0$ such that for any $F\in\mathcal{F}$ with $\mathbb{P}(F)<\delta$, we have
+\[
+\mathbb{E}[|X|;F]\triangleq\mathbb{E}[|X|1_F]=\int_F|X|\diff\mathbb{P}<\varepsilon
+\]
+\end{proposition}
+\begin{proof}
+Suppose on the contrary that there exists some $\varepsilon_0>0$, and a sequence of events $\{F_n\}$ with each $F_n\in\mathcal{F}$ such that
+\[
+\mathbb{P}(F_n)<\frac{1}{2^n},\qquad\text{but }
+\mathbb{E}[|X|;F_n]\ge\varepsilon_0.
+\]
+As a result, $\sum_{n=1}^\infty\mathbb{P}(F_n)<\infty$. By applying theorem~\ref{The:BC}, 
+\[
+\mathbb{P}(H)=0,\qquad
+\text{where }
+H\triangleq 
+\limsup_{n\to\infty}F_n.
+\]
+On the other hand, by the reversed Fatou's lemma,
+\[
+\mathbb{E}[|X|;H]=
+\int|X|1_H\diff\mathbb{P}\ge \limsup_{n\to\infty}\int|X|1_{F_n}\diff\mathbb{P}=
+\limsup_{n\to\infty}\mathbb{E}[|X|;F_n]\ge\varepsilon_0
+\]
+which contradicts to the fact that $\mathbb{P}(H)=0$.
+\end{proof}
+
+\begin{corollary}\label{Cor:3:1}
+Suppose that $X\in L^1(\Omega,\mathcal{F},\mathbb{P})$,
+then for any $\varepsilon>0$, there exists $K>0$,
+such that 
+\[
+\mathbb{E}[|X|;|X|>K]:=\int_{\{|X|>K\}}|X|\diff\mathbb{P}<\varepsilon.
+\]
+\end{corollary}
+\begin{proof}
+The idea is to construct $K$ such that $\{|X|>K\}$ happens with small probability.
+\begin{itemize}
+\item
+Firstly we have the Markov inequality $\mathbb{P}(\{|X|>K\})\le \frac{1}{K}\mathbb{E}[|X|]$, since the following inequality holds:
+\begin{align*}
+\mathbb{E}[|X|]&=\mathbb{E}[|X|;|X|>K]+\mathbb{E}[|X|;|X|\le K]\\
+&\ge \mathbb{E}[K;|X|>K]
+=K\mathbb{E}[1_{|X|>K}]=K\mathbb{P}(|X|>K)
+\end{align*}
+\item
+Applying Proposition~(\ref{Pro:3:1}), we choose $K$ large enough such that $\frac{\mathbb{E}|X|}{K}<\delta$, which implies $\mathbb{P}(|X|>K)<\delta$.
+The desired result follows immediately.
+\end{itemize}
+\end{proof}
+
+\begin{definition}
+A collection $\mathcal{C}$ of random variables are said to be \emph{uniform integrable} if and only if for any given $\varepsilon>0$, there exists \emph{a} $K\ge0$ such that
+\[
+\mathbb{E}[|X|;|X|>K]<\varepsilon,\qquad
+\forall X\in\mathcal{C}.
+\]
+\end{definition}
+
+\begin{remark}
+An uniform integrable~(UI) class $\mathcal{C}$ is also $L^1$-bounded:
+\begin{proof}
+Choose $\varepsilon=1$, then there exists $K>0$ such that for any $X\in\mathcal{C}$,
+\begin{align*}
+\mathbb{E}[|X|]&=\mathbb{E}[|X|;|X|>K]+\mathbb{E}[|X|;X\le K]\le\varepsilon+K=1+K,
+\end{align*}
+\end{proof}
+\end{remark}
+
+However, the converse of this statement is not necessarily true. See Example~\ref{Exp:3:1} for a counter-example.
+\begin{example}\label{Exp:3:1}
+Consider the probability space 
+ $(\Omega,\mathcal{F},\mathbb{P})=([0,1],\mathcal{B}([0,1]),\text{Leb})$,
+ and the collection $\mathcal{C}=\{X_n\}$, with $X_n=n\cdot 1_{E_n}$ and $E_n=(0,1/n)$.
+\begin{itemize}
+\item
+It is easy to show that $\mathbb{E}[X_n]=1,\forall n$, which means that $\mathcal{C}$ is $L^1$-bounded.
+\item
+However, $\mathcal{C}$ is not UI. Take $\varepsilon=1$, and for any $K>0$, as long as $n>K$, 
+\[
+\mathbb{E}[|X_n|;|X_n|>K]=1
+\]
+\item
+Moreover, $L^1$-boundedness does not mean $L^1$-convergence.
+Observe that $X_n\to0$ a.s., but 
+\[
+\int|X_n - 0|\diff\mathbb{P}=1,~~\forall n.
+\]
+\end{itemize}
+\end{example}
+
+Although $L^1$-boundedness does not imply UI, the $L^p$-boundness for $p>1$ does.
+\begin{theorem}\label{The:2:6}
+Let $p>1$. Suppose that a class $\mathcal{C}$ of random variables are uniformly bounded in $L^p$, i.e.,
+\[
+\mathbb{E}[|X|^p]=\int_{\Omega}|X|^p\diff\mathbb{P}<M<\infty,~~\forall X\in\mathcal{C},
+\]
+where $M$ is some finite constant.
+Then the class $\mathcal{C}$ is uniformly integrable (UI).
+\end{theorem}
+
+\begin{proof}
+Choose some $K>0$, 
+the idea is to bound the term $\mathbb{E}[|X|;|X|>K]$, for any $X\in\mathcal{C}$:
+\begin{align*}
+\int_{\{|X|>K\}}|X|\diff\mathbb{P}
+&
+=\int_{\{|X|>K\}}\frac{|X|^p}{|X|^{p-1}}\diff\mathbb{P}
+\\&\le
+\int_{\{|X|>K\}}\frac{|X|^p}{K^{p-1}}\diff\mathbb{P}
+=
+\frac{1}{K^{p-1}}\int_{\{|X|>K\}}|X|^p\diff\mathbb{P}\\
+&\le\frac{1}{K^{p-1}}\int_{\Omega}|X|^p\diff\mathbb{P}\\
+&\le\frac{M}{K^{p-1}}.
+\end{align*}
+where the last inequality is by the $L^p$-boundedness.
+Therefore, for any given $\varepsilon>0$, the desired result holds by choosing $K$ large enough such that $\frac{M}{K^{p-1}}\le\varepsilon$.
+
+\end{proof}
+The uniform integrability also has the dominance property:
+\begin{theorem}\label{The:2:7}
+Suppose that a class $\mathcal{C}$ of random variables are dominated by an integrable random variable $Y$, i.e., $\forall X\in\mathcal{C}$,
+\[
+|X(\omega)|\le Y(\omega),\ \quad
+\forall\omega\in\Omega,~
+\mathbb{E}|Y|<\infty,
+\]
+then the class $\mathcal{C}$ is UI.
+\end{theorem}
+
+\begin{proof}
+The idea is to bound the term $\mathbb{E}[|X|;~|X|>K]$ to show the UI:
+\[
+\int_{\{|X|>K\}}|X|\diff\mathbb{P}\le
+\int_{\{|Y|>K\}}|X|\diff\mathbb{P}\le
+\int_{\{|Y|>K\}}|Y|\diff\mathbb{P}
+\]
+where the first inequality is because that $\{|X|>K\}\subseteq\{|Y|>K\}$, and the second is because that $|X|<Y$.
+The desired result holds by applying Corollary~\ref{Cor:3:1} such that 
+\[
+\int_{\{|Y|>K\}}|Y|\diff\mathbb{P}<\varepsilon.
+\]
+\end{proof}
+
+%\begin{theorem}
+%Let $X\in L^1(\Omega,\mathcal{F},\mathbb{P})$, and $\{\mathcal{G}_\alpha\}_{\alpha\in\mathcal{A}}$ be a sequence of sub-$\sigma$-algebra of $f$. Denote the class
+%\[
+%\mathcal{C}:=\left\{\mathbb{E}[X\mid G_\alpha]\right\}_{\alpha\in\mathcal{A}}
+%\]
+%Then the class $\mathcal{C}$ is UI.
+%\end{theorem}
+
+
+
+
+
+
+
+
+
+

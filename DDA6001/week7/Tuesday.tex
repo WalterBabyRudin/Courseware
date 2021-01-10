@@ -1,0 +1,360 @@
+
+\chapter{Week 7}
+
+\section{Monday}\index{Monday_lecture}
+\subsection{Stopping Time and Martingale}
+
+
+\begin{definition}[Discrete Time Stochastic Basis]
+For probability space $(\Omega,\mathcal{F},\mathbb{P})$ and filtration $\mathbb{F}$ on $(\Omega,\mathcal{F})$, the set $(\Omega,\mathcal{F},\mathbb{F},\mathbb{P})$ is called a \emph{stochastic basis} (or a discrete-time filtered probability space).
+\end{definition}
+
+Consider to bet money by fair coin tossing. 
+We are interested when to stop this coin tossing to maximize the assert,
+based on all outcomes up to the time.
+We define this time as a random variable as the following.
+
+\begin{definition}[Stopping Time]
+Let $\mathbb{F}\triangleq \{\mathcal{F}_n:~n\ge0\}$ be a filtration.
+A random variable $\tau$ valued in $\overline{\mathbb{Z}}_+\equiv\mathbb{Z}_+\cup\{\infty\}$
+is called a stopping time if $\{\tau\le n\}\in\mathcal{F}_n, \forall n\ge0$.
+\end{definition}
+\begin{remark}
+$\{\tau\le n\}\in\mathcal{F}_n, \forall n\ge0$ if and only if $\{\tau= n\}\in\mathcal{F}_n, \forall n\ge0$
+\end{remark}
+
+\begin{definition}[Stopped $\sigma$-field]
+For filtration $\mathbb{F}\triangleq \{\mathcal{F}_n:~n\ge0\}$ and stopping time $\tau$,
+\[
+\mathcal{F}_\tau \triangleq\{A\in\mathcal{F}:~A\cap\{\tau\le n\}\in\mathcal{F}_n,\forall n\ge0\}
+\]
+is called a $\sigma$-field stopped by $\tau$.
+\end{definition}
+
+
+\begin{example}
+Let $X_{\cdot}\triangleq \{X_n:~n\ge0\}$ with $X_0=0$ be a real valued process.
+Let $\mathcal{F}_n=\sigma(X_0,X_1,\ldots,X_n)$ and $\mathbb{F}\triangleq \{\mathcal{F}_n:~n\ge0\}$.
+\begin{itemize}
+\item
+Define $\tau_a$ as 
+\[
+\tau_a = \inf\{\ell\ge0:~X_\ell\ge a\},\quad a>0
+\]
+and $\inf\emptyset=+\infty$.
+Then $\tau_a$ is a stopping time since 
+\[
+\tau_a=n\Longleftrightarrow
+\max_{0\le \ell\le n-1}X_\ell<a\le X_n.
+\]
+\item
+Define $\tau_{\max}$ as 
+\[
+\tau_{\max}=\inf\{\ell\ge0:~\max_{k\ge0}X_k=X_\ell\}.
+\]
+Then $\tau_{\max}$ is not a stopping time since 
+\[
+\tau_{\max}=n
+\Longleftrightarrow
+X_\ell<X_n, \ell\le n-1,
+X_\ell\le X_n, \ell\ge n+1.
+\]
+\end{itemize}
+\end{example}
+\begin{remark}
+If $\tau,\eta$ are stopping times, then
+\[
+\tau+\eta,\quad \tau\land \eta,\quad \tau\lor\eta
+\]
+are stopping times, but $0\lor(\tau-\eta)$ may not be.
+\end{remark}
+
+\begin{proposition}\label{Pro:7:1}
+Let $X_{\cdot}\triangleq \{X_n:~n\ge0\}$ be a martingale (sub or super-martingale).
+If $\tau$ is a stopping time, then $\{X_{\tau\land n}:~n\ge0\}$ is an $\mathbb{F}$-martingale (sub or super-martingale).
+\end{proposition}
+\begin{proof}
+We prove the case where $X_{\cdot}$ is a sub-martingale.
+\begin{itemize}
+\item
+Write $X_{\tau\land n}$ as
+\[
+X_{\tau\land n}=X_0 + \sum_{\ell=1}^{\tau\land n}(X_{\ell} - X_{\ell-1})
+=X_0 + \sum_{\ell=1}^{n}1(\ell\le \tau)(X_{\ell} - X_{\ell-1})
+\]
+Since $1(\ell\le \tau)$ is $\mathcal{F}_n$-measurable for $\ell=1,\ldots,n$, we imply that 
+$X_{\tau\land n}$ is also $\mathcal{F}_n$-measurable.
+\item
+Moreover, 
+\[
+X_{\tau\land(n+1)}-X_{\tau\land n}=1(n+1\le \tau)(X_{n+1} - X_{n}).
+\]
+which implies that
+\[
+\mathbb{E}[X_{\tau\land(n+1)}\mid\mathcal{F}_n] - X_{\tau\land n}
+=1(n+1\le \tau)(\mathbb{E}[X_{n+1}\mid\mathcal{F}_n] - X_{n})\ge0.
+\]
+%which implies that 
+%\[
+%X_{\tau\land(n+1)}-X_{\tau\land n}=1(n+1\le \tau)(X_{n+1} - X_{n}).
+%\]
+\end{itemize}
+\end{proof}
+
+We can define a stopped process by a stopping time:
+\[
+X_{\cdot}^\tau\triangleq \{X_n^\tau:~n\ge0\},\quad
+\text{where }X_n^\tau=X_{\tau\land n}.
+\]
+Then $X_{\cdot}^\tau$ is called a $\tau$-stopped process.
+It is adapted to $\mathbb{F}$ as well as to $\mathbb{F}^\tau\triangleq\{\mathcal{F}_{\tau\land n}:~n\ge0\}$, if $X$ is adapted to $\mathbb{F}$.
+
+For a sequence of finite stopping times $\{\tau_n:~n\ge1\}$ such that $\tau_n\to\infty$ as $n\to\infty$,
+a sequnece of stopped processes $X_{\cdot}^{\tau_n}\triangleq\{X_\ell^{\tau_n}:~\ell\ge0\}$ for $n=1,2,\ldots$ is called a \emph{localization} of $X_{\cdot}$.
+Since $X_\ell^{\tau_n}\to X_{\ell}$ a.s. as $n\to\infty$, it may be possible to consider $X_\ell^{\tau_n}$ instead of $X_\ell$.
+This localization does not much earn for a discrete-time process, but it does for a continuous-time process as we will see.
+
+\subsection{Optional Sampling Theorem}
+
+\begin{theorem}[Optional Inequality 1]\label{The:7:1}
+Suppose that $X_{\cdot}$ is a submartingale and $\tau$ is a stopping time taking values in 
+$\{0,1,\ldots,m\}$ for a positive integer $m$, then we have
+\[
+\mathbb{E}[X_0]\le \mathbb{E}[X_\tau]\le \mathbb{E}[X_m]
+\]
+\end{theorem}
+
+\begin{proof}
+By proposition~\ref{Pro:7:1}, $\{X_{\tau\land n}:~n\ge0\}$ is a submartingale, which implies 
+\[
+X_{\tau\land 0}\le \mathbb{E}[X_{\tau\land m}\mid\mathcal{F}_0]\implies
+\mathbb{E}[X_0]=\mathbb{E}[X_{\tau\land 0}]\le \mathbb{E}[X_{\tau\land m}]= \mathbb{E}[X_{\tau}].
+\]
+Moreover, $\{X_n - X_{\tau\land n}:~n\ge0\}$ is a submartingale:
+\begin{align*}
+\mathbb{E}[X_n - X_{\tau\land n}\mid\mathcal{F}_{n-1}]
+&=\mathbb{E}[X_n - (X_\tau1(\tau\le n-1) + X_n1(\tau\ge n))\mid\mathcal{F}_{n-1}]\\
+&=\mathbb{E}[X_n1(\tau\le n-1) - X_\tau1(\tau\le n-1)\mid\mathcal{F}_{n-1}]\\
+&=\mathbb{E}[X_n\mid\mathcal{F}_{n-1}]1(\tau\le n-1) -  X_\tau1(\tau\le n-1)\\
+&\ge(X_{n-1}-X_\tau)1(\tau\le n-1)\\
+&=X_{n-1} - X_{\tau\land (n-1)}
+\end{align*}
+Therefore,
+\[
+\mathbb{E}[X_m - X_\tau] = \mathbb{E}[X_m - X_{\tau\land m}]\ge \mathbb{E}[X_0 - X_{\tau\land 0}]=0.
+\]
+
+\end{proof}
+
+\begin{corollary}\label{Cor:7:1}
+Suppose that  $X_{\cdot}$ is a submartingale and $\tau,\eta$ are stopping times such that $\tau\le\eta\le m$ for a constant time $m$, then we have
+\[
+\mathbb{E}[X_0]\le \mathbb{E}[X_\tau]\le \mathbb{E}[X_\eta]\le\mathbb{E}[X_m]
+\]
+\end{corollary}
+
+\begin{proof}
+Take $Y_n = X_{\eta\land n}$, then $Y_n$ is a sub-martingale.
+Applying Theorem~\ref{The:7:1} into the stopping time $\tau$ and $Y_{\cdot}$ gives 
+\[
+\mathbb{E}[Y_{\tau}]\le \mathbb{E}[Y_{m}]=\mathbb{E}[X_\eta]
+\]
+In other words, $\mathbb{E}[X_{\tau}]\le \mathbb{E}[X_\eta]$.
+\end{proof}
+
+
+\begin{remark}
+In Theorem~\ref{The:7:1} and Corollary~\ref{Cor:7:1},
+``$\le$'' is replaced by ``$=$'' or ``$\ge$''
+if
+$X_{\cdot}$ is a martingale or super-martingale.
+\end{remark}
+
+\begin{theorem}[Optional Sampling Theorem]
+If $X_{\cdot}$ is a sub-martingale and $\tau,\eta$ are stopping times such that $\tau\le\eta\le m$ for a constant time $m$, then
+\[
+X_\tau\le \mathbb{E}[X_\eta\mid\mathcal{F}_\tau]
+\]
+almost surely.
+Here $\ge$ is replaced by $=$ if $X_{\cdot}$ is a martingale.
+\end{theorem}
+\begin{proof}
+For any $A\in\mathcal{F}_\tau$, define
+\[
+\zeta = \tau1(A) + \eta1(A^c).
+\]
+Then $\zeta$ is a stopping time with $\tau\le\zeta\le\eta\le m$.
+Applying Corollary~\ref{Cor:7:1} gives 
+\[
+\mathbb{E}[X_\tau1_A]+\mathbb{E}[X_\eta1_{A^c}] = \mathbb{E}[\zeta]\le  \mathbb{E}[X_\eta].
+\]
+As a result,
+\[
+\mathbb{E}[X_\tau1_A]\le \mathbb{E}[X_\eta1_A]=\mathbb{E}[\mathbb{E}[X_\eta\mid\mathcal{F}_\tau]1_A],\quad A\in\mathcal{F}_\tau.
+\]
+This means that $\mathbb{P}(X_\tau\le \mathbb{E}[X_\eta\mid\mathcal{F}_\tau])=1$.
+\end{proof}
+
+\begin{example}[Bet by Coin Tossing with initial asset $a$]
+Let $U_n$'s be i.i.d. with $\mathbb{P}(U_n=1)=\mathbb{P}(U_n=-1)=\frac{1}{2}$.
+Define $X_0=a$ and $X_n=X_0+U_1+\cdots+U_n$ for $n\ge1$.
+
+Let $M_n = X_n-X_0$, then $M_{\cdot}=\{M_n:~n\ge0\}$ is a martingale for the filtration $\mathbb{F}^X$ since $\mathbb{E}[U_n]=0$.
+We are interetsed in the probability that $X_n$ hits $b$ before to hit $0$.
+Define stopping times
+\[
+\tau_0=\inf\{n\ge1:~X_n=0\},\quad
+\tau_b=\inf\{n\ge1:~X_n=b\}.
+\]
+Then we aim to compute $\mathbb{P}(\tau_0<\tau_b)$.
+Apply Theorem~\ref{The:7:1} for $\tau_n:=\tau_0\land\tau_b\land n$ gives
+\[
+\mathbb{E}[M_{\tau_n}] = \mathbb{E}[M_{0}]=0.
+\]
+Or equivalently,
+\[
+(b-a)\mathbb{P}(\tau_b<\tau_0\land n) - a\mathbb{P}(\tau_0<\tau_b\land n)
++\mathbb{E}[M_n1(n\le\tau_b\land \tau_0)]=0
+\]
+Considering that $\liminf M_n=-\infty,\limsup M_n=\infty$, by the law of iterated logarithms, we can assert that $\mathbb{P}(n\le\tau_b\land \tau_0)\to0$. Together with the fact that $|M_n|\le b$ under the event $\{n\le\tau_b\land \tau_0\}$, we imply
+\[
+(b-a)\mathbb{P}(\tau_b<\tau_0\land n) - a\mathbb{P}(\tau_0<\tau_b\land n)=0.
+\]
+On the other hand, $\mathbb{P}(\tau_b\lor \tau_0<\infty)=1$ gives
+\[
+\mathbb{P}(\tau_b<\tau_0)+\mathbb{P}(\tau_0<\tau_b)=1.
+\]
+Thus $\mathbb{P}(\tau_b<\tau_0)=b/a$.
+\end{example}
+This deviation has the following problems:
+\begin{enumerate}
+\item
+It requires the extra result: the law of iterated logarithms;
+\item
+It cannot be applied for an unfair coin such that $\mathbb{P}(U_n=1)\ne\frac{1}{2}$.
+\end{enumerate}
+We will overcome these problems by considering another type of martingale, in the next week.
+
+\subsection{Strong and Stopped Markov Processes}
+Recall the definition of discrete Markov process:
+\begin{enumerate}
+\item
+$X_{\cdot}$ is $\mathbb{F}$-adapted;
+\item
+$\mathbb{E}[f(X_{n+1})\mid\mathcal{F}_n] = P[f(X_n)]$
+\end{enumerate}
+For a stopping time $\tau$, we want to ask
+\begin{enumerate}
+\item[(a)]
+Does the second condition still holds for $n=\tau$?
+\item[(b)]
+Is the stopped prcess $X_{\cdot}^{\tau}$ again Markov?
+\end{enumerate}
+We first introduce a notion for (a):
+\begin{definition}[Strong Markov Property]
+A discrete-time Markov process $X_{\cdot}$ is called \emph{strong Markov} if 
+\[
+\mathbb{E}[f(X_{\tau+1})\mid\mathcal{F}_\tau] = P[f(X_\tau)],\quad f\in D_b(S)
+\]
+for all finite stopping time $\tau$ (i.e., $\mathbb{P}(\tau<\infty)=1$).
+\end{definition}
+
+\begin{theorem}
+A discrete-time Markov process $X_{\cdot}$ is strong Markov.
+\end{theorem}
+\begin{proof}
+Let $\tau$ be an arbitrary finite stopping time.
+Then the strong Markov property holds iff 
+\[
+\mathbb{E}[f(X_{\tau+1})1_A] = \mathbb{E}[P[f(X_\tau)]1_A],\quad A\in\mathcal{F}_\tau.
+\]
+Or equivalently, for any $n\ge1$,
+\[
+\mathbb{E}[f(X_{\tau+1})1_{A\cap\{\tau=n\}}] = \mathbb{E}[P[f(X_\tau)]1_{A\cap\{\tau=n\}}],\quad A\in\mathcal{F}_\tau.
+\]
+The RHS is equivalent to
+\[
+\mathbb{E}[\mathbb{E}[f(X_{n+1}\mid X_n)]1_{A\cap\{\tau=n\}}]
+=
+\mathbb{E}[\mathbb{E}[f(X_{n+1}\mid \mathcal{F}_n)]1_{A\cap\{\tau=n\}}]
+=\mathbb{E}[f(X_{n+1})1_{A\cap\{\tau=n\}}].
+\]
+The proof is completed.
+\end{proof}
+
+In some applications, we start to observe a discrete-time Markov process $X_{\cdot}$ from time $\tau$, which is a finite stopping time.
+In this case, is $X_{\tau+\cdot}=\{X_{\tau+n}:~n\ge0\}$ again Markov?
+It must be. To see this, we need to show that 
+\[
+\mathbb{E}[f(X_{\tau+n+1})\mid\mathcal{F}_{\tau+n}] = \mathbb{E}[f(X_{\tau+n+1})\mid X_{\tau+n}]
+\]
+This is true since $\tau+n$ is a stopping time.
+
+\begin{proposition}
+For a discrete-time Markov process $X_{\cdot}$ and stopping time $\tau$, the stopped process 
+$X_{\cdot}^{\tau}$ is $\mathbb{F}^{\tau}$-Markov, where
+$\mathbb{F}^{\tau}=\{\mathcal{F}_{\tau\land n}:~n\ge0\}$.
+\end{proposition}
+\begin{proof}
+It suffices to show that 
+\[
+\mathbb{E}[f(X_{\tau\land(n+1)})\mid\mathcal{F}_{\tau\land n}] = \mathbb{E}[f(X_{\tau\land(n+1)})\mid X_{\tau\land n}]
+\]
+By definition of conditional expectation, it suffices to show that
+\begin{equation}\label{Eq:7:1}
+\mathbb{E}[f(X_{\tau\land(n+1)})1_A] = \mathbb{E}[\mathbb{E}[f(X_{\tau\land(n+1)})\mid X_{\tau\land n}]1_A],~\forall A\in\mathcal{F}_{\tau\land n}.
+\end{equation}
+Note that 
+\[
+\sigma(X_{\tau\land n}) = \sigma\bigg(
+\cup_{\ell=0}^n(\{\tau=\ell\}\cap\sigma(X_{\ell}))\cup(\{\tau>n\}\cap\sigma(X_n))
+\bigg)
+\]
+Thus $\{\tau\le n\}$ and $\{\tau>n\}$ are in $\sigma(X_{\tau\land n})$. Then we can simplify the RHS of (\ref{Eq:7:1}):
+\begin{align*}
+\mathbb{E}[\mathbb{E}[f(X_{\tau\land(n+1)})\mid X_{\tau\land n}]1_A]
+&=
+\mathbb{E}[\mathbb{E}[f(X_{\tau\land(n+1)})(1\{\tau\le n\} + 1\{\tau>n\})\mid X_{\tau\land n}]1_A]\\
+&=
+\mathbb{E}[f(X_{\tau\land(n)})1\{\tau\le n\}1_A]
++
+\mathbb{E}[\mathbb{E}[f(X_{\tau\land(n+1)})1\{\tau>n\}\mid X_{\tau\land n}]1_A]\\
+&=
+\mathbb{E}[f(X_{\tau\land(n)})1\{\tau\le n\}1_A]
++
+\mathbb{E}[\mathbb{E}[f(X_{\tau\land(n+1)})\mid \mathcal{F}_{\tau\land n}]1\{A\cap\{\tau>n\}\}]\\
+&=\mathbb{E}[f(X_{\tau\land(n)})1\{\tau\le n\}1_A]
++
+\mathbb{E}[f(X_{\tau\land(n+1)})1\{A\cap\{\tau>n\}\}]\\
+&=\mathbb{E}[f(X_{\tau\land(n+1)})1_A]
+\end{align*}
+
+
+\end{proof}
+
+\begin{remark}
+Note that the stopped process $X_{\cdot}^{\tau}$ does not have time-homogeneous transition in general. 
+For instance, let $\tau\equiv k$, then $X_n^\tau=X_{k\land n}$, i.e., the transition may change before or after time $k$.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

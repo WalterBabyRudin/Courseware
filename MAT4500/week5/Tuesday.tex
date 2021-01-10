@@ -2,545 +2,513 @@
 \chapter{Week5}
 
 \section{Tuesday}\index{week5_Tuesday_lecture}
-\subsection{Formulas for Determinant}
-We want to use the \emph{3 basic properties} to derive the formula for determinant:
+
+\subsection{Convergence of Martingales}
+
+Let $\{X_n\}_{n\ge0}$ be an adapted process on $(\Omega,\mathcal{F},\{\mathcal{F}_n\}_{n\ge0},\mathbb{P})$, and $[a,b]$ be a closed interval.
+Define $T_0=\inf\{n\ge0, X_n\le a\}$, and
+\[
+T_{2k-1} = \inf\{n>T_{2k-2}: X_n\ge b\},\qquad
+T_{2k} = \inf\{n>T_{2k-1}: X_n\le a\}
+\]
+See the Figure~ for a illustration of $T_k, k\ge0$.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{week5/p_1}
+\caption{Upcrossings of $[a,b]$}
+\end{figure}
+We may check that $\{T_k\}_{k\ge0}$ is a sequence of stopping times and is increasing:
+\begin{proof}
+The increasing property is trivial. To check $T_k$ is a stopping time, observe that
+\begin{align*}
+\{T_{2k-1}=m\} &=\left(
+\bigcap_{t=T_{2k-2}+1}^{m-1} \{X_{t}<b\}
+\right)\cap\{X_m\ge b\}\in\mathcal{F}_m,\\
+\{T_{2k}=m\} &=\left(
+\bigcap_{t=T_{2k-1}+1}^{m-1} \{X_{t}>a\}
+\right)\cap\{X_m\le a\}\in\mathcal{F}_m.
+\end{align*}
+\end{proof}
+
+\begin{definition}[Upcrossing]
+\begin{itemize}
+\item
+If $T_{2k-1}<\infty$ a.s., then the sequence $X_{T_0},X_{T_1},\ldots,X_{T_{2k-1}}$ is said to \emph{upcrosses} the interval $[a,b]$ by $k$ times.
+\item
+Define $U_a^b[X;n]$ to be the number of upcrossing the interval $[a,b]$ by the process 
+$X\triangleq \{X_k\}_{k\ge0}$ up to time $n$.
+We can check that $U_a^b[X;n]$ is also a stopping time:
+\[
+\{U_a^b[X;n] = j\} = \{T_{2j-1}\le n<T_{2j+1}\} = \{T_{2j-1}\le n\}\cap\{T_{2j+1}\le n\}^c\in\mathcal{F}_n.
+\]
+We can also assert that $X_{T_{2j}}\le a$ if $T_{2j}<\infty$ a.s.; and 
+$X_{T_{2j+1}}\ge b$ if $T_{2j+1}<\infty$ a.s.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[Doob's Upcrossing Theorem]\label{The:upcrossing}
 \begin{enumerate}
 \item
-\emph{The determinant of the $\bm n$ by $\bm n$ identity matrix is 1.}
-\begin{gather*}
-\begin{vmatrix}1&0\\0&1\end{vmatrix}=1\qquad\text{and}\qquad\begin{vmatrix}
-1&&\\&\ddots&\\&&1\end{vmatrix}=1.
-\end{gather*}
+Suppose that $\{X_n\}_{n\ge0}$ is a super-martingale, then for any $n\ge1, k\ge0$,
+\[
+\mathbb{P}\left(
+U_a^b[X;n]\ge k+1
+\right)\le \frac{1}{b-a}\mathbb{E}\left[
+(X_n -a)^-1\{U_a^b[X;n]=k\}
+\right].
+\]
+As a result, $\mathbb{E}[U_a^b[X;n]]\le\frac{1}{b-a}\mathbb{E}[(X_n-a)^-]$.
 \item
-\emph{The determianant changes sign when two rows are exchanged.} (sign reversal)
-\begin{gather*}
-\text{Check:   }\begin{vmatrix}c&d\\a&b\end{vmatrix}=-\begin{vmatrix}a&b\\c&d\end{vmatrix}\qquad\text{(both sides equal $bc-ad$)}.
-\end{gather*}
-\item
-\emph{The determinant is a linear function of each row separately.} (all other rows stay fixed).
-\begin{gather*}
-\text{\emph{multiply row 1 by any number $\bm t$}}\qquad\begin{vmatrix}ta&tb\\c&d\end{vmatrix}=t\begin{vmatrix}a&b\\c&d\end{vmatrix}
-\end{gather*}
-\begin{gather*}
-\text{\emph{Add row 1 of $\bm A$ to row 1 of $\bm B$:}}\qquad\begin{vmatrix}a_1+a_2&b_1+b_2\\c&d\end{vmatrix}=\begin{vmatrix}a_1&b_1\\c&d\end{vmatrix}+\begin{vmatrix}a_2&b_2\\c&d\end{vmatrix}
-\end{gather*}
+Suppose that $\{X_n\}_{n\ge0}$ is a sub-martingale, then for any $n\ge1, k\ge0$,
+\[
+\mathbb{P}\left(
+U_a^b[X;n]\ge k
+\right)\le \frac{1}{b-a}\mathbb{E}\left[
+(X_n-a)^+1\{U_a^b[X;n]=k\}
+\right].
+\]
+As a result, $\mathbb{E}[U_a^b[X;n]]\le\frac{1}{b-a}\mathbb{E}[(X_n-a)^+]$.
 \end{enumerate}
-Although we derive the formula for $\det\bm A$ is $\det\bm A=\pm\prod_i\text{pivots}_{i}$ (product of pivots), it is not \emph{explicit}. We begin some example to show how to derive the explicit formula for determinant.
-\begin{example}
-To derive the formula for determinant, let's start with $n=2$.
+\end{theorem}
 
-Given $\bm A=\begin{bmatrix}
-a&b\\c&d
-\end{bmatrix}$, our goal is to get $\det(\bm A) = ad-bc$.
+\begin{proof}
+\begin{enumerate}
+\item
+Considering that $\{X_n\}$ is a super-martingale and $T_{(2k+1)\land n},T_{2k\land n}$ are two bounded stopping times, by Doob's Optional Sampling Theorem~\ref{The:sampling}, 
+\begin{subequations}
+\begin{align}
+0&\ge \mathbb{E}[X_{T_{(2k+1)\land n}} - X_{T_{2k\land n}}]\nonumber\\
+&=\mathbb{E}[(X_{T_{(2k+1)\land n}} - X_{T_{2k\land n}})1\{n<T_{2k}\}]
++
+\mathbb{E}[(X_{T_{(2k+1)\land n}} - X_{T_{2k\land n}})1\{T_{2k}\le n<T_{2k+1}\}]
+\nonumber\\&+
+\mathbb{E}[(X_{T_{(2k+1)\land n}} - X_{T_{2k\land n}})1\{n\ge T_{2k+1}\}]\nonumber\\
+&=\mathbb{E}[(X_{n} - X_{T_{2k}})1\{T_{2k}\le n<T_{2k+1}\}]
++
+\mathbb{E}[(X_{T_{2k+1}} - X_{T_{2k}})1\{n\ge T_{2k+1}\}]\nonumber\\
+&\ge
+\mathbb{E}[(X_{n} - a)1\{T_{2k}\le n<T_{2k+1}\}] + \mathbb{E}[(b-a)1\{n\ge T_{2k+1}\}]\label{Eq:5:1:a}\\
+&\ge 
+-\mathbb{E}[(X_{n} - a)^-1\{T_{2k}\le n<T_{2k+1}\}] + (b-a)\mathbb{P}\{n\ge T_{2k+1}\}\nonumber\\
+&\ge
+-\mathbb{E}[(X_{n} - a)^-1\{T_{2k-1}\le n<T_{2k+1}\}] + (b-a)\mathbb{P}\{n\ge T_{2k+1}\}\nonumber
+\end{align}
+where (\ref{Eq:5:1:a}) is by the fact that $X_{T_{2k}}\le a, X_{T_{2k+1}}\ge b$, a.s.
+Therefore, 
+\begin{equation}\label{Eq:5:1:b}
+\mathbb{P}\{n\ge T_{2k+1}\}\le
+\frac{1}{b-a}\mathbb{E}[(X_{n} - a)^-1\{T_{2k-1}\le n<T_{2k+1}\}].
+\end{equation}%T2k and T2k+1 is finite?
+Note that $\{U_a^b[X;n] = k\} = \{T_{2k-1}\le n<T_{2k+1}\}$ and 
+\[
+\{U_a^b[X;n] \ge k+1\} = \cup_{j\ge k+1}\{U_a^b[X;n] = j\}\subseteq\{T_{2k+1}\le n\}. 
+\]
+Therefore, applying these two conditions on (\ref{Eq:5:1:b}) gives the desired inequality:
+\[
+\mathbb{P}\{U_a^b[X;n] \ge k+1\}\le\mathbb{P}\{n\ge T_{2k+1}\}\le
+\frac{1}{b-a}\mathbb{E}[(X_{n} - a)^-1\{U_a^b[X;n] = k\}].
+\]
+Summing up the inequality above for $k\ge0$, we imply
+\[
+\sum_{k\ge0}\mathbb{P}\{U_a^b[X;n] \ge k+1\}\le \frac{1}{b-a}\mathbb{E}[(X_{n} - a)^-].
+\]
+The LHS is essentially $\mathbb{E}[U_a^b[X;n]]$:
+\begin{align*}
+\sum_{k\ge0}\mathbb{P}\{U_a^b[X;n] \ge k+1\}
+&=\sum_{k\ge0}\sum_{j=k+1}^{\infty}\mathbb{P}\{U_a^b[X;n] = j\}
+=
+\sum_{j=1}^{\infty}\sum_{k=0}^{j-1}\mathbb{P}\{U_a^b[X;n] = j\}
+\\&=\sum_{j=1}^{\infty}j\mathbb{P}\{U_a^b[X;n] = j\}=\mathbb{E}[U_a^b[X;n]].
+\end{align*}
+The proof is complete.
+\end{subequations}
+\item
+We may use the similar technique to finish the proof on the second part.
+Apply Doob's Optional Sampling Theorem~\ref{The:sampling} on $T_{(2k-1)\land n},T_{2k\land n}$
+ gives
+ \begin{align}
+0&\ge \mathbb{E}[X_{T_{(2k-1)\land n}} - X_{T_{2k\land n}}]\nonumber\\
+&=\mathbb{E}[(X_{T_{(2k-1)\land n}} - X_{T_{2k\land n}})1\{n<T_{2k-1}\}]
++
+\mathbb{E}[(X_{T_{(2k-1)\land n}} - X_{T_{2k\land n}})1\{T_{2k-1}\le n<T_{2k}\}]
+\nonumber\\&+
+\mathbb{E}[(X_{T_{(2k-1)\land n}} - X_{T_{2k\land n}})1\{n\ge T_{2k}\}]\nonumber\\
+&=\mathbb{E}[(X_{T_{2k-1}} - X_{n})1\{T_{2k-1}\le n<T_{2k}\}]
++
+\mathbb{E}[(X_{T_{2k-1}} - X_{T_{2k}})1\{n\ge T_{2k}\}]\nonumber\\
+&\ge
+\mathbb{E}[(b - X_n)1\{T_{2k-1}\le n<T_{2k}\}] + \mathbb{E}[(b-a)1\{n\ge T_{2k}\}]\nonumber\\
+&
+=
+\mathbb{E}[(a - X_n)1\{T_{2k-1}\le n<T_{2k}\}] + 
+\mathbb{E}[(b-a)1\{T_{2k-1}\le n<T_{2k}\}] + 
+\mathbb{E}[(b-a)1\{n\ge T_{2k}\}]\nonumber\\
+ &=\mathbb{E}[(a - X_n)1\{T_{2k-1}\le n<T_{2k}\}] + \mathbb{E}[(b-a)1\{n\ge T_{2k-1}\}]\nonumber
+ \\
+ &\ge
+ -\mathbb{E}[(X_n-a)^+1\{T_{2k-1}\le n<T_{2k}\}] + (b-a)\mathbb{P}\{n\ge T_{2k-1}\}\nonumber
+% 
+%-\mathbb{E}[(X_{n} - a)^-1\{T_{2k}\le n<T_{2k+1}\}] + (b-a)\mathbb{P}\{n\ge T_{2k+1}\}\nonumber\\
+%&\ge
+%-\mathbb{E}[(X_{n} - a)^-1\{T_{2k-1}\le n<T_{2k+1}\}] + (b-a)\mathbb{P}\{n\ge T_{2k+1}\}\nonumber
+\end{align}
+Or equivalently, 
+\[
+\mathbb{P}\{n\ge T_{2k-1}\}\le \frac{1}{b-a}\mathbb{E}[(X_n-a)^+1\{T_{2k-1}\le n<T_{2k}\}]
+\]
+Considering that $\{U_a^b[X;n] = k\} = \{T_{2k-1}\le n<T_{2k}\}$ and $\{U_a^b[X;n] \ge k\} \subseteq \{n\ge T_{2k-1}\}$, we imply
+\[
+\mathbb{P}\{U_a^b[X;n] \ge k\}\le \frac{1}{b-a}\mathbb{E}[(X_n-a)^+1\{U_a^b[X;n] = k\}]
+\]
+Summing up for $k\ge1$ both sides, we conclude the desired result.
+\end{enumerate}
+\end{proof}
 
-We can break each row into two simpler rows:
-\[
-\begin{vmatrix}
-a&b
-\end{vmatrix}=\begin{vmatrix}
-a&0
-\end{vmatrix}+\begin{vmatrix}
-0&b
-\end{vmatrix}\qquad\text{and}\qquad
-\begin{vmatrix}
-c&d
-\end{vmatrix}=\begin{vmatrix}
-c&0
-\end{vmatrix}+\begin{vmatrix}
-0&d
-\end{vmatrix}
-\]
-Now apply property 3, first in row 1(with row 2 fixed) and then in row 2(with row 1 fixed):
-\[
-\begin{aligned}
-\begin{vmatrix}
-a&b\\c&d
-\end{vmatrix}&=\begin{vmatrix}
-a&0\\c&d
-\end{vmatrix}+\begin{vmatrix}
-0&b\\c&d
-\end{vmatrix}\\&=\begin{vmatrix}
-a&0\\c&0
-\end{vmatrix}+\begin{vmatrix}
-a&0\\0&d
-\end{vmatrix}+\begin{vmatrix}
-0&b\\c&0
-\end{vmatrix}+\begin{vmatrix}
-0&b\\0&d
-\end{vmatrix}
-\end{aligned}
-\]
-The last line has $2^2=4$ determinants. The first and fourth are zero since their rows are \emph{dep.} (one row is a multiple of the other row.) We left two terms to compute:
-\[
-\begin{vmatrix}
-a&0\\0&d
-\end{vmatrix}+\begin{vmatrix}
-0&b\\c&0
-\end{vmatrix}=ad\begin{vmatrix}
-1&0\\0&1
-\end{vmatrix}+bc\begin{vmatrix}
-0&1\\1&0
-\end{vmatrix}=ad-bc
-\]
-The permutation matrices $\begin{bmatrix}
-1&0\\0&1
-\end{bmatrix}$ and $\begin{bmatrix}
-0&1\\1&0
-\end{bmatrix}$ have determinant $+1$ or $-1$.
-\end{example}
-\begin{example}
-Now we try $n=3$. Each row splits into 3 simpler rows such as $\begin{bmatrix}
-a_{11}&0&0
-\end{bmatrix}$. Hence $\det\bm A$ will split into $3^3=27$ simple determinants. For simple determinant, if one column has two nonzero entries, (For example, $\begin{bmatrix}
-a_{11}&0&0\\a_{21}&0&0\\0&0&a_{33}
-\end{bmatrix}$), then its determinant will be zero.\\
-Hence we only need to foucus on the matrix that \emph{the nonzero terms come from defferent columns}:
-\[
-\begin{aligned}
-\begin{vmatrix}
-a_{11}&a_{12}&a_{13}\\a_{21}&a_{22}&a_{23}\\a_{31}&a_{32}&a_{33}
-\end{vmatrix}
-&=
-\begin{vmatrix}
-a_{11}&&\\&a_{22}&\\&&a_{33}
-\end{vmatrix}
-+
-\begin{vmatrix}
-&a_{12}&\\&&a_{23}\\a_{31}&&
-\end{vmatrix}
-+
-\begin{vmatrix}
-&&a_{13}\\a_{21}&&\\&a_{32}&
-\end{vmatrix}\\&+
-\begin{vmatrix}
-a_{11}&&\\&&a_{23}\\&a_{32}&
-\end{vmatrix}
-+
-\begin{vmatrix}
-&a_{12}&\\a_{21}&&\\&&a_{33}
-\end{vmatrix}
-+
-\begin{vmatrix}
-&&a_{13}\\&a_{22}&\\a_{31}&&
-\end{vmatrix}
-\end{aligned}
-\]
-There are $3!=6$ ways to permutate the three columns, so there leaves six determinants. The six permutations of $(1,2,3)$ is given by:
-\[
-\mbox{{\emph{Column numbers}}} = (1,2,3),(2,3,1),(3,1,2),(1,3,2),(2,1,3),(3,2,1).
-\]
-The last three are \textit{odd permutations} (One exchange from identity permutation $(1,2,3)$.) The first three are \textit{even permutations}. (zero or two exchange from identity permutation $(1,2,3)$.) When the column number is $(\alpha,\beta,\omega)$, we get the entries $a_{1\alpha},a_{2\beta},a_{3\omega}$.  The permutation $(\alpha,\beta,\omega)$ comes with a plus or minus sign. If you don't understand, look at example below:
-\[
-\begin{aligned}
-\det\bm A&=
-a_{11}a_{22}a_{33}\begin{vmatrix}
-1&&\\&1&\\&&1
-\end{vmatrix}
-+
-a_{12}a_{23}a_{31}\begin{vmatrix}
-&1&\\&&1\\1&&
-\end{vmatrix}
-+
-a_{13}a_{21}a_{32}\begin{vmatrix}
-&&1\\1&&\\&1&
-\end{vmatrix}\\&+
-a_{11}a_{23}a_{32}\begin{vmatrix}
-1&&\\&&1\\&1&
-\end{vmatrix}
-+
-a_{12}a_{21}a_{33}\begin{vmatrix}
-&1&\\1&&\\&&1
-\end{vmatrix}
-+
-a_{13}a_{22}a_{31}\begin{vmatrix}
-&&1\\&1&\\1&&
-\end{vmatrix}
-\end{aligned}
-\]
-The first three (even) permutation matrices have $\det\bm P=+1$, the last three (odd) permutation matrices have $\det\bm P=-1$. Hence we have:
-\[
-\begin{aligned}
-\det\bm A&=a_{11}a_{22}a_{33}+
-a_{12}a_{23}a_{31}+
-a_{13}a_{21}a_{32}-
-a_{11}a_{23}a_{32}-
-a_{12}a_{21}a_{33}-
-a_{13}a_{22}a_{31}\\
-&=a_{11}(a_{22}a_{33} - a_{23}a_{32})+a_{12}(a_{23}a_{31}-a_{21}a_{33})+a_{13}(a_{21}a_{32}-a_{22}a_{31})
-\end{aligned}
-\]
-\end{example}
-\subsubsection{$n$ by $n$ formula of determinant}
-Now we can see $n$ by $n$ formula. There are $n!$ permutations of columns, so we have $n!$ terms for determinant. 
-
-Assuming $(\alpha,\beta,\dots,\omega)$ is the permutation of $(1,2,\dots,n)$. The coorsponding term is $a_{1\alpha}a_{2\beta}\dots a_{n\omega}\det\bm P$, where $\bm P$ is the permutation matrix with column number $\alpha,\beta,\dots,\omega$.
-
-The complete determinant of $\bm A$ is the sum of these $n!$ simple determinants. $a_{1\alpha}a_{2\beta}\dots a_{n\omega}$ is obtained by choosing \emph{one entry from every row and every column:}
-\begin{definition}[Big formula for determinant]
-\[
-\begin{aligned}
-\det\bm A&=\text{sum of all $n!$ column permutations}\\
-&=\sum(\det\bm P)a_{1\alpha}a_{2\beta}\dots a_{n\omega}=\text{\emph{BIG FORMULA}}
-\end{aligned}
-\]
-where $\bm P$ is permutation matrix with column number $(\alpha,\beta,\dots,\omega)$. And $\{\alpha,\beta,\dots,\omega\}$ is a permutation of $\{1,2,\dots,n\}$.
-\end{definition}
 \begin{remark}
-\paragraph{Complexity Analysis}
-However, if we want to use big formula to compute matrix, we need to do $n!(n-1)$ multiplications. If we use formula $\det\bm A=\pm\prod pivots$, we only need to do $O(n^3)$ multiplications. Hence the letter one is more efficient.
-\end{remark}
-\subsubsection{Verify property}
-We can also use the big formula to verify property 1 to property 3:
+The upcrossing of $\{X_n\}$ on the interval is the same as teh upcrossing of $\{-X_n\}$ on $[-b,-a]$.
+Using this fact, we can assert that
 \begin{itemize}
-\item $\det\bm I=1$:\\
-Only when $(\alpha,\beta,\dots,\omega)$=$(1,2,\dots,n)$, there is no zero entries for $a_{1\alpha}a_{2\beta}\dots a_{n\omega}$. Hence $\det\bm A=a_{11}a_{22}\dots a_{nn}=1$.
-\item \emph{sign reversal}:\\
-If two rows are interchanged, then all determinant of permutation matrix will change its sign, hence the value for determinant $\bm A$ is opposite.
-\item \emph{The determinant is a linear function of each row separately}.\\
-\emph{If we separate out the fator $a_{11},a_{12},\dots,a_{1\alpha}$ that comes from the first row}, this property is easy to check. For 3 by 3 matrix, separate the usual 6 terms of the determinant into 3 pairs:
+\item
+If $\{X_n\}$ is a super-martingale, for any $n\ge1,k\ge1$,
 \[
-\det\bm A=a_{11}(a_{22}a_{33}-a_{23}a_{32})+a_{12}(a_{23}a_{31}-a_{21}a_{33})+a_{13}(a_{21}a_{32}-a_{22}a_{31}).
+\mathbb{P}\left(
+U_a^b[X;n]\ge k
+\right)\le \frac{1}{b-a}\mathbb{E}\left[
+(X_n -b)^-1\{U_a^b[X;n]=k\}
+\right].
 \]
-Those three quantities in parentheses are called \emph{cofactors}. They are $2\times 2$ determinant coming from matrices in row 2 and 3. The first row contributes the factors $a_{11},a_{12},a_{13}$. The lower rows contribute the cofactors $(a_{22}a_{33}-a_{23}a_{32}),(a_{23}a_{31}-a_{21}a_{33}),(a_{21}a_{32}-a_{22}a_{31})$. Certainly $\det\bm A$ depends \emph{linearly} on $a_{11},a_{12},a_{13}$, which is property 3.
+\item
+If $\{X_n\}$ is a sub-martingale, for any $n\ge1,k\ge1$,
+\[
+\mathbb{P}\left(
+U_a^b[X;n]\ge k+1
+\right)\le \frac{1}{b-a}\mathbb{E}\left[
+(X_n -b)^+1\{U_a^b[X;n]=k\}
+\right].
+\]
 \end{itemize}
-\subsection{Determinant by Cofactors}
-We could write the determinant in this form:
-\[
-\begin{vmatrix}
-a_{11}&a_{12}&a_{13}\\a_{21}&a_{22}&a_{23}\\a_{31}&a_{32}&a_{33}
-\end{vmatrix}=
-\begin{vmatrix}
-a_{11}&&\\&a_{22}&a_{23}\\&a_{32}&a_{33}
-\end{vmatrix}+
-\begin{vmatrix}
-&a_{12}&\\a_{21}&&a_{23}\\a_{31}&&a_{33}
-\end{vmatrix}+
-\begin{vmatrix}
-&&a_{13}\\a_{21}&a_{22}&\\a_{31}&a_{32}&
-\end{vmatrix}.
-\]
-If we define $\bm A_{1j}$ to be \emph{the submatrix obtained by removing row 1 and column j}, We could compute $\det\bm A$ in this way:
-\begin{gather*}
-\text{The cofactors along row 1 are } C_{1j}=(-1)^{1+j}\det\bm A_{1j}\quad j=1,2,\dots,n.\\
-\text{\emph{The cofactor expansion is }} \det\bm A=a_{11}C_{11}+a_{12}C_{12}+\dots+a_{1n}C_{1n}.
-\end{gather*}
-More generally, we can cross row $i$ to get the determinant:
-\begin{definition}[Determinant]
-The determinant is the \emph{dot product} of any row $i$ of $\bm A$ with its cofactors using other rows:
-\[
-\text{\emph{Cofactor Formula}}\qquad\det\bm A=
-a_{i1}C_{i1}+a_{i2}C_{i2}+\dots+a_{in}C_{in}.
-\]
-Each cofactor $C_{ij}$ is defined as:
-\[
-\text{\emph{Cofactor}}\qquad C_{ij}=(-1)^{i+j}\det\bm A_{ij}
-\]
-where $A_{ij}$ is the submatrix obtained by removing row $i$ and column $j$.
-\end{definition}
-
-\paragraph{Cofactors down a column} Since we have $\det\bm A=\det\bm A\trans$, we can expand the determinant in cofactors \textit{down a column} instead of across a row. Down column $j$ the entries are $a_{1j}$ to $a_{nj}$, the cofactors are $C_{1j}$ to $C_{nj}$. The determinant is given by:
-\[
-\begin{array}{ll}
-\mbox{\emph{Cofactors down column $j$:}}
-&
-\det\bm A=a_{1j}C_{1j}+a_{2j}C_{2j}+\dots+a_{nj}C_{nj}.
-\end{array}
-\]
-\subsection{Determinant Applications}
-\subsubsection{Inverse}
-It's easy to check that the inverse of 2 by 2 matrix $\bm A$ is 
-\[
-\begin{bmatrix}
-a&b\\c&d
-\end{bmatrix}^{-1}=\frac{1}{ad-bc}\begin{bmatrix}
-d&-b\\-c&a
-\end{bmatrix}=\frac{1}{\det\bm A}\begin{bmatrix}
-d&-b\\-c&a
-\end{bmatrix}.
-\]
-We could use determinant to compute inverse! Before that let's define \emph{cofactor matrix}:
-\begin{definition}[cofactor matrix]
-The cofactor matrix of $n\times n$ matrix $\bm A$ is given by:
-\[
-\bm C=\begin{bmatrix}
-C_{ij}
-\end{bmatrix}_{1\le i,j\le n}
-\]
-where $C_{ij}$ is the cofactor of $\bm A$.
-\end{definition}
-Then we try to derive the inverse of matrix $\bm A$. 
-\begin{quotation}
-For $n\times n$ matrix $\bm A$, the product of $\bm A$ and the \emph{transpose} of \textit{cofactor matrix} is given by:
-\begin{equation}\label{11.1}
-\bm A\bm C\trans=\begin{bmatrix}
-a_{11}&\dots&a_{1n}\\\vdots&\ddots&\vdots\\a_{n1}&\dots&a_{nn}
-\end{bmatrix}\begin{bmatrix}
-C_{11}&\dots&C_{n1}\\\vdots&\ddots&\vdots\\C_{1n}&\dots&C_{nn}
-\end{bmatrix}=\begin{bmatrix}
-\det\bm A&&\\&\det\bm A&\\&&\det\bm A
-\end{bmatrix}
-\end{equation}
-\end{quotation}
-\emph{Proofoutline:} 
-\begin{itemize}
-\item
-Row 1 of $\bm A$ times the column 1 of $\bm C\trans$ yields the first $\det\bm A$ on the right:
-\[
-a_{11}C_{11}+a_{12}C_{12}+\dots+a_{1n}C_{1n}=\det\bm A
-\]
-Similarly, row $j$ of $\bm A$ times column $j$ of $\bm C\trans$ yields the determinant.
-\item
-\textit{How to explain the zeros off the main diagonal in equation (\ref{11.1})?} Rows of $\bm A$ are multiplying $\bm C\trans$ from \emph{different} columns. Why is the answer zero? For example, the (2,1)th entry of the result is given by
-\begin{equation}
-\begin{aligned}
-\text{\emph{Row 2 of $\bm A$}}\\
-\text{\emph{Row 1 of $\bm C$}}
-\end{aligned}
-\qquad\qquad
-a_{21}C_{11}+a_{22}C_{12}+\dots+a_{2n}C_{1n}=0.\label{Eq:6:2}
-\end{equation}
-
-\textit{Explaination for Eq.(\ref{Eq:6:2}): }
-If the second row of $\bm A$ is copied into its first row, we define this new matrix as $\bm A^{*}$. Thus the determinant of $\bm A^{*}$ is given by:
-\[
-\begin{vmatrix}
-a_{21}&a_{22}&\dots&a_{2n}\\
-a_{21}&a_{22}&\dots&a_{2n}\\
-a_{31}&a_{32}&\dots&a_{3n}\\
-\vdots&\vdots&\ddots&\vdots\\
-a_{n1}&a_{n2}&\dots&a_{nn}
-\end{vmatrix}
-=
-\begin{vmatrix}
-a_{21}&&&\\
-&a_{22}&\dots&a_{2n}\\
-&a_{32}&\dots&a_{3n}\\
-&\vdots&\ddots&\vdots\\
-&a_{n2}&\dots&a_{nn}
-\end{vmatrix}
-+
-\begin{vmatrix}
-&a_{22}&&\\
-a_{21}&&\dots&a_{2n}\\
-a_{31}&&\dots&a_{3n}\\
-\vdots&&\ddots&\vdots\\
-a_{n1}&&\dots&a_{nn}
-\end{vmatrix}
-+\dots+
-\begin{vmatrix}
-&&&a_{2n}\\
-a_{21}&a_{22}&a_{2(n-1)}&\\
-a_{31}&a_{32}&a_{3(n-1)}&\\
-\vdots&\vdots&\vdots&\\
-a_{n1}&a_{n2}&a_{n(n-1)}&
-\end{vmatrix}
-\]
-Or equivalently, we have
-\[\det\bm A^{*}=
-\begin{vmatrix}
-a_{21}&a_{22}&\dots&a_{2n}\\
-a_{21}&a_{22}&\dots&a_{2n}\\
-a_{31}&a_{32}&\dots&a_{3n}\\
-\vdots&\vdots&\ddots&\vdots\\
-a_{n1}&a_{n2}&\dots&a_{nn}
-\end{vmatrix}
-=a_{21}C_{11}+a_{22}C_{12}+\dots+a_{2n}C_{1n}
-\]
-Since $\bm A^{*}$ has two equal rows, the determinant must be zero. Hence $a_{21}C_{11}+a_{22}C_{12}+\dots+a_{2n}C_{1n}=0.$
-
-Similarly, \emph{all entries off the main diagonal in Eq.(\ref{11.1}) are zero.}
-\end{itemize}	
-Thus the equation $(\ref{11.1})$ is correct:
-\[
-\bm A\bm C\trans=\begin{bmatrix}
-\det\bm A&&\\&\det\bm A&\\&&\det\bm A
-\end{bmatrix}=\det(\bm A)\bm I
-\implies
-\bm A^{-1}=\frac{1}{\det\bm A}\bm C\trans.
-\]
-Hence we could compute the inverse by computing many determinants of submatrix:
-\begin{definition}[Inverse]
-\emph{The $(\bm i,\bm j)$th entry of $\bm A^{-1}$ is the cofactor $C_{ji}$ (not $C_{ji}$) divided by $\det\bm A$: }
-\[
-\mbox{\emph{Formula for $\bm A^{-1}$}}\qquad\qquad
-(\bm A^{-1})_{ij}=\frac{C_{ji}}{\det\bm A}\qquad\text{and}\qquad\bm A^{-1}=\frac{\bm C\trans}{\det\bm A}.
-\]
-\end{definition}
-\subsubsection{Cramer's Rule}
-\paragraph{Cramer's Rule solves $\bm{Ax}=\bm b$}
-
-Assume $\bm A$ is a $n\times n$ matrix that is \emph{nonsingular}. Then we can use determinant to solve this system:
-
-Let's start with $n=3$. We could multiply $\bm A$ with a new matrix $\bm C_1$ to get $\bm B_1$:
-\[
-\begin{array}{ll}
-\mbox{\emph{Key idea:}}
-&
-\bm A\bm C_1
-=
-\begin{bmatrix}
-a_{11}&a_{12}&a_{13}\\a_{21}&a_{22}&a_{23}\\a_{31}&a_{32}&a_{33}
-\end{bmatrix}\begin{bmatrix}
-x_1&0&0\\x_2&1&0\\x_3&0&1
-\end{bmatrix}=\begin{bmatrix}
-b_1&a_{12}&a_{13}\\b_2&a_{22}&a_{23}\\b_3&a_{32}&a_{33}
-\end{bmatrix}=\bm B_1
-\end{array}
-\]
-Taking determinants both sides, then we have
-\[
-\det(\bm A\bm C_1)=\det(\bm A)\det(\bm C_1)=\det(\bm A)(x_1)=\det\bm B_1\implies
-x_1=\frac{\det\bm B_1}{\det\bm A_1}.
-\]
-The matrix $\bm B_1$ is essentaily obtained by replacing the first column of $\bm A$ by the vector $\bm b$.
-
-Similarly, we could get all $x_j$ in this way. $(i=1,\dots,n)$.
-\begin{definition}[Cramer's Rule]
-If $\det\bm A$ is not zero, $\bm{Ax}=\bm b$ could be solved by determinants:
-\[
-x_1=\frac{\det\bm B_1}{\det\bm A}\qquad
-x_2=\frac{\det\bm B_2}{\det\bm A}\qquad
-\dots\dots\qquad
-x_n=\frac{\det\bm B_n}{\det\bm A}
-\]
-The matrix $\bm B_j$ has the $j$th column of $\bm A$ replaced by the vector $\bm b$. In other words,
-\[
-\begin{array}{ll}
-\bm B_{j}=\begin{bmatrix}
-a_{11}&\dots&b_1&\dots&a_{1n}\\
-a_{21}&\dots&b_2&\dots&a_{2n}\\
-\vdots&\ddots&\vdots&\ddots&\vdots\\
-a_{n1}&\dots&b_n&\dots&a_{nn}\\
-\end{bmatrix}\
-&
-j=1,\dots,n.
-\end{array}
-\]
-\end{definition}
-\subsection{Orthogonality}
-\begin{definition}[Orthogonal vectors]
-Two vectors $\bm x,\bm y\in\mathbb{R}^{n}$ are orthogonal when their inner product is zero:
-\[
-\inp{\bm x}{\bm y}=\sum_{i=1}^{n}x_{i}y_{i}=0.
-\]
-\end{definition}
-\begin{remark}
-Note that the inner product of two \emph{vectors} satisfies the \textit{commutative rule}. In other words, $\inp{\bm x}{\bm y}=\inp{\bm y}{\bm x}$ for vectors $\bm x$ and $\bm y$. The inner product defined for matrices may not satisfy the \textit{commutative rule}. Generally, if the result of inner product is a scalar, then inner product satisfies commutative rule.
 \end{remark}
-An important case is the inner product of a vector with \textit{itself}. The inner product $\inp{\bm x}{\bm x}$ gives the \textit{length of $\bm v$ squared}:
-\begin{definition}[length/norm]
-The \emph{length}(\emph{norm}) $\|\bm x\|$ of a vector $\bm x\in\mathbb{R}^n$ is the square root of $\inp{\bm x}{\bm x}$:
-\[
-\mbox{\emph{length}}=\|\bm x\|=\sqrt{\inp{\bm x}{\bm x}}=\sqrt{x_1^2+\dots+x_n^2}.
-\]
-\end{definition}
-\subsubsection{Function space}
-We can talk about inner product between functions under the function space. For example, if we define $V=\{f(t)\mid \int_{0}^{1}f^2(t)dt<\infty\}$, then we can define inner product and norm under $V$:
-\begin{definition}[Inner product; norm]
-The \emph{inner product} and the \emph{norm} of $f(x),g(x)$ under the function space $V=\{f(t)\mid \int_{0}^{1}f^2(t)dt<\infty\}$, are defined as:
-\[
-\inp{f}{g}=\int_{0}^{1}f(x)g(x)dx
-\qquad\mbox{and}\qquad
-\|f\|^2=\sqrt{\int_{0}^{1}f^2(x)dx}
-\]
-\end{definition}
-Moreover, when $\inp{f}{g}=0$, we say two functions are \emph{orthogonal} and denote it as $f\perp g$.
-\subsubsection{Cauchy-Schwarz Inequality}
-In $\mathbb{R}^2$, suppose $\bm x=\begin{pmatrix}
-x_1\\x_2
-\end{pmatrix},\bm y=\begin{pmatrix}
-y_1\\y_2
-\end{pmatrix}$, then we set:
-\[
-\begin{array}{ll}
-\left\{
-\begin{aligned}
-x_1=\|\bm x\|\cos\theta\\
-x_2=\|\bm x\|\sin\theta
-\end{aligned}
-\right.
-&
-\left\{
-\begin{aligned}
-y_1=\|\bm y\|\cos\varphi\\
-y_2=\|\bm y\|\sin\varphi
-\end{aligned}
-\right.
-\end{array}
-\]
-The inner product of $\bm x$ and $\bm y$ is given by:
-\[
-\begin{aligned}
-<\bm x,\bm y>=\bm x\trans\bm y&=x_1x_2+y_1y_2\\
-											 &=\|\bm x\|\|\bm y\|(\cos\theta\cos\varphi+\sin\theta\sin\varphi)\\
-											 &=\|\bm x\|\|\bm y\|\cos(\theta-\varphi)
-\end{aligned}
-\]
-Since $|\cos(\theta-\varphi)|$ never exceeds 1, the cosine formula gives a great inequality:
-\begin{theorem}[Cauchy Schwarz Inequality]
-\[
-\inp{\bm x}{\bm y}\le\|\bm x\|\|\bm y\|
-\]
-holds for two vectors $\bm x$ and $\bm y$.
+
+From the upcrossing inequality, we can easily get the result for the convergence of a martingale.
+\begin{theorem}[Martingale Convergence Theorem]
+Suppose that $\{X_n\}$ is a super-martingale which is ${L}^1$-bounded, i.e., $\sup_n\mathbb{E}[|X_n|]<\infty$.
+Then there exists a random variable $X_\infty$. such that $X_{\infty}\in\mathcal{L}^1$, and $X_n\to X_\infty$ a.s.
+
+If we further assume that $\{X_n\}$ is lower bounded by zero, then $\mathbb{E}[X_\infty\mid\mathcal{F}_n]\le X_n$ a.s., for any $n$.
+% lower bounded by zero?
 \end{theorem}
 \begin{proof}
-Firstly, we want to find optimizer $t^{*}$ such that 
+\begin{itemize}
+\item
+Firstly, we study the limit of $\{U_a^b[X;n]\}_{n\ge1}$, which is guaranteed to exist since 
+$U_a^b[X;n]$ is increasing in $n$.
+Define $U_a^b[X]\triangleq \lim_{n\to\infty}U_a^b[X;n]$, then
+\begin{subequations}
+\begin{align}
+\mathbb{E}[U_a^b[X]]&\le \liminf_{n\to\infty}\mathbb{E}[U_a^b[X;n]]\label{Eq:5:2:a}\\
+&\le \frac{1}{b-a}\liminf_{n\to\infty}\mathbb{E}[(X_n-a)^-]\label{Eq:5:2:b}\\
+&\le \frac{1}{b-a}\sup_n\mathbb{E}[(X_n-a)^-]\le \frac{1}{b-a}\left(
+\sup_n\mathbb{E}[|X_n|] + |a|
+\right)<\infty.\nonumber
+\end{align}
+where (\ref{Eq:5:2:a}) is by the Fatou's lemma and (\ref{Eq:5:2:b}) is by the Doob's upcrossing Theorem~\ref{The:upcrossing}.
+As a result, $U_a^b[X]<\infty$ a.s.
+\end{subequations}
+\item
+Note that the result in the first part holds for any rational $a,b$ with $a<b$, which means that 
+$\mathbb{P}(U_a^b[x]<\infty)=1,\forall a,b\in\mathbb{Q}, a<b$.
+% why consider rational number
+Therefore, we can show that
 \[
-\min\|\bm x-t\bm y\|^2=\|\bm x-t^{*}\bm y\|^2.
+\mathbb{P}\left[
+W
+\right]=0,\quad
+\text{where }
+W=\bigcup_{a,b\in\mathbb{Q}, a<b}
+\{\liminf X_n<a<b<\limsup X_n\}.
 \]
-Note that
-\[\begin{aligned}
-\|\bm x-t\bm y\|^2&=\inp{\bm x-t\bm y}{\bm x-t\bm y}=\inp{\bm x}{\bm x}+\inp{-t\bm y}{\bm x}+\inp{\bm x}{-t\bm y}+\inp{-t\bm y}{-t\bm y}\\
-&=\|\bm x\|^2-t\inp{\bm y}{\bm x}-t\inp{\bm x}{\bm y}+t^2\|\bm y\|^2\\
-&=\|\bm x\|^2-2t\inp{\bm x}{\bm y}+t^2\|\bm y\|^2
-\end{aligned}
-\]
-Hence the minimizer $t*$ must satisfy
-\[
-\Delta=0\implies
-t^{*}=\frac{\inp{\bm x}{\bm y}}{\|\bm y\|^2}
-\]
-Hence we have 
-\[\begin{aligned}
-\|\bm x-t\bm y\|^2_{\min}=\|\bm x-t^*\bm y\|^2&=
-\|\bm x\|^2-\frac{\inp{\bm x}{\bm y}^2}{\|\bm y\|^2}\\
-&=\frac{\|\bm x\|^2\|\bm y\|^2-\inp{\bm x}{\bm y}^2}{\|\bm y\|^2}\ge 0\\
-\qquad\qquad\implies
-\|\bm x\|^2\|\bm y\|^2\ge\inp{\bm x}{\bm y}^2
-\end{aligned}
-\]
-Or equivalently,
-\[
-|\inp{\bm x}{\bm y}|\le\|\bm x\|\|\bm y\|.
-\]
-\end{proof}
-\begin{remark}
-\paragraph{Cauchy-Schwarz inequality also holds for functions}
-If we consider functions $f,g$ as vectors, then
-\[
-\left[
-\int_0^1f(t)g(t)dt
-\right]\le
-\int_0^1f^2dt\int_0^1g^2dt
-\]
-\paragraph{The normalization of inner product is bounded by 1}
-Since $|\inp{\bm x}{\bm y}|\le\|\bm x\|\|\bm y\|$, we have 
-\[
--1\le\frac{\inp{\bm x}{\bm y}}{\|\bm x\|\|\bm y\|}\le 1
-\]
-If we define $\frac{\inp{\bm x}{\bm y}}{\|\bm x\|\|\bm y\|}:=\cos\theta$, then $\inp{\bm x}{\bm y}=\|\bm x\|\|\bm y\|\cos\theta$, the angle $\theta$ is said to be the intersection angle between $\bm x$ and $\bm y$.
-\end{remark}
-Cauchy-Schwarz equality holds for \emph{Hilbert space}, which will be discussed in other courses.
+\item
+Then we construct $X_\infty$ as follows.
+Because of the denseness of $\mathbb{Q}$, 
+for $\omega\notin W$, $X_n(\omega)$ is convergent and define $X_\infty(\omega)=\lim_{n\to\infty}X_n(\omega)$. Otherwise, define $X_n(\omega)=0$.
+Then the almost sure convergence of $X_n\to X_\infty$ is obtained.
 
-\subsubsection{Orthogonal for space}
-After defining inner product, we can discuss the orthogonality for space:
-\begin{definition}[Orthogonal subspaces]
-Two subspaces $\bm U$ and $\bm V$ of a vector space are \emph{orthogonal} if every vector $\bm u$ in $\bm U$ is \textit{perpendicular} to every vector $\bm v$ in $\bm V$:
+Also, we can check that $X_\infty\in\mathcal{L}^1$:
 \[
-\begin{array}{ll}
-\mbox{\emph{Orthogonal subspaces}}
-&
-\inp{\bm u}{\bm v}=0\mbox{ for all $\bm u$ in $\bm U$ and all $\bm v$ in $\bm V$.}
-\end{array}
+\mathbb{E}[|X_\infty|]\le \liminf_{n\to\infty}\mathbb{E}[|X_n|]\le\sup_n\mathbb{E}[|X_n|]<\infty.
 \]
+\item
+Given that $\{X_n\}$ is lower bounded by zero, the remaining result can be shown by upper bounding the integral $\int_A\mathbb{E}[X_\infty\mid\mathcal{F}_n]$ for any $A\in\mathcal{F}_n$:
+\begin{subequations}
+\begin{align}
+\int_A\mathbb{E}[X_\infty\mid\mathcal{F}_n]&=\int_AX_\infty\diff\mathbb{P}\nonumber\\
+&\le \liminf_{m\to\infty}\int_AX_m\diff\mathbb{P}\label{Eq:5:3:a}\\
+&=\liminf_{m\to\infty}\int_A\mathbb{E}[X_m\mid\mathcal{F}_n]\diff\mathbb{P}\label{Eq:5:3:b}\\
+&\le \liminf_{m\to\infty}\int_AX_n\diff\mathbb{P}=\int_AX_n\diff\mathbb{P}\label{Eq:5:3:c}.
+\end{align}
+where (\ref{Eq:5:3:a}) is by Fatou's lemma, (\ref{Eq:5:3:b}) is by the definition of conditional expectation, and (\ref{Eq:5:3:c}) is by the definition of super-martingale.
+\end{subequations}
+\end{itemize}
+\end{proof}
+
+\subsection{Continuous-time Martingales}
+Now we discuss the concepts of martingales, super-martingales, sub-martingales for continuous-time.
+
+\begin{definition}[Martingale]
+Let $\{X_t\}_{t\ge0}$ be an adapted process on filtered probability space $(\Omega, \mathcal{F},\{\mathcal{F}_t\}_{t\ge0},\mathbb{P})$.
+A stochastic process $\{X_t\}_{t\ge0}$ is called a \emph{martingale} if
+\begin{enumerate}
+\item
+$X_t\in\mathcal{L}^1,\forall t$;
+\item
+$\mathbb{E}[X_{t}\mid\mathcal{F}_s] = X_s$ a.s., for all $0\le s\le t$.
+\end{enumerate}
+If in the last definition, ``$=$'' is replaced by ``$\le$'' or ``$\ge$'', then $\{X_t\}_{t\ge0}$
+is said to be a \emph{supermartingale} or \emph{submartingale}, respectively.
 \end{definition}
+
+\begin{definition}[Optional Time]
+\begin{enumerate}
+\item
+A mapping $T:\Omega\to[0,\infty]$ is called an $\{\mathcal{F}_t\}$-stopping time if $\{T\le t\}\in\mathcal{F}_t$ for all $t\ge0$.
+\item
+A mapping $T:\Omega\to[0,\infty]$ is called an $\{\mathcal{F}_t\}$-optional time if $\{T<t\}\in\mathcal{F}_t$ for all $t>0$.
+\end{enumerate}
+\end{definition}
+It is easy to check that a stopping time is always an optional time.
+Now we discuss an example about a specific optional time.
+
+\begin{example}\label{Exp:5:1}
+Let $T$ be an optional time. For each $n\ge1$, define the step-function mapping
+\[
+T_n = \left\{
+\begin{aligned}
+\frac{k}{2^n},&\quad\text{if $(k-1)/2^n\le T<k/2^n, k=1,2,\ldots$}\\
+\infty,&\quad\text{if $T=\infty$}
+\end{aligned}
+\right.
+\]
+Then $\{T_n\}_{n\ge1}$ are stopping times with $T_n\downarrow T$:
+\begin{itemize}
+\item
+To show $T_n$ is a stopping time, study the set
+\begin{align*}
+\{T_n\le t\}&=\bigcup_{k\ge1}\bigg[
+\{T_n\le t\}\cap\left\{
+\frac{k-1}{2^n}\le T<\frac{k}{2^n}
+\right\}
+\bigg]\\&=\bigcup_{k=1}^{\lfloor t\cdot 2^n\rfloor}\bigg[
+\{T_n\le t\}\cap\left\{
+\frac{k-1}{2^n}\le T<\frac{k}{2^n}
+\right\}
+\bigg]=\bigcup_{k=1}^{\lfloor t\cdot 2^n\rfloor}\left\{
+\frac{k-1}{2^n}\le T<\frac{k}{2^n}
+\right\}.
+\end{align*}
+Since $T$ is an optional time,
+\[
+\left\{
+\frac{k-1}{2^n}\le T<\frac{k}{2^n}
+\right\}\in\mathcal{F}_{k/2^n}\subseteq\mathcal{F}_t,\quad\forall k\le t\cdot 2^n
+\implies
+\{T_n\le t\}\in\mathcal{F}_t,\forall t.
+\]
+\item
+The result for $T_n\downarrow T$ can be found in MAT3006 knowledge:
+\begin{quotation}
+Daniel Wong, Jie Wang. (2019) Lecture Notes
+for MAT3006: Real Analysis, Lecture 19, Proposition 10.4. Available at
+the link 
+
+https://walterbabyrudin.github.io/information/Updates/Updates.html
+\end{quotation}
+\end{itemize}
+\end{example}
+
+\begin{definition}\label{def:5:4}
+\begin{enumerate}
+\item
+Let $\{\mathcal{F}_t\}_{t\ge0}$ be a filteration.
+Define $\mathcal{F}_{t+}\triangleq \bigcap_{s>t}\mathcal{F}_s$.
+Then $\{\mathcal{F}_{t+}\}_{t\ge0}$ is also a filteration.
+A filteration $\{\mathcal{F}_t\}_{t\ge0}$ is said to be \emph{right-continuous} if 
+$\mathcal{F}_t = \mathcal{F}_{t+},\forall t$.
+
+\begin{remark}
+$\mathcal{F}_{t+}$ can be interpreted as the information available immediately after time $t$.
+We can show that $\mathcal{F}_{t+}$ is a $\sigma$-algebra and $\mathcal{F}_{t+}\supseteq \mathcal{F}_t$.
+
+When the filteration is right-continuous, a stopping time is the same as an optional time.
+\end{remark}
+\item
+A filteration $\{\mathcal{F}_t\}_{t\ge0}$ is said to be \emph{complete} if each $\mathcal{F}_t$ contains all $\mathbb{P}$-null sets in $\mathcal{F}$.
+\item
+A filteration $\{\mathcal{F}_t\}_{t\ge0}$ is called an \emph{augmented filteration}, or said to satisfy the \emph{usual conditions}, if it is complete and right-continuous.
+\end{enumerate}
+\end{definition}
+
+\section{Thursday}
+\subsection{Theorems for Continuous Time Martingales}
+
+\begin{definition}[Stopping Time $\sigma$-algebra]
+Let $T$ be an $\{\mathcal{F}_t\}$-stopping time.
+Define
+\[
+\mathcal{F}_T\triangleq \{
+A\in\mathcal{F}:~A\cap\{T\le t\}\in\mathcal{F}_t,\forall t\ge0
+\}.
+\]
+Then $\mathcal{F}_T$ is the $\sigma$-algebra for $T$,
+containing the information available up to time $T$.
+\end{definition}
+
+\begin{proposition}
+Let $\{\mathcal{F}_t\}$ be a filtration. Define
+\begin{align*}
+\mathcal{F}_{T+}&\triangleq \{A\in\mathcal{F}:~A\cap\{T\le t\}\in\mathcal{F}_{t+},~\forall t\ge0\}\\
+\mathcal{G}_{T}&\triangleq \{A\in\mathcal{F}:~A\cap\{T< t\}\in\mathcal{F}_{t},~\forall t>0\}
+\end{align*}
+We can show that $\mathcal{F}_{T+} = \mathcal{G}_T$.
+\end{proposition}
+
+\begin{theorem}\label{The:con:mart}
+\begin{enumerate}
+\item
+Let $\{X_t\}_{t\ge0}$ be a martingale and the filteration $\{\mathcal{F}_t\}_{t\ge0}$ satisfies the usual condition.
+Then there exists a version of $\{X_t\}_{t\ge0}$, which is right-continuous with left limits, denoted as $\{\tilde{X}_t\}_{t\ge0}$.
+Then $\{\tilde{X}_t\}_{t\ge0}$ is a right-continuous martingales w.r.t. $\{\mathcal{F}_t\}_{t\ge0}$.
+\begin{remark}
+The martingales we encountered are basically right-continuous by construction.
+\end{remark}
+\item
+(Maximal Inequality) % assumption?
+Denote $X_t^* \triangleq \sup_{s\le t}|X_s|$ as the running maximal. Then for any $t>0$ and $\lambda>0$,
+\[
+\mathbb{P}(X_t^*\ge\lambda)\le\frac{1}{\lambda}\mathbb{E}[|X_t|].
+\]
+\item
+(Convergence Theorem)
+Let $\{X_t\}_{t\ge0}$ be a right-continuous super-martingale, which is ${L}^1$-bounded.
+Then there exists a random variable $X_\infty$ such that $X_\infty\in\mathcal{L}^1$ and $X_n\to X_\infty$ a.s.
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Doob's Optional Sampling Theorem for Continuous-time Martingales]\label{The:5:4}
+Let $\{X_t\}_{t\ge0}$ be a right-continuous martingale with the last element $X_\infty$, i.e.,
+$X_\infty\in\mathcal{L}^1$ and $\mathbb{E}[X_\infty\mid\mathcal{F}_t]=X_t$ a.s. for any $t\ge0$.
+Let $S\le T$ be two $\{\mathcal{F}_t\}$-optional times. 
+Then $\mathbb{E}[X_T\mid\mathcal{F}_{S+}] = X_S$ a.s. 
+Specifically, if $S$ is a stopping time, we replace $\mathcal{F}_{S+}$ by $\mathcal{F}_S$.
+In particular, $\mathbb{E}[X_T] = \mathbb{E}[X_0]$.
+\end{theorem}
+
+
+
+Let's first show a necessary and sufficient condition for the existence of $X_\infty$:
+\begin{proposition}
+A last element $X_\infty$ exists if and only if $\{X_t\}_{t\ge0}$ is uniformly integrable.
+\end{proposition}
+\begin{proof}
+Assume that $\{X_t\}_{t\ge0}$ is uniformly integrable, which implies that $\{X_t\}_{t\ge0}$ is $L^1$-bounded.
+By the martingale convergence theorem~\ref{The:con:mart}, there exists a random variable $X_\infty$ such that $X_t\to X_\infty$ a.s. and $X_\infty\in\mathcal{L}^1$.
+In particular, $X_t\xrightarrow{P} X_\infty$. Together with the uniform integrability of $\{X_t\}_{t\ge0}$, we can assert that $X_t\to X_\infty$ in $L^1$. % why we need the L1 convergence?
+% reverse proof?
+Finally, we check that $\mathbb{E}[X_\infty\mid\mathcal{F}_u] = X_u$, a.s., for any $u\ge0$, i.e., for any $A\in\mathcal{F}_u$, we have
+\begin{align*}
+\int_AX_\infty\diff\mathbb{P}&=\lim_{t\to\infty}\int_AX_t\diff\mathbb{P}\\
+&=\lim_{t\to\infty}\int_A\mathbb{E}[X_t\mid\mathcal{F}_u]\diff\mathbb{P}
+=\lim_{t\to\infty}\int_AX_u\diff\mathbb{P}=\int_AX_u\diff\mathbb{P}.
+\end{align*}
+
+Now we assume that the last element exists. 
+Then $\{X_t\}$ is a collection of conditional expectations of $X_\infty$.
+Applying Theorem~\ref{The:UI:condition} gives the desired result.
+ 
+
+
+\end{proof}
+
+
+
+Now we begin to prove Theorem~\ref{The:5:4}.
+\begin{proof}
+\begin{itemize}
+\item
+Firstly, construct the approximation of $S,T$ and argue the similar optional sampling results hold:
+\begin{align*}
+S_n &= \left\{
+\begin{aligned}
+\frac{k}{2^n},&\quad\text{if $(k-1)/2^n\le S<k/2^n, k=1,2,\ldots$}\\
+\infty,&\quad\text{if $S=\infty$}
+\end{aligned}
+\right.
+\\
+T_n &= \left\{
+\begin{aligned}
+\frac{k}{2^n},&\quad\text{if $(k-1)/2^n\le T<k/2^n, k=1,2,\ldots$}\\
+\infty,&\quad\text{if $T=\infty$}
+\end{aligned}
+\right.
+\end{align*}
+By Example~\ref{Exp:5:1}, $\{S_n\},\{T_n\}$ are two sequences of stopping times with
+$S_n\downarrow S, T_n\downarrow T$.
+Moroever, for each $n\ge1$, $S_n\le T_n$ a.s., taking values in a countable set.
+Since $\{X_t\}_{t\ge0}$ is uniformly integrable, applying the discrete-time optional sampling theorem,
+\[
+\mathbb{E}[X_{T_n}\mid\mathcal{F}_{S_n}] = X_{S_n},\quad\text{a.s.}
+\]
+Therefore, for any $A\in\mathcal{F}_{S_n}$, $\int_AX_{T_n}\diff\mathbb{P}=\int_AX_{S_n}\diff\mathbb{P}$.
+\item
+We claim that $\mathcal{F}_{S+}=\cap_{n\ge1}\mathcal{F}_{S_n}$.
+Therefore, for any $A\in\mathcal{F}_{S+}$,
+\begin{equation}\label{Eq:5:4}
+\int_AX_{T_n}\diff\mathbb{P}=\int_AX_{S_n}\diff\mathbb{P}.
+\end{equation}
+% show the claim
+Here $\{X_{S_n}\}_{n\ge1}$ is called a backward (discrete) martingale w.r.t. $\{\mathcal{F}_{S_n}\}_{n=1}^\infty$, i.e., $\mathbb{E}[X_{S_n}\mid\mathcal{F}_{S_{n+1}}] = X_{S_{n+1}}$.
+Therefore, for any $A\in\mathcal{F}_{S_{n+1}}$,
+\[
+\int_AX_{S_n}\diff\mathbb{P} = \int_AX_{S_{n+1}}\diff\mathbb{P}.
+\]
+Thus $\mathbb{E}[X_{S_{n+1}}] = \mathbb{E}[X_{S_n}] = \mathbb{E}[X_0]>-\infty$ and $\lim_{n\to\infty}\mathbb{E}[X_{S_n}]>-\infty$.
+\item
+We also claim that $\{X_{S_n}\}_{n\ge1}$ is uniformly integrable, which implies
+$\{X_{T_n}\}_{n\ge1}$ is uniformly integrable.
+Since $\{X_t\}$ is right-continuous and $T_n\downarrow T, S_n\downarrow S$, the limit of $\{X_{T_n}\}$ and $\{X_{S_n}\}$ always exist:
+\[
+X_T\triangleq \lim_{n\to\infty}X_{T_n} \text{ a.s.},\qquad
+X_S\triangleq \lim_{n\to\infty}X_{S_n} \text{ a.s.}
+\]
+In particular, $X_{T_n}\to X_T$ in prob. and $X_{S_n}\to X_S$ in prob.
+By Theorem~\ref{The:UI:Converge}, $X_{T_n}\to X_T$ in $L^1$ and $X_{S_n}\to X_S$ in $L^1$.
+\item
+Then we can show that $\mathbb{E}[X_T\mid\mathcal{F}_{S+}]=X_S$ a.s. as the follwoing.
+For any $A\in\mathcal{F}_{S+}$,
+\begin{align*}
+\int_A\mathbb{E}[X_T\mid\mathcal{F}_{S+}]\diff\mathbb{P}
+&=\int_AX_T\diff\mathbb{P}\\
+&=\lim_{n\to\infty}\int_AX_{T_n}\diff\mathbb{P}\\
+&=\lim_{n\to\infty}\int_AX_{S_n}\diff\mathbb{P}\\
+&=\int_AX_S\diff\mathbb{P}
+\end{align*}
+where the second and the last equality is because of the $L^1$ convergence, and the third equality is because of (\ref{Eq:5:4}).
+\item
+Provided that $S$ is a stopping time, $S\le S_n$ implies $\mathcal{F}_S\subseteq\mathcal{F}_{S_n}$. Therefore, for any $A\in\mathcal{F}_S$, $\int_AX_{T_n}\diff\mathbb{P}=\int_AX_{S_n}\diff\mathbb{P}$. The proof is complete.
+
+\end{itemize}
+
+
+
+
+
+
+\end{proof}
+
+
+
+
+
+
+
+
+

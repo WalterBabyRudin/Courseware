@@ -12,10 +12,15 @@
 \contentsline {paragraph}{Transfer RN to RV}{4}{Item.14}
 \contentsline {paragraph}{More accpetance-rejection ideas}{7}{exampleT.1.5}
 \contentsline {paragraph}{Squeezing}{7}{exampleT.1.5}
-\contentsline {section}{\numberline {1.2}Friday}{8}{section.1.2}
-\contentsline {subsection}{\numberline {1.2.1}Proof of Schroder-Bernstein Theorem}{8}{subsection.1.2.1}
-\contentsline {paragraph}{Intuition from Fig.(\ref {Fig:1:2})}{8}{subsection.1.2.1}
-\contentsline {paragraph}{$F$ is onto mapping}{10}{figure.1.2}
-\contentsline {paragraph}{$F$ is one-to-one mapping}{10}{Item.20}
-\contentsline {subsection}{\numberline {1.2.2}Connectedness of Real Numbers}{12}{subsection.1.2.2}
+\contentsline {chapter}{\numberline {2}Week2}{9}{chapter.2}
+\contentsline {section}{\numberline {2.1}Wednesday}{9}{section.2.1}
+\contentsline {paragraph}{Box Muller Method}{9}{section.2.1}
+\contentsline {paragraph}{Alias}{9}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Generating Multi-variate Random Variables}{10}{subsection.2.1.1}
+\contentsline {paragraph}{Multi-nominal Distribution}{10}{subsection.2.1.1}
+\contentsline {paragraph}{Copula}{10}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Simple Stochastic Process}{10}{subsection.2.1.2}
+\contentsline {paragraph}{Continuous Time Markov Chain}{11}{subsection.2.1.2}
+\contentsline {section}{\numberline {2.2}Output Analysis}{11}{section.2.2}
+\contentsline {paragraph}{Normal Confidence Interval}{11}{Item.22}
 \contentsfinish 

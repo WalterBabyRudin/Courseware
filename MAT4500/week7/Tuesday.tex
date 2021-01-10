@@ -1,529 +1,703 @@
 
 \chapter{Week7}
 
-\section{Tuesday}\index{week7_Tuesday_lecture}\subsection{Quadratic form}
-The graphs of the following equations are easy to plot:
-\begin{gather}
-x^2+y^2=1\label{eq:17.1}\implies\text{ Circle}.\\
-\frac{x^2}{2}+\frac{y^2}{5}=1\label{eq:17.2}\implies\text{ Elipse}.\\
-\frac{x^2}{2}-\frac{y^2}{5}=1\label{eq:17.3}\implies\text{ Hyperbola}.\\
-\left.\begin{aligned}
-x^2&=\alpha y\\
-y^2&=\alpha x
-\end{aligned}\right\}\implies\text{ Parabola}.\label{eq:17.4}
-\end{gather}
-\begin{figure}[H]
-\centering\includegraphics{week7/shape}
-\caption{graph for quadratic form equations of two variables}
-\end{figure}
-The equations $(\ref{eq:17.1})-(\ref{eq:17.4})$ is the \textit{quadratic form equations of two variables}. Now we give the general form for quadratic equations:
-\begin{definition}[Quadratic form]
-The formula of \emph{quadratic form} is given by
-\[
-\bm x\trans\bm A\bm x
-\]
-where $\bm A\in\mathbb{S}^n$ and $\bm x\in\mathbb{R}^{n}$.
+\section{Tuesday}\index{week7_Tuesday_lecture}
 
-Moreover, sometimes we write $\bm x\trans\bm A\bm x$ as:
-\[
-\bm x\trans\bm A\bm x=\sum_{i,j=1}^{n}x_ix_ja_{ij}
-\]
-where $x_i$ is the $i$th entry of $\bm x$ and $a_{ij}$ are $(i,j)$th entry of $\bm A$.
-\end{definition}
-Moverover, we say an equation is the \emph{conic section of quadratic form} if it can be written as
-\[
-\bm x\trans\bm A\bm x=1.
-\]
+\subsection{Reflection Principle}
 
-You may be confused why the quadratic form requires the symmetric constraint. Now we give the reason:
+Consider a Brownian motion $\{B_t\}_{t\ge0}$ on a probability space $(\Omega,\mathcal{F},\mathbb{P})$.
+Let the filteration $\{\mathcal{F}_t\}_{t\ge0}$ be the natural filteration, i.e., 
+$\mathcal{F}_t=\sigma(B_u:~u\le t)$. Suppose that $a>0$, define
+\[
+T_a\triangleq \inf\{t\ge0:~B_t=a\}.
+\]
+Then $T_a$ is the first time that Brownian motion hits level $a$.
+By convention, $\inf\emptyset=+\infty$.
+
+\begin{theorem}
+The hitting time is finite almost surely:
+\[
+\mathbb{P}(T_a<\infty)=1.
+\]
+\end{theorem}
+\begin{proof}
+Based on $B_t$, define new stochastic process $\{Z_t^\theta\}$ with
+\[
+Z_t^\theta = \exp\left(
+\theta B_t - \frac{\theta^2t}{2}
+\right),\quad t\ge0.
+\]
+As a result,
 \begin{itemize}
 \item
-It is easy to verify $\bm x\trans\bm A\bm x=\bm x\trans\bm A\trans\bm x$.
+Since $\mathbb{E}[e^{\theta X}] = e^{\theta^2\sigma^2/2}$ for $X\sim \mathcal{N}(0,\sigma^2)$,
+\[
+\mathbb{E}[|Z_t^\theta|] = \mathbb{E}\exp\left(
+\theta B_t - \frac{\theta^2t}{2}
+\right)=1,\forall t
+\]
 \item
-Hence given any matrix $\bm A$, we always have
+For any $0\le u<t$, we have
 \begin{align*}
-\bm x\trans\left(\frac{\bm A+\bm A\trans}{2}\right)\bm x&=\frac{1}{2}\bm x\trans\bm A\bm x+\frac{1}{2}\bm x\trans\bm A\trans\bm x\\&=\frac{1}{2}\bm x\trans\bm A\bm x+\frac{1}{2}\bm x\trans\bm A\bm x\\&=\bm x\trans\bm A\bm x.
+\mathbb{E}[Z_t^\theta\mid\mathcal{F}_u]
+&=
+\mathbb{E}\left[
+\exp\left(
+\theta B_t - \frac{\theta^2}{t}
+\right)
+\middle|\mathcal{F}_u
+\right]\\
+&=
+\mathbb{E}\left[
+\exp\left(
+\theta (B_t-B_u) - \frac{\theta^2(t-u)}{2}
+\right)
+\exp\left(
+\theta B_u - \frac{\theta^2u}{2}
+\right)
+\middle|\mathcal{F}_u
+\right]\\
+&=
+\exp\left(
+\theta B_u - \frac{\theta^2u}{2}
+\right)\cdot \mathbb{E}\left[
+\exp\left(
+\theta (B_t-B_u) - \frac{\theta^2(t-u)}{2}
+\right)\middle|\mathcal{F}_u\right]\\
+&=
+\exp\left(
+\theta B_u - \frac{\theta^2u}{2}
+\right)\cdot \mathbb{E}\left[
+\exp\left(
+\theta B_{t-u} - \frac{\theta^2(t-u)}{2}
+\right)\right]=Z_u^\theta
 \end{align*}
 \end{itemize}
-Note that $\left(\frac{\bm A+\bm A\trans}{2}\right)$ is \textit{symmetric}! Hence given any $\bm A$, since $\bm x\trans\bm A\bm x=\bm x\trans\left(\frac{\bm A+\bm A\trans}{2}\right)\bm x$, it suffices to consider a symmetric matrix.
-\begin{example}
-Given the equation $3x^2+2xy+3y^2=1$, how we transform it into the conic section of quadratic form? How can we determine its shape in view of matirx?
-
-Actually, It can be written as
-\begin{equation}
-\begin{pmatrix}
-x&y
-\end{pmatrix}\begin{pmatrix}
-3&1\\1&3
-\end{pmatrix}\begin{pmatrix}
-x\\y
-\end{pmatrix}=1.\qquad\qquad\text{\emph{conic section of quadratic form.}}
-\label{conic_section}
-\end{equation}
-
-We could obatin a simpler version of the conic section of quadratic form, i.e., the middle matrix should be diagonal.
-We define $\bm A=\begin{pmatrix}
-3&1\\1&3
-\end{pmatrix}.$  Since $\bm A\in\mathbb{S}^2$, it admits the eigenvalue decomposition:
-\[
-\bm A=\bm Q\Lambda\bm Q\trans
-\]
-where $\Lambda=\begin{pmatrix}
-\lambda_1&\\&\lambda_2
-\end{pmatrix}$, $\bm Q=\begin{bmatrix}
-\bm x_1&\bm x_2
-\end{bmatrix}$.
-
-Thus we convert equation (\ref{conic_section}) into
-\begin{equation}
-\begin{pmatrix}
-x&y
-\end{pmatrix}\bm Q\Lambda\bm Q\trans\begin{pmatrix}
-x\\y
-\end{pmatrix}=1
-\implies
-\tilde{\bm x}\trans\Lambda\tilde{\bm x}=1.\label{Eq:8:6}
-\end{equation}
-where $\tilde{\bm x}=\bm Q\trans\begin{pmatrix}
-x\\y
-\end{pmatrix}=\begin{pmatrix}
-\tilde x_1\\\tilde x_2
-\end{pmatrix}$.\\
-Then how to determine the shape of this equation? We just do matrix multiplication of Eq.(\ref{Eq:8:6}) to obtain:
-\[
-\lambda_1\tilde x_1^2+\lambda_2\tilde x_2^2=1.
-\]
-After computation, we find $\lambda_1,\lambda_2>0$. Hence this equation is an \emph{elipse.}
-\end{example}
-\subsection{Convex Optimization Preliminaries}
-Now we recall how to compute derivative for matrix:
-\[
-\frac{\partial(f\trans g)}{\partial x}=\frac{\partial f(x)}{\partial x}g(x)+\frac{\partial g(x)}{\partial x}f(x)
-\]
-Examples of matrix derivatives:
-\begin{align*}
-\frac{\partial(a\trans \bm x)}{\partial \bm x}&=a
-\\
-\frac{\partial(a\trans \bm A\bm x)}{\partial \bm x}&=\frac{\partial((\bm A\trans a)\trans\bm x)}{\partial \bm x}=\bm A\trans a\\
-\frac{\partial(\bm A\bm x)}{\partial \bm x}&=\bm A\trans\\
-\frac{\partial(\bm x\trans\bm A\bm x)}{\partial \bm x}&=\bm A\bm x+\bm A\trans\bm x
-\end{align*}
-\begin{example}\qquad\\
-Given $f(\bm x)=\frac{1}{2}\bm x\trans\bm A\bm x+\bm b\trans\bm x$. We want to do the optimization:
-\[
-\min_{\bm x\in\mathbb{R}^{n}}f(\bm x)
-\]
-How to find the optimal solution? The direct idea is to take the first order derivative:
-\begin{align*}
-\frac{\partial f}{\partial \bm x}&=\frac{1}{2}\frac{\partial(\bm x\trans\bm A\bm x)}{\partial \bm x}+\frac{\partial(\bm b\trans\bm x)}{\bm x}\\
-&=\frac{1}{2}(\bm{Ax}+\bm A\trans\bm x)+\bm b.
-\end{align*}
-Since $\bm A$ is symmetric, we obtain
-\[
-\frac{\partial f}{\partial \bm x}=\bm{Ax}+\bm b.
-\]
-If $\bm x^{*}$ is an optimal solution, then it must satisfy:
-\[
-\nabla f(\bm x^{*})=\frac{\partial f(\bm x^{*})}{\partial \bm x}=\bm 0\implies
-\bm A\bm x^{*}+\bm b=\bm 0.
-\]
-There may follow these cases:
+Therefore, $\{Z_t^\theta\}$ is a martingale w.r.t. $\{\mathcal{F}_t\}_{t\ge0}$.
+Now we compute $\lim_{t\to\infty}\mathbb{E}[
+Z_{T_a}^\theta1\{T_a<\infty\}
+]$ as the following:
 \begin{itemize}
 \item
-If equation $\bm{Ax}+\bm b=\bm 0$ has no solution, then $f(\bm x)$ is unbounded. (We omit the proof of this statement)
+Since i) $Z_{t\land T_a}^\theta1\{T_a<\infty\}\xrightarrow{a.s.} Z_{T_a}^\theta1\{T_a<\infty\}$ as $t\to\infty$,
+ii) $|Z_{t\land T_a}^\theta|\le e^{\theta a}$ for any $t$,
+by bounded convergence theorem,
+\[
+\lim_{t\to\infty}\mathbb{E}
+[Z_{t\land T_a}^\theta1\{T_a<\infty\}]
+=
+\mathbb{E}
+[
+Z_{T_a}^\theta1\{T_a<\infty\}
+]
+\]
 \item
-If equation $\bm{Ax}+\bm b=\bm 0$ has a solution $\bm x^{*}$, it doesn't mean $\bm x^{*}$ is an optimal solution. (Note that the reverse is true.)
-
-Let's raise a counterexample: if we set
+Since $Z_{t\land T_a}^\theta1\{T_a=\infty\}=Z_{t}^\theta1\{T_a=\infty\}$ for any $t$, and
+\[Z_{t}^\theta1\{T_a=\infty\}\le e^{\theta a-\theta^2t/2}\to0,\] by bounded convergence theorem,
 \[
-\begin{array}{lll}
-\bm A=\begin{bmatrix}
-1&0\\0&-1
-\end{bmatrix},
-&
-\bm b=\bm 0,
-&
-\bm x=\begin{pmatrix}
-x_1\\x_2
-\end{pmatrix},
-\end{array}
+\lim_{t\to\infty}\mathbb{E}
+[
+Z_{t\land T_a}^\theta1\{T_a=\infty\}
+]
+=
+\lim_{t\to\infty}\mathbb{E}
+[
+Z_{t}^\theta1\{T_a=\infty\}
+]
+=0.
 \]
-then $f(\bm x)=\frac{1}{2}(x_1^2-x_2^2)$. One solution to $\bm{Ax}+\bm b=\bm 0$ is $\bm x^*=\begin{pmatrix}
-0\\0
-\end{pmatrix}$. 
 
-Obviously, $\bm x^{*}$ is not a optimal solution. If $x_1=0,x_2\rightarrow\infty$, then $f(\bm x)\rightarrow-\infty$!
+
 \end{itemize}
-\end{example}
-
-\subsubsection{Second optimality condition}
-If $\bm x^{*}$ is a optimal solution to $f(\bm x)$, what else condition should $\bm x^{*}$ satisfy?
-
-Let's take $f(\bm x)=\frac{1}{2}\bm x\trans\bm A\bm x+\bm b\trans\bm x$ as an example, we want to find $\bm x^{*}$ s.t. 
+On the other hand, since the stopped process $\{Z_{t\land T_a}^\theta\}$ is a martingale,
 \[
-\min f(\bm x)=f(\bm x^{*}).
+\mathbb{E}
+[
+Z_{t\land T_a}^\theta
+]
+=
+\mathbb{E}
+[
+Z_{0}^\theta
+]
+=1,\quad\forall t.
 \]
-
-Firstly, we write $f(\bm x)$ into its \textit{taylor expansion}:
-\begin{equation}
-f(\bm x)=f(\bm x^{*})+\inp{\nabla f(\bm x^*)}{\bm x-\bm x^*}+\frac{1}{2}(\bm x-\bm x^*)\trans\nabla^2f(\bm x^*)(\bm x-\bm x^*).\label{Eq:8:7}
-\end{equation}
-
-Note that $\nabla^2f(\bm x^*)$ is the Hessian matrix of $f(\bm x^*)$, which is defined as 
-\[
-\nabla^2f(\bm x^*):=\begin{bmatrix}
-\frac{\partial^2 f(\bm x^*)}{\partial x_{i}\partial x_{j}}
-\end{bmatrix}=\nabla(\nabla f(\bm x^*)).
-\]
-
-We compute $\bigtriangledown f(\bm x)$ and $\bigtriangledown^2 f(\bm x)$:
+It follows that 
 \begin{align*}
-\bigtriangledown f(\bm x)&=\frac{1}{2}(\bm{Ax}+\bm A\trans\bm x)+\bm b.\\
-\bigtriangledown^2 f(\bm x)&=\bigtriangledown\left[\frac{1}{2}(\bm{Ax}+\bm A\trans\bm x)+\bm b\right]=\frac{1}{2}\bigtriangledown(\bm{Ax})+\frac{1}{2}\bigtriangledown(\bm A\trans\bm x)
-=\frac{1}{2}(\bm A+\bm A\trans).
+1&=
+\lim_{t\to\infty}\mathbb{E}
+[Z_{t\land T_a}^\theta1\{T_a<\infty\}]
++
+\lim_{t\to\infty}\mathbb{E}
+[
+Z_{t\land T_a}^\theta1\{T_a=\infty\}
+]\\
+&=\mathbb{E}
+[
+Z_{T_a}^\theta1\{T_a<\infty\}
+]
+=
+\mathbb{E}
+[
+e^{\theta a - \theta^2T_a/2}1\{T_a<\infty\}
+].
 \end{align*}
-
-If assume $\bm A$ is \emph{symmetric}, then we have $\nabla f(\bm x)=\bm A\bm x+\bm b$ and $\nabla^2 f(\bm x)=\bm A$.
-
-Since the optimal solution $\bm x^*$ satisfies $\bigtriangledown f(\bm x^*)=\bm 0$, we deive 
-\[\inp{\bigtriangledown f(\bm x^*)}{\bm x-\bm x^*}=0.\]
-
- Then substituting it into Eq.(\ref{Eq:8:7}), we obtain:
+Therefore, $\mathbb{E}[e^{- \theta^2T_a/2}1\{T_a<\infty\}]=e^{-\theta a}$. Since $e^{- \theta^2T_a/2}1\{T_a<\infty\}$ is increasing, by monotone convergence theorem,
 \[
-f(\bm x)=f(\bm x^{*})+\frac{1}{2}(\bm x-\bm x^*)\trans\bigtriangledown^2f(\bm x^*)(\bm x-\bm x^*).
+1=\lim_{\theta\to0}e^{-\theta a}=\lim_{\theta\to0}\mathbb{E}[e^{- \theta^2T_a/2}1\{T_a<\infty\}]
+=\mathbb{E}[1\{T_a<\infty\}]=\mathbb{P}[1\{T_a<\infty\}].
 \]
 
-Or equivalently, $f(\bm x)-f(\bm x^{*})=\frac{1}{2}(\bm x-\bm x^*)\trans\bm A(\bm x-\bm x^*).$
 
-Since $\bm x^*$ is optimal that minimize $f(\bm x)$, $LHS=f(\bm x)-f(\bm x^*)\ge0$ for $\forall\bm x$. It follows that
-\[ 
-\frac{1}{2}(\bm x-\bm x^*)\trans\bm A(\bm x-\bm x^*)\ge0,\text{ for }\forall\bm x.
-\]
+\end{proof}
 
-Or equivalently,
-\[
-\bm x\trans\bm A\bm x\ge0 \text{ for $\forall\bm x$.}
-\]
-
-Our conclusion is that if there exists a optimal solution for $f(\bm x)$, then the matrix $\bm A$ should satisfy $\bm x\trans\bm A\bm x\ge0$ for $\forall\bm x.$ We have a specific name for such $\bm A$.
 \begin{remark}
-The Hessian matrix $\nabla^2f(\bm x)$ is the \emph{second order derivative} of $f(\bm x)$. In scalar case we know that the second optimality condition to minimize the function $f(x)$ is to let its second order derivative no less than zero. In vector case, the second optimality condition is $\nabla^2f(\bm x)\succeq0$, where $\succeq0$ denotes the \emph{positive semi-definite}.
+The stationary property shows that $\{B_{t+s}-B_s\}_{t\ge0}$ is also a Brownian motion for any $s>0$.
+Given that $T_a$ is a stopping time and finite a.s., we can assert that $\{B_{t+T_a}-B_{T_a}\}_{t\ge0}$ is also a Brownian motion, independent of $\mathcal{F}_{T_a}$.
 \end{remark}
-\subsection{Positive Definite Matrices}
-\begin{definition}[Positive-definite] A matrix $\bm A\in\mathbb{S}^n$ is said to be
-\begin{itemize}
-\item
-\textit{positive-semi-definite} (PSD) if $\bm x\trans\bm A\bm x\ge0$ for $\forall\bm x.$ We denote it as $\bm A\succeq0.$
-\item
- \textit{positive-definite} (PD) if $\bm x\trans\bm A\bm x>0$ for $\forall\bm x\ne\bm 0.$ We denote it as $\bm A\succ0.$
-\item
-\textit{indefinite} if there exist some $\bm x$ and $\bm y$ s.t.
+
+\begin{theorem}\label{The:7:2}
+Let $\{B_{t}\}_{t\ge0}$ be a standard Brownian motion.
+Let $M_t=\sup_{0\le u\le t}B_u$ be the running maximal of Brownian motion.
+For any $a\ge0$,
 \[
-\bm x\trans\bm A\bm x<0<\bm y\trans\bm A\bm y.
+\mathbb{P}(M_t\ge a) = 2\mathbb{P}(B_t\ge a) = \frac{2}{\sqrt{2\pi t}}\int_a^{\infty}e^{-\frac{x^2}{2t}}\diff x.
 \]
-\end{itemize}
-\end{definition}
-\begin{theorem}\label{PD_theorem}
-Given a matrix $\bm A\in\mathbb{S}^n$, the following statements are equivalent:
+\end{theorem}
+\begin{proof}
+Firstly simplify $\mathbb{P}(B_t\ge a)$ as the following:
+\begin{align*}
+\mathbb{P}(B_t\ge a)&=
+\mathbb{P}(B_t\ge a, M_t\ge a) + \mathbb{P}(B_t\ge a, M_t< a)\\
+&=\mathbb{P}(B_t\ge a, M_t\ge a)\\
+&=\mathbb{P}(B_t\ge a\mid M_t\ge a)\mathbb{P}(M_t\ge a)\\
+&=\mathbb{P}(B_t\ge a\mid T_a\le t)\mathbb{P}(M_t\ge a)\\
+&=\mathbb{P}(B_t- B_{T_a}\ge 0\mid T_a\le t)\mathbb{P}(M_t\ge a)
+\end{align*}
+Since conditioned on $\{T_a\le t\}$, $B_t-B_{T_a}$ is normally distributed with mean $0$, we imply 
+$\mathbb{P}(B_t- B_{T_a}\ge 0\mid T_a\le t)=\frac{1}{2}$.
+Therefore,
+\[
+\mathbb{P}(B_t\ge a)=\frac{1}{2}\mathbb{P}(M_t\ge a)=\frac{1}{\sqrt{2\pi t}}\int_a^{\infty}e^{-\frac{x^2}{2t}}\diff x.
+\]
+
+\end{proof}
+
+\subsection{Distributions of Brownian Motion}
+\begin{theorem}
+The joint distribution of the Brownian motion and the running maximal of Brownian motion is:
+\[
+\mathbb{P}(M_t\ge a, B_t\le a-y) = \mathbb{P}(B_t\ge a+y) = \frac{1}{\sqrt{2\pi t}}\int_{a+y}^\infty e^{-\frac{x^2}{2t}}\diff x.
+\]
+\end{theorem}
+\begin{proof}
+Simplify $\mathbb{P}(B_t\ge a+y)$ as the following:
+\begin{align*}
+\mathbb{P}(B_t\ge a+y)&= \mathbb{P}(B_t\ge a+y\mid M_t\ge a)\mathbb{P}(M_t\ge a)\\
+&=\mathbb{P}(B_t\ge a+y\mid T_a\le t)\mathbb{P}(M_t\ge a)\\
+&=\mathbb{P}(B_t-B_{T_a}\ge y\mid T_a\le t)\mathbb{P}(M_t\ge a)\\
+&=\mathbb{P}(B_t-B_{T_a}\le -y\mid T_a\le t)\mathbb{P}(M_t\ge a)\\
+&=\mathbb{P}(B_t\le a-y\mid M_t\ge a)\mathbb{P}(M_t\ge a).
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+For any $\lambda>0$,
+\[
+\mathbb{E}[e^{-\lambda T_a}] = e^{-\sqrt{2\lambda}a}.
+\]
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{The:7:2}, the density of $T_a$ is 
+\[
+f_{T_a}(t) = \frac{a}{t\sqrt{t}}\frac{1}{\sqrt{2\pi}}\exp\left(-\frac{a^2}{2t}\right).
+\]
+Computing the integral $\int_0^{\infty}f_{T_a}(t)e^{-\lambda t}\diff t$ gives the desired result.
+\end{proof}
+\begin{proof}[Another Quick Proof]
+Since $\mathbb{P}(T_a<\infty)=1$, substituting $\theta$ with $\sqrt{2\lambda}$
+for $\mathbb{E}[e^{- \theta^2T_a/2}1\{T_a<\infty\}]=e^{-\theta a}$ gives the desired result.
+\end{proof}
+
+\begin{theorem}
+Consider the Brownian motion with drift:
+\[
+X_t\triangleq \mu t + \sigma B_t,
+\]
+where $\mu\ne0,\sigma>0$.
 \begin{enumerate}
 \item
-$\bm A$ is PD.
+For any $0\le s<t$, $X_t-X_s$ is normally distributed with mean $\mu(t-s)$ and variance $\sigma^2(t-s)$. Independent incremental property also holds.
 \item
-All eigenvalues of $\bm A$ are positive.
+Time reversal: $\lim_{t\to\infty}\frac{X_t}{t}=\mu$.
 \item
-All $n$ \textit{upper left square submatrices} $\bm A_1.\dots,\bm A_n$ all have positive determinants.
-\item
-$\bm A$ could be factorized as $\bm R\trans\bm R$, where $\bm R$ is nonsingular.
+For $\mu<0$, define $M_\infty=\sup_{t\ge0}X_t$ as the running maximal of drifted Brownian motion to infinity. Then $M_\infty$ is exponentially distributed with parameter $\frac{2|\mu|}{\sigma^2}$:
+\[
+\mathbb{P}(M_\infty>y)=\exp\left(-\frac{2|\mu|}{\sigma^2}y\right),\quad y\ge0.
+\]
 \end{enumerate}
 \end{theorem}
-You may be confused about the ``upper left submatrices''. They are the $1$ by $1$, $2$ by $2$,$\dots$,$n$ by $n$ submatrices of $\bm A$ on the upper left. The $n$ by $n$ submatrix is exactly $\bm A$. Before we geive a detailed proof, let's show how to test some matrices for positive definiteness by using this theorem:
-\begin{example}
-Test these matrices $\bm A$ and $\bm B$ for positive definiteness:
-\[
-\bm A=\begin{bmatrix}
-1&&&\\&2&&\\&&2&\\&&&2
-\end{bmatrix}\qquad\text{and}\qquad
-\bm B=\begin{bmatrix}
-1&-1&&\\-1&2&-1&\\&-1&2&-1\\&&-1&2
-\end{bmatrix}
-\]
-\begin{itemize}
-\item
-For matrix $\bm A$, its eigenvalues are $\{1,2,2,2\}.$ So all eigenvalues of $\bm A$ are positive, $\bm A$ is PD. Moverover, we can test its positive definiteness by definition: 
-\[
-\bm x\trans\bm A\bm x=x_1^2+2x_2^2+2x_3^2+2x_4^2>0.
-\]
-for $\forall\bm x=\begin{pmatrix}
-x_1&x_2&x_3&x_4
-\end{pmatrix}\trans\ne\bm 0$.
-\item
-For matrix $\bm B$, all \textit{upper left square submatrices} are given by
-\[
-\bm B_1=\begin{bmatrix}
-1
-\end{bmatrix}\quad
-\bm B_2=\begin{bmatrix}
-1&-1\\-1&2
-\end{bmatrix}\quad
-\bm B_3=\begin{bmatrix}
-1&-1&\\-1&2&-1\\&-1&2
-\end{bmatrix}\quad
-\bm B_4=\begin{bmatrix}
-1&-1&&\\-1&2&-1&\\&-1&2&-1\\&&-1&2
-\end{bmatrix}
-\]
-After messy computation, we obtain
-\[
-\det(\bm B_1)=1\quad\det(\bm B_2)=1\quad
-\det(\bm B_3)=1\quad\det(\bm B_4)=1.
-\]
-Hence all \textit{upper left square determinants} are positive, $\bm B$ is PD.
-\end{itemize}
-\end{example}
-Then we begin to give a proof for this theorem:
+The first two parts are trivial, and we give a proof for the last part:
 \begin{proof}
+Choose some $\theta\ne0$ and define the random process $\{V_t^\theta\}_{t\ge0}$ such that
+\[
+V_t^\theta=\exp\left( \theta X_t - \mu\theta t - \frac{\sigma^2\theta^2}{2}t\right).
+\]
+It follows that $\{V_t^\theta\}_{t\ge0}$ is a martingale:
 \begin{itemize}
 \item
-$(1)\implies(2):$ Given any eigen-pair $(\lambda,\bm x)$ of $\bm A$, we have
-\[
-\bm{Ax}=\lambda\bm x,\text{ for }\forall\bm x\ne\bm0.
-\]
-By postmutliplying $\bm x\trans$ both sides, we obtain:
-\[
-\bm x\trans\bm A\bm x=\lambda\bm x\trans\bm x=\lambda\|\bm x\|^2
-\implies
-\lambda=\frac{\bm x\trans\bm A\bm x}{\|\bm x\|^2}>0.
-\]
+Since $X_t\sim\mathcal{N}(\mu t,\sigma^2 t)$, $\mathbb{E}[|V_t^\theta|]=1$;
 \item
-$(2)\implies(1):$ Assume all eigenvalues $\lambda_i>0$ for $i=1,2,\dots,n.$ Our goal is to show $\bm x\trans\bm A\bm x>0$ for $\forall\bm x\ne\bm 0$.
-
-Since $\bm A\in\mathbb{S}^n$, it admits the eigen-decomposition:
+For any $0\le u<t$, we have
+\begin{align*}
+\mathbb{E}[V_t^\theta\mid\mathcal{F}_u]
+&=
+\mathbb{E}\left[\exp\left( \theta X_t - \mu\theta t - \frac{\sigma^2\theta^2}{2}t\right)\middle|\mathcal{F}_u\right]\\
+&=
+\mathbb{E}\left[
+\exp\left( \theta(X_t-X_u) - (\mu\theta+\frac{\sigma^2\theta^2}{2})(t -u)\right)
+e^{(
+\theta X_u - (\mu\theta+\frac{\sigma^2\theta^2}{2})u
+)}
+\middle|\mathcal{F}_u
+\right]\\
+&=
+e^{(
+\theta X_u - (\mu\theta+\frac{\sigma^2\theta^2}{2})u
+)}
+\mathbb{E}\left[
+\exp\left( \theta(X_t-X_u) - (\mu\theta+\frac{\sigma^2\theta^2}{2})(t -u)\right)\right]\\
+&=V_u^\theta.
+\end{align*}
+\end{itemize}
+For $a<0<b$, define $T_{a,b}=\inf\{t\ge0:~X_t=a\text{ or }X_t=b\}$.
+Define $\theta = -\frac{2\mu}{\sigma^2}$ such that $\mu\theta+\frac{1}{2}\sigma^2\theta^2=0$.
+Considering that $T_{a,b}\le T_a$ with $T_a$ being finite a.s., we imply $V_{t\land T_{a,b}}^\theta\xrightarrow{a.s.}V_{T_{a,b}}^\theta$. Moreover, $|V_{t\land T_{a,b}}^\theta|\le \max(e^{-\theta a},e^{\theta b})$. By dominated convergence theorem,
 \[
-\bm A=\bm Q\Lambda\bm Q\trans\qquad\text{$\bm Q$ is orthogonal matrix.}
+\mathbb{E}[V_{T_{a,b}}^\theta]=\lim_{t\to\infty}
+\mathbb{E}[V_{t\land T_{a,b}}^\theta]
+=
+\lim_{t\to\infty}\mathbb{E}[V_0^\theta]=1.
 \]
+Therefore,
+\begin{align*}
+1&=\mathbb{E}[V_{T_{a,b}}^\theta]=\mathbb{E}[V_{T_{a,b}}^\theta1\{T_{a,b}=a\}]
++\mathbb{E}[V_{T_{a,b}}^\theta1\{T_{a,b}=b\}]\\
+&=e^{\theta a}\mathbb{P}(T_{a,b}=a) + e^{\theta b}\mathbb{P}(T_{a,b}=b).
+\end{align*}
+Together with the fact that $\mathbb{P}(T_{a,b}=a)+\mathbb{P}(T_{a,b}=b)=1$, we assert that 
+\[\mathbb{P}(T_{a,b}=a)=\frac{e^{\theta b}-1}{e^{\theta b} - e^{\theta a}}.\]
+Now define the set $A_a = \{T_{a,b}=T_a\}$, then the sequence $\{A_a\}$ is monotone in $a$:
+\[
+a_2<a_1<0\implies A_{a_2}\subseteq A_{a_1}.
+\]
+Define the set 
+\begin{align*}
+\Lambda&\triangleq\{M_\infty<b\}=\{\omega\in\Omega:~\text{$X_t(\omega)$ never hits level $b$}\}=\bigcap_{a<0,a\in\mathbb{Q}}A_a.
+\end{align*}
+Thus
+\[
+\mathbb{P}\bigg(
+\bigcap_{a<0,a\in\mathbb{Q}}A_a
+\bigg)=\lim_{a\to\infty}\mathbb{P}(A_a)=\lim_{a\to\infty}\mathbb{P}(T_{a,b}=a)=1-e^{-\theta b}.
+\]
+Then we conclude that 
+\[
+\mathbb{P}(M_\infty<b)=\mathbb{P}(\Lambda)=1-e^{-2|\mu|/\sigma^2}b.
+\]
+In particular, we imply $\mathbb{P}(M_\infty<\infty)=1$.
+\end{proof}
 
+\section{Thursday}
+\subsection{Unbounded Variation of Brownian Motion}
+
+\begin{definition}[Partition]
+Consider a closed interval $[a,b]$. A sequence
+\[
+a=t_0<t_1<\cdots<t_n=b
+\]
+is called a partition of $[a,b]$, denoted as $\Pi = \Pi(t_0,t_1,\ldots,t_n)$.
+\end{definition}
+
+\begin{definition}[Total Variation]
+Let $f$ be a continuous function on $[a,b]$:
+\[
+f:~[a,b]\mapsto\mathbb{R}.
+\]
+Then the total variation of $f$ is defined as 
+\[
+TV(f)[a,b] = \sup_{\Pi}\sum_k|f(t_k) - f(t_{k-1})|
+\]
+where the supremum is taken over all the possible partitions $\Pi$ on the interval $[a,b]$.
+Since $\sum_k|f(t_k) - f(t_{k-1})|$ is increasing as the partition being smaller, 
+\[
+TV(f)[a,b] = \lim_{\|\Pi\|\to0}\sum_k|f(t_k) - f(t_{k-1})|
+\]
+with $\|\Pi\|=\max_k|t_k - t_{k-1}|$.
+\end{definition}
+
+\begin{remark}
+The real analysis shows that a bounded variation function, i.e., the function whose total variation is bounded, is differentiable almost everywhere.
+Then if the function is nowhere differentiable, it is not of bounded variation.
+\end{remark}
+
+\begin{theorem}\label{The:7:6}
+Brownian motion is not of bounded variation almost surely, i.e.,
+\[
+\mathbb{P}(\{\omega\in\Omega:~
+TV(B_{\cdot}(\omega))[0,t] = \infty
+\})=1,\qquad \forall t>0.
+\]
+\end{theorem}
+This result is based on the fact that the Brownian motion is nowhere differentiable alomst surely.
+\begin{theorem}
+Brownian motion is nowhere differentiable almost surely. In particular,
+\[
+\mathbb{P}\left(\left\{\omega\in\Omega:~
+\limsup\limits_{n\to\infty}\bigg|
+\frac{B_{t+h}(\omega) - B_t(\omega)}{h}
+\bigg|
+=\infty,
+t\in[0,\infty)
+\right\}\right)=1
+\]
+\end{theorem}
+\begin{remark}
+If a stochastic process $\{A_t\}_{t\ge0}$ has bounded variation, then the integral $\int_a^bf(t)\diff A_t(\omega)$ can be defined in Riemann integraion sense $\omega$-wisely.
+However, Brownian motion is not of the bounded variaiton.
+The stochastic integral $\int_a^bf(t)\diff B_t(\omega)$ shall be defined in a new manner.
+\end{remark}
+\begin{proof}
+Choose any $T>0$ and $M>0$, define the set
+\[
+A^{(M)}\triangleq \bigg\{
+\omega\in\Omega:~\exists t\in[0,T]\text{ such that }\limsup\limits_{h\to0}\left|
+\frac{B_{t+h}(\omega) - B_t(\omega)}{h}
+\right|\le M
+\bigg\}.
+\]
+It suffices to show that $\mathbb{P}(A^{(M)})=0$.
+If $\omega\in A^{(M)}$, there exists $t\in[0,T]$ and $n_0$ such that when $n\ge n_0$,
+\[
+\left|
+\frac{B_{u}(\omega) - B_t(\omega)}{u-t}
+\right|\le 2M,\qquad \forall u\in(t-2/n,t+2/n).
+\]
+Decompose $A^{(M)}$ into many smaller sets.
+Define the set
+\begin{equation}\label{Eq:7:1}
+A^{(M)}_n\triangleq \bigg\{
+\omega\in\Omega:~\exists t\in[0,T]\text{ such that }
+|B_u(\omega) - B_t(\omega)|\le 2M|u-t|,\quad
+\forall u\in(t-2/n,t+2/n)
+\bigg\}. 
+\end{equation}
+Then i) $A^{(M)}\subseteq \cup_nA_n^{(M)}$, and ii) $\{A^{(M)}_n\}$ is monotone: $A_n\subseteq A_{n+1}$.
+
+Suppose that $\omega\in A_n$ with $t$ having such a property in (\ref{Eq:7:1}).
+Let $k=\sup\{j\in\mathbb{Z}:~j/n\le t\}$, which means $k$ is close enough to $t$. Define $Y_k$ as the maximal of three independent increments:
+\[
+Y_k = \max\left\{
+\left|
+B_{(k+2)/n} - B_{(k+1)/n} 
+\right|,
+\left|
+B_{(k+1)/n} - B_{k/n} 
+\right|,
+\left|
+B_{k/n} - B_{(k-1)/n} 
+\right|
+\right\}.
+\]
+We can show that $Y_k(\omega)\le 6M/n, \forall \omega\in A_n^{(M)}$ as follows.
+Firstly, 
+\begin{align*}
+\left|
+B_{(k+2)/n}(\omega) - B_{(k+1)/n}(\omega)
+\right|
+&\le
+\left|
+B_{(k+2)/n}(\omega) - B_{t}(\omega)
+\right|
++
+\left|
+B_{t}(\omega) - B_{(k+1)/n}(\omega)
+\right|\\
+&\le 2M\left|
+\frac{k+2}{n}-t
+\right|
++
+2M\left|
+\frac{k+1}{n}-t
+\right|\\&\le 2M\cdot\frac{2}{n}+2M\cdot\frac{1}{n}=\frac{6M}{n}
+\end{align*}
+where the last inequality is because that $k/n\le t<(k+1)/n$.
+Following the similar technique, we can show that 
+\[\left|
+B_{(k+1)/n}(\omega) - B_{k/n}(\omega) 
+\right|,
+\left|
+B_{k/n}(\omega) - B_{(k-1)/n}(\omega)
+\right|\le \frac{6M}{n}
+\implies
+Y_k(\omega)\le \frac{6M}{n}
+.
+\]
+Now define the new set based on the consequence of the claim about $A_n^{(M)}$:
+\[
+E_n^{(M)}\triangleq \left\{
+\omega\in\Omega:~\exists j\in[1,T_n]\cap\mathbb{Z}\text{ such that }Y_j(\omega)\le\frac{6M}{n}
+\right\}.
+\]
+with 
+\[
+Y_j = \max\left\{
+\left|
+B_{(j+2)/n} - B_{(j+1)/n} 
+\right|,
+\left|
+B_{(j+1)/n} - B_{j/n} 
+\right|,
+\left|
+B_{j/n} - B_{(j-1)/n} 
+\right|
+\right\}.
+\]
+Directly $A_n^{(M)}\subseteq E_n^{(M)}$ for each $n$.
+Now we begin to upper bound $\mathbb{P}(E_n^{(M)})$:
+\begin{subequations}
+\begin{align}
+\mathbb{P}(E_n^{(M)})&\le \sum_{1\le j\le T_n}\mathbb{P}(Y_j\le\frac{6M}{n} )\nonumber\\
+&\le T_n\mathbb{P}\bigg(
+\max\left\{
+\left|
+B_{(j+2)/n} - B_{(j+1)/n} 
+\right|,
+\left|
+B_{(j+1)/n} - B_{j/n} 
+\right|,
+\left|
+B_{j/n} - B_{(j-1)/n} 
+\right|
+\right\}\le\frac{6M}{n}
+\bigg)\nonumber\\
+&=T_n\cdot \prod_{i=j-1:j+1}\mathbb{P}\bigg(
+\left|
+B_{(i+1)/n} - B_{(i)/n} 
+\right|\le\frac{6M}{n}
+\bigg)\label{Eq:7:2:a}\\
+&=T_n\cdot\left[
+\mathbb{P}\bigg(
+|B_{1/n}|\le\frac{6M}{n}
+\bigg)
+\right]^3,\label{Eq:7:2:b}
+\end{align}
+where (\ref{Eq:7:2:a}) is because of the independent increments of Brownian motion,
+and (\ref{Eq:7:2:b}) is because of its stationary increment property.
+In particular,
+\begin{align}
+\mathbb{P}\bigg(
+|B_{1/n}|\le\frac{6M}{n}
+\bigg)&=\mathbb{P}\bigg(
+-\frac{6M}{n}\le B_{1/n}\le \frac{6M}{n}
+\bigg)\nonumber\\
+&=\mathbb{P}\bigg(
+-\frac{6M}{\sqrt{n}}\le B_{1}\le \frac{6M}{\sqrt{n}}
+\bigg)\label{Eq:7:2:c}\\
+&=\frac{1}{\sqrt{2\pi}}\int_{-\frac{6M}{\sqrt{n}}}^{\frac{6M}{\sqrt{n}}}e^{-x^2/2}\diff x\nonumber\\
+&\le \frac{2}{\sqrt{2\pi}}\frac{6M}{\sqrt{n}}\label{Eq:7:2:d}
+\end{align}
+where (\ref{Eq:7:2:c}) is by the scaling property, and (\ref{Eq:7:2:d}) is by upper bounding $e^{-x^2/2}\le 1$.
+\end{subequations}
 It follows that 
 \[
-\bm x\trans\bm A\bm x=\bm x\trans\bm Q\Lambda\bm Q\trans\bm x=(\bm Q\trans\bm x)\trans\Lambda(\bm Q\trans\bm x).
+\mathbb{P}(E_n^{(M)})\le T_n(\frac{2}{\sqrt{2\pi}}\frac{6M}{\sqrt{n}})^3\to0.
 \]
-
-By setting $\tilde{\bm x}=\bm Q\trans\bm x=\begin{bmatrix}
-\tilde{x_1}&\dots&\tilde{x_n}
-\end{bmatrix},$ $\bm x\trans\bm A\bm x$ can be rewritten as
+Since $A_n^{(M)}\subseteq E_n^{(M)}$, $\mathbb{P}(A_n^{(M)})\to0$.
+Since $A^{(M)}\subseteq\cup_nA_n^{(M)}$,
 \[
-\bm x\trans\bm A\bm x=\tilde{\bm x}\trans\Lambda\tilde{\bm x}=\sum_{i=1}^{n}\lambda_i\tilde{x_i}^2\ge0.
+\mathbb{P}(A^{(M)})\le \mathbb{P}(\cup_nA_n^{(M)})=\lim_{n\to\infty}\mathbb{P}(A_n^{(M)})=0.
 \]
-Then we aruge for $\sum_{i=1}^{n}\lambda_i\tilde{x_i}^2\ne0.$ It suffices to show $\|\tilde{\bm x}\|\ne0$.
-
-You can verify by yourself that $\|\bm Q\trans\bm x\|=\|\bm x\|$. Thus we obtain:
-\[
-\|\tilde{\bm x}\|:=\|\bm Q\trans\bm x\|=\|\bm x\|\ne0.
-\]
-\item
-$(1)\implies(3):$ We only to show $\det(\bm A_k)>0$ for any upper left matrices $\bm A_k$.
-
-Given any nonzero vector $\tilde{\bm x}=\begin{pmatrix}
-x_1\\x_2\\\vdots\\x_k
-\end{pmatrix}\in\mathbb{R}^{k}$, we construct $\bm x=\begin{pmatrix}
-\tilde{\bm x}\\\bm 0
-\end{pmatrix}\in\mathbb{R}^{n}$.
-
-Since $\bm A\succ0$, we find
-\begin{align*}
-\bm x\trans\bm A\bm x&=\begin{pmatrix}
-\tilde{\bm x}\trans&\bm 0
-\end{pmatrix}\bm A\begin{pmatrix}
-\tilde{\bm x}\\\bm 0
-\end{pmatrix}\\
-&=\tilde{\bm x}\trans\bm A_k\tilde{\bm x}>0.
-\end{align*}
-
-Since $\tilde{\bm x}$ is arbitrary nonzero vector in $\mathbb{R}^{k}$, we derive $\bm A_k\succ0.$ By $(2)$ of this theorem, all eigenvalues of $\bm A_k$ are positive. 
-
-Thus $\det(\bm A_k)=\text{product of all eigenvalues of $\bm A_k$}>0.$
-\item
-$(3)\implies(4):$
-\begin{itemize}
-\item
-We want to show that all pivots of $\bm A$ are positive first:
-
-We do row transform to convert $\bm A$ into upper triangular matrix $\tilde{\bm A}$:
-\[
-\begin{bmatrix}
-\x&\x&\x\\
-\x&\x&\x\\
-\x&\x&\x
-\end{bmatrix}\Longrightarrow
-\begin{bmatrix}
-\x&\x&\x\\
-0&\x&\x\\
-0&0&\x
-\end{bmatrix}
-\]
-
-During row transformation, the determinant for the  correponding \textit{upper left submatrices} $\bm A_i$ doesn't change. In other words, we obtain
-\[
-\det(\tilde{\bm A}_i)=\det(\bm A_i)\text{ for }i=1,\dots,n.
-\]
-
-Moreover, $\tilde{\bm A_i}$ always contains $\tilde{\bm A}_{i-1}$ on its upper left side:
-\[
-\tilde{\bm A}_i=\begin{bmatrix}
-\tilde{\bm A}_{i-1}&\bm B\\\bm0&\tilde{a}_{ii}
-\end{bmatrix}
-\]
-
-Note that $\tilde{\bm A}_i$'s are also upper triangular matrices. The determinant of an upper triangular matrix is the product of its diagonal entries. Hence we obtain
-\[
-\det(\tilde{\bm A}_i)=\tilde{a}_{ii}\det(\tilde{\bm A}_{i-1})\text{ for }i=2,\dots,n.
-\]
-
-It follows that
-\[
-\tilde{a}_{ii}=\frac{\det(\tilde{\bm A}_i)}{\det(\tilde{\bm A}_{i-1})}=\frac{\det(\bm A_i)}{\det(\bm A_{i-1})}\text{ for }i=2,\dots,n.
-\]
-
-Due to $(3)$ of this theorem, $\tilde{a}_{ii}>0$ for $i=2,\dots,n.$  Also, $\tilde{a_{11}}=\det(\tilde{\bm A}_1)=\det(\bm A_1)>0$.
-
-In conclusion, all pivots $\tilde{a}_{ii}>0$ for $i=1,\dots,n.$
-\item
-Then we apply the LDU composition for $\bm A$. Since $\bm A\in\mathbb{S}^n$, we obtain
-\[
-\bm A=\bm L\bm D\bm L\trans
-\]
-where $\bm D=\diag(d_1,\dots,d_n)$. The diagonal entries of $\bm D$ are pivots of $\bm A$. $\bm L$ is a lower triangular matrix with 1's on the diagonal entries.
-
-Since all pivots of $\bm A$ are positive, we define $\sqrt{\bm D}:=\diag(\sqrt{d_1},\dots,\sqrt{d_n})$.\\
-Hence we rewrite $\bm A$ as:
-\[
-\bm A=\bm L\begin{pmatrix}
-d_1&&\\&\ddots&\\&&d_n
-\end{pmatrix}\bm L\trans=\bm L\sqrt{\bm D}\sqrt{\bm D}\bm L\trans=(\sqrt{\bm D}\bm L\trans)\trans(\sqrt{\bm D}\bm L\trans).
-\]
-
-We define $\bm R:=\sqrt{\bm D}\bm L\trans$. Since $\sqrt{\bm D}$ and $\bm L\trans$ are nonsingular, $\bm D$ is nonsingular.
-
-Hence $\bm A=\bm R\trans\bm R$, where $\bm R$ is a  nonsingular matrix.
-\end{itemize}
-\item
-$(4)\implies(1): $
-Suppose $\bm A=\bm R\trans\bm R$, where $\bm R$ is nonsingular. Then for any $\bm x\in\mathbb{R}^{n}$, we have
-\[
-\bm x\trans\bm A\bm x=\bm x\trans\bm R\trans\bm R\bm x=\|\bm{Rx}\|^2\ge0.
-\]
-Then it suffices to show that if $\bm x\ne\bm0$, then $\|\bm{Rx}\|\ne0.$:
-
-Since $\bm R$ is nonsinguar, when $\bm x\ne\bm 0$, we obtain $\bm{Rx}\ne\bm0.$ Hence $\|\bm{Rx}\|\ne0.$
-\end{itemize}
-\end{proof}
-Is there any quick ways to determine the positive definiteness of a matrix? The answer is yes. Let's introduce some definitions first:
-\begin{definition}[Submatrix]
-If $\bm A$ is a $n\x n$ matrix, then a submatrix of $\bm A$ is obtained by keeping some collection of rows and columns.
-\end{definition}
-\begin{example}
-For matrix $\bm A=\begin{bmatrix}
-1&-1&&\\-1&2&-1&\\&-1&2&-1\\&&-1&2
-\end{bmatrix}$, if we keep the (1,3,4)th row and (1,2)th column of $\bm A$, our submatrix is denoted as
-\[
-\bm A_{(1,3,4),(1,2)}=\begin{bmatrix}
-1&-1\\0&-1\\0&0
-\end{bmatrix}
-\]
-\end{example}
-\begin{definition}[principal submatrix]
-If $\bm A$ is a $n\x n$ matrix, then a principal submatrix of $\bm A$ is obtained by keeping the same collection of rows and columns. For example, if we want to keep the (5,7)th row of $\bm A$, in order to construct a principal submatrix, we must keep the (5,7)th column of $\bm A$ as well.
-\end{definition}
-\begin{example}
-If $\bm A=\begin{bmatrix}
-1&-1&&\\-1&2&-1&\\&-1&2&-1\\&&-1&2
-\end{bmatrix}$, then if we keep the (1,3,4)th row of $\bm A$, in order to construct a principal submatrix, we have to keep (1,3,4)th column of $\bm A$ as well. Our principal submatrix is denoted as
-\[
-\bm A_{(1,3,4),(1,3,4)}=\begin{bmatrix}
-1&0&0\\0&2&-1\\0&-1&2
-\end{bmatrix}
-\]
-\end{example}
-\begin{definition}[leading principal submatrix]
-If $\bm A$ is a $n\x n$ matrix, then a leading principal submatrix of $\bm A$ is obtained by keeping the first $k$ rows and columns of $\bm A$, where $k\in\{1,2,\dots,n\}.$
-\end{definition}
-Note that the leading principal submatrix is just the upper left submatrix we have mentioned before.
-\begin{corollary}
-Suppose $\bm A\in\mathbb{S}^n$,
-if $\bm A\succ0$, then all principal submatrices of $\bm A$ are PD as well.
-\end{corollary}
-\begin{proof}
-Our goal is to show that $\bm A_{\alpha,\alpha}\succ0$, where $\alpha$ contains the first $k$ elements of $\{1,\dots,n\}$.
-
-For any $\bm x_{\alpha}\in\mathbb{R}^{|\alpha|}$, it suffices to show $\bm x_{\alpha}\trans\bm A_{\alpha,\alpha}\bm x_{\alpha}>0.$ Here $|\alpha|$ denotes the number of elements in set $\alpha$.
-
-We construct $\bm x\in\mathbb{R}^n$ s.t. the $i$th entry of $\bm x$ is
-\[
-\bm x_i=\left\{
-\begin{aligned}
-(\bm x_{\alpha})_i&\qquad i\in\alpha\\
-0&\qquad i\notin\alpha
-\end{aligned}\right.
-\]
-
-It's obvious that
-\begin{align*}
-\bm x\trans\bm A\bm x&=
-\sum_{i,j=1}^{n}\bm x_i\bm x_j\bm A_{ij}\\
-&=\sum_{i,j\in\alpha}(\bm x_{\alpha})_i(\bm x_{\alpha})_j(\bm A_{\alpha,\alpha})_{ij}\\
-&=\bm x_{\alpha}\trans\bm A_{\alpha,\alpha}\bm x_{\alpha}>0.
-\end{align*}
+The proof is complete.
 \end{proof}
 
-How to use this corollary to test the positive definiteness?\\
-For example, given $\bm A=\begin{bmatrix}
-2&-1&1\\-1&0&0\\1&0&1
-\end{bmatrix}$, immediately we find one principal matrix is $\bm A_{2,2}=0.$ Hence it is not PD.
+\chapter{Weak 8}
+\section{Thursday}
+\subsection{Quadratic Variation}
 
-Also, there are many equivalent statements related to PSD. The proof is similar to the PSD case, so you may complete the proof by yourself.
-\begin{theorem}
-Let $\bm A\in\mathbb{S}^n$, the following statements are equivalent:
-\begin{enumerate}
-\item
-$\bm A$ is PSD.
-\item
-All eigenvalues of $\bm A$ are nonnegative.
-\item
-$\bm A$ could be factorized as $\bm R\trans\bm R$, where $\bm R$ is square.
-\end{enumerate}
+\begin{definition}[Quadratic Variation]
+Consider a partition $\Pi$ on the interval $[0,T]$.
+The \emph{quadratic variation} of $\{B_t(\omega)\}_{0\le t\le T}$ over the partition $\Pi$ is defined as
+\[
+Q(\Pi,\omega) = \sum_k|B_{t_k}(\omega) - B_{t_{k-1}}(\omega)|^2.
+\]
+\end{definition}
+
+\begin{theorem}\label{The:7:8}
+Consider a sequence of partitions $\{\Pi^{(n)}\}$ with $\|\Pi^{(n)}\|\to0$, 
+where $\|\Pi\|\triangleq \max_k|t_k - t_{k-1}|$.
+Then 
+\[
+\lim_{n\to\infty}\mathbb{E}\left[
+(Q(\Pi^{(n)}) - T)^2
+\right]=0.
+\]
 \end{theorem}
-\begin{remark}
-Is $\bm A\succeq0$ equivalent to $\bm A_{ij}\ge0$ for all $i,j$? No. Let's raise a counterexample:
+
+\begin{proof}
+Given a partition $\Pi$ on the interval $[0,T]$, define
 \[
-\bm A=\begin{bmatrix}
-1&-0.5\\-0.5&1
-\end{bmatrix}\succeq0.
+\theta_k = (B_{t_k} - B_{t_{k-1}})^2 - (t_k - t_{k-1})\implies
+Q(\Pi)=T+\sum_k\theta_k
 \]
+We claim that $\theta_j,\theta_k$ are uncorrelated for $j\ne k$:
+\begin{align*}
+\mathbb{E}[\theta_j\theta_k]&=
+\mathbb{E}\bigg[
+\left((B_{t_j} - B_{t_{j-1}})^2 - (t_j - t_{j-1})\right)
+\left((B_{t_k} - B_{t_{k-1}})^2 - (t_k - t_{k-1})\right)
+\bigg]\\
+&=
+\mathbb{E}\left[
+(B_{t_j} - B_{t_{j-1}})^2(B_{t_k} - B_{t_{k-1}})^2
+\right]
+-
+(t_j - t_{j-1})\mathbb{E}\left[(B_{t_k} - B_{t_{k-1}})^2\right]\\
+&\quad -(t_k - t_{k-1})\mathbb{E}\left[(B_{t_j} - B_{t_{j-1}})^2\right] + (t_j - t_{j-1})(t_k - t_{k-1})\\
+&=
+\mathbb{E}\left[
+(B_{t_j} - B_{t_{j-1}})^2\right]\mathbb{E}\left[(B_{t_k} - B_{t_{k-1}})^2
+\right]
+-
+(t_j - t_{j-1})\mathbb{E}\left[(B_{t_k} - B_{t_{k-1}})^2\right]\\
+&\quad -(t_k - t_{k-1})\mathbb{E}\left[(B_{t_j} - B_{t_{j-1}})^2\right] + (t_j - t_{j-1})(t_k - t_{k-1})\\
+&=(t_{j}-t_{j-1})(t_{k}-t_{k-1})-(t_j - t_{j-1})(t_{k}-t_{k-1})\\&\quad-(t_k - t_{k-1})(t_{j}-t_{j-1})+ (t_j - t_{j-1})(t_k - t_{k-1})=0.
+\end{align*}
+Then we begin to simplify $\mathbb{E}[
+(Q(\Pi^{(n)}) - T)^2
+]$:
+\begin{align*}
+\mathbb{E}\left[
+(Q(\Pi^{(n)}) - T)^2
+\right]
+&=\mathbb{E}\left[
+(\sum_k\theta_k)^2
+\right]\\
+&=\sum_k\mathbb{E}\left[
+\theta_k^2
+\right]+\sum_{j\ne k}\mathbb{E}\left[
+\theta_j\theta_k
+\right]\\
+&=\sum_k\mathbb{E}\left[
+\left((B_{t_k} - B_{t_{k-1}})^2 - (t_k - t_{k-1})\right)^2
+\right]\\
+&=
+\sum_k\mathbb{E}\left[
+(B_{t_k} - B_{t_{k-1}})^4
+\right]\\&\quad-2\sum_k(t_k - t_{k-1})\mathbb{E}\left[
+(B_{t_k} - B_{t_{k-1}})^2
+\right]+\sum_k(t_k - t_{k-1})^2\\
+&=3\sum_k(t_k - t_{k-1})^2 - 2\sum_k(t_k - t_{k-1})^2 + \sum_k(t_k - t_{k-1})^2\\
+&=2\sum_k(t_k - t_{k-1})^2\le 2\|\Pi^{(n)}\|\sum_k(t_k - t_{k-1})\\
+&=2T\cdot \|\Pi^{(n)}\|\to0.
+\end{align*}
+\end{proof}
+
+\begin{remark}
+The Theorem~\ref{The:7:8} shows that the quadratic variation of Brownian motion on the interval 
+$[0,T]$ converges to $T$ in $L^2$ for any $T$.
+This implies that $Q(\Pi^{(n)})\to T$ in probability as $\|\Pi^{(n)}\|\to0$.
+Then there exists a subsequence of $\Pi^{(n)}$, such that $Q(\Pi^{(n)})\to T$ almost surely.
 \end{remark}
 
-PSD has many interesting properties. Before we introduce one, let's extend the definiton of inner product into matrix form:
-\begin{definition}[Frobenius inner product]
-For two matrices $\bm A\in\mathbb{R}^{m\times n}$ and $\bm B\in\mathbb{R}^{m\times n}$, the \emph{Frobenius inner product} is given by
+\begin{theorem}
+If $\|\Pi^{(n)}\|\to0$ faster than $1/n^2$, i.e.,
 \[
-\inp{\bm A}{\bm B}=\sum_{i,j=1}^{n}\bm A_{ij}\bm B_{ij}
+\lim_{n\to\infty}n^2\cdot\|\Pi^{(n)}\|=0,
 \]
-Or equivalently, $\inp{\bm A}{\bm B}=\trace(\bm B\trans\bm A)$.
-\end{definition}
-\begin{proposition}
-Given two matrices $\bm A,\bm B\in\mathbb{S}^n$, if $\bm A\succeq0,\bm B\succeq0$, then $\inp{\bm A}{\bm B}\ge0.$
-\end{proposition}
+then $Q(\Pi^{(n)})\to T$ almost surely.
+\end{theorem}
+
 \begin{proof}
-Since $\bm A\succeq0$, there exists square matrix $\bm R=\begin{bmatrix}
-\bm r_1&\dots&\bm r_n
-\end{bmatrix}$ s.t.
-\[
-\bm A=\bm R\bm R\trans=\sum_{k=1}^{n}\bm r_k\bm r_k\trans
-\]
-Hence our inner product is given by
+Take $\delta_n\triangleq n^2\cdot\|\Pi^{(n)}\|$, then by Markov inequality,
 \begin{align*}
-\inp{\bm A}{\bm B}&=\inp{\sum_{k=1}^{n}\bm r_k\bm r_k\trans}{\bm B}\\
-&=\sum_{k=1}^{n}\inp{\bm r_k\bm r_k\trans}{\bm B}\\
-&=\sum_{k=1}^{n}(\sum_{i,j=1}^{n}\bm B_{ij}\bm R_{ki}\bm R_{kj})\\
-&=\sum_{k=1}^{n}\bm r_k\trans\bm B\bm r_k
+\mathbb{P}\left(
+(Q(\Pi^{(n)})- T)^2>2\delta_n
+\right)&\le \frac{\mathbb{E}\left[(Q(\Pi^{(n)})- T)^2\right]}{2\delta_n}\le\frac{2T\|\Pi^{(n)}\|}{2\delta_n} = \frac{T}{n^2}.
 \end{align*}
-Since $\bm B\succeq0$, we derive $\inp{\bm A}{\bm B}=\sum_{k=1}^{n}\bm r_k\trans\bm B\bm r_k\ge0.$
+Considering that $\sum_n\frac{T}{n^2}<\infty$,
+\[
+\sum_n\mathbb{P}\left(
+(Q(\Pi^{(n)})- T)^2>2\delta_n
+\right)<\infty.
+\]
+By Borel-Cantelli Lemma,
+\[
+\mathbb{P}\left(
+(Q(\Pi^{(n)})- T)^2>2\delta_n,\quad\text{infinitely often}
+\right)=0.
+\]
+Therefore, for almost all $\omega\in\Omega$,
+\[
+|Q(\Pi^{(n)},\omega)- T|>\sqrt{2\delta_n},\quad\text{for finite $n$}\implies
+|Q(\Pi^{(n)},\omega)- T|\le \sqrt{2\delta_n},~n\to\infty.
+\]
+By the assumption that $\delta_n\to0$ as $n\to\infty$, we conclude that 
+\[
+|Q(\Pi^{(n)},\omega)- T|\to0.
+\]
+The proof is complete.
 \end{proof}
+
+The Brownian motion is nowhere differentiable almost surely and does not have bounded variation.
+However, it turns to have finite quadratic variation limit.
+Using this quadratic variation property, we can go back to show that the Brownian motion does not have bounded variation.
+
+
+\begin{proof}[A Direct Proof for Theorem~\ref{The:7:6}]
+Since the Brownian motion is almost surely continuous, on the closed interval $[0,T]$,
+$B_t(\omega)$ is uniformly continuous for almost all $\omega\in\Omega$:
+\[
+\max_k~|B_{t_k}(\omega) - B_{t_{k-1}}(\omega)|\to0,\quad\text{as }\max_k~|t_k - t_{k-1}|\to0
+\]
+Assume on the contrary that there exists $t>0$ such that 
+\[
+\mathbb{P}(TV(B)[0,t]=\infty)<1\implies
+\mathbb{P}(TV(B)[0,t]<\infty)>0.
+\]
+Define the set $\Lambda = \{\omega\in\Omega:~TV(B)[0,t]<\infty\}$.
+Then for any partition $\Pi$, if $\omega\in\Lambda$,
+\[
+\sum_k|B_{t_k}(\omega) - B_{t_{k-1}}(\omega)|\le TV(B_{\cdot}(\omega))[0,t]<\infty
+\]
+As a result, for $\omega\in\Lambda$, the quadratic variation converges to $0$ as $\|\Pi\|\to0$:
+\[
+Q(\Pi,\omega)=\sum_k(B_{t_k}(\omega) - B_{t_{k-1}}(\omega))^2\le \|\Pi\|\sum_k|B_{t_k}(\omega) - B_{t_{k-1}}(\omega)|\to0.
+\]
+Then $\mathbb{P}(\lim_{n\to\infty}Q(\Pi^{(n)})=0)\ge \mathbb{P}(\Lambda)>0$, where $\|\Pi^{(n)}\|\to0$.
+Choose some $\epsilon\in(0,t)$.
+If $\omega\in\{\lim_{n\to\infty}Q(\Pi^{(n)})=0\}$, there exists $n_0$ such that for $n\ge n_0$,
+\[
+\omega\in \{|Q(\Pi^{(n)})-t|>\epsilon\}\implies
+\lim_{n\to\infty}\mathbb{P}(|Q(\Pi^{(n)})-t|>\epsilon)>0,
+\]
+which contradicts to the fact that $Q(\Pi^{(n)})\to t$ in probability.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

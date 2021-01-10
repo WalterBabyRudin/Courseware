@@ -1,181 +1,620 @@
 
 \chapter{Week3}
 
-\section{Tuesday}\index{week3_Tuesday_lecture}
+\section{Tuesday}
 
-\subsection{Uniform Integrability}
-\begin{definition}[$L_1$-convergence]
-We say $f_n\to f$ in $L^1$ if
+\subsection{Reviewing}
+\begin{definition}
+For $p\ge1$, we say a random variable $X\in\mathcal{L}^p$ if
 \[
-\lim_{n\to\infty}\int_S|f_n-f|\diff\mu=0
+\|X\|_p^p\triangleq \mathbb{E}[|X|^p]<\infty.
 \]
+Particularly, when $X\in\mathcal{L}^1$, the random variable $X$ is said to be \emph{integrable}.
 \end{definition}
-
-The \emph{uniform integrability} for a family of integrable random variables is used to handle the convergence of random variables in $L^1$.
-
+A useful propoerty of integrability is the following:
 \begin{proposition}\label{Pro:3:1}
-If a random variable $X$ is integrable, i.e., $X\in L^1(\Omega,\mathcal{F},\mathbb{P})$, then for any given $\varepsilon>0$, there exists $\delta>0$ such that for any $F\in\mathcal{F}$ with $\mathbb{P}(F)<\delta$, we have
+Suppose that a random variable $X$ is integrable, then 
+for any $\varepsilon>0$, there exists $\delta>0$ such that for any $F\in\mathcal{F}$ with $\mathbb{P}(F)<\delta$, we have
 \[
-\mathbb{E}[|X|;F]:=\mathbb{E}[|X|1_F]=\int_F|X|\diff\mathbb{P}<\varepsilon
+\mathbb{E}[|X|;F]\triangleq\mathbb{E}[|X|1_F]=\int_F|X|\diff\mathbb{P}<\varepsilon
 \]
 \end{proposition}
-\begin{proof}
-Suppose the conclusion is false, then there exists some $\varepsilon_0>0$, and a sequence of $\{F_n\}$ with each $F_n\in\mathcal{F}$ such that
+Since $\{|X|>K\}$ happens with small probability, we have the following corollary:
+\begin{corollary}\label{Cor:3:1}
+Suppose that $X\in L^1(\Omega,\mathcal{F},\mathbb{P})$,
+then for any $\varepsilon>0$, there exists $K>0$,
+such that 
 \[
-\mathbb{P}(F_n)<\frac{1}{2^n},\qquad
-\mathbb{E}[|X|;F_n]\ge\varepsilon_0.
+\mathbb{E}[|X|;|X|>K]:=\int_{\{|X|>K\}}|X|\diff\mathbb{P}<\varepsilon.
 \]
-Let $H:=\lim_{n\to\infty}\sup F_n$. Note that $\sum_n\mathbb{P}(F_n)<\sum\frac{1}{2^n}<\infty$. 
-
-By applying the Borel-Centelli lemma, we have $\mathbb{P}(H)=0$.
-
-However, with the reverse fatou's lemma, since $1_H(w)=\lim_{n\to\infty}\sup 1_{F_n}(w),$
-\[
-\int|X|1_H\diff\mathbb{P}\ge\lim\sup\int|X|1_{F_n}\diff\mathbb{P}
-\]
-since $\{|X|1_{F_n}\}$ is dominated by the integrable random variable $|X|$.
-
-Therefore,
-\[
-\mathbb{E}[|X|;H]\ge
-\lim\sup\mathbb{E}[|X|;F_n]\ge\varepsilon_0
-\]
-which contradicts with $\mathbb{P}(H)=0$.
-\end{proof}
-
-\begin{corollary}
-Suppose $X\in L^1(\Omega,\mathcal{F},\mathbb{P})$.
-Then for any given $\varepsilon>0$, there exists $K\ge0$,
-such that $\mathbb{E}[|X|;|X|>K]:=\int_{|X|>K}|X|\diff\mathbb{P}<\varepsilon$.
 \end{corollary}
-\begin{proof}
-Note that
-\begin{align*}
-\mathbb{E}[|X|]&=\mathbb{E}[|X|;|X|>K]+\mathbb{E}[|X|;|X|\le K]\\
-&\ge \mathbb{E}[K;|X|>K]
-=K\mathbb{E}[1_{|X|>K}]\\&=K\mathbb{P}(|X|>K)
-\end{align*}
-Therefore, we imply
-\[
-\mathbb{P}(|X|>K)\le\frac{\mathbb{E}|X|}{K}
-\]
-Applying Proposition~(\ref{Pro:3:1}), we choose $K$ large enough such that $\frac{\mathbb{E}|X|}{K}<\delta$.
-
-Therefore, $\mathbb{P}(|X|>K)<\delta$, which implies
-\[
-\int_{|X|>K}|X|\diff\mathbb{P}<\varepsilon.
-\]
-
-\end{proof}
-
 \begin{definition}
-A class $\mathcal{C}$ of random variables are called \emph{uniform integrable} if and only if for any given $\varepsilon>0$, there exists $K\ge0$ such that
+Consider a collcetion of random variables instead, denoted as $\mathcal{C}$:
+\begin{itemize}
+\item
+$\mathcal{C}$ is said to be \emph{$L^p$-bounded} if there exists \emph{a} finite $M$ such that
 \[
-\mathbb{E}[|X|;|X|>K]<\varepsilon,\qquad
-\forall X\in\mathcal{C}
+\mathbb{E}[|X|^p]<M,\quad\forall X\in\mathcal{C}.
 \]
+\item
+$\mathcal{C}$ is said to be \emph{uniformly integrable} if any given $\varepsilon>0$, there exists \emph{a} $K\ge0$ such that
+\[
+\mathbb{E}[|X|1_{\{|X|>K\}}]<\varepsilon,\qquad\forall X\in\mathcal{C}.
+\]
+\end{itemize}
 \end{definition}
-
 \begin{remark}
-Note that for such uniform integrable class $\mathcal{C}$, we choose $\varepsilon_1=1$, then there exists $K_1\ge0$ such that
-\begin{align*}
-\forall X\in\mathcal{C},\
-\mathbb{E}[|X|]&=\mathbb{E}[|X|;|X|>K_1]+\mathbb{E}[|X|;X\le K_1]\\
-&\le\varepsilon_1+K_1=1+K_1,
-\end{align*}
-i.e., class $\mathcal{C}$ is uniformly bounded in $L^1$.
+UI implies $L^1$-boundedness: Try to upper bound $\mathbb{E}[|X|]$.
+However, the converse is not true:
+One counter-example is $\mathcal{C}=\{X_n\}_n$ with $X_n =n\cdot 1_{(0,1/n)}$.
 \end{remark}
 
-The reverse is not true:
-\begin{example}
-Take $(\Omega,\mathcal{F},\mathbb{P})=([0,1],\mathcal{B}[0,1],\text{Leb})$
-
-Let $E_n:=(0,\frac{1}{n})$, and set 
+\begin{proposition}
+\begin{itemize}
+\item
+$L^p$-boundedness for $p>1$ will imply UI;
+\item
+The class of random variables dominated by an integrable random variable is UI.
+\end{itemize}
+\end{proposition}
+Recall the proof stated in Theorem~\ref{The:2:6} and Theorem~\ref{The:2:7} in detail.
+\begin{proof}[Proof Outline]
+\begin{enumerate}
+\item
+The first statement is by applying the $L^p$-boundedness on the following formula:
 \[
-X_n(\omega)=n1_{E_n}(\omega)=\left\{
+\mathbb{E}[|X|1_{\{|X|>K\}}]
+=
+\int_{\{|X|>K\}}|X|\diff\mathbb{P}
+\le \frac{1}{K^{p-1}}\int_{\{|X|>K\}}|X|^p\diff\mathbb{P}.
+\]
+\item
+Firstly show that
+\[
+\mathbb{E}[|X|1_{\{|X|>K\}}]
+=
+\int_{\{|X|>K\}}|X|\diff\mathbb{P}\le \int_{\{|Y|>K\}}|Y|\diff\mathbb{P}.
+\]
+Apply Corollary~\ref{Cor:3:1} concludes the proof.
+\end{enumerate}
+\end{proof}
+
+
+
+\subsection{Necessary and Sufficient Conditions for UI}
+
+Our first result is about sufficient conditions for the UI on a collection of conditional expectations:
+
+\begin{theorem}\label{The:UI:condition}
+Suppose that $X\in\mathcal{L}^1(\Omega,\mathcal{F},\mathbb{P})$ and $\{\mathcal{G}_{\alpha}\}_{\alpha\in\mathcal{A}}$ is a collection of $\sigma$-algebras such that $\mathcal{G}_{\alpha}\subseteq\mathcal{F}$.
+Then the collection of random variables 
+\[
+\mathcal{C} = \bigg\{
+\mathbb{E}[X\mid\mathcal{G}_{\alpha}]:~~\alpha\in\mathcal{A}
+\bigg\}
+\]
+is uniformly integrable.
+\end{theorem}
+
+\begin{proof}
+\begin{itemize}
+\item
+Apply proposition~\ref{Pro:3:1} on $X$:
+For given $\varepsilon>0$, there exists $\delta>0$ such that when $\mathbb{P}(F)<\delta$ with $F\in\mathcal{F}$, $\mathbb{E}[|X|\cdot 1_F]<\varepsilon$.
+%Assume on the contrary not, then
+%there exists a $\varepsilon>0$ such that for any $\delta>0$, whenever $\mathbb{P}(F)\le\delta$ with $F\in\mathcal{F}$, $\mathbb{E}[|X|\cdot 1_F]>\varepsilon$.
+%Pick a sequence of sets $\{F_n: F_n\in\mathcal{F}\}$ with $\mathbb{P}(F_n)\to 0$, then
+%\[
+%\lim_{n\to\infty}\mathbb{E}[|X|\cdot 1_{F_n}]
+%=
+%\lim_{n\to\infty}\int_{\Omega}|X|1_{F_n}\diff\mathbb{P}
+%\le
+%\int_{\Omega}\lim_{n\to\infty}|X|1_{F_n}\diff\mathbb{P}=0.
+%\]
+%Therefore, $\mathbb{E}[|X|\cdot 1_{F_n}]\to0$, which contradicts to the previous statement.
+\item
+Define $Y_{\alpha}=\mathbb{E}[X\mid\mathcal{G}_{\alpha}]$. By Jensen's inequality,
+$|Y_{\alpha}|\le \mathbb{E}[|X|\mid\mathcal{G}_{\alpha}]$, which motivates us to upper bound the following integral:
+\begin{align*}
+\mathbb{E}\bigg[
+|\mathbb{E}[X\mid\mathcal{G}_{\alpha}]|;~
+|\mathbb{E}[X\mid\mathcal{G}_{\alpha}]|>K
+\bigg]
+&=
+\int_{\{|Y_{\alpha}|>K\}}|Y_{\alpha}|\diff\mathbb{P}\\
+&\le
+\int_{\{|Y_{\alpha}|>K\}}\mathbb{E}[|X|\mid\mathcal{G}_{\alpha}]\diff\mathbb{P}\\
+&\le
+\int_{\{\mathbb{E}[|X|\mid\mathcal{G}_{\alpha}]>K\}}\mathbb{E}[|X|\mid\mathcal{G}_{\alpha}]\diff\mathbb{P}\\
+&=
+\int_{\{\mathbb{E}[|X|\mid\mathcal{G}_{\alpha}]>K\}}|X|\diff\mathbb{P}
+\end{align*}
+where the last equality is because of the definition for conditional expectation and that $\{\mathbb{E}[|X|\mid\mathcal{G}_{\alpha}]>K\}\in\mathcal{G}_{\alpha}$.
+\item
+Then consider upper bounding $\mathbb{P}\{\mathbb{E}[|X|\mid\mathcal{G}_{\alpha}]>K\}$ using Markov inequality:
+\[
+\mathbb{P}\{\mathbb{E}[|X|\mid\mathcal{G}_{\alpha}]>K\}
+\le
+\frac{\mathbb{E}[\mathbb{E}[|X|\mid\mathcal{G}_{\alpha}]]}{K}
+=
+\frac{\mathbb{E}[|X|]}{K},
+\]
+where the equality is by the tower property of conditional expectation.
+Here we choose $K$ such that $\frac{\mathbb{E}[|X|]}{K}<\delta$, which implies 
+$\mathbb{P}\{\mathbb{E}[|X|\mid\mathcal{G}_{\alpha}]>K\}<\delta$.
+By applying the result on the first part, we have
+\[
+\mathbb{E}\bigg[
+|\mathbb{E}[X\mid\mathcal{G}_{\alpha}]|;~
+|\mathbb{E}[X\mid\mathcal{G}_{\alpha}]|>K
+\bigg]
+\le 
+\int_{\{\mathbb{E}[|X|\mid\mathcal{G}_{\alpha}]>K\}}|X|\diff\mathbb{P}
+\le\varepsilon.
+\]
+
+\end{itemize}
+\end{proof}
+% Prof. Hu's note unclear in the proof
+\begin{remark}
+A class $\mathcal{C}$ of random variables is uniformly integrable if and only if 
+\[
+\lim_{k\to\infty}\sup_{X\in\mathcal{C}}\int_{\{|X|>K\}}|X|\diff\mathbb{P}=0.
+\]
+\end{remark}
+\subsection{Convergence of random variables}
+
+In the following part we study several convergence versions shown in probability theory.
+\begin{definition}[Convergence in probability]
+Let $\{X_n\}$ be a sequence of random variables. 
+\begin{itemize}
+\item
+We call $\{X_n\}$ converges to a random variable $X$ in probability, denoted as $X_n\to X$ in prob., if for any $\varepsilon>0$,
+\[
+\lim_{n\to\infty}\mathbb{P}\bigg(
+|X_n-X|>\varepsilon
+\bigg)=0.
+\]
+\item
+We call $\{X_n\}$ converges to a random variable $X$ a.s., denoted as $X_n\to X$ a.s.., if 
+\[
+\mathbb{P}\bigg(
+\left\{\omega:~
+\lim_{n\to\infty}X_n(\omega)=X(\omega)
+\right\}
+\bigg)=1.
+\]
+\item
+We call $\{X_n\}$ converges to a random variable $X$ in $L^1$, denoted as $X_n\to X$ in $L^1$, if
+\[
+\lim_{n\to\infty}\|X_n-X\|_1=0.
+\]
+\end{itemize}
+\end{definition}
+\begin{remark}
+\begin{itemize}
+\item
+$X_n\to X$ a.s. implies $X_n\to X$ in prob.;
+\item
+$X_n\to X$ in $L^1$ implies $X_n\to X$ in prob.;
+\item
+A natural question is what is the connection between convergence a.s. and convergence in $L^1$.
+The dominated convergence theorem provides the following characterization:
+\[
+{\displaystyle \left.{\begin{matrix}X_{n}{\xrightarrow {\overset {}{\text{a.s.}}}}X\\|X_{n}|<Y\\\mathrm {E} (Y)<\infty \end{matrix}}\right\}\quad \Rightarrow \quad X_{n}{\xrightarrow {L^{1}}}X}
+\]
+\end{itemize}
+\end{remark}
+Then we provide sufficient conditions for convergence in probability to imply convergence in $L^1$:
+\begin{theorem}[Bounded Convergence Theorem]\label{The:BCT}
+Let $\{X_n\}$ be a sequence of random variables converging to $X$ in probability.
+Suppose that $\{X_n\}$ is bounded by $M$, i.e., $|X_n(\omega)|\le M,\forall \omega\in\Omega, n\ge1$. Then $\{X_n\}$ converges to $X$ in $L^1$:
+\[
+\lim_{n\to\infty}\mathbb{E}[|X_n-X|]=0.
+\]
+\end{theorem}
+% how to proof?
+\begin{remark}
+Note that it is a stronger version of bounded convergence theorem compared with the one studied in MAT3006. 
+In the theorem above, we only require convergence in probability rather than convergence a.s.
+% is it possible to relax M into a general integrable r.v.?
+\end{remark}
+
+The relevance between uniform integrability and convergence of random variables is explained by the following theorem:
+
+\begin{theorem}\label{The:UI:Converge}
+Let $\{X_n\}$ be a sequence of random variables with $X_n\in\mathcal{L}^1$, and let $X\in\mathcal{L}^1$.
+The sequence $\{X_n\}$ converges to $X$ in ${L}^1$ if and only if
+\begin{enumerate}
+\item
+$X_n\to X$ in probability, and
+\item
+$\{X_n\}$ is uniformly integrable.
+\end{enumerate}
+\end{theorem}
+% do not need X is L1
+\begin{proof}[Proof for the Reverse Direction]
+For $K>0$, construct a function $\phi_K:\mathbb{R}\to[-K,K]$:
+\[
+\phi_K(x)=\left\{
 \begin{aligned}
-n,&\quad\text{if }\omega\in E_n\\
-0,&\quad\text{if }\omega\notin E_n
+K,&\quad\text{if $x>K$}\\
+x,&\quad\text{if $|x|\le K$}\\
+-K,&\quad\text{if $x<-K$}
 \end{aligned}
 \right.
 \]
-Then $\mathbb{E}[X_n]=1, \forall n$, which implies that $\{X_n\}$ are uniformly bounded in $L^1$.
-
-However, for any $K\ge0$, as long as $n>K$, 
+By the triangle inequality, 
 \[
-\mathbb{E}[|X_n|;|X_n|>K]=1
+|X_n-X|\le |X_n - \phi_K(X_n)| + |\phi_K(X_n) - \phi_K(X)| + |\phi_K(X) - X|.
 \]
-Therefore, $X_n$'s are not uniformly integrable.
+It suffices to upper bound three terms on the RHS for the following formula:
+\begin{align}
+\mathbb{E}[|X_n-X|]&\le \mathbb{E}[|X_n - \phi_K(X_n)|]+\mathbb{E}[|\phi_K(X_n) - \phi_K(X)|]+\mathbb{E}[|\phi_K(X) - X|]\nonumber\\
+&=\int_{\{|X|>K\}}[|X|-K]\diff\mathbb{P}+\mathbb{E}[|\phi_K(X_n) - \phi_K(X)|]+\int_{\{|X_n|>K\}}[|X_n|-K]\diff\mathbb{P}\nonumber\\
+&\le \int_{\{|X|>K\}}[|X|]\diff\mathbb{P}+\mathbb{E}[|\phi_K(X_n) - \phi_K(X)|]+\int_{\{|X_n|>K\}}[|X_n|]\diff\mathbb{P}
+\end{align}
+\begin{itemize}
+\item
+For the first term, by choosing sufficiently large $K$, by Corollary~\ref{Cor:3:1}, it can be upper bounded by $\varepsilon/3$;
+\item
+For the third term, when $K$ is large enough, by the uniform integrability of $\{X_n\}$, it can be upper bounded by $\varepsilon/3$;
+\item
+Observe the following inequality holds: 
+\[
+|\phi_K(x) - \phi_K(y)|\le|x-y|,\forall x,y\implies
+\{|\phi_K(X_n) - \phi_K(X)|>\varepsilon\}\subseteq\{|X_n-X|>\varepsilon\},
+\]
+which means that $\mathbb{P}(\{|\phi_K(X_n) - \phi_K(X)|>\varepsilon\})\le \mathbb{P}(\{|X_n-X|>\varepsilon\})$.
+As a result, $X_n\to X$ in prob. implies $\phi_K(X_n)\to\phi_K(X)$ in prob.\footnote{Following the similar method, we can show that as long as $f$ is continuous and $X_n\to X$ in prob., we have $f(X_n)\to f(X)$ in prob.}
 
-Ovserve that $X_n\to0$ a.s., but $1=\mathbb{E}|X_n|$ not converging to 0.
+By the Bounded Convergence Theorem~\ref{The:BCT}, $\lim_{n\to\infty}\mathbb{E}[|\phi_K(X_n) - \phi_K(X)|]=0$.
+Thus for sufficiently large $n$,
+\[
+\mathbb{E}[|\phi_K(X_n) - \phi_K(X)|]<\frac{\varepsilon}{3}
+\]
+\end{itemize}
+Combining these three bounds above, for fixed $\varepsilon>0$, we can pick $K>0$ and there exists sufficiently large $n$ such that 
+\[
+\mathbb{E}[|X_n-X|]\le\varepsilon.
+\]
+\end{proof}
+
+\begin{proof}[Proof for the Forward Direction]
+\begin{itemize}
+\item
+Firstly we show that $\{X_n\}$ is $L^1$-bounded, which suffices to show that 
+$\mathbb{E}[|X_n|]\to\mathbb{E}[|X|]$, which is because of the following observation:
+\[
+\bigg|
+\mathbb{E}[|X_n|]-\mathbb{E}[|X|]
+\bigg|
+\le\mathbb{E}||X_n| - |X||\le \mathbb{E}|X_n-X|\to0.
+\]
+\item
+Then we show the uniform integrability result. By the $L^1$-convergence, for fixed $\varepsilon>0$, there exists $N_0>0$ such that 
+\[
+\mathbb{E}\bigg[
+|X_n-X|
+\bigg]<\frac{\varepsilon}{2},\quad\forall n>N_0.
+\]
+Similar as the previous proof for the uniform integrability results, we should apply proposition~\ref{Pro:3:1} on \textit{finitely many} random variables:
+for fixed $\varepsilon>0$, there exists \emph{a} $\delta>0$ such that whenever $\mathbb{P}(F)<\delta, F\in\mathcal{F}$,
+\begin{subequations}
+\begin{align}
+\mathbb{E}[
+|X|1_F
+]&<\frac{\varepsilon}{2}\label{Eq:3:2:a}\\
+\mathbb{E}[
+|X_n|1_F
+]&<\frac{\varepsilon}{2},\quad\forall n\le N_0\label{Eq:3:2:b}
+\end{align}
+\end{subequations}
+\item
+Construct \emph{a} $K$ such that $\mathbb{P}(|X_n|>K)$ is small for any $n$:
+\[
+\mathbb{P}(|X_n|>K)\le\frac{\mathbb{E}|X_n|}{K}\le \frac{\sup_{n}\mathbb{E}|X_n|}{K}
+\]
+Therefore, we choose $K$ such that $\frac{\sup_{n}\mathbb{E}|X_n|}{K}<\delta$, and then 
+$\mathbb{P}(|X_n|>K)<\delta$.
+\item
+Now we can conclude the uniform integrability result:
+For $n\le N_0$, by the construction of $K$ and (\eqref{Eq:3:2:b}),
+\[
+\mathbb{E}[
+|X_n|1_{\{|X_n|>K\}}
+]<\varepsilon.
+\]
+For $n>N_0$,
+\begin{align*}
+\mathbb{E}\bigg[
+|X_n|1_{\{|X_n|>K\}}
+\bigg]
+&\le
+\mathbb{E}\bigg[
+|X-X_n|1_{\{|X_n|>K\}}
+\bigg]
++
+\mathbb{E}\bigg[
+|X|1_{\{|X_n|>K\}}
+\bigg]\\
+&\le
+\mathbb{E}\bigg[
+|X-X_n|
+\bigg]
++
+\mathbb{E}\bigg[
+|X|1_{\{|X_n|>K\}}
+\bigg]\\
+&<\frac{\varepsilon}{2}+\frac{\varepsilon}{2}=\varepsilon.
+\end{align*}
+where the last inequality is because of the $L^1$-convergence and (\eqref{Eq:3:2:a}).
+\item
+Finally, the convergence in probability can be shown by the Markov inequality:
+\[
+\mathbb{P}\bigg(
+|X_n-X|>\varepsilon
+\bigg)\le
+\frac{\mathbb{E}[|X_n-X|]}{\varepsilon}\to0,\text{ as $n\to\infty$}.
+\]
+\end{itemize}
+\end{proof}
+
+
+\subsection{Martingales in Discrete Time}
+
+\begin{definition}[Stochastic Process]
+Let $(\Omega,\mathcal{F},\mathbb{P})$ be a probability space.
+We describe random phenomena in discrete time 
+by a collection of random variables $\{X_n:~n\ge1\}$ and increasing sequence of
+sub $\sigma$-fields $\{\mathcal{F}_n:~\mathcal{F}_n\subseteq\mathcal{F}\}$.
+\begin{itemize}
+\item
+$X(\cdot)\triangleq \{X_n:~n\ge1\}$ is called a \emph{stochastic process};
+\item
+$\mathbb{F}\triangleq \{\mathcal{F}_n:~\mathcal{F}_n\subseteq\mathcal{F}\}$ is called a \emph{filtration}.
+\end{itemize}
+A probability space $(\Omega,\mathcal{F},\mathbb{P})$ associated with a filtration $\mathbb{F}$
+is called a \emph{filtered} probability space, written as $(\Omega,\mathcal{F},\mathbb{F},\mathbb{P})$
+\end{definition}
+\begin{remark}
+A typical example of $\mathcal{F}$ is defined by generated $\sigma$-algebra:
+\[
+\mathcal{F}_n^{X}\triangleq\sigma(X_t:~t\le n),\qquad\forall n\ge0.
+\]
+This natural filteration is the sequence of smallest $\sigma$-algebras such that $X_n$ is $\mathcal{F}_n$-measurable for all $n$.
+\end{remark}
+
+\begin{definition}[Predictable process]
+\begin{itemize}
+\item
+A stochastic process $X(\cdot)\triangleq \{X_n:~n\ge1\}$ is said to be \emph{adapted} to the 
+filtration $\mathbb{F}\triangleq \{\mathcal{F}_n:~n\ge1\}$ if $X_n$ is $\mathcal{F}_n$-measurable for each $n$.
+We call $X$ an \emph{adapted process} with respect to $\mathbb{F}$.
+\item
+If $X_n$ is $\mathcal{F}_{n-1}$-measurable for each $n$ and $X_0$ is $\mathcal{F}_0$-measurable, $X$ is said to be a \emph{predictable process}.
+\end{itemize}
+\end{definition}
+
+
+
+\section{Thursday}
+
+\subsection{Stopping Time}
+
+
+\begin{definition}[Stopping Time]
+A mapping $T:\Omega\to\{0,1,2,\ldots,\infty\}$ is called a stopping time with respect to the filteration 
+$\{\mathcal{F}_n\}_{n\ge0}$ if
+\[
+\{T\le n\}\triangleq
+\{\omega\in\Omega:~T(\omega)\le n\}\in\mathcal{F}_n,\qquad\forall n.
+\]
+\end{definition}
+\begin{remark}
+\begin{enumerate}
+\item
+$T$ can take the infinite value 
+\item
+An equivalent definition for a stopping time $T$ is $\{T= n\}\in\mathcal{F}_n,\forall n$.
+\begin{proof}
+\begin{enumerate}
+\item
+Suppose that $\{T\le n\}\in\mathcal{F}_n,\forall n$, then
+\[
+\{T\le n-1\}\in\mathcal{F}_{n-1}\subseteq \mathcal{F}_n
+\implies
+\{T= n\}=\{T\le n\}\setminus \{T\le n-1\}\in\mathcal{F}_n.
+\]
+\item
+Suppose that $\{T= n\}\in\mathcal{F}_n,\forall n$, then
+\[
+\{T= k\}\in\mathcal{F}_k\subseteq \mathcal{F}_n,\forall k\le n
+\implies
+\{T= n\}=\bigcup_{k\le n}\{T= k\}\in\mathcal{F}_n.
+\]
+\end{enumerate}
+\end{proof}
+\item
+A constant mapping $T\equiv N$ with $N\in\mathbb{Z}_+$ is always a stopping time.
+\end{enumerate}
+\end{remark}
+
+\begin{example}
+Let $\{X_n\}_{n\ge0}$ be an adapted process on a filtered probability space 
+$(\Omega,\mathcal{F},\{\mathcal{F}_n\}_{n\ge0},\mathbb{P})$.
+Let $B\in\mathcal{B}(\mathbb{R})$ be a Borel set.
+Define
+\[
+T(\omega)\triangleq \inf~\{n\ge0:~X_n(\omega)\in B\}.
+\]
+Here $T$ denotes the first time that $\{X_n\}_{n\ge0}$ enters into set $B$.
+Define $\inf(\emptyset)=\infty$ by default, i.e., $T=\infty$ when $\{X_n\}_{n\ge0}$ never enters into $V$.
+To check that $T$ is a stopping time, observe that 
+\begin{align*}
+\{T=n\}&=\{X_0\in B^c,X_1\in B^c,X_2\in B^c,\ldots,X_{n-1}\in B^c, X_n\in B\}
+\\&=
+\{X_n\in B\}\cup\left(
+\cup_{0\le k\le n-1}\{X_k\in B^c\}\right)
+\end{align*}
+Since $\{X_n\}$ is adapted, $\{X_k\in B^c\}\in\mathcal{F}_k\subseteq\mathcal{F}_n$ for $0\le k\le n-1$. Moreover, $\{X_n\in B\}\in\mathcal{F}_n$.
+Therefore, $\{T=n\}\in\mathcal{F}_n$ for each $n$.
+% proof in this example is wrong
+
+
 \end{example}
 
-Question: what about $L^p$-boundness for $p>1$?
-
-\begin{theorem}
-Suppose a class $\mathcal{C}$ of random variables are uniformly bounded in $L^p$ ($p>1$):
+\begin{definition}[Stopping Time $\sigma$-algebra]
+Define the stopping time $\sigma$-algebra for a given stopping time $T$ as the following:
 \[
-\exists A>0,\text{ s.t. }\mathbb{E}[|X|^p]<A,\forall x\in\mathcal{C}
+\mathcal{F}_T = \{A\in\mathcal{F}:~
+A\cap\{T\le n\}\in\mathcal{F}_n,\forall n
+\}.
 \]
-Then the class $\mathcal{C}$ is uniformly integrable (UI).
-\end{theorem}
-
+Here $\mathcal{F}_T$ represents the information available up to a random time $T$.
+\end{definition}
+\begin{proposition}
+\begin{enumerate}
+\item
+$\mathcal{F}_T$ is a $\sigma$-algebra;
+\item
+$T$ is $\mathcal{F}_T$-measurable;
+\item
+When $T_1,T_2$ are two stopping times with $T_1\le T_2$ a.s., 
+$\mathcal{F}_{T_1}\subseteq\mathcal{F}_{T_2}$.
+\end{enumerate}
+\end{proposition}
 \begin{proof}
-Note that
-\begin{align*}
-\mathbb{E}[|X|;|X|>K]=\int_{|X|>K}|X|\diff\mathbb{P}
-&\le
-\int_{|X|>K}\frac{|X|^p}{K^{p-1}}\diff\mathbb{P}
-=
-\frac{1}{K^{p-1}}\int_{|X|>K}|X|^p\diff\mathbb{P}\\
-&\le\frac{1}{K^{p-1}}\int_{\Omega}|X|^p\diff\mathbb{P}\\
-&\le\frac{1}{K^{p-1}}A,\quad\forall x\in\mathcal{C}
-\end{align*}
-If $X>K$, then $X^p>K^{p-1}X$.
-
-Therefore, for any given $\varepsilon>0$, choose $K$ to be such that $\frac{A}{K^{p-1}}\le\varepsilon$.
-
+\begin{enumerate}
+\item
+It is trivial that $\emptyset\in\mathcal{F}_T$.
+Suppose that $A\in\mathcal{F}_T$, then $(A\cap\{T\le n\})^c\in\mathcal{F}_n$, which implies that
+\[
+A^c\cap\{T\le n\} = \bigg(
+A\cap\{T\le n\}
+\bigg)^c\cap\{T\le n\}\in\mathcal{F}_n.
+\]
+Suppose that $A_k\in\mathcal{F}_T, k\ge1$, then
+\[
+\bigg(
+\bigcup_{k\ge1}A_k
+\bigg)\cap\{T\le n\} = \bigcup_{k\ge1}(A_k\cap \{T\le n\})\in\mathcal{F}_n.
+\]
+\item
+It suffices to show that $\{T\le m\}\in\mathcal{F}_T$ for any $m$.
+This is true because for any $n$, 
+\[
+\{T\le m\}\cap\{T\le n\} = \{T\le m\land n\}\in\mathcal{F}_{m\land n}\subseteq\mathcal{F}_n.
+\]
+\item
+Consider any $A\in\mathcal{F}_{T_1}$, then $A\cap\{T_1\le n\}\in\mathcal{F}_n$ for any $n$.
+Moreover, 
+\[
+\{T_2\le n\}\subseteq\{T_1\le n\}\implies
+A\cap\{T_2\le n\}\subseteq A\cap\{T_1\le n\}\in\mathcal{F}_n,
+\]
+which implies the desired result.
+\end{enumerate}
 \end{proof}
-
 \begin{theorem}
-Suppose that a class $\mathcal{C}$ of random variables are dominated by an integrable random variable $Y$:
+Let $\{X_n\}_{n\ge0}$ be an adapted process on $(\Omega,\mathcal{F},\{\mathcal{F}_n\}_{n\ge0},\mathbb{P})$.
+Let $T$ be a stopping time w.r.t. $\{\mathcal{F}_n\}_{n\ge0}$.
+Define a random variable $X_T$:
 \[
-|X(\omega)|\le Y(\omega),\ \quad
-\forall\omega\in\Omega,\forall X\in\mathcal{C},
-\mathbb{E}|Y|<\infty
+X_T(\omega)\triangleq X_{T(\omega)}(\omega),\qquad\forall\omega\in\Omega.
 \]
-then the class $\mathcal{C}$ is UI.
+Then $X_T$ is $\mathcal{F}_T$-measurable.
 \end{theorem}
-
 \begin{proof}
-Note that since $|X(\omega)|\le Y(\omega),\forall\omega$, then
+It suffices to check $\{X_T\le a\}\in\mathcal{F}_T, \forall a\in\mathbb{R}$. By definition of the stopping time $\sigma$-algebra, it suffices to check
 \[
-\{\omega\mid |X(\omega)>K|\}\subset
-\{\omega\mid|Y(\omega)|>K\}
+\{X_T\le a\}\cap \{T\le n\}\in\mathcal{F}_n,\forall n\quad
+\Longleftarrow
+\quad
+\bigcup_{0\le k\le n}\{X_k\le a\}\cap \{T=k\}\in\mathcal{F}_n,\forall n.
 \]
+Since $\{X_n\}$ is adapted, $\{X_k\le a\}\in\mathcal{F}_k,\forall k$.
+By definition of the stopping time, $\{T=k\}\in\mathcal{F}_k,\forall k$.
 Therefore,
 \[
-\int_{|X|>K}|X|\diff\mathbb{P}\le
-\int_{|Y|>K}|X|\diff\mathbb{P}\le
-\int_{|Y|>K}|Y|\diff\mathbb{P}
+\{X_k\le a\}\cap \{T=k\}\in\mathcal{F}_k\subseteq \mathcal{F}_n.
 \]
-Since $Y$ is integrable, by Corollary 2.5.2, for any given $\varepsilon>0$, there exists $K\ge0$ such that
-\[
-\int_{|Y|>K}|Y|\diff\mathbb{P}<\varepsilon.
-\]
-This implies that $\forall X\in\mathcal{C}$,
-\[
-\int_{|X|>K}|X|\diff\mathbb{P}<\varepsilon.
-\]
+The proof is complete.
 \end{proof}
 
-\begin{theorem}
-Let $X\in L^1(\Omega,\mathcal{F},\mathbb{P})$, and $\{\mathcal{G}_\alpha\}_{\alpha\in\mathcal{A}}$ be a sequence of sub-$\sigma$-algebra of $f$. Denote the class
-\[
-\mathcal{C}:=\left\{\mathbb{E}[X\mid G_\alpha]\right\}_{\alpha\in\mathcal{A}}
-\]
-Then the class $\mathcal{C}$ is UI.
-\end{theorem}
+\begin{definition}[Martingale]
+Let $\{X_n\}_{n\ge0}$ be an adapted process on $(\Omega, \mathcal{F},\{\mathcal{F}_n\}_{n\ge0},\mathbb{P})$.
+A stochastic process $\{X_n\}_{n\ge0}$ is called a \emph{martingale} if
+\begin{enumerate}
+\item
+$X_n\in\mathcal{L}^1,\forall n$;
+\item
+$\mathbb{E}[X_{n+1}\mid\mathcal{F}_n] = X_n$ a.s., for all $n$.
+\end{enumerate}
+If in the last definition, ``$=$'' is replaced by ``$\le$'' or ``$\ge$'', then $\{X_n\}_{n\ge0}$
+is said to be a \emph{supermartingale} or \emph{submartingale}, respectively.
+\end{definition}
+
+\begin{remark}
+\begin{itemize}
+\item
+A supermartingale goes downward on average, and a submartigale goes upward on average.
+\item
+$\{X_n\}_{n\ge0}$ is a supermartingale if and only if $\{-X_n\}_{n\ge0}$ is a submartingale.
+\item
+$\{X_n\}_{n\ge0}$ is a martingale if and only if it is both a supermartingale and a submartingale.
+\end{itemize}
+\end{remark}
+
+
+\begin{example}
+Let $\{Y_n\}_{n\ge1}$ be a sequence of independent random variables with 
+$\mathbb{E}[|Y_k|]<\infty$ and $\mathbb{E}[Y_k]=0, \forall k$.
+Define $\mathcal{F}_n = \sigma(Y_1,Y_2,\ldots,Y_n)$ for $n\ge1$ and $\mathcal{F}_0=\{\emptyset,\Omega\}$.
+Define $X_n = Y_1+Y_2+\cdots+Y_n,\forall n\ge1$ and $X_0=0$.
+Then $\{X_n\}_{n\ge0}$ is a martingale:
+\begin{enumerate}
+\item
+$\mathbb{E}[|X_n|]\le\sum_{i=1}^n\mathbb{E}[|X_i|]<\infty$, which means that $X_n$ is integrable;
+\item
+Check that
+\begin{align*}
+\mathbb{E}[X_{n+1}\mid\mathcal{F}_n]&=\mathbb{E}[X_n + Y_{n+1}\mid\mathcal{F}_n]\\
+&=\mathbb{E}[X_n\mid\mathcal{F}_n] + \mathbb{E}[Y_{n+1}\mid\mathcal{F}_n]\\
+&=X_n + \mathbb{E}[Y_{n+1}]=X_n,
+\end{align*}
+where the third equality is because that $X_n$ is $\mathcal{F}_n$-measurable
+and $Y_{n+1}$ is independent of $\mathcal{F}_n$.
+\end{enumerate}
+\end{example}
+
+\begin{example}
+Let $\{Y_n\}_{n\ge1}$ be a sequence of independent random variables with 
+$Y_k\ge0$ a.s. and $\mathbb{E}[Y_k]=1, \forall k$.
+Define $\mathcal{F}_n = \sigma(Y_1,Y_2,\ldots,Y_n)$ for $n\ge1$ and $\mathcal{F}_0=\{\emptyset,\Omega\}$.
+Define $X_n = Y_1\cdot Y_2\cdots Y_n,\forall n\ge1$ and $X_0=1$.
+Then $\{X_n\}_{n\ge0}$ is a martingale:
+\begin{enumerate}
+\item
+$\mathbb{E}[|X_n|]=\mathbb{E}[X_n]=\prod_{k=1}^n\mathbb{E}[Y_k]=1<\infty$, which means that $X_n$ is integrable;
+\item
+Check that
+\begin{align*}
+\mathbb{E}[X_{n+1}\mid\mathcal{F}_n]&=\mathbb{E}[X_n\cdot Y_{n+1}\mid\mathcal{F}_n]\\
+&=X_n\cdot \mathbb{E}[Y_{n+1}\mid\mathcal{F}_n]\\
+&=X_n\cdot \mathbb{E}[Y_{n+1}]=X_n,
+\end{align*}
+where the second equality is because that $X_n$ is $\mathcal{F}_n$-measurable;
+the third equality is because that $Y_{n+1}$ is independent of $\mathcal{F}_n$.
+\end{enumerate}
+\end{example}
+
+
+
+
+
+
+
 
 
 

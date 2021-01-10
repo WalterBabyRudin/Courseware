@@ -1,8 +1,8 @@
 \select@language {english}
 \vskip -8pt
-\contentsline {schapter}{Acknowledgments}{vii}{chapter*.2}
+\contentsline {schapter}{Acknowledgments}{ix}{chapter*.2}
 \vskip -8pt
-\contentsline {schapter}{Notations}{ix}{chapter*.3}
+\contentsline {schapter}{Notations}{xi}{chapter*.3}
 \contentsline {chapter}{\numberline {1}Week1}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}Monday}{1}{section.1.1}
 \contentsline {subsection}{\numberline {1.1.1}Introduction to Stochastic Process}{1}{subsection.1.1.1}
@@ -18,5 +18,70 @@
 \contentsline {subsection}{\numberline {1.1.4}Random variable and test functions}{7}{subsection.1.1.4}
 \contentsline {section}{\numberline {1.2}Thursday}{8}{section.1.2}
 \contentsline {paragraph}{Reviewing}{8}{section.1.2}
-\contentsline {subsection}{\numberline {1.2.1}Representative value of random variable $X$}{8}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.1}Expectation of random variable $X$}{9}{subsection.1.2.1}
+\contentsline {chapter}{\numberline {2}Week 2}{11}{chapter.2}
+\contentsline {section}{\numberline {2.1}Monday}{11}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Stochastic Process}{11}{subsection.2.1.1}
+\contentsline {paragraph}{Recap about Topological Space}{11}{subsection.2.1.1}
+\contentsline {paragraph}{General Process}{13}{exampleT.2.1}
+\contentsline {paragraph}{By Joint Distribution}{13}{exampleT.2.1}
+\contentsline {subsection}{\numberline {2.1.2}Random Walk}{14}{subsection.2.1.2}
+\contentsline {section}{\numberline {2.2}Thursday}{16}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Random Walk}{16}{subsection.2.2.1}
+\contentsline {paragraph}{Determine the Distribution of $T$}{17}{definitionT.2.9}
+\contentsline {subsection}{\numberline {2.2.2}Basic Tips on Probability Theory}{19}{subsection.2.2.2}
+\contentsline {paragraph}{Limiting operations on events}{19}{subsection.2.2.2}
+\contentsline {chapter}{\numberline {3}Week 3}{21}{chapter.3}
+\contentsline {section}{\numberline {3.1}Monday}{21}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Weak law of large numbers}{21}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Strong Law of Large Numbers}{27}{subsection.3.1.2}
+\contentsline {section}{\numberline {3.2}Thursday}{30}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Central Limit Theorem}{30}{subsection.3.2.1}
+\contentsline {paragraph}{General Guidance for Proving Central Limit Theorem}{32}{exampleT.3.1}
+\contentsline {subsection}{\numberline {3.2.2}Complex Numbers and Functions}{32}{subsection.3.2.2}
+\contentsline {chapter}{\numberline {4}Week 4}{35}{chapter.4}
+\contentsline {section}{\numberline {4.1}Monday}{35}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Basic Convergence Results}{35}{subsection.4.1.1}
+\contentsline {section}{\numberline {4.2}Thursday}{39}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Characteristic Function}{39}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Inversion Formula}{41}{subsection.4.2.2}
+\contentsline {chapter}{\numberline {5}Week 5}{45}{chapter.5}
+\contentsline {section}{\numberline {5.1}Monday}{45}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Proof Outline of CLT}{45}{subsection.5.1.1}
+\contentsline {paragraph}{Outline for Showing CLT}{45}{Item.35}
+\contentsline {chapter}{\numberline {6}Week 6}{51}{chapter.6}
+\contentsline {section}{\numberline {6.1}Monday}{51}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Conditional Expectation}{51}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}Discrete Time Stochastic Process}{55}{subsection.6.1.2}
+\contentsline {section}{\numberline {6.2}Thursday}{56}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Markov Process}{56}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Martingale and Semi-martingale}{59}{subsection.6.2.2}
+\contentsline {chapter}{\numberline {7}Week 7}{63}{chapter.7}
+\contentsline {section}{\numberline {7.1}Monday}{63}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}Stopping Time and Martingale}{63}{subsection.7.1.1}
+\contentsline {subsection}{\numberline {7.1.2}Optional Sampling Theorem}{65}{subsection.7.1.2}
+\contentsline {subsection}{\numberline {7.1.3}Strong and Stopped Markov Processes}{68}{subsection.7.1.3}
+\contentsline {chapter}{\numberline {8}Week 8}{71}{chapter.8}
+\contentsline {section}{\numberline {8.1}Monday}{71}{section.8.1}
+\contentsline {subsection}{\numberline {8.1.1}Convex Function}{71}{subsection.8.1.1}
+\contentsline {chapter}{\numberline {9}Week 9}{73}{chapter.9}
+\contentsline {section}{\numberline {9.1}Monday}{73}{section.9.1}
+\contentsline {subsection}{\numberline {9.1.1}Classification of States}{73}{subsection.9.1.1}
+\contentsline {paragraph}{Motivation}{73}{subsection.9.1.1}
+\contentsline {subsection}{\numberline {9.1.2}Renewal Equation}{77}{subsection.9.1.2}
+\contentsline {subsection}{\numberline {9.1.3}Limit of State Distribution}{77}{subsection.9.1.3}
+\contentsline {chapter}{\numberline {10}Week 10}{81}{chapter.10}
+\contentsline {section}{\numberline {10.1}Monday}{81}{section.10.1}
+\contentsline {subsection}{\numberline {10.1.1}Stationary Meansure and Distribution}{81}{subsection.10.1.1}
+\contentsline {subsection}{\numberline {10.1.2}Stability Conditions}{87}{subsection.10.1.2}
+\contentsline {subsection}{\numberline {10.1.3}Markov Modulated Process in Discrete Time}{88}{subsection.10.1.3}
+\contentsline {chapter}{\numberline {11}Week 11}{95}{chapter.11}
+\contentsline {section}{\numberline {11.1}Monday}{95}{section.11.1}
+\contentsline {subsection}{\numberline {11.1.1}Continuous Time Stochastic Processes}{95}{subsection.11.1.1}
+\contentsline {subsection}{\numberline {11.1.2}Continuous time martingale}{99}{subsection.11.1.2}
+\contentsline {subsection}{\numberline {11.1.3}From discrete to continuous time}{102}{subsection.11.1.3}
+\contentsline {chapter}{\numberline {12}Week 12}{107}{chapter.12}
+\contentsline {section}{\numberline {12.1}Monday}{107}{section.12.1}
+\contentsline {subsection}{\numberline {12.1.1}Poisson Process}{107}{subsection.12.1.1}
+\contentsline {subsection}{\numberline {12.1.2}Brownian Motion}{112}{subsection.12.1.2}
 \contentsfinish 

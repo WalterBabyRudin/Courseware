@@ -1,0 +1,568 @@
+
+\chapter{Week 10}
+
+\section{Monday}\index{Monday_lecture}
+\subsection{Stationary Meansure and Distribution}
+\begin{definition}[stationary measure]
+\begin{itemize}
+\item
+We call $\{\pi(i):~i\in S\}$ a measure on $S$ if $\pi(i)\ge0$ for any $i\in S$.
+\item
+Furthermore, it is called a stationary measure if 
+\[
+\pi(j) = \sum_{i\in S}\pi(i)p_{i,j},\quad j\in S,
+\]
+and the equation above is called a stationary equation.
+\item
+In particular, $\{\pi(i):~i\in S\}$ is called a stationary equation if 
+\[
+\sum_{i\in S}\pi(i)=1.
+\]
+\end{itemize}
+\end{definition}
+
+\begin{example}
+Transition matrix $P$ is said to be doubly stochastic if $p_{i,j}=p_{j,i}$.
+A Markov chain with doubly stochastic transitions always has the stationary measure
+:
+$\pi(i)\equiv C$.
+\end{example}
+
+\begin{remark}
+Inductively, we can show that $\pi(k)=\sum_{i\in S}\pi(i)p_{i,k}^{(n)}$:
+\begin{align*}
+\pi(k)&=\sum_{i\in S}\pi(i)p_{i,k}=\sum_{i\in S}\sum_{j\in S}\pi(j)p_{j,i}p_{i,k}\\
+&=\sum_{j\in S}\pi(j)\left[
+\sum_{i\in S}p_{j,i}p_{i,k}
+\right]=\sum_{j\in S}\pi(j)\pi_{j,k}^{(2)}.
+\end{align*}
+In other words, if the initial measure is $\pi$, then this measure is invariant of time.
+That's why $\pi$ is called a stationary measure.
+\end{remark}
+
+\begin{theorem}
+For a Markov chain with state space $S$ and transition probabilities $\{p_{i,j}\}$,
+if it is irreducible and aperiodic, then the following two conditions are equivalent:
+\begin{enumerate}
+\item
+It has a stationary equation;
+\item
+It is positive recurrent.
+\end{enumerate}
+If either one of the conditions holds, then the stationary distribution can be uniquely obtained as
+\[
+\lim_{n\to\infty}p_{i,j}^{(n)}=\pi(j)=\frac{1}{\mu_{j,j}}.
+\]
+\end{theorem}
+The aperiodic condition is not essential for the equivalence, but for the uniqueness of stationary equation.
+\begin{proof}
+\begin{itemize}
+\item
+Assume 1) holds but 2) does not.
+Then the Markov chain is transient or null recurrent by the irreducibility.
+By Theorem~\ref{The:9:3} and Theorem~\ref{The:9:4}, 
+$p_{i,j}^{(n)}\to0$ as $n\to\infty$.
+Then by the dominated convergence theorem,
+\[
+\pi(j)=\lim_{n\to\infty}\sum_{i\in S}\pi(i)p_{i,j}^{(n)}=\sum_{i\in S}\pi(i)\lim_{n\to\infty}p_{i,j}^{(n)}=0.
+\]
+This contradicts to 1).
+\item
+Assume 2) holds, then by Theorem~\ref{The:9:4}, $p_{i,j}^{(n)}\to\frac{1}{\mu_{j,j}}$.
+We construct the stationary measure as $\pi(j)=\frac{1}{\mu_{j,j}}$.
+Then by Fatou's lemma,
+\[
+\sum_{j\in S}\frac{1}{\mu_{j,j}}=\sum_{j\in S}\lim_{n\to\infty}p_{i,j}^{(n)}\le
+\liminf_{n\to\infty}\sum_{j\in S}p_{i,j}^{(n)}=1.
+\]
+Moreover, by $p_{i,k}^{(n+1)}=\sum_{j\in S}p_{i,j}^{(n)}p_{j,k}$ we have
+\[
+\pi(k)=\liminf_{n\to\infty}p_{i,k}^{(n+1)}=\liminf_{n\to\infty}\sum_{j\in S}p_{i,j}^{(n)}p_{j,k}
+\ge
+\sum_{j\in S}\liminf_{n\to\infty}p_{i,j}^{(n)}p_{j,k}
+=
+\sum_{j\in S}\pi(j)p_{j,k}.
+\]
+Summing up both sides for $k\in S$,
+\[
+\sum_{k\in S}\pi(k)\ge \sum_{k\in S}\sum_{j\in S}\pi(j)p_{j,k}=\sum_{j\in S}\pi(j).
+\]
+Hence the inequaality must be equality, i.e., the statarion equation holds.
+\item
+Finally, we show that the stationary measure $\pi$ is unique.
+Let $\nu$ be an arbitrary stationary distribution, then $\nu(j)=\sum_{i\in S}\nu(i)p_{i,j}^{(n)}$.
+Taking $n\to\infty$ gives
+\[
+\nu(j)=\sum_{i\in S}\nu(i)\lim_{n\to\infty}p_{i,j}^{(n)}=\sum_{i\in S}\nu(i)\frac{1}{\mu_{j,j}}=\frac{1}{\mu_{j,j}}.
+\]
+The proof is completed.
+\end{itemize}
+\end{proof}
+\begin{example}
+The stationary equation for birth and death process is
+\[
+\left\{
+\begin{aligned}
+\pi(0)&=q\pi(0)+q\pi(1)\\
+\pi(i)&=p\pi(i-1)+q\pi(i+1),\quad i\ge1.
+\end{aligned}
+\right.
+\]
+From the second equation, $q\pi(i)-p\pi(i-1)=q\pi(i+1)-p\pi(i)$, which implies
+\[
+q\pi(i)-p\pi(i-1)=q\pi(1)-p\pi(0)=0.
+\]
+Take $\rho=p/q$, then
+\[
+\pi(j)=\rho \pi(j-1)=\cdots=\rho^j\pi(0).
+\]
+Thus $\pi$ is a stationary distribution iff $\rho<1$.
+In this case, $\pi(j)=(1-\rho)\rho^j$.
+\end{example}
+
+Then we study the stationary distribution for null recurrent case:
+\begin{theorem}
+Assume that $\{X_n\}$ is irreducible and recurrent.
+\begin{enumerate}
+\item
+For each fixed $k\in S$, define
+\[
+\nu_k(j)=\mathbb{E}\left(
+\sum_{\ell=1}^\infty1(X_{\ell}=j, \ell\le \tau_k)\middle| X_0=k
+\right),\quad j\in S,
+\]
+then $\nu_k$ is a stationary measure.
+\item
+A stationary measure is unique up to constant multiple of $\nu_k$
+\item
+If it is positive recurrent, then the stationary distribution is defined as
+\[
+\pi(j)=\frac{1}{\mu_{k,k}}\nu_k(j).
+\]
+\end{enumerate}
+\end{theorem}
+\begin{remark}
+$\sum_{\ell=1}^\infty1(X_{\ell}=j, \ell\le \tau_k)$ denotes the number of visits to state $j$ before returning to $k$.
+The collection of its expectations is called an \emph{occupation measure} before returning to $k$.
+\end{remark}
+
+\begin{proof}
+\begin{enumerate}
+\item
+Assume that $\nu_k(j)<\infty$, then we start to show the stationary equation:
+\begin{align*}
+\nu_k(j)&=\mathbb{E}\left(
+\sum_{\ell=1}^\infty1(X_{\ell}=j, \ell\le \tau_k)\middle| X_0=k
+\right)\\
+&=p_{k,j}+\sum_{\ell=2}^\infty\sum_{i\in S\setminus k}
+\mathbb{P}
+\left(
+X_{\ell}=j, \ell\le \tau_k, X_{\ell-1}=i\middle| X_0=k
+\right)\\
+&=p_{k,j}+\sum_{\ell=2}^\infty\sum_{i\in S\setminus k}
+\mathbb{P}
+\left(
+X_{\ell-1}=i, \ell\le \tau_k\middle| X_0=k
+\right)\\
+&\qquad\qquad\times\mathbb{P}
+\left(
+X_{\ell}=j\middle| X_0=k,X_{\ell-1}=i, \ell\le \tau_k
+\right)\\
+&=p_{k,j}+\sum_{\ell=1}^\infty\sum_{i\in S\setminus k}\mathbb{P}
+\left(
+X_{\ell}=i, \ell\le \tau_k-1\middle| X_0=k
+\right)p_{i,j}
+\end{align*}
+Since $\sum_{i\in S\setminus k}\mathbb{P}
+\left(
+X_{\ell}=i, \ell= \tau_k\middle| X_0=k
+\right)=0$, we have 
+\[
+\nu_k(j)=\sum_{\ell=1}^\infty\sum_{i\in S}\mathbb{P}
+\left(
+X_{\ell}=i, \ell\le \tau_k\middle| X_0=k
+\right)p_{i,j}=\sum_{i\in S}\nu_k(i)p_{i,j}.
+\]
+Next, we show that $\nu_k(j)<\infty,\forall j\in S$.
+We can see that $\nu_k(k)=1$.
+By the stationary equation and substitute $j$ with $k$, 
+we can see $\nu_k(i)<\infty$ when $p_{i,j}>0$.
+Furthermoe, by irreducibility result, there exists $i_0=j, i_1,\ldots,i_{\ell}=k$ so that $p_{i_m, i_{m+1}}>0$, and thus $\nu_k(i_m)>0$ for $m=\ell-1,\ldots,0$.
+\item
+Let $\eta$ be an arbitrary measure, then
+\begin{align*}
+\eta(j)&=\sum_{i\in S}\eta(i)p_{i,j}=\eta(k)p_{k,j}+\sum_{i\in S\setminus k}\eta(i)p_{i,j}\\
+&=\eta(k)p_{k,j}+\sum_{i\in S\setminus k}\eta(k)p_{k,i}p_{i,j}+\sum_{i_1\in S\setminus k, i_2\in S\setminus k}\eta(i_2)p_{i_2,i_1}p_{i_1,j}\\
+&=\eta(k)\sum_{\ell=1}^n\mathbb{P}(\ell<\tau_k, X_{\ell}=j\mid X_0=k)
++\sum_{i_n\in S\setminus k}\mathbb{P}(n<\tau_k, X_{n+1}=j\mid X_0=i_n)\eta(i_n)
+\end{align*}
+Taking $n\to\infty$ gives $\eta(j)\ge \eta(k)\nu_k(j)$.
+Hence
+\[
+\eta(k)=
+\sum_{j\in S}\eta(j)p_{j,k}\ge \sum_{j\in S}\eta(k)\nu_k(j)p_{j,k}=\eta(k)\nu_k(k)=\eta(k).
+\]
+The inequality must be inequality.
+\item
+3) is obvious since $\sum_{j\in S}\nu_k(j)=\mathbb{E}[\tau_k\mid X_0=k]=\mu_{k,k}$.
+\end{enumerate}
+\end{proof}
+
+
+\begin{theorem}
+Let $X_{\cdot}$ be an irreducible and positive recurrent Markov chain, and $\pi$ be the stationary distribution.
+Then for function $f:~S\to\mathbb{R}_+$, 
+\[
+\lim_{n\to\infty}\frac{1}{n}\sum_{\ell=1}^nf(X_{\ell})=\sum_{j\in S}f(j)\pi(j)
+\]
+The RHS can be denoted as $\mathbb{E}_{\pi}[f(X)]$, which can be infinite.
+\end{theorem}
+This formula means that the time average equals the state space average, i.e., \emph{ergodic}.
+
+\begin{proof}
+We show this result under the conditional distribution given $X_0=i$.
+Take $\tau_i(0)=0$ and $\tau_i(n)=\inf\{\ell>\tau_i(n-1):~X_{\ell}=i\}$.
+By strong Markov property, $T_i(n)=\tau_i(n)-\tau_{i-1}(n)$ are i.i.d. random variables.
+By positive recurrence, $\mu_{ii}=\mathbb{E}[T_i(n)\mid X_0=i]<\infty$.
+Take $Y_n=\sum_{\ell=\tau_i(n-1)+1}^{\tau_i(n)}f(X_{\ell})$.
+\begin{itemize}
+\item
+We first consider $\mathbb{E}[Y_1]<\infty$, then $\frac{1}{n}\sum_{\ell=1}^mY_{\ell}\to\mathbb{E}[Y_1]$.
+There exists $N_n$ so that $\tau_i(N_n)\le n<\tau_i(N_{n+1})$. By LLN,
+\[
+\lim_{n\to\infty}\frac{N_n}{n}=\lim_{n\to\infty}\frac{N_n}{\tau_i(N_n)}=\frac{1}{\mu_{ii}}
+\]
+On the other hand, 
+\[
+\frac{N_n}{n}\frac{1}{N_n}\sum_{m=1}^{N_n}Y_{m}\le 
+\frac{1}{n}\sum_{\ell=1}^nf(X_{\ell})
+\le \frac{N_{n+1}}{n}\frac{1}{N_{n+1}}\sum_{m=1}^{N_{n+1}}Y_{m}
+\]
+Taking $n\to\infty$ gives $\frac{1}{n}\sum_{\ell=1}^nf(X_{\ell}\to\frac{1}{\mu_{ii}}\mathbb{E}[Y_1]$.
+It suffices to show that 
+\[
+\frac{1}{\mu_{ii}}\mathbb{E}[Y_1]=\sum_{j\in S}f(j)\pi(j).
+\]
+The detailed computation is the following:
+\begin{align*}
+\frac{1}{\mu_{ii}}\mathbb{E}[Y_1]&=\frac{1}{\mu_{ii}}\mathbb{E}\left[
+\sum_{\ell=1}^{\tau_i}f(X_{\ell})\middle|X_0=i
+\right]\\
+&=\frac{1}{\mu_{ii}}\mathbb{E}\left[
+\sum_{\ell=1}^{\infty}f(X_{\ell})1(\ell\le\tau_i)\middle|X_0=i
+\right]\\
+&=\frac{1}{\mu_{ii}}\mathbb{E}\left[
+\sum_{\ell=1}^{\infty}\sum_{j\in S}f(X_{\ell})1(X_{\ell}=j, \ell\le\tau_i)\middle|X_0=i
+\right]\\
+&=\frac{1}{\mu_{ii}}\sum_{j\in S}f(X_{j})\mathbb{E}\left[
+\sum_{\ell=1}^{\infty}1(X_{\ell}=j, \ell\le\tau_i)\middle|X_0=i
+\right]\\
+&=\sum_{j\in S}f(X_{j})\pi(j)
+\end{align*}
+\item
+Now we consider $\mathbb{E}[Y_1]=\infty$.
+Define the truncated function $f^{(k)}(i)=\min(k, f(i))$.
+Thus $\lim_{n\to\infty}\frac{1}{n}\sum_{\ell=1}^nf^{(k)}(X_{\ell})=\sum_{j\in S}f^{(k)}(X_{j})\pi(j)$.
+Moreover,
+\[
+\liminf_{n\to\infty}\frac{1}{n}\sum_{\ell=1}^nf(X_{\ell})\ge
+\liminf_{n\to\infty}\frac{1}{n}\sum_{\ell=1}^nf^{(k)}(X_{\ell})=\sum_{j\in S}f^{(k)}(X_{j})\pi(j).
+\]
+By monotone convergence theorem, $\sum_{j\in S}f^{(k)}(X_{j})\pi(j)\to\mathbb{E}[Y_1]=\infty$.
+The proof is completed.
+\end{itemize}
+
+\end{proof}
+
+\subsection{Stability Conditions}
+It is important to determine whether an irreducible Markov chain is positive recurrent or not,  since $p_{i,j}^{(n)}$ vanishes as $n\to\infty$ otherwise.
+We call this problem as stability one since hte positive recurrence implies that the limiting state distribution is stationary.
+We consider the problem in two cases:
+\begin{itemize}
+\item
+$|S|<\infty$: all states are positive recurrent;
+\item
+$|S|=\infty$: if we can solve the stationary equation, then we can answer.
+However, it is difficult to do so for general case.
+\end{itemize}
+Here we use a test function $f:~S\to\mathbb{R}$.
+By the irreducibility, it suffices to find $\exists i\in S$ so that $\mu_{i,i}<\infty$ to prove the positive recurrence.
+This means that the Markov chain returns to some finite set of states sufficiently fast,
+which can be realized by a drift condition towards the set:
+
+\begin{theorem}
+Let $X_{\cdot}$ be a Markov chain that is irreducible and aperiodic.
+If there is a test function $f:~S\to\mathbb{R}_+$ and a finite set $S_0\subseteq S$ so that
+\begin{itemize}
+\item
+$\mathbb{E}[f(X_n)]$ is finite for all $n$;
+\item
+there exists $\varepsilon>0$ and $\forall n\ge0$,
+\[
+\mathbb{E}[f(X_{n+1})\mid X_n]-f(X_n)\le-\varepsilon,\quad X_n\notin S_0,
+\]
+then $X_{\cdot}$ is positive recurrent.
+\end{itemize}
+\end{theorem}
+
+\begin{example}
+Let $X_{\cdot}$ be a simple random walk on $\mathbb{Z}^2$.
+We modify the random walk so that it is restricted in $\mathbb{Z}_+^2$.
+Define the Lyapunov function
+\[
+f(\bm x)=\sqrt{ax_1^2+bx_2^2+cx_1x_2},\quad 4ab>c^2.
+\]
+Then by calculation,
+\begin{align*}
+f(\bm x+U(\bm x))&=
+f(\bm x)\left(
+1+\frac{f^2(U(\bm x)) + (2ax_1+cx_2)U_1(\bm x) + (2bx_2+cx_1)U_2(\bm x)}{f^2(\bm x)}
+\right)^{1/2}\\
+&=f(\bm x)\left(
+1+\frac{f^2(U(\bm x)) + (2ax_1+cx_2)U_1(\bm x) + (2bx_2+cx_1)U_2(\bm x)}{2f^2(\bm x)}
+\right)\\
+&=f(\bm x) + \frac{f^2(U(\bm x)) + (2ax_1+cx_2)U_1(\bm x) + (2bx_2+cx_1)U_2(\bm x)}{2f(\bm x)}
+\end{align*}
+It follows that
+\[
+\mathbb{E}[f(\bm X_{n+1})\mid \bm X_n=\bm x]-f(\bm x)=
+\frac{(2a\mu_1(\bm x) + c\mu_2(\bm x))x_1 + (2b\mu_2(\bm x) + c\mu_1(\bm x))x_2}{2f(\bm x)}
+\]
+\end{example}
+
+\subsection{Markov Modulated Process in Discrete Time}
+A random walk on a line has the following features:
+\begin{itemize}
+\item
+Skip free in one-step movements;
+\item
+Independent increments.
+\end{itemize}
+A discrete time Markov chain relaxes these conditions, but too general as an extension.
+Now we use the following ideas:
+\begin{itemize}
+\item
+Keep the state space and the skip free movements of the original process, denoted as $X_{\cdot}$;
+\item
+Add a background state, described by a finite state Markov Chain, denoted as $J_{\cdot}$.
+\end{itemize}
+
+\begin{definition}[Markov modulated random walk]
+We say $Y_{\cdot}$ is a \emph{Markov modulated random walk} with $Y_n=(X_n,J_n)\in S\equiv S_L\times S_B$ if the following conditions hold:
+\begin{enumerate}
+\item
+$J_{\cdot}$ is a Markov chain with transition matrix $A\equiv\{a_{i,j}:~i,j\in S_B\}$, where $a_{i,j}$ can be decomposed as $a_{i,j}=a_{i,j}^- + a_{i,j}^0 + a_{i,j}^+$ for $a_{i,j}^- ,a_{i,j}^0,a_{i,j}^+\ge0$;
+\item
+Markov chain $Y_{\cdot}$ has the following transition probabilities:
+\[
+p_{(k,i), (\ell,j)}=\left\{
+\begin{aligned}
+a_{i,j}^-&\quad \ell=k-1\\
+a_{i,j}^0&\quad \ell=k\\
+a_{i,j}^+&\quad \ell=k+1\\
+0&\quad\text{otherwise}
+\end{aligned}
+\right.
+\]
+\end{enumerate}
+Here $X_{\cdot}$ is called a level process, and $J_{\cdot}$ is called a phase process.
+The transition of phase $J_n$ to $J_{n+1}$ controls the level increment $\Delta X_n=X_{n+1}-X_n$, i.e., $J_{\cdot}$ modulates the skip free process $X_{\cdot}$.
+\end{definition}
+The most simple case is $S_B=\{1\}$, and $a^+_{1,1}=p, a^0_{1,1}=q, a^-_{1,1}=r$ with $p+q+r=1$.
+Consider the occupation measure $\nu^+$ on $S_L^+=\{\ell\in S_L:~\ell\ge0\}$ before returning to $\{k\in S_L:~k\le0\}$.
+Now we have
+\[
+\nu^+(\ell)=\left\{
+\begin{aligned}
+(q+r)\cdot\nu^+(0) + r\cdot \nu^+(1),&\quad \ell=0\\
+p\cdot\nu^+(\ell-1) + q\cdot\nu^+(\ell) + r\cdot\nu^+(\ell+1),&\quad \ell\ge1.
+\end{aligned}
+\right.
+\]
+Then we have $\nu^+(\ell)=(p/r)^{\ell}\nu^+(0)$ for $\ell\ge1$.
+We are interested in the following questions:
+\begin{enumerate}
+\item
+The occupation measure of a Markov modulated random walk has a similar geometric form?
+\item
+How such a result can be used in application?
+\end{enumerate}
+
+\begin{definition}
+Let $\tau_{0-}=\inf\{n\ge1:~X_n-X_0\le0\}$ and $D_b(S)$ be the set of all bounded functions from $S$ to $\mathbb{R}$.
+Define $S_B\times S_B$ matrices $R^{(\ell)}$ for $\ell\ge1$ as
+\[
+R_{i,j}^{(\ell)}=\mathbb{E}\left(
+\sum_{n=1}^{\tau_{0-}-1}1(X_n = \ell, J_n=j)\bigg| Y_0=(0,i)
+\right),\quad i,j\in S_B
+\]
+Here $\{R_{i,j}^{(\ell)}:~j\in S_B\}$ is the occupation measure at $\ell\ge1$
+before returning to the set $A=\{(n,k)\in S:~n\le0\}$.
+\end{definition}
+
+\begin{proposition}
+The matrix $R^{(\ell)}$ admits the following product form, while $R$ is not a probability matrix in general:
+\[
+R^{(\ell)} = R^{\ell},\qquad \ell\ge1.
+\]
+\end{proposition}
+\begin{proof}
+\begin{align*}
+R^{(\ell+1)}_{i,j}&=\sum_{n=1}^\infty 
+\mathbb{P}\left(
+Y_n=(\ell+1,j), n\le \tau_{0-}-1\bigg| Y_0=(0,i)
+\right)\\
+&=\sum_{n=1}^\infty\sum_{m=1}^{n-1}\sum_{i'\in S_B}
+\mathbb{P}\left(
+Y_m=(\ell,i'), X_k>\ell, k=m+1,\ldots,n,
+Y_n=(\ell+1,j), n\le \tau_{0-}-1\bigg| Y_0=(0,i)
+\right)\\
+&=\sum_{i'\in S_B}\sum_{m=1}^{\infty}
+\mathbb{P}\left(
+Y_m=(\ell,i'), m\le \tau_{0-}-1\bigg| Y_0=(0,i)
+\right)\\&\qquad\qquad\qquad\times \sum_{n=m+1}^\infty \mathbb{P}\left(Y_n=(\ell+1,j), n\le \tau_{0-}-1\bigg| Y_m=(\ell,i')\right)\\
+&=\sum_{i'\in S_B}R_{i,i'}^{(\ell)}R_{i',j}.
+\end{align*}
+\end{proof}
+
+\begin{proposition}
+The rate matrix $R$ is a minimal non-negative matrix solution to the equation
+\[
+T=A^+ + TA^0 + T^2A^-.
+\]
+\end{proposition}
+\begin{proof}
+We first show that $R^{(1)}$ satisfies the stationary equation:
+\begin{align*}
+R_{i,j}&=\sum_{n=1}^\infty\mathbb{P}\left(
+Y_n=(1,j), n<\tau_{0-}\middle| Y_0=(0,i)
+\right)\\
+&=\mathbb{P}\left(
+Y_1=(1,j)\middle| Y_0=(0,i)
+\right)+\sum_{n=2}^\infty\mathbb{P}\left(
+Y_n=(1,j), n<\tau_{0-}\middle| Y_0=(0,i)
+\right)\\
+&=a_{i,j}^++\sum_{i'\in S_B}\sum_{n=2}^\infty
+\mathbb{P}\bigg(
+Y_{n-1}=(1,i'),
+Y_n=(1,j), n<\tau_{0-}\bigg| Y_0=(0,i)
+\bigg)\\
+&+\sum_{i'\in S_B}\sum_{n=2}^\infty
+\mathbb{P}\bigg(
+Y_{n-1}=(2,i'),
+Y_n=(1,j), n<\tau_{0-}\bigg| Y_0=(0,i)
+\bigg)
+\end{align*}
+Then we compute the last two double summations:
+\begin{align*}
+&\mathbb{P}\bigg(
+Y_{n-1}=(1,i'),
+Y_n=(1,j), n<\tau_{0-}\bigg| Y_0=(0,i)
+\bigg)\\
+=&
+\mathbb{P}\bigg(
+Y_{n-1}=(1,i'),
+n-1<\tau_{0-}\bigg| Y_0=(0,i)
+\bigg)\\&\qquad\qquad
+\mathbb{P}\bigg(
+Y_n=(1,j), n<\tau_{0-}\bigg| Y_0=(0,i), Y_{n-1}=(1,i'), n-1<\tau_{0-}
+\bigg)\\
+&=\mathbb{P}\bigg(
+Y_{n-1}=(1,i'),
+n-1<\tau_{0-}\bigg| Y_0=(0,i)
+\bigg)a_{i',j}^0.
+\end{align*}
+Similarly, 
+\begin{align*}
+&\mathbb{P}\bigg(
+Y_{n-1}=(2,i'),
+Y_n=(1,j), n<\tau_{0-}\bigg| Y_0=(0,i)
+\bigg)\\
+&=
+\mathbb{P}\bigg(
+Y_{n-1}=(2,i'),
+n-1<\tau_{0-}\bigg| Y_0=(0,i)
+\bigg)a_{i',j}^-.
+\end{align*}
+Therefore, $R=A^+ + RA^0 + R^2A^-$.
+
+Next, we show that $R$ is a minimal non-negative solution.
+Let $T^{(0)}=O$ and inductively define $T^{(n)}$ by
+\[
+T^{(n)}=A^+ + T^{(n-1)}A^0 + (T^{(n-1)})^2A^-
+\]
+Note that $T^{(n)}$ satisfies 
+\[
+(T^{(n)} - T^{(n-1)}) = (T^{(n-1)} - T^{(n-2)}) A^0 + ((T^{(n-1)})^2 - (T^{(n-2)})^2)A^-.
+\]
+Hence, $T^{(\infty)}$ exists and it must be the minimal solution since $T^{(0)}=O$,
+In particular, $T^{(\infty)}\le R$. It suffices to show that $R\le T^{(\infty)}$.
+Define $R(n)$ by
+\[
+[R(n)]_{i,j}=\sum_{m=1}^\infty\mathbb{P}\bigg(
+Y_m=(1,j),~m<\tau_{0-}\land n\bigg| Y_0=(0,i)
+\bigg).
+\]
+We can show that $T^{(n-1)}=R(n)$ since $T^{(0)}=O=R(1)$ and $R(n)$ satisfies the inductive equation
+\[
+R(n) =A^+ + R(n-1)A^0 + (R(n-1))^2A^-
+\]
+\end{proof}
+
+\begin{definition}[Markov modulated reflected simple random walk]
+We put a reflecting boundary at state $0\in S_L$ in such a way that
+\[
+\tilde{P}=\begin{pmatrix}
+B^{00}&B^{01}&0&0&0&\cdots\\
+B^{10}&A^0&A^+&0&0&\cdots\\
+0&A^-&A^0&A^+&0&\vdots\\
+0&0&A^-&A^0&A^+&\vdots\\
+0&0&0&A^-&A^0&\ddots\\
+\vdots&\vdots&\vdots&\vdots&\ddots&\ddots
+\end{pmatrix}
+\]
+The modified process $\tilde{Y}_{\cdot}=(\tilde{X}_{\cdot}, \tilde{J}_{\cdot})$ is called a Markov modulated reflected simple random walk.
+\end{definition}
+
+Let $\pi$ be the unique stationary distribution for transition matrix $A$, and denote the mean drift of the random walk $Y_{\cdot}$ as
+\[
+\gamma = -\pi A^- + \pi A^+.
+\]
+It is easy to see $\tilde{Y}_n$ has a stationary distribution iff $\gamma<0$.
+Denote the stationary distribution as $\tilde{\nu}$, characterized by $\tilde{\nu}=\tilde{\nu}\tilde{P}$.
+Partition $\tilde{\nu}$ by level and $\tilde{\nu}_n=\mathbb{P}(\tilde{X}_\infty=n)$.
+Then we have the stationary equation
+\begin{align*}
+\tilde{\nu}_0&=\tilde{\nu}_0B^{00} + \tilde{\nu}_1B^{10}\\
+\tilde{\nu}_1&=\tilde{\nu}_0B^{01} + \tilde{\nu}_1A^0 + \tilde{\nu}_2A^-\\
+\tilde{\nu}_n&=\tilde{\nu}_{n-1}A^{-} + \tilde{\nu}_nA^0 + \tilde{\nu}_{n+1}A^-,\quad n\ge2
+\end{align*}
+From the third equation we have $\tilde{\nu}_n = \tilde{\nu}_1R^{n-1}$. From the first two equation we have
+\[
+\left\{
+\begin{aligned}
+\tilde{\nu}_0&=\tilde{\nu}_1B^{10}(I - B^{00})^{-1}\\
+\tilde{\nu}_1&=\tilde{\nu}_0B^{01}(I - A^0 - RA^{-})^{-1}
+\end{aligned}
+\right.
+\]
+
+Here we ask the following questions:
+\begin{itemize}
+\item
+$\tilde{\nu}_n$ has a nice expression. Is it possible to use it for asymptotic analysis?
+\item
+Can we apply this method to a queueing network?
+\end{itemize}
+The first question is yes.
+For the second question, the corresponding random walk is multi-dimensional, though we only discuss for the one-dimensional case. 
+When $S_L, S_B$ are uncountable, the matrices need to be in the function space, which is a big paradigm beyond the present approach.
+
+
+
+
+
+
+
+
+

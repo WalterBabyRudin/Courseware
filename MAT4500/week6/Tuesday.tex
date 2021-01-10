@@ -2,421 +2,376 @@
 \chapter{Week6}
 
 \section{Tuesday}\index{week6_Tuesday_lecture}
-\subsection{Summary of previous weeks}
-In the first two weeks, we have learnt how to solve linear system of equations $\bm{Ax}=\bm b$. To understand this equation better, we learn the definition for matrices and vector space. The columns of matrix product $\bm{Ax}$ are the linear combination of columns of $\bm{A}$.
-\subsubsection{Determinants}
-Then we learnt how to describle the \emph{quantity of a matrix}--determinant. The determinant of a square matrix is a single number. This number contains an amazing amount of information about the matrix. There are three main points about determinant:
+
+At the beginning of this lecture, let's fill the gap for the Theorem~\ref{The:con:mart}.
+\begin{proposition}
+Suppose that $T_n$ is a positive stopping time and $T<T_n$ conditioned on the event $\{T<\infty\},\forall n\ge1$,
+where $T\triangleq \inf_nT_n$.
+Then $\mathcal{F}_{T+} = \cap_{n=1}^\infty\mathcal{F}_{T_n}$, where
+\begin{align*}
+\mathcal{F}_{T+}&\triangleq \{A\in\mathcal{F}:~A\cap\{T\le t\}\in\mathcal{F}_{t+},~\forall t\ge0\}\\
+&\triangleq \{A\in\mathcal{F}:~A\cap\{T< t\}\in\mathcal{F}_{t},~\forall t>0\}
+\end{align*}
+\end{proposition}
+
+\begin{proof}
+Firstly, we show that $T$ is an optional time:
+\begin{align*}
+\{T<t\}&=\{T\ge t\}^c=\left\{
+\cap_{n}\{T_n>t\}
+\right\}^c\\
+&=\cup_n\{T_n>t\}^c=\cup_n\{T_n\le t\}
+\end{align*}
+Since $T_n$ is a stopping time, $\{T_n\le t\}\in\mathcal{F}_t,\forall t$, which implies that $T$ is an optional time.
 \begin{itemize}
 \item
-\textit{Determinants is related to invertibility, rank, eigenvalue, PSD$,\dots$}
+Suppose that $A\in\cap_{n=1}^\infty\mathcal{F}_{T_n}$,
+then $A\cap\{T_n\le t\}\in\mathcal{F}_t,\forall t,\forall n\ge1$.
+As a result,
+\begin{align*}
+\mathcal{F}_t\ni\bigcup_{n}\left\{
+A\cap\{T_n\le t\}
+\right\}&=A\cap\left[
+\cup_n\{T_n\le t\}
+\right]\\
+&=A\cap\{T<t\},\quad\forall t.
+\end{align*}
+In other words, $A\in\mathcal{F}_{T+}$.
 \item
-$\det(\bm{AB})=\det(\bm A)\det(\bm B).$
-\item
-\textit{The square matrix $\bm A$ is invertible} if and only if $\det(\bm A)\ne 0.$
-\end{itemize}
-
-\subsubsection{Linear Transformation}
-
-Linear transfromation is another important topic. The matrix multiplication $T(\bm v)=\bm{Av}$ is essentially a linear transformation. If we consider a vector as a point in vector space, then \textit{the linear transformation allows movements of point in the space}. It ``transforms'' vector $\bm v$ to another vector $\bm{Av}$.
-
-In the view of linear transformation, we can understand $\det(\bm{AB})=\det(\bm A)\det(\bm B)$ better:
+Suppose that $A\in\mathcal{F}_{T+}$, then 
+$A\cap\{T< t\}\in\mathcal{F}_{t},~\forall t$.
+Moreover, $\{T_n\le t\}\in\mathcal{F}_{T_n}$.
+%Moreover, $A\cap\{T_n<t\}\in\mathcal{F}_t,\forall t$.
+Therefore,
 \[
-\det(\bm A)=\text{Volumn of $\bm{Ak}$, where $\bm k$ is a unit cube.}
+\mathcal{F}_t\ni
+(A\cap\{T< t\})\cup(A\cap\{T_n\le t\})=A\cap\{T_n\le t\},~\forall t>0.
 \]
+%wrong proof
+In other words, $A\in\cap_{n=1}^\infty F_{T_n}$.
+\end{itemize}
+\end{proof}
 
-If we transform the unit cube $\bm k$ by $\bm A$ secondly by $\bm B$, actually, it has the same effect of transforming $\bm k$ directly by the matrix $\bm{BA}$.
-\begin{figure}[H]
-\centering
-\includegraphics[width=10cm]{week6/determinant}
-\caption{Transformation of a vector by $\bm A$, then by $\bm B$ has the same effect by $\bm{BA}$.}
-\end{figure}
-If we denote $\det(\cdot)$ as the volumn of a graph, since we find that the volumn of $\bm B(\bm{Ak})$ is exactly the same as $(\bm{BA})\bm k$, consequently $\det(\bm B)\det(\bm A)=\det(\bm{BA})$.
+\begin{proposition}
+Let $\{\mathcal{F}_n\}_{n=1}^\infty$ be a decreasing sequence of sub-$\sigma$-algebras of $\mathcal{F}$:
+\[
+\mathcal{F}\supseteq\mathcal{F}_1\supseteq\cdots\supseteq\mathcal{F}_n\supseteq\cdots.
+\]
+Suppose that $\{X_n\}_{n=1}^\infty$ is a backward submartingale w.r.t $\{\mathcal{F}_n\}_{n=1}^\infty$, i.e., i) $X_n$ is $\mathcal{F}_n$-measurable, ii) $\mathbb{E}[|X_n|]<\infty$,
+iii) $\mathbb{E}[X_n\mid\mathcal{F}_{n+1}]\ge X_{n+1}$, a.s.
+If $\lim_{n\to\infty}\mathbb{E}[X_n]>-\infty$, then the sequence $\{X_n\}_{n=1}^\infty$ is UI.
+\end{proposition}
 
-Moreover, $\det(\bm A)=0\Longleftrightarrow
-\text{Volumn of $\bm{Ak}=0$}\Longleftrightarrow
-\dim(\bm{Ak})=0.$
+\begin{proof}
+Note that the limit of $\mathbb{E}[X_n]$ exists since it is decreasing. Denote $c\triangleq \lim_{n\to\infty}\mathbb{E}[X_n]$.
+We can argue the uniform convergence of $\mathbb{P}(|X_n|>\lambda)$ as the following:
+\begin{align*}
+\forall\lambda>0,~
+\mathbb{P}(|X_n|>\lambda)&\le \frac{\mathbb{E}[|X_n|]}{\lambda}\\
+&=\frac{1}{\lambda}\left(
+2\mathbb{E}[X_n^+]-\mathbb{E}[X_n]
+\right)\\
+&\le \frac{1}{\lambda}\left(
+2\mathbb{E}[X_1^+]-c
+\right)<\infty.
+\end{align*}
+where the first inequality is because that $\mathbb{E}[X_n]\downarrow c$ and 
+$\{X_n^+\}$ is a backward submartingale.
+In other words, $\mathbb{P}(|X_n|>\lambda)$ uniformly converges to $0$ as $\lambda\to\infty$.
 
-Cramer's Rule also has geometric meaning, which will not be talked in this lecture. (In big data age, people will not use cramer's rule frequently due to its high computing complexity.)
+Now we begin to show the UI of $\{X_n\}$. Applying the useful proposition~\ref{Pro:3:1} on $X_1$, 
+for any $\varepsilon>0,$ there exists $\delta$ such that for any $A\in\mathcal{F}_1,\mathbb{P}(A)<\delta$,
+\begin{equation}\label{Eq:6:1}
+\int_A|X_1|\diff\mathbb{P}<\varepsilon.
+\end{equation}
+We can choose $\lambda$ sufficiently large such that $\mathbb{P}(|X_n|>\lambda)<\delta,\forall n$.
+As a result,
+\begin{align*}
+\int_{\{|X_n|>\lambda\}}|X_n|\diff\mathbb{P}&
+\le \int_{\{|X_n|>\lambda\}}|X_{n-1}|\diff\mathbb{P}\le\cdots\\
+&\le \int_{\{|X_n|>\lambda\}}|X_1|\diff\mathbb{P}<\varepsilon
+\end{align*}
+where the first inequality is because that $\mathbb{E}[|X_{n-1}|\mathcal{F}_n]\ge|X_n|$,
+and the last inequality is because of (\ref{Eq:6:1}).
+Therefore, $\int_{\{|X_n|>\lambda\}}|X_1|\diff\mathbb{P}<\varepsilon$ for any $n$.
+The proof is complete.
+\end{proof}
 
-Linear transformation has a matrix representation form under certain basis. \emph{How to transform one basis into another basis?} We use \textit{similar matrices} as the matrix representation, which will be studied in next lecture.
-\subsubsection{Orthogonality}
-Why we learn orthogonality? It has two motivations:
+\subsection{Localization}
+
+The concepts of stopping times provide a tool of ``localizing'' quantities.
+\begin{definition}[Stopped Process]
+Suppose that $\{X_t\}_{t\ge0}$ is an $\{\mathcal{F}_t\}$-adapted process
+on $(\Omega,\mathcal{F},\{\mathcal{F}_t\},\mathbb{P})$,
+and $T$ is a stopping time.
+Define the stopped process $\{X_{t\land T}\}_{t\ge0}$ such that 
+\[
+X_{t\land T}(\omega) = X_{t\land T(\omega)}(\omega),\quad\forall\omega\in\Omega.
+\]
+\end{definition}
+Note that $\{X_{t\land T}\}_{t\ge0}$ is also an $\{\mathcal{F}_t\}$-adapted process.
+
+\begin{definition}[Local Martingale]
+An $\{\mathcal{F}_t\}$-adapted process $\{X_t\}_{t\ge0}$ is called a \emph{local martingale}
+if there is an increasing sequence of stopping times $\{T_n\}_{n\ge0}$
+and $T_n\uparrow\infty$ a.s.,
+such that $\{X_{t\land T_n}\}_{t\ge0}$ is a martingale for each $n$, w.r.t. $\{\mathcal{F}_t\}$.
+\end{definition}
+Note that a martingale is a local martingale.
+Now we give a sufficient condition such that local martingale can be a martingale.
+\begin{theorem}
+Suppose that $\{X_t\}_{t\ge0}$ is an $\{\mathcal{F}_t\}$-adapted local martingale,
+and there is a sequence $\{T_n\}_{n\ge0}$ that reduces $\{X_t\}_{t\ge0}$:
+\[
+\mbox{$\{X_{t\land T_n}\}_{t\ge0}$ is a martingale for each $n$}.
+\]
+Suppose that $\mathbb{E}[\sup_n|X_{t\land T}|]<\infty$ for each $t$,
+then $\{X_t\}_{t\ge0}$ is a martingale.
+\end{theorem}
+
+\begin{proof}
+Considering that i) $X_{t\land T_n}\to X_t$ a.s. because $T_n\uparrow\infty$,
+ii) $|X_{t\land T_n}|\le \sup_n|X_{t\land T_n}|$, with the random variable $\sup_n|X_{t\land T_n}|$ integrable, we can apply the dominated convergence theorem to show that 
+$X_{t\land T_n}\xrightarrow{L^1}X_t,\forall t$, as $n\to\infty$.
+
+Now we check that $\{X_t\}_{t\ge0}$ is a martingale, i.e., for any $A\in\mathcal{F}_s,0\le s\le t$, we have
+\begin{align*}
+\int_A\mathbb{E}[X_t\mid\mathcal{F}_s]\diff\mathbb{P}&=
+\int_AX_t\diff\mathbb{P}\\
+&=\lim_{n\to\infty}\int_AX_{t\land T_n}\diff\mathbb{P}\\
+&=\lim_{n\to\infty}\int_AX_{s\land T_n}\diff\mathbb{P}\\
+&=\int_AX_s\diff\mathbb{P}
+\end{align*}
+where the third inequality is because that $\mathbb{E}[X_{t\land T_n}\mid\mathcal{F}_s]=
+X_{s\land T_n}$.
+\end{proof}
+
+\subsection{Introduction to Brownian Motion}
+
+
+Brownian motion is a mathematical model of random movements observed by botanist Robert Brown.
+Now we give a way for constructing the Brownian motion.
+
+\begin{definition}[Brownian Motion]\label{Def:bro}
+A stochastic process $B = \{B_t\}_{t\ge0}$ on a probability space 
+$(\Omega,\mathcal{F},\mathbb{P})$,
+taking values in $\mathbb{R}$,
+is called a Brownian motion if:
 \begin{enumerate}
 \item
-Linear independence between vectors
-$\Longleftrightarrow\text{Angle}\ne0\degree.$
-
-Similarly, we are interested in the case which the angle is $90$ degrees:
+$\mathbb{P}(B_0=0)=1$;
+\item
+(Independent Increments)
+For every $0\le t_1<\cdots<t_k<\infty$ and $x_1,x_2,\ldots,x_{k-1}\in\mathbb{R}$,
 \[
-\mbox{orthogonal}\Longleftrightarrow
-\mbox{Angle}=90\degree
+\mathbb{P}\bigg(
+B_{t_2}-B_{t_1}\le x_1,
+\ldots,
+B_{t_k}-B_{t_{k-1}}\le x_{k-1}
+\bigg)
+=
+\prod_{2\le j\le k}
+\mathbb{P}(
+B_{t_j}-B_{t_{j-1}}\le x_{j-1}
+)
 \]
 \item
-Solving least squares problem more efficiently.
-
-In pratical, suppose we are given two kinds of data, i.e., 
-input: $x =$age of propellant and output: $y = $shear strength. Our data contains $S=\{(x_1,y_1),\dots,(x_{n},y_{n})\}$, $n=20$ samples. Our goal is to find a best line that fit the data:
-\begin{figure}[H]
-\centering
-\includegraphics[width=5cm]{week6/regression}
-\caption{The relationship between $x$ and $y$.}
-\end{figure}
-In other words, we want to find $\bm x$ s.t.
-\[
-    (\tikzmark{identity}{$\bm A$}\tikzmark[red]{G}{$\bm x$}
-    \approx\tikzmark[purple]{C}{$\bm b$})
-\]
-\begin{tikzpicture}[overlay, remember picture,node distance =1.5cm]
-    \node (identitydescr) [below left=of identity ]{age};
-    \draw[,->,thick] (identitydescr) to [in=-90,out=90] (identity);
-    \node[red] (Gdescr) [below =of G]{coefficient};
-    \draw[red,->,thick] (Gdescr) to [in=-90,out=90] (G);
-    
-    \node[purple] (Cdescr) [below right =of C]{strength};
-    \draw[purple,->,thick] (Cdescr) to [in=-90,out=90] (C.south);
-\end{tikzpicture}
-
-where 
-\[
-\begin{array}{ll}
-\bm A=\begin{bmatrix}
-1&x_1\\
-1&x_2\\
-\vdots&\vdots\\
-1&x_{n}
-\end{bmatrix}
-&
-\bm b=\begin{bmatrix}
-y_1\\\vdots\\y_n
-\end{bmatrix}
-\end{array}
-\]
-
-More generally, our goal is to solve the least square problem given by:
-\[
-\min_{\bm x\in\mathbb{R}^{n}}\|\bm{Ax}-\bm b\|^2
-\]
-where $\bm b\in\mathbb{R}^{m},\bm A\in\mathbb{R}^{m\times n}$.
-\begin{itemize}
+(Normal Distribution)%gaussian?
+For each $0\le s<t$, $B_t-B_s$ follows normal distribution with mean $0$ and variance $\sigma^2(t-s)$, where $\sigma>0$.
 \item
-If $\bm b\in\mathcal{C}(\bm A)$, this optimization problem is converted into finding the solution to equation $\bm{Ax}=\bm b$.
-\item
-Otherwise, we want to find the least squares solution $\bm x^*$, which must satisfy
-\[
-\frac{\partial }{\partial \bm x^*}\|\bm{Ax}-\bm b\|^2=\bm 0\implies\bm A\trans\bm A\bm x^*=\bm A\trans\bm b.\qquad\text{(\emph{normal equation.})}
-\]
-\end{itemize}
-This opotimization problem also has geometric meaning. We want to find a solution $\bm x^*$ such that $\bm A\bm x^*$ best approximates the vector $\bm b$, i.e., $\bm A\bm x^* = \Proj_{\mathcal{C}(\bm A)}(\bm b).$
-\begin{figure}[H]
-\centering\includegraphics{week6/least_square}
-\caption{Least square problem: find $\bm x$ such that $\bm{Ax}=\Proj_{\mathcal{C}(\bm A)}(\bm b).$}
-\end{figure}
-The expression of the projection $\Proj_{\mathcal{C}(\bm A)}(\bm b)$ is given by:
-\[
-\Proj_{\mathcal{C}(\bm A)}(\bm b) = \bm A(\bm A\trans\bm A)^{-1}\bm A\trans\bm b.
-\]
-Therefore, one least squares solution is given by:
-\[
-\bm x^*=(\bm A\trans\bm A)^{-1}\bm A\trans\bm b.
-\]
-When $\bm A$ has full column rank, this solution is the unique least squares solution. (verify by yourself)
-
-Moreover, when $\bm A$ is an \emph{orthogonal matrix}, the least squares solution could be computed more efficiently:
-\[
-\bm x^*=\bm Q\trans\bm b.
-\]
+Almost all the sample paths of $\{B_t\}_{t\ge0}$ are continuous.
+In particular, when $\sigma=1$, we call it the standard Brownian motion.
 \end{enumerate}
-
-\subsection{Eigenvalues and eigenvectors}
-\subsubsection{Why do we study eigenvalues and eigenvectors?}
-\begin{itemize}
-\item
-\emph{Motivation 1: }If we consider matrices as the \textit{movements} (linear transformation) for \textit{vectors} in vector space. Then roughly speaking, \textit{eigenvalues} are the \textit{speed} of the movements, \textit{eigenvectors} are the \textit{direction} of the movements
-\item
-\emph{Motivation 2: }We know that linear transformation has different matrix representation for different basis. But which representation is \emph{simplest} for a linear transformation? This topic gives us answer to this question.
-\end{itemize}
-When vectors are multiplied by $\bm A$, almost all vectors change direction. If $\bm x$ has the same direction as $\bm{Ax}$, they are called \emph{eigenvectors}.
-\[
-\begin{array}{lll}
-\mbox{\emph{The key equation is}}
-&
-\bm{Ax}=\lambda\bm x,
-&
-\emph{The number $\lambda$ is the eigenvalue of $\bm A$.}
-\end{array}
-\]
-\begin{definition}[Eigenvectors and Eigenvalues]
-Given a matrix $\bm A\in\mathbb{R}^{n\times n}$ (or $\mathbb{C}^{n\times n}$), our goalis to find a vector $\bm v\in\mathbb{C}^n$ with $\bm v\ne\bm 0$ such that
-\begin{equation}\label{Eq:7:1}
-\begin{array}{ll}
-\bm A\bm v=\lambda\bm v,
-&
-\mbox{for some $\lambda\in\mathbb{C}$}
-\end{array}
-\end{equation}
-\begin{itemize}
-\item
-(\ref{Eq:7:1}) is called an \emph{eigenvalue problem} or \emph{eigen-equation}
-\item
-Let $(\bm v,\lambda)$ be a solution to (\ref{Eq:7:1}), we call
-\begin{itemize}
-\item
-$(\bm v,\lambda)$ an \emph{eigen-pair} of $\bm A$
-\item
-$\lambda$ an \emph{eigenvalue} of $\bm A$; $\bm v$ an \emph{eigenvector} of $\bm A$ associated with $\lambda$.
-\end{itemize}
-\end{itemize}
-\end{definition}
-We illustrate an example of an eigenvalue problem:
-\begin{example}
-Consider an eigenvalue problem $\bm{Ax}=\lambda\bm x$, where
-\[
-\begin{array}{ll}
-\bm A=\begin{bmatrix}
-4&-2\\1&1
-\end{bmatrix},
-&
-\bm x=\begin{bmatrix}
-2\\1
-\end{bmatrix}
-\end{array}
-\]
-
-We can verify that
-\[
-\bm{Ax}=\begin{bmatrix}
-6\\3
-\end{bmatrix}=3\begin{bmatrix}
-2\\1
-\end{bmatrix}=3\bm x
-\]
-
-Therefore, $\lambda=3$ is the eigenvalue of $\bm A$; $\bm x=\begin{bmatrix}
-2\\1
-\end{bmatrix}$ is the eigenvector of $\bm A$ associated with $\lambda=3.$
-\end{example}
-\begin{proposition}
-If $(\bm v,\lambda)$ is an eigen-pair of $\bm A$, then $(\alpha\bm v,\lambda)$ is also an eigen-pair for any $\alpha\in\mathbb{C},\alpha\ne0$.
-\end{proposition}
-
-\subsubsection{Calculation for eigen-pairs}
-How to find eigen-pairs $(\lambda,\bm x)$? In other words, how to solve the nonlinear equation $\bm{Ax}=\lambda\bm x$, where $\lambda$ and $\bm x$ are unknowns? Consider a simpler case. If we can know the eigenvalues $\lambda$, then we can solve the linear system $(\lambda\bm I-\bm A)\bm x=\bm 0$ to get the corresponding eigenvectors.
-
-But how to find eigenvalues? $\bm{Ax}=\lambda\bm x$ has a nonzero solution $\Longleftrightarrow$$(\lambda\bm I-\bm A)\bm x=\bm 0$ has a nonzero solution $\Longleftrightarrow$ $(\lambda\bm I-\bm A)$ is singular $\Longleftrightarrow$$\det(\lambda\bm I-\bm A)=0.$
-
-Therefore, solving the determinant equation gives a way to find eigenvalues:
-\begin{proposition}
-The number $\lambda$ is the eigenvalue of $\bm A$ if and only if $\lambda\bm I-\bm A$ is singular.
-\begin{equation}
-\begin{array}{ll}
-\mbox{\emph{Equation for the eigenvalues}}
-&
-\det(\lambda\bm I-\bm A)=0.
-\end{array}
-\end{equation}
-\end{proposition}
-
-\begin{definition}[characteristic polynomial]
-Define $P_{\bm A}(\lambda):=\det(\lambda\bm I-\bm A)$. 
-
-Then $P_{\bm A}(\lambda)=\det(\lambda\bm I-\bm A)$ is called the \emph{characteristic polynomial} for the matrix $\bm A$; the equation $\det(\lambda\bm I-\bm A)=0$ is called the \emph{characteristic equation} for the matrix $\bm A$; the set $N(\lambda\bm I-\bm A)$ is called the \emph{eigenspace} associated with $\lambda$.
-
-If $P_{\bm A}(\lambda^{*})=0$, then we say $\lambda^*$ is the root of $P_{\bm A}(\lambda)$.
 \end{definition}
 
-The roots of $P_{\bm A}(\lambda)$ are the \emph{eigenvalues} of $\bm A$. $\forall\bm x\in N(\lambda\bm I-\bm A)$ (\textit{eigenspace}) is an eigenvector associated with $\lambda$.
-
-\begin{example}
-Find the eigenvalues and eigenvectors of $\bm A=\begin{bmatrix}
-3&2\\3&-2
-\end{bmatrix}$.\\
-\begin{gather*}
-\det(\lambda\bm I-\bm A)=\begin{bmatrix}
-\lambda -3&-2\\-3&\lambda+2
-\end{bmatrix}=0.\\
-\implies (\lambda+3)(\lambda-2)-6=0.
-\implies \lambda^2-\lambda-12=0.\implies
-\lambda_1=4\quad\lambda_2=-3.
-\end{gather*}
-Eigenvalues of $\bm A$ are $\lambda_1=4\text{ and }\lambda_2=-3.$\\
-In order to get eigenvectors, we solve $(\bm A-\lambda\bm I)\bm x=\bm 0$:
-\begin{itemize}
-\item
-For $\lambda_1$, $(\bm A-\lambda_1\bm I)\bm x=\begin{bmatrix}
--1&2\\3&-6
-\end{bmatrix}=\bm 0$.
-\[
-\implies \bm x=\begin{bmatrix}
-2x_2\\x_2
-\end{bmatrix}=x_2\begin{bmatrix}
-2\\1
-\end{bmatrix}
-\]
-Hence any $\alpha\begin{bmatrix}
-2&1
-\end{bmatrix}\trans$ $(\alpha\ne0)$ is the eigenvector of $\bm A$ associated with $\lambda_1=4.$
-\item
-For $\lambda_2$, similarly, we derive
-\[
-\bm x=\begin{bmatrix}
--x_2\\3x_2
-\end{bmatrix}=x_2\begin{bmatrix}
--1\\3
-\end{bmatrix}
-\]
-Hence any $\beta\begin{bmatrix}
--1&3
-\end{bmatrix}\trans$ $(\beta\ne0)$ is the eigenvector of $\bm A$ associated with $\lambda_2=-3.$
-\end{itemize}
-\end{example}
-
-\subsubsection{Possible difficulty: how to solve $\det(\lambda\bm I-\bm A)=0$?}
-$P_{\bm A}(\lambda)$ is a characteristic polynomial with degree $n$. Actually, we can write $P_{\bm A}(\lambda)$ as:
-\[
-P_{\bm A}(\lambda)=\lambda^n-a_1\lambda^{n-1}+a_2\lambda^{n-2}-\dots+(-1)^{n}a_n
-\]
-where $a_i$'s depend on matrix $\bm A$.
-
-When $n$ increases, it's hard to find its roots:
-\begin{itemize}
-\item
-When $n=2,3,4$, solution to $P_{\bm A}(\lambda)=0$ has the \textit{closed form}, which has been proved in $15$th century.
-\item
-However, when $n\ge5$, the characteristic equation has \textit{no closed form} solution.
-\end{itemize}
-
-Although we cannot find closed form solution for large $n$, we want to study whether this characteristic polynomial with degree $n$ has exactly $n$ solutions. Gauss gives us the answer:
-\begin{theorem}[Fundamental theorem of algebra]
-Every nonzero, single variable, degree $n$ polynomial with \textit{complex coefficients} has \textit{exactly} $n$ complex roots. (Counted with multiplicity.)
-\end{theorem}
-
-What's the meaning of \textit{multiplicity?} For example, the polynomial $(x-1)^2$ has one root 1 with multiplicity 2.
-
-\paragraph{Implication}
-Hence, every polynomial $f(x)$ could be written as
-\begin{align*}
-f(x)&=a_nx^n+a_{n-1}x^{n-1}+\dots+a_1x_1+a_0\\
-&=a_n(x-x_1)(x-x_2)\dots(x-x_n)
-\end{align*}
-where $x_i$'s are roots for $f(x)$.
-
-Moreover, \emph{$P_{\lambda}(\bm A)$ has exactly $n$ roots, i.e., $\bm A$ has $n$ eigenvalues.(counted with multiplicity.)}
 \begin{remark}
-Exact roots are almost impossible to find. But approximate roots (eigenvalues) can be find easily by numerical algorithm.
+In some situations, the first condition may not be satisfied. Instead, the process may start at a non-zero point $x$. Then we write such a process $\{x+B_t\}$.
 \end{remark}
-\subsection{Products and Sums of Eigenvalue}
-\paragraph{The coefficient of the highest order for the characteristic polynomial is 1}
-Suppose $P_{\bm A}(\lambda)=\det(\lambda\bm I-\bm A)$ has $n$ roots $\lambda_1,\dots,\lambda_n$, then we obtain:
-\begin{equation}
-P_{\bm A}(\lambda)=\det(\lambda\bm I-\bm A)=(\lambda-\lambda_1)\dots(\lambda-\lambda_n)
-\label{characteristic}
-\end{equation}
-Why the coefficient for $\lambda^{n}$ is 1 in equation (\ref{characteristic})? If we expand $\det(\lambda\bm I-\bm A)$, we find
-\begin{equation}
-\det(\lambda\bm I-\bm A)=\begin{vmatrix}
-\lambda-a_{11}&-a_{12}&\dots&-a_{nn}\\
--a_{21}&\lambda-a_{22}&\dots&-a_{2n}\\
-\vdots&\vdots&\ddots&\vdots\\
--a_{n1}&\dots&\dots&\lambda-a_{nn}
-\end{vmatrix},
-\label{characteristic_det}
-\end{equation}
-in which the variable $\lambda$ only appears in diagonal. By expaning  the determinant, the coefficient of highest order is obviously 1.
-\paragraph{The sum of eigenvalues equals to the sum of the $n$ diagonal entries of $\bm A$}
-In $(\ref{characteristic})$, the coefficient of $\lambda^{n-1}$ is
-\[
--(\lambda_1+\lambda_2+\dots+\lambda_n)
-\]
 
-In $(\ref{characteristic_det})$, $\lambda^{n-1}$ only appears among $(\lambda-a_{11})(\lambda-a_{22})\dots(\lambda-a_{nn})$, i.e., the coefficient of $\lambda^{n-1}$ is
-\[
--(a_{11}+a_{22}+\dots+a_{nn})
-\]
+\begin{definition}[Canonical Wiener Measure]\label{Def:Wie}
+Let the sample space be $\Omega=C[0,\infty)$, and its associated topology is $\mathcal{T}$.
+Define the Borel $\sigma$-algebra $\mathcal{B}=\sigma(\mathcal{T})$.
+Thus $\omega\in\Omega$ is a continuos function with support $[0,\infty)$.
+Define $B_t(\omega)=\omega(t)$.
+A probability measure $\mathbb{P}$ on $(C[0,\infty),\mathcal{B})$ is called
+a Wiener measure if conditions (1)-(3) in Definition~\ref{Def:bro} are satisfied.
+With such a probability measure, 
+$\{B_t\}_{t\ge0}$ is said to be a Brownian motion on $(C[0,\infty),\mathcal{B},\mathbb{P})$.
+\end{definition}
 
-Consequently, as $(\ref{characteristic})=(\ref{characteristic_det})$, we obtain
-\[
-\sum\lambda_i=\text{\emph{trace}}=\sum a_{ii}
-\]
-The sum of the entries on the main diagonal is called the \emph{trace} of $\bm A$, denoted by $\trace(\bm A)$.
-\paragraph{The product of the eigenvalues equals to the determinant of $\bm A$}
-If let $\lambda=0$ in $(\ref{characteristic})$, then we obtain $\det(-\bm A)=(-1)^n\lambda_1\lambda_2\dots\lambda_n$. Obviously, $\det(-\bm A)=(-1)^{n}\det(\bm A)$. 
-
-Hence $(-1)^{n}\det(\bm A)=(-1)^n\lambda_1\lambda_2\dots\lambda_n\implies
-\det(\bm A)=\lambda_1\lambda_2\dots\lambda_n.$
-
-\begin{theorem}
-\emph{\textit{The product of the $n$ eigenvalues equals the determinant of $\bm A$.}}\\
-\emph{\textit{The sum of the $n$ eigenvalues equals the sum of the $n$ diagonal entries of $\bm A$.}}
+\begin{theorem}[Existence and Uniqueness of Wiener Measure]
+For each $\sigma>0$, there exists a unique Wiener measure in Definition~\ref{Def:Wie}.
 \end{theorem}
-
-\subsection{Application: Page Rank and Web Search}
-Google is the largest web search engine in the world. When you enter a keyworld, the \textit{PageRank} algorithm is used by Google to rank the search results of your keyworld.
-\begin{figure}[H]
-    \begin{minipage}[b]{0.5\textwidth} 
-      \centering 
-      \includegraphics[width=3in]{week6/Fig_1.png} 
-      \caption{Google interface}
-    \end{minipage}%  
-    \begin{minipage}[b]{0.5\textwidth} 
-      \centering 
-      \includegraphics[width=3in]{week6/Fig_2.png}
-      \caption{PageRank Diagram, source: Wiki}
-    \end{minipage}
-\end{figure}
-To rank the pages with respect to its importance, the idea is to use counts of links of other pages, i.e., if a page is referenced by many many other pages, it must be very important.
-\paragraph{PageRank Model} The PageRank model is given as follows:
-\begin{equation}
-\sum_{j\in\mathcal{L}_i}\frac{v_j}{c_j}=v_i,\quad
-i=1,\dots,n,\label{Eq:7:5}
-\end{equation}
-where $c_j$ is the number of outgoing links from page $j$; $\mathcal{L}_i$ is the set of pages with
-a link to page $i$; $v_i$ is the importance score of page $i$. (We skip the procedure for how to construct this model)
-\begin{example}
-If we assume that there are only four pages in the world, and the diagram below shows the reference situations:
-\begin{figure}[H]
-\centering
-\includegraphics[width=3in]{week6/Fig_3.png}
-\caption{Reference situation of these four pages}
-\label{fig:7:3}
-\end{figure}
-Let's consider the $i=3$ case of Eq.(\ref{Eq:7:5}). The set of pages with a link to page $3$ is
+\section{Thursday}
+\subsection{Properties of Brownian Motion}
+\begin{proposition}
+Suppose that $\{B_t\}_{t\ge0}$ is a standard Brownian motion, then it satisfies the following properties:
+\begin{enumerate}
+\item
+Joint distribution:
+Fix $0\le t_1<t_2<\cdots<t_k$.
+Given $x_1,x_2,\ldots,x_k\in\mathbb{R}$, the joint density of 
+$(B_{t_1},B_{t_2},\ldots,B_{t_k})$ in $(x_1,x_2,\ldots,x_k)$
+is equal to the joint density of 
+$(B_{t_1},B_{t_2}-B_{t_1},\ldots,B_{t_k}-B_{t_{k-1}})$ in $(x_1,x_2-x_1,\ldots,x_k-x_{k-1})$,
+which is
 \[
-\mathcal{L}_3:=\{2,4\}
+\prod_{j=2}^k\frac{1}{\sqrt{2\pi(t_j - t_{j-1})}}\exp\left(-\frac{(x_j-x_{j-1})^2}{2(t_j - t_{j-1})}\right).
 \]
-
-Next, we find that the number of outgoing links from page $2,4$ are $2,3$ respectively. Hence we build a equation for $i=3$ case:
-\[
-\frac{v_2}{2}+\frac{v_4}{3}=v_3
-\]
-
-Similarly, we could use this procedure to obtain the $i=1,2,3,4$ cases of Eq.(\ref{Eq:7:5}):
+%(Can be shown by independent increments and normal distribution)
+\item
+Stationary:
+For any $s>0$, define $B_t^s = B_{t+s} - B_s, t\ge0$.
+Then $\{B_t^s\}_{t\ge0}$ is a Brownian motion.
+\item
+Scaling:
+\begin{itemize}
+\item
+For each $c\ne0$, $\{cB_t\}_{t\ge0}$ is a Brownian motion with variance $c^2$;
+\item
+For each $c>0$, $\{B_{t/c}\}_{t\ge0}$ is a Brownian motion with variance $1/c$;
+\item
+(Scaling invariance / self-similarity) By previous two properties,
+$\{\sqrt{c}B_{t/c}\}_{t\ge0}$ is a standard Brownian motion, $c>0$.
+\end{itemize}
+\item
+Covariance: for fixed $0\le s\le t$, $\text{cov}(B_t,B_s)=s$.
+\item
+Time reversal: 
+Given a standard Brownian motion $\{B_t\}$,
+define a new process $\{\hat{B}_t\}$ with $\hat{B}_t = tB_{1/t}$ for $t>0$, and
+$\hat{B}_0=0$. 
+Then $\{\hat{B}_t\}$ is a standard Brownian motion.
+\end{enumerate}
+\end{proposition}
+\begin{proof}[Proof on the first four parts]
+1) can be shown by the indepedent increments and normal distribution properties of Brownian motion;
+2), 3) can be shown by checking the definition of Browninan motion;
+4) can be shown by directly computing the covariance:
 \begin{align*}
-\frac{1}{2}v_2+v_3+\frac{1}{3}v_4&=v_1\\
-\frac{1}{3}v_4&=v_2\\
-\frac{1}{2}v_2+\frac{1}{3}v_4&=v_3\\
-0&=v_4
+\text{cov}(B_t,B_s)&=\mathbb{E}[B_tB_s] - \mathbb{E}[B_t]\mathbb{E}[B_s]\\
+&=\mathbb{E}[(B_t - B_s+B_s)B_s] \\&=\mathbb{E}[(B_t - B_s)B_s] + \mathbb{E}[B_s^2]\\
+&=\mathbb{E}[B_t - B_s] \mathbb{E}[B_s]+\mathbb{E}[B_s^2]\\
+&=s.
 \end{align*}
-Or equailently, we write the equations above into matrix form:
-\[
-\underbrace{\begin{bmatrix}
-0&\frac{1}{2}&1&\frac{1}{3}\\
-0&0&0&\frac{1}{3}\\
-0&\frac{1}{2}&0&\frac{1}{3}\\
-0&0&0&0
-\end{bmatrix}}_{\bm A}\underbrace{\begin{bmatrix}
-v_1\\v_2\\v_3\\v_4
-\end{bmatrix}}_{\bm v}=\underbrace{\begin{bmatrix}
-v_1\\v_2\\v_3\\v_4
-\end{bmatrix}}_{\bm v}
-\]
-\end{example}
-\paragraph{PageRank Problem}Our goal is to find the importance score $v_i$, i.e., find a \emph{non-negative} $\bm v$ such that $\bm{Av}=\bm v$. 
+\end{proof}
+\begin{proof}[Proof on the time reversal part]
+We need to check those four conditions in Definition~\ref{Def:bro} are satisfied.
+The condition~(1) is trivial.
+\begin{itemize}
+\item
+Now check condition~(3).
+Fix $0<s<t$, then \[\hat{B}_t -\hat{B}_s = tB_{1/t} - sB_{1/s}=(t-s)B_{1/t}+s(B_{1/t}-B_{1/s}).\]
+Since $B_{1/t}-B_{1/s}\sim\mathcal{N}(0, 1/s-1/t)$, we imply $s(B_{1/t}-B_{1/s})\sim\mathcal{N}(0, s^2(1/s-1/t))$.
+Moreover, $(t-s)B_{1/t}\sim\mathcal{N}(0,(t-s)^2/t)$. By the increment independent property, 
+this term is independent with $-s(B_{1/s}-B_{1/t})$.
+Therefore, $(t-s)B_{1/t}-s(B_{1/s}-B_{1/t})$ is normally distributed with mean $0$ and variance 
+$(t-s)^2/t+s^2(1/s-1/t)=t-s$.
+\item
+In order to check condition~(2), fix $t_1<t_2<t_3$. It suffices to check 
+$\hat{B}_{t_3} -\hat{B}_{t_2}$ and $\hat{B}_{t_2} -\hat{B}_{t_1}$ are independent.
+Considering that these two r.v.'s are jointly normal, it suffices to verify their covariance is zero:
+\begin{align*}
+t_3-t_1&=\text{Var}(\hat{B}_{t_3} -\hat{B}_{t_1})\\
+&=\text{Var}(\hat{B}_{t_3} -\hat{B}_{t_2}+\hat{B}_{t_2} -\hat{B}_{t_1})\\
+&=\text{Var}(\hat{B}_{t_3} -\hat{B}_{t_2})+\text{Var}(\hat{B}_{t_2} -\hat{B}_{t_1})
++2\text{Cov}(\hat{B}_{t_3} -\hat{B}_{t_2},\hat{B}_{t_2} -\hat{B}_{t_1})\\
+&=t_3-t_2+t_2-t_1+2\text{Cov}(\hat{B}_{t_3} -\hat{B}_{t_2},\hat{B}_{t_2} -\hat{B}_{t_1})
+\end{align*}
+which implies the desired result.
 
-In practical, $\bm A$ is extremely large and sparse. To solve such a eigenvalue problem, we want to use the numerical method (power method). The further reading is recommended:
-\begin{quotation}
-K. Bryan and L. Tanya, “The 25, 000, 000, 000 eigenvector: The linear
-algebra behind Google,” SIAM Review, vol. 48, no. 3, pp. 569–581, 2006.
-\end{quotation}
+\item
+Finally we check the condition~(4).
+Since the continuity of $\{\hat{B}_t\}$ holds at any $t>0$, it suffices to check $t=0$ is also a
+continuous point, i.e., almost surely $\lim_{t\to0}\hat{B}_t=\lim_{t\to0}tB_{1/t}(\omega)=0$.
+\begin{itemize}
+\item
+Firstly show that $\hat{B}_t\to0$ when $t=1/n, n\to\infty$.
+For fixed $n\in\mathbb{Z}_+$, $B_n=\sum_{j=1}^n(B_j-B_{j-1})$, i.e., 
+$B_n$ is a sum of i.i.d. random variables with standard normal distribution.
+By strong law of large numbers, $B_n/n\to0$ a.s. as $n\to\infty$.
+\item
+Then we show that  $\hat{B}_t\to0$ for other values of $t$.
+Fix any $s\in(n,n+1)$, note that
+\begin{align*}
+\left|\frac{B_s}{s}-\frac{B_n}{n}\right|
+&\le \left|\frac{B_s}{s}-\frac{B_n}{s}\right|+\left|\frac{B_n}{s}-\frac{B_n}{n}\right|\\
+&=\frac{1}{s}|B_s-B_n| + |B_n|\left|\frac{1}{s}-\frac{1}{n}\right|\\
+&\le \frac{1}{n}\sup_{n\le s\le n+1}|B_s-B_n| +\frac{1}{n^2}|B_n|
+\end{align*}
+Since $B_n/n\to0$ a.s., we have $B_n/n^2\to0$ a.s.
+Define $Z_n\triangleq \sup_{n\le s\le n+1}|B_s-B_n|$, then
+\[
+\sup_{n<s<n+1}\left|\frac{B_s}{s}-\frac{B_n}{n}\right|\le \frac{Z_n}{n}+\frac{1}{n^2}|B_n|
+\]
+We claim that for any $\varepsilon>0$, 
+\[
+\mathbb{P}\left\{
+\omega\in\Omega:
+\frac{Z_n(\omega)}{n}>\varepsilon,~\text{infinitely often}
+\right\}=0.
+\]
+Then $\frac{Z_n(\omega)}{n}\to0$ for almost all $\omega\in\Omega$.
+As a result,
+\[
+\sup_{n<s<n+1}\left|\frac{B_s}{s}-\frac{B_n}{n}\right|\to0,\text{ a.s.},
+\]
+which implies the desired continuity result.
+\item
+Then we need to show the correctness of our claim.
+By the stationary and independent increments of Brownian motion, 
+$\sup_{n\le s\le n+1}|B_s-B_n|$ has the same distribution as $\sup_{0\le s\le 1}|B_s|$, then 
+\begin{align*}
+\mathbb{E}[Z_0]&=\mathbb{E}[\sup_{0\le s\le 1}|B_s|]
+=\int_0^\infty\mathbb{P}(Z_0>x)\diff x\\
+&=\sum_{n=0}^\infty\int_{n\varepsilon}^{(n+1)\varepsilon}\mathbb{P}(Z_0>x)\diff x\\
+&\ge \sum_{n=0}^\infty\int_{n\varepsilon}^{(n+1)\varepsilon}\mathbb{P}(Z_0>(n+1)\varepsilon)\diff x\\
+&=\sum_{n=0}^\infty\varepsilon \mathbb{P}(Z_0>(n+1)\varepsilon)=\varepsilon\sum_{n=1}^\infty\mathbb{P}(Z_0>n\varepsilon)\\
+&=\varepsilon\sum_{n=1}^\infty\mathbb{P}(Z_0/n>\varepsilon)\\
+&=\varepsilon\sum_{n=1}^\infty\mathbb{P}(Z_n/n>\varepsilon)\\
+\end{align*}
+We claim that $\mathbb{E}[Z_0]<\infty$ (which will be shown in the next lecture), which implies that
+\[
+\sum_{n=1}^\infty\mathbb{P}(Z_n/n>\varepsilon)<\infty.
+\]
+Applying the Borel-Cantelli Lemma gives the desired result.
+
+\end{itemize}
+
+
+%Define the set
+%\[
+%A=\left\{
+%\omega\in\Omega:~
+%\lim_{t\to0}tB_{1/t}(\omega)=0
+%\right\}.
+%\]
+
+
+
+\end{itemize}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

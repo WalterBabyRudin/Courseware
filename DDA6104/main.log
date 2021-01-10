@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.12.25)  8 JAN 2020 11:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.12.25)  15 JAN 2020 11:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2011,7 +2011,7 @@ LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
  (./main.aux
-(./week1/Tuesday.aux) (./week1/Friday.aux))
+(./week1/Tuesday.aux) (./week2/Tuesday.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
@@ -2252,7 +2252,7 @@ LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <14.4> not available
 LaTeX Font Info:    Font shape `T1/pplx/bx/it' in size <14.4> not available
 (Font)              Font shape `T1/pplx/b/it' tried instead on input line 34.
 
-<zh-hans_logo.png, id=53, 383.4325pt x 65.24374pt>
+<zh-hans_logo.png, id=61, 383.4325pt x 65.24374pt>
 File: zh-hans_logo.png Graphic file (type png)
  <use zh-hans_logo.png>
 Package pdftex.def Info: zh-hans_logo.png used on input line 34.
@@ -2569,45 +2569,10 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [7]
-\openout2 = `week1/Friday.aux'.
+\openout2 = `week2/Tuesday.aux'.
 
 
-(./week1/Friday.tex
-Package mdframed Info: mdframed works in twoside mode on input line 5.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 5.
- <week1/f_1.png, id=181, 361.35pt x 361.35pt>
-File: week1/f_1.png Graphic file (type png)
-
-<use week1/f_1.png>
-Package pdftex.def Info: week1/f_1.png used on input line 23.
-(pdftex.def)             Requested size: 186.93343pt x 186.93266pt.
- <week1/f_2.png, id=182, 361.35pt x 361.35pt>
-File: week1/f_2.png Graphic file (type png)
-
-<use week1/f_2.png>
-Package pdftex.def Info: week1/f_2.png used on input line 24.
-(pdftex.def)             Requested size: 186.93343pt x 186.93266pt.
- <week1/f_3.png, id=183, 361.35pt x 361.35pt>
-File: week1/f_3.png Graphic file (type png)
-
-<use week1/f_3.png>
-Package pdftex.def Info: week1/f_3.png used on input line 25.
-(pdftex.def)             Requested size: 186.93343pt x 186.93266pt.
- <week1/f_4.png, id=184, 361.35pt x 361.35pt>
-File: week1/f_4.png Graphic file (type png)
-
-<use week1/f_4.png>
-Package pdftex.def Info: week1/f_4.png used on input line 26.
-(pdftex.def)             Requested size: 186.93343pt x 186.93266pt.
- <week1/f_5.png, id=187, 439.6425pt x 279.0425pt>
-File: week1/f_5.png Graphic file (type png)
-
-<use week1/f_5.png>
-Package pdftex.def Info: week1/f_5.png used on input line 35.
-(pdftex.def)             Requested size: 270.01424pt x 171.38231pt.
-
+(./week2/Tuesday.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -2616,96 +2581,76 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [8
 
 
+
 ]
+Chapter 2.
+
+Overfull \hbox (30.94014pt too wide) in paragraph at lines 23--25
+ \T1/cmss/bx/n/12 Alias.[] \T1/pplx/m/n/10.95 (-20) Let $\OML/zplm/m/it/10.95 X
+ \OMS/zplm/m/n/10.95 2 f\OT1/pplx/m/n/10.95 (-20) 1, 2, [] , \OML/zplm/m/it/10.
+95 n\OMS/zplm/m/n/10.95 g$\T1/pplx/m/n/10.95 (-20) . The pre-computation pro-ce
+ss is to find $\OML/zplm/m/it/10.95 n$ \T1/pplx/m/n/10.95 (-20) pairs $\OT1/zpl
+m/m/n/10.95 (\OML/zplm/m/it/10.95 x[]\OT1/pplx/m/n/10.95 (-20) , \OML/zplm/m/it
+/10.95 x[]\OT1/zplm/m/n/10.95 )\OT1/pplx/m/n/10.95 (-20) , \OT1/zplm/m/n/10.95 
+(\OML/zplm/m/it/10.95 p[]\OT1/pplx/m/n/10.95 (-20) , \OML/zplm/m/it/10.95 p[]\O
+T1/zplm/m/n/10.95 )$
+ []
+
+
+Package mathptmx Warning: There are no bold math fonts on input line 44.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [9 <./week1/f_1.png> <./week1/f_2.png> <./week1/f_3.png> <./week1/f_4.png> <./
-week1/f_5.png>]
+ [9]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [10]
-Package mdframed Info: mdframed works in twoside mode on input line 94.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 94.
-
+ [10])
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [11]
-Package mdframed Info: mdframed works in twoside mode on input line 177.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 177.
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [12]
-Package mdframed Info: mdframed works in twoside mode on input line 205.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 205.
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 212.
+ [12
 
 
-(/usr/local/texlive/2017/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-Package microtype Info: Loading generic settings for font family
-(microtype)             `cmtt' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [13]
-Overfull \hbox (24.45987pt too wide) in paragraph at lines 214--214
- []\T1/cmtt/m/n/10.95 /18-100b-analysis-i-fall-2010/readings-notes/MIT18_100BF1
-0_Const_of_R.pdf[] 
- []
-
-)
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [14]
+]
 No file main.ind.
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 195.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 195.
-(./main.aux (./week1/Tuesday.aux) (./week1/Friday.aux))
+(./main.aux (./week1/Tuesday.aux) (./week2/Tuesday.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 195.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 195.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 81FD10E89D8061C2FF439D18DF4CC9DF;556.
+(rerunfilecheck)             Checksum: 5E09077F73B0246658DE79E7488889E5;664.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 47878 strings out of 492995
- 994885 string characters out of 6132703
- 1380660 words of memory out of 5000000
- 50237 multiletter control sequences out of 15000+600000
- 100239 words of font info for 292 fonts, out of 8000000 for 9000
+ 47764 strings out of 492995
+ 993125 string characters out of 6132703
+ 1374326 words of memory out of 5000000
+ 50189 multiletter control sequences out of 15000+600000
+ 95805 words of font info for 258 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 71i,9n,98p,10504b,646s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 71i,9n,98p,10504b,638s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/tex
 live/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texl
@@ -2725,15 +2670,14 @@ ts/type1/public/cm-super/sfsx1440.pfb></usr/local/texlive/2017/texmf-dist/fonts
 /type1/public/cm-super/sfsx1728.pfb></usr/local/texlive/2017/texmf-dist/fonts/t
 ype1/public/cm-super/sfsx2074.pfb></usr/local/texlive/2017/texmf-dist/fonts/typ
 e1/public/cm-super/sfsx2488.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1
-/public/cm-super/sftt1095.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/u
-rw/palatino/uplb8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/pala
-tino/uplbi8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/palatino/u
-plr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplri8a.
-pfb>
-Output written on main.pdf (24 pages, 408970 bytes).
+/urw/palatino/uplb8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/pa
+latino/uplbi8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/palatino
+/uplr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplri8
+a.pfb>
+Output written on main.pdf (22 pages, 298768 bytes).
 PDF statistics:
- 332 PDF objects out of 1000 (max. 8388607)
- 262 compressed objects within 3 object streams
- 75 named destinations out of 1000 (max. 500000)
- 64627 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 302 PDF objects out of 1000 (max. 8388607)
+ 243 compressed objects within 3 object streams
+ 63 named destinations out of 1000 (max. 500000)
+ 62058 words of extra memory for PDF output out of 74296 (max. 10000000)
 

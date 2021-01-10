@@ -1,0 +1,227 @@
+
+\chapter{Week 5}
+
+\section{Monday}\index{Monday_lecture}
+
+\subsection{Proof Outline of CLT}
+
+The key for showing hte CLT is about the convergence of characteristic functions:
+
+\begin{theorem}\label{The:5:1}
+For distributions $F_n,n\ge1$ and $F$, their characteristic functions $\phi_n,n\ge1$ and $\phi$,
+the following four conditions are equivalent:
+\begin{enumerate}
+\item
+$F_n\xrightarrow{w}F$ as $n\to\infty$
+\item
+There exists $X_n,n\ge1$ and $X$ such that $X_n\overset{d}{\sim} F_n$ for $n\ge1$ and $X\overset{d}{\sim} F$,
+while $X_n\xrightarrow{a.s.}X$.
+\item
+For any bounded and continuous function $g: \mathbb{R}\to\mathbb{R}$,
+\[
+\lim_{n\to\infty}\int_0^\infty g(x)F_n(\diff x)=\int_0^\infty g(x)F(\diff x).
+\]
+\item
+For any $\theta\in\mathbb{R}$, $\lim_{n\to\infty}\phi_n(\theta)=\phi(\theta)$.
+\end{enumerate}
+\end{theorem}
+
+\paragraph{Outline for Showing CLT}
+Recall that $X_n,n\ge1$ are i.i.d., and $S_n = \sum_{\ell=1}^nX_\ell$. Define
+\[
+Z_n = \frac{1}{\sqrt{n}\sigma}(S_n - mn),\qquad n\ge1,
+\]
+and $F_n,\Phi_n$ are distribution and characteristic functions of $Z_n$.
+If we can show that 
+\begin{equation}\label{Eq:5:1}
+\lim_{n\to\infty}\Phi_n(\theta) = \exp\left(-\frac{1}{2}\theta^2\right),\quad
+\theta\in\mathbb{R},
+\end{equation}
+then by theorem~\ref{The:5:1} and the uniqueness of characteristc functions, 
+the CLT is proved.
+
+Now we give an intuitive proof of (\ref{Eq:5:1}).
+Define $Y_n\triangleq \frac{1}{\sigma}(X_n-m)$, which is normalized $X_n$.
+Thus $Z_n = \frac{1}{\sqrt{n}}\sum_{\ell=1}^nY_\ell$, which implies
+\[
+\Phi_n(\theta) = \mathbb{E}(e^{i\theta Z_n}) = \prod_{\ell=1}^n
+\mathbb{E}(e^{\frac{i\theta}{\sqrt{n}}Y_\ell}) = \phi^n(\theta/\sqrt{n}),
+\]
+where $\phi$ is the characteristic function of $Y_\ell$.
+By the Taylor expansion of $\phi(\theta/\sqrt{n})$ around the origin, 
+since $\phi^{(n)}(0) = i^n\mathbb{E}[Y_\ell^n]$,
+\[
+\phi(\theta/\sqrt{n}) = 1 -\frac{1}{2}\phi''(0)\frac{\theta^2}{n}+o(\theta^2/n)
+=1 - \frac{\theta^2}{2n}+o(\theta^2/n).
+\]
+As a result,
+\[
+\lim_{n\to\infty}\Phi_n(\theta) = \lim_{n\to\infty}
+\bigg[
+1 - \frac{\theta^2}{2n}+o(\theta^2/n).
+\bigg]^n = \exp\left(-\frac{1}{2}\theta^2\right).
+\]
+
+Now we give a formal proof that $\phi^n(\theta/\sqrt{n})\to e^{-1/2\theta^2}$.
+\begin{proof}
+Firstly, inductively derive these inequalities:
+\begin{align*}
+|e^{ix}-1|&\le 2,\qquad \qquad|e^{ix}-1|=\left|\int_0^xie^{iu}\diff u\right|\le \int_0^{|x|}|ie^{iu}|=|x|\\
+|e^{ix}-1-ix|&=\left|\int_0^xi(e^{iu}-1)\diff u\right|\le \int_0^{|x|}|e^{iu}-1|\diff u\le \min\left(2|x|,\frac{1}{2}x^2\right),\\
+\left|e^{ix}-1-ix+\frac{1}{2}x^2\right|&=\left|
+\int_0^xi(e^{iu}-1-iu)\diff u
+\right|\\
+&\le \int_0^{|x|}|e^{iu}-1-iu|\diff u\le \min\left(x^2,\frac{1}{6}|x|^3\right).
+\end{align*}
+As a result, set $x=\theta/\sqrt{n}Y_\ell$, 
+\begin{align*}
+\left|
+\phi(\theta/\sqrt{n})-1+\frac{1}{2n}\theta^2
+\right|&=\left|
+\mathbb{E}[e^{ix}]
+-1+\frac{1}{2n}\theta^2
+\right|\\
+&\le \mathbb{E}\left|
+e^{ix}-1-ix+\frac{1}{2}x^2
+\right|\\
+&\le \frac{\theta^2}{n}\mathbb{E}\min\left(Y^2,\frac{1}{6}|Y|^3\right) = o(\theta^2/n)
+\end{align*}
+
+Next, for $z,w\in\mathbb{C}$, define $a=\max(|z|,|w|)$, we have the following inequality:
+\[
+|z^n - w^n| = \left|(z-w)\sum_{\ell=0}^{n-1}z^\ell w^{n-1-\ell}\right| \le |z-w|na^{n-1}.
+\]
+Apply this inequality with $z\triangleq \phi(\theta/\sqrt{n})$ and $w=e^{-\theta^2/2n}$,
+\begin{align*}
+\left|
+\phi^n(\theta/\sqrt{n})-\exp\left(-\frac{1}{2}\theta^2\right)
+\right|
+&\le \left|
+\phi(\theta/\sqrt{n})-\exp\left(-\frac{1}{2n}\theta^2\right)
+\right|n\\
+&\le
+\left|
+\phi(\theta/\sqrt{n})-1+\frac{\theta^2}{2n}
+\right|n
++
+\left|
+1-\frac{\theta^2}{2n}-\exp\left(-\frac{1}{2n}\theta^2\right)
+\right|n\to0.
+\end{align*}
+
+
+
+\end{proof}
+
+
+
+Now we give a proof for Theoerm~\ref{The:5:1}:
+\begin{proof}[1) implies 2)]
+\begin{itemize}
+\item
+Construct $X\overset{w}{\sim}F$ and $X_n\overset{d}{\sim}F_n$ as the following.
+Define $h,h_n$ such that 
+\[
+h(y)=\inf\{u:~y\le F(u)\},\quad h_n(y)=\inf\{u:~y\le F_n(u)\}.
+\]
+Let $U\sim\mathcal{U}[0,1]$, and define $X=h(U),X_n=h_n(U)$.
+It suffices to show that $X_n\xrightarrow{a.s.}X$.
+In other words, it suffices to show that $h_n(y)\to h(y),\forall y\in C_h$.
+\item
+Since $C_h,C_F$ are dense in $\mathbb{R}$, for any $y\in C_h$ and any $\varepsilon>0$,
+\begin{equation}\label{Eq:5:2}
+\exists x\in C_F,\text{ such that }h(y)-\varepsilon<x<h(y).
+\end{equation}
+Then $x<h(y)$ is equivalent to $F(x)<y$. Because $F_n\xrightarrow{w}F$, $F_n(x)<y$ for large $n$.
+As a result, $x<h_n(y)$, and together with (\ref{Eq:5:2}),
+\[
+h(y)-\varepsilon<x<h_n(y).
+\]
+Taking liminf for $n\to\infty$, and $\varepsilon\to0$, 
+\[
+h(y)\le\lim\inf h_n(y).
+\]
+\item
+Then consider lower bonuding $h(y)$ for $y\in C_h$:
+\begin{equation}\label{Eq:5:3}
+\forall y'>y,\forall\varepsilon>0,\exists x\in C_F,\text{ such that }h(y')<x<h(y')+\varepsilon.
+\end{equation}
+Then $h(y')<x$ implies $y'\le F(x)$. Hence, $y<y'\le F(x)$, and $y<F_n(x)$ for large $n$.
+Thus $y\le F_n(x)$, i.e, $h_n(y)\le x$. Together with (\ref{Eq:5:3}),
+\[
+h_n(y)\le x<h(y')+\varepsilon.
+\]
+Taking limsup for $n\to\infty$ and $\varepsilon\to0$,
+\[
+\forall y'>y, \lim\sup h_n(y)\le h(y').
+\]
+Taking $y'\downarrow y$,
+\[
+\lim\sup h_n(y)\le h(y).
+\]
+\end{itemize}
+\end{proof}
+
+\begin{proof}[2) implies 3)]
+It suffices to show that
+\[
+\lim_{n\to\infty}\mathbb{E}[g(X_n)] = \mathbb{E}[g(X)].
+\]
+Since $X_n\xrightarrow{a.s.}X$, and $g$ is continuous, we imply
+$g(X_n)\xrightarrow{a.s.}g(X)$.
+Considering that $g$ is bounded, applying dominated convergence theorem gives the desired result.
+\end{proof}
+
+\begin{proof}[3) implies 4)]
+It suffices to show that
+\[
+\lim_{n\to\infty}\phi_n(\theta) = \lim_{n\to\infty}\mathbb{E}[\cos(\theta X_n) + i\sin(\theta X_n)]=\phi(\theta),
+\]
+which is true by applying 3) and take $g(x)$ to be $\cos(\theta x)$ and $\sin(\theta x)$.
+\end{proof}
+
+\begin{proof}[4) implies 1)]
+Assume that 4) holds but 1) does not.
+Then there exists a subsequence $\{F_{n_k}\}$ such that 
+\[
+\exists x_0\in C_F,\quad 
+\lim\inf|F_{n_k}(x_0) - F(x_0)|>0.
+\]
+Apply Helly Theorem, there exists a subsequence of $\{F_{n_k}\}$, denoted by $\{F_{n'_k}\}$, such that $F_{n'_k}\to G$ vaguely for some non-decreasing function $G$.
+It suffices to show that $G=F$ to construct a contradiction.
+
+Apply Perseval's Lemma for $F_{n'_k}$ and $\phi_{n'_k}$:
+\begin{equation}
+\frac{1}{2\pi}\int_{-\infty}^\infty e^{-i\theta u}\phi_{n'_k}(\theta)\exp\left(-\frac{a^2\theta^2}{2}\right)\diff\theta
+=
+\int_{-\infty}^\infty \frac{1}{\sqrt{2\pi} a}\exp\left(-\frac{(u-s)^2}{2a^2}\right)F_{n'_k}(\diff s)
+\end{equation}
+Integrable both sides w.r.t $u$ on the interval $[x,y]$, and taking $k\to\infty$,
+\begin{align*}
+\frac{1}{2\pi}&\int_{-\infty}^\infty \left[\frac{1}{i\theta}(\exp(-i\theta x) - \exp(-i\theta y))\right]\cdot
+\phi(\theta)\cdot\exp\left(-\frac{a^2\theta^2}{2}\right)\diff\theta
+\\&=
+\int_{-\infty}^\infty[G(y-av) - G(x-av)]\frac{1}{\sqrt{2\pi}}\exp\left(-\frac{v^2}{2}\right)\diff v
+\end{align*}
+By Perseval's Lemma, the LHS becomes
+\[
+\int_{-\infty}^\infty[F(y-av) - F(x-av)]\frac{1}{\sqrt{2\pi}}\exp\left(-\frac{v^2}{2}\right)\diff v
+\]
+Taking $a\to0$, we have for $x,y\in C_F\cap C-G$,
+\[
+F(y)-F(x) = G(y) - G(x).
+\]
+The proof is complete.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+

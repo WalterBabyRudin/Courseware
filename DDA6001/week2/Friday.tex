@@ -1,0 +1,307 @@
+% !TEX encoding = UTF-8 Unicode
+
+\section{Thursday}\index{Thursday_lecture}
+
+We have defined what is a stochastic process.
+Now we study several special stochastic processes.
+The first example is a random walk, a discrete time stochastic process:
+
+\subsection{Random Walk}
+Firstly, we need to define the independence among random variables:
+\begin{definition}[Independence]
+\begin{itemize}
+\item
+Events $A,B\in\mathcal{F}$ are independent if $\mathbb{P}(A\cap B) = \mathbb{P}(A)\mathbb{P}(B)$;
+\item
+Random variables $X,Y: \Omega\to S$ are independent if events $\{X\in B_1\}$ and $\{X\in B_2\}$ are independent for any $B_1,B_2\in\mathcal{B}(S)$;
+\item
+A sequence of random variables $\{X_n\}_{n\ge0}$ is independent if for 
+each finite $n$, $\{X_i\in B_i\}$ for $i=1,2,\dots,$ are independent for any $B_i\in\mathcal{B}(S)$.
+% a typo here.
+\end{itemize}
+\end{definition}
+\begin{remark}
+If random variables $X_1,X_2$ are independent and $\mathbb{E}[f_k(X_k)]$ are finite for $k=1,2$, then
+\[
+\mathbb{E}[f_1(X_1)f_2(X_2)] = \mathbb{E}[f_1(X_1)]\mathbb{E}[f_2(X_2)].
+\]
+\end{remark}
+Now we start defining a random walk based on coin tossing.
+Let $\{U_n\}_{n\ge1}$ be the unlimited coin tossing, i.e., 
+$U_n$ is i.i.d. with $\mathbb{P}(U_n=1)=\mathbb{P}(U_n=-1)=1/2$.
+Then define 
+\[
+X_0=0,~
+X_n = \sum_{i=1}^nU_i.
+\]
+Here the stochastic process $\{X_n:~n\ge0\}$ is called a simple symmetric random walk with the initial state $0$.
+Define the random variable 
+\[
+T(\omega) = \inf\{n\ge1:~~X_n=0\},\quad\omega\in\Omega.
+\]
+The mapping $T:\Omega\to\mathbb{Z}_{+}$ is called the \emph{first return time} at the origin.
+Next, we study the distribution of $T$ and compute $\mathbb{E}[T]$.
+The calculation of the distribution is by means of the generating function
+$g(z)\equiv \sum_{n=0}^\infty z^na_n$ for a non-negative bounded sequence $\{a_n\}_{n\ge0}$ and $|z|<1$.
+
+\paragraph{Determine the Distribution of $T$}
+Define the generating functions:
+\begin{align*}
+g(z)&=\sum_{n=0}^\infty\mathbb{P}(X_n=0)z^n\\
+h(z)&=\sum_{n=0}^\infty\mathbb{P}(T=n)z^n
+\end{align*}
+Here 
+\[
+\mathbb{P}(X_n=0)=\left\{
+\begin{aligned}
+1,&\quad\text{if $n=0$}\\
+\sum_{\ell=1}^n\mathbb{P}(T=\ell)\mathbb{P}(X_{n-\ell}=0),&\quad\text{if $n\ge1$}
+\end{aligned}
+\right.
+\]
+Substituting $\mathbb{P}(X_n=0)$ into $g(z)$, we imply
+$g(z) = 1+h(z)g(z)$.
+
+Moreover, the direct calculation of $\mathbb{P}(X_n=0)$ gives
+\begin{align*}
+\mathbb{P}(X_{2n}=0)&=\binom{2n}{n}2^{-2n}\\
+\mathbb{P}(X_{2n+1}=0)&=0
+\end{align*}
+Substituting $\mathbb{P}(X_n=0)$ into $g(z)$, we imply
+\[
+g(z) = \sum_{n=0}^\infty\binom{2n}{n}2^{-2n}z^{2n}
+=
+\sum_{n=0}^\infty\frac{1}{n!}\frac{1}{2^{2n}}\frac{(2n)!}{n!}z^{2n} = (1-z^2)^{-1/2}.
+\]
+As a result, 
+\[
+h(z) = 1 - \frac{1}{g(z)} = 1-(1-z^2)^{1/2}.
+\]
+\begin{itemize}
+\item
+The distribution of $T$ can be obtained by taking derivative of $h$:
+\[
+\left.h^{(k)}(z)\right|_{z=0} = k!\mathbb{P}(T=k)
+\]
+\item
+An alternative approach for determining the distribution of $T$ is the following.
+Consider the generating function induced by $\mathbb{P}(T>2n)$:
+\begin{align*}
+\sum_{n=0}^\infty\mathbb{P}(T>2n)z^{2n}
+&=
+\sum_{n=0}^\infty\sum_{\ell=n+1}^\infty\mathbb{P}(T=2\ell)z^{2n}\\
+&=
+\sum_{\ell=1}^\infty\sum_{n=0}^{\ell-1}\mathbb{P}(T=2\ell)z^{2n}\\
+&=\sum_{\ell=1}^\infty\mathbb{P}(T=2\ell)\frac{1-z^{2\ell}}{1-z^2}\\
+%&=(1-z^2)^{-1/2}=g(z).
+\end{align*}
+Also observe that 
+\[
+h(1)-h(z)=\sum_{n=0}^\infty\mathbb{P}(T=n)\cdot(1-z^n)
+=
+\sum_{n=1}^\infty\mathbb{P}(T=2n)\cdot(1-z^{2n})
+\]
+Therefore,
+\[
+\sum_{n=0}^\infty\mathbb{P}(T>2n)z^{2n}
+=
+\sum_{\ell=1}^\infty\mathbb{P}(T=2\ell)\frac{1-z^{2\ell}}{1-z^2}
+=
+\frac{1-h(z)}{1-z^2}=(1-z^2)^{-1/2}=g(z).
+\]
+As a result,
+\[
+\mathbb{P}(T>2n)
+=
+\mathbb{P}(X_{2n}=0)
+=\frac{1}{2^{2n}}\binom{2n}{n}.
+\]
+Apply the Stirling's formula that 
+\[
+n!\sim \sqrt{2\pi}n^{n+1/2}e^{-n}
+\implies
+\mathbb{P}(T>2n)\sim \frac{1}{\sqrt{n\pi}}.
+\]
+\end{itemize}
+The expectation $\mathbb{E}[T]$ can be obtained as the following:
+\[
+\mathbb{E}[T]
+=\sum_{n=0}^\infty n\mathbb{P}(T=n)
+=\sum_{n=1}^\infty n[\mathbb{P}(T>n) - \mathbb{P}(T>n-1)]
+=
+-\sum_{n=0}^\infty \mathbb{P}(T>n)=\infty.
+\]
+%
+%
+%
+%
+%In order to find the distribution of $T$, use generating functions:
+%\begin{align*}
+%g(z)&=\sum_{n=0}^\infty\mathbb{P}(X_n=0)z^n\\
+%h(z)&=\sum_{n=0}^\infty\mathbb{P}(T=n)z^n
+%\end{align*}
+%It follows that 
+%\[
+%\left.h^{(k)}(z)\right|_{z=0} = k!\mathbb{P}(T=k)
+%\]
+%It's only possible when $X_{2n}=0$, with probability
+%\[
+%\mathbb{P}(X_{2n}=0) = \binom{2n}{n}
+%\frac{1}{2^n}
+%\]
+%which implies
+%\[
+%g(z) = \sum_{n=0}^{\infty}\frac{1}{n!}\frac{(2n)!}{n!}\frac{(z^2)^n}{2^{2n}}
+%\]
+%Observe that 
+%\[
+%[(1-z)^{-1/2}]^{(n)} = \frac{1}{2}\frac{3}{2}\cdots\frac{2n-1}{2}(1-z)^{-(2n+1)/2}
+%=\frac{1}{2^nn!}\frac{(2n)!}{2^n}(1-z)^{-(2n+1)/2}
+%\]
+%which follows that
+%\[
+%g(z) = (1-z^2)^{-1/2}
+%\]
+%We consider $\mathbb{P}(T>2n)$:
+%\begin{align*}
+%\sum_{n=0}^\infty\mathbb{P}(T>2n)z^{2n}
+%&=
+%\sum_{n=0}^\infty\sum_{\ell=n+1}^\infty\mathbb{P}(T=2\ell)z^{2n}\\
+%&=
+%\sum_{\ell=1}^\infty\sum_{n=0}^{\ell-1}\mathbb{P}(T=2\ell)z^{2n}\\
+%&=\sum_{\ell=1}^\infty\mathbb{P}(T=2\ell)\frac{1-z^{2\ell}}{1-z^2}\\
+%&=(1-z^2)^{-1/2}=g(z).
+%\end{align*}
+%As a result, 
+%\[
+%\mathbb{P}(T>2n) = \mathbb{P}(X_{2n}=0)
+%=\frac{1}{2^{2n}}\binom{2n}{n}
+%\]
+The key observation of the deviation above is 
+\[
+\mathbb{P}(T>2n) = \mathbb{P}(X_{2n}=0),
+\]
+which can also be explained by the reflection principle.
+
+
+\subsection{Basic Tips on Probability Theory}
+We are going to study two important limit theorems:
+\begin{itemize}
+\item
+Law of large numbers (LLN);
+\item
+Central Limit Theorem (CLT);
+\end{itemize}
+Firstly we need to review fundamentals of probability theory:
+\begin{itemize}
+\item
+Limiting operations on events;
+\item
+Continuity of probabilities;
+\item
+Relation between distribution and random variable.
+\end{itemize}
+\paragraph{Limiting operations on events}
+The difficulty for defining limit on events is as follows.
+Given two sets $A,B$, they may be ordered by inclusion, but may not be always.
+A rescue is by the union and intersection.
+Define
+\[
+\underline{A}_n = \bigcap_{\ell=n}^{\infty}A_{\ell},\qquad
+\overline{A}_n = \bigcup_{\ell=n}^{\infty}A_{\ell}.
+\]
+and
+\[
+\liminf_{m\to\infty}A_m:=\bigcup_{n=1}^\infty\bigcap_{\ell=n}^{\infty}A_{\ell},\qquad
+\limsup_{n\to\infty}A_n:=\bigcap_{n=1}^\infty\bigcup_{\ell=n}^{\infty}A_{\ell}
+\]
+By definition, $\underline{A}_m\subseteq
+A_m\subseteq
+\overline{A}_m$.
+If $\liminf A_m=\limsup A_m = A$, then $\{A_n;~n\ge1\}$ is said to converge to $A$, denoted as
+\[
+\lim_{m\to\infty}A_m=A.
+\]
+
+\begin{theorem}[Continuity of Probability]
+If $A_n$ converges to $A$ as $n\to\infty$, then
+\[
+\lim_{n\to\infty}\mathbb{P}(A_n) = \mathbb{P}(A)
+\]
+In other words,
+\[
+\lim_{n\to\infty}
+\int
+\bm 1\{A_n\}
+\diff m 
+=
+\int\lim_{n\to\infty}\bm 1\{A_n\}\diff m 
+\]
+\end{theorem}
+
+
+\begin{proof}
+\begin{enumerate}
+\item
+Firstly, assume that $A_n\uparrow A$ and show $\lim_{n\to\infty}\mathbb{P}(A_n) = \mathbb{P}(A)$.
+\item
+Secondly, when $A_n\downarrow A$, $A_n^c\uparrow A^c$. Thus the same result can be shown.
+\item
+The general $A_n$ can also be shown by considering
+\[
+\mathbb{P}\left(
+\cap_{\ell=n}^\infty A_{\ell}
+\right)
+\le
+\mathbb{P}(A_n)
+\le
+\mathbb{P}\left(
+\cup_{\ell=n}^\infty A_{\ell}
+\right)
+\]
+\end{enumerate}
+\end{proof}
+
+
+\begin{definition}[Distribution Function]
+A \emph{distribution function} $F:\mathbb{R}\to[0,1]$ is defined as follows:
+\begin{enumerate}
+\item
+Nondecreasing: $F(x)\le F(y)$ for all $x<y$;
+\item
+Right-continuous: $F(x)=F(x+)\equiv\lim_{\varepsilon\to 0}F(x+\varepsilon)$;
+\item
+$\lim_{x\to-\infty}F(x)=0$ and $\lim_{x\to+\infty}F(x)=1$.
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}
+For distribution function $F$, there uniquely exists a probability measure $\mathbb{P}$
+on $(\mathbb{R},\mathcal{B}(\mathbb{R}))$ such that 
+\[
+\mathbb{P}((a,b]) = F(b) - F(a),\qquad\forall a,b\text{ with }a\le b.
+\]
+\end{proposition}
+
+The random variable $X$ associated with distribution function $F$ does not necessarily exist
+on a given probability space $(\Omega,\mathcal{F},\mathbb{P})$.
+The answer is yes when a random variable $U$ with uniform distribution on $[0,1]$
+exists on it.
+The explicit construction of $X$ is the following.
+Define the inverse function $h:[0,1]\to\mathbb{R}$ such that
+\[
+h(y) = \inf\{x\in\mathbb{R}:~y\le F(x)\},\qquad y\in[0,1].
+\]
+Then define $X=h(U)$, which follows that
+\[
+\mathbb{P}(X\le x) = \mathbb{P}(h(U)\le x) = \mathbb{P}(U\le F(x)) = F(x).
+\]
+
+
+
+
+
+
+
+
+

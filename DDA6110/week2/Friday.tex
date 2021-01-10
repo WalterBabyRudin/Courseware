@@ -1,0 +1,74 @@
+% !TEX encoding = UTF-8 Unicode
+
+\section{Wednesday}\index{Friday_lecture}
+
+$K$ proper cone: convex, closed, solid, pointed.
+\begin{definition}[Generalized Inequality]
+Given a set $K$, 
+we define $x\le_Ky$ if $y-x\in K$.
+\end{definition}
+
+Pointed cone:
+\[
+x\le_K y, y\le_K x\implies x=y.
+\]
+
+\begin{definition}[Dual Cone]
+Given a cone $K\subseteq\mathbb{R}^n$, the dual cone is defined as
+\[
+K^* = \{y\in\mathbb{R}^n\mid y\trans x\ge0, \forall x\in K\}.
+\]
+\end{definition}
+\begin{remark}
+The dual cone $K^*$ is convex, closed, and pointed.
+The convexity is because that it is an intersection of many half-spaces.
+\end{remark}
+
+Self-dual cones:
+\[
+(\mathbb{R}^n_+)^* = \mathbb{R}^n_+,\qquad
+(\mathbb{S}_+^n)^* = \mathbb{S}_+^n.
+\]
+\begin{proof}
+Let $X,Y\in\mathbb{S}_+^n$, then
+\[
+\inp{X}{Y} = \sum_i\lambda_iq_i\trans Yq_i\ge0.
+\]
+Therefore, $\mathbb{S}_+^n\subseteq (\mathbb{S}_+^n)^*$.
+When $Y\notin(\mathbb{S}_+^n)$, there exists $u$ such that
+\[
+\bm u\trans Y\bm u<0
+\implies
+\inp{Y}{\bm u\bm u\trans}<0,
+\]
+which implies $Y\notin(\mathbb{S}_+^n)^*$.
+\end{proof}
+
+\subsection{Separation Theorems}
+If $C$ and $D$ are disjoint convex sets, there exists affine function such that 
+\[
+\bm a\trans\bm x\le\bm b,\forall\bm x\in C,\qquad
+\bm a\trans\bm x\ge\bm b,\forall \bm x\in D.
+\]
+
+\begin{theorem}
+If $C$ is convex, then for any $x_0\in\partial C$, 
+there exists a hyper-plane $\{\bm x\mid\bm a\trans\bm x=\bm b\}$ with $\bm a\ne\bm0$ such that
+\[
+a\trans\bm x_0,
+\]
+and $\bm a\trans\bm x\le\bm b,\forall\bm x\in C$.
+
+The converse is true if $C$ is closed.
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+

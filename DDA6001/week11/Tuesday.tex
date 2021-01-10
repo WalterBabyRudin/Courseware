@@ -1,0 +1,487 @@
+
+\chapter{Week 11}
+
+\section{Monday}\index{Monday_lecture}
+
+\subsection{Continuous Time Stochastic Processes}
+
+The big diference between discrete and continuous time stochastic processes is that the time index is uncountable.
+\begin{itemize}
+\item
+Thus it is natural to consider a continuous time stochastic process $X_{\cdot}$ as a function from $\mathbb{R}_+\times\Omega\to S$;
+\item
+Then we need to define the $\sigma$-algebra on $\mathbb{R}_+\times\Omega$;
+We also need the notion of null set and completeness.
+\end{itemize}
+
+\begin{definition}[Null Set and Complete Set]
+For a $\sigma$-algebra $\mathcal{F}$, we say $N\subseteq\Omega$ is a null set if there exists $A\in\mathcal{F}$ so that $N\subseteq A$ and $\mathbb{P}(A)=0$.
+We say $\mathcal{F}$ and all its sub $\sigma$-fields are complete, if they contains all null sets.
+\end{definition}
+
+\begin{definition}[Product $\sigma$-algebra]
+The product $\sigma$-algebra, $\mathcal{B}(\mathbb{R}_+)\otimes\mathcal{F}$ defined on $\mathbb{R}_+\times\Omega$, is defined as the minimal $\sigma$-field on $\mathbb{R}_+\times\Omega$ containing
+\[
+\{B\times A:~B\in\mathcal{B}(\mathbb{R}_+), A\in\mathcal{F}\}.
+\]
+Then we have the measurable space $(\mathbb{R}_+\times\Omega, \mathcal{B}(\mathbb{R}_+)\otimes\mathcal{F})$.
+We can define a measure on this space as the following.
+For a measure $\mu$ on $(\mathbb{R}_+, \mathcal{B}(\mathbb{R}_+))$ and probability measure $\mathbb{P}$ on $(\Omega,\mathcal{F})$, the product measure $\mu\otimes\mathbb{P}$ is defined as
+\[
+(\mu\otimes\mathbb{P})(B\times A)=\mu(B)\mathbb{P}(A).
+\]
+\end{definition}
+
+\begin{definition}[Measurable Process]
+A continuous time stochastic process $X(\cdot)$ is a mapping
+\[
+X(\cdot):~(t,\omega)\in\mathbb{R}_+\times\Omega\to X(t,\omega)\equiv X(t)(\omega)\in S.
+\]
+We say $X(\cdot)$ is a measurable process, or $\mathcal{B}(\mathbb{R}_+)\otimes\mathcal{F}$-measurable, if
+\[
+\{(t,\omega)\in\mathbb{R}_+\times\Omega:~X(t,\omega)\in B\}\in \mathcal{B}(\mathbb{R}_+)\otimes\mathcal{F},\quad\forall t\ge0, B\in\mathcal{B}(S).
+\]
+\end{definition}
+
+\begin{definition}[Filtration]
+Let $\mathcal{F}_t$ be a sub $\sigma$-algebra of $\mathcal{F}$ so that $\mathcal{F}_s\subseteq\mathcal{F}_t$ for $0\le s<t$. Then $\mathbb{F}\equiv\{\mathcal{F}_t:~t\ge0\}$ is called a filtration.
+For $t\ge0$, define
+\[
+\mathcal{F}_{t-}=\sigma\bigg(
+\cup_{0\le s<t}\mathcal{F}_s
+\bigg),\quad
+\mathcal{F}_{t+}=\cap_{t<s}\mathcal{F}_s,\quad
+\mathcal{F}_\infty=\sigma\bigg(
+\cup_{s\ge0}\mathcal{F}_s
+\bigg),
+\]
+with $\mathcal{F}_{0-}=\{\emptyset,\Omega\}$.
+Assume that the filtration $\mathbb{F}$ is right-continuous, i.e., $\mathcal{F}_{t}=\mathcal{F}_{t+}$ for all $t\ge0$.
+Then $(\Omega,\mathcal{F},\mathbb{F},\mathbb{P})$ is called a stochastic basis.
+\end{definition}
+
+\begin{definition}[Stopping Time]
+A random variable $\tau$ valued in $[0,\infty]$ is called a stopping time if $\{\tau\le t\}\in\mathcal{F}_t$ for any $t\ge0$. Define the $\tau$-stopped $\sigma$-field as
+\[
+\mathcal{F}_{\tau}\equiv\{A\in\mathcal{F}:~A\cap\{\tau\le t\}\in\mathcal{F}_t, \forall t\in[0,\infty]\}.
+\]
+\end{definition}
+
+We say $X(\cdot)$ on $(\Omega,\mathcal{F},\mathbb{F},\mathbb{P})$ is adapted if $X(t)$ is $\mathcal{F}_t$-measurable. 
+We extend this notion on the product measurable space $(\mathbb{R}_+\times\Omega, \mathcal{B}(\mathbb{R}_+)\otimes\mathcal{F})$:
+\begin{definition}[Progressively Measurable]
+We say $X(\cdot)$ is progressively measurable if
+\[
+\forall B\in\mathcal{B}(S),\forall t\ge0,\quad
+\{(u,\omega)\in[0,t]\times\Omega:~X(u,\omega)\in B\}\in\mathcal{B}_t\otimes\mathcal{F}_t
+\]
+is progressively measurable.
+\end{definition}
+
+\begin{proposition}
+Let $\tau$ be a stopping time, and $\mathbb{F}$ be right-continuous.
+Suppose that $X(\cdot)$ is adapted to $\mathbb{F}$ and right-continuous in time, then
+\begin{enumerate}
+\item
+$X(\tau)$ is $\mathcal{F}_{\tau}$-measurable;
+\item
+$X(\cdot)$ is progressively measurable;
+\item
+$\tau$-stopped process $X^{\tau}(\cdot)$ is progressively measurable.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+Here we only present the proof for b) implies c), i.e., suffices to show that for any $B\in\mathcal{B}(S)$ and $t\ge0$, $A(\tau,t,B)\in\mathcal{B}_t\otimes\mathcal{F}_t$, where
+\[
+A(\tau,t,B)=\{(u,\omega)\in[0,t]\times\Omega:~X(u\land\tau,\omega)\in B\}.
+\]
+Construct the stochastic interval
+\[
+[\sigma,\tau]=\{(u,\omega)\in[0,t]\times\Omega:~\sigma(\omega)\le u\le \tau(\omega)\},
+\]
+then we have
+\[
+[0,\tau]\cap A(\infty,t,B)\in \mathcal{B}_t\otimes\mathcal{F}_t,\quad
+(\tau,t]\cap A(\tau, t, B)\in \mathcal{B}_t\otimes\mathcal{F}_t.
+\]
+\end{proof}
+
+
+The progressive measurability is wearker than the right-continuity of a sample path.
+But the  latter is easy to check. Therefore, we make the following assumptions:
+\begin{itemize}
+\item
+$X_{\cdot}$ is adapted;
+\item
+For each $\omega$, the sample path $X(t)(\omega)$ is right-continuous, and has limit from the left at each $t\ge0$:
+\begin{align*}
+X(t)(\omega)&=X(t+)(\omega),\qquad
+X(t-)(\omega)\text{ exists}.
+\end{align*}
+\item
+Filtration $\mathbb{F}$ is right-continuous, i.e., $\mathcal{F}=\mathcal{F}_{t+}=\sigma(\cap_{t<u}\mathcal{F}_u)$.
+\item
+Filtration $\mathbb{F}$ is complete.
+\end{itemize}
+
+\begin{definition}[Predictable]
+Let $\mathcal{U}_{-}(S)$ be the set of all left-continuous and adapted measurable process $\mathbb{R}_+\times\Omega$ to $S$.
+Define
+\[
+\mathcal{P}=\sigma\left(
+\bigcup_{f\in \mathcal{U}_{-}(S)}\bigcup_{B\in\mathcal{B}(S)}
+\{(t,\omega)\in\mathbb{R}_+\times\Omega:~f(t,\omega)\in B\}
+\right),
+\]
+which is called a predictable $\sigma$-field.
+A stochastic process $X(\cdot)$ is said to be predictable if it is $\mathcal{P}$-measurable.
+A random variable $\tau\ge0$ is said to be a predictable time if $[0,\tau)$ is $\mathcal{P}$-measurable.
+\end{definition}
+
+\begin{proposition}
+The predictable $\sigma$-algebra $\mathcal{P}$ is generated by either one of the sets:
+\begin{itemize}
+\item
+$\{0\}\times A$ for $A\in\mathcal{F}_0$, and $[t,\tau]$ for all stopping time $\tau$;
+\item
+$\{0\}\times A$ for $A\in\mathcal{F}_0$, and $(s,t]\times A$ for all $s<t, A\in\mathcal{F}_s$.
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+Let $\mathcal{P}_1,\mathcal{P}_2$ be the $\sigma$-algebra generated by i), ii).
+Define $f(t,\omega)=1(0\le t\le \tau(\omega))$, which is predictable, i.e., $\mathcal{P}_1\subseteq\mathcal{P}$.
+For $A\in\mathcal{F}_s$, define the notion $u_A=u1_A+\infty1_{A^c}$ for $u\ge s$.
+For the set of rational numbers $Q$,
+\[
+(s,t]\times A=(s_A,t_A]=[0,t_A]\setminus[0,s_A]\in\mathcal{P}_1.
+\]
+Thus $\mathcal{P}_2\subseteq\mathcal{P}_1$.
+Note that $X(t)$ is the limit of the discrete process $X^n(t)\equiv\sum_{i\ge0}X(i2^{-n})1(i2^{-n}<t\le (i+1)2^{-n})$, which is $\mathcal{P}_2$-measurable. So $\mathcal{P}\subseteq\mathcal{P}_2$.
+
+
+\end{proof}
+
+\begin{remark}
+If $X(\cdot)$ is predictable, then $X(t)$ is $\mathcal{F}_{t-}$-measurable. But the converse is not true.
+\end{remark}
+
+\subsection{Continuous time martingale}
+For discrete case, we find any real-valued process can be expressed as a semi-martingale.
+We wish to study the similar topic for continuous case.
+In general this result does not hold, but for most processes we encounter in applications, the answer is yes.
+We will focus on a semi-martingale.
+
+\begin{definition}[Martingale]
+The process $M(\cdot)$ is called a martingale if
+\[
+\mathbb{E}[M(t)\mid\mathcal{F}_s]=M(s),\quad 0\le s<t.
+\]
+Now we define the semi-martingale as
+\[
+X(t)=A(t)+M(t),
+\]
+where $A(\cdot)$ is an adapted process of finite variations:
+\[
+|A|(t)=\sup_{\delta>0, t_0=0}\sup_{\Delta t\ge\delta}\sum_{n=1}^\infty1(t_n\le t)|A(t_n) - A(t_{n-1})|M\infty,\quad\forall t\ge0,
+\]
+and $M(\cdot)$ is a martingale.
+The process $A(\cdot)$ can be expressed as the difference of non-decreasing functions.
+If $A(\cdot)$ is predictable, then $X(\cdot)$ is called a special semi-martingale.
+\end{definition}
+
+\begin{definition}[Uniform Integrable]
+For a set $K$, a collection of real-valued random variable $\{X_u:~u\in K\}$ is said to be uniformly integrable if
+\[
+\lim_{a\to\infty}\sup_{u\in K}\mathbb{E}[|X_u|1(|X_u|>a)]=0.
+\]
+A martingale $X(\cdot)$ is said to be uniform integrable if $\{X(t):~t\ge0\}$ is uniform integrable.
+\end{definition}
+
+\begin{proposition}[UI for Conditional Expectations]
+Let $Y$ be a random variable with $\mathbb{E}[|Y|]<\infty$, and $\mathcal{H}$ be a collection of all $\sigma$-fields on $\Omega$, then $\{\mathbb{E}[Y\mid\mathcal{G}]:~\mathcal{G}\in\mathcal{H}\}$ is uniform integrable.
+\end{proposition}
+\begin{proof}
+Define $Y_{\mathcal{G}}= \mathbb{E}[Y\mid\mathcal{G}]$, then
+\begin{align*}
+\mathbb{E}[|Y_{\mathcal{G}}|1(|Y_{\mathcal{G}}|>a)]
+&=
+\mathbb{E}[|\mathbb{E}[Y\mid\mathcal{G}]|1(|Y_{\mathcal{G}}|>a)]\\
+&\le 
+\mathbb{E}[\mathbb{E}[|Y|\mid\mathcal{G}]1(|Y_{\mathcal{G}}|>a)]\\
+&=\mathbb{E}[|Y|1(|Y_{\mathcal{G}}|>a)],
+\end{align*}
+where 
+\[
+\mathbb{E}[|Y|1(|Y_{\mathcal{G}}|>a)]\le 
+\mathbb{E}[|Y|1(|Y|>b)] + b\mathbb{E}[1(|Y_{\mathcal{G}}|>a)]
+\]
+
+\end{proof}
+
+Then we define $X(t)=\mathbb{E}[Y\mid\mathcal{F}_t]$ for $t\ge0$.
+By the proposition above, $X(\cdot)$ is UI. Moreover, we can show that $X(\cdot)$ is a martingale.
+
+\begin{definition}[Closed Martingale]
+A martingale $X_{u}(\cdot)=\{X_u(t):~0\le t<u\}$ for a constaint $u\in[0,\infty]$ is said to be closed if $X_u(u)$ exists and $\{X_u(t):~0\le t\le u\}$ is a martingale.
+\end{definition}
+
+If we define $X(\infty)=\mathbb{E}[Y\mid\mathcal{F}_\infty]$, then $X(\cdot)$ is closed.
+Moreover, it is UI. This suggests the following lemma: 
+\begin{proposition}\label{pro:11:4}
+Let $X_u(\cdot)$ be a martingae for $u\in[0,\infty]$.
+Then $X_u(\cdot)$ is UI iff it is closed.
+\end{proposition}
+\begin{proof}
+It suffices to show the closeness result.
+Construct $u_n\uparrow u$ and $Y_n=X_u(u_n)$, then $Y_{\cdot}$ is UI.
+There exists $Y_{\infty}$ so that $Y_n\to Y_\infty$ almost surely.
+Therefore, $X_u(\cdot)$ can be expressed as the conditional expectation form, which is closed:
+\[
+X_u(t)=\mathbb{E}[X_u(u_n)\mid\mathcal{F}_t]
+=\mathbb{E}[\mathbb{E}[Y_\infty\mid\mathcal{F}_{u_n}]\mid\mathcal{F}_t]=\mathbb{E}[Y_\infty\mid\mathcal{F}_t].
+\]
+\end{proof}
+
+\begin{definition}[Local Martingale]
+A process $X(\cdot)$ is called a \emph{local martingale} if
+there is a sequence of finite stopping times $\tau_n\uparrow \infty$ so that 
+$X^{\tau_n}\equiv\{X(\tau_n\land t):~t\ge0\}$ is a martingale for each $n\ge1$.
+\end{definition}
+
+\begin{definition}[Class D]
+A process $X(\cdot)$ is called of class $D$ if $\{X(\tau):~\tau\in\mathcal{P}\}$
+is uniformly integrable for $\mathcal{P}$ be the set of all finite stopping times.
+\end{definition}
+
+\begin{proposition}
+\begin{enumerate}
+\item
+A martingale $X(\cdot)$ is a local martingale;
+\item
+If $X(\cdot)$ is an uniformly integrable martingale, then it is of class $D$;
+\item
+A local martingale $X(\cdot)$ is uniformly integrable iff it is of class $D$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+\item
+It is clear if we take $\tau_n\equiv n$.
+\item
+By proposition~\ref{pro:11:4}, $X(\cdot)$ is closed, and therefore $X(t)=\mathbb{E}[Y\mid\mathcal{F}_t]$ for a random variable $Y$ with finite $\mathbb{E}[Y]$. 
+Therefore, $X(\tau)=\mathbb{E}[Y\mid\mathcal{F}_{\tau}]$ for any stopping time $\tau$.
+Hence, $\{X(\tau):~\tau\in\mathcal{P}\}$ is uniformly integrable.
+\item
+Let $\{\tau_n:~n\ge1\}$ be localizing sequence of finite stopping times for $X(\cdot)$.
+Assume that it is of class $D$, then $\{X(\tau_n\land t):~t\ge0, n\ge1\}$ are uniformly integrable.
+The uniform integrability of $X(\cdot)$ is because
+\[
+\sup_{n\ge1,t\ge0}\mathbb{E}[|X^{\tau_n}(t)|1(|X^{\tau_n}(t)|>a)]\ge
+\sup_{t\ge0}\mathbb{E}[|X(t)|1(|X(t)|>a)].
+\]
+Conversely, assume that $\{X(\tau_n\land t):~t\ge0, n\ge1\}$ are uniformly integrable,
+then $\{X(\tau_n\land u):~t\ge0, n\ge1\}$ are uniformly integrable and $X^{\tau_n}(u)\to X(u)$ almost surely. Hence, $X^{\tau_n}(u)\xrightarrow{L^1}X(u)$ and $X(s)=\mathbb{E}[X(t)\mid\mathcal{F}_s]$.
+Thus it is of class $D$.
+\end{enumerate}
+\end{proof}
+
+A non-decreasing process $X(\cdot)$ is a sub-martingale since
+\[
+\mathbb{E}[X(t)\mid\mathcal{F}_s] = X(s) + \mathbb{E}[X(t)-X(s)\mid\mathcal{F}_s]\ge X(s),\quad 0\le s<t.
+\]
+The following tells what a sub-martingale is.
+
+\begin{theorem}[Doob Decomposition]
+If $X(\cdot)$ is a sub-martingale of class $D$, then there uniquely exists a predictable non-decreasing process $A(\cdot)$ with $A(0)=0$ and a uniformly integrable martingale $M(\cdot)$ so that
+\[
+X(t) = A(t) + M(t),\quad t\ge0.
+\]
+\end{theorem}
+\begin{proposition}
+If a martingale $X(\cdot)$ is predictable and has finite variations, then $X(t)=0$ for all $t\ge0$ except for all the null sets.
+\end{proposition}
+\begin{proof}
+It suffices to consider the case where $X(\cdot)$ is non-decreasing.
+Then we have $X(\cdot)=A(\cdot)$ and $X(\cdot)=M(\cdot)$.
+By the  uniqueness of decomposition, $X(\cdot)=0$.
+\end{proof}
+
+\begin{theorem}
+If $X(\cdot)$ is a special martingale, i.e., $A(\cdot)$ is predictable, then the semi-martingale decomposition is unique.
+\end{theorem}
+\begin{proof}
+Suppose that $X(t)=A'(t)+M'(t)$ is another semi-martingale form, then $A(t)-A'(t)=M'(t)-M(t)$ is a predictable martingale of finite variations, so it must vanish.
+\end{proof}
+
+\subsection{From discrete to continuous time}
+Assume that $X(\cdot)$ is a cadlag process. We transfer results from its discrete time counter-part in the following way:
+\begin{enumerate}
+\item
+For $n,i\ge0$, define the mesh $t_{n,i}=i2^{-n}$ and $Y_i^{(n)}=X(t_{n,i}), \mathcal{F}_i^{(n)}=\mathcal{F}_{n,i}$. Consider the discrete time process $Y_{\cdot}^{(n)}=\{Y_i^{(n)}:~i\ge0\}$ under the filtration 
+$\mathbb{F}^{(n)}\equiv\{\mathcal{F}_i^{(n)}:~i\ge0\}$.
+\item
+For $t>0, n\ge0$, let $Y_{\cdot}^{(n)}(t)=\{Y_i^{(n)}:~0\le i\le n_t-1\}\cup\{X(t)\}$, and define 
+$\mathbb{F}^{(n)}(t)\equiv\{\mathcal{F}_i^{(n)}:~0\le i\le n_t-1\}\cup\{\mathcal{F}_t\}$,
+where 
+\[
+n_t=\min\{\ell\in\mathbb{Z}_+:~l\ge t2^n\}.
+\]
+Approximate $\{X(u):~0\le u\le t\}$ by $Y_{\cdot}^{(n)}(t)$;
+\item
+Derive continuous time results from those for $Y_{\cdot}^{(n)}$ by taking $n\to\infty$.
+Here we need a topology on state space $S$ of $X(\cdot)$.
+Usually we take $S=\mathbb{R}$ and the topology by Euclid norm.
+\end{enumerate}
+This procedure involves at most countable events, so the limiting result holds with probability 1 if 
+each result holds with probability 1.
+
+\begin{proposition}[Observation at Stopping Time]
+Let $\tau$ be a stopping time, then
+\begin{enumerate}
+\item
+$X(\tau)1(\tau<\infty)$ is $\mathcal{F}_{\tau}$-measurable;
+\item
+If $X(\cdot)$ is predictable, then $X(\tau)1(\tau<\infty)$ is $\mathcal{F}_{\tau-}$-measurable,
+with
+\[
+\mathcal{F}_{\tau-}=\sigma(\mathcal{F}_0, \{A\in\mathcal{F}:~
+A\cap\{t<\tau\}\in\mathcal{F}_t, t\ge0\}).
+\]
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+It suffices to show that $\{X(\tau)\in B\}\cap\{\tau\le t\}\in\mathcal{F}_t$ for any $t$.
+On the event $\{\tau<\infty\}$, we approximate $\tau$ by:
+\[
+\tau_n^+=\sum_{i=0}^\infty t_{n,i}1(t_{n,i-1}\le \tau<t_{n,i}),\quad n\ge0,
+\]
+with $t_{n,i}=i2^{-n}$ and $\mathbb{F}^{(n)}\equiv \{\mathcal{F}_{t_{n,i}}:~i\ge0\}$.
+It's clear that $\tau_n^+$ is $\mathbb{F}^{(n)}$-stopping time and $\tau_n^+\downarrow \tau$ as $n\to\infty$.
+Note that $X(t_{n,i})1(\tau_n^+=t_{n,i})$ is $\mathcal{F}_{t_{n,i}}$-measurable, which implies
+\[
+X(\tau_n^+)1(\tau_n^+\le t_{n,j})=\sum_{i=0}^{j}X(t_{n,i})1(\tau_n^+=t_{n,i})\text{ is $\mathcal{F}_{t_{n,j}}$-measurable}.
+\]
+Thus $X(\tau_n^+)$ is $\mathcal{F}_{\tau_n^+}$-measurable for each $n\ge0$.
+Moreover, $X(\tau_n^+)\to X(\tau)$ on $\{\tau<\infty\}$ as $n\to\infty$. Therefore, $X(\tau)1\{\tau<\infty\}$ is $\mathcal{F}_{\tau}$-measurable.
+
+For part 2), we construct
+\[
+\tau_n^-=\sum_{i=0}^\infty t_{n,i-1}1(t_{n,i-1}\le \tau<t_{n,i}),\quad n\ge0,
+\]
+then $\tau_n^-\uparrow \tau$. We can see that $X(\tau_n^-)$ is $\mathcal{F}_{\tau_n^-}$-measurable.
+By the predictability of $X(\cdot)$, $X(\tau)1\{\tau<\infty\}$ is $\mathcal{F}_{\tau-}$-measurable since $t<\tau_n^-$ implies $t<\tau$.
+\end{proof}
+
+We introduce some new notions to study stopped martingales.
+\begin{definition}[Reverse Filtration]
+The filtration $\mathbb{F}\equiv\{\mathcal{F}_n:~0\le n\le\infty\}$ is called a reverse filtration if
+$\mathcal{F}_n\downarrow F_\infty=\cap_{\ell=1}^\infty\mathcal{F}_{\ell}$.
+An adapted process $X_{\cdot}$ is called a reverse martingale if $\mathbb{E}[X_m\mid\mathcal{F}_n]=X_n$ for $m<n$.
+\end{definition}
+
+\begin{proposition}
+A reverse sub-martingale $X_{\cdot}$ is uniformly integrable if $\mathbb{E}[X_n]>b$ for any $n\ge0$ and some $b\in\mathbb{R}$.
+\end{proposition}
+\begin{proof}
+By the reverse sub-martingale assumption, $\mathbb{E}[X_n]$ is decreasing in $n$ and converges to a finite $\alpha$. Moreover, $X_n\le \mathbb{E}[X_0\mid\mathcal{F}_n]$.
+Hence, $X_{\cdot}^+$ is uniformly integrable by conditional expectation.
+It remains to check whether $X_{\cdot}^-$ is uniformly integrable.
+For $a>0$,
+\begin{align*}
+\mathbb{E}[X_n^{-}1(X_n^->a)]&=\mathbb{E}[-X_n1(-X_n>a)]=\mathbb{E}[-X_n(1 - 1(-X_n\le a))]\\
+&=-\mathbb{E}[X_n] + \mathbb{E}[X_n1(-X_n\le a)]
+\end{align*}
+By the convergence of $X_n$, there exists an $m\ge0$ so that $|\mathbb{E}[X_n]-\mathbb{E}[X_m]|<\varepsilon$ as long as $n\ge m$.
+As a result,
+\begin{align*}
+\mathbb{E}[X_n^{-}1(X_n^->a)]&\le -\mathbb{E}[X_m] + \mathbb{E}[X_n1(-X_n\le a)]+\varepsilon\\
+&\le -\mathbb{E}[X_m] + \mathbb{E}[X_m1(-X_n\le a)]+\varepsilon\\
+&=-\mathbb{E}[X_m1(-X_n>a)]+\varepsilon\le \mathbb{E}[|X_m|1(-X_n>a)]+\varepsilon.
+\end{align*}
+It remains to show that 
+\[
+\lim_{a\to\infty}\sup_{n\ge m}\mathbb{E}[|X_m|1(-X_n>a)]=0.
+\]
+Observe that $\mathbb{E}[|X_n|]\le -\alpha+\varepsilon+2\mathbb{E}[X_n^+]\le -\alpha+\varepsilon+2\mathbb{E}[X_0^+]\equiv\beta$.
+It follows that 
+\[
+\mathbb{E}[|X_m|1(-X_n>a)]\le \mathbb{E}[|X_m|1(|X_n|>a)]\to0
+\]
+\end{proof}
+
+Recall that $X^{\tau}(t)=X(\tau\land t)$ for $t\ge0$, and $X^{\tau}(\cdot)$ is a $\tau$-stopped process.
+\begin{proposition}
+If $X(\cdot)$ is a martingale and $\tau$ is a stopping time, then $X^{\tau}(\cdot)$ is also a martingale.
+\end{proposition}
+
+In discrete time case, we obtain the optional sampling theorem under the uniform integrability condition in the following steps:
+\begin{enumerate}
+\item
+Assume that the stopping time $\tau$ is bounded, and derive the theorem;
+\item
+Under the condition 1), show the almost sure convergence of a sub-martingale assuming $\sup_{n\ge0}\mathbb{E}[X_n^+]<\infty$. The key is applying Doob's upcrossing inequality;
+\item
+For a general stopping time $\tau$, show that a stopped process $X_{\cdot}^{\tau}$ is a uniformly integrable martingale if $X_{\cdot}$ is so. 
+\end{enumerate}
+
+All those steps can be carried for the continuous process $X(\cdot)$ in such a way that in step 2), the condition is replaced by $\sup_{n\ge0}\mathbb{E}[X^+(t)]<\infty$, and Doob's inequality is applied into the discrete time process $Y_{\cdot}^{(n)}(t)$.
+
+Consider $Y_{\cdot}^{(n)}(t)$ defined as
+\[
+Y_{\cdot}^{(n)}(t)=\{X(t_{n,i}):~0\le i\le n_t-1\}\cup\{X(t)\},
+\]
+which is a sub-martingale when $X(\cdot)$ is so.
+For $a<b$, define $N_0=-1$, and define the down and up crossings:
+\[
+N_{2k-1}^{(n)}=\inf\{i> N_{2k-2}^{(n)}:~Y_i^{(n)}(t)\le a\},\quad
+N_{2k}^{(n)}=\inf\{i> N_{2k-1}^{(n)}:~Y_i^{(n)}(t)\ge b\}.
+\]
+Take $U^{(n)}(t)=\sup\{k\ge1:~N_{2k}^{(n)}\le n_t\}$, where $n_t=\min\{\ell\ge0:~\ell 2^{-n}\ge t\}$.
+The following lemma holds immediately:
+
+\begin{proposition}
+If $X(\cdot)$ is a sub-martingale, then for any $a,b\in\mathbb{R}$ with $a<b$, and any $t>0,n\ge0$,
+\[
+(b-a)\mathbb{E}[U^{(n)}(t)]\le \mathbb{E}[(X(t) - a)^+] - \mathbb{E}[(X(0) - a)^+]
+\]
+\end{proposition}
+
+\begin{theorem}
+Suppose that $X(\cdot)$ is a sub-martingale and $\sup_{n\ge0}\mathbb{E}[X^+(t)]<\infty$, then
+\[
+X(t)\xrightarrow{a.s.}X(\infty)
+\]
+for some random variable $X(\infty)$ with $\mathbb{E}[|X(\infty)|]<\infty$.
+\end{theorem}
+
+\begin{theorem}
+Suppose that $X(t)\xrightarrow{P}X$ as $t\to\infty$, then the followings are equivalent:
+\begin{enumerate}
+\item
+$X(\cdot)$ is UI;
+\item
+$X(t)\xrightarrow{L^1}X$;
+\item
+$\mathbb{E}[|X(t)|]\to\mathbb{E}[|X|]<\infty$.
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Uniformly Integrable Submartingale]
+If $X(\cdot)$ is a uniformly integrable sub-martingale, then there exists $X(\infty)$ with $X(t)\to X(\infty)$ almost surely and $L^1$. Furthermore, $\mathbb{E}[|X(\infty)|]<\infty$, $X(t)\le\mathbb{E}[X(\infty)\mid\mathcal{F}_t]$.
+\end{theorem}
+
+\begin{theorem}[Optional Sampling Theorem]
+If $X(\cdot)$ is a uniformly integrable sub-martingale, and $\tau,\eta$ are stopping times with $\tau\le\eta$, then
+\[
+\mathbb{E}[X(0)]\le \mathbb{E}[X(\tau)]\le \mathbb{E}[X(\eta)]\le \mathbb{E}[X(\infty)],
+\]
+and $X(\tau)\le \mathbb{E}[X(\eta)\mid\mathcal{F}_{\tau}]$.
+\end{theorem}
+
+
+
+
+
+
+

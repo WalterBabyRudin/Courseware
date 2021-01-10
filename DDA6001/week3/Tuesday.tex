@@ -1,0 +1,480 @@
+
+\chapter{Week 3}
+
+\section{Monday}\index{Monday_lecture}
+
+\subsection{Weak law of large numbers}
+Firstly, review two modes of convergence for random variables:
+\begin{definition}[Convergence of random variables]
+For a sequence of $X_n, n\ge1$ and $X$,
+\begin{enumerate}
+\item
+we say $X_n\to X$ a.s. if $\mathbb{P}(\Omega_0)=1$ for 
+\[
+\Omega_0 = \{\omega: \lim_{n\to\infty}X_n(\omega)=X(\omega)\}.
+\]
+\item
+we say $X_n\to X$ in probability if
+\[
+\forall\varepsilon>0,~\lim_{n\to\infty}\mathbb{P}\bigg(
+|X_n-X|>\varepsilon
+\bigg)=0.
+\]
+\end{enumerate}
+\end{definition}
+Almost sure convergence is defined by the sample-path based condition,
+while the convergence in probability is defined based on probability.
+To answer the relation between these two convergence modes,
+we reformulate the condition for almost sure convergence into a probability-based one.
+
+\begin{proposition}
+The sequence of random variables $X_n\to X$ a.s. if and only if 
+\[
+\forall k\ge1,\quad
+\lim_{\ell\to\infty}\mathbb{P}\bigg\{
+\cup_{n=\ell}^\infty\{|X_n-X|>1/k\}
+\bigg\}=0.
+\]
+\end{proposition}
+\begin{proof}
+Starting from the a.s. convergence definition, we find an equivanent definition for $\omega\in\Omega_0$:
+\[
+\forall \varepsilon>0,~\exists n_0\ge1\text{ s.t. }\forall n\ge n_0,~|X_n(\omega) - X(\omega)|<\varepsilon.
+\]
+Or equivalently,
+\[
+\forall k\ge1,~\exists n_0\ge1\text{ s.t. }\forall n\ge n_0,~|X_n(\omega) - X(\omega)|\le\frac{1}{k}.
+\]
+Therefore, we have an equivalent definition for $\Omega_0$:
+\[
+\Omega_0 = 
+\bigcap_{k=1}^\infty
+\bigcup_{n_0=1}^\infty
+\bigcap_{n=n_0}^\infty
+\bigg\{
+\omega:~|X_n(\omega) - X(\omega)|\le\frac{1}{k}
+\bigg\}
+\]
+Taking the complement of $\Omega_0$, we say $X_n\to X$ a.s. if and only if
+\[
+\mathbb{P}\bigg(
+\bigcup_{k=1}^\infty
+\bigcap_{n_0=1}^\infty
+\bigcup_{n=n_0}^\infty
+\bigg\{
+\omega:~|X_n(\omega) - X(\omega)|>\frac{1}{k}
+\bigg\}
+\bigg)=0.
+\]
+Since $\mathbb{P}(\cup_{k=1}^\infty A_k)=0$ is equivalent to $\mathbb{P}(A_k)=0,\forall k\ge1$, we imply 
+\[
+\mathbb{P}\bigg(
+\lim_{n_0\to\infty}
+\bigcup_{n=n_0}^\infty
+\bigg\{
+\omega:~|X_n(\omega) - X(\omega)|>\frac{1}{k}
+\bigg\}
+\bigg)=0,\forall k\ge1.
+\]
+By the continuity of probability, 
+\[
+\forall k\ge1, \lim_{n_0\to\infty}\mathbb{P}\bigg(
+\bigcup_{n=n_0}^\infty
+\bigg\{
+\omega:~|X_n(\omega) - X(\omega)|>\frac{1}{k}
+\bigg\}
+\bigg)=0.
+\]
+The proof is complete.
+\end{proof}
+Based on this proposition, we imply the relation between convergence a.s. and convergence in probability:
+\begin{corollary}
+If $X_n\to X$ a.s., then $X_n\to X$ in probability.
+\end{corollary}
+\begin{proof}
+This is because for any $\varepsilon>0$,
+\[0\le
+\mathbb{P}(|X_n-X|<\varepsilon)\le 
+\mathbb{P}(\cup_{n=\ell}^\infty \{|X_n-X|<\varepsilon\}).
+\]
+\end{proof}
+
+These facts above shows that we need to show the law of large numbers (LLN) based on different modes of convergence.
+We will first show the weak LLN, assuming the finiteness of moments of $X_n$.
+
+\begin{definition}[Moment of a random variable]
+Consider a random variable $X$ and $a\ge0, c\in\mathbb{R}$.
+\begin{itemize}
+\item
+$\mathbb{E}(X^a)$ denotes the $a$-th moment of $X$;
+\item
+$\mathbb{E}(|X|^a)$ denotes the $a$-th absolute moment of $X$;
+\item
+$\mathbb{E}(|X-c|^a)$ denotes the $a$-th absolute moment of $X$, centered at $c$.
+\end{itemize}
+\end{definition}
+
+\begin{proposition}
+Consider a random variable $X$,
+\begin{itemize}
+\item
+For $a,b$ satisfying $0\le a<b$, 
+\[
+\mathbb{E}(|X|^b)<\infty\implies \mathbb{E}(|X|^a)<\infty.
+\]
+\item
+For $a>0$ and $c\in\mathbb{R}$,
+\[
+\mathbb{E}(|X|^a)<\infty\Longleftrightarrow
+\mathbb{E}(|X-c|^a)<\infty.
+\]
+\end{itemize}
+\end{proposition}
+\begin{proof}
+The proof of the first and the second part is based on the following inequalities:
+\begin{align*}
+|x|^a&\le 1+|x|^b,\\
+|x-c|&\le |x|+|c|\le2\max\{|x|,|c|\}.
+\end{align*}
+\end{proof}
+
+An important tool for showing the weak LLN is Markov inequality:
+\begin{proposition}[Markov Inequality]
+For a random variable $X$ and $\mathcal{B}(\mathbb{R})$-measurable function $h:\mathbb{R}\to\mathbb{R}_+$,
+\[
+\mathbb{P}\bigg(
+h(X)>t
+\bigg)\le \frac{1}{t}\mathbb{E}[h(X)],\qquad t>0.
+\]
+\end{proposition}
+\begin{proof}
+Obseve the inequality holds: $t1(h(X)>t)\le h(X)$. Taking the expectation both sides leads to the desired result.
+\end{proof}
+
+\begin{corollary}[Chebyshev's inequality]
+For a random variable $X$, we have the following concentration-type inequality:
+\[
+\mathbb{P}\bigg(
+|X-\mathbb{E}[X]|>\varepsilon
+\bigg)
+\le\frac{1}{\varepsilon^2}\mathbb{E}[|X-\mathbb{E}[X]|^2].
+\]
+\end{corollary}
+\begin{proof}
+Apply Markov inequality with $h(x) = |x - \mathbb{E}[X]|^2$ and $t=\varepsilon^2$.
+\end{proof}
+
+Let $\{X_n\}_{n\ge0}$ be a sequence of random variables, and define the finite sum and sample mean by
+\[
+S_n = X_1+X_2+\cdots+X_n,\qquad
+\overline{X}_n=S_n/n,~n\ge1.
+\]
+\begin{itemize}
+\item
+If  
+$\overline{X}_n\to m$ in probability
+and
+$\mathbb{E}[\overline{X}_n]\to m$,
+the sequence $\{X_n\}_{n\ge0}$ is said to {obey} the \emph{weak law of large numbers}.
+\item
+If
+there are constants $a_n,b_n$ such that $\frac{S_n-b_n}{a_n}\to 0$ in probability
+and
+$\mathbb{E}[\overline{X}_n]\to m$,
+the sequence $\{X_n\}_{n\ge0}$ is said to {obey} the \emph{extended weak law of large numbers}.
+\item
+If
+$\overline{X}_n\to m$ a.s.
+and
+$\mathbb{E}[\overline{X}_n]\to m$,
+the sequence $\{X_n\}_{n\ge0}$ is said to {obey} the \emph{strong law of large numbers}.
+\end{itemize}
+
+Here we give a general sufficient condition for constructing the weak LLN:
+\begin{proposition}
+If 
+\begin{equation}\label{Eq:3:1}
+\lim_{n\to\infty}\mathbb{E}[(\overline{X}_n - m)^2]=0,
+\end{equation}
+then $\overline{X}_n\to m$ in probability.
+\end{proposition}
+\begin{proof}
+Apply the Chebyshev's inequality while replacing $X$ with $\overline{X}_n$:
+\[
+\mathbb{P}\left(
+|\overline{X}_n-m|>\varepsilon
+\right)
+\le
+\frac{1}{\varepsilon^2}\mathbb{E}[(\overline{X}_n - m)^2]\to0.
+\]
+The proof is complete.
+\end{proof}
+
+Note that once (\ref{Eq:3:1}) is satisfied, the weak LLN holds, no matter whether $\{X_n\}$ is i.i.d. or not.
+Now we provide the sufficient condition of $\{X_n\}$ for satisfying (\ref{Eq:3:1}).
+
+\begin{theorem}[A baby version of weak LLN]
+Assume that 
+\begin{enumerate}
+\item
+If $\{X_n\}$ is i.i.d.
+\item
+$\mathbb{E}[X_n^2]<\infty$, or equivalently, $\sigma_X^2<\infty$,
+\end{enumerate}
+then condition (\ref{Eq:3:1}) for the weak LLN is satisfied, with $m=\mathbb{E}[X_n]$.
+\end{theorem}
+\begin{proof}
+Observe the following equality holds:
+\begin{align*}
+\mathbb{E}[(\overline{X}_n-m)^2]&=\frac{1}{n^2}\mathbb{E}\left[
+\bigg(\sum_{\ell=1}^n(X_{\ell}-m)\bigg)^2
+\right]\\
+&=
+\frac{1}{n^2}\mathbb{E}\left[
+\sum_{\ell=1}^n(X_{\ell}-m)^2
++
+\sum_{\ell\ne k: \ell,k\in[1:n]}(X_{\ell}-m)(X_k-m)
+\right]\\
+&=\frac{1}{n^2}\sum_{\ell=1}^n\mathbb{E}\left[
+(X_{\ell}-m)^2\right]\triangleq \frac{1}{n^2}\sum_{\ell=1}^n\sigma_X^2\\
+&=\frac{1}{n}\sigma_X^2\to0.
+\end{align*}
+\end{proof}
+
+Let's see an interesting application of weak LLN in polynomial fitting:
+\begin{proposition}
+For a continuous function $f:[0,1]\to\mathbb{R}$, let
+\[
+f_n(x)\triangleq \sum_{k=0}^n\binom{n}{k}x^k(1-x)^{n-k}f(k/n),
+\]
+then $\sup_{x\in[0,1]}|f_n(x) - f(x)|\to0$ as $n\to\infty$.
+\end{proposition}
+\begin{proof}
+The idea is to construct $\{X_n\}$ such that $f_n(x)$ relates to the expectation of some function of $\{X_n\}$.
+Construct $S_n = X_1+X_2+\cdots+X_n$ with i.i.d. $\{X_n\}$ and $\mathbb{P}(X_n=1)=p, \mathbb{P}(X_n=0)=1-p$.
+By weak LLN, $S_n/n\to p$ in probability.
+
+Moreover, observe that 
+\[
+\mathbb{E}[f(S_n/n)] = f_n(p)
+\]
+Apply the uniform continuity of $f$, i.e., for $\forall\varepsilon>0$, there exists $\delta>0$ such that $|x-y|<\delta$ implies $|f(x)-f(y)|<\varepsilon$. Also, $f$ is bounded, i.e., $\sup_{x\in[0,1]}|f(x)|<M$ for some $M\ge0$.
+Now we begin to upper bound $|f_n(p) - f(p)|$:
+\begin{align*}
+|f_n(p) - f(p)| &= \left|
+\mathbb{E}[f(S_n/n) - f(p)]
+\right|\\
+&\le
+\mathbb{E}[
+|f(S_n/n) - f(p)|]\\
+&=
+\mathbb{E}[|f(S_n/n) - f(p)| 1(|S_n/n-p|\le\delta)] + \mathbb{E}[|f(S_n/n) - f(p)| 1(|S_n/n-p|>\delta)]
+]\\
+&\le\varepsilon + 2M\mathbb{P}(|S_n/n-p|>\delta)
+\end{align*}
+Since $S_n/n\to p$ in prob., $\lim_{n\to\infty}\mathbb{P}(|S_n/n-p|>\delta)=0$ holds uniformly for $p$.
+Therefore, taking $n\to\infty$ both sides, $|f_n(p) - f(p)|\le (2M+1)\varepsilon$.
+
+
+\end{proof}
+
+Now we study a stronger version of weak LLN:
+\begin{theorem}[Stronger version of weak LLN]
+Assume that 
+\begin{enumerate}
+\item
+If $\{X_n\}$ is i.i.d.
+\item
+$\mathbb{E}[|X_n|]<\infty$,
+\end{enumerate}
+then $\overline{X}_n\to m$ in probability, with $m=\mathbb{E}[X_n]$.
+\end{theorem}
+This theorem can be proved by the truncation of $X_n$:
+\begin{enumerate}
+\item
+First define $X_{\ell}^{(n)} = X_{\ell}1(|X_{\ell}\le n|)$ and show $\overline{X}_n\to \overline{m}_{n}^{(n)}$ with $\overline{m}_{n}^{(n)}=\mathbb{E}(\overline{X}_{n}^{(n)})$;
+\item
+Then show that $\overline{m}_{n}^{(n)}\to m$.
+\end{enumerate}
+\begin{proof}[Proof for the first part]
+Define $X_{\ell}^{(n)} = X_{\ell}1(|X_{\ell}\le n|)$,
+$S_n^{(n)} = \sum_{\ell=1}^nX_{\ell}^{(n)}$,
+$\overline{X}_n^{(n)} = S_n^{(n)}/n$,
+and $\overline{m}_{n}^{(n)}=\mathbb{E}[\overline{X}_n^{(n)}]$.
+Firstly show that $n\cdot\mathbb{P}(X>n)\to0$:
+\begin{align*}
+0&\le n\cdot\mathbb{P}(X>n)\le n\cdot\mathbb{P}(|X|>n)\\
+&=\mathbb{E}[n\cdot 1(|X|>n)]\le \mathbb{E}[|X|\cdot 1(|X|>n)]\\
+&=\mathbb{E}[|X|] - \mathbb{E}[|X|\cdot 1(|X|\le n)]\to0.
+\end{align*}
+
+For fixed $\varepsilon>0$, we need to upper bound $\mathbb{P}(|\overline{X}_n- \overline{m}_{n}^{(n)}|>\varepsilon)$ as the following:
+\begin{align*}
+\mathbb{P}(|\overline{X}_n- \overline{m}_{n}^{(n)}|>\varepsilon)
+&=
+\mathbb{P}(|\overline{X}_n- \overline{m}_{n}^{(n)}|>\varepsilon, S_n^{(n)}\ne S_n)
++
+\mathbb{P}(|\overline{X}_n- \overline{m}_{n}^{(n)}|>\varepsilon, S_n^{(n)}= S_n)\\
+&\le \mathbb{P}(S_n^{(n)}\ne S_n) + \mathbb{P}(|\overline{X}_n^{(n)}- \overline{m}_{n}^{(n)}|>\varepsilon)
+\end{align*}
+where
+\[
+\mathbb{P}(S_n^{(n)}\ne S_n)\le \sum_{\ell=1}^n\mathbb{P}(X_{\ell}^{(n)}\ne X_{\ell})=n\cdot \mathbb{P}(|X_1|>n)\to0,
+\]
+and
+\[
+\mathbb{P}(|\overline{X}_n^{(n)}- \overline{m}_{n}^{(n)}|>\varepsilon)
+\le\frac{1}{\varepsilon^2}\mathbb{E}
+[|\overline{X}_n^{(n)}- \overline{m}_{n}^{(n)}|^2]\to0.
+\]
+\end{proof}
+\begin{proof}[Proof for the second part]
+Note that
+\[
+\overline{m}^{(n)}_n-m = \frac{1}{n}\sum_{\ell=1}^nm_{\ell}^{(n)}-m
+=
+m_1^{(n)} - m = -\mathbb{E}[X_1 1(|X_1|>n)]\to0.
+\]
+\end{proof}
+
+
+
+
+
+
+
+
+
+%
+%We show the LLN for different version of convergence. 
+%
+%We first show the weak LLB, by assuming the finiteness of moments of $X_n$.
+%
+%Definition of moment:
+%
+%How they are related
+%\begin{proposition}
+%For $0\le a<b$,
+%\[
+%\mathbb{E}[|X|^b]<\infty\implies
+%\mathbb{E}[|X|^a]<\infty
+%\]
+%\[
+%\mathbb{E}[|X|^a]<\infty\Longleftrightarrow
+%\mathbb{E}[|X-c|^a]
+%\]
+%\end{proposition}
+%\begin{proof}
+%For any $x\in\mathbb{R}$, $|x|^a\le 1+|x|^b$. Thus
+%\[
+%\mathbb{E}[|X|^a]\le \mathbb{E}[|X|^b]+1<\infty.
+%\]
+%
+%\end{proof}
+%
+%\begin{proposition}
+%For a random variable $X$ and $\mathcal{B}(\mathbb{R})$-measurable function 
+%$h: \mathbb{R}\to\mathbb{R}_+$,
+%\[
+%\mathbb{P}(h(X)>t) \le \frac{1}{t}\mathbb{E}[h(X)]
+%\]
+%\end{proposition}
+
+\subsection{Strong Law of Large Numbers}
+
+The strong law of large numbers says that the sample average $\overline{X}_n$ of $X_1,X_2,\ldots,X_n$ almost surely converges to their mean $m=\mathbb{E}[X_1]$.
+The a.s. convergence result allows us to estimate $m$ by the sample average.
+Since the strong LLN requires $\mathbb{P}(|\overline{X}_n-m|>\varepsilon)$ converges to zero \emph{faster} than the weak LLN, we may need a higher moment of $X_n$ to be finite.
+
+In order to show the strong LLN, first prepare for two lemmas:
+\begin{proposition}
+For $A_{\ell}\in\mathcal{F}, \ell=1,2,\ldots$, if $\sum_{\ell=1}^\infty\mathbb{P}(A_{\ell})<\infty$,
+then
+\[
+\lim_{n\to\infty}\mathbb{P}\bigg(
+\bigcup_{\ell=n}^\infty A_{\ell}
+\bigg)=0.
+\]
+\end{proposition}
+\begin{proof}
+This is because
+\[
+\mathbb{P}\bigg(
+\bigcup_{\ell=n}^\infty A_{\ell}
+\bigg)
+\le \sum_{\ell=n}^\infty\mathbb{P}(A_{\ell})\to0.
+\]
+\end{proof}
+
+\begin{proposition}\label{pro:3:7}
+The sequence of random variables $X_n\to X$ a.s. if 
+\[\forall\varepsilon>0,\quad
+\sum_{n=1}^\infty \mathbb{P}(|X_n - X|>\varepsilon)<\infty.
+\]
+\end{proposition}
+
+The baby version of strong LLN is stated in the following:
+\begin{theorem}[Baby version of strong LLN]
+Assume that 
+\begin{itemize}
+\item
+$\{X_n\}$ is i.i.d.;
+\item
+$\mathbb{E}[X_1^4]<\infty$;
+\end{itemize}
+then $\overline{X}_n\to m$ a.s. with $m=\mathbb{E}[X_1]$.
+\end{theorem}
+By proposition~\ref{pro:3:7}, it suffices to show $\sum_{n=1}^\infty \mathbb{P}(|\overline{X}_n- m|>\varepsilon)<\infty,\forall\varepsilon>0$.
+Actually, we need to show that for $\varepsilon>0$,
+\[
+\mathbb{P}(|\overline{X}_n- m|>\varepsilon)<\text{constant}\cdot1/n^2.
+\]
+By Markov inequality,
+\[
+\mathbb{P}(|\overline{X}_n- m|>\varepsilon)\le\frac{\mathbb{E}[(\overline{X}_n- m)^4]}{\varepsilon^4}
+\]
+Therefore, we need to show the following result:
+\[
+\mathbb{E}[(\overline{X}_n- m)^4]
+=
+\frac{1}{n^4}\bigg(
+n\cdot\beta + 3n(n-1)\sigma^4
+\bigg),\qquad\beta = \mathbb{E}[(X_1-m)^4]<\infty.
+\]
+
+The $4$-th moment condition can be weakened as follows:
+\begin{theorem}[Strong LLN]
+The strong LLN holds if $\{X_n\}_{n\ge1}$ is i.i.d. and $\mathbb{E}[|X_1|]<\infty$.
+\end{theorem}
+\begin{remark}
+The i.i.d. assumption in the strong LLN can also be weaked into:
+\begin{itemize}
+\item
+$\{X_n\}$ is \emph{stationary}, and \emph{ergodic}.
+\end{itemize}
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,738 @@
+
+\chapter{Week11}
+
+\section{Tuesday}\index{week7_Tuesday_lecture}
+
+\subsection{Quadratic Variation of Ito Integral}
+Recall that the Ito integral of the process $\{X_t\}_{t\ge0}\in\mathcal{L}^2$ is denoted as
+\[
+I_t(X)=\int_0^tX_u\diff B_u.
+\]
+It is a random function of $t$, and it is continuous and adapted.
+However, compute $I_t(X)$ directly from definition is sophisticated.
+The quadratic variation formula of Ito integral plays a central role for simplifying the calculation of Ito integral.
+In this lecture, we will give a introduction on this topic.
+
+\begin{definition}[Qudaratic Variation]
+Suppose that $X$ is a function of time $t$, define its qudaratic variation over the interval $[0,t]$ as the limit (when it exists)\footnote{To simplify the notation, sometimes we write $X[t]$ for $X_t$, and $X[t](\omega)$ for $X_t(\omega)$.}
+\begin{equation}
+Q(\Pi^{(n)};X)[0,t]=\sum_{i=1}^n[X_{t_i^{(n)}}-X_{t_{i-1}^{(n)}}],
+\end{equation}
+where the limit is taken over the partitions \[\Pi^{(n)}:=\{0=t_0^{(n)}, t_1^{(n)},\ldots,t=t_n^{(n)}\},\] with $\|\Pi^{(n)}\|=\max_j(t_j^{(n)}-(t_{j-1}^{(n)})\to0$.
+\end{definition}
+
+We first discuss how to compute the quadratic variation for $\{X_t\}_{t\ge0}\in\mathcal{U}_c^2$, by applying the \emph{Doob-Meyer} Decomposition trick:
+\begin{definition}[Doob-Meyer Decomposition]
+Consider $\{X_t\}_{t\ge0}\in\mathcal{U}^2$, then $\{X_t^2\}_{t\ge0}$ is a non-negative sub-martinalge.
+The process $X^2_{\cdot}$ admits the unique Doob-Meyer decomposition:
+\[
+X_t^2=M_t+A_t,\quad 0\le t<\infty,
+\]
+with $\{M_t\}_{t\ge0}$ being a right-continuous martingale and $\{A_t\}_{t\ge0}$ being an increasing predictable process.
+In particular, when $\{X_t\}_{t\ge0}\in\mathcal{U}_c^2$, the processes $\{M_t\}_{t\ge0}$ and $\{A_t\}_{t\ge0}$ are continuous, and denote 
+\[
+\langle X\rangle \triangleq A,\quad \langle X\rangle_0=0.
+\]
+\end{definition}
+
+\begin{example}
+Consider the Brownian motion $\{B_t\}_{t\ge0}\in\mathcal{U}_c^2$, then the Doob-Meyer Decomposition is
+\[
+B_t^2=(B_t^2-t)+t,
+\]
+where $M_t:=B_t^2-t$ is a martingale, and $\langle B\rangle_t=t$ is increasing.
+\end{example}
+
+The following theorem illustrates $\langle X\rangle$ can be constructed by taking the limit of quadratic variation:
+\begin{theorem}\label{The:11:1}
+Let $\{X_t\}_{t\ge0}\in\mathcal{U}_c^2$ and $\{\Pi^{(n)}\}_{n=1}^\infty$ be a sequence of partitions on $[0,\infty)$ with $\|\Pi^{(n)}\|\to0$.
+Then for any $t>0$, then the quadratic variation
+\[
+Q(\Pi^{(n)};X)[0,t]=\sum_{j}[X_{t_{j+1}^{(n)}\land t}-X_{t_{j}^{(n)}\land t}]^2
+\]
+converge to $\langle X\rangle_t$ in probability.
+Here we call $\{\langle X\rangle_t\}_{t\ge0}$ the \emph{quadratic variational process} of $X$.
+\end{theorem}
+We first consider the bounded process $X_{\bullet}$ and $\langle X\rangle_{\bullet}$, and then extend the results into general case by the localization techinique for martingales.
+\begin{proof}
+\begin{enumerate}
+\item
+We first consider the bounded process $X_{\cdot}$ on $[0,t]$, i.e., $|X_s|\le K$ almost surely for any $s\in[0,t]$, and $\langle X\rangle_s\le K$ almost surely for all $s\in[0,t]$.
+In order to show the desired result, we will show the stronger result in the sense that $\mathbb{E}\left[
+Q(\Pi^{(n)};X)[0,t] - \langle X\rangle_t
+\right]^2\to0$.
+\begin{equation}\label{Eq:11:2}
+\begin{aligned}
+&\mathbb{E}\left[
+Q(\Pi^{(n)};X)[0,t] - \langle X\rangle_t
+\right]^2=
+\mathbb{E}\left[
+\sum_j
+\left(
+X[t_{j+1}^{(n)}\land t] - X[t_{j}^{(n)}\land t]
+\right)^2
+- \langle X\rangle_t
+\right]^2\\
+=&
+\mathbb{E}\left[
+\sum_j
+\left(
+X[t_{j+1}^{(n)}\land t] - X[t_{j}^{(n)}\land t]
+\right)^2
+- 
+\sum_j
+\left(
+\langle X\rangle[t_{j+1}^{(n)}\land t] - \langle X\rangle[t_{j}^{(n)}\land t]
+\right)
+\right]^2\\
+=&
+\mathbb{E}\left[
+\sum_j
+\left\{
+\left(
+X[t_{j+1}^{(n)}\land t] - X[t_{j}^{(n)}\land t]
+\right)^2
+- 
+\left(
+\langle X\rangle[t_{j+1}^{(n)}\land t] - \langle X\rangle[t_{j}^{(n)}\land t]
+\right)
+\right\}
+\right]^2\\
+=&
+\sum_j
+\mathbb{E}
+\left\{
+\left(
+X[t_{j+1}^{(n)}\land t] - X[t_{j}^{(n)}\land t]
+\right)^2
+- 
+\left(
+\langle X\rangle[t_{j+1}^{(n)}\land t] - \langle X\rangle[t_{j}^{(n)}\land t]
+\right)
+\right\}^2\\
+&+2\sum_{j<k}\mathbb{E}\left\{\left(
+X[t_{j+1}^{(n)}\land t] - X[t_{j}^{(n)}\land t]
+\right)^2
+- 
+\left(
+\langle X\rangle[t_{j+1}^{(n)}\land t] - \langle X\rangle[t_{j}^{(n)}\land t]
+\right)\right\}\\
+&\times
+\left\{\left(
+X[t_{k+1}^{(n)}\land t] - X[t_{k}^{(n)}\land t]
+\right)^2
+- 
+\left(
+\langle X\rangle[t_{k+1}^{(n)}\land t] - \langle X\rangle[t_{k}^{(n)}\land t]
+\right)\right\}
+\end{aligned}
+\end{equation}
+Now we show that the second part actually vanishes.
+For any $0\le s<t\le u<v$,
+\begin{equation}\label{Eq:11:3}
+\begin{aligned}
+&\mathbb{E}\bigg[
+(X_t-X_s)^2 - (\langle X\rangle_t- \langle X\rangle_s)
+\bigg]
+\bigg[
+(X_v-X_u)^2 - (\langle X\rangle_v- \langle X\rangle_u)
+\bigg]\\
+=&\mathbb{E}\left\{\mathbb{E}\left(\bigg[
+(X_t-X_s)^2 - (\langle X\rangle_t- \langle X\rangle_s)
+\bigg]
+\bigg[
+(X_v-X_u)^2 - (\langle X\rangle_v- \langle X\rangle_u)
+\bigg]\bigg|\mathcal{F}_t\right)\right\}\\
+=&\mathbb{E}
+\left\{
+\bigg[
+(X_t-X_s)^2 - (\langle X\rangle_t- \langle X\rangle_s)
+\bigg]
+\mathbb{E}\left(\bigg[
+(X_v-X_u)^2 - (\langle X\rangle_v- \langle X\rangle_u)
+\bigg]\bigg|\mathcal{F}_t\right)
+\right\}\\
+\end{aligned}
+\end{equation}
+Moreover, 
+\begin{align*}
+\mathbb{E}\left[
+(X_v-X_u)^2
+\mid\mathcal{F}_t\right]&=
+\mathbb{E}\left[
+X_v^2 + X_u^2 - 2X_vX_u
+\mid\mathcal{F}_t\right]\\
+&=
+\mathbb{E}\left[
+X_v^2 + X_u^2 - 2\mathbb{E}[X_vX_u\mid\mathcal{F}_u]
+\mid\mathcal{F}_t\right]\\
+&=\mathbb{E}\left[
+X_v^2 + X_u^2 - 2X_u^2
+\mid\mathcal{F}_t\right]=\mathbb{E}\left[
+X_v^2 -X_u^2
+\mid\mathcal{F}_t\right]\\
+&=\mathbb{E}\left[
+\langle X\rangle_v - \langle X\rangle_u
+\mid\mathcal{F}_t\right],
+\end{align*}
+where the last equality is because $\{X^2 - \langle X\rangle\}$ is a martingale.
+This implies the term in (\eqref{Eq:11:3}) vanishes, and therefore the second part in (\eqref{Eq:11:2}) vanishes.
+
+By the elementary inequality $(a-b)^2\le 2a^2+2b^2$, the first part in (\eqref{Eq:11:2}) can be upper bounded as
+\begin{equation}
+\begin{aligned}
+&\sum_j\mathbb{E}
+\left\{
+\left(
+X[t_{j+1}^{(n)}\land t] - X[t_{j}^{(n)}\land t]
+\right)^2
+- 
+\left(
+\langle X\rangle[t_{j+1}^{(n)}\land t] - \langle X\rangle[t_{j}^{(n)}\land t]
+\right)
+\right\}^2\\
+\le&2\sum_j\mathbb{E}\left(
+X[t_{j+1}^{(n)}\land t] - X[t_{j}^{(n)}\land t]
+\right)^4 + 2\sum_j\mathbb{E}\left(
+\langle X\rangle[t_{j+1}^{(n)}\land t] - \langle X\rangle[t_{j}^{(n)}\land t]
+\right)^2
+\end{aligned}
+\end{equation}
+We claim that:
+\begin{enumerate}
+\item
+$\sum_j\mathbb{E}\left(
+X[t_{j+1}^{(n)}\land t] - X[t_{j}^{(n)}\land t]
+\right)^4\to 0$ as $n\to\infty$;
+\item
+$\sum_j\mathbb{E}\left(
+\langle X\rangle[t_{j+1}^{(n)}\land t] - \langle X\rangle[t_{j}^{(n)}\land t]
+\right)^2\to 0$ as $n\to\infty$.
+\end{enumerate}
+Then $\mathbb{E}\left[
+Q(\Pi^{(n)};X)[0,t] - \langle X\rangle_t
+\right]^2\to0$ as $n\to\infty$, i.e., $Q(\Pi^{(n)};X)[0,t]\xrightarrow{L^2}\langle X\rangle_t$. The desired result holds since $L^2$ convergence implies convergence in probability.
+\item
+Then consider the case where $\{X_t\}_{t\ge0},\langle X\rangle$ are unbounded.
+We argue for this case by the technique of localization.
+Define a sequence of stopping time
+\[
+T_k = \inf\{t\ge0:~|X_t|\ge K\text{ or }\langle X\rangle_t\ge K\}.
+\]
+Thus the stopped process $\{X[t\land T_k]\}_{t\ge0}$ is a bounded martingale, denoted as $X^{(k)}[t]\equiv X[t\land T_k]$.
+By the Doob-Meyer decomposition,
+\[
+(X^{(k)})^2 = \left\{(X^{(k)}_t)^2-\langle X^{(k)}\rangle_t\right\} + \langle X^{(k)}\rangle_t.
+\]
+Now we begin to simplify the formula presented above by the uniqueness of Doob-Meyer decomposition (Inituitively we should have $\langle X^{(k)}\rangle[t]=\langle X\rangle[t\land T_k]$).
+\begin{itemize}
+\item
+The stopped process $\{X[t\land T_k]^2-\langle X\rangle[t\land T_k]\}$ is a martingale because $\{X_t^2-\langle X\rangle_t\}$ is a martingale and $T_k$ is a stopping time.
+\item
+Moreover, $\langle X\rangle[t\land T_k]$ is increasing and predicatable.
+\end{itemize}
+Hence $X^{(k)}\equiv X[t\land T_k]$ admits the Doob-Meyer decomposition
+\[
+(X^{(k)})^2 = \{X[t\land T_k]^2-\langle X\rangle[t\land T_k]\} + \langle X\rangle[t\land T_k].
+\]
+By the uniqueness of Doob-Meyer decomposition, $\langle X^{(k)}\rangle[t]=\langle X\rangle[t\land T_k]$.
+Applying the result in part 1) into the bounded process $X^{(k)}_{\bullet}$,
+for any $\varepsilon>0,\eta>0$ there exists $N$ such that as long as $n>N$,
+\begin{equation}\label{Eq:11:6}
+\mathbb{P}\bigg(
+|Q(\Pi^{(n)};X^{(k)})[0,t] - \langle X^{(k)}\rangle[t]|>\varepsilon
+\bigg)=
+\mathbb{P}\bigg(
+|Q(\Pi^{(n)};X^{(k)})[0,t] - \langle X\rangle[t\land T_k]|>\varepsilon
+\bigg)
+<\frac{\eta}{2}.
+\end{equation}
+%Since $T_k\to\infty$ almost surely, there exists $N_2$ such that $\mathbb{P}(T_k<t)<\frac{\eta}{2}$ for $\forall k>N_2$.
+Now we begin to show that $Q(\Pi^{(n)};X)[0,t]\xrightarrow{P}\langle X\rangle_t$:
+\begin{subequations}
+\begin{align}
+&\mathbb{P}\bigg(
+|Q(\Pi^{(n)};X)[0,t] -\langle X\rangle[t]|>\varepsilon
+\bigg)\nonumber\\
+=&\mathbb{P}\bigg(
+|Q(\Pi^{(n)};X)[0,t] -\langle X\rangle[t]|>\varepsilon, T_k\ge t
+\bigg)+\mathbb{P}\bigg(
+|Q(\Pi^{(n)};X)[0,t] -\langle X\rangle[t]|>\varepsilon, T_k<t
+\bigg)\nonumber\\
+\le&
+\mathbb{P}\bigg(
+|Q(\Pi^{(n)};X)[0,t] -\langle X\rangle[t]|>\varepsilon, T_k\ge t
+\bigg)+\mathbb{P}(T_k<t)\label{Eq:11:5:a}\\
+=&\mathbb{P}\bigg(
+\left|
+\sum_j
+\left(
+X[t_{j+1}^{(n)}\land t] - X[t_{j}^{(n)}\land t]
+\right)^2-\langle X\rangle[t\land T_k]
+\right|>\varepsilon, T_k\ge t
+%- \langle X\rangle_t
+%\right]^2
+%
+%|\sum_j(X)
+%Q(\Pi^{(n)};X)[0,t] -\langle X\rangle_t|>\varepsilon, T_k\ge t
+\bigg)+\mathbb{P}(T_k<t)\nonumber\\
+=&
+\mathbb{P}\bigg(
+\left|
+\sum_j
+\left(
+X[t_{j+1}^{(n)}\land T_k\land t] - X[t_{j}^{(n)}\land  T_k\land t]
+\right)^2-\langle X\rangle[t\land T_k]
+\right|>\varepsilon, T_k\ge t
+\bigg)+\mathbb{P}(T_k<t)\nonumber\\
+\le&
+\mathbb{P}\bigg(
+\left|
+\sum_j
+\left(
+X[t_{j+1}^{(n)}\land T_k\land t] - X[t_{j}^{(n)}\land  T_k\land t]
+\right)^2-\langle X\rangle[t\land T_k]
+\right|>\varepsilon
+\bigg)+\mathbb{P}(T_k<t)\nonumber\\
+=&
+\mathbb{P}\bigg(
+\left|
+Q(\Pi^{(n)};X^{(k)})[0,t]
+-\langle X\rangle[t\land T_k]
+\right|>\varepsilon
+\bigg)+\mathbb{P}(T_k<t)\nonumber\\
+\le&\frac{\eta}{2}+\frac{\eta}{2}=\eta.\label{Eq:11:5:b}
+\end{align}
+where the upper bound presented (\eqref{Eq:11:5:a}) is because $\mathbb{P}(T_k<\infty)\to0$,
+and (\eqref{Eq:11:5:b}) makes use of the upper bound (\eqref{Eq:11:6}).
+\end{subequations}
+\end{enumerate}
+\end{proof}
+In order to complete the proof, it remains to show the following two claims are correct.
+\begin{proposition}
+Let $\{X_t\}_{t\ge0}\in\mathcal{U}_c^2$ with $|X_s|\le K$ almost surely for any $s\in[0,t].$
+Let $\{\Pi^{(n)}\}_{n=1}^\infty$ be a sequence of partitions on $[0,t]$ with $\|\Pi^{(n)}\|\to0$. Then
+\[
+\lim_{n\to\infty}\mathbb{E}\left[
+\sum_j(X[t_{j+1}^{(n)}] - X[t_{j}^{(n)}])^4
+\right]=0.
+\]
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+\item
+We first show that $\mathbb{E}\left[Q(\Pi;X)[0,t]\right]^2$ is bounded for any partition $\Pi$:
+\begin{equation}\label{Eq:11:5}
+\begin{aligned}
+\mathbb{E}\bigg[Q(\Pi;X)[0,t]\bigg]^2&=
+\mathbb{E}\bigg[
+\sum_j(X[t_{j+1}] - X[t_j])^2
+\bigg]^2\\
+&=\mathbb{E}\bigg[
+\sum_j(X[t_{j+1}] - X[t_j])^4
+\bigg]+2\mathbb{E}\left[
+\sum_k\sum_{j>k}(X[t_{j+1}] - X[t_j])^2(X[t_{k+1}] - X[t_k])^2
+\right]
+\end{aligned}
+\end{equation}
+In particular, 
+\begin{align*}
+&\mathbb{E}\left[
+\sum_{j>k}(X[t_{j+1}] - X[t_j])^2\middle|\mathcal{F}_{t_{k+1}}
+\right]=
+\mathbb{E}\left[
+\sum_{j>k}(X[t_{j+1}]^2 + X[t_j]^2 - 2X[t_{j+1}]X[t_j])\middle|\mathcal{F}_{t_{k+1}}
+\right]\\
+=&\mathbb{E}\left[
+\sum_{j>k}X[t_{j+1}]^2 + X[t_j]^2 - 2\mathbb{E}\left(X[t_{j+1}]X[t_j]\middle|\mathcal{F}_{t_j}\right)\middle|\mathcal{F}_{t_{k+1}}
+\right]\\
+=&\mathbb{E}\left[
+\sum_{j>k}X[t_{j+1}]^2 - X[t_j]^2 
+\middle|\mathcal{F}_{t_{k+1}}
+\right]\le \mathbb{E}\left[
+X[t_{k+2}]
+\middle|\mathcal{F}_{t_{k+1}}
+\right]\le K^2.
+\end{align*}
+Taking $k=0$, we have $\mathbb{E}\left[
+\sum_{j\ge1}(X[t_{j+1}] - X[t_j])^2
+\right]\le K^2$.
+We can apply these inequalities to upper bound the second term in (\ref{Eq:11:5}):
+\begin{align*}
+&\mathbb{E}\left[
+\sum_k\sum_{j>k}(X[t_{j+1}] - X[t_j])^2(X[t_{k+1}] - X[t_k])^2
+\right]\\
+=&\mathbb{E}\left[
+\sum_k\mathbb{E}\left\{\sum_{j>k}(X[t_{j+1}] - X[t_j])^2(X[t_{k+1}] - X[t_k])^2\middle|\mathcal{F}_{t_{k+1}}
+\right\}
+\right]\\
+=&\mathbb{E}\left[
+\sum_k(X[t_{k+1}] - X[t_k])^2\mathbb{E}\left\{\sum_{j>k}(X[t_{j+1}] - X[t_j])^2\middle|\mathcal{F}_{t_{k+1}}
+\right\}
+\right]\\
+\le&\mathbb{E}\left[
+\sum_k(X[t_{k+1}] - X[t_k])^2K^2
+\right]\le K^4.
+\end{align*}
+ Then we upper bound the first term in (\ref{Eq:11:5}):
+\begin{align*}
+&\mathbb{E}\bigg[
+\sum_j(X[t_{j+1}] - X[t_j])^4
+\bigg]\\
+=&\mathbb{E}\bigg[
+\sum_j(X[t_{j+1}] - X[t_j])^2(X[t_{j+1}] - X[t_j])^2
+\bigg]\\
+\le&\mathbb{E}\bigg[
+\sum_j4K^2(X[t_{j+1}] - X[t_j])^2
+\bigg]\le 4K^4,
+\end{align*}
+where the first inequality is because $\mathbb{E}\left[
+\sum_{j\ge1}(X[t_{j+1}] - X[t_j])^2
+\right]\le K^2$.
+Then we can assert that $\mathbb{E}\left[Q(\Pi;X)[0,t]\right]^2\le 6K^4$.
+\item
+In order to show the desired result, we start with simplifying $\sum_j(X[t_{j+1}] - X[t_j])^4$:
+\begin{align*}
+\sum_j(X[t_{j+1}] - X[t_j])^4&=\sum_j(X[t_{j+1}] - X[t_j])^2(X[t_{j+1}] - X[t_j])^2\\
+&\le \left(\sup_j|X[t_{j+1}] - X[t_j]|\right)^2\sum_j(X[t_{j+1}] - X[t_j])^2\\
+&\le A_{\Pi}^2\sum_j(X[t_{j+1}] - X[t_j])^2
+\end{align*}
+in which we define $A_{\Pi}=\sup\{|X_y-X_s|:~0\le s<y\le t, |y-s|\le\|\Pi\|\}$.
+By Cauchy-Schwarz inequality,
+\begin{align*}
+&\mathbb{E}\sum_j(X[t_{j+1}] - X[t_j])^4\\&\le \mathbb{E}\left[A_{\Pi}^2\sum_j(X[t_{j+1}] - X[t_j])^2\right]^2\\
+&\le \left\{\mathbb{E}A_{\Pi}^4\right\}^{1/2}\left\{
+\mathbb{E}\left[\sum_j(X[t_{j+1}] - X[t_j])^2\right]^2
+\right\}^{1/2}\\
+&=\left\{\mathbb{E}A_{\Pi}^4\right\}^{1/2}\left\{
+\mathbb{E}\left[Q(\Pi;X)[0,t]\right]^2
+\right\}^{1/2}\\
+&\le \left\{\mathbb{E}A_{\Pi}^4\right\}^{1/2}\left\{
+6K^4
+\right\}^{1/2}
+\end{align*}
+Since $X$ is continuous and thus uniformly continuous on $[0,t]$, $A_{\Pi}\to0$ as $\|\Pi\|\to0$.
+Applying bounded convergence theorem gives $\mathbb{E}A_{\Pi}^4\to0$.
+The proof is completed.
+\end{enumerate}
+\end{proof}
+
+\begin{proposition}
+Let $\{X_t\}_{t\ge0}\in\mathcal{U}_c^2$ and $\langle X\rangle_s\le K$ almost surely for any $s\in[0,t]$.
+Suppose that $\{\Pi^{(n)}\}$ is a sequence of partitions on $[0,t]$ such that $\|\Pi^{(n)}\|\to0$, then we have
+\[
+\lim_{n\to\infty}\mathbb{E}\bigg[
+\sum_j\left(
+\langle X\rangle[t_{j+1}^{(n)}] - \langle X\rangle[t_{j}^{(n)}]
+\right)^2
+\bigg]=0.
+\]
+\end{proposition}
+\begin{proof}
+The proof is by direct computing and upper bounding the term $\mathbb{E}\bigg[
+\sum_j\left(
+\langle X\rangle[t_{j+1}^{(n)}] - \langle X\rangle[t_{j}^{(n)}]
+\right)^2
+\bigg]$:
+\begin{align*}
+&\mathbb{E}\bigg[
+\sum_j\left(
+\langle X\rangle[t_{j+1}^{(n)}] - \langle X\rangle[t_{j}^{(n)}]
+\right)^2
+\bigg]\\
+\le &
+\mathbb{E}\bigg[
+\sup_j\left|\langle X\rangle[t_{j+1}^{(n)}] - \langle X\rangle[t_{j}^{(n)}]\right|\cdot
+\sum_j\left(
+\langle X\rangle[t_{j+1}^{(n)}] - \langle X\rangle[t_{j}^{(n)}]
+\right)
+\bigg]\\
+=&
+\mathbb{E}\bigg[
+\sup_j\left|\langle X\rangle[t_{j+1}^{(n)}] - \langle X\rangle[t_{j}^{(n)}]\right|\cdot
+\langle X\rangle_t
+\bigg]\le \mathbb{E}[\hat{A}_{\Pi}\cdot \langle X\rangle_t],
+\end{align*}
+where we define $\hat{A}_{\Pi}=\sup\{|\langle X\rangle_y-\langle X\rangle_s|:~0\le s<y\le t, |y-s|\le\|\Pi\|\}$.
+Since $\langle X\rangle$ is continous, and therefore uniformly continuous on $[0,t]$, 
+when $\|\Pi\|\to0$, $\hat{A}_{\Pi}\to0$.
+It is easy to see that $|\hat{A}_{\Pi}\cdot \langle X\rangle_t|\le 2K^2$.
+By bounded convergence theorem, as $\|\Pi\|\to0$,
+\[
+\mathbb{E}\bigg[
+\sum_j\left(
+\langle X\rangle[t_{j+1}^{(n)}] - \langle X\rangle[t_{j}^{(n)}]
+\right)^2
+\bigg]\le \mathbb{E}[\hat{A}_{\Pi}\cdot \langle X\rangle_t]\to0.
+\]
+The proof is completed.
+\end{proof}
+
+Now we begin to characterize the quadratic variation of Ito's integral $I_t(X)$ for $X_{\bullet}\in\mathcal{L}^2$. However, we don't prove this result by taking the limit of the formula presented in Theorem~\ref{The:11:1} (because it is a little bit complicated), but making use of the Doob-Meyer decomposition.
+
+
+
+
+
+
+
+\begin{theorem}
+The quadratic variation of the Ito integral $I_t(X)$ for $\{X_t\}_{t\ge0}\in\mathcal{L}^2$ on the interval $[0,T]$ is
+\[
+\int_0^TX_t^2\diff t.
+\]
+\end{theorem}
+\begin{proof}
+The Doob-Meyer decomposition for $\{I_t(X)\}_{t\ge0}\in\mathcal{U}_c^2$ is
+\[
+I_t^2(X)\triangleq (I_t^2(X)-\langle I(X)\rangle_t) + \langle I(X)\rangle_t.
+\]
+We will characterize this decomposition form as follows.
+On the one hand,
+\begin{align*}
+\mathbb{E}[(I_t(X)-I_s(X))^2\mid\mathcal{F}_s]&=\mathbb{E}[I_t^2(X)-2I_t(X)I_s(X)+I_s^2(X)\mid\mathcal{F}_s]\\
+&=\mathbb{E}[I_t^2(X)\mid \mathcal{F}_s]-2I_s(X)\mathbb{E}[I_t(X)\mid \mathcal{F}_s]+I_s^2(X)\\
+&=\mathbb{E}[I_t^2(X)\mid \mathcal{F}_s]-I_s^2(X).
+\end{align*}
+On the other hand,
+\begin{align*}
+\mathbb{E}[(I_t(X)-I_s(X))^2\mid\mathcal{F}_s]&=\mathbb{E}\left[\int_s^tX_u^2\diff u\mid\mathcal{F}_s\right]\\
+&=\mathbb{E}\left[\int_0^tX_u^2\diff u\mid\mathcal{F}_s\right]-\int_0^sX_u^2\diff u.
+\end{align*}
+Equating those two terms aand re-arranging gives
+\[
+\mathbb{E}\left[
+[I_t^2(X) - \int_0^tX_u^2\diff u\middle|\mathcal{F}_s
+\right]
+=
+I_s^2(X)-\int_0^sX_u^2\diff u.
+\]
+Hence, $\{I_t^2(X)-\int_0^tX_u^2\diff u\}_{t\ge0}$ is a martingale.
+Moreover, $\int_0^tX_u^2\diff u$ is a predictable increasing process in $t$.
+By the uniqueness of Doob-Mayer decomposition,
+\[
+\langle I(X)\rangle_t=\int_0^tX_u^2\diff u.
+\]
+
+\end{proof}
+
+\section{Thursday}
+\subsection{Quadratic Covariation}
+
+Note that quadratic variation characterizes the sum of the quadratic of jumps for a single process.
+Now we aim to quantify the sum of product of jumps for two processes $\{X_t\}_{t\ge0}, \{Y_t\}_{t\ge0}\in\mathcal{U}_c^2$:
+\begin{definition}[Quadratic Covariation]
+Define the quadratic covariation of $X_{\bullet}, Y_{\bullet}\in\mathcal{U}_c^2$ as
+\[
+Q_c(\Pi;X,Y)[0,t]=\sum_j\left(
+X[t_{j+1}^{(n)}\land t] - X[t_{j}^{(n)}\land t]
+\right)
+\left(
+Y[t_{j+1}^{(n)}\land t] - Y[t_{j}^{(n)}\land t]
+\right)
+\] 
+Define the quadratic covariational process of $X$ and $Y$ as
+\[
+\inp{X}{Y}=\frac{1}{4}(\langle X+Y\rangle - \langle X-Y\rangle),
+\]
+which is well-defined since $X+Y,X-Y\in\mathcal{U}_c^2$.
+\end{definition}
+
+Similar as in Theorem~\ref{The:11:1}, we can show that the quadratic covariational process is the limit of the quadratic covariation as $\|\Pi\|\to0$.
+
+\begin{theorem}
+Let $\{\Pi^{(n)}\}_{n=1}^\infty$ be a sequence of partitions with $\|\Pi^{(n)}\|\to0$.
+Then the quadratic covariation $Q_c(\Pi^{(n)};X,Y)[0,t]$ converges to $\inp{X}{Y}_t$ in probability.
+\end{theorem}
+
+\begin{proof}
+It suffices to show that 
+\begin{equation}\label{Eq:11:8}
+Q_c(\Pi;X,Y)[0,t]=\frac{1}{4}\left(
+Q(\Pi;X+Y)[0,t] + Q(\Pi;X-Y)[0,t]
+\right),
+\end{equation}
+and the remainings can be shown by taking the limit of the quadratic variation $Q(\Pi^{(n)};X+Y)[0,t]$ and $Q(\Pi^{(n)};X-Y)[0,t]$.
+Here we begin to simplify the RHS in (\eqref{Eq:11:8}):
+\begin{align*}
+Q(\Pi;X+Y)[0,t]&=\sum_j\left(
+X[t_{j+1}\land t] + Y[t_{j+1}\land t] - X[t_{j}\land t] - Y[t_{j+1}\land t]
+\right)^2\\
+&=\sum_j\left(
+X[t_{j+1}\land t] - X[t_{j}\land t] 
+\right)^2+\sum_j\left(
+Y[t_{j+1}\land t] - Y[t_{j+1}\land t]
+\right)^2\\
+&\quad + 2\sum_j\left(
+X[t_{j+1}\land t] - X[t_{j}\land t] 
+\right)\left(
+Y[t_{j+1}\land t] - Y[t_{j+1}\land t]
+\right).
+\end{align*}
+Similarly,
+\begin{align*}
+Q(\Pi;X-Y)[0,t]&=\sum_j\left(
+X[t_{j+1}\land t] - X[t_{j}\land t] 
+\right)^2+\sum_j\left(
+Y[t_{j+1}\land t] - Y[t_{j+1}\land t]
+\right)^2\\
+&\quad -2\sum_j\left(
+X[t_{j+1}\land t] - X[t_{j}\land t] 
+\right)\left(
+Y[t_{j+1}\land t] - Y[t_{j+1}\land t]
+\right).
+\end{align*}
+Then it is clear that (\eqref{Eq:11:8}) holds.
+The proof is completed.
+\end{proof}
+
+
+\begin{proposition}[Properties about Quadratic Covariational Process]
+Let stochastic processes $X_{\bullet},Y_{\bullet}, X_{\bullet}^{(1)},X_{\bullet}^{(2)}\in\mathcal{U}_c^2$, then the following properties hold:
+\begin{enumerate}
+\item
+Symmetry: $\inp{X}{Y}=\inp{Y}{X}$;
+\item
+For any $a,b\in\mathbb{R}$, $\inp{aX^{(1)} + bX^{(2)}}{Y} = a\inp{X^{(1)}}{Y} + b\inp{X^{(2)}}{Y}$;
+\item
+Cauchy-Schwarz inequality: $|\inp{X}{Y}_t|^2 \le \langle X\rangle_t\langle Y\rangle_t$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Part 1) and part 2) can be shown by definition. For part 3), we first apply Cauchy-scharz inequality on the quadratic covariation of $X$ and $Y$:
+\begin{align*}
+\left(Q_c(\Pi;X,Y)[0,t]\right)^2&=\left(\sum_j\left(
+X[t_{j+1}^{(n)}\land t] - X[t_{j}^{(n)}\land t]
+\right)
+\left(
+Y[t_{j+1}^{(n)}\land t] - Y[t_{j}^{(n)}\land t]
+\right)\right)^2\\
+&\le \left(
+\sum_j\left(
+X[t_{j+1}^{(n)}\land t] - X[t_{j}^{(n)}\land t]
+\right)^2
+\right)
+\left(
+\sum_j\left(
+Y[t_{j+1}^{(n)}\land t] - Y[t_{j}^{(n)}\land t]
+\right)^2
+\right)\\
+&=Q(\Pi;X)[0,t]Q(\Pi;Y)[0,t]
+\end{align*}
+Then taking the limit on both sides gives the desired result.
+\end{proof}
+
+\begin{remark}
+Recall that a monotone function has the bounded variation over any finite intervals.
+Then $\langle X\rangle$ has the bounded variation since it is increasing.
+It follows that the quadratic covariational process $\langle X,Y\rangle$ has the bounded variation since it is a linear combination of two quadratic variational processes.
+\end{remark}
+
+Next, we show that the product process $XY$ admits the decomposition that is similar to Doob-Meyer decomposition, though in this case $\langle X,Y\rangle$ may not be increasing:
+\begin{example}
+We can show that $XY-\langle X,Y\rangle$ is a martingale as follows.
+Since stochastic processes $X+Y,X-Y\in\mathcal{U}_c^2$, the Doob-Meyer decomposition implies that 
+$(X+Y)^2-\langle X+Y\rangle, (X-Y)^2-\langle X-Y\rangle$ are martingales.
+Then we can express the term $XY-\langle X,Y\rangle$ as the linear combination of two martingales, which is a martingale as well:
+\begin{align*}
+&\frac{1}{4}\bigg[
+[(X+Y)^2-\langle X+Y\rangle] - [(X-Y)^2-\langle X-Y\rangle]
+\bigg]\\
+=&\frac{1}{4}\bigg[
+[X^2+2XY+Y^2-X^2+2XY-Y^2] - [\langle X+Y\rangle-\langle X-Y\rangle]
+\bigg]\\
+=&XY-\frac{1}{4}[\langle X+Y\rangle-\langle X-Y\rangle].
+\end{align*}
+\end{example}
+
+\subsection{Ito Integral for General Processes}
+\paragraph{Ito Integral for Simple Processes}
+Let $M_{\bullet}\in\mathcal{U}_c^2$, and $\{X_t\}_{t\ge0}$ be a simple process with the corresponding partition $\Pi=\{0=t_0<t_1<\cdots<t_n\le T\}$.
+Then the Ito integral of $X_t$ w.r.t. $M_t$ is defined as
+\[
+\int_0^TX_t\diff M_t = \sum_{j=1}^{n-1}X[t_j]\cdot(M[t_{j+1}] - M[t_j]) + X[t_n](M[T] - N[t_n]),
+\]
+denoted as $I_T(X)$.
+Immediately we have the following properties:
+\begin{enumerate}
+\item
+$\{I_t(X)\}_{t\ge0}\in\mathcal{U}_c^2$;
+\item
+The quadratic variational process of $I_{\bullet}(X)$ is 
+\[
+\langle I(X)\rangle_t = \int_0^tX_u^2\diff\langle M\rangle_u.
+\]
+The process $\left\{
+I_t^2(X) - \int_0^tX_u^2\diff\langle M\rangle_u
+\right\}_{t\ge0}$ is a martingale;
+\item
+Ito isometry: for any $t\ge0$ we have
+\[
+\mathbb{E}\left[
+\int_0^tX_u\diff M_u
+\right]^2 = \mathbb{E}\left[
+\int_0^tX_u^2\diff\langle M\rangle_u
+\right].
+\]
+\end{enumerate}
+
+We need some conditions, such as integrability results about $X$, to define the Ito integral $\int_0^TX_t\diff M_t$ for general stochastic processes $X_{\bullet}$.
+
+\begin{definition}[Ito Integrable Space]
+The set $\mathcal{L}^2(M)$ denotes the space containing all adapted stochastic processes $\{X_t\}_{t\ge0}$, such that, there exists a sequence of simple processes $\{X_t^{(n)}\}_{t\ge0}$ satisfying
+\[
+\lim_{n\to\infty}\mathbb{E}\left[
+\int_0^T(X_t^{(n)}-X_t)^2\diff\langle M\rangle_t
+\right]=0,\quad \forall T>0.
+\]
+\end{definition}
+\paragraph{Ito's Integral on $\mathcal{L}^2(M)$}
+For any $X_{\bullet}\in\mathcal{L}^2(M)$ and associated simple processes $X^{(n)}_{\bullet}$ appproximating $X_{\bullet}$, there exists a limit of the Ito integral $\{I_t(X^{(n)})\}_{t\ge0}$ in the closed set $\mathcal{U}_c^2$,
+Then we take 
+\[
+\int_0^TX_t\diff M_t = \lim_{n\to\infty}\int_0^TX_t^{(n)}\diff M_t.
+\]
+\paragraph{Ito's Integral on Locally Bounded Processes}
+The question is whether we could extend the Ito's integral to other processes, such as locally bounded process $\{X_t\}_{t\ge0}$ and continuous square-integrable local martingale $\{M_t\}_{t\ge0}$.
+\begin{definition}[Local Martingale]
+A process $X_{\bullet}$ is called a local martingale if there is a sequence of finite stopping times $\{\tau_n\}$ with $\tau_n\uparrow\infty$ so that $X^{\tau_n}\equiv\{X(\tau_n\land t)\}_{t\ge0}$ is a martingale for each $n\ge1$.
+\end{definition}
+\begin{definition}[Local Bounded]
+A process $X_{\bullet}$ is said to be locally bounded if there is a sequence of finite stopping times $\{\sigma_n\}$ with $\sigma_n\uparrow\infty$ so that $X^{\sigma_n}$ is bounded for each $n\ge1$.
+\end{definition}
+The answer to the question above is yes.
+We take $\tilde{\tau}_n=\tau_n\land \sigma_n$, then $\tilde{\tau}_n\uparrow\infty$, and $M^{\tilde{\tau}_n}\in\mathcal{U}_c^2$. Construct $X_t^{(n)}=X_t1\{t\le \tilde{\tau}_n\}$, then $X_{\bullet}^{(n)}\in\mathcal{L}^2(M^{\tilde{\tau}_n})$.
+Then we define the Ito's integral
+\[
+\int_0^TX_t\diff M_t = \int_0^TX_t^{(n)}\diff M^{\tilde{\tau}_n},\quad T\in[0,\tilde{\tau}_n].
+\]
+Note that this definition is consistent, i.e., does not depend on the particular choice of the sequence $\{\tilde{\tau}_n\}$.
+\paragraph{Ito's Integral on the class of semi-martingales}
+Finally, we are wondering whether it is possible to define the stochastic integral on the class of semi-martingales. 
+We define the semi-martingale for continuous case as the following:
+\begin{definition}[Semi-martingale]
+We say $X_{\bullet}$ is a semi-martingale if it admits the decomposition
+\[
+X_t = A_t + M_t,
+\]
+where $M_{\bullet}$ is a continuous local martingale, and $A_{\bullet}$ is an adapted process of finite variations:
+\[
+|A|(t)\equiv\sup_{\delta>0, t_0=0}\sup_{t_n - t_{n-1}\ge\delta}
+\sum_{n=1}^\infty1(t_n\le t)|A[t_n] - A[t_{n-1}]|<\infty,\quad\forall t\ge0.
+\]
+\end{definition}
+Let $\{X_t\}_{t\ge0}$ be a left-continuous adapted process, and $\{Y_t\}_{t\ge0}$ be a continuous semi-martingale with the decomposition $Y_t = A_t+M_t$.
+Then define the stochastic integral
+\[
+\int_0^TX_t\diff Y_t = \int_0^TX_t\diff M_t + \int_0^TX_t\diff A_t.
+\]
+Note tht a left-continuous adapted process is locally bounded. Hence the first term $\int_0^TX_t\diff M_t$ is the Ito integral w.r.t. a continuous local martingale.
+The second term is the Riemann integation defined for each $\omega\in\Omega$.
+
+
+
+
+
+
+

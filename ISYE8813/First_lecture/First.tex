@@ -1,0 +1,1160 @@
+\chapter{From Linear to Conic Programming}
+
+\section{Preliminaries}
+\paragraph{Solvability of Convex Programming}
+\begin{theorem}
+Consider a convex program
+\[
+\mbox{Opt}=
+\left\{
+\begin{array}{ll}
+\mbox{minimize}&\quad f(x)\\
+\mbox{subject to}&\quad x\in\mathbb{R}^n\\
+&\quad g_i(x)\le0, i\in[m]\\
+&\quad |x_j|\le1, j\in[n]
+\end{array}
+\right\}
+\]
+in which we assume that 
+\[
+|f(x)|\le 1, |g_j(x)|\le 1,\quad\forall x\in B:=\{|x_j|\le1 ,\forall j\}.
+\]
+Then for each $\epsilon\in(0,1)$, one can find an $\epsilon$-optimal solution 
+\[
+x_{\epsilon}\in B:~f(x_{\epsilon}) - \text{Opt} \le \epsilon, 
+g_i(x_{\epsilon})\le\epsilon, \forall i,
+\]
+or to conclude correctly that the problem is infeasible at the cost of at most
+\[
+3n^2\log\left(
+\frac{2n}{\epsilon}
+\right).
+\]
+%computations ofthe objective and the constraints, along with their (sub)-gradients, 
+%at subsequently generated points of $\text{int}(B)$, with $O(1)n(n+m)$ additional arithmetic
+%operations per every such computation.
+\end{theorem}
+A convex programming always has a lot of structure.
+A good algorithm should utilize a prior knowledge of the problem's structure in order to 
+accelerate the solution process.
+
+\paragraph{Conic Programming: Structure-revealing representation}
+Linear programming has the standard form:
+\[
+\min_{x}\bigg\{
+c\trans x:~Ax-b\ge0
+\bigg\}
+\Longleftrightarrow
+\min_{x}\bigg\{
+c\trans x:~Ax-b\in\mathbb{R}_+^m
+\bigg\}.
+\]
+We can introduce the nonlinearity by considering  the conic programming:
+\[
+\min_{x}\bigg\{
+c\trans x:~Ax-b\ge_{\mathcal{K}}0
+\bigg\}
+\Longleftrightarrow
+\min_{x}\bigg\{
+c\trans x:~Ax-b\in\mathcal{K}
+\bigg\},
+\]
+in which $\mathcal{K}$ is a regular cone.
+\begin{remark}
+Each convex programming admits the equivalent conic formulation.
+Although a general convex cone may have no more structure than a general convex function, the following three types of cones allow to represent most convex problems:
+\begin{itemize}
+\item
+$\mathcal{LP}$: non-negative orthants $\mathbb{R}_+^m$;
+\item
+$\mathcal{CQP}$: Direct products of Lorentz cones:
+\[
+\mathbb{L}_+^p:=
+\{
+u\in\mathbb{R}^p:~u_p\ge \|[u_1;\ldots;y_{p-1}]\|_2
+\}
+\]
+which leads to the SOCP formulation;
+\item
+$\mathcal{SDP}$: direct products of semi-definite cones $\mathbb{S}_+^p=\{M\in\mathbb{S}^p:~M\succeq0\}$, which leads to the SDP formulation.
+\end{itemize}
+\end{remark}
+
+\section{Introduction to Linear Programming}
+The most important issue for LP is the LP duality theory, which answers the following basic question:
+\begin{quotation}
+How to give the certificate for the infeasiblity of a system of strict/nonstrict linear inequalities:
+\[
+\left\{
+\begin{array}{l}
+Px>p (a)\\
+Qx\ge q (b)
+\end{array}
+\right.
+\]
+\end{quotation}
+Every solution is a certificate for feasiblity.
+The duality certify when the system has no solutions.
+\begin{remark}
+Simple Sufficient Condition for Infeasiblity:
+if there eixsts \emph{non-negative} weight vectors $s$ and $y$ such that the inequality
+\[
+\big[
+s\trans P + y\trans Q
+\big]x~
+{\color{red}\Omega}~
+s\trans p + y\trans q,\qquad
+{\color{red}\Omega}=\left\{
+\begin{array}{ll}
+>& s\ne0\\
+\ge& s=0
+\end{array}
+\right.
+\]
+with unknowns $x$ has no solutions.
+Then the original linear inequality is infeasible.
+In particular, this inequality has no solutions if and only if $P\trans s + Q\trans y=0$, and
+\begin{itemize}
+\item
+either $\Omega=''>''$ and $s\trans p + y\trans q\ge0$;
+\item
+or $\Omega=''\ge''$ and $s\trans p + y\trans q>0$.
+\end{itemize}
+\end{remark}
+The remark implies the following proposition:
+\begin{proposition}\label{proposition:1:1}
+Given system of strict and nonstrict linear inequalities
+\begin{equation}
+\tag{$\mathcal{S}$}
+\left\{
+\begin{array}{l}
+Px>p\\
+Qx\ge q
+\end{array}
+\right.
+\end{equation}
+Associate $(\mathcal{S})$ with the following two systems of linear equalities/inequalities with unknowns $s,y$:
+\[
+\mathcal{T}_1:~
+\left\{
+\begin{aligned}
+s, y&\ge0\\
+P\trans s + Q\trans y&=0\\
+p\trans s + q\trans y&\ge0\\
+\sum_is_i&>0
+\end{aligned}
+\right.\qquad
+\mathcal{T}_2:~
+\left\{
+\begin{aligned}
+y&\ge0\\
+Q\trans y&=0\\
+q\trans y&>0
+\end{aligned}
+\right.
+\]
+If one of the sytem $\mathcal{T}_1,\mathcal{T}_2$ has a solution, then $(\mathcal{S})$ has no solutions.
+\end{proposition}
+
+
+\begin{theorem}[General Theorem of Alternative]
+The sufficient condition for the infeasibility of $(\mathcal{S})$ stated in Proposition~\ref{proposition:1:1} is necessary and sufficient.
+\end{theorem}
+
+\begin{remark}
+Apply the GTA to the system 
+\begin{equation}
+\tag{$\mathcal{S}_{NS}$}
+Qx\ge q
+\end{equation}
+This system is unsolvable if and only if $\mathcal{T}_2$ is solvable.
+\end{remark}
+
+\begin{corollary}\label{corollary:1:3}
+\begin{enumerate}
+\item
+A system of linear inequalities is infeasible if and only if one can combine the inequalities to obtain a contradictory inequality:
+\[
+0\trans x\ge1,\qquad\text{or}
+\qquad
+0\trans x>b, b\ge0.
+\]
+\item
+\textbf{Inhomogeneous Farkas Lemma}:
+a scalar linear inequality $a_0\trans x\le b_0$ is a consequence of a solvable system of linear inequalies $a_i\trans x\le b_i, i=1,2,\ldots,m$ if and only if 
+\[
+a_0=\sum_{i=1}^m\lambda_ia_i,\quad
+b_0=\lambda_0+\sum_{i=1}^m\lambda_ib_i, \qquad\lambda_i\ge0, i=0,1,\ldots,m.
+\]
+\end{enumerate}
+\end{corollary}
+
+\begin{theorem}[Homogeneous Farkas Lemma]
+A homogeneous linear inequality $a\trans x\ge0$ is a consequence of a system of homogeneous linear equalities $a_i\trans x\ge0, i=1,2,\ldots,m$ if and only if 
+\[
+\exists y\ge0, a=\sum_iy_ia_i.
+\]
+\end{theorem}
+
+
+
+
+The outline for proving GTA is to directly prove Homogeneous Farkas Lemma~(HFL), and then derive GTA from HFL.
+\begin{proof}[HFL$\implies$GTA]
+Given the system
+\begin{equation}
+\tag{$\mathcal{S}$}
+\left\{
+\begin{array}{l}
+Px>p\\
+Qx\ge q
+\end{array}
+\right.
+\end{equation}
+we associate it with the system (w.r.t. $x,t,\epsilon$)
+\begin{equation}
+\tag{$\mathcal{H}$}
+\left\{
+\begin{array}{l}
+Px - tp - \epsilon\bm1\ge0\\
+Qx - tq\ge 0\\
+t - \epsilon\ge0
+\end{array}
+\right.
+\end{equation}
+We can see that $(\mathcal{S})$ has no solutions if and only if $(\mathcal{H})$ has no solutions with $\epsilon>0$, i.e., iff the homogeneous linear inequality $-\epsilon\ge0$ is a consequence of the system of homogeneous linear equalities $(\mathcal{H})$.
+Then applying HFL gives the desired result.
+\end{proof}
+Now we prove the HFL by the polyhedral representation fact:
+\begin{definition}
+\begin{itemize}
+\item
+A set $X\subseteq\mathbb{R}^n$ is a polyhedral if it is a soluiton set of a finite system of non-strict linear inequalities:
+\[
+\exists A,b:~X=\{x\in\mathbb{R}^n:~Ax\le b\}.
+\]
+\item
+A polyhedral representation of a set $X\subseteq\mathbb{R}_x^n$
+is a representation of $X$ as the projection of a higher-dimensional polyhedral set
+\[
+X^+=\{[x;u]:~Ax+Bu\le c\}\subseteq \mathbb{R}_x^n\times\mathbb{R}_u^k
+\]
+onto the $x$-space, i.e., as the image of $X^+$ under the projection mapping 
+$[x;u]\mapsto x$:
+\[
+X=\{x\in\mathbb{R}^n:~\exists u, Ax+Bu\le c\}.
+\]
+\end{itemize}
+\end{definition}
+
+\begin{proposition}
+A set is a polyhedral iff it admits the polyhedral representation, i.e., the projection $X$ of a polyhedral set onto the space of $x$-variables can be represented as a solution set of finite system of nonstrict linear inequalities in $x$-variable only.
+\end{proposition}
+\begin{proof}
+Without loss of generality, assume that $u$ is one-dimensional.
+Split all inequalities $a_i\trans x+b_iu\le c_i, 1\le i\le I$ into three groups:
+\begin{itemize}
+\item
+When $b_i=0$ (denote $i\in I_1$), we obtain $a_i\trans x\le c_i$;
+\item
+When $b_i>0$ (denote $i\in I_2$), we obtain $u\le \alpha_i\trans x+\beta_i$;
+\item
+When $b_i<0$ (denote $i\in I_3$), we obtain $u\ge \alpha_i\trans x+\beta_i$.
+\end{itemize}
+Observe that a vector $\bar{x}$ belongs to the projection of $X^+$ iff $\bar{x}$ satisfies 
+$a_i\trans\bar{x}\le c_i, \forall i\in I_1$, and there exists $u\in\mathbb{R}$ so that affine upper bounds/lower bounds are satisfied.
+The latter is possible if and only if each upper bound on $u$ is greater than each lower bound on $u$, i.e., 
+\[
+X=\{x:~\exists u, Ax+ub\le c\}
+=\left\{
+x:~
+\begin{array}{l}
+a_i\trans x\le c_i, i\in I_1\\
+\alpha_i\trans x+\beta_i\ge \alpha_j\trans x+\beta_j, \forall i\in I_2, \forall j\in I_3
+\end{array}
+\right\}
+\]
+Hence, $X$ is a polyhedral.
+\end{proof}
+
+\begin{proof}[Proof of HFL]
+The nontrivial part is to show that, if $a$ is not a conic combination of $a_1,\ldots,a_n$, then $a\trans d<0$ for some $d$ with $a_i\trans d\ge0, i=1,2,\ldots,n$.
+Observe that $\text{Cone}(a_1,\ldots,a_n)$ admits the polyhedral representation:
+\[
+\text{Cone}(a_1,\ldots,a_n)=\left\{
+x:~\exists u,
+\begin{array}{l}
+u\ge0\\
+x-\sum_iu_ia_i=0
+\end{array}
+\right\}
+\]
+Hence, there exists a finite system of inequalities $p_j\trans x\ge b_j, 1\le j\le J$ such that
+\[
+\text{Cone}(a_1,\ldots,a_n)=\{x:~p_j\trans x\ge q_j, j=1,2,\ldots,J\}.
+\]
+\begin{itemize}
+\item
+Since $0\in\text{Cone}(a_1,\ldots,a_n)$, we imply $q_j\le0, \forall j$;
+\item
+Since $a\notin\text{Cone}(a_1,\ldots,a_n)$, we imply $p_{j^*}\trans a<q_{j^*}$ for some $j^*$, and thus $p_{j^*}\trans a<0$.
+\item
+Since $ta_i\in\text{Cone}(a_1,\ldots,a_n)$, we imply $p_{j^*}\trans(ta_i)\ge q_{j^*}\ge0, i=1,2,\ldots,n$.
+\end{itemize}
+Taking $d\equiv p_{j^*}$ completes the proof.
+\end{proof}
+
+
+\section{Dual to a Linear Programming}
+We aim to ask when will a real number $a$ become a lower bound on the optimal value of an LP problem:
+\begin{equation}
+\tag{P}
+\min_{x}~\{c\trans x:~Ax-b\ge0\}?
+\end{equation}
+This question essentially means when would the linear inequality $c\trans x\ge a$ is a corollary of the finite system of linear inequalities $Ax\ge b$.
+A sufficient condition is to get the target inequality by aggregation:
+\[
+\exists y\ge0,\qquad
+A\trans y=c, y\trans b\ge a.
+\]
+This sufficient condition is also necessary, provided that $(P)$ is feasible.
+The proof is based on Corollary~\ref{corollary:1:3}.
+\begin{theorem}
+The optimal value in the optimization problem
+\begin{equation}
+\tag{D}
+\max_{y}~\{b\trans y:~A\trans y=c, y\ge0\}
+\end{equation}
+is a lower bound on the optimal value in $(P)$.
+If the optimal value in $(P)$ is finite, then $(D)$ is solvable with $\text{Opt}(P)=\text{Opt}(D)$.
+\end{theorem}
+\begin{corollary}
+Consider the LP problem $(P)$ and the dual problem $(D)$. 
+Let $(x,y)$ be the pair of primal and dual feasible solutions. Then $c\trans x=b\trans y$ if and only if $y_i(Ax-b)_i=0, i=1,2,\ldots,m$.
+\end{corollary}
+
+\section{Applications of LP: Compressive Sensing}
+The basic problem of signal processing is the following:
+given the obserivation $y=Ax+\eta$, in which $A\in\mathbb{R}^{m\times n}$ denotes the sensing matrix, and $\eta$ denotes the observation noise, we wish to recover $x$.
+
+\paragraph{Parametric case}
+Assume that $m\gg n$. Assume that $\eta=\sigma\zeta, \zeta\sim\mathcal{N}(0,I_m)$, then the typical estimate is by Least Squares:
+\[
+\hat{x}(y)=\underset{w\in\mathbb{R}^n}{\arg\min}\|Aw-y\|_2^2.
+\]
+\paragraph{Non-parametric case}
+Assume that $m\ll n$, then $y=Ax$ does not define $x$ uniquely when $\eta=0$.
+Hence a priori information on $x$ is needed.
+In \emph{compressive sensing}, a priori information is that $x$ is sparse, i.e., has at most a given number $s\ll m$ of nonzero entries.
+
+In practice, many real-life signals $x$ become sparse when presented by some selected basis, which indicates the applicability of compressive sensing.
+
+The formal mathematical framework of compressive sensing is to solve the following system for $x$:
+\[
+y=Ax+\eta,\quad \|\eta\|\le\eta,
+\|x\|_0\le s.
+\]
+When $\delta=0$, the recovery problem becomes the $\ell_0$-minimization:
+\[
+\hat{x}=\underset{w\in\mathbb{R}^n}{\arg\min}\bigg\{
+\|w\|_0:~Aw=y
+\bigg\}.
+\]
+\begin{proposition}
+Let each $m\times 2s$ submatrix of the $m\times n$ matrix $A$ be of rank $2s$.
+Then in the noiseless case the $\ell_0$ minimization recovers exactly each $s$-sparse signal $x$.
+\end{proposition}
+\begin{proof}
+Suppose that $x$ is feasible for the minimization problem, then
+\[
+\|\hat{x}\|_0\le \|x\|_0\le s\implies \|x - \hat{x}\|\le 2s.
+\]
+This combines with $A(x-\hat{x})=0$ and the assumption that each $2s$ columns of $A$ are independent implies $x-\hat{x}=0$.
+\end{proof}
+The bad news is that $\ell_0$-minimization is difficult to solve, and the remedy is to solve the $\ell_1$-minimization problem instead:
+\[
+\hat{x}=\underset{w\in\mathbb{R}^n}{\arg\min}\bigg\{
+\|w\|_1:~Aw=y
+\bigg\}.
+\]
+An extension of $\ell_1$-minimization for noisy case is
+\[
+\hat{x}=\underset{w\in\mathbb{R}^n}{\arg\min}\bigg\{
+\|w\|_1:~\|Aw-y\|\le\delta
+\bigg\}.
+\]
+Here we answer two basic questions about compressive sensing:
+\begin{enumerate}
+\item
+When will the sensing matrix $A$ become $s$-good, i.e., when would the $\ell_1$-recovery in the noiseless case $\delta=0$ recovers exactly each $s$-sparse signal $x$?
+\item
+For $s$-good $A$, what are the error bounds of $\ell_1$ recovery in the presence of noise?
+\end{enumerate}
+
+
+\begin{proposition}
+The sensing matrix $A$ is $s$-good if and only if the nullspace property is satisfied:
+for each subset $I$ of the cardinality $s$ of the index set $\{1,2,\ldots,n\}$, and for each $z\in\text{Ker}(A)\setminus\{0\}$,
+\[
+\|z_I\|_1<\frac{1}{2}\|z\|_1.
+\]
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+\item
+Suppose that the nullspace property is not satisfied, i.e., for some index set $I$ we have $\|z_I\|_1\ge \|z_J\|_1$ with $J=\{1,2,\ldots,n\}\setminus I$.
+Let the true signal be the $s$-sparse signal $x=z_I$, then
+\[
+Az=0\implies Ax=A[-z_J].
+\]
+Together with the fact that $\|z_J\|\le\|z_I\|=\|x\|_1$, we can assert that $x$ is not the unqiue solution to $\min_w\{\|w\|_1:~Aw=Ax\}$, i.e., $A$ is not $s$-good.
+\item
+Suppose that the nullspace property is satisfied.
+Let $x$ be a $s$-sparse vector, so that $x=x_I$ for some index set $I$ with $\text{card}(I)\le s$.
+Let $\hat{x}=\min_w\{\|w\|_1:~Aw=Ax\}$.
+Assume on the contrary that $z=\hat{x}-x\ne0$. Take $J=\{1,2,\ldots,n\}\setminus I$.
+Since $0\ne z\in\text{Ker}(A)$, the nullspace property implies $\|z_I\|_1<\|z_J\|_1$.
+Hence,
+\[
+\|x_I\|_1 - \|\hat{x}_I\|_1\le \|z_I\|_1<\|z_J\|_1=\|\hat{x}_J\|_1.
+\]
+Or equivalently, $\|x\|=\|x_I\|_1<\|\hat{x}\|_1$. The proof is completed.
+\end{enumerate}
+\end{proof}
+To answer the question $2)$, we define
+\begin{align*}
+\|x\|_{s,1}&=\max_{I:~\text{Card}(I)\le s}\|x_I\|_1\\
+&=\max_{u}~\left\{
+u\trans x:~
+\|u\|_\infty\le 1, \|u\|_1\le s
+\right\},
+\end{align*}
+where the second equality is because for a positive integer $s\le n$, the extreme points of the convex polytope \[U_s=\{u\in\mathbb{R}^n:~\|u\|_\infty\le 1, \sum_i|u_i|\le s\}\] are exactly the vectors with $s$ nonzero entries equal to $\pm1$.
+
+\begin{lemma}
+The sensing matrix $A$ is $s$-good if and only if
+\begin{align*}
+\kappa_s(A)&=\max_{x}~\left\{
+\|x\|_{s,1}:~Ax=0, \|x\|_1\le 1
+\right\}\\
+&=\max_{x,u}\{u\trans x:~u\in U_s, Ax=0, \|x\|_1\le 1\}<\frac{1}{2}
+\end{align*}
+\end{lemma}
+\begin{lemma}
+For each integer $s\le n$, each $m\times n$ matrix $A$, each norm $\|\cdot\|$,
+there exists $\beta<\infty$ such that
+\begin{equation}
+\tag{*}
+\forall x\in\mathbb{R}^n,\quad
+\|x\|_{s,1}\le\beta\|Ax\| + \kappa_s(A)\|x\|_1,
+\end{equation}
+and the infimum of $\beta$ is denoted as $\beta_s(A,\|\cdot\|)$.
+\end{lemma}
+\begin{proof}
+Let $P$ be the orthogonal projector on $\text{Ker}(A)$, then
+\begin{align*}
+\|z\|_{s,1}&\le \|(I-P)z\|_{s,1} + \|Pz\|_{s,1}\\
+&\le \|(I-P)z\|_1 + \kappa_s(A)\|Pz\|_1\\
+&\le  \|(I-P)z\|_1 + \kappa_s(A)[\|z\|_1 + \|(I-P)z\|_1]\\
+&\le (1+ \kappa_s(A))\|(I-P)z\|_1 + \kappa_s(A)\|z\|_1\\
+&\le \alpha(1+ \kappa_s(A))\|(I-P)z\| + \kappa_s(A)\|z\|_1\\
+&=\alpha(1+ \kappa_s(A))\|Az\| + \kappa_s(A)\|z\|_1.
+\end{align*}
+\end{proof}
+The quantities $\kappa_s(A)$ and $\beta_s(A,\|\cdot\|)$ are responsible for the error bound in imperfect $\ell_1$-recovery.
+\begin{theorem}
+Let $A$ be the $m\times n$ sensing matrix, and $s$ be a positive integer. 
+Assume that:
+\begin{itemize}
+\item
+signal $x\in\mathbb{R}^n$ is nearly $s$-sparse: $\|x - x^s\|_1\le v$ for some $s$-sparse vector $x^s$;
+\item
+noise $\eta$ in the observation $y=Ax+\eta$ satisfies $\|\eta\|\le\delta$ for given $\eta\ge0$;
+\item
+$\hat{x}$ is obtained from $A,y,\delta$ by imperfect $\ell_1$-recovery:
+\[
+\|\hat{x}\|_1\le \nu + \min_{w}\{
+\|w\|_1:~\|Aw-y\|\le\delta,\qquad
+\|A\hat{x}-y\|\le\delta+\epsilon.
+\}
+\]
+\end{itemize}
+Assume (*) and $\kappa_s(A)<\frac{1}{2}$, then the following error bound holds true:
+\[
+\|x- \hat{x}\|_1\le 
+\frac{2\beta_s(A, \|\cdot\|)[2\delta+\epsilon] + 2v + \nu}{1-2\kappa_s(A)}.
+\]
+\end{theorem}
+\begin{proof}
+Let $I$ be the collection of indexes of the $s$-largest  in magnitude entries in $x$ and construct $x^s=x_I$.
+Take $J=\{1,2,\ldots,n\}\setminus I$ and $z=\hat{x}-x$.
+Denote $\kappa=\kappa_s(A)$ and $\beta=\beta_s(A,\|\cdot\|)$, then we have
+\begin{align*}
+\|\hat{x}\|_1&\le\nu+\text{Opt}\le\nu+\|x\|_1=\nu+\|x_I\|_1+\|x_J\|_1\\
+\|Az\|&\le\|A\hat{x}-y\|+\|Ax-y\|\le2\delta+\epsilon\\
+\|\hat{x}_J\|_1-\|x_J\|_1&\le \|\hat{x}\|_1-\|\hat{x}_I\|_1-\|x_J\|_1\le \nu+\|x_I\|_1-\|\hat{x}_I\|_1\le\nu+\|z_I\|_1
+\end{align*}
+Now we are able to derive the upper bound on $z$:
+\begin{align*}
+\|z_I\|_1&\le\beta\|Az\| + \kappa(A)\|z\|_1\\
+\|z_I\|_1&\le\frac{\beta}{1-\kappa}\|Az\| + \frac{\kappa}{1-\kappa}\|z_J\|_1\le
+\frac{\beta(2\delta+\epsilon)}{1-\kappa} + \frac{\kappa}{1-\kappa}\|z_J\|_1\\
+\|z\|_1&\le \frac{\beta(2\delta+\epsilon)}{1-\kappa} + \frac{1}{1-\kappa}\|z_J\|_1
+\end{align*}
+It suffices to upper bound $\|z_J\|_1$ to complete the proof:
+\begin{align*}
+\|\hat{x}_J\|_1 - \|x_J\|_1&\le \nu+\|z_I\|_1\le
+\nu+\frac{\beta(2\delta+\epsilon)}{1-\kappa} + \frac{\kappa}{1-\kappa}[\|\hat{x}_J\|_1 + \|x_J\|_1]\\
+\|z_J\|_1&\le\frac{\nu(1-\kappa)+\beta(2\delta+\epsilon)+2(1-\kappa)\|x_J\|_1}{1-2\kappa}.
+\end{align*}
+\end{proof}
+
+\begin{remark}
+Let $\|z\|_{s,1}$ denote the total magnitude of $s$-largest in magnitude entries in $z$.
+The sensing matrix $A$ is $s$-good means that the $\ell_1$-minimization recovers exactly all $s$-sparse signals in the noiseless case, if and only if the nullspace property is satisfied:
+\[
+\kappa_s(A)=\max_{z}~\{\|z\|_{s,1}:~Az=0, \|z\|_1\le 1\}<\frac{1}{2}.
+\]
+Given the norm $\|\cdot\|$ on $\mathbb{R}^m$, we have $\|z\|_{s,1}\le\beta_s\|Az\|+\kappa_s(A)\|z\|_1$ for any $z$, with properly selected $\beta_s$.
+When $\kappa_s(A)<1/2$, the term $\beta_s,\kappa_s$ are responsible for error bounds in imperfect $\ell_1$ recovery.
+\end{remark}
+
+\paragraph{Tractability of $s$-goodness}
+It is unclear how to verify the nullspace property in reasonable time.
+Here we discuss some sufficient conditions for $s$-goodness, i.e., an efficiently computable upper bound, denoted as $\kappa_s^+(A)$, on the quantity
+\[
+\kappa_s(A)=\max_{z}\{\|z\|_{s,1}:~\|z\|_1\le 1, Az=0\}.
+\]
+Then $\kappa_s^+(A)$ will act as a sufficient condition for $s$-goodness.
+\begin{proposition}
+The quqntity
+\[
+\kappa_s^+(A)=\min_{H\in\mathbb{R}^{m\times n}}\max_j\|\text{Col}_j[I - H\trans A]\|_{s,1}\ge \kappa_s(A).
+\]
+\end{proposition}
+\begin{proof}
+For any ${H\in\mathbb{R}^{m\times n}}$, we have
+\begin{align*}
+\kappa_s(A)&=\max_{z}\{\|z\|_{s,1}:~\|z\|_1\le 1, Az=0\}\\
+&=\max_{z}\{\|[I-H\trans A]z\|_{s,1}:~\|z\|_1\le 1, Az=0\}\\
+&\le \max_{z}\{\|[I-H\trans A]z\|_{s,1}:~\|z\|_1\le 1\}\\
+&= \max_{z}\left\{\|\sum_jz_j\text{Col}_j[I - H\trans A]\|_{s,1}:~\|z\|_1\le 1\right\}\\
+&\le \max_{z}\left\{\sum_j|z_j|\|\text{Col}_j[I - H\trans A]\|_{s,1}:~\|z\|_1\le 1\right\}\\
+&=\max_j\|\text{Col}_j[I - H\trans A]\|_{s,1}
+\end{align*}
+\end{proof}
+Assume that we can find a matrix $H$ such that
+\[
+\kappa^+(A)=\max_j\|\text{Col}_j[\Delta]\|_{s,1}<\frac{1}{2},\quad\Delta= I-H\trans A.
+\]
+Then $x=[\Delta +H\trans A]x$ for any $x\in\mathbb{R}^n$, which implies
+\[
+\|x\|_{s,1}\le s\|H\trans Ax\|_\infty + \sum_{j=1}^n|x_j|\|\text{Col}_j(\Delta)\|_{s,1}
+\le\beta\|Ax\| + \kappa^+\|x\|_1.
+\]
+Hence, we can assert that $\beta_s(A,\|\cdot\|)\le s\max_j\|\text{Col}_j[H]\|_*$.
+\begin{remark}
+\begin{enumerate}
+\item
+Computing $\kappa_s^+(A)$ and the associated $H$ reduces into LP:
+\begin{align*}
+\kappa_s^+(A)&=\min_{H,\tau}~\big\{
+\tau:~\|\text{Col}_j[I - H\trans A]\|_{s,1}\le\tau
+\big\}\\
+&=\min_{\substack{y^1,\ldots,y^n\\
+t_1,\ldots,t_n\\
+H,\tau}}~\left\{
+\tau:~
+\begin{array}{l}
+-y^j-t_j\bm 1\le \text{Col}_j[I - H\trans A]\le y^j + t_j\bm 1, 1\le j\le n\\
+y^j\ge0, \sum_{i=1}^ny_i^j + st_j\le\tau, 1\le j\le n
+\end{array}
+\right\}.
+\end{align*}
+\item
+When $s=1$, 
+\begin{align*}
+\kappa_1^+(A)&=\kappa_1(A)=
+\max_{1\le j\le n}\max_x\big\{
+x_j:~Ax=0, \|x\|\le 1
+\big\}\\&=\min_{H}\max_{i,j}|(I-H\trans A)_{i,j}|
+\end{align*}
+\item
+It is easy to see that $\kappa_s^+(A)\le \frac{s}{r}\kappa_r^+(A)$ when $1\le r\le s$.
+In particular, $\kappa_s^+(A)\le s\kappa_1^+(A)$.
+Once we have $\kappa_1^+(A)<\frac{1}{2s}$, we can assert the $s$-goodness of $A$.
+\end{enumerate}
+\end{remark}
+Define the mutual incoherence of $A=[A_1,\ldots,A_n]$ as
+\[
+\mu(A)=\max_{i\ne j}\frac{|A_i\trans A_j|}{A_j\trans A_j}.
+\]
+We set $H=\frac{1}{1+\mu(A)}[A_1/(A_1\trans A_1),\ldots,A_n/(A_n\trans A_n)]$, then
+\begin{itemize}
+\item
+the diagonal entries in $H\trans A$ are $\frac{1}{1+\mu(A)}$;
+\item
+magnitude of the off-diagonal entries in $H\trans A$ are upper bounded by $\frac{\mu(A)}{1+\mu(A)}$.
+\end{itemize}
+Hence, $H$ certifies that $\kappa_1^+(A)\le\frac{\mu(A)}{\mu(A)+1}$, which implies that $A$ is $s$-good when $\frac{2s\mu(A)}{\mu(A)+1}<1$.
+\begin{remark}
+When entries of the sensing matrix $A$ are drawn at random from Gaussian/uniform distribution,
+the typical value of $\mu(A)$ is as small as $O(1)\sqrt{\log(n)/m}$.
+The simplified sufficient condition ``$\kappa_1^+(A)<\frac{1}{2s}$'' implies that a typical $A$ from random ensembles just specified is $O(\sqrt{m/\log n})$-good.
+\end{remark}
+\begin{proposition}[Bad news for non-square matrix]
+When the sensing matrix $A\in\mathbb{R}^{m\times n}$ is essentially non-square, i.e., $n\ge 2m$, the verifiable sufficient condition can certify $s$-goodness only when $s\le O(1)\sqrt{m}$.
+\end{proposition}
+\begin{proof}
+Assume that $n\ge 2m$ and $H$ certifies $\kappa_s^+(A)<1/2$.
+Setting $\bar{n}=2m$ and denote $D$ by the angular $\bar{n}\times\bar{n}$ submatrix of $H\trans A$.
+Then $\text{rank}(D)\le m$, and thus $I_{\bar{n}}-D$ has at least $\bar{n}-m\ge m$ singular values that are greater than $1$, and therefore
+\[
+\sum_{i,j\in[\bar{n}]}[I_{\bar{n}}-D]_{i,j}^2\ge m.
+\]
+On the other hand, 
+\[
+u\in \mathbb{R}^{\bar{n}}\implies
+\|u\|_2^2\le \max(\bar{n}/s^2,1)\|u\|_{s,1}^2.
+\]
+Since $\|\text{Col}_j[I_{\bar{n}}-D]\|_{s,1}<1/2$, we have
+\[
+\sum_{i,j\in[\bar{n}]}[I_{\bar{n}}-D]_{i,j}^2
+=
+\|\text{Col}_j[I_{\bar{n}}-D]\|_2^2\le \max(\bar{n}/s^2,1)\cdot1/4.
+\]
+Hence, $s\le \sqrt{m}$.
+\end{proof}
+
+\begin{remark}
+It is known that $m\times n$ matrices of Gaussian matrix, Rademacher matrix are $s$-good with $s$ as large as $O(1)m/\log(2n/m)$, with high probability, which is better than the sufficient condition of the order $O(\sqrt{m}).$
+\end{remark}
+
+\begin{definition}
+The sensing matrix $A\in\mathbb{R}^{m\times n}$ satisfies the \emph{restricted isometry property} with parameters $\delta,k$, denoted as $\text{RIP}(\delta,k)$, if multiplying $A$ by a $k$-sparse vector we nearly preserve $\ell_2$ norm:
+\[
+(1-\delta)\|x\|_2^2\le \|Ax\|_2^2\le (1+\delta)\|x\|_2^2,\quad \text{for all $k$-sparse vector $x$}ssssss
+\]
+\end{definition}
+
+\begin{proposition}
+A random Gaussian/Rademacher $m\times n$ matrix is, with probability approaching 1 as
+$m$, $n$ grow, $\text{RIP}(0.1,k)$ with $k$ as large as $O(m/\log(2n/m))$.
+\end{proposition}
+\begin{proposition}
+The sensing matrix $A$ is $s$-good whenever $A$ is $\text{RIP}(\delta,2s)$ with $\delta<1/3$.
+\end{proposition}
+
+\begin{remark}
+Our verifiable sufficient condition for s-goodness, even in its simplest form, allows
+to certify at least the square root of the goodness level as guaranteed by (heavily
+computationally intractable) RIP.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+We usually consider the standard linear programming (LP) model:
+\begin{equation}\label{Eq:1:1}
+\begin{array}{ll}
+\max&\sum_{j=1}^nc_jx_j\\
+\text{s.t.}&\sum_{j=1}^na_{ij}x_j\le b_i,\quad i=1,\dots,m\\
+&x_j\ge 0, j=1,\dots,n
+\end{array}
+\end{equation}
+
+Or more generally, the constraints with equalities:
+\begin{equation*}
+\begin{array}{ll}
+\min&\sum_{j=1}^nc_jx_j\\
+\text{s.t.}&\sum_{j=1}^na_{ij}x_j\le b_i,\quad i\in I\\
+&\sum_{j=1}^na_{ij}x_j= b_i,\quad i\in E\\
+&x_j\ge 0, j=1,\dots,n
+\end{array}
+\end{equation*}
+
+It's often convenient to write the LP~(\ref{Eq:1:1}) into the compact matrix form:
+\begin{equation}\label{Eq:1:2}
+\begin{array}{ll}
+\max&\bm c\trans\bm x\\
+\text{s.t.}&\bm{Ax}\le\bm b\\
+&\bm x\ge\bm0
+\end{array}
+\end{equation}
+where $\bm c\in\mathbb{R}^n,\bm A\in\mathbb{R}^{m\times n},\bm b\in\mathbb{R}^m$.
+
+We also write $\bm A$ as the column form:
+\[
+\bm A=\begin{pmatrix}
+\bm a_1,&\cdots&\bm a_n
+\end{pmatrix}
+\]
+where $\bm a_i$ is the $i$-th column of $\bm A$. We also express the submatrix of $\bm A$, i.e., $\bm A_I\subset A$ as:
+\[
+\bm A_I:=[a_i\mid i\in I],
+\]
+where $I$ is a subset of $\{1,2,\dots,n\}$.
+
+\paragraph{Dictionaries of an LP}
+We can introduce slack variables to transform (\ref{Eq:1:1}) into LP with equalities:
+\[
+x_{n+i}:=b_i - \sum_{j=1}^na_{ij}x_j,\quad i=1,\dots,m
+\]
+Let $z=\sum_{j=1}^nc_jx_j$ be the objective function, and therefore we obtain a \emph{dictionary} for the LP~(\ref{Eq:1:1}):
+\begin{equation}
+\left.
+\begin{aligned}
+x_{n+i}&=b_i - \sum_{j=1}^na_{ij}x_j,\quad i=1,\dots,m\\
+z&=\sum_{j=1}^nc_jx_j
+\end{aligned}
+\right\}\qquad \text{Dictionary}
+\end{equation}
+
+Assume that $b_i\ge0$ for $i=1,\dots,m$. Therefore we obtain a \emph{feasible solution} associated with the dictionary, say \emph{dictionary solution}:
+\[
+\begin{array}{ll}
+x_j=0,\ \text{for $j=1,\dots,n$}
+&
+x_{n+i}=b_i \ \text{for $i=1,\dots,m$}
+\end{array}
+\]
+
+It's clear how to improve the current dictionary solution:
+\begin{itemize}
+\item
+If $c_j\le0,\forall j$, then we cannot possibly improve the dictionary solution
+\item
+If $c_j>0$ for some $1\le j\le n$, we increase the value for $x_j$ from $0$ into maximal value, while fixing $x_j=0$ for $1\le k(\ne j)\le n$. Keep implementing until $c_j\le0,\forall j$.
+\end{itemize}
+
+\begin{example}
+\begin{subequations}
+Consider the optimization problem
+\begin{equation}
+\begin{array}{ll}
+\max&5x_1+4x_2+3x_3\\
+\text{s.t.}&2x_1+3x_2+x_3\le 5\\
+&4x_1+x_2+2x_3\le 11\\
+&3x_1+4x_2+2x_3\le 8\\
+&x_1\ge0,\ x_2\ge0, \ x_3\ge0
+\end{array}
+\end{equation}
+We can find its dictionary:
+\begin{equation}
+\begin{aligned}
+x_4&=5\bm{-2}x_1-3x_2-x_3\\
+x_5&=11-4x_1-x_2-2x_3\\
+x_6&=8-3x_1-4x_2-2x_3\\
+z&=0\bm{+5}x_1+4x_2+3x_3
+\end{aligned}
+\end{equation}
+Since $c_1>0$, increasing value for $x_1$ suffices to consider the dictionary below instead:
+\begin{equation}
+\begin{aligned}
+x_1&=\frac{5}{2}-\frac{3}{2}x_2-\frac{1}{2}x_3-\frac{1}{2}x_4\\
+x_5&=11-4x_1-x_2-2x_3\\
+x_6&=8-3x_1-4x_2-2x_3\\
+z&=0+5x_1+4x_2+3x_3
+\end{aligned}
+\Longleftrightarrow
+\begin{aligned}
+x_1&=\frac{5}{2}-\frac{3}{2}x_2-\frac{1}{2}x_3-\frac{1}{2}x_4\\
+x_5&=1+5x_2+0x_3+2x_4\\
+x_6&=\frac{1}{2}+\frac{1}{2}x_2-\frac{1}{2}x_3+\frac{3}{2}x_4\\
+z&=\frac{25}{2}-\frac{7}{2}x_2+\frac{1}{2}x_3-\frac{5}{2}x_4
+\end{aligned}
+\end{equation}
+Also, since $c_3>0$, increasing value for $x_3$ suffices to consider the dictionary below instead:
+\begin{equation}
+\begin{aligned}
+x_1&=\frac{5}{2}-\frac{3}{2}x_2-\frac{1}{2}x_3-\frac{1}{2}x_4\\
+x_5&=1+5x_2+0x_3+2x_4\\
+x_3&=1+x_2+3x_4-2x_6\\
+z&=\frac{25}{2}-\frac{7}{2}x_2+\frac{1}{2}x_3-\frac{5}{2}x_4
+\end{aligned}
+\Longleftrightarrow
+\begin{aligned}
+x_3&=1+x_2+3x_4-2x_6\\
+x_1&=2-x_2-2x_4+x_6\\
+x_5&=1+5x_2+2x_4+2x_6\\
+z&=13-3x_2-x_4-x_6
+\end{aligned}
+\end{equation}
+
+\end{subequations}
+\end{example}
+
+\section{Simplex Method}
+
+\paragraph{Notations}
+The general dictionary for the problem~(\ref{Eq:1:1}) can be expressed as:
+\begin{equation}\label{Eq:1:5}
+\begin{aligned}
+x_i&=\bar b_i -\sum_{j\in N}\bar{a}_{ij}x_j,\quad i\in B\\
+z&=\zeta - \sum_{j\in N}\bar c_jx_j
+\end{aligned}
+\end{equation}
+where
+\begin{enumerate}
+\item
+the set $B$ is called a \emph{basis}, with $|B|=m$
+\item
+the set $N$ is called a \emph{non-basis}, with $|N|=n-m$. Moreover, $B\cupdot N = \{1,\dots,n\}$.
+\item
+the basis $B$ is said to be \emph{primal feasible} if $\bar{\bm b}\ge0$, since in this case we can choose a primal feasible solution by setting non-basis variables to be zero and basis variables $x_i$ to be $\bar{b}_i$.
+\item
+the non-basis $N$ is said to be \emph{dual feasible} if $\bar{\bm c}\le 0$, since in this case we can choose a dual feasible solution by setting non-basis variables to be $\bar{c}_i$ and other variables to be $0$.
+\end{enumerate}
+One can verify that in (\ref{Eq:1:5}), 
+\begin{align*}
+\bar{\bm b}&=\bm A_B^{-1}\bm b\\
+\bar{\bm c}_N\trans&=\bm c_N\trans - \bm c_B\trans\bm A_B^{-1}\bm A_N\\
+\bar{\bm A}_N&=\bm A_B^{-1}\bm A_N\\
+\zeta&=\bm c_B\trans\bm A_B^{-1}\bm b
+\end{align*}
+One can verify that $(\bm x_B,\bm x_N)=(\bm A_B^{-1}\bm b,\bm0)$ is a \emph{basic solution}.
+
+\paragraph{Simplex Method Algorithm}
+The assumption for the working of simplex method is that we are given a primal feasible basic solution, i.e., $\bar{b}\ge0$. The framework for obtaining an improved solution is summarized in (\ref{alg:SM}).
+
+
+\begin{algorithm}[htb] 
+\caption{Framework for the one step of the Simplex Method} 
+\label{alg:SM} 
+\begin{algorithmic}[1] %show number in each rows
+\REQUIRE ~~\\ %算法的输入参数：Input
+Primal feasible basic solution;
+\ENSURE ~~\\ %算法的输出：Output
+Improved feasible basic solution;
+\STATE Find Entering Basis Variable $j$
+\begin{itemize}
+\item
+Search for $j\in N$ such that $\bar{c}_j>0$
+\item
+If none exists then the current basic solution is optimal; otherwise choose one of such $j$.
+\end{itemize}
+\STATE Find Leaving Basis Variable $i$
+\begin{itemize}
+\item
+Search for $i\in B$ such that $\bar{a}_{ij}>0$
+\item
+If none exists then the problem is unbounded; otherwise choose
+\[
+i\in\arg\min\left\{\frac{\bar{b}_i}{\bar{a}_{ij}}: \bar{a}_{ij}>0,\ i\in B
+\right\}
+\]
+\end{itemize}
+\label{code:fram:trainbase}
+\STATE Basis Update:  $B\leftarrow B\cup\{j\}\setminus\{i\}$, and then form the corresponding basic solution.
+\end{algorithmic}
+\end{algorithm}
+\begin{remark}
+The \emph{one-step} of the simplex method is also called a \emph{pivot step}, i.e., choose one pivot variable entering the basis and one leaving the basis.
+
+The objective value for a successful pivot is improved by $\frac{\bar{c}_j\bar{b}_i}{\bar{a}_{ij}}$. However, the simplex method may not necessarily increase the objective value at each pivot, e.g., the case $\bar{b}_i=0$ coul happen. In this case, the basic solution is said to be \emph{degenerate}.
+
+Since there are no more than $\binom{n}{m}$ (finite) possible bases, the simplex method will stop on two cases: (a) declaring the problem is unbounded; (b) finding a basic optimal solution.
+\end{remark}
+\paragraph{Pivot Rules}
+The \emph{simplex method} specializes into a \emph{simplex algorithm} if one specifies a \emph{pivot rule} to determine which one variable to enter the basis and which one to leave, when there is a choice to make. Note that there exists some pivot rules that will make the problem face into cycling circumstance (see the example below), but here we list some examples of pivot rules that will be shown to definitely avoid cycling circumstance:
+\begin{itemize}
+\item
+Dantzig’s pivot rule: \emph{choose the largest positive coefficient to enter the basis.}
+\item
+The maximum improvement rule: \emph{try all the combinations and pick the pivot pair with the largest improvement}.
+\item
+Bland's rule: \emph{Among the candidates always pick the one with the smallest index}.
+\end{itemize}
+
+\begin{example}
+This example shows that some pivot rules may let the problem face into cycling circumstance, i.e., the algorithm solves the problem in a loop and fails to go out:
+\begin{align*}
+\bm{x_5}&=-0.5x_1+5.5x_2+2.5x_3-9x_4\\
+x_6&=-0.5x_1+1.5x_2+0.5x_3-x_4\\
+x_7&=1-x_1\\
+z&=\bm{10x_1}-57x_2-9x_3-24x_4
+\end{align*}
+Choosing $x_1$ to enter the basis and $x_5$ to leave gives:
+\begin{align*}
+x_1&=-2x_5+11x_2+5x_3-18x_4\\
+\bm{x_6}&=x_5-4x_2-2x_3+8x_4\\
+x_7&=1+2x_5-11x_2-5x_3+18x_4\\
+z&=-20x_5+\bm{53x_2}+41x_3-204x_4
+\end{align*}
+Choosing $x_2$ to enter the basis and $x_6$ to leave gives:
+\begin{align*}
+\bm{x_1}&=0.75x_5-2.75x_6-0.5x_3+4x_4\\
+x_2&=0.25x_5-0.25x_6-0.5x_3+2x_4\\
+x_7&=1-0.75x_5-13.25x_6+0.5x_3-4x_4\\
+z&=-6.75x_5-13.25x_6+\bm{14.5x_3}-98x_4
+\end{align*}
+Choosing $x_3$ to enter the basis and $x_1$ to leave gives:
+\begin{align*}
+x_3&=1.5x_5-5.5x_5-2x_1+8x_4\\
+\bm{x_2}&=-0.5x_5+2.5x_5+x_1-2x_4\\
+x_7&=1-x_1\\
+z&=15x_5-93x_5-29x_1+\bm{18x_4}
+\end{align*}
+Choosing $x_4$ to enter the basis and $x_2$ to leave gives:
+\begin{align*}
+\bm{x_3}&=-0.5x_5+4.5x_5+2x_1-4x_2\\
+x_4&=-0.25x_5+1.25x_5+0.5x_1-0.5x_2\\
+x_7&=1-x_1\\
+z&=\bm{10.5x_5}-70.5x_5-20x_1-9x_2
+\end{align*}
+Choosing $x_5$ to enter the basis and $x_3$ to leave gives:
+\begin{align*}
+x_5&=9x_6+4x_1-8x_2-2x_3\\
+\bm{x_4}&=-x_6-0.5x_1+1.5x_2+0.5x_3\\
+x_7&=1-x_1\\
+z&=\bm{24x_6}+22x_1-93x_2-21x_3
+\end{align*}
+Choosing $x_6$ to enter the basis and $x_4$ to leave gives the \emph{same dictionary as we started}:
+\begin{align*}
+\bm{x_5}&=-0.5x_1+5.5x_2+2.5x_3-9x_4\\
+x_6&=-0.5x_1+1.5x_2+0.5x_3-x_4\\
+x_7&=1-x_1\\
+z&=\bm{10x_1}-57x_2-9x_3-24x_4
+\end{align*}
+\end{example}
+
+\begin{theorem}
+Bland's pivot rule would aviod cycling.
+\end{theorem}
+\begin{proof}
+We show this claim by contradiction. If Bland's pivot rule produces cycling, let's study one cycle. For a sequence of dictionaries that form a cycle, let's delete all the variables that neither leave nor enter the basis, then it will remain a cycle.
+
+In all these dictionaries, all $\bar{b}_i$ will be zero, since otherwise the objective value will be strictly increased.
+
+Let's study the tablau of dictionaries. It's a matrix that stores all the coefficients of a dictionary:
+\[
+\begin{array}{cc|c}
+\hline
+  \bm I_B & \bm A_B^{-1}\bm A_N&\bar{\bm b} \\ \hline
+  \bm 0\trans&\bar{\bm c}_N\trans&\bm c_B\trans\bm A_B^{-1}\bm b \\ \hline
+\end{array}
+\]
+Two vectors are of special interest. The last row of the tablau in left part can be written as
+\[
+\bar{\bm c}\trans=\bm c - \bm c_B\trans\bm A_B^{-1}\bm A
+\]
+For the chosen $j\in N$, the direction
+\[
+d_i^{(j)} = \left\{
+\begin{aligned}
+-\bar{a}_{ij},&\quad i\in B\\
+0&,\quad i\ne j\\
+1&,\quad i=j
+\end{aligned}
+\right.
+\]
+It's clear that $\bar{\bm c}\trans \bm d^{(j)}=\bar{c}_j$.
+
+Suppose that $\ell$ is the largest index of all variables that are involved in the cycle. Let $(B,N)$ be the pivot where $\ell$ was about to enter the basis, $\bm v=\bar{\bm c}$ be the last row for that tableau at that point; let $(B',N')$ be the pivot where $\ell$ was about to leave the basis, and $k$ was to enter the basis at that point, $\bm d^{(k)}$ be the corresponding direction vector, $\bm u$ the last row of that tableau.
+
+It's clear that 
+\begin{itemize}
+\item
+$\bm v$ is everywhere non-positive except for one position $v_\ell>0$
+\item
+$\bm d^{(k)}$ is everywhere non-negative except for one position $d_\ell^{(k)}<0$
+\end{itemize}
+Moreover, $\bm v-\bm u\in\mathcal{R}(\bm A\trans)$ and $\bm d^{(k)}\in\mathcal{N}(\bm A)$, which implies
+\[
+0 = (\bm v-\bm u)\trans \bm d^{(k)} = \bm v\trans\bm d^{(k)} - \bm u_k<0,
+\]
+which is a contradiction.
+\end{proof}
+\begin{lemma}
+Given the condition that the LP~(\ref{Eq:1:2}) has one basic feasible solution, then the LP~(\ref{Eq:1:2}) with perturbations, i.e., 
+\begin{equation}\label{Eq:1:6}
+\begin{array}{ll}
+\max&\bm c\trans\bm x\\
+\text{s.t.}&\bm{Ax}\le\bm b+\begin{pmatrix}
+\varepsilon_1\\\vdots\\\varepsilon_m
+\end{pmatrix}\\
+&\bm x\ge\bm0
+\end{array}
+\end{equation}
+will face no degeneracy for $\forall \bm\varepsilon\in(\bm0,\bm\varepsilon_1)$ for some $\bm\varepsilon_1>0$.
+
+\end{lemma}
+\begin{proof}
+For any basis $B$, the feasible solution for LP~(\ref{Eq:1:6}) is $\bm A_B^{-1}(\bar{\bm b}+\bm\varepsilon)$. Suppose its $i$-th component is zero, i.e., $0+0\varepsilon_1+\cdots+0\varepsilon_m$.
+
+However, its $i$-th component is $\bm e_i\trans\bm A_B^{-1}(\bar{\bm b}+\bm\varepsilon)$, which implies $\bm e_i\trans\bm A_B^{-1}=\bm0$, which is a contradiction.
+\end{proof}
+Question: what's the conclusion for page 19 in slides 1?
+
+\paragraph{Two-Phase Simplex Method}
+Given a dictionary
+\[
+x_{n+i}=b_i-\sum_{j=1}^na_{ij}x_j,\quad i=1,\dots,m,
+\]
+with some $b_i<0$, the question is how to choose an initial basic feasible solution? The \emph{two-phase simplex method} proceeds as follows:
+\begin{enumerate}
+\item
+Introduce a new variable $x_0$
+\[
+x_{n+i}=b_i-\sum_{j=1}^na_{ij}x_j+x_0,\quad i=1,\dots,m,
+\]
+and an objective $-x_0$ to maximize
+\item
+Suppose that $b_i<0$ is the smallest valu. Perform a pivot on $x_0$ and thus $x_{n+i}$ will turn the dictionary into a feasible one.
+\item
+This \emph{non-cycling pivots} will lead to either (a) an optimal basis where $x_0$ is within the basis, and we conclude this problem is infeasible; (b) or we have $x_0$ out of the basis, and we just delete $x_0$ and plug back the original objective, and go from there.
+\end{enumerate}
+\begin{example}
+Given the dictionary 
+\begin{align*}
+x_4&=4-2x_1+x_2-2x_3\\
+x_5&=-5-2x_1+3x_2-x_3\\
+x_6&=-1+x_1-x_2+2x_3
+\end{align*}
+We first add the new variable $x_0$ and an objective $-x_0$:
+\begin{align*}
+x_4&=4-2x_1+x_2-2x_3+x_0\\
+\bm{x_5}&=-5-2x_1+3x_2-x_3+x_0\\
+x_6&=-1+x_1-x_2+2x_3+\bm{x_0}\\
+z&=-x_0
+\end{align*}
+Choosing $x_0$ entering the basis and $x_5$ leaving the basis, we obtain:
+\begin{align*}
+x_4&=9-x_2+x_3+x_5\\
+x_0&=5+2x_1-3x_2-x_3+x_5\\
+x_6&=4+3x_1-4x_2+3x_3+x_5\\
+w&=-5-2x_1+3x_2+x_3-x_5
+\end{align*}
+and our feasible solution is $(x_1,x_2,x_3,x_4,x_5,x_6)=(0,0,0,9,0,4)$.
+\end{example}
+
+\section{Duality Results}
+\begin{theorem}
+A linear programming problem can only be (i) \emph{feasible}; or (ii) \emph{infeasible}. In case (i), then \emph{there exists a basic feasible solution}, and further with two possibilities: (i.a) \emph{an optimal solution exists, in that case a basic optimal solution exists} (i.b) \emph{the problem is unbounded}.
+\end{theorem}
+
+\paragraph{Duality problem is the best possible upper bounding problem}
+Consider the primal problem
+\[
+(P)\qquad
+\begin{array}{ll}
+\max&\bm c\trans\bm x\\
+\text{s.t.}&\bm{Ax}\le\bm b\\
+&\bm x\ge0
+\end{array}
+\]
+
+Take any $\bm y\ge0$ such that $\bm y\trans\bm A\ge\bm c\trans$, and thus $\bm y\trans\bm b$ becomes an upper bound for the optimal value. Therefore the best possible upper bounding problem becomes:
+\[
+(D)\qquad
+\begin{array}{ll}
+\max&\bm b\trans\bm y\\
+\text{s.t.}&\bm A\trans\bm y\ge\bm c\\
+&\bm y\ge0
+\end{array}
+\]
+which is known as the \emph{dual} problem.
+
+The proceed above can be summarized as the weak duality theorem:
+\begin{theorem}[Weak Duality]
+Let $\bm x,\bm y$ be the primal feasible, and dual feasible solution to (P) and (D), respectively, then we always have $\bm b\trans\bm y\ge\bm c\trans\bm x$.
+\end{theorem}
+
+\begin{theorem}[Strong Duality]
+If (P) has an optimal solution, then (D) has an optimal solution. Moreover, the optimal values coincide.
+\end{theorem}
+\begin{proof}
+Let $B$ be an optimal basis for (P), then we have
+\[
+\begin{array}{ll}
+\bm A_B^{-1}\bm b\ge0,
+&
+\begin{bmatrix}
+\bm c\trans&\bm0_m\trans
+\end{bmatrix}-\bm c_B\trans\bm A_B^{-1}\begin{bmatrix}
+\bm A&\bm I
+\end{bmatrix}\le0
+\end{array}
+\]
+Therefore we construct the dual feasible solution $\bm y:=\bm A_B^{-1}\bm c_B$, which implies $\bm b\trans\bm y=\bm c_B\trans\bm A_B^{-1}\bm b$. Therefore $\bm b\trans\bm y$ should be the optimal solution for (D).
+\end{proof}
+
+\paragraph{Complentarity Slackness}
+\begin{theorem}[Complentarity Condition]
+Consider the primal and dual problem
+\[
+(P)\ \ \begin{array}{ll}
+\max&\bm c\trans\bm x\\
+\text{s.t.}&\bm A\bm x+\bm s=\bm b\\
+&\bm x\ge0,\bm s\ge0
+\end{array},\qquad
+(D)\ \ 
+\begin{array}{ll}
+\min&\bm b\trans\bm y\\
+\text{s.t.}&\bm A\trans\bm y-\bm w=\bm c\\
+&\bm y\ge0,\bm w\ge0
+\end{array}
+\]
+If $(P)$ has an optimal solution $(\bm x,\bm s)$ and $(D)$ has an optimal solution $(\bm y,\bm w)$, then
+\begin{align*}
+\bm s\circ\bm y&=\bm0\\
+\bm w\circ\bm x&=\bm0
+\end{align*}
+\end{theorem}
+
+\begin{remark}
+\begin{enumerate}
+\item
+If (P) is feasible and unbounded, then (D) must be infeasible.
+\item
+The dual of the dual problem is the primal problem
+\item
+There is possibility that both (P) and (D) are infeasible. Consider the self-dual problem for example:
+\[
+\begin{array}{ll}
+\max&x_1-x_2\\
+\text{s.t.}&\begin{pmatrix}
+0&1\\-1&0
+\end{pmatrix}\begin{pmatrix}
+x_1\\x_2
+\end{pmatrix}\le\begin{pmatrix}
+-1\\1
+\end{pmatrix}\\
+&x_1\ge0,x_2\ge0
+\end{array}
+\]
+\item
+Therefore, the relationship for primal and dual problems can be summarized in the table below:
+\[
+\begin{array}{|c|c|c|c|}
+\hline
+&\text{Feasible}&\text{Unbounded}&\text{Infeasible}\\\hline
+\text{Feasible}&Y&N&N\\\hline
+\text{Unbounded}&N&N&Y\\\hline
+\text{Infeasible}&N&Y&Y\\\hline
+\end{array}
+\]
+\end{enumerate}
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

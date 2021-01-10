@@ -1,0 +1,166 @@
+
+\chapter{Week2}
+
+\section{Monday}
+\index{Monday_lecture}
+\label{Week2:Monday}
+
+
+Operations that preserve convexity:
+\begin{itemize}
+\item
+Intersection:
+\[
+B = \bigcap_{\|a\|=1}\{\bm x\mid \bm a\trans x\le1\}
+=\{\bm x\mid \|\bm x\|_2\le 1\}.
+\]
+\item
+Affine function: $f(\bm x) = \bm A\bm x + \bm b$
+with $\bm A\in\mathbb{R}^{m\times n}, \bm b\in\mathbb{R}^n$.
+As long as $\alpha+\beta=1$ and $\alpha,\beta\ge0$,
+\[
+f(\alpha\bm x+\beta\bm y)
+=
+\alpha f(\bm x) + \beta f(\bm y).
+\]
+\begin{itemize}
+\item
+When $S\subseteq\mathbb{R}^n$ is convex, $f(S)\subseteq \mathbb{R}^n$ is convex. 
+\item
+When $C\subseteq\mathbb{R}^m$ is convex, then $f^{-1}(C)\subseteq\mathbb{R}^n$ is convex.
+Consider $x_1,x_2\in f^{-1}(C)$, then $f(x_1),f(x_2)\in C$, and $\theta f(x_1) + (1-\theta) f(x_2)\in C$, i.e., 
+$f(\theta x_1 + (1-\theta)x_2)\in C$.
+As a result, $\theta x_1 + (1-\theta)x_2\in f^{-1}(C)$.
+\end{itemize}
+\end{itemize}
+\begin{example}
+Consider the set
+\[
+L = \bigg\{
+\bm x\in \mathbb{R}^n
+\bigg|
+\sum_{i=1}^nx_i\bm A_i\preceq\bm B
+\bigg\},\quad
+\text{with }\bm A_i,\bm B\in\mathbb{S}^n_+
+\]
+Write $f(\bm x) = \bm B - \sum_{i=1}^nx_i\bm A_i$, which is an affine function. 
+It follows that
+\[
+L = \bigg\{
+\bm x\in \mathbb{R}^n\bigg|
+f(\bm x)\preceq0
+\bigg\}
+=
+f^{-1}(\mathbb{S}^n_+)
+\]
+Since $\mathbb{S}^n_+$ is convex, $L$ is convex as well.
+\end{example}
+
+\begin{example}
+Consider the set
+\[
+\mathcal{H}  =\bigg\{
+\bm x\bigg|
+\bm x\trans\bm P\bm x\le (\bm c\trans\bm x)^2,\qquad
+\bm c\trans\bm x\ge0
+\bigg\},\qquad \bm P\succeq0.
+\]
+Define 
+\[
+f(\bm x) = \begin{pmatrix}
+\bm P^{1/2}\\\bm c\trans
+\end{pmatrix}\bm x:
+\mathbb{R}^n \to \mathbb{R}^{n+1}
+\]
+Therefore, $\mathcal{H} = f^{-1}(\text{second order cone})$, with
+\[
+\text{second order cone}=
+\bigg\{\begin{pmatrix}
+\bm x\\t
+\end{pmatrix}\bigg|
+\|\bm x\|\le t
+\bigg\}
+\]
+\end{example}
+
+Perspective transformation:
+\[
+P(\bm x,t) = \frac{\bm x}{t},~~t>0:
+\mathbb{R}^{n+1}\to\mathbb{R}^n.
+\]
+Consider $S\subseteq\text{dorm}(P)$ and $P(S)\subseteq\mathbb{R}^n$.
+
+We show that line segments map to line segments:
+\begin{proof}
+Let $(x_1,t_1),(x_2,t_2)\in S$ with $t_1,t_2>0$.
+Consider
+\begin{align*}
+\begin{pmatrix}
+\theta x_1 + (1-\theta)x_2\\
+\theta t_1 + (1-\theta)t_2
+\end{pmatrix}&
+\to
+\frac{\theta x_1 + (1-\theta)x_2}{\theta t_1 + (1-\theta)t_2}
+\\&=
+\frac{\theta t_1}{\theta t_1 + (1-\theta)t_2}\frac{x_1}{t_1}
++
+\frac{(1-\theta)t_2}{\theta t_1 + (1-\theta)t_2}\frac{x_1}{t_2}\\
+&=\mu\frac{x_1}{t}+(1-\mu)\frac{x_2}{t}
+\end{align*}
+\end{proof}
+
+
+Linear fractional:
+\[
+f(\bm x) = \frac{\bm A\bm x+\bm b}{\bm c\trans\bm x+\bm d},\qquad
+\bm c\trans\bm x+\bm d>0.
+\]
+
+Proper cone $\mathcal{K}$:
+\begin{itemize}
+\item
+convex;
+\item
+closed;
+\item
+solid;
+\item
+pointed, i.e., contain no line.
+\end{itemize}
+
+Generalized inequality:
+\[
+\bm x\preceq_{\mathcal{K}}\bm y\implies
+\bm y-\bm x\in\mathcal{K}
+\]
+Define minimum element v.s. minimal element.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,450 @@
+
+\chapter{Week9}
+
+\section{Tuesday}\index{week7_Tuesday_lecture}
+
+\subsection{Introduction to Ito Calculus}
+
+Throughout this chapter, we consider a \emph{complete} probability space $(\Omega,\mathcal{F},\mathbb{P})$, i.e.,
+for any $A\in\mathcal{F}$ with $\mathbb{P}(A)=0$ and $\forall B\subseteq A$, we have $B\in\mathcal{F}$.
+Let $\{B_t\}_{t\ge0}$ be a standard Brownian motion on $(\Omega,\mathcal{F},\mathbb{P})$ and $\{\mathcal{F}_t\}_{t\ge0}$ be the natural filtration, i.e., $\mathcal{F}_t\triangleq \sigma(\{B_u:~u\le t\})$.
+
+Suppose that $\{X_t\}_{t\ge0}$ is an $\{\mathcal{F}_t\}_{t\ge0}$-adapted stochastic process. One typical example for such a process is $X_t=f(B_t)$ for some Borel measurable function $f:\mathbb{R}\to\mathbb{R}$.
+In this chapter, we aim to define the integral of the following form:
+\begin{equation}
+\int_0^tX_s\diff B_s,\qquad t\ge0.
+\end{equation}
+A naive idea is to define this integral using the Riemann-sum approach:
+\begin{equation}\label{Eq:9:2}
+\int_0^tX_s\diff B_s\triangleq\lim_{\|\pi\|\to0}\sum_kX_{t_{k-1}}\cdot(B_{t_k} - B_{t_{k-1}}),
+\end{equation}
+where the limit is taken in $L^2$ sense along the partition $\pi$ defined on the interval $[0,t]$, and 
+$\|\pi\|\triangleq\max_k|t_k - t_{k-1}|$.
+
+It is reasonable to study how the limit for (\ref{Eq:9:2}) looks like, by considering a simple stochastic process $\{X_t\}_{t\ge0}$, and then extend by some approximation procedure.
+
+\begin{definition}[Simple Stochastic Process]
+\begin{enumerate}
+\item
+Let $\mathcal{L}^2$ be the space of all adapted stochastic process $\{X_t\}_{t\ge0}$ satisfying 
+\[
+\mathbb{E}\left[
+\int_0^TX_t^2\diff t
+\right]<\infty,\quad \forall T>0.
+\]
+\item
+An adapted stochastic process $\{X_t\}_{t\ge0}\in\mathcal{L}^2$ is called \emph{simple} if for any $\omega\in\Omega$,
+\[
+X_t(\omega)=X_{t_j}(\omega),\qquad t\in[t_j,t_{j+1}),~j=0,1,\ldots,
+\]
+where $0=t_0<t_1<\cdots<t_n<\cdots$ is an increasing sequence with $\lim_{n\to\infty}t_n=\infty$.
+Denote $\mathcal{L}_0^2$ be the class of all simple processes.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+Not every piece-wise constant process is a simple process.
+Consider an $\{\mathcal{F}_t\}_{t\ge0}$-adapted stochastic process $\{X_t\}_{t\ge0}$ and define
+\[
+Y_t(\omega) = X_{t_{j+1}}(\omega),\quad t\in(t_j, t_{j+1}].
+\]
+Then $Y_t$ is not $\mathcal{F}_t$-measurable, and thus $\{Y_t\}_{t\ge0}$ is not an $\{\mathcal{F}_t\}_{t\ge0}$-adapted process.
+\end{remark}
+
+\begin{definition}[Ito Integral for Simple Stochastic Process]
+Suppose that $\{X_t\}_{t\ge0}$ is a simple process. Given $T>0$, define, for each $\omega\in\Omega$,
+\begin{equation}\label{Eq:9:3}
+\int_0^TX_t(\omega)\diff B_t(\omega) = \sum_{k=0}^{n-1}X_{t_k}(\omega)\cdot[B_{t_{k+1}}(\omega) -B_{t_k}(\omega)] + X_{t_n}(\omega)\cdot[B_{T}(\omega) -B_{t_n}(\omega)]
+\end{equation}
+where $n\triangleq\max\{j\in\mathbb{N}:~t_j\le T\}$.
+\end{definition}
+
+\begin{proposition}\label{pro:9:1}
+The Ito Integral for Simple Stochastic Process admits the following properties:
+\begin{enumerate}
+\item
+Linearity: Suppose that $\{X_t\}_{t\ge0},\{Y_t\}_{t\ge0}\in\mathcal{L}_0^2$ and $\alpha,\beta\in\mathbb{R}$, then
+\[
+\int_0^T(\alpha X_t+\beta Y_t)\diff B_t = \alpha\cdot \int_0^TX_t\diff B_t + \beta\cdot\int_0^TY_t\diff B_t
+\]
+\item
+Ito Isometry: for $\{X_t\}_{t\ge0}\in\mathcal{L}_0^2$,
+\[
+\mathbb{E}\left[
+\left(\int_0^TX_t\diff B_t\right)^2
+\right]
+=
+\mathbb{E}\left[
+\int_0^TX_t^2\diff t
+\right]
+\]
+\item
+Define the new random variable $I_t[X]\triangleq \int_0^tX_u\diff B_u$, then the process $\{I_t[X]\}_{t\ge0}$ is an almost sure continuous martingale, with square integrability:
+\[
+\mathbb{E}[(I_t[X])^2]<\infty,\quad\forall t\ge0.
+\]
+\end{enumerate}
+\end{proposition}
+\begin{proof}[Proof for Part 1)]
+Denote $\{t_k^{(1)}\}_{k\ge0}$ and $\{t_k^{(2)}\}_{k\ge0}$ as the paritions corresponding to simple processes $\{X_t\}_{t\ge0},\{Y_t\}_{t\ge0}$.
+Consider a partition $\{t_k\}_{k\ge0}$  obtained as a union of these two partitions.
+With respect to this new sequence $\{t_k\}$, processes $\{X_t\}_{t\ge0},\{Y_t\}_{t\ge0}$ are still simple.
+Then $\{\alpha X_t+\beta Y_t\}$ is also a simple process corresponding to $\{t_k\}$.
+The linearity property follows by checking the definition in (\ref{Eq:9:3}).
+\end{proof}
+\begin{proof}[Proof for Part 2)]
+Note that the left side in this part can be expanded as the following:
+\begin{align*}
+\mathbb{E}\left[
+\left(\int_0^TX_t\diff B_t\right)^2
+\right]&=
+\mathbb{E}\left[
+\left(
+\sum_{k=0}^{n-1}X_{t_k}\cdot[B_{t_{k+1}} -B_{t_k}] + X_{t_n}\cdot[B_{T} -B_{t_n}]
+\right)^2
+\right]\\
+&=\sum_{0\le k_1,k_2\le n-1}\mathbb{E}\left[X_{t_{k_1}}X_{t_{k_2}}(B_{t_{k_1+1}} -B_{t_{k_1}})(B_{t_{k_2+1}} -B_{t_{k_2}})\right]\\
+&+\mathbb{E}\left[
+X_{t_n}^2\cdot(B_{T} -B_{t_n})^2
+\right]+2\sum_{k=0}^{n-1}\mathbb{E}\left[
+X_{t_k}X_{t_n}\cdot(B_{t_{k+1}} -B_{t_k})(B_{T} -B_{t_n})
+\right]
+%&=\sum_{0\le k_1,k_2\le n-1}\mathbb{E}\left[X_{t_{k_1}}X_{t_{k_2}}(B_{t_{k_1+1}} -B_{t_{k_1}})(B_{t_{k_2+1}} -B_{t_{k_2}})\right]\\
+%&+\mathbb{E}\left[
+%X_{t_n}^2\cdot(T-t_n)
+%\right]+2\sum_{k=0}^{n-1}\mathbb{E}\left[
+%X_{t_k}X_{t_n}\cdot(B_{t_{k+1}} -B_{t_k})(B_{T} -B_{t_n})
+%\right]
+\end{align*}
+where the second term equals $\mathbb{E}\left[
+X_{t_n}^2\cdot(T-t_n)
+\right]$ by the independent incremental property of Brownian motion,
+and the third term vanishes since
+\begin{align*}
+\mathbb{E}\left[
+X_{t_k}(B_{t_{k+1}} -B_{t_k})
+\right]&=
+\mathbb{E}\left[
+\mathbb{E}[X_{t_k}(B_{t_{k+1}} -B_{t_k})\mid\mathcal{F}_k\right]\\
+&=\mathbb{E}\left[X_{t_k}
+\mathbb{E}[(B_{t_{k+1}} -B_{t_k})\mid\mathcal{F}_k]
+\right]=\mathbb{E}\left[X_{t_k}
+\mathbb{E}[(B_{t_{k+1}} -B_{t_k})]
+\right]=0.
+\end{align*}
+Following the similar trick, for $0\le k_1<k_2\le n-1$, we have
+\begin{align*}
+\mathbb{E}\left[X_{t_{k_1}}X_{t_{k_2}}(B_{t_{k_1+1}} -B_{t_{k_1}})(B_{t_{k_2+1}} -B_{t_{k_2}})\right]
+&=
+\mathbb{E}\left[\mathbb{E}[X_{t_{k_1}}X_{t_{k_2}}(B_{t_{k_1+1}} -B_{t_{k_1}})(B_{t_{k_2+1}} -B_{t_{k_2}})\mid\mathcal{F}_{t_{k_2}}]\right]\\
+&=\mathbb{E}\left[
+X_{t_{k_1}}(B_{t_{k_1+1}} -B_{t_{k_1}})X_{t_{k_2}}
+\mathbb{E}[(B_{t_{k_2+1}} -B_{t_{k_2}})]\right]=0,
+\end{align*}
+where the second equality is because that all random variables except $B_{t_{k_2+1}}$ are $\mathcal{F}_{t_{k_2}}$-measurable.
+Now when $k_1=k_2\equiv k$, we have
+\begin{align*}
+\mathbb{E}\left[X_{t_{k}}^2(B_{t_{k+1}} -B_{t_{k}})^2\right]
+&=
+\mathbb{E}\left[X_{t_{k}}^2\mathbb{E}[(B_{t_{k+1}} -B_{t_{k}})^2\mid\mathcal{F}_{t_k}]\right]\\
+&=\mathbb{E}\left[X_{t_{k}}^2(t_{k+1} - t_k)\right].
+\end{align*}
+Therefore, 
+\begin{align*}
+\mathbb{E}\left[
+\left(\int_0^TX_t\diff B_t\right)^2
+\right]&=\sum_{k=0}^{n-1}\mathbb{E}\left[X_{t_{k}}^2(t_{k+1} - t_k)\right]+\mathbb{E}\left[
+X_{t_n}^2\cdot(T-t_n)
+\right]\\
+&=\mathbb{E}\left[
+\sum_{k=0}^{n-1}X_{t_{k}}^2(t_{k+1} - t_k) + X_{t_n}^2\cdot(T-t_n)
+\right]=\mathbb{E}\left[
+\int_0^TX_t^2\diff t
+\right].
+\end{align*}
+\end{proof}
+\begin{proof}[Proof of Part 3)]
+Since $\{B_t\}_{t\ge0}$ is almost surely continuous, by definition, $I_t[X]$ is also a.s. continuous.
+To show the square integrability, by Ito isometry property, 
+\[
+\mathbb{E}[(I_t[X])^2]=\mathbb{E}[\left(\int_0^tX_u\diff B_u\right)^2]=\mathbb{E}\left[
+\int_0^tX_u^2\diff u
+\right].
+\]
+Since $\{X_t\}_{t\ge0}\in\mathcal{L}_0^2$, $\mathbb{E}[(I_t[X])^2]<\infty$ for all $t\ge0$.
+
+Now we begin to show that $\{I_t[X]\}_{t\ge0}$ is a martingale with respect to $\{\mathcal{F}_t\}_{t\ge0}$.
+For any $0\le s<t$ and take $n'\triangleq \max\{j\in\mathbb{N}:~t_{n'}\le s\}$, we have
+\begin{align*}
+\mathbb{E}[I_t[X]\mid\mathcal{F}_s]&=
+\mathbb{E}\left[\sum_{k=0}^{n-1}X_{t_k}(B_{t_{k+1}}-B_{t_k}) + X_{t_n}(B_t - B_{t_n})
+\middle|\mathcal{F}_s\right].
+\end{align*}
+Considering separate the summation from $0$ to $n-1$ into two parts, we further have
+\begin{align*}
+\mathbb{E}[I_t[X]\mid\mathcal{F}_s]&=
+\mathbb{E}\left[\sum_{k=0}^{n'-1}X_{t_k}(B_{t_{k+1}}-B_{t_k}) + X_{t_{n'}}(B_s - B_{t_{n'}})
+\middle|\mathcal{F}_s\right]\\
+&+
+\mathbb{E}\left[X_{t_{n'}}(B_{t_{n'+1}} - B_s)
+\middle|\mathcal{F}_s\right]\\
+&+
+\mathbb{E}\left[\sum_{k=n'+1}^{n'-1}X_{t_k}(B_{t_{k+1}}-B_{t_k}) + X_{t_{n}}(B_t - B_{t_{n}})
+\middle|\mathcal{F}_s\right]
+\end{align*}
+where the first term equals 
+\[
+\sum_{k=0}^{n'-1}X_{t_k}(B_{t_{k+1}}-B_{t_k})+X_{t_{n'}}(B_s - B_{t_{n'}}),
+\]
+the second term equals 
+\[
+X_{t_{n'}}\mathbb{E}\left[(B_{t_{n'+1}} - B_s)\right]=0,
+\]
+and the third term equals 
+\begin{align*}
+&\sum_{k=n'+1}^{n'-1}\mathbb{E}\left[
+X_{t_k}\mathbb{E}[B_{t_{k+1}}-B_{t_k}\mid\mathcal{F}_{t_k}]
+\middle|\mathcal{F}_s\right]+
+\mathbb{E}\left[
+X_{t_n}\mathbb{E}[B_{t}-B_{t_n}\mid\mathcal{F}_{t_n}]
+\middle|\mathcal{F}_s\right]=0.
+\end{align*}
+As a result,
+\begin{align*}
+\mathbb{E}[I_t[X]\mid\mathcal{F}_s]&=\sum_{k=0}^{n'-1}X_{t_k}(B_{t_{k+1}}-B_{t_k})+X_{t_{n'}}(B_s - B_{t_{n'}})\\&=\int_0^sX_u\diff B_u.
+\end{align*}
+Since $\{I_t[X]\}$ is square integrable, it is $\mathcal{L}^1$-integrable.
+Therefore, $\{I_t[X]\}$ is a martingale.
+The proof is completed.
+\end{proof}
+\section{Thursday}
+\subsection{Approxiation by simple processes}\label{sec:9:2:1}
+\begin{remark}
+Before defining the Ito integral for general adapted process $\{X_t\}_{t\ge0}\in\mathcal{L}^2$,
+we show that any such $\{X_t\}_{t\ge0}$ can be approximated by a sequence of simple processes $\{X_t^{(n)}\}_{t\ge0}\in\mathcal{L}_0^2, n=1,2,\ldots$.
+\end{remark}
+\begin{theorem}\label{The:9:1}
+\begin{enumerate}
+\item
+Let $\{X_t\}_{t\ge0}\in\mathcal{L}^2$ be an almost surely bounded and continuous process, i.e.,
+\[
+\mathbb{P}\left(
+\bigg\{
+\omega\in\Omega:~
+\sup_{t\ge0}|X_t(\omega)|\le M\text{ and $X_t(\omega)$ continuous on $t\ge0$}
+\bigg\}
+\right)=1.
+\]
+Then for given $T>0$, there exists a sequence of simple processes $\{X_t^{(n)}\}_{t\ge0}\in\mathcal{L}_0^2$ such that
+\[
+\lim_{n\to\infty}\mathbb{E}\left[
+\int_0^T(X_t^{(n)} - X_t)^2\diff t
+\right]=0.
+\]
+\item
+Let $\{X_t\}_{t\ge0}\in\mathcal{L}^2$ be an almost surely bounded (but not necessarily continuous) process.
+Then for given $T>0$, there exists a sequence of almost surely bounded and continuous process
+$\{X_t^{(n)}\}_{t\ge0}\in\mathcal{L}^2, \forall n\ge1$ such that
+\[
+\lim_{n\to\infty}\mathbb{E}\left[
+\int_0^T(X_t^{(n)} - X_t)^2\diff t
+\right]=0.
+\]
+\item
+Let $\{X_t\}_{t\ge0}\in\mathcal{L}^2$. Then for given $T>0$, there exists a sequence of almost surely bounded processes $\{X_t^{(n)}\}_{t\ge0}\in\mathcal{L}^2, \forall n\ge1$ such that
+\[
+\lim_{n\to\infty}\mathbb{E}\left[
+\int_0^T(X_t^{(n)} - X_t)^2\diff t
+\right]=0.
+\]
+\end{enumerate}
+\end{theorem}
+\begin{proof}[Proof for Part 1)]
+Construct $\{X_t^{(n)}\}_{t\ge0}$ as the following.
+Pick a sequence of partitions $\{\Pi^{(n)}\}$ on the interval $[0,T]$ with $\|\Pi^{(n)}\|\to0$.
+For each $n$, define the stochastic process $\{X_t^{(n)}\}$ with
+\[
+X_t^{(n)}(\omega) = X_{t_j}^{(n)}(\omega),\quad\text{for }t\in[t_j^{(n)}, t_{j+1}^{(n)}),
+\]
+where $\Pi^{(n)}\triangleq\{0=t_0^{(n)}<t_1^{(n)}<\cdots<T\}$.
+It is clear that $\{X_t^{(n)}\}_{t\ge0}$ is a simple process.
+
+Define the set
+\[
+\Lambda=\bigg\{
+\omega\in\Omega:~
+\sup_{t\ge0}|X_t(\omega)|\le M\text{ and $X_t(\omega)$ continuous on $t\ge0$}
+\bigg\}
+\]
+For each $\omega\in\Omega$, $X_t(\omega)$ is continuous (and thus uniformly continuous) on $[0,T]$: for $\varepsilon>0$, there exists $\delta>0$ such that
+\[
+|X_s(\omega) - X_t(\omega)|<\sqrt{\frac{\varepsilon}{T}},\quad\text{for any }|s-t|<\delta.
+\]
+Choose large $n$ such that $\|\Pi^{(n)}\|<\delta$, which implies that
+\[
+\forall t\in[0,T],\quad
+|X_t^{(n)}(\omega) - X_t(\omega)|<\sqrt{\frac{\varepsilon}{T}}\implies
+\int_0^T[X_t^{(n)}(\omega) - X_t(\omega)]^2\diff t<\varepsilon.
+\]
+Therefore, the random variable $\int_0^T[X_t^{(n)}- X_t]^2\diff t\to0$ almost surely.
+For $\omega\in\Lambda$, $\{X_t(\omega)\}$ is bounded by $M$, and thus $\{X_t^{(n)}(\omega)\}$ is bounded  by $M$ as well.
+Thus the random variable $\int_0^T[X_t^{(n)}- X_t]^2\diff t$ is upper bounded by $(2M)^2\cdot T$ almost surely.
+By the bounded convergence theorem,
+\[
+\lim_{n\to\infty}\mathbb{E}\left[
+\int_0^T(X_t^{(n)} - X_t)^2\diff t
+\right]=0.
+\]
+\end{proof}
+\begin{proof}[Proof for Part 2)]
+Construct $\{X_t^{(n)}\}_{t\ge0}$ as the following.
+For each $n$, pick a non-negative continuous funciton $\phi_n:\mathbb{R}\to\mathbb{R}$ satisfying
+\begin{enumerate}
+\item
+$\phi_n(x)=0$ for $x\in(-\infty,-\frac{1}{n}]\cup[0,\infty)$;
+\item
+$\int_{-\infty}^{\infty}\phi_n(x)\diff x=1$.
+\end{enumerate}
+Then define the process $\{X_t^{(n)}\}_{t\ge0}$ with
+\[
+X_t^{(n)}(\omega) \equiv \phi_n* X_{\cdot}(\omega)\mid_{0}^t\triangleq \int_0^t\phi_n(s-t)X_s(\omega)\diff s,\quad\forall\omega\in\Omega.
+\]
+Define the set
+\[
+\Lambda=\bigg\{
+\omega\in\Omega:~
+\sup_{t\ge0}|X_t(\omega)|\le M
+\bigg\}.
+\]
+Then for each $\omega\in\Lambda$,
+\[
+|X_t^{(n)}(\omega)|\le  \int_0^t\phi_n(s-t)|X_s(\omega)|\diff s\le M\cdot \int_0^t\phi_n(s-t)\diff s\le M,\quad
+\forall t\ge0,\forall n.
+\]
+Therefore, the process $\{X_t^{(n)}\}_{t\ge0}$ is almost surely bounded. Moreover, by definition,
+$\{X_t^{(n)}\}_{t\ge0}$ is continuous a.s. and $\{\mathcal{F}_t\}$ adapted.
+
+Now we begin to show that $\int_0^T[X_t^{(n)}- X_t]^2\diff t\to0$ almost surely.
+Take $\omega\in\Lambda$, then
+\[
+\int_0^T[X_t^{(n)}(\omega)- X_t(\omega)]^2\diff t\le 2M\cdot \int_0^T|X_t^{(n)}(\omega)- X_t(\omega)|\diff t, 
+\]
+where the integral on the RHS can be upper bounded as the following:
+\begin{subequations}
+\begin{align}
+\int_0^T|X_t^{(n)}(\omega)- X_t(\omega)|\diff t&=
+\int_0^T\left|\int_0^t\phi_n(s-t)X_s(\omega)\diff s- X_t(\omega)\right|\diff t\\
+&=\int_0^T\left|\int_0^\infty\phi_n(-s)X_{t-s}(\omega)\diff s- X_t(\omega)\right|\diff t\label{Eq:9:4:b}\\
+&=\int_0^T\left|\int_0^\infty\phi_n(-s)X_{t-s}(\omega)\diff s- \int_0^\infty\phi_n(-s)X_t(\omega)\diff s\right|\diff t\label{Eq:9:4:c}\\
+&\le \int_0^T\int_0^\infty\phi_n(-s)|X_t(\omega) - X_{t-s}(\omega)|\diff s\diff t\\
+&=\int_0^\infty\phi_n(-s)\int_0^T|X_t(\omega) - X_{t-s}(\omega)|\diff t\diff s\label{Eq:9:4:e}
+\end{align}
+where (\ref{Eq:9:4:b}) is by the change of variable $s'=t-s$;
+(\ref{Eq:9:4:c}) is because that $\int_{-\infty}^\infty\phi_n(s)\diff s=\int_{-\infty}^0\phi_n(s)\diff s=1$;
+(\ref{Eq:9:4:e}) is by the Fubini's theorem.
+\end{subequations}
+We claim that the term $\int_0^T|X_t(\omega) - X_{t-s}(\omega)|\diff t$ is small when $s$ is small, i.e., for any $\varepsilon>0$, there exists $\delta$ such that when $s<\delta$,
+\begin{equation}\label{Eq:9:5}
+\int_0^T|X_t(\omega) - X_{t-s}(\omega)|\diff t<\varepsilon.
+\end{equation}
+We can further apply (\ref{Eq:9:5}) to upper bound the term (\ref{Eq:9:4:e}):
+\begin{subequations}
+\begin{align*}
+&\int_0^\infty\phi_n(-s)\int_0^T|X_t(\omega) - X_{t-s}(\omega)|\diff t\diff s\\
+=&\int_0^\delta\phi_n(-s)\int_0^T|X_t(\omega) - X_{t-s}(\omega)|\diff t\diff s+
+\int_\delta^\infty\phi_n(-s)\int_0^T|X_t(\omega) - X_{t-s}(\omega)|\diff t\diff s\\
+\le&\varepsilon\int_\delta^\infty\phi_n(-s)\diff s+2MT\cdot\int_\delta^\infty\phi_n(-s)\diff s
+=\varepsilon.
+\end{align*}
+where the last equality holds when we choose $n$ large enough such that $-\delta\le -\frac{1}{n}$.
+\end{subequations}
+Thus \[\int_0^T|X_t^{(n)}(\omega)- X_t(\omega)|\diff t\to0 \quad\text{for }\omega\in\Lambda.\]
+The remaining part follows the similar logic as in part 1).
+
+Finally, we show the claim in (\ref{Eq:9:5}) by discussing cases for continuous and discontinuous $X_t$:
+\begin{itemize}
+\item
+When $X_t$ is continuous on $t\in[0,T]$, we show that for any $\varepsilon>0$, there exists $\delta$ such that
+\[
+\forall s<\delta,\quad
+\int_0^T|X_t - X_{t-s}|\diff t<\varepsilon.
+\]
+Since $X_t$ is continuous (and thus uniformly continuous) on $t\in[0,T]$, for any $\varepsilon>0$, there exists $\delta<\frac{\varepsilon}{2M}$ such that for any $s<\delta$,
+\[
+|X_t - X_{t-s}|<\frac{\varepsilon}{2T},\quad\forall t\in[s,T].
+\]
+As a result,
+\begin{align*}
+\int_0^T|X_t - X_{t-s}|\diff t&=\int_0^s|X_t - X_{t-s}|\diff t+\int_s^T|X_t - X_{t-s}|\diff t
+\\&\le M\delta + T\cdot\frac{\varepsilon}{2T}<\varepsilon.
+\end{align*}
+\item
+When $X_t$ is not continuous on $t\in[0,T]$, we can also show the same result:
+
+Because the continuous functions are dense in $\mathcal{L}^p (1\le p<\infty)$, for any $\varepsilon>0$, there exists a continuous function $\hat{X}_t$ such that 
+\begin{equation}\label{Eq:9:7}
+\int_0^T|X_t - \hat{X}_t|\diff t<\frac{\varepsilon}{3}.
+\end{equation}
+As a result,
+\begin{align*}
+\int_0^T|X_t - X_{t-s}|\diff t&\le \int_0^T|X_t - \hat{X}_t|\diff t+
+\int_0^T|X_{t-s} - \hat{X}_{t-s}|\diff t
++
+\int_0^T|\hat{X}_{t-s} - \hat{X}_t|\diff t\\&<\varepsilon
+\end{align*}
+where the first two terms are all bounded by $\varepsilon/3$ because of (\ref{Eq:9:7}), and the last term is also bounded by $\varepsilon/3$ since $\hat{X}_t$ is continuous on $t\in[0,T]$.
+\end{itemize}
+\end{proof}
+
+\begin{proof}[Proof of Part 3)]
+For each $n$, we construct the almost surely bounded process $\{X_t^{(n)}\}_{t\ge0}$ using the truncation method:
+\[
+X_t^{(n)}(\omega) = \left\{
+\begin{aligned}
+n,&\quad \text{if }X_t(\omega)\ge n\\
+X_t(\omega),&\quad -n<X_t(\omega)<n\\
+-n,&\quad \text{if }X_t(\omega)\le -n
+\end{aligned}
+\right.
+\]
+Therefore, $|X_t^{(n)}(\omega)|\le |X_t(\omega)|,\forall\omega\in\Omega$. Together with the inequality $(a+b)^2\le 2a^2+2b^2$, we have
+\[
+\int_0^T(X_t^{(n)} - X_t)^2\diff t\le 2 \int_0^T(X_t^{(n)})^2\diff t + 2\int_0^T(X_t)^2\diff  t\le 4
+\int_0^T(X_t)^2\diff  t<\infty,\forall t.
+\]
+Therefore, $\int_0^T(X_t^{(n)} - X_t)^2\diff t$ is dominated by an integrable random variable.
+Moreover, substituting the form of $X_t^{(n)}$ and considering $\int_0^T(X_t)^2\diff t<\infty$ gives
+\[
+\int_0^T(X_t^{(n)} - X_t)^2\diff t\le \int_0^T(X_t)^21\{(X_t)^2\ge n\}\diff t+\int_0^T(X_t)^21\{(X_t)^2\le -n\}\diff t\to0,\quad \text{as }n\to\infty.
+\]
+Applying the dominated convergence theorem gives the desired result.
+
+
+
+\end{proof}
+
+
+
+
+
+
+Combining Theorem~\ref{The:9:1} part 1) to 3), we conclude that for $\{X_t\}_{t\ge0}\in\mathcal{L}^2$,
+there exists a sequence of simple processes $\{X_t^{(n)}\}_{t\ge0}\in\mathcal{L}^2_0$ such that
+\[
+\lim_{n\to\infty}\mathbb{E}\left[
+\int_0^T(X_t^{(n)} - X_t)^2\diff t
+\right]=0.
+\]
+
+
+
+
+
+
+
+
+
+
+
+
+

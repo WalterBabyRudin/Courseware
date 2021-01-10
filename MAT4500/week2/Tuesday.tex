@@ -2,110 +2,483 @@
 \chapter{Week2}
 
 \section{Tuesday}\index{Tuesday_lecture}
-\begin{remark}
-One can generalize the ``independence'' of two events / $\sigma$-algebras / random variables to a countable collection.
-\end{remark}
-
-\begin{example}
-If two random variables $X,Y:\Omega\to\mathbb{R}$ are independent, provided that $X$ and $Y$ are integrable, i.e.,
+\subsection{More on Stochastic Process}
+For simplicity of notation, we write
 \[
-\begin{array}{ll}
-\mathbb{E}|X|<\infty,
-&
-\mathbb{E}|Y|<\infty,
-\end{array}
+\{X\in F\}\triangleq\{\omega: X(\omega)\in F\}=X^{-1}(F).
 \]
-then we have $\mathbb{E}[XY]=\mathbb{E}|X|\mathbb{E}|Y|$
-\end{example}
-\subsection{Stochastic Process}
-Stochastic processes are mathematical models that are used to describe random phenomena evolving in the time. 
-
-Therefore, we need to have a time set $T$ as parameters. $T$ can be \emph{non-negative} integers $\mathbb{Z}_+$ (i.e., discrete process), or be $[0,\infty)$ (i.e., continuous process). 
-
-\begin{definition}[Stochastic Process]
-A stochastic process $\{x_t\}_{t\in T}$ is a collection of parameterized random variables, which is defined on $(\Omega,\mathcal{F},\mathbb{P})$, and taking values in $\mathbb{R}^n$.
-\end{definition}
-\begin{remark}
-A stochastic process $\{X_t\}$ can be viewed as a function: $T\times\Omega\to\mathbb{R}^n$.
-\end{remark}
-
-\begin{definition}
-\begin{enumerate}
-\item
-For fixed $t\in T$, the function $\omega\to X_t(\omega)$ is a random variable.
-\item
-For fixed $\omega\in\Omega$, 
-\[
-t\mapsto X_t(\omega)
-\]
-is called a sample path.
-\item
-The stochastic process $\{X_t\}_{t\in T}$ is \emph{continuous} (resp. right-continuous, right-continuous with left limit) if the sample path $t\mapsto X_t(\omega)$ are continuous (resp. right-continuous, right-continuous with left limit), almost surely.
-\end{enumerate}
-\end{definition}
-
-\begin{remark}
-A function $f:(a,b)\to\mathbb{R}$ is called \emph{right-continuous} at $t_0\in(a,b)$ if the right limit of $f$ exists at $t_0$ and equal to $f(t_0)$.
-
-The function $f$ is called \emph{right-continuous with left limit exists} at $t_0\in(a,b)$ if the limit of $f$ exists at $t_0$ , and the left limit of $f$ exists at $t_0$.
-\end{remark}
-
-\begin{example}[Possion Process]
-Let $\{\xi_j\}_{j\ge1}$ be i.i.d. random variables with possion distribution with intensity $\lambda$. Let $T_0=0$ and $T_n=\sum_{j=1}^n\xi_j$. For each $t\ge0$, define $x_t=n$ if $T_n\le t<T_{n+1}$.
-
-Then for fixed $\omega$, the function $t\to X_t(\omega)$ is a step function, with jump possibly at random time $T_n$, and is right-continuous with left-limit exists at $T_n$.
-\end{example}
-\begin{definition}
-If $\{X_t\}_{t\in T}$ is a stochastic process taking values in $\mathbb{R}^n$, the joint distribution of $x_{t_1},x_{t_2},\dots,x_{t_k}$ for given $t_1,t_2,\dots,t_k\in T$,
+\begin{definition}[Joint Distribution of a Stochastic Process]
+Let $\{X_t\}$ be a stochastic process.
+Let $0=t_0\le t_1\le\cdots\le t_k$.
+The joint distribution of random variables 
+$X_{t_1},\ldots,X_{t_k}$ is defined as
 \[
 \mu_{t_1,t_2,\dots,t_k}(F_1\times\cdots\times F_k)
 =
-\mathbb{P}(x_{t_1}\in F_1,\cdots,x_{t_k}\in F_k),
+\mathbb{P}(X_{t_1}\in F_1,\cdots,X_{t_k}\in F_k),
 \]
-where $F_1,\dots,F_k$ are Borel sets in $\mathbb{R}^n$. This $\mu_{t_1,t_2,\dots,t_k}$ is also called \emph{finite-dimensional distribution}, which is a probability measure on $\mathbb{R}^n\times\cdots\times\mathbb{R}^n$
+where $F_1,\dots,F_k$ are all Borel sets in $\mathbb{R}^n$.
 \end{definition}
 
+\begin{remark}
+The measure $\mu_{t_1,t_2,\dots,t_k}$ is the \emph{finite-dimensional distribution}. In particular, $\mu_{t_1,t_2,\dots,t_k}$ is a probability measure on the product space $\mathbb{R}^n\times\cdots\times\mathbb{R}^n$.
+\end{remark}
+
 \begin{example}[Brownian Motion]
-Given a probability space $(\Omega,\mathcal{F},\mathbb{P})$, for fixed $x\in\mathbb{R}$, define
+Consider a probability space $(\Omega,\mathcal{F},\mathbb{P})$. 
+Define the function 
 \[
-\mathbb{P}(y;t,x)=\frac{1}{\sqrt{2\pi t}}\exp\left(
--\frac{(y-x)^2}{2t},y\in\mathbb{R},t>0
-\right)
+\mathsf{P}(t,x,y)=\frac{1}{\sqrt{2\pi t}}\exp\left(
+-\frac{(y-x)^2}{2t}\right),\qquad x,y\in\mathbb{R},t>0
 \]
-The Brownian motion $\{B_t\}_{t\ge0}$ is a continuous stochastic process, and the distribution of $\{B_t\}$ with $t_0=0,B_0=x$ is given by:
+The Brownian motion
+\footnote{now consider only the Brownian motion with independent, normally distributed increment.}
+ is denoted by $\{B_t\}_{t\ge0}$.
+Then the joint distribution of $\{B_t\}$ at time $t_1,t_2,\ldots,t_k$ is given by:
 \[
 \begin{aligned}
 \mathbb{P}&(B_{t_1}\in F_1,\dots,B_{t_k}\in F_k)
 =\\
-&\int_{F_1\times\cdots\times F_k}p(t_1,x,x_1)p(t_2-t_1,x_1,x_2)\cdots p(t_k-t_{k-1},x_{k-1},x_k)\diff(x_1,\dots,x_k)
+&\int_{F_1\times\cdots\times F_k}
+\mathsf{P}(t_1,0,x_1)
+\mathsf{P}(t_2-t_1,x_1,x_2)
+\cdots
+\mathsf{P}(t_l-t_{k-1},x_{k-1},x_k)
+\diff x_1\diff x_2\cdots \diff x_k
 \end{aligned}
 \]
-
 \end{example}
-\begin{remark}
-If $\{x_t\}_{t\ge0}$ is a continuous stochastic process and we need to deal with such kind of set below
-\[
-F=\{\omega\mid x_t(\omega)\in[0,1),\forall t\le1\}
-\]
-Such set $F$ may be not measurable, i.e., $F$ may not be an event. Then $\mathbb{P}(F)$ does not make sense. Therefore, we need the additional conditions.
-\end{remark}
-\paragraph{Exercise}
-Let $\{x_t\}_{t\ge0}$ be a stochastic process on $(\Omega,\mathcal{F},\mathbb{P})$ and take values in $\mathbb{R}^n$. Let $\bm B$ be a Borel subset. If $T$ is a countable set (or can be finite), then
-\[
-\{\omega\mid x_t(\omega)\in\bm B,\forall t\in T\}\text{ is measurable} = \bigcap_{t\in T}\{\omega:X_t(\omega)\in\bm B\}.
-\]
-We can also show that $\sup_{t\in T}|x_t(\omega)|$ is measurable.
 
-\begin{definition}
-Let $\{x_t\}_{t\ge0}$ and $\{Y_t\}_{t\ge0}$ be two stochastic process. We call $\{Y_t\}$ be a version of $\{x_t\}$ if for every $t\ge0$,
+\begin{definition}[Measurable Set]
+Let $(S,\mathcal{F})$ be a pair, with $S$ being a set and $\mathcal{F}$ is a $\sigma$-algebra on $S$. Then the set $\mathcal{F}$ is called a \emph{measurable space}, and an element of $\mathcal{F}$ is called a $\mathcal{F}$-\emph{measurable} subset of $S$.
+\end{definition}
+
+\begin{remark}
+Cosnider a stochastic process $\{X_t\}$ in continuous time, e.g., a Brownian motion.
+Consider the space $(\mathbb{R}^{[0,\infty)},\mathcal{B}(\mathbb{R}^{[0,\infty)}))$, and define the collection of outcomes
 \[
-\mathbb{P}\{w\mid x_t(\omega)=Y_t(\omega)\}=1,
+F=\{\omega\in\Omega\mid X_t(\omega)\in[0,1],\forall t\le1\}
 \]
-then $\{x_t\}$ and $\{Y_t\}$ are also called to be equivalent.
+The issue is that this event $F$ is not necessarily $\mathcal{B}(\mathbb{R}^{[0,\infty)})$-measurable.
+Sometimes we need some extra conditions on the stochastic process to make $F$ measurable.
+The significance of $F$ will also discussed in the future.
+%
+%
+%
+%Such set $F$ may be not measurable, i.e., $F$ may not be an event. Then $\mathbb{P}(F)$ does not make sense. Therefore, we need the additional conditions.
+\end{remark}
+
+\begin{proposition}
+Suppose that $\{X_t\}$ is a continuous-time stochastic process.
+Let $\mathcal{T}$ be a countable subset of $[0,\infty)$, then given $B\in\mathcal{B}(\mathbb{R}^n)$,
+\begin{itemize}
+\item
+The set $\{\omega:~
+X_t(\omega)\in B
+\text{ for any } t\in\mathcal{T}\}$ is measurable;
+\item
+The function $h=\sup_{t\in\mathcal{T}}|X_t|$ is $\mathcal{F}$-measurable.
+\end{itemize}
+\end{proposition}
+\begin{proof}
+For fixed $t\in\mathcal{T}$, because of the $\mathcal{F}$-measurability of $X_t$, the set
+\[
+\{X_t\in B\}:=\{\omega:~
+X_t(\omega)\in B
+\}\text{ is measurable}.
+\]
+It is easy to see that the countably intersection $\cap_{t\in\mathcal{T}}\{X_t\in B\}$ is measurable as well.
+For the second assertion, it suffices to check that $h^{-1}([-\infty,a))=\cap_{t\in\mathcal{T}}\{X_t<a\}$ is measurable.
+\end{proof}
+However, when $\mathcal{T}$ is uncountable, it is problematic to show the measurability.
+It is even difficult to show that for almost all $\omega$, $t\mapsto X_t(\omega)$ is continuous.
+In order to obtain a ``continuous'' process, we need the following important concept:
+%Let $\{x_t\}_{t\ge0}$ be a stochastic process on $(\Omega,\mathcal{F},\mathbb{P})$ and take values in $\mathbb{R}^n$. Let $\bm B$ be a Borel subset. If $T$ is a countable set (or can be finite), then
+%\[
+%\{\omega\mid x_t(\omega)\in\bm B,\forall t\in T\}\text{ is measurable} = \bigcap_{t\in T}\{\omega:X_t(\omega)\in\bm B\}.
+%\]
+%We can also show that $\sup_{t\in T}|x_t(\omega)|$ is measurable.
+
+\begin{definition}[Equivalent random variables]
+Let $\{X_t\}_{t\ge0}$ and $\{Y_t\}_{t\ge0}$ be two stochastic process on $(\Omega,\mathcal{F},\mathbb{P})$.
+Then $\{Y_t\}$ is called an \emph{equivalent} (a \emph{version}) of 
+$\{X_t\}$ if 
+\[
+\mathbb{P}(\{w\mid X_t(\omega)=Y_t(\omega)\})=1,\qquad
+\text{for any time $t$}.
+\]
 \end{definition}
 \begin{remark}
-If $\{Y_t\}_{t\ge0}$ is a version of $\{x_t\}_{t\ge0}$, then they have the same joint distribution.
+It is easy to see that when $\{X_t\}_{t\ge0}$ is a version of $\{Y_t\}_{t\ge0}$, they have the same finite-dimensional distributions, but their path properties may be different, e.g., for almost all $\omega$, 
+$t\mapsto X_t(\omega)$ may be continuous while 
+$t\mapsto Y_t(\omega)$ may not.
 \end{remark}
+
+\subsection{Conditional Expectation}
+\begin{definition}[Conditional Expectation]\label{Def:2:4}
+Suppose that $(\Omega,\mathcal{F},\mathbb{P})$ is a probability space.
+$\mathcal{G}$ is a sub $\sigma$-algebra of $\mathcal{F}$, i.e., $\mathcal{G}\subseteq\mathcal{F}$.
+Let $X:\Omega\to\mathbb{R}^n$ be an \textit{integrable} random variable, and the \emph{conditional expectation} $X$ given $\mathcal{G}$, denoted as 
+$\mathbb{E}[X\mid\mathcal{G}]$, is a random variable 
+satisfying the following conditions:
+\begin{enumerate}
+\item
+$\mathbb{E}[X\mid\mathcal{G}]$ is $\mathcal{G}$-measurable;
+\item
+For any event $A\in\mathcal{G}$,
+\[
+\int_A\mathbb{E}[X\mid\mathcal{G}]\diff\mathbb{P}
+=
+\int_AX\diff\mathbb{P}
+\]
+In other words,
+\[
+\mathbb{E}[\mathbb{E}[X\mid\mathcal{G}]1_A]=\mathbb{E}[X1_A].
+\]
+\end{enumerate}
+\end{definition}
+
+
+\begin{remark}
+Let $X$ be an integrable random variable.
+Then for each sub $\sigma$-algebra $\mathcal{G}\subseteq\mathcal{F}$, 
+the conditional expectation $\mathbb{E}[X\mid\mathcal{G}]$ exists and 
+is unique up to $\mathcal{V}$-measurable sets of probability zero.
+The proof is based on the Radon-Nikodym theorem.
+
+In other words,
+suppose that $Y$ is another random variable satisfying the condition mentioned in Definition~\ref{Def:2:4}, i.e.,
+\begin{itemize}
+\item
+$Y$ is $\mathcal{G}$-measurable;
+\item
+$\mathbb{E}[Y1_A] = \mathbb{E}[X1_A]$ for any $A\in\mathcal{G}$;
+\end{itemize}
+then we can assert that $Y = \mathbb{E}[X\mid\mathcal{G}]$ a.s., and $Y$ is called a \emph{version} of $\mathbb{E}[X\mid\mathcal{G}]$.
+\end{remark}
+Conditional expectation has many of the same properties that ordinary expectation does:
+\begin{theorem}[Properties of Conditional Expectation]
+Let $X$ be a random variable defined on $(\Omega,\mathcal{F},\mathbb{P})$, and $\mathcal{G}$ is a sub $\sigma$-algebra of $\mathcal{F}$, then the following holds:
+\begin{enumerate}
+\item
+$\mathbb{E}[\mathbb{E}[X\mid\mathcal{G}]] = \mathbb{E}[X]$
+\item
+If $X$ is $\mathcal{G}$-measurable, then 
+$\mathbb{E}[X\mid\mathcal{G}] = X$ a.s..
+\item
+(Linearity)
+For any $a_1,a_2\in\mathbb{R}$, 
+\[
+\mathbb{E}[a_1X_1 + a_2X_2\mid \mathcal{G}]
+=
+a_1\mathbb{E}[X_1\mid \mathcal{G}]
++
+a_2\mathbb{E}[X_2\mid \mathcal{G}],\quad\mbox{a.s.}
+\]
+\item
+(Positivity)
+If $X\ge0$, then $\mathbb{E}[X\mid\mathcal{G}]\ge0$.
+\item
+(Jensen Inequality)
+If $\phi:\mathbb{R}\to\mathbb{R}$ is a convex function, 
+then 
+\[
+\mathbb{E}[\phi(X)\mid\mathcal{G}]\ge\phi(\mathbb{E}[X\mid\mathcal{G}]).
+\]
+\item
+(Tower Property)
+Let $\mathcal{H}$ be a sub $\sigma$-algebra of $\mathcal{G}$.
+Then 
+\[
+\mathbb{E}\bigg[\mathbb{E}[X\mid\mathcal{G}]\mid\mathcal{H}\bigg]
+=
+\mathbb{E}[X\mid\mathcal{H}],\quad\mbox{a.s.}
+\]
+\item
+(Conditional Independence)
+Suppose that $\mathcal{H}$ is a $\sigma$-algebra independent of $\sigma(\sigma(X),\mathcal{G})$,
+then 
+\[
+\mathbb{E}\bigg[
+X\bigg|
+\sigma(\mathcal{G},\mathcal{H})
+\bigg]
+=
+\mathbb{E}[X\mid\mathcal{G}].
+\]
+In particular, $\mathbb{E}[X\mid\mathcal{H}] = \mathbb{E}[X]$ if $\mathcal{H}$ is independent of $X$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+\begin{enumerate}
+\item
+Recall the definition of $\mathbb{E}[X\mid\mathcal{G}]$ and take $A=\Omega$,
+\[
+\mathbb{E}[\mathbb{E}[X\mid\mathcal{G}]]=
+\mathbb{E}[\mathbb{E}[X\mid\mathcal{G}]1_{\Omega}] = \mathbb{E}[X].
+\]
+\item
+It suffices to verify that $X$ satisfies 1) and 2) in Definition~\ref{Def:2:4}, and the result holds by the uniqueness of conditional expectation.
+\item
+Again, verify the RHS satisfies 1) and 2) in Definition~\ref{Def:2:4}, and the result holds by the uniqueness of conditional expectation.
+\item
+For fixed $\omega\in\Omega$,
+\[
+\mathbb{E}[X\mid\mathcal{G}](\omega)
+=
+\mathbb{E}[\mathbb{E}[X\mid\mathcal{G}]1_{\{\omega\}}]=
+\mathbb{E}[X1_{\{\omega\}}]=X(\omega)\ge0.
+\]
+\item
+\begin{itemize}
+\item
+Assume that we can construct a collection of affine functions $\mathcal{L}=\{L(x):~L(x)=ax+b\}$, such that $\phi(x)=\sup_{L\in\mathcal{L}}L(x)$.
+As a result, for any $L\in\mathcal{L}$,
+\begin{align*}
+\mathbb{E}[\phi(X)\mid\mathcal{G}]
+&\ge \mathbb{E}[L(X)\mid\mathcal{G}]=L(\mathbb{E}[X\mid\mathcal{G}])
+\end{align*}
+Taking the supermum over all $L\in\mathcal{L}$, the desired result holds.
+\item
+Here we give an explicit construction of $\mathcal{L}$:
+\[
+\mathcal{L} = \{x\mapsto \phi(x_0)+g\trans(x-x_0)\mid x_0\in\text{dom}(\phi), g\in\partial\phi(x_0)\}
+\]
+Note that $L(x)\le\phi(x)$ for any $L\in\mathcal{L}$ since the subgradient inequality holds for convex functions. Reversely, $[\phi(x_0)+g\trans(x-x_0)]\mid_{x=x_0}=\phi(x_0)$.
+Therefore, $\phi(x)=\sup_{L\in\mathcal{L}}L(x)$.
+\end{itemize}
+\item
+It suffices to show that $\mathbb{E}[X\mid\mathcal{H}]$ is a version of $\mathbb{E}\bigg[
+\mathbb{E}[X\mid\mathcal{G}]\mid\mathcal{H}
+\bigg]$.
+The key is to show that for all $A\in\mathcal{H}$, 
+\[
+\mathbb{E}[\mathbb{E}[X\mid\mathcal{H}]1_A] 
+=\mathbb{E}[\mathbb{E}[X\mid\mathcal{G}]1_A].
+\]
+Verify that both sides equal to $\mathbb{E}[X 1_A]$.
+%
+%Notice that the LHS is $\mathcal{H}$-measurable, and for any $A\in\mathcal{H}$,
+%similar as in property (a), argue that 
+%\[
+%\mathbb{E}
+%\bigg[
+%\mathbb{E}[X\mid\mathcal{G}]1_{A}
+%\bigg]=\mathbb{E}
+%[X1_{A}].
+%\]
+%Moreover, $\mathbb{E}[\mathbb{E}[X\mid\mathcal{H}]1_A]=\mathbb{E}
+%[X1_{A}]$, which implies
+%\[
+%\mathbb{E}
+%\bigg[
+%\mathbb{E}[X\mid\mathcal{G}]1_{A}
+%\bigg]=\mathbb{E}[\mathbb{E}[X\mid\mathcal{H}]1_A]
+%\]
+%By the uniqueness of conditional expectation, the desired result holds.
+\item
+It suffices to show that $\mathbb{E}[X\mid\mathcal{G}]$ is a version of $\mathbb{E}\bigg[
+X\bigg|
+\sigma(\mathcal{G},\mathcal{H})
+\bigg]$, i.e., for any $A\in\sigma(\mathcal{G},\mathcal{H})$,
+\[
+\mathbb{E}[X1_A]
+=
+\mathbb{E}
+\bigg[
+\mathbb{E}[X\mid\mathcal{G}]1_A
+\bigg].
+\]
+\end{enumerate}
+\end{proof}
+
+\subsection{Tips about Probability Theory}
+Suppose that $\{E_n\}$ is a seuqence of events.
+We aim to define the limit of this sequence. 
+A key issue is that two sets may loss orders. For instance, it is possible that neither $A\subseteq B$ nor $B\subseteq A$.
+Therefore, based on a seuqence of events, we first define monotone increasing/decreasing sequence of events as follows:
+\[
+\overline{E}_m = \bigcup_{n\ge m}E_n,\qquad
+\underline{E}_m = \bigcap_{n\ge m}E_n
+\]
+Then $\{\overline{E}_m\}$ and $\{\underline{E}_m\}$ are montone decreasing/increasing, and it is easy to define their limits:
+\[
+\limsup_{n\to\infty}E_n=\cap_{m}\overline{E}_m,\qquad
+\liminf_{n\to\infty}E_n=\cup_m\underline{E}_m.
+\]
+According to this definition, we have:
+\begin{align*}
+\limsup_{n\to\infty}E_n&\triangleq 
+\{\omega:~~\omega\in E_n\text{ for infinitely many $n$}\}\\
+\liminf_{n\to\infty}E_n&\triangleq
+\{\omega:~~\omega\in E_n\text{ for all large enough $n$}\}
+\end{align*}
+
+
+\begin{theorem}[Borel-Cantelli Lemma]\label{The:BC}
+If $\{E_n\}$ is a sequence of events satisfying 
+$\sum_{n=1}^\infty\mathbb{P}(E_n)<\infty$, 
+then
+\[
+\mathbb{P}\left(\limsup_{n\to\infty} E_n\right) = 0.
+\]
+\end{theorem}
+
+\begin{proof}
+Define $\overline{E}_m$ as above, and thus $\limsup_{n\to\infty}E_n=\cap_m\overline{E}_m$.
+As a result, for any $m$,
+\[
+\mathbb{P}\left(\limsup_{n\to\infty} E_n\right)
+=
+\mathbb{P}(\cap_m\overline{E}_m)\le \mathbb{P}(\overline{E}_m)\le\sum_{n=m}^\infty\mathbb{P}(E_n).
+\]
+%
+%
+%
+%
+%Define the set 
+%\[
+%G_m = \bigcup_{n\ge m}E_n.
+%\]
+%Then $\{G_m\}$ is a decreasing sequence of events, i.e., $G_m\supseteq G_{m+1}\supseteq\cdots$.
+%Also, define
+%\[
+%G = \bigcap_m E_m:=\limsup E_n.
+%\]
+%Then $\mathbb{P}(G_m)$ is decreasing and $\lim_{m\to\infty}\mathbb{P}(G_m) = \mathbb{P}(G)$.
+%It implies that for any $m$,
+%\[
+%\mathbb{P}(G)\le \mathbb{P}(G_m)
+%\le\sum_{n=m}^\infty\mathbb{P}(E_n)
+%\]
+Because of the condition $\sum_{n=1}^\infty\mathbb{P}(E_n)<\infty$, as $m\to\infty$,
+\[
+\sum_{n=m}^\infty\mathbb{P}(E_n)\to0\implies
+\mathbb{P}\left(\limsup_{n\to\infty} E_n\right)=0.
+\]
+\end{proof}
+
+\subsection{Reviewing on Real Analysis}
+
+\begin{theorem}[Monotone Convergence Theorem]
+Let $\{f_n\}$ be a sequence of non-negative measurable functions on $(S,\Sigma,\mu)$ satisfying
+\begin{itemize}
+\item
+$f_1(x)\le f_2(x)\le\cdots$ for almost all $x\in S$;
+\item
+$f_n(x)\to f(x)$ for almost all $x\in S$, for some measurable function $f$.
+\end{itemize}
+Then 
+\[
+\int_Sf\diff\mu = \lim_{n\to\infty}\int_Sf_n\diff\mu.
+\]
+\end{theorem}
+The proof for the monotone convergence theorem~(MCT) can be found in the website
+\begin{quotation}
+Daniel Wong, Jie Wang. (2019) Lecture Notes
+for MAT3006: Real Analysis, Lecture 21. Available at
+the link 
+
+https://walterbabyrudin.github.io/information/Updates/Updates.html
+\end{quotation}
+We can apply MCT to show the Fatou's lemma, in which the required condition is weaker:
+\begin{theorem}[Fatou's Lemma]
+Suppose that $\{f_n\}$ is a sequence of measurable, non-negative functions. Then
+\[
+\int_S \liminf_{n\to\infty}f_n\diff\mu
+\le
+\liminf_{n\to\infty}\int_S f_n\diff\mu.
+\]
+\end{theorem}
+
+\begin{proof}
+Define the function $g_n = \inf_{k\ge n}f_k$.
+Then $\{g_n\}$ is a non-decreasing sequence of non-negative functions.
+Then 
+\begin{align*}
+\int \liminf_{n\to\infty}f_n\diff\mu
+&=
+\int\lim_{n\to\infty}g_n\diff\mu=
+\lim_{n\to\infty}\int g_n\diff\mu\\
+&=\liminf_{n\to\infty}\int g_n\diff\mu\\
+&\le\liminf_{n\to\infty} \int f_n\diff\mu
+\end{align*}
+where the second equality is by MCT, and the last equality is because that $g_n\le f_n,\forall n$.
+\end{proof}
+
+\begin{example}
+In general the integral of the limit-inf on a sequence of functions is smaller.
+For instance, consider a sequence of functions on $\mathbb{R}$:
+\[
+f_n(x)=\left\{
+\begin{aligned}
+\bm 1_{[0,1/2]}(x),&\qquad\text{when $n$ is odd}\\
+\bm1_{[1/2,1]}(x),&\qquad\text{when $n$ is even}
+\end{aligned}
+\right.
+\]
+Then 
+\[
+\liminf_{n\to\infty}f_n=1_{\{1/2\}}\implies
+\int\liminf_{n\to\infty}f_n\diff m=0,
+\]
+while $\int_{[0,1]}f_n\diff m=1/2$ for each $n$.
+\end{example}
+
+\begin{remark}
+We also have the reversed fatou's lemma, saying that in general the integral of the limit-sup on a sequence of functions is bigger:
+\[
+\int_S\limsup_{n\to\infty}f_n\diff\mu \ge \limsup_{n\to\infty}\int_Sf_n\diff\mu.
+\]
+\end{remark}
+
+\begin{theorem}[Dominated Convergence Theorem]
+Let $\{f_n\}$ be a sequence of measurable functions on $(S,\Sigma,\mu)$ satisfying
+\begin{enumerate}
+\item
+$f_n$ is dominated by an integrable function $g$, i.e., 
+\[
+|f_n(x)|\le g(x)
+\]
+for almost all $x\in S$, with $\int_S|g|\diff\mu<\infty$.
+\item
+$f_n$ converges to $f$ almost everywhere for some measurable function $f$.
+\end{enumerate}
+Then $f$ is integrable and $f_n\to f$ in $L^1$, i.e., 
+$
+\lim_{n\to\infty}\int_S|f_n-f|\diff\mu=0,
+$
+which implies that 
+\[
+\int_Sf\diff\mu = \lim_{n\to\infty}f_n\diff\mu.
+\]
+\end{theorem}
+
+\begin{proof}
+\begin{itemize}
+\item
+The integrability of $f$ is because that $|f|\le g$ a.e.;
+\item
+The $L^1$-convergence for $f_n$ is by the reversed fatou's lemma:
+\[
+\limsup\int|f_n-f|\diff m\le \int\limsup|f_n-f|\diff m=0.
+\]
+\item
+The remaining part is by applying Fatou's lemma on a sequence of functions $\{g+f_n\}$ and $\{g-f_n\}$. The details are in the reference
+\begin{quotation}
+Daniel Wong, Jie Wang. (2019) Lecture Notes
+for MAT3006: Real Analysis, Lecture 23. Available at
+the link 
+
+https://walterbabyrudin.github.io/information/Updates/Updates.html
+\end{quotation}
+\end{itemize}
+\end{proof}
+
+
+
+
+
 
 
 

@@ -1,0 +1,232 @@
+
+\chapter{Week 2}
+
+\section{Monday}\index{Monday_lecture}
+\subsection{Stochastic Process}
+Suppose that we have some random events that change in time.
+We obtain some observations, say outcome, from random events.
+They take values in a set $S$, where $S$ is a \emph{topological space}.
+
+\paragraph{Recap about Topological Space}
+\begin{definition}[Convergence in Metric Space]
+Let $(X,d)$ be a metric space, then $\{x_n\}\to x$ means that 
+\[
+\forall \varepsilon>0,~~\exists N\text{ such that }d(x_n,x)<\varepsilon,~~\forall n\ge N.
+\]
+\end{definition}
+
+\begin{definition}[Convergence in Topological Space]
+Let $(X,\mathcal{T})$ be a topological space, then $\{x_n\}\to x$ means that 
+\[
+\forall U\ni x\text{ that is open }, \exists N\text{ such that }x_n\in U,\forall n\ge N.
+\]
+\end{definition}
+\begin{definition}[Complete]
+A topological space $(X,\mathcal{T})$ is said to be complete if each Cauchy sequence in $X$ converges in $X$.
+\end{definition}
+\begin{definition}[Separable]
+A topological space $(X,\mathcal{T})$ is said to be \emph{Hausdorff} (second separable) if for all $x\ne y\in X$, there exists $U,V\in\mathcal{T}$ such that 
+\[
+x\in U,\quad
+y\in V,
+U\cap V=\emptyset.
+\]
+\end{definition}
+\begin{definition}[Polish Space]
+A complete separable metric space is called a polish space.
+\end{definition}
+
+Given a topological space $(S,\mathcal{O})$, which is also called a state space, we define the Borel field of $S$ as:
+\[
+\mathcal{B}(S)=\sigma(\mathcal{O}):=\{
+\mbox{minimal $\sigma$-field including all elements in $\mathcal{O}$}
+\}
+\]
+
+The state at time $n\in\mathbb{N}$ 
+is denoted by $S$-valued random variable $X_n$:
+\footnote{if time is continuous, then use $t\in\mathbb{R}_+$ to denote the time index}
+\[
+\begin{array}{ll}
+X_n:&\Omega\to S\\
+\mbox{with}&X_n(\omega)\in S
+\end{array}
+\]
+The collection of random variables $X_n$ for $n=0,1,2,\ldots$ is denoted by $\{X_n:~n\ge0\}$.
+This is called a stochastic process with state space $S$.
+Collection of all observations (information of events) up to time $n$ is denoted by $\mathcal{F}_n$:
+\begin{itemize}
+\item
+$\mathcal{F}_n$ is a subset of $\mathcal{F}$;
+\item
+$\mathcal{F}_n$ is a $\sigma$-field on $\Omega$;
+\item
+For $0\le m<n$, $\mathcal{F}_m\subseteq \mathcal{F}_n$, i.e., $F_n\uparrow$.
+\end{itemize}
+Define $\mathbb{F}:=\{\mathcal{F}_n:~n\ge0\}$ is called a \emph{filtration}.
+
+\[
+X_n^{-1}(B)=\{\omega\in\Omega~~X_n(\omega)\in B\}=\{X\in B\}
+\]
+\begin{definition}[measurable]
+If $X_n^{-1}(B)\in\mathcal{F}_n$ for any $B\in\mathcal{B}(S)$, then $X_n$ is said to be \emph{measurable} w.r.t. $\mathcal{F}_n$. For simplicity, $X_n$ is $\mathcal{F}_n$-measurable.
+\end{definition}
+
+\begin{definition}[adapted]
+If $X_n$ is $\mathcal{F}_n$-measurable for any $n$, then $X_{\cdot}=\{X_n:~n\ge0\}$ is said to be \emph{adapted} to filtration $\mathbb{F}$.
+\end{definition}
+
+\begin{example}
+Define
+\[
+\mathcal{F}_n^X=\sigma(X_1,\ldots,X_n),\quad n\ge0
+\]
+Define $\mathbb{F}^X=\{F_m^X:~n\ge0\}$.
+Then $X_{\cdot}$ is adapted to $\mathbb{F}^X$.
+\end{example}
+
+We finally need the probability measure for $X_{\cdot}$, called a distribution of $X_{\cdot}$.
+\[
+\begin{array}{ll}
+X_{\cdot}:&\Omega\to \otimes_{i=1}^\infty S_i\\
+\mbox{with}&\omega\mapsto X_{\cdot}(\omega)=\{X_n(\omega):~n\ge0\}
+\end{array}
+\]
+Define $\mathcal{F}_\infty = \cup_{n=1}^\infty \mathcal{F}_n\subseteq \mathcal{F}$.
+The distribution of $X$ is defined on $(\Omega,\mathcal{F}_\infty)$.
+
+\paragraph{General Process}
+\begin{itemize}
+\item
+$S,\mathcal{B}(S)$
+\item
+$X_{\cdot}=\{X_n:~n\ge0\}$
+\item
+$\mathbb{F}=\{\mathcal{F}_n:~n\ge0\}$
+\item
+$\mathbb{P}$ on $(\Omega,\mathcal{F})$
+\item
+$(\Omega,\mathcal{F},\mathbb{P})$ is called probability space;
+and 
+$(\Omega,\mathcal{F},\mathbb{F},\mathbb{P})$ is called a stochastic basis.
+\end{itemize}
+
+Question: 
+How to define $\mathbb{P}$ or distribution of $X_{\cdot}$ on $(\Omega,\mathcal{F}_\infty)$?
+How to define $X_n\to X$?
+
+\paragraph{By Joint Distribution}
+The joint distribution of $X_0,X_1,\ldots,X_n$ is obtained as $\mathbb{P}_n$, where $\mathbb{P}_n$ is defined on $(S^{n+1},\mathcal{B}(S^{n+1}))$
+\[
+\mathbb{P}_{n+1}(B_n\times S) = \mathbb{P}_n(B_n),\quad
+B_n\in\mathcal{B}(S^{n+1}),
+\]
+called comptibility.
+How can the probability measure $\mathbb{P}$ on $(\Omega,\mathcal{F}_\infty:=\mathcal{B}(S^{\infty}))$ be constructed?
+
+\begin{theorem}
+If $S$ is a polish space, then 
+\end{theorem}
+
+
+\begin{example}
+Consider a Markov chain, with $S$ countable.
+\[
+\mathcal{B}(S)=\{\mbox{all subsets of $S$}\}
+\]
+\begin{itemize}
+\item
+For $i,j\in S, p_{i,j}\ge0$ such that $\sum_{j\in S}p_{i,j}=1$.
+\item
+Define the distribution $\{a_i\}_{i\in S}$ such that $a_i\ge0, \sum_{i\in S}a_i = 1$.
+\item
+For any $n\ge0, i_0,i_1,\ldots,i_n\in S$, define
+\[
+\mathbb{P}(X_0 = i_0,X_1=i_1,\ldots,X_m = i_m)
+=
+a_{i_0}p_{i_0,i_1}p_{i_1,i_2}\cdots p_{i_{n-1},i_n}.
+\]
+\end{itemize}
+To check $\mathbb{P}$ a probability distribution,
+\[
+\sum_{i_0,\ldots,i_n\in S}\mathbb{P}(X_0=i_0,\ldots,X_m=i_m)=1.
+\]
+We can also check the comptibility condition.
+
+It's easy to check that
+\[
+\mathbb{P}\{X_{n+1}=j\mid X_0=i_0,\ldots,X_n=i\}=
+\mathbb{P}\{X_{n+1}=j\mid X_n=i\}=p_{i,j}
+\]
+This is called the Markov property, and $\{X_n:~n\ge0\}$ is called a discrete time Markov chain.
+\end{example}
+
+\subsection{Random Walk}
+Example of a discrete time stochastic process.
+$S=\mathbb{R}$.
+
+\begin{definition}
+\begin{itemize}
+\item
+$A,B\in\mathcal{F}$ are independent if 
+\[
+\mathbb{P}(A\cap B) = \mathbb{P}(A)\mathbb{P}(B)
+\]
+\item
+$S$-valued random variables $X,Y$ are independent if
+$\{X\in B_1\}$ and $\{Y\in B_2\}$ are independent for any $B_1,B_2\in\mathcal{B}(S)$.
+\item
+$A_1,A_2,\dots,A_n\in\mathcal{F}$ are independent if 
+for any $\{i_1,i_2,\dots,i_k\}\subseteq\{1,\dots,n\}$
+\[
+\mathbb{P}\bigg(
+\bigcap_{j=1}^kA_{i_{j}}
+\bigg)
+=\prod_{j=1}^k\mathbb{P}(A_{i_{j}})
+\]
+\item
+$S$-valued random variables $X_1,\ldots,X_n$ are independent if $\{X_1\in B_1\},\ldots,\{X_n\in B_n\}$ are independent for any $B_i\in\mathcal{B}(S), i=1,\ldots,n$.
+\item
+$\{X_n:~n\ge1\}$ is independent if for each $n\ge1$, 
+$X_1,\ldots,X_n$ are independent. 
+\end{itemize}
+\end{definition}
+
+Suppose that 
+$S=\mathbb{R}$ and $\mathbb{R}$-valued random variables $U_0,U_1,\ldots,$ are independent,
+and the distribution of $U_n$ is independent of $n$, i.e., $U_1,U_2,\dots$ have the same distribution.
+Define 
+\[
+X_n:=U_1+U_2+\cdots+U_n,\qquad
+n\ge0.
+\]
+Then $\{X_n:~ n\ge0\}$ is called a random walk on $\mathbb{R}$.
+
+Special case: $U_0=0$ and
+\[
+U_n=\left\{
+\begin{aligned}
+1,&\quad\text{w.p. $0.5$}\\
+-1,&\quad\text{w.p. $0.5$}\\
+\end{aligned}
+\right.
+\]
+$U_n$ represents coin tossing.
+\[
+T_n=\inf\{n\ge1:~~X_n(\omega)=0\}.
+\]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

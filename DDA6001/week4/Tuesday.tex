@@ -1,0 +1,378 @@
+
+\chapter{Week 4}
+
+\section{Monday}\index{Monday_lecture}
+
+
+\subsection{Basic Convergence Results}
+
+In order to show CLT, first study basic convergence results for $\mathbb{E}[X_n]\to\mathbb{E}[X]$.
+The reason is that convergence of expectations has wide applications.
+We may apply those convergence results for the sequence of $f(X_n)$.
+For instance, if using the test function $f(x) = e^{i\theta x}$, then $\mathbb{E}[f(X_n)]$ is the characteristic function of the r.v. $X_n$.
+Thus the proof of CLT is reduced to show that $\mathbb{E}[f(X_n)]\to\mathbb{E}[f(X)]$.
+
+
+The expectation for a random variable $X:\Omega\to\mathbb{R}$ is defined as follows:
+\begin{enumerate}
+\item
+When $X$ is simple, i.e., $X:\Omega\to\{x_i\}_{i=1}^{\ell}$, define
+\[
+\mathbb{E}[X] = \sum_{i=1}^{\ell}x_i\mathbb{P}(X=x_i)
+\]
+\item
+When $X\ge0$, define an approximation of $X$:
+\[
+X_n = \left\{
+\begin{aligned}
+(k-1)2^{-n},&\quad\text{if $(k-1)2^{-n}\le X< k2^{-n}, k=1,2,\ldots,n2^n+1$}\\
+n,&\quad\text{if $X\ge n$}
+\end{aligned}
+\right.
+\]
+Then $X_n$ is simple and $X_n\uparrow X$. Then define $\mathbb{E}[X]\triangleq \lim_{n\to\infty}\mathbb{E}[X_n]$.
+\item
+When $X$ is general, define $X = X^+-X^-$ and take $\mathbb{E}[X] = \mathbb{E}[X^+] - \mathbb{E}[X^-]$.
+\end{enumerate}
+
+\begin{proposition}\label{pro:4:1}
+Suppose that $X\ge0$ and consider a sequence of simple non-negative r.v.'s $\{Y_n\}_{n\ge1}$.
+If $Y_n\uparrow X$ as $n\to\infty$, then $\lim_{n\to\infty}\mathbb{E}[Y_n] = \mathbb{E}[X]$.
+\end{proposition}
+\begin{proof}
+Define $X_k = \eta_k(X)$ and $Y_{n,k} = \eta_k(Y_n)$. Therefore,
+\[
+\lim_{n\to\infty}\mathbb{E}[Y_n]=\lim_{n\to\infty}\lim_{k\to\infty}\mathbb{E}[Y_{n,k}]
+\le\lim_{k\to\infty}\mathbb{E}[X_k]=\mathbb{E}[X],
+\]
+where the inequality is because that $Y_n\le X$ implies $\eta_k(Y_n)\le \eta_k(X)$, i.e., $Y_{n,k}\le X_k$.
+
+For the reverse direction, let $Z$ be a simple r.v. such that $0\le Z\le X$. Define $b = \max_{\omega\in\Omega}Z(\omega)$. Note that
+\[
+\mathbb{E}[Z] = \mathbb{E}[Z1(Y_n+\varepsilon>Z)] + \mathbb{E}[Z1(Y_n+\varepsilon\le Z)]
+\]
+Therefore, for any $\varepsilon>0$,
+\[
+\mathbb{E}[Z] \le \mathbb{E}[Y_n+\varepsilon] + \mathbb{E}[Z1(Y_n+\varepsilon\le X)]\le
+\mathbb{E}[Y_n] + \varepsilon + b\mathbb{P}(\varepsilon\le X-Y_n).
+\]
+Taking $n\to\infty$, $\mathbb{E}[Z] \le \lim_{n\to\infty}\mathbb{E}[Y_n] +\varepsilon$. Thus $\mathbb{E}[Z] \le \lim_{n\to\infty}\mathbb{E}[Y_n]$. Take $Z= X_k$, we have
+\[
+\mathbb{E}[X] = \lim_{k\to\infty}\mathbb{E}[X_k]\le  \lim_{n\to\infty}\mathbb{E}[Y_n].
+\]
+
+\end{proof}
+The linearity of expectation can be shown by applying this proposition.
+
+\begin{proposition}[Expectations of almost surely identical r.v.'s]\label{pro:4:2}
+If $X=Y$ a.s., and their expectations are finite, then $\mathbb{E}[X]=\mathbb{E}[Y]$.
+\end{proposition}
+\begin{proof}
+It suffices to show that $\mathbb{P}(X=0)=1$ implies $\mathbb{E}[X]=0$.
+Let $X=X^+-X^-$, and it suffices to show $\mathbb{E}[X^+]=0$ and $\mathbb{E}[X^-]=0$.
+Construct $X_n^+ = \eta_n(X^+)$, which is a simple r.v. and $0\le X_n^+\uparrow X^+$.
+As a result,
+\[
+\mathbb{E}[X^+] = \lim_{n\to\infty}\mathbb{E}[X_n^+] 
+\]
+Note that $\mathbb{P}(X_n^+>0) = \mathbb{P}(X^+\ge 2^{-n}) = \mathbb{P}(X\ge 2^{-n}) \le 1-\mathbb{P}(X=0)=0$, we imply $\mathbb{P}(X_n^+=0)=1,\forall n$, i.e., $\mathbb{E}[X^+]=0$.
+\end{proof}
+
+
+\begin{proposition}
+Suppose that $X\ge0$ a.s. and consider a sequence of a.s. simple non-negative r.v.'s $\{Y_n\}_{n\ge1}$.
+If $Y_n\uparrow X$ a.s. as $n\to\infty$, then $\lim_{n\to\infty}\mathbb{E}[Y_n] = \mathbb{E}[X]$.
+\end{proposition}
+\begin{proof}
+Define
+\[
+\Omega_0 = \{X\ge0, \text{$Y_n$ is simple for all $n$, $Y_n\uparrow X$}\}.
+\]
+Since $\mathbb{P}(\cap_{\ell=1}^\infty A_\ell)=1$ when $\mathbb{P}(A_\ell)=1$, we imply $\mathbb{P}(\Omega_0)=1$.
+Repeat the same proof as in Proposition~\ref{pro:4:1} and then apply Proposition~\ref{pro:4:2}.
+
+\end{proof}
+
+\begin{theorem}[Bounded Convergence Theorem]
+Suppose that $X_n\xrightarrow{p}X$ as $n\to\infty$, and $|X_n|\le b$ a.s., then
+\[
+\lim_{n\to\infty}\mathbb{E}[X_n] = \mathbb{E}[X].
+\]
+\end{theorem}
+\begin{proof}
+Firstly argue that there exists a sub-sequence of $X_n$ that converges to $X$ a.s.
+Construct a subsequence $X_{n_k}$ of $X_n$ such that $\mathbb{P}(|X_{n_k} - X|>\varepsilon)<2^{-k}$, which implies 
+\[
+\sum_{k\ge1}\mathbb{P}(|X_{n_k} - X|>\varepsilon)<1\implies
+X_{n_k}\xrightarrow{a.s.}X.
+\]
+Therefore, $|X|\le b$ a.s. Then
+\begin{align*}
+|\mathbb{E}[X_n] - \mathbb{E}[X]|&\le \mathbb{E}[|X_n - X|]\\
+&=\mathbb{E}[|X_n - X|1(|X_n - X|>\varepsilon)] + \mathbb{E}[|X_n - X|1(|X_n - X|\le\varepsilon)] 
+\\&\le 2b\mathbb{P}(|X_{n_k} - X|>\varepsilon)+\varepsilon
+\end{align*}
+Take $n\to\infty$ both sides, and take $\varepsilon\to0$, the desired result holds.
+\end{proof}
+
+\begin{theorem}[Monotone Convergence Theorem]
+Suppose that $X_n\ge0$ a.s., and $X_n\uparrow X$ a.s., then
+\[
+\lim_{n\to\infty}\mathbb{E}[X_n] = \mathbb{E}[X].
+\]
+\end{theorem}
+\begin{proof}
+The condition $X_n\le X$ implies $\mathbb{E}[X_n] \le \mathbb{E}[X]$, i.e.,
+$\limsup_{n\to\infty}\mathbb{E}[X_n] \le \mathbb{E}[X]$.
+It suffices to show that 
+\[
+\mathbb{E}[X]\le \liminf_{n\to\infty}\mathbb{E}[X_n]
+\]
+It suffices to construct simple r.v.'s $Y_k\ge0$ such that 
+\[
+Y_k\le X_k,\forall k\ge1, \quad\text{and $Y_k\uparrow X$ as $k\to\infty$.}
+\] 
+Therefore, $\mathbb{E}[Y_k]\to\mathbb{E}[X]\le \liminf_{k\to\infty}\mathbb{E}[X_k]$.
+
+Construct $X_{n,k} = \eta_k(X_n)$ and $X_{n,k}\uparrow X_n$. Define $Y_k = \max(X_{1,k},X_{2,k},\ldots,X_{k,k})$, which implies $X_{n,k}\le Y_k\le X_k$.
+
+
+\end{proof}
+
+\begin{theorem}[Fatou's Lemma]
+Suppose that $X_n\ge0$ a.s., then
+\[
+\mathbb{E}\left(
+\liminf_{n\to\infty}X_n
+\right)\le \liminf_{n\to\infty}\mathbb{E}[X_n]
+\]
+\end{theorem}
+\begin{proof}
+Take $Y_n=\inf_{\ell\ge n}X_{\ell}$, then $Y_n\uparrow Y\triangleq \liminf_{n\to\infty}X_n$.
+Therefore,
+\[
+\lim_{n\to\infty}\mathbb{E}[Y_n] = \mathbb{E}[Y].
+\]
+Considering that $Y_n\le X_n$, we imply $\mathbb{E}[Y_n] \le \mathbb{E}[X_n]$.
+Taking liminf both sides gives the desired result.
+\end{proof}
+
+\begin{theorem}[Dominated Convergence Theorem]
+Suppose that $X_n\xrightarrow{a.s.}X$ as $n\to\infty$, and $|X_n|\le Y$ a.s. for some $Y$ with $\mathbb{E}[Y]<\infty$, then $\lim_{n\to\infty}\mathbb{E}[X_n] = \mathbb{E}[X].$
+\end{theorem}
+\begin{proof}
+Apply Fatou's lemma on $Y+X_n$ and $Y-X_n$ gives the desired result.
+\end{proof}
+\clearpage
+\section{Thursday}
+
+\subsection{Characteristic Function}
+Define the complex valued r.v. $Z$ as
+\[
+Z(\omega) = X(\omega) +iY(\omega),\quad\omega\in\Omega.
+\]
+When $X,Y$ have finite expectations, define the expectation of $Z$ as
+\[
+\mathbb{E}(Z)=\mathbb{E}(X)+i\mathbb{E}(Y)
+\] 
+
+\begin{definition}[Characteristic Function]
+Given a distribution function $F$, define the characteristic function $\phi$ as
+\begin{align*}
+\phi(\theta)&=\int_{-\infty}^{+\infty}e^{i\theta x}F(\diff x)\\
+&=\int_{-\infty}^{+\infty}\cos(\theta x)F(\diff x) + i\int_{-\infty}^{+\infty}\sin(\theta x)F(\diff x) 
+\end{align*}
+\end{definition}
+
+For random variable $X$ subject to $F$, we have 
+\[
+\phi(\theta) = \mathbb{E}(\cos(\theta X))+i\mathbb{E}(\sin(\theta X)).
+\]
+
+\begin{proposition}
+If complex valued random variable $Z$ has a finite expectation, then 
+\[
+|\mathbb{E}(Z)|\le \mathbb{E}(|Z|).
+\]
+\end{proposition}
+
+\begin{proof}
+The definition for real valued random variable has three steps.
+Now we only check the first step for complex valued random variable.
+Suppose that $Z$ takes finite many values $z_1,z_2,\ldots,z_m$, and $z_j = x_j + iy_j$, then
+\begin{align*}
+\mathbb{E}[Z]&=\sum_{j=1}^m\sum_{k=1}^m(x_j + iy_k)\mathbb{P}(X=x_j,Y=y_k).
+\end{align*}
+Apply the triangle inequality,
+\begin{align*}
+|\mathbb{E}(Z)|&\le \sum_{j=1}^m\sum_{k=1}^m|x_j + iy_k|\mathbb{P}(X=x_j,Y=y_k)\\
+&=\sum_{\ell=1}^m\sum_{j=1}^m\sum_{k=1}^m|x_j + iy_k|\mathbb{P}(Z=z_\ell,X=x_j,Y=y_k)\\
+&=\sum_{\ell=1}^m|z_\ell|\mathbb{P}(Z=z_\ell)=\mathbb{E}(|Z|).
+\end{align*}
+
+\end{proof}
+
+\begin{corollary}
+For a characteristic function $\phi$,
+\[
+|\phi(\theta)|\le 1,\quad\forall\theta\in\mathbb{R}.
+\]
+Therefore, $\phi(\theta)$ is well-defined and finite for any $\theta$.
+\end{corollary}
+
+\begin{proposition}
+Suppose that $X,Y$ are independent, then 
+\[
+\phi_{X+Y}(\theta) = \phi_X(\theta)\phi_Y(\theta).
+\]
+\end{proposition}
+\begin{proof}
+It suffices to verify that $\mathbb{E}(e^{i\theta(X+Y)})=\mathbb{E}(e^{i\theta X})\mathbb{E}(e^{i\theta Y})$:
+\begin{align*}
+\mathbb{E}(e^{i\theta X})\mathbb{E}(e^{i\theta Y})&=(\mathbb{E}[\cos\theta X]+i\mathbb{E}[\sin\theta X])\mathbb{E}(e^{i\theta Y})
+\end{align*}
+Verify that 
+\[
+\mathbb{E}\left(
+\cos\theta X\cdot(\cos\theta Y + i\sin\theta Y)
+\right)
+=
+\mathbb{E}[\cos\theta X]\mathbb{E}(e^{i\theta Y})
+\]
+and
+\[
+\mathbb{E}\left(
+\sin\theta X\cdot(\cos\theta Y + i\sin\theta Y)
+\right)
+=
+\mathbb{E}[\sin\theta X]\mathbb{E}(e^{i\theta Y})
+\]
+\end{proof}
+
+We may compute the characteristic function $\phi(\theta)$ for normal distribution.
+Suppose that $f$ is the density of $\mathcal{N}(0,1)$, then
+\[
+\phi(\theta) = \int\cos(\theta x)f(x)\diff x + i \int\sin(\theta x)f(x)\diff x =\int\cos(\theta x)f(x)\diff x,
+\]
+where the last equality is because that $f$ is an even function.
+We study the derivative of $\phi'(\theta)$:
+\begin{align*}
+\phi'(\theta)&=\int(-x\sin(\theta x))f(x)\diff x=\int\sin(\theta x)f'(x)\diff x\\
+&=[\sin(\theta x)f(x)]_{-\infty}^\infty - \int (\sin(\theta x))'f(x)\diff x = -\theta\phi(\theta).
+\end{align*}
+Solving this differential equation with $\phi(0)=1$, we imply 
+\[
+\phi(\theta) = \exp\left(-\frac{1}{2}\theta^2\right).
+\]
+
+\subsection{Inversion Formula}
+
+Based on the distribution function $F$, we can define the characterisic fucntion.
+The inverse is also possible. 
+Let $C_F$ be the set of all continuous points of $F$.
+
+\begin{theorem}[Inversion Formula]
+For $x,y\in C_F$ satisfying $x<y$,
+\[
+\lim_{a\downarrow 0}\frac{1}{2\pi}\int_{-\infty}^\infty\frac{1}{i\theta}(e^{-i\theta x} - e^{-i\theta y})
+\phi(\theta)\exp\left(-\frac{a^2\theta^2}{2}\right)\diff\theta = F(y) - F(x).
+\]
+Hence, $F$ is determined by $\phi$.
+\end{theorem}
+The formula above is slightly different from the typical inversion formula:
+\[
+\lim_{n\to\infty}\frac{1}{2\pi}\int_{-n}^n\frac{1}{i\theta}(e^{-i\theta x} - e^{-i\theta y})\phi(\theta)\diff\theta = F(y) - F(x).
+\]
+
+
+\begin{theorem}[Parseval's Lemma]
+For $a>0$ and $u,\theta\in\mathbb{R}$,
+\begin{equation}\label{Eq:parseval}
+\frac{1}{2\pi}\int_{-\infty}^\infty e^{-i\theta u}\phi(\theta)\exp\left(-\frac{a^2\theta^2}{2}\right)\diff\theta
+=
+\int_{-\infty}^\infty\frac{1}{\sqrt{2\pi}a}\exp\left(-\frac{(u-s)^2}{2a^2}\right)F(\diff s)
+\end{equation}
+\end{theorem}
+\begin{proof}
+Direct calculation on the LHS gives
+\begin{align*}
+\frac{1}{2\pi}\int_{-\infty}^\infty e^{-i\theta u}\phi(\theta)\exp\left(-\frac{a^2\theta^2}{2}\right)\diff\theta
+&=
+\frac{1}{2\pi}\int_{-\infty}^\infty e^{-i\theta u}\int_{-\infty}^\infty e^{i\theta s}F(\diff s)\exp\left(-\frac{a^2\theta^2}{2}\right)\diff\theta\\
+&=\frac{1}{2\pi}\int_{-\infty}^\infty\int_{-\infty}^\infty e^{i(s-u)\theta}F(\diff s)\exp\left(-\frac{a^2\theta^2}{2}\right)\diff\theta\\
+&=\frac{1}{\sqrt{2\pi}a}\int_{-\infty}^\infty\int_{-\infty}^\infty e^{i(s-u)\theta}\frac{a}{\sqrt{2\pi}}
+\exp\left(-\frac{a^2\theta^2}{2}\right)\diff\theta F(\diff s)
+\end{align*}
+Since $\frac{a}{\sqrt{2\pi}}
+\exp\left(-\frac{a^2\theta^2}{2}\right)$ is the pdf of $\mathcal{N}(0,1/a^2)$,
+\[
+\int_{-\infty}^\infty e^{i(s-u)\theta}\frac{a}{\sqrt{2\pi}}
+\exp\left(-\frac{a^2\theta^2}{2}\right)\diff\theta = \exp\left(-\frac{1}{2a^2}(s-u)^2\right).
+\]
+As a result,
+\[
+\frac{1}{2\pi}\int_{-\infty}^\infty e^{-i\theta u}\phi(\theta)\exp\left(-\frac{a^2\theta^2}{2}\right)\diff\theta
+=
+\frac{1}{\sqrt{2\pi}a}\int_{-\infty}^\infty\exp\left(-\frac{1}{2a^2}(s-u)^2\right)F(\diff s).
+\]
+
+\end{proof}
+
+\begin{remark}
+Setting $g$ as the pdf of $\mathcal{N}(u,a^2)$, then the characteristic function of $g$ us $e^{iu\theta - \frac{1}{a^2}\theta^2}$. Therefore, the Parseval's formula can be written as
+\[
+\frac{1}{2\pi}\int_{-\infty}^\infty \phi(\theta)\overline{\psi(\theta)}\diff\theta
+=
+\int_{-\infty}^\infty g(s)F(\diff s).
+\]
+This formula holds for any continous pdf $g$ under an integrability condition on $|\phi(\theta)\psi(\theta)|$.
+If $F$ has a density, this fact can be interpreted that the inner products are proportional for the Hilbert spaces of characteristic functions and that of probability density functions, i.e., two Hilbert spaces are isometric.
+\end{remark}
+
+Based on the Parseval's formula, we may begin to show the inversion formula:
+\begin{proof}
+Integrate both sides of (\ref{Eq:parseval}) within the interval $[x,y]$ by $\diff u$ .
+The LHS becomes:
+\[
+\frac{1}{2\pi}\int_{-\infty}^\infty \frac{1}{i\theta}[e^{-i\theta x} - e^{-i\theta y}]\phi(\theta)\exp\left(-\frac{a^2\theta^2}{2}\right)\diff\theta.
+\]
+he RHS of (\ref{Eq:parseval}) becomes:
+\begin{align*}
+\int_{-\infty}^\infty\int_x^y\frac{1}{\sqrt{2\pi}a}\exp\left(-\frac{(u-s)^2}{2a^2}\right)&\diff uF(\diff s)
+=
+\int_{-\infty}^\infty\int_{(x-s)/a}^{(y-s)/a}\frac{1}{\sqrt{2\pi}}\exp\left(-\frac{v^2}{2}\right)\diff vF(\diff s)\\
+&=
+\int_{-\infty}^\infty\int_{-\infty}^\infty 1(x-av<s\le y-av)F(\diff s)\frac{1}{\sqrt{2\pi}}e^{-\frac{v^2}{2}}\diff v\\
+&=
+\int_{-\infty}^\infty[F(y-av) - F(x-av)]\frac{1}{\sqrt{2\pi}}e^{-\frac{v^2}{2}}\diff v
+\end{align*}
+Taking $a\to0$ both sides,
+\[
+\lim_{a\downarrow0}\frac{1}{2\pi}\int_{-\infty}^\infty\frac{1}{i\theta}(e^{-i\theta x} - e^{-i\theta y})
+\phi(\theta)\exp\left(-\frac{a^2\theta^2}{2}\right)\diff\theta
+=F(y)-F(x)
+\]
+
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

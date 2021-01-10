@@ -7,4 +7,61 @@
 \BOOKMARK [2][-]{subsection.1.1.3}{Random Phenomena}{section.1.1}% 7
 \BOOKMARK [2][-]{subsection.1.1.4}{Random variable and test functions}{section.1.1}% 8
 \BOOKMARK [1][-]{section.1.2}{Thursday}{chapter.1}% 9
-\BOOKMARK [2][-]{subsection.1.2.1}{Representative value of random variable X}{section.1.2}% 10
+\BOOKMARK [2][-]{subsection.1.2.1}{Expectation of random variable X}{section.1.2}% 10
+\BOOKMARK [0][-]{chapter.2}{Week 2}{}% 11
+\BOOKMARK [1][-]{section.2.1}{Monday}{chapter.2}% 12
+\BOOKMARK [2][-]{subsection.2.1.1}{Stochastic Process}{section.2.1}% 13
+\BOOKMARK [2][-]{subsection.2.1.2}{Random Walk}{section.2.1}% 14
+\BOOKMARK [1][-]{section.2.2}{Thursday}{chapter.2}% 15
+\BOOKMARK [2][-]{subsection.2.2.1}{Random Walk}{section.2.2}% 16
+\BOOKMARK [2][-]{subsection.2.2.2}{Basic Tips on Probability Theory}{section.2.2}% 17
+\BOOKMARK [0][-]{chapter.3}{Week 3}{}% 18
+\BOOKMARK [1][-]{section.3.1}{Monday}{chapter.3}% 19
+\BOOKMARK [2][-]{subsection.3.1.1}{Weak law of large numbers}{section.3.1}% 20
+\BOOKMARK [2][-]{subsection.3.1.2}{Strong Law of Large Numbers}{section.3.1}% 21
+\BOOKMARK [1][-]{section.3.2}{Thursday}{chapter.3}% 22
+\BOOKMARK [2][-]{subsection.3.2.1}{Central Limit Theorem}{section.3.2}% 23
+\BOOKMARK [2][-]{subsection.3.2.2}{Complex Numbers and Functions}{section.3.2}% 24
+\BOOKMARK [0][-]{chapter.4}{Week 4}{}% 25
+\BOOKMARK [1][-]{section.4.1}{Monday}{chapter.4}% 26
+\BOOKMARK [2][-]{subsection.4.1.1}{Basic Convergence Results}{section.4.1}% 27
+\BOOKMARK [1][-]{section.4.2}{Thursday}{chapter.4}% 28
+\BOOKMARK [2][-]{subsection.4.2.1}{Characteristic Function}{section.4.2}% 29
+\BOOKMARK [2][-]{subsection.4.2.2}{Inversion Formula}{section.4.2}% 30
+\BOOKMARK [0][-]{chapter.5}{Week 5}{}% 31
+\BOOKMARK [1][-]{section.5.1}{Monday}{chapter.5}% 32
+\BOOKMARK [2][-]{subsection.5.1.1}{Proof Outline of CLT}{section.5.1}% 33
+\BOOKMARK [0][-]{chapter.6}{Week 6}{}% 34
+\BOOKMARK [1][-]{section.6.1}{Monday}{chapter.6}% 35
+\BOOKMARK [2][-]{subsection.6.1.1}{Conditional Expectation}{section.6.1}% 36
+\BOOKMARK [2][-]{subsection.6.1.2}{Discrete Time Stochastic Process}{section.6.1}% 37
+\BOOKMARK [1][-]{section.6.2}{Thursday}{chapter.6}% 38
+\BOOKMARK [2][-]{subsection.6.2.1}{Markov Process}{section.6.2}% 39
+\BOOKMARK [2][-]{subsection.6.2.2}{Martingale and Semi-martingale}{section.6.2}% 40
+\BOOKMARK [0][-]{chapter.7}{Week 7}{}% 41
+\BOOKMARK [1][-]{section.7.1}{Monday}{chapter.7}% 42
+\BOOKMARK [2][-]{subsection.7.1.1}{Stopping Time and Martingale}{section.7.1}% 43
+\BOOKMARK [2][-]{subsection.7.1.2}{Optional Sampling Theorem}{section.7.1}% 44
+\BOOKMARK [2][-]{subsection.7.1.3}{Strong and Stopped Markov Processes}{section.7.1}% 45
+\BOOKMARK [0][-]{chapter.8}{Week 8}{}% 46
+\BOOKMARK [1][-]{section.8.1}{Monday}{chapter.8}% 47
+\BOOKMARK [2][-]{subsection.8.1.1}{Convex Function}{section.8.1}% 48
+\BOOKMARK [0][-]{chapter.9}{Week 9}{}% 49
+\BOOKMARK [1][-]{section.9.1}{Monday}{chapter.9}% 50
+\BOOKMARK [2][-]{subsection.9.1.1}{Classification of States}{section.9.1}% 51
+\BOOKMARK [2][-]{subsection.9.1.2}{Renewal Equation}{section.9.1}% 52
+\BOOKMARK [2][-]{subsection.9.1.3}{Limit of State Distribution}{section.9.1}% 53
+\BOOKMARK [0][-]{chapter.10}{Week 10}{}% 54
+\BOOKMARK [1][-]{section.10.1}{Monday}{chapter.10}% 55
+\BOOKMARK [2][-]{subsection.10.1.1}{Stationary Meansure and Distribution}{section.10.1}% 56
+\BOOKMARK [2][-]{subsection.10.1.2}{Stability Conditions}{section.10.1}% 57
+\BOOKMARK [2][-]{subsection.10.1.3}{Markov Modulated Process in Discrete Time}{section.10.1}% 58
+\BOOKMARK [0][-]{chapter.11}{Week 11}{}% 59
+\BOOKMARK [1][-]{section.11.1}{Monday}{chapter.11}% 60
+\BOOKMARK [2][-]{subsection.11.1.1}{Continuous Time Stochastic Processes}{section.11.1}% 61
+\BOOKMARK [2][-]{subsection.11.1.2}{Continuous time martingale}{section.11.1}% 62
+\BOOKMARK [2][-]{subsection.11.1.3}{From discrete to continuous time}{section.11.1}% 63
+\BOOKMARK [0][-]{chapter.12}{Week 12}{}% 64
+\BOOKMARK [1][-]{section.12.1}{Monday}{chapter.12}% 65
+\BOOKMARK [2][-]{subsection.12.1.1}{Poisson Process}{section.12.1}% 66
+\BOOKMARK [2][-]{subsection.12.1.2}{Brownian Motion}{section.12.1}% 67
