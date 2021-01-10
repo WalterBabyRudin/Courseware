@@ -1,0 +1,377 @@
+
+\chapter{Week6}
+
+\section{Tuesday}\index{week6_Tuesday_lecture}
+
+At the beginning of this lecture, let's fill the gap for the Theorem~\ref{The:con:mart}.
+\begin{proposition}
+Suppose that $T_n$ is a positive stopping time and $T<T_n$ conditioned on the event $\{T<\infty\},\forall n\ge1$,
+where $T\triangleq \inf_nT_n$.
+Then $\mathcal{F}_{T+} = \cap_{n=1}^\infty\mathcal{F}_{T_n}$, where
+\begin{align*}
+\mathcal{F}_{T+}&\triangleq \{A\in\mathcal{F}:~A\cap\{T\le t\}\in\mathcal{F}_{t+},~\forall t\ge0\}\\
+&\triangleq \{A\in\mathcal{F}:~A\cap\{T< t\}\in\mathcal{F}_{t},~\forall t>0\}
+\end{align*}
+\end{proposition}
+
+\begin{proof}
+Firstly, we show that $T$ is an optional time:
+\begin{align*}
+\{T<t\}&=\{T\ge t\}^c=\left\{
+\cap_{n}\{T_n>t\}
+\right\}^c\\
+&=\cup_n\{T_n>t\}^c=\cup_n\{T_n\le t\}
+\end{align*}
+Since $T_n$ is a stopping time, $\{T_n\le t\}\in\mathcal{F}_t,\forall t$, which implies that $T$ is an optional time.
+\begin{itemize}
+\item
+Suppose that $A\in\cap_{n=1}^\infty\mathcal{F}_{T_n}$,
+then $A\cap\{T_n\le t\}\in\mathcal{F}_t,\forall t,\forall n\ge1$.
+As a result,
+\begin{align*}
+\mathcal{F}_t\ni\bigcup_{n}\left\{
+A\cap\{T_n\le t\}
+\right\}&=A\cap\left[
+\cup_n\{T_n\le t\}
+\right]\\
+&=A\cap\{T<t\},\quad\forall t.
+\end{align*}
+In other words, $A\in\mathcal{F}_{T+}$.
+\item
+Suppose that $A\in\mathcal{F}_{T+}$, then 
+$A\cap\{T< t\}\in\mathcal{F}_{t},~\forall t$.
+Moreover, $\{T_n\le t\}\in\mathcal{F}_{T_n}$.
+%Moreover, $A\cap\{T_n<t\}\in\mathcal{F}_t,\forall t$.
+Therefore,
+\[
+\mathcal{F}_t\ni
+(A\cap\{T< t\})\cup(A\cap\{T_n\le t\})=A\cap\{T_n\le t\},~\forall t>0.
+\]
+%wrong proof
+In other words, $A\in\cap_{n=1}^\infty F_{T_n}$.
+\end{itemize}
+\end{proof}
+
+\begin{proposition}
+Let $\{\mathcal{F}_n\}_{n=1}^\infty$ be a decreasing sequence of sub-$\sigma$-algebras of $\mathcal{F}$:
+\[
+\mathcal{F}\supseteq\mathcal{F}_1\supseteq\cdots\supseteq\mathcal{F}_n\supseteq\cdots.
+\]
+Suppose that $\{X_n\}_{n=1}^\infty$ is a backward submartingale w.r.t $\{\mathcal{F}_n\}_{n=1}^\infty$, i.e., i) $X_n$ is $\mathcal{F}_n$-measurable, ii) $\mathbb{E}[|X_n|]<\infty$,
+iii) $\mathbb{E}[X_n\mid\mathcal{F}_{n+1}]\ge X_{n+1}$, a.s.
+If $\lim_{n\to\infty}\mathbb{E}[X_n]>-\infty$, then the sequence $\{X_n\}_{n=1}^\infty$ is UI.
+\end{proposition}
+
+\begin{proof}
+Note that the limit of $\mathbb{E}[X_n]$ exists since it is decreasing. Denote $c\triangleq \lim_{n\to\infty}\mathbb{E}[X_n]$.
+We can argue the uniform convergence of $\mathbb{P}(|X_n|>\lambda)$ as the following:
+\begin{align*}
+\forall\lambda>0,~
+\mathbb{P}(|X_n|>\lambda)&\le \frac{\mathbb{E}[|X_n|]}{\lambda}\\
+&=\frac{1}{\lambda}\left(
+2\mathbb{E}[X_n^+]-\mathbb{E}[X_n]
+\right)\\
+&\le \frac{1}{\lambda}\left(
+2\mathbb{E}[X_1^+]-c
+\right)<\infty.
+\end{align*}
+where the first inequality is because that $\mathbb{E}[X_n]\downarrow c$ and 
+$\{X_n^+\}$ is a backward submartingale.
+In other words, $\mathbb{P}(|X_n|>\lambda)$ uniformly converges to $0$ as $\lambda\to\infty$.
+
+Now we begin to show the UI of $\{X_n\}$. Applying the useful proposition~\ref{Pro:3:1} on $X_1$, 
+for any $\varepsilon>0,$ there exists $\delta$ such that for any $A\in\mathcal{F}_1,\mathbb{P}(A)<\delta$,
+\begin{equation}\label{Eq:6:1}
+\int_A|X_1|\diff\mathbb{P}<\varepsilon.
+\end{equation}
+We can choose $\lambda$ sufficiently large such that $\mathbb{P}(|X_n|>\lambda)<\delta,\forall n$.
+As a result,
+\begin{align*}
+\int_{\{|X_n|>\lambda\}}|X_n|\diff\mathbb{P}&
+\le \int_{\{|X_n|>\lambda\}}|X_{n-1}|\diff\mathbb{P}\le\cdots\\
+&\le \int_{\{|X_n|>\lambda\}}|X_1|\diff\mathbb{P}<\varepsilon
+\end{align*}
+where the first inequality is because that $\mathbb{E}[|X_{n-1}|\mathcal{F}_n]\ge|X_n|$,
+and the last inequality is because of (\ref{Eq:6:1}).
+Therefore, $\int_{\{|X_n|>\lambda\}}|X_1|\diff\mathbb{P}<\varepsilon$ for any $n$.
+The proof is complete.
+\end{proof}
+
+\subsection{Localization}
+
+The concepts of stopping times provide a tool of ``localizing'' quantities.
+\begin{definition}[Stopped Process]
+Suppose that $\{X_t\}_{t\ge0}$ is an $\{\mathcal{F}_t\}$-adapted process
+on $(\Omega,\mathcal{F},\{\mathcal{F}_t\},\mathbb{P})$,
+and $T$ is a stopping time.
+Define the stopped process $\{X_{t\land T}\}_{t\ge0}$ such that 
+\[
+X_{t\land T}(\omega) = X_{t\land T(\omega)}(\omega),\quad\forall\omega\in\Omega.
+\]
+\end{definition}
+Note that $\{X_{t\land T}\}_{t\ge0}$ is also an $\{\mathcal{F}_t\}$-adapted process.
+
+\begin{definition}[Local Martingale]
+An $\{\mathcal{F}_t\}$-adapted process $\{X_t\}_{t\ge0}$ is called a \emph{local martingale}
+if there is an increasing sequence of stopping times $\{T_n\}_{n\ge0}$
+and $T_n\uparrow\infty$ a.s.,
+such that $\{X_{t\land T_n}\}_{t\ge0}$ is a martingale for each $n$, w.r.t. $\{\mathcal{F}_t\}$.
+\end{definition}
+Note that a martingale is a local martingale.
+Now we give a sufficient condition such that local martingale can be a martingale.
+\begin{theorem}
+Suppose that $\{X_t\}_{t\ge0}$ is an $\{\mathcal{F}_t\}$-adapted local martingale,
+and there is a sequence $\{T_n\}_{n\ge0}$ that reduces $\{X_t\}_{t\ge0}$:
+\[
+\mbox{$\{X_{t\land T_n}\}_{t\ge0}$ is a martingale for each $n$}.
+\]
+Suppose that $\mathbb{E}[\sup_n|X_{t\land T}|]<\infty$ for each $t$,
+then $\{X_t\}_{t\ge0}$ is a martingale.
+\end{theorem}
+
+\begin{proof}
+Considering that i) $X_{t\land T_n}\to X_t$ a.s. because $T_n\uparrow\infty$,
+ii) $|X_{t\land T_n}|\le \sup_n|X_{t\land T_n}|$, with the random variable $\sup_n|X_{t\land T_n}|$ integrable, we can apply the dominated convergence theorem to show that 
+$X_{t\land T_n}\xrightarrow{L^1}X_t,\forall t$, as $n\to\infty$.
+
+Now we check that $\{X_t\}_{t\ge0}$ is a martingale, i.e., for any $A\in\mathcal{F}_s,0\le s\le t$, we have
+\begin{align*}
+\int_A\mathbb{E}[X_t\mid\mathcal{F}_s]\diff\mathbb{P}&=
+\int_AX_t\diff\mathbb{P}\\
+&=\lim_{n\to\infty}\int_AX_{t\land T_n}\diff\mathbb{P}\\
+&=\lim_{n\to\infty}\int_AX_{s\land T_n}\diff\mathbb{P}\\
+&=\int_AX_s\diff\mathbb{P}
+\end{align*}
+where the third inequality is because that $\mathbb{E}[X_{t\land T_n}\mid\mathcal{F}_s]=
+X_{s\land T_n}$.
+\end{proof}
+
+\subsection{Introduction to Brownian Motion}
+
+
+Brownian motion is a mathematical model of random movements observed by botanist Robert Brown.
+Now we give a way for constructing the Brownian motion.
+
+\begin{definition}[Brownian Motion]\label{Def:bro}
+A stochastic process $B = \{B_t\}_{t\ge0}$ on a probability space 
+$(\Omega,\mathcal{F},\mathbb{P})$,
+taking values in $\mathbb{R}$,
+is called a Brownian motion if:
+\begin{enumerate}
+\item
+$\mathbb{P}(B_0=0)=1$;
+\item
+(Independent Increments)
+For every $0\le t_1<\cdots<t_k<\infty$ and $x_1,x_2,\ldots,x_{k-1}\in\mathbb{R}$,
+\[
+\mathbb{P}\bigg(
+B_{t_2}-B_{t_1}\le x_1,
+\ldots,
+B_{t_k}-B_{t_{k-1}}\le x_{k-1}
+\bigg)
+=
+\prod_{2\le j\le k}
+\mathbb{P}(
+B_{t_j}-B_{t_{j-1}}\le x_{j-1}
+)
+\]
+\item
+(Normal Distribution)%gaussian?
+For each $0\le s<t$, $B_t-B_s$ follows normal distribution with mean $0$ and variance $\sigma^2(t-s)$, where $\sigma>0$.
+\item
+Almost all the sample paths of $\{B_t\}_{t\ge0}$ are continuous.
+In particular, when $\sigma=1$, we call it the standard Brownian motion.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+In some situations, the first condition may not be satisfied. Instead, the process may start at a non-zero point $x$. Then we write such a process $\{x+B_t\}$.
+\end{remark}
+
+\begin{definition}[Canonical Wiener Measure]\label{Def:Wie}
+Let the sample space be $\Omega=C[0,\infty)$, and its associated topology is $\mathcal{T}$.
+Define the Borel $\sigma$-algebra $\mathcal{B}=\sigma(\mathcal{T})$.
+Thus $\omega\in\Omega$ is a continuos function with support $[0,\infty)$.
+Define $B_t(\omega)=\omega(t)$.
+A probability measure $\mathbb{P}$ on $(C[0,\infty),\mathcal{B})$ is called
+a Wiener measure if conditions (1)-(3) in Definition~\ref{Def:bro} are satisfied.
+With such a probability measure, 
+$\{B_t\}_{t\ge0}$ is said to be a Brownian motion on $(C[0,\infty),\mathcal{B},\mathbb{P})$.
+\end{definition}
+
+\begin{theorem}[Existence and Uniqueness of Wiener Measure]
+For each $\sigma>0$, there exists a unique Wiener measure in Definition~\ref{Def:Wie}.
+\end{theorem}
+\section{Thursday}
+\subsection{Properties of Brownian Motion}
+\begin{proposition}
+Suppose that $\{B_t\}_{t\ge0}$ is a standard Brownian motion, then it satisfies the following properties:
+\begin{enumerate}
+\item
+Joint distribution:
+Fix $0\le t_1<t_2<\cdots<t_k$.
+Given $x_1,x_2,\ldots,x_k\in\mathbb{R}$, the joint density of 
+$(B_{t_1},B_{t_2},\ldots,B_{t_k})$ in $(x_1,x_2,\ldots,x_k)$
+is equal to the joint density of 
+$(B_{t_1},B_{t_2}-B_{t_1},\ldots,B_{t_k}-B_{t_{k-1}})$ in $(x_1,x_2-x_1,\ldots,x_k-x_{k-1})$,
+which is
+\[
+\prod_{j=2}^k\frac{1}{\sqrt{2\pi(t_j - t_{j-1})}}\exp\left(-\frac{(x_j-x_{j-1})^2}{2(t_j - t_{j-1})}\right).
+\]
+%(Can be shown by independent increments and normal distribution)
+\item
+Stationary:
+For any $s>0$, define $B_t^s = B_{t+s} - B_s, t\ge0$.
+Then $\{B_t^s\}_{t\ge0}$ is a Brownian motion.
+\item
+Scaling:
+\begin{itemize}
+\item
+For each $c\ne0$, $\{cB_t\}_{t\ge0}$ is a Brownian motion with variance $c^2$;
+\item
+For each $c>0$, $\{B_{t/c}\}_{t\ge0}$ is a Brownian motion with variance $1/c$;
+\item
+(Scaling invariance / self-similarity) By previous two properties,
+$\{\sqrt{c}B_{t/c}\}_{t\ge0}$ is a standard Brownian motion, $c>0$.
+\end{itemize}
+\item
+Covariance: for fixed $0\le s\le t$, $\text{cov}(B_t,B_s)=s$.
+\item
+Time reversal: 
+Given a standard Brownian motion $\{B_t\}$,
+define a new process $\{\hat{B}_t\}$ with $\hat{B}_t = tB_{1/t}$ for $t>0$, and
+$\hat{B}_0=0$. 
+Then $\{\hat{B}_t\}$ is a standard Brownian motion.
+\end{enumerate}
+\end{proposition}
+\begin{proof}[Proof on the first four parts]
+1) can be shown by the indepedent increments and normal distribution properties of Brownian motion;
+2), 3) can be shown by checking the definition of Browninan motion;
+4) can be shown by directly computing the covariance:
+\begin{align*}
+\text{cov}(B_t,B_s)&=\mathbb{E}[B_tB_s] - \mathbb{E}[B_t]\mathbb{E}[B_s]\\
+&=\mathbb{E}[(B_t - B_s+B_s)B_s] \\&=\mathbb{E}[(B_t - B_s)B_s] + \mathbb{E}[B_s^2]\\
+&=\mathbb{E}[B_t - B_s] \mathbb{E}[B_s]+\mathbb{E}[B_s^2]\\
+&=s.
+\end{align*}
+\end{proof}
+\begin{proof}[Proof on the time reversal part]
+We need to check those four conditions in Definition~\ref{Def:bro} are satisfied.
+The condition~(1) is trivial.
+\begin{itemize}
+\item
+Now check condition~(3).
+Fix $0<s<t$, then \[\hat{B}_t -\hat{B}_s = tB_{1/t} - sB_{1/s}=(t-s)B_{1/t}+s(B_{1/t}-B_{1/s}).\]
+Since $B_{1/t}-B_{1/s}\sim\mathcal{N}(0, 1/s-1/t)$, we imply $s(B_{1/t}-B_{1/s})\sim\mathcal{N}(0, s^2(1/s-1/t))$.
+Moreover, $(t-s)B_{1/t}\sim\mathcal{N}(0,(t-s)^2/t)$. By the increment independent property, 
+this term is independent with $-s(B_{1/s}-B_{1/t})$.
+Therefore, $(t-s)B_{1/t}-s(B_{1/s}-B_{1/t})$ is normally distributed with mean $0$ and variance 
+$(t-s)^2/t+s^2(1/s-1/t)=t-s$.
+\item
+In order to check condition~(2), fix $t_1<t_2<t_3$. It suffices to check 
+$\hat{B}_{t_3} -\hat{B}_{t_2}$ and $\hat{B}_{t_2} -\hat{B}_{t_1}$ are independent.
+Considering that these two r.v.'s are jointly normal, it suffices to verify their covariance is zero:
+\begin{align*}
+t_3-t_1&=\text{Var}(\hat{B}_{t_3} -\hat{B}_{t_1})\\
+&=\text{Var}(\hat{B}_{t_3} -\hat{B}_{t_2}+\hat{B}_{t_2} -\hat{B}_{t_1})\\
+&=\text{Var}(\hat{B}_{t_3} -\hat{B}_{t_2})+\text{Var}(\hat{B}_{t_2} -\hat{B}_{t_1})
++2\text{Cov}(\hat{B}_{t_3} -\hat{B}_{t_2},\hat{B}_{t_2} -\hat{B}_{t_1})\\
+&=t_3-t_2+t_2-t_1+2\text{Cov}(\hat{B}_{t_3} -\hat{B}_{t_2},\hat{B}_{t_2} -\hat{B}_{t_1})
+\end{align*}
+which implies the desired result.
+
+\item
+Finally we check the condition~(4).
+Since the continuity of $\{\hat{B}_t\}$ holds at any $t>0$, it suffices to check $t=0$ is also a
+continuous point, i.e., almost surely $\lim_{t\to0}\hat{B}_t=\lim_{t\to0}tB_{1/t}(\omega)=0$.
+\begin{itemize}
+\item
+Firstly show that $\hat{B}_t\to0$ when $t=1/n, n\to\infty$.
+For fixed $n\in\mathbb{Z}_+$, $B_n=\sum_{j=1}^n(B_j-B_{j-1})$, i.e., 
+$B_n$ is a sum of i.i.d. random variables with standard normal distribution.
+By strong law of large numbers, $B_n/n\to0$ a.s. as $n\to\infty$.
+\item
+Then we show that  $\hat{B}_t\to0$ for other values of $t$.
+Fix any $s\in(n,n+1)$, note that
+\begin{align*}
+\left|\frac{B_s}{s}-\frac{B_n}{n}\right|
+&\le \left|\frac{B_s}{s}-\frac{B_n}{s}\right|+\left|\frac{B_n}{s}-\frac{B_n}{n}\right|\\
+&=\frac{1}{s}|B_s-B_n| + |B_n|\left|\frac{1}{s}-\frac{1}{n}\right|\\
+&\le \frac{1}{n}\sup_{n\le s\le n+1}|B_s-B_n| +\frac{1}{n^2}|B_n|
+\end{align*}
+Since $B_n/n\to0$ a.s., we have $B_n/n^2\to0$ a.s.
+Define $Z_n\triangleq \sup_{n\le s\le n+1}|B_s-B_n|$, then
+\[
+\sup_{n<s<n+1}\left|\frac{B_s}{s}-\frac{B_n}{n}\right|\le \frac{Z_n}{n}+\frac{1}{n^2}|B_n|
+\]
+We claim that for any $\varepsilon>0$, 
+\[
+\mathbb{P}\left\{
+\omega\in\Omega:
+\frac{Z_n(\omega)}{n}>\varepsilon,~\text{infinitely often}
+\right\}=0.
+\]
+Then $\frac{Z_n(\omega)}{n}\to0$ for almost all $\omega\in\Omega$.
+As a result,
+\[
+\sup_{n<s<n+1}\left|\frac{B_s}{s}-\frac{B_n}{n}\right|\to0,\text{ a.s.},
+\]
+which implies the desired continuity result.
+\item
+Then we need to show the correctness of our claim.
+By the stationary and independent increments of Brownian motion, 
+$\sup_{n\le s\le n+1}|B_s-B_n|$ has the same distribution as $\sup_{0\le s\le 1}|B_s|$, then 
+\begin{align*}
+\mathbb{E}[Z_0]&=\mathbb{E}[\sup_{0\le s\le 1}|B_s|]
+=\int_0^\infty\mathbb{P}(Z_0>x)\diff x\\
+&=\sum_{n=0}^\infty\int_{n\varepsilon}^{(n+1)\varepsilon}\mathbb{P}(Z_0>x)\diff x\\
+&\ge \sum_{n=0}^\infty\int_{n\varepsilon}^{(n+1)\varepsilon}\mathbb{P}(Z_0>(n+1)\varepsilon)\diff x\\
+&=\sum_{n=0}^\infty\varepsilon \mathbb{P}(Z_0>(n+1)\varepsilon)=\varepsilon\sum_{n=1}^\infty\mathbb{P}(Z_0>n\varepsilon)\\
+&=\varepsilon\sum_{n=1}^\infty\mathbb{P}(Z_0/n>\varepsilon)\\
+&=\varepsilon\sum_{n=1}^\infty\mathbb{P}(Z_n/n>\varepsilon)\\
+\end{align*}
+We claim that $\mathbb{E}[Z_0]<\infty$ (which will be shown in the next lecture), which implies that
+\[
+\sum_{n=1}^\infty\mathbb{P}(Z_n/n>\varepsilon)<\infty.
+\]
+Applying the Borel-Cantelli Lemma gives the desired result.
+
+\end{itemize}
+
+
+%Define the set
+%\[
+%A=\left\{
+%\omega\in\Omega:~
+%\lim_{t\to0}tB_{1/t}(\omega)=0
+%\right\}.
+%\]
+
+
+
+\end{itemize}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

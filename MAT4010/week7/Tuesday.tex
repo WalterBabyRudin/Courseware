@@ -1,0 +1,703 @@
+
+\chapter{Week7}
+
+\section{Tuesday}\index{week7_Tuesday_lecture}
+
+\subsection{Reflection Principle}
+
+Consider a Brownian motion $\{B_t\}_{t\ge0}$ on a probability space $(\Omega,\mathcal{F},\mathbb{P})$.
+Let the filteration $\{\mathcal{F}_t\}_{t\ge0}$ be the natural filteration, i.e., 
+$\mathcal{F}_t=\sigma(B_u:~u\le t)$. Suppose that $a>0$, define
+\[
+T_a\triangleq \inf\{t\ge0:~B_t=a\}.
+\]
+Then $T_a$ is the first time that Brownian motion hits level $a$.
+By convention, $\inf\emptyset=+\infty$.
+
+\begin{theorem}
+The hitting time is finite almost surely:
+\[
+\mathbb{P}(T_a<\infty)=1.
+\]
+\end{theorem}
+\begin{proof}
+Based on $B_t$, define new stochastic process $\{Z_t^\theta\}$ with
+\[
+Z_t^\theta = \exp\left(
+\theta B_t - \frac{\theta^2t}{2}
+\right),\quad t\ge0.
+\]
+As a result,
+\begin{itemize}
+\item
+Since $\mathbb{E}[e^{\theta X}] = e^{\theta^2\sigma^2/2}$ for $X\sim \mathcal{N}(0,\sigma^2)$,
+\[
+\mathbb{E}[|Z_t^\theta|] = \mathbb{E}\exp\left(
+\theta B_t - \frac{\theta^2t}{2}
+\right)=1,\forall t
+\]
+\item
+For any $0\le u<t$, we have
+\begin{align*}
+\mathbb{E}[Z_t^\theta\mid\mathcal{F}_u]
+&=
+\mathbb{E}\left[
+\exp\left(
+\theta B_t - \frac{\theta^2}{t}
+\right)
+\middle|\mathcal{F}_u
+\right]\\
+&=
+\mathbb{E}\left[
+\exp\left(
+\theta (B_t-B_u) - \frac{\theta^2(t-u)}{2}
+\right)
+\exp\left(
+\theta B_u - \frac{\theta^2u}{2}
+\right)
+\middle|\mathcal{F}_u
+\right]\\
+&=
+\exp\left(
+\theta B_u - \frac{\theta^2u}{2}
+\right)\cdot \mathbb{E}\left[
+\exp\left(
+\theta (B_t-B_u) - \frac{\theta^2(t-u)}{2}
+\right)\middle|\mathcal{F}_u\right]\\
+&=
+\exp\left(
+\theta B_u - \frac{\theta^2u}{2}
+\right)\cdot \mathbb{E}\left[
+\exp\left(
+\theta B_{t-u} - \frac{\theta^2(t-u)}{2}
+\right)\right]=Z_u^\theta
+\end{align*}
+\end{itemize}
+Therefore, $\{Z_t^\theta\}$ is a martingale w.r.t. $\{\mathcal{F}_t\}_{t\ge0}$.
+Now we compute $\lim_{t\to\infty}\mathbb{E}[
+Z_{T_a}^\theta1\{T_a<\infty\}
+]$ as the following:
+\begin{itemize}
+\item
+Since i) $Z_{t\land T_a}^\theta1\{T_a<\infty\}\xrightarrow{a.s.} Z_{T_a}^\theta1\{T_a<\infty\}$ as $t\to\infty$,
+ii) $|Z_{t\land T_a}^\theta|\le e^{\theta a}$ for any $t$,
+by bounded convergence theorem,
+\[
+\lim_{t\to\infty}\mathbb{E}
+[Z_{t\land T_a}^\theta1\{T_a<\infty\}]
+=
+\mathbb{E}
+[
+Z_{T_a}^\theta1\{T_a<\infty\}
+]
+\]
+\item
+Since $Z_{t\land T_a}^\theta1\{T_a=\infty\}=Z_{t}^\theta1\{T_a=\infty\}$ for any $t$, and
+\[Z_{t}^\theta1\{T_a=\infty\}\le e^{\theta a-\theta^2t/2}\to0,\] by bounded convergence theorem,
+\[
+\lim_{t\to\infty}\mathbb{E}
+[
+Z_{t\land T_a}^\theta1\{T_a=\infty\}
+]
+=
+\lim_{t\to\infty}\mathbb{E}
+[
+Z_{t}^\theta1\{T_a=\infty\}
+]
+=0.
+\]
+
+
+\end{itemize}
+On the other hand, since the stopped process $\{Z_{t\land T_a}^\theta\}$ is a martingale,
+\[
+\mathbb{E}
+[
+Z_{t\land T_a}^\theta
+]
+=
+\mathbb{E}
+[
+Z_{0}^\theta
+]
+=1,\quad\forall t.
+\]
+It follows that 
+\begin{align*}
+1&=
+\lim_{t\to\infty}\mathbb{E}
+[Z_{t\land T_a}^\theta1\{T_a<\infty\}]
++
+\lim_{t\to\infty}\mathbb{E}
+[
+Z_{t\land T_a}^\theta1\{T_a=\infty\}
+]\\
+&=\mathbb{E}
+[
+Z_{T_a}^\theta1\{T_a<\infty\}
+]
+=
+\mathbb{E}
+[
+e^{\theta a - \theta^2T_a/2}1\{T_a<\infty\}
+].
+\end{align*}
+Therefore, $\mathbb{E}[e^{- \theta^2T_a/2}1\{T_a<\infty\}]=e^{-\theta a}$. Since $e^{- \theta^2T_a/2}1\{T_a<\infty\}$ is increasing, by monotone convergence theorem,
+\[
+1=\lim_{\theta\to0}e^{-\theta a}=\lim_{\theta\to0}\mathbb{E}[e^{- \theta^2T_a/2}1\{T_a<\infty\}]
+=\mathbb{E}[1\{T_a<\infty\}]=\mathbb{P}[1\{T_a<\infty\}].
+\]
+
+
+\end{proof}
+
+\begin{remark}
+The stationary property shows that $\{B_{t+s}-B_s\}_{t\ge0}$ is also a Brownian motion for any $s>0$.
+Given that $T_a$ is a stopping time and finite a.s., we can assert that $\{B_{t+T_a}-B_{T_a}\}_{t\ge0}$ is also a Brownian motion, independent of $\mathcal{F}_{T_a}$.
+\end{remark}
+
+\begin{theorem}\label{The:7:2}
+Let $\{B_{t}\}_{t\ge0}$ be a standard Brownian motion.
+Let $M_t=\sup_{0\le u\le t}B_u$ be the running maximal of Brownian motion.
+For any $a\ge0$,
+\[
+\mathbb{P}(M_t\ge a) = 2\mathbb{P}(B_t\ge a) = \frac{2}{\sqrt{2\pi t}}\int_a^{\infty}e^{-\frac{x^2}{2t}}\diff x.
+\]
+\end{theorem}
+\begin{proof}
+Firstly simplify $\mathbb{P}(B_t\ge a)$ as the following:
+\begin{align*}
+\mathbb{P}(B_t\ge a)&=
+\mathbb{P}(B_t\ge a, M_t\ge a) + \mathbb{P}(B_t\ge a, M_t< a)\\
+&=\mathbb{P}(B_t\ge a, M_t\ge a)\\
+&=\mathbb{P}(B_t\ge a\mid M_t\ge a)\mathbb{P}(M_t\ge a)\\
+&=\mathbb{P}(B_t\ge a\mid T_a\le t)\mathbb{P}(M_t\ge a)\\
+&=\mathbb{P}(B_t- B_{T_a}\ge 0\mid T_a\le t)\mathbb{P}(M_t\ge a)
+\end{align*}
+Since conditioned on $\{T_a\le t\}$, $B_t-B_{T_a}$ is normally distributed with mean $0$, we imply 
+$\mathbb{P}(B_t- B_{T_a}\ge 0\mid T_a\le t)=\frac{1}{2}$.
+Therefore,
+\[
+\mathbb{P}(B_t\ge a)=\frac{1}{2}\mathbb{P}(M_t\ge a)=\frac{1}{\sqrt{2\pi t}}\int_a^{\infty}e^{-\frac{x^2}{2t}}\diff x.
+\]
+
+\end{proof}
+
+\subsection{Distributions of Brownian Motion}
+\begin{theorem}
+The joint distribution of the Brownian motion and the running maximal of Brownian motion is:
+\[
+\mathbb{P}(M_t\ge a, B_t\le a-y) = \mathbb{P}(B_t\ge a+y) = \frac{1}{\sqrt{2\pi t}}\int_{a+y}^\infty e^{-\frac{x^2}{2t}}\diff x.
+\]
+\end{theorem}
+\begin{proof}
+Simplify $\mathbb{P}(B_t\ge a+y)$ as the following:
+\begin{align*}
+\mathbb{P}(B_t\ge a+y)&= \mathbb{P}(B_t\ge a+y\mid M_t\ge a)\mathbb{P}(M_t\ge a)\\
+&=\mathbb{P}(B_t\ge a+y\mid T_a\le t)\mathbb{P}(M_t\ge a)\\
+&=\mathbb{P}(B_t-B_{T_a}\ge y\mid T_a\le t)\mathbb{P}(M_t\ge a)\\
+&=\mathbb{P}(B_t-B_{T_a}\le -y\mid T_a\le t)\mathbb{P}(M_t\ge a)\\
+&=\mathbb{P}(B_t\le a-y\mid M_t\ge a)\mathbb{P}(M_t\ge a).
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+For any $\lambda>0$,
+\[
+\mathbb{E}[e^{-\lambda T_a}] = e^{-\sqrt{2\lambda}a}.
+\]
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{The:7:2}, the density of $T_a$ is 
+\[
+f_{T_a}(t) = \frac{a}{t\sqrt{t}}\frac{1}{\sqrt{2\pi}}\exp\left(-\frac{a^2}{2t}\right).
+\]
+Computing the integral $\int_0^{\infty}f_{T_a}(t)e^{-\lambda t}\diff t$ gives the desired result.
+\end{proof}
+\begin{proof}[Another Quick Proof]
+Since $\mathbb{P}(T_a<\infty)=1$, substituting $\theta$ with $\sqrt{2\lambda}$
+for $\mathbb{E}[e^{- \theta^2T_a/2}1\{T_a<\infty\}]=e^{-\theta a}$ gives the desired result.
+\end{proof}
+
+\begin{theorem}
+Consider the Brownian motion with drift:
+\[
+X_t\triangleq \mu t + \sigma B_t,
+\]
+where $\mu\ne0,\sigma>0$.
+\begin{enumerate}
+\item
+For any $0\le s<t$, $X_t-X_s$ is normally distributed with mean $\mu(t-s)$ and variance $\sigma^2(t-s)$. Independent incremental property also holds.
+\item
+Time reversal: $\lim_{t\to\infty}\frac{X_t}{t}=\mu$.
+\item
+For $\mu<0$, define $M_\infty=\sup_{t\ge0}X_t$ as the running maximal of drifted Brownian motion to infinity. Then $M_\infty$ is exponentially distributed with parameter $\frac{2|\mu|}{\sigma^2}$:
+\[
+\mathbb{P}(M_\infty>y)=\exp\left(-\frac{2|\mu|}{\sigma^2}y\right),\quad y\ge0.
+\]
+\end{enumerate}
+\end{theorem}
+The first two parts are trivial, and we give a proof for the last part:
+\begin{proof}
+Choose some $\theta\ne0$ and define the random process $\{V_t^\theta\}_{t\ge0}$ such that
+\[
+V_t^\theta=\exp\left( \theta X_t - \mu\theta t - \frac{\sigma^2\theta^2}{2}t\right).
+\]
+It follows that $\{V_t^\theta\}_{t\ge0}$ is a martingale:
+\begin{itemize}
+\item
+Since $X_t\sim\mathcal{N}(\mu t,\sigma^2 t)$, $\mathbb{E}[|V_t^\theta|]=1$;
+\item
+For any $0\le u<t$, we have
+\begin{align*}
+\mathbb{E}[V_t^\theta\mid\mathcal{F}_u]
+&=
+\mathbb{E}\left[\exp\left( \theta X_t - \mu\theta t - \frac{\sigma^2\theta^2}{2}t\right)\middle|\mathcal{F}_u\right]\\
+&=
+\mathbb{E}\left[
+\exp\left( \theta(X_t-X_u) - (\mu\theta+\frac{\sigma^2\theta^2}{2})(t -u)\right)
+e^{(
+\theta X_u - (\mu\theta+\frac{\sigma^2\theta^2}{2})u
+)}
+\middle|\mathcal{F}_u
+\right]\\
+&=
+e^{(
+\theta X_u - (\mu\theta+\frac{\sigma^2\theta^2}{2})u
+)}
+\mathbb{E}\left[
+\exp\left( \theta(X_t-X_u) - (\mu\theta+\frac{\sigma^2\theta^2}{2})(t -u)\right)\right]\\
+&=V_u^\theta.
+\end{align*}
+\end{itemize}
+For $a<0<b$, define $T_{a,b}=\inf\{t\ge0:~X_t=a\text{ or }X_t=b\}$.
+Define $\theta = -\frac{2\mu}{\sigma^2}$ such that $\mu\theta+\frac{1}{2}\sigma^2\theta^2=0$.
+Considering that $T_{a,b}\le T_a$ with $T_a$ being finite a.s., we imply $V_{t\land T_{a,b}}^\theta\xrightarrow{a.s.}V_{T_{a,b}}^\theta$. Moreover, $|V_{t\land T_{a,b}}^\theta|\le \max(e^{-\theta a},e^{\theta b})$. By dominated convergence theorem,
+\[
+\mathbb{E}[V_{T_{a,b}}^\theta]=\lim_{t\to\infty}
+\mathbb{E}[V_{t\land T_{a,b}}^\theta]
+=
+\lim_{t\to\infty}\mathbb{E}[V_0^\theta]=1.
+\]
+Therefore,
+\begin{align*}
+1&=\mathbb{E}[V_{T_{a,b}}^\theta]=\mathbb{E}[V_{T_{a,b}}^\theta1\{T_{a,b}=a\}]
++\mathbb{E}[V_{T_{a,b}}^\theta1\{T_{a,b}=b\}]\\
+&=e^{\theta a}\mathbb{P}(T_{a,b}=a) + e^{\theta b}\mathbb{P}(T_{a,b}=b).
+\end{align*}
+Together with the fact that $\mathbb{P}(T_{a,b}=a)+\mathbb{P}(T_{a,b}=b)=1$, we assert that 
+\[\mathbb{P}(T_{a,b}=a)=\frac{e^{\theta b}-1}{e^{\theta b} - e^{\theta a}}.\]
+Now define the set $A_a = \{T_{a,b}=T_a\}$, then the sequence $\{A_a\}$ is monotone in $a$:
+\[
+a_2<a_1<0\implies A_{a_2}\subseteq A_{a_1}.
+\]
+Define the set 
+\begin{align*}
+\Lambda&\triangleq\{M_\infty<b\}=\{\omega\in\Omega:~\text{$X_t(\omega)$ never hits level $b$}\}=\bigcap_{a<0,a\in\mathbb{Q}}A_a.
+\end{align*}
+Thus
+\[
+\mathbb{P}\bigg(
+\bigcap_{a<0,a\in\mathbb{Q}}A_a
+\bigg)=\lim_{a\to\infty}\mathbb{P}(A_a)=\lim_{a\to\infty}\mathbb{P}(T_{a,b}=a)=1-e^{-\theta b}.
+\]
+Then we conclude that 
+\[
+\mathbb{P}(M_\infty<b)=\mathbb{P}(\Lambda)=1-e^{-2|\mu|/\sigma^2}b.
+\]
+In particular, we imply $\mathbb{P}(M_\infty<\infty)=1$.
+\end{proof}
+
+\section{Thursday}
+\subsection{Unbounded Variation of Brownian Motion}
+
+\begin{definition}[Partition]
+Consider a closed interval $[a,b]$. A sequence
+\[
+a=t_0<t_1<\cdots<t_n=b
+\]
+is called a partition of $[a,b]$, denoted as $\Pi = \Pi(t_0,t_1,\ldots,t_n)$.
+\end{definition}
+
+\begin{definition}[Total Variation]
+Let $f$ be a continuous function on $[a,b]$:
+\[
+f:~[a,b]\mapsto\mathbb{R}.
+\]
+Then the total variation of $f$ is defined as 
+\[
+TV(f)[a,b] = \sup_{\Pi}\sum_k|f(t_k) - f(t_{k-1})|
+\]
+where the supremum is taken over all the possible partitions $\Pi$ on the interval $[a,b]$.
+Since $\sum_k|f(t_k) - f(t_{k-1})|$ is increasing as the partition being smaller, 
+\[
+TV(f)[a,b] = \lim_{\|\Pi\|\to0}\sum_k|f(t_k) - f(t_{k-1})|
+\]
+with $\|\Pi\|=\max_k|t_k - t_{k-1}|$.
+\end{definition}
+
+\begin{remark}
+The real analysis shows that a bounded variation function, i.e., the function whose total variation is bounded, is differentiable almost everywhere.
+Then if the function is nowhere differentiable, it is not of bounded variation.
+\end{remark}
+
+\begin{theorem}\label{The:7:6}
+Brownian motion is not of bounded variation almost surely, i.e.,
+\[
+\mathbb{P}(\{\omega\in\Omega:~
+TV(B_{\cdot}(\omega))[0,t] = \infty
+\})=1,\qquad \forall t>0.
+\]
+\end{theorem}
+This result is based on the fact that the Brownian motion is nowhere differentiable alomst surely.
+\begin{theorem}
+Brownian motion is nowhere differentiable almost surely. In particular,
+\[
+\mathbb{P}\left(\left\{\omega\in\Omega:~
+\limsup\limits_{n\to\infty}\bigg|
+\frac{B_{t+h}(\omega) - B_t(\omega)}{h}
+\bigg|
+=\infty,
+t\in[0,\infty)
+\right\}\right)=1
+\]
+\end{theorem}
+\begin{remark}
+If a stochastic process $\{A_t\}_{t\ge0}$ has bounded variation, then the integral $\int_a^bf(t)\diff A_t(\omega)$ can be defined in Riemann integraion sense $\omega$-wisely.
+However, Brownian motion is not of the bounded variaiton.
+The stochastic integral $\int_a^bf(t)\diff B_t(\omega)$ shall be defined in a new manner.
+\end{remark}
+\begin{proof}
+Choose any $T>0$ and $M>0$, define the set
+\[
+A^{(M)}\triangleq \bigg\{
+\omega\in\Omega:~\exists t\in[0,T]\text{ such that }\limsup\limits_{h\to0}\left|
+\frac{B_{t+h}(\omega) - B_t(\omega)}{h}
+\right|\le M
+\bigg\}.
+\]
+It suffices to show that $\mathbb{P}(A^{(M)})=0$.
+If $\omega\in A^{(M)}$, there exists $t\in[0,T]$ and $n_0$ such that when $n\ge n_0$,
+\[
+\left|
+\frac{B_{u}(\omega) - B_t(\omega)}{u-t}
+\right|\le 2M,\qquad \forall u\in(t-2/n,t+2/n).
+\]
+Decompose $A^{(M)}$ into many smaller sets.
+Define the set
+\begin{equation}\label{Eq:7:1}
+A^{(M)}_n\triangleq \bigg\{
+\omega\in\Omega:~\exists t\in[0,T]\text{ such that }
+|B_u(\omega) - B_t(\omega)|\le 2M|u-t|,\quad
+\forall u\in(t-2/n,t+2/n)
+\bigg\}. 
+\end{equation}
+Then i) $A^{(M)}\subseteq \cup_nA_n^{(M)}$, and ii) $\{A^{(M)}_n\}$ is monotone: $A_n\subseteq A_{n+1}$.
+
+Suppose that $\omega\in A_n$ with $t$ having such a property in (\ref{Eq:7:1}).
+Let $k=\sup\{j\in\mathbb{Z}:~j/n\le t\}$, which means $k$ is close enough to $t$. Define $Y_k$ as the maximal of three independent increments:
+\[
+Y_k = \max\left\{
+\left|
+B_{(k+2)/n} - B_{(k+1)/n} 
+\right|,
+\left|
+B_{(k+1)/n} - B_{k/n} 
+\right|,
+\left|
+B_{k/n} - B_{(k-1)/n} 
+\right|
+\right\}.
+\]
+We can show that $Y_k(\omega)\le 6M/n, \forall \omega\in A_n^{(M)}$ as follows.
+Firstly, 
+\begin{align*}
+\left|
+B_{(k+2)/n}(\omega) - B_{(k+1)/n}(\omega)
+\right|
+&\le
+\left|
+B_{(k+2)/n}(\omega) - B_{t}(\omega)
+\right|
++
+\left|
+B_{t}(\omega) - B_{(k+1)/n}(\omega)
+\right|\\
+&\le 2M\left|
+\frac{k+2}{n}-t
+\right|
++
+2M\left|
+\frac{k+1}{n}-t
+\right|\\&\le 2M\cdot\frac{2}{n}+2M\cdot\frac{1}{n}=\frac{6M}{n}
+\end{align*}
+where the last inequality is because that $k/n\le t<(k+1)/n$.
+Following the similar technique, we can show that 
+\[\left|
+B_{(k+1)/n}(\omega) - B_{k/n}(\omega) 
+\right|,
+\left|
+B_{k/n}(\omega) - B_{(k-1)/n}(\omega)
+\right|\le \frac{6M}{n}
+\implies
+Y_k(\omega)\le \frac{6M}{n}
+.
+\]
+Now define the new set based on the consequence of the claim about $A_n^{(M)}$:
+\[
+E_n^{(M)}\triangleq \left\{
+\omega\in\Omega:~\exists j\in[1,T_n]\cap\mathbb{Z}\text{ such that }Y_j(\omega)\le\frac{6M}{n}
+\right\}.
+\]
+with 
+\[
+Y_j = \max\left\{
+\left|
+B_{(j+2)/n} - B_{(j+1)/n} 
+\right|,
+\left|
+B_{(j+1)/n} - B_{j/n} 
+\right|,
+\left|
+B_{j/n} - B_{(j-1)/n} 
+\right|
+\right\}.
+\]
+Directly $A_n^{(M)}\subseteq E_n^{(M)}$ for each $n$.
+Now we begin to upper bound $\mathbb{P}(E_n^{(M)})$:
+\begin{subequations}
+\begin{align}
+\mathbb{P}(E_n^{(M)})&\le \sum_{1\le j\le T_n}\mathbb{P}(Y_j\le\frac{6M}{n} )\nonumber\\
+&\le T_n\mathbb{P}\bigg(
+\max\left\{
+\left|
+B_{(j+2)/n} - B_{(j+1)/n} 
+\right|,
+\left|
+B_{(j+1)/n} - B_{j/n} 
+\right|,
+\left|
+B_{j/n} - B_{(j-1)/n} 
+\right|
+\right\}\le\frac{6M}{n}
+\bigg)\nonumber\\
+&=T_n\cdot \prod_{i=j-1:j+1}\mathbb{P}\bigg(
+\left|
+B_{(i+1)/n} - B_{(i)/n} 
+\right|\le\frac{6M}{n}
+\bigg)\label{Eq:7:2:a}\\
+&=T_n\cdot\left[
+\mathbb{P}\bigg(
+|B_{1/n}|\le\frac{6M}{n}
+\bigg)
+\right]^3,\label{Eq:7:2:b}
+\end{align}
+where (\ref{Eq:7:2:a}) is because of the independent increments of Brownian motion,
+and (\ref{Eq:7:2:b}) is because of its stationary increment property.
+In particular,
+\begin{align}
+\mathbb{P}\bigg(
+|B_{1/n}|\le\frac{6M}{n}
+\bigg)&=\mathbb{P}\bigg(
+-\frac{6M}{n}\le B_{1/n}\le \frac{6M}{n}
+\bigg)\nonumber\\
+&=\mathbb{P}\bigg(
+-\frac{6M}{\sqrt{n}}\le B_{1}\le \frac{6M}{\sqrt{n}}
+\bigg)\label{Eq:7:2:c}\\
+&=\frac{1}{\sqrt{2\pi}}\int_{-\frac{6M}{\sqrt{n}}}^{\frac{6M}{\sqrt{n}}}e^{-x^2/2}\diff x\nonumber\\
+&\le \frac{2}{\sqrt{2\pi}}\frac{6M}{\sqrt{n}}\label{Eq:7:2:d}
+\end{align}
+where (\ref{Eq:7:2:c}) is by the scaling property, and (\ref{Eq:7:2:d}) is by upper bounding $e^{-x^2/2}\le 1$.
+\end{subequations}
+It follows that 
+\[
+\mathbb{P}(E_n^{(M)})\le T_n(\frac{2}{\sqrt{2\pi}}\frac{6M}{\sqrt{n}})^3\to0.
+\]
+Since $A_n^{(M)}\subseteq E_n^{(M)}$, $\mathbb{P}(A_n^{(M)})\to0$.
+Since $A^{(M)}\subseteq\cup_nA_n^{(M)}$,
+\[
+\mathbb{P}(A^{(M)})\le \mathbb{P}(\cup_nA_n^{(M)})=\lim_{n\to\infty}\mathbb{P}(A_n^{(M)})=0.
+\]
+The proof is complete.
+\end{proof}
+
+\chapter{Weak 8}
+\section{Thursday}
+\subsection{Quadratic Variation}
+
+\begin{definition}[Quadratic Variation]
+Consider a partition $\Pi$ on the interval $[0,T]$.
+The \emph{quadratic variation} of $\{B_t(\omega)\}_{0\le t\le T}$ over the partition $\Pi$ is defined as
+\[
+Q(\Pi,\omega) = \sum_k|B_{t_k}(\omega) - B_{t_{k-1}}(\omega)|^2.
+\]
+\end{definition}
+
+\begin{theorem}\label{The:7:8}
+Consider a sequence of partitions $\{\Pi^{(n)}\}$ with $\|\Pi^{(n)}\|\to0$, 
+where $\|\Pi\|\triangleq \max_k|t_k - t_{k-1}|$.
+Then 
+\[
+\lim_{n\to\infty}\mathbb{E}\left[
+(Q(\Pi^{(n)}) - T)^2
+\right]=0.
+\]
+\end{theorem}
+
+\begin{proof}
+Given a partition $\Pi$ on the interval $[0,T]$, define
+\[
+\theta_k = (B_{t_k} - B_{t_{k-1}})^2 - (t_k - t_{k-1})\implies
+Q(\Pi)=T+\sum_k\theta_k
+\]
+We claim that $\theta_j,\theta_k$ are uncorrelated for $j\ne k$:
+\begin{align*}
+\mathbb{E}[\theta_j\theta_k]&=
+\mathbb{E}\bigg[
+\left((B_{t_j} - B_{t_{j-1}})^2 - (t_j - t_{j-1})\right)
+\left((B_{t_k} - B_{t_{k-1}})^2 - (t_k - t_{k-1})\right)
+\bigg]\\
+&=
+\mathbb{E}\left[
+(B_{t_j} - B_{t_{j-1}})^2(B_{t_k} - B_{t_{k-1}})^2
+\right]
+-
+(t_j - t_{j-1})\mathbb{E}\left[(B_{t_k} - B_{t_{k-1}})^2\right]\\
+&\quad -(t_k - t_{k-1})\mathbb{E}\left[(B_{t_j} - B_{t_{j-1}})^2\right] + (t_j - t_{j-1})(t_k - t_{k-1})\\
+&=
+\mathbb{E}\left[
+(B_{t_j} - B_{t_{j-1}})^2\right]\mathbb{E}\left[(B_{t_k} - B_{t_{k-1}})^2
+\right]
+-
+(t_j - t_{j-1})\mathbb{E}\left[(B_{t_k} - B_{t_{k-1}})^2\right]\\
+&\quad -(t_k - t_{k-1})\mathbb{E}\left[(B_{t_j} - B_{t_{j-1}})^2\right] + (t_j - t_{j-1})(t_k - t_{k-1})\\
+&=(t_{j}-t_{j-1})(t_{k}-t_{k-1})-(t_j - t_{j-1})(t_{k}-t_{k-1})\\&\quad-(t_k - t_{k-1})(t_{j}-t_{j-1})+ (t_j - t_{j-1})(t_k - t_{k-1})=0.
+\end{align*}
+Then we begin to simplify $\mathbb{E}[
+(Q(\Pi^{(n)}) - T)^2
+]$:
+\begin{align*}
+\mathbb{E}\left[
+(Q(\Pi^{(n)}) - T)^2
+\right]
+&=\mathbb{E}\left[
+(\sum_k\theta_k)^2
+\right]\\
+&=\sum_k\mathbb{E}\left[
+\theta_k^2
+\right]+\sum_{j\ne k}\mathbb{E}\left[
+\theta_j\theta_k
+\right]\\
+&=\sum_k\mathbb{E}\left[
+\left((B_{t_k} - B_{t_{k-1}})^2 - (t_k - t_{k-1})\right)^2
+\right]\\
+&=
+\sum_k\mathbb{E}\left[
+(B_{t_k} - B_{t_{k-1}})^4
+\right]\\&\quad-2\sum_k(t_k - t_{k-1})\mathbb{E}\left[
+(B_{t_k} - B_{t_{k-1}})^2
+\right]+\sum_k(t_k - t_{k-1})^2\\
+&=3\sum_k(t_k - t_{k-1})^2 - 2\sum_k(t_k - t_{k-1})^2 + \sum_k(t_k - t_{k-1})^2\\
+&=2\sum_k(t_k - t_{k-1})^2\le 2\|\Pi^{(n)}\|\sum_k(t_k - t_{k-1})\\
+&=2T\cdot \|\Pi^{(n)}\|\to0.
+\end{align*}
+\end{proof}
+
+\begin{remark}
+The Theorem~\ref{The:7:8} shows that the quadratic variation of Brownian motion on the interval 
+$[0,T]$ converges to $T$ in $L^2$ for any $T$.
+This implies that $Q(\Pi^{(n)})\to T$ in probability as $\|\Pi^{(n)}\|\to0$.
+Then there exists a subsequence of $\Pi^{(n)}$, such that $Q(\Pi^{(n)})\to T$ almost surely.
+\end{remark}
+
+\begin{theorem}
+If $\|\Pi^{(n)}\|\to0$ faster than $1/n^2$, i.e.,
+\[
+\lim_{n\to\infty}n^2\cdot\|\Pi^{(n)}\|=0,
+\]
+then $Q(\Pi^{(n)})\to T$ almost surely.
+\end{theorem}
+
+\begin{proof}
+Take $\delta_n\triangleq n^2\cdot\|\Pi^{(n)}\|$, then by Markov inequality,
+\begin{align*}
+\mathbb{P}\left(
+(Q(\Pi^{(n)})- T)^2>2\delta_n
+\right)&\le \frac{\mathbb{E}\left[(Q(\Pi^{(n)})- T)^2\right]}{2\delta_n}\le\frac{2T\|\Pi^{(n)}\|}{2\delta_n} = \frac{T}{n^2}.
+\end{align*}
+Considering that $\sum_n\frac{T}{n^2}<\infty$,
+\[
+\sum_n\mathbb{P}\left(
+(Q(\Pi^{(n)})- T)^2>2\delta_n
+\right)<\infty.
+\]
+By Borel-Cantelli Lemma,
+\[
+\mathbb{P}\left(
+(Q(\Pi^{(n)})- T)^2>2\delta_n,\quad\text{infinitely often}
+\right)=0.
+\]
+Therefore, for almost all $\omega\in\Omega$,
+\[
+|Q(\Pi^{(n)},\omega)- T|>\sqrt{2\delta_n},\quad\text{for finite $n$}\implies
+|Q(\Pi^{(n)},\omega)- T|\le \sqrt{2\delta_n},~n\to\infty.
+\]
+By the assumption that $\delta_n\to0$ as $n\to\infty$, we conclude that 
+\[
+|Q(\Pi^{(n)},\omega)- T|\to0.
+\]
+The proof is complete.
+\end{proof}
+
+The Brownian motion is nowhere differentiable almost surely and does not have bounded variation.
+However, it turns to have finite quadratic variation limit.
+Using this quadratic variation property, we can go back to show that the Brownian motion does not have bounded variation.
+
+
+\begin{proof}[A Direct Proof for Theorem~\ref{The:7:6}]
+Since the Brownian motion is almost surely continuous, on the closed interval $[0,T]$,
+$B_t(\omega)$ is uniformly continuous for almost all $\omega\in\Omega$:
+\[
+\max_k~|B_{t_k}(\omega) - B_{t_{k-1}}(\omega)|\to0,\quad\text{as }\max_k~|t_k - t_{k-1}|\to0
+\]
+Assume on the contrary that there exists $t>0$ such that 
+\[
+\mathbb{P}(TV(B)[0,t]=\infty)<1\implies
+\mathbb{P}(TV(B)[0,t]<\infty)>0.
+\]
+Define the set $\Lambda = \{\omega\in\Omega:~TV(B)[0,t]<\infty\}$.
+Then for any partition $\Pi$, if $\omega\in\Lambda$,
+\[
+\sum_k|B_{t_k}(\omega) - B_{t_{k-1}}(\omega)|\le TV(B_{\cdot}(\omega))[0,t]<\infty
+\]
+As a result, for $\omega\in\Lambda$, the quadratic variation converges to $0$ as $\|\Pi\|\to0$:
+\[
+Q(\Pi,\omega)=\sum_k(B_{t_k}(\omega) - B_{t_{k-1}}(\omega))^2\le \|\Pi\|\sum_k|B_{t_k}(\omega) - B_{t_{k-1}}(\omega)|\to0.
+\]
+Then $\mathbb{P}(\lim_{n\to\infty}Q(\Pi^{(n)})=0)\ge \mathbb{P}(\Lambda)>0$, where $\|\Pi^{(n)}\|\to0$.
+Choose some $\epsilon\in(0,t)$.
+If $\omega\in\{\lim_{n\to\infty}Q(\Pi^{(n)})=0\}$, there exists $n_0$ such that for $n\ge n_0$,
+\[
+\omega\in \{|Q(\Pi^{(n)})-t|>\epsilon\}\implies
+\lim_{n\to\infty}\mathbb{P}(|Q(\Pi^{(n)})-t|>\epsilon)>0,
+\]
+which contradicts to the fact that $Q(\Pi^{(n)})\to t$ in probability.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,42 @@
+\documentclass{article}
+
+\usepackage{graphics}
+\usepackage{tikz}
+\usepackage[pdftex,active,tightpage]{preview}
+\usetikzlibrary{positioning,arrows,shapes,chains,fit,scopes}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\setlength\PreviewBorder{0mm} % use to add a border around the image
+\PreviewEnvironment{tikzpicture}
+\pgfrealjobname{survey}
+\begin{document}
+\beginpgfgraphicnamed{survey-f1}
+ \begin{tikzpicture}
+        \begin{axis}
+        [
+        %grid=major, % Display a grid
+        grid style={dashed,gray!30}, % Set the style
+        xmin=0, xmax=137,
+        ymin=0, ymax=125,
+%        xtick={0,60,120,180,240},
+%        xticklabels={0,600,1200,1800,2400},
+        ytick={0,125},
+%        yticklabels={Sleep,Wake-up},
+        legend pos= north west,
+        %legend pos=outer north west
+        ]
+        \addplot+[mark size=5pt,mark  =*** ,color=blue,line width=0.2mm] table {test.dat};
+%          \addplot+[mark size=5pt,mark  = ---,color=blue,dashed,line width=0.4mm] table {data/SN_2_2400.dat};
+%        \addlegendentry{2nd USN}
+%                \addplot+[mark size=5pt,mark  =***,color=green, dashed,line width=0.4mm] table {data/SN_3_2400.dat};
+%        \addlegendentry{3rd USN}
+%                \addplot+[mark size=5pt,mark  = ---,color=purple, dashed,line width=0.4mm] table {data/SN_4_2400.dat};
+%        \addlegendentry{4th USN}
+%                \addplot+[mark size=5pt,mark  = ***,color=brown,dashed,line width=0.4mm] table {data/SN_5_2400.dat};
+%        \addlegendentry{5th USN}
+%                       \addplot+[mark size=1.5pt,mark  = ***,color=magenta,dashed,line width=0.4mm] table {data/SN_6_2400.dat};
+%        \addlegendentry{6th USN}
+        \end{axis}
+    \end{tikzpicture}
+\endpgfgraphicnamed
+\end{document}

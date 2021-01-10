@@ -1,0 +1,571 @@
+
+\chapter{Week4}
+
+\section{Tuesday}
+
+
+\subsection{Martingales in Discrete Time}
+
+\begin{example}
+Let $\mathbb{F}\triangleq\{\mathcal{F}_n\}_{n\ge0}$ be a filteration and consider a random variable 
+$\zeta\in\mathcal{L}^1$.
+Define $X_n\triangleq\mathbb{E}[\zeta\mid\mathcal{F}_n]$, and we can check that 
+$\{X_n\}_{n\ge}$ is a martingale with respect to $\mathbb{F}$:
+\begin{itemize}
+\item
+Firstly we need to show the integrability of $X_n$ for any $n$:
+\begin{align*}
+\mathbb{E}[|X_n|]&=\mathbb{E}[|\mathbb{E}[\zeta\mid\mathcal{F}_n]|]\\
+&\le \mathbb{E}[\mathbb{E}[|\zeta|\mid\mathcal{F}_n]]\\
+&=\mathbb{E}[|\zeta|]<\infty
+\end{align*}
+where the first inequality is by the Jensen's inequality.
+\item
+Then we check that $\mathbb{E}[X_{n+1}\mid\mathcal{F}_n]=X_n$ for any $n$:
+\begin{align*}
+\mathbb{E}[X_{n+1}\mid\mathcal{F}_n]&=\mathbb{E}[\mathbb{E}[\zeta\mid\mathcal{F}_{n+1}]\mid\mathcal{F}_n]\\
+&=\mathbb{E}[\zeta\mid\mathcal{F}_n]=X_n.
+\end{align*}
+\end{itemize}
+\end{example}
+
+\begin{example}[Martingale Transform]\label{Exp:4:2}
+Let $C_n$ be the stake to be bet on game $n$, and $X_n-X_{n-1}$ be the net with per stake in game $n$, with $n\ge1$.
+Suppose that the process $\{C_n\}_{n\ge1}$ is predictable, and the total win up to time $n$ is 
+$Y_n = \sum_{1\le k\le n}C_k(X_k - X_{k-1})$.
+Define $Y_0:=0$.
+If $\{X_n\}$ is a martingale w.r.t. $\{\mathcal{F}_n\}$ and $\{C_n\}$ is bounded a.s.\footnote{
+Here the boundedness means that $|C_n(\omega)|\le M$ for some $M>0$ and almost all $\omega$
+}, then we can show that $\{Y_n\}$ is also a martingale:
+
+Firstly note that $Y_n$ is $\mathcal{F}_n$-measurable since $X_k,C_k$ are all $\mathcal{F}_n$-measurable for $1\le k\le n$.
+Then we check $\{Y_n\}$ is a martingale w.r.t. $\{\mathcal{F}_n\}$:
+% what kind of boundedness
+% how to show that Yn is adapted to Fn, what is Fn
+% independence of Cn
+\begin{itemize}
+\item
+For any $n$, we have
+\begin{align*}
+\mathbb{E}[|Y_n|]&\le \sum_{1\le k\le n}\mathbb{E}[|C_k(X_k - X_{k-1})|]\\
+&\le M\cdot \sum_{1\le k\le n}\mathbb{E}[|X_k - X_{k-1}|]\\
+&\le M\cdot \sum_{1\le k\le n}\mathbb{E}[|X_k|] + \mathbb{E}[|X_{k-1}|]<\infty,
+\end{align*}
+where the second inequality is by the boundedness of $\{C_n\}$.
+\item
+Moreover, 
+\begin{align*}
+\mathbb{E}[Y_{n+1}\mid\mathcal{F}_n]&=\mathbb{E}\bigg[
+\sum_{1\le k\le n+1}C_k(X_k - X_{k-1})\bigg|\mathcal{F}_n
+\bigg]\\
+&=\mathbb{E}[Y_n + C_{n+1}(X_{n+1} - X_n)\mid\mathcal{F}_n]\\
+&=\mathbb{E}[Y_n\mid\mathcal{F}_n] + C_{n+1}\mathbb{E}[X_{n+1} - X_n\mid\mathcal{F}_n]\\
+&=Y_n + C_{n+1}\mathbb{E}[X_{n+1} - X_n\mid\mathcal{F}_n]=Y_n,
+\end{align*}
+where the third equality is by the $\mathcal{F}_n$-measurability of $C_{n+1}$;
+the fourth equality is by the $\mathcal{F}_n$-measurability of $Y_n$,
+and the last equality is by $\mathbb{E}[X_{n+1}\mid\mathcal{F}_n]=X_n$.
+\end{itemize}
+
+
+\end{example}
+
+\begin{theorem}
+Suppose that $\{X_n\}$ is a martingale with respect to $\mathcal{F}_n$, and
+$\phi:\mathbb{R}\to\mathbb{R}$ is a convex function such that $\phi(X_n)$ is integrable for all $n$,
+then $\{\phi(X_n)\}$ is a sub-martingale with respect to $\mathcal{F}_n$.
+\end{theorem}
+\begin{proof}
+By the Jensen's inequality and $\mathbb{E}[X_{n+1}\mid\mathcal{F}_n]=X_n$, we have
+\[
+\mathbb{E}[\phi(X_{n+1})\mid\mathcal{F}_n]\ge 
+\phi(\mathbb{E}[X_{n+1}\mid\mathcal{F}_n])=\phi(X_n).
+\] 
+\end{proof}
+By similar proof, we can show the following theorem:
+\begin{theorem}
+Suppose that $\{X_n\}$ is a sub-martingale with respect to $\mathcal{F}_n$,
+and $\phi$ is an increasing convex function such that $\phi(X_n)$ is integrable for all $n$,
+% miss the integrability condition 
+then $\{\phi(X_n)\}$ is a sub-martingale with respect to $\mathcal{F}_n$.
+\end{theorem}
+A direct example is the following:
+\begin{example}
+Suppose that $\{X_n\}$ is a sub-martingale, define the convex function $X^+:=\max(X,0)$, then
+$\{X_n^+\}$ is also a sub-martingale.
+\end{example}
+
+\begin{theorem}\label{The:4:3}
+Let $\{X_n\}$ be a martingale and $T$ be a stopping time.
+Define the stopped process $\{X_{n\land T}\}$ as
+\[
+X_{n\land T}(\omega)\triangleq X_{n\land T(\omega)}(\omega),\qquad\forall\omega\in\Omega,\forall n.
+\]
+Then $\{X_{n\land T}\}$ is a martingale. In particular, 
+\[
+\mathbb{E}[X_{n\land T}]=\mathbb{E}[X_0],\quad\forall n.
+\]
+\end{theorem}
+\begin{proof}
+We will show this result by applying the Martingale transform technique mentioned in Example~\ref{Exp:4:2}.
+Define the stake process $\{C_n^T\}_{n\ge0}$ as
+\[
+C_n^T(\omega) = 1\{n\le T(\omega)\}(\omega),\qquad\forall\omega\in\Omega,\forall n.
+\]
+Note that $\{C_n^T\}_{n\ge0}$ is predictable since $\{C_n^T=0\}=\{T(\omega)\le n-1\}\in\mathcal{F}_{n-1}$.
+Now we begin to simplify $\sum_{1\le k\le n}C_k^T(X_k - X_{k-1})$:
+\begin{align*}
+\sum_{1\le k\le n}C_k^T(X_k - X_{k-1})
+&=1\{T\ge1\}(X_1-X_0)+1\{T\ge2\}(X_2-X_1)+\cdots+1\{T\ge n\}(X_n - X_{n-1})\\
+&=-1\{T\ge1\}X_0 + (1\{T\ge1\} - 1\{T\ge2\})X_1 + (1\{T\ge2\} - 1\{T\ge3\})X_2\\
+&+\cdots+
+(1\{T\ge n-1\} - 1\{T\ge n\})X_{n-1}+1\{T\ge n\}X_n\\
+&=1\{T\ge n\}X_n-1\{T\ge1\}X_0 + \sum_{i=1}^{n-1}1\{T=i\}X_i\\
+&=\bigg(
+1\{T\ge n\}X_n+\sum_{i=0}^{n-1}1\{T=i\}X_i
+\bigg)-\bigg(1\{T\ge1\}X_0-1\{T=0\}X_0\bigg)\\
+&=X_{n\land T} - X_0.
+\end{align*}
+By the boundedness of $\{C_n^T\}$, and the result in Example~\ref{Exp:4:2},
+we can show that $\{X_{n\land T} - X_0\}$ is a martingale, i.e., $\{X_{n\land T}\}$ is a martingale.
+Therefore,
+\begin{align*}
+\mathbb{E}[X_{n\land T}]&=\mathbb{E}[\mathbb{E}[X_{n\land T}\mid\mathcal{F}_{n-1}]]
+=\mathbb{E}[X_{(n-1)\land T}]=\cdots=\mathbb{E}[X_{0\land T}]=\mathbb{E}[X_0].
+\end{align*}
+\end{proof}
+
+Note that $\mathbb{E}[X_T]$ does not equal to $\lim_{n\to\infty}\mathbb{E}[X_{n\land T}]=\mathbb{E}[X_0]$. The following provides a counter-example:
+\begin{example}
+Let $\{X_n\}$ be a simple symmetric random walk on integers and $X_0=0$.
+Then $\{X_n\}$ is a martingale.Define the stopping time
+\[
+T\triangleq\inf\{n\ge0~X_n=1\}.
+\]
+Then $\mathbb{E}[X_{n\land T}]=\mathbb{E}[X_0]=0,\forall n$.
+Since the random walk is recurrent, $\mathbb{P}(T<\infty)$, and $X_T=1$ a.s., which implies that
+\[
+1 = \mathbb{E}[X_T]\ne \lim_{n\to\infty}\mathbb{E}[X_{n\land T}]=\mathbb{E}[X_0]=0.
+\]
+\end{example}
+The Doob's optional stopping theorem provides sufficient conditions for 
+$\mathbb{E}[X_T]=\mathbb{E}[X_0]$:
+
+\begin{theorem}[Doob's Optional Stopping Theorem]
+Let $\{X_n\}$ be a martingale and $T$ be a stopping time.
+Then $X_T$ is integrable and $\mathbb{E}[X_T]=\mathbb{E}[X_0]$ if any of the following conditions hold:
+\begin{enumerate}
+\item
+$T$ is bounded a.s.; % what do you mean by a.s.
+\item
+$\{X_n\}$ is bounded and $T$ is finite $(\mathbb{P}(T<\infty)=1)$\footnote{The finiteness is a weaker condition, which does not imply boundedness}, a.s.;
+\item
+$\mathbb{E}[T]<\infty$\footnote{The $\mathbb{E}[T]<\infty$ is a little bit stronger condition than finiteness, but still does not imply boundedness.} and $\{|X_n - X_{n-1}|\}$ is bounded.
+\end{enumerate}
+% difference between finite and bounded?
+\end{theorem}
+\begin{proof}
+\begin{enumerate}
+\item
+Suppose that $T$ is bounded a.s., which means that there exists $K$ such that
+$\mathbb{P}\{\omega:~T(\omega)\le K\}=1$.
+Therefore, $X_{K\land T}=X_T$ a.s. By Theorem~\ref{The:4:3},
+$X_T$ is integrable with $\mathbb{E}[X_T] = \mathbb{E}[X_{K\land T}]=\mathbb{E}[X_0]$.
+\item
+Suppose that $T$ is finite a.s., then we can show that $X_{n\land T}\to X_T$ a.s.:
+Note that $\mathbb{P}\{T<\infty\}=1$, and
+\[
+\omega\in\{T<\infty\}\implies \lim_{n\to\infty}X_{n\land T}(\omega)= X_T(\omega).
+\]
+%which implies that $X_{n\land T}\to X_T$ a.s. as $n\to\infty$.
+Since $\{X_n\}$ is bounded a.s., $\{X_{n\land T}\}$ is bounded a.s. as well.
+By the Bounded Convergence Theorem, $X_T$ is integrable % how to show?
+and $X_{n\land T}\to X_T$ in $L^1$, which implies that
+\[
+\mathbb{E}[X_T] = \lim_{n\to\infty}\mathbb{E}[X_{n\land T}]=\mathbb{E}[X_0].
+\]
+\item
+We first show that $\{X_{T\land n}-X_0\}$ is dominated by an integrable random variable:
+\begin{align*}
+|X_{T\land n}-X_0|&=\left|
+\sum_{k=1}^{T\land n}(X_k - X_{k-1})
+\right|\le \sum_{k=1}^{T\land n}|X_k - X_{k-1}|\le M\cdot(T\land n)\le MT,
+\end{align*}
+where the second inequality is by the boundedness of $\{|X_n - X_{n-1}|\}$, i.e., for any $n$ and $\omega\in\Omega$, $|X_n(\omega) - X_{n-1}(\omega)|\le M$.
+Considering that $\mathbb{E}[T]<\infty$, $T$ is finite a.s., % how to show?
+which implies that $X_{n\land T}\to X_T$.
+Applying the dominated convergence theorem, $X_{T\land n}\to X_T$ in $L^1$, and
+\[
+\mathbb{E}[X_T] = \lim_{n\to\infty}\mathbb{E}[X_{n\land T}]=\mathbb{E}[X_0].
+\]
+\end{enumerate}
+\end{proof}
+
+\subsection{Doob's Inequalities}
+
+\begin{theorem}[Doob's Optional Sampling Theorem]\label{The:sampling}
+Let $\{X_n\}$ be a martingale and $S,T$ be two bounded stopping times, with $S\le T$ a.s.,
+then $\mathbb{E}[X_T\mid\mathcal{F}_S] = X_S$ a.s. 
+
+Moreover, if instead $\{X_n\}$ is assumed to be a sub-martingale or super-martingale, then the equality in the result is replaced by $\ge$ or $\le$, respectively.
+\end{theorem}
+
+\begin{proof}
+We only show the result based on the assumption that $\{X_n\}$ is a sub-martingale, since the remaining part follows the similar logic.
+Since $S,T$ are bounded a.s., random variables $X_T$ and $X_S$ are integrable.
+In order to simplify $\mathbb{E}[X_T\mid\mathcal{F}_S]$, we need to study the structure of $\mathcal{F}_S$:
+For any $A\in\mathcal{F}_S$, by the definition of stopping-time $\sigma$-algebra, $A\cap\{S\le j\}\in\mathcal{F}_j$.
+Considering that $\{S>j-1\}=\{S\le j-1\}^c\in\mathcal{F}_{j-1}\subseteq\mathcal{F}_j$ and $\{T>j\}=\{T\le j\}^c\in\mathcal{F}_j$,
+\[
+A\cap\{S\le j\}\cap\{S>j-1\}\cap\{T>j\}=A\cap\{S=j\}\cap\{T>j\}\in\mathcal{F}_j,\quad\forall j.
+\]
+\begin{itemize}
+\item
+Assume that $0\le T-S\le 1$, a.s., it follows that 
+\begin{subequations}
+\begin{align}
+\int_A(X_T-X_S)\diff\mathbb{P}&=\sum_{j=0}^N\int_{A\cap\{S=j\}}(X_T-X_S)\diff\mathbb{P}\label{Eq:4:1:a}\\
+&=\sum_{j=0}^N\int_{A\cap\{S=j\}\cap\{T>j\}}(X_T-X_S)\diff\mathbb{P}
++
+\sum_{j=0}^N\int_{A\cap\{S=j\}\cap\{T=j\}}(X_T-X_S)\diff\mathbb{P}\label{Eq:4:1:b}\\
+&=\sum_{j=0}^N\int_{A\cap\{S=j\}\cap\{T>j\}}(X_T-X_S)\diff\mathbb{P}\label{Eq:4:1:c}
+\end{align}
+where (\ref{Eq:4:1:a}) is by the assumption that $S$ is bounded a.s., i.e., $|S|\le N$ a.s.;
+(\ref{Eq:4:1:b}) is by the assumption that $T\ge S$;
+(\ref{Eq:4:1:c}) is because $1\{S=j, T=j\}\cdot(X_T-X_S)=0$.
+\end{subequations}
+Since $\mathbb{E}[X_{j+1}\mid\mathcal{F}_j]\le X_j$ a.s. for any $j$,
+\begin{equation}\label{Eq:4:2}
+\int_{A\cap\{S=j\}\cap\{T>j\}}(X_{j}-X_{j+1})\diff\mathbb{P}\ge0\implies
+\int_A(X_S-X_T)\diff\mathbb{P}\ge0,\forall A\in\mathcal{F}_S.
+\end{equation}
+For two $\mathcal{F}$-measurable random variables, if $\int_A(X-Y)\diff\mathbb{P}\le0, \forall A\in\mathcal{F}$, then one can assert that $X\le Y$ a.s. Therefore, (\ref{Eq:4:2}) implies 
+$\mathbb{E}[X_T\mid\mathcal{F}_S]\le X_S$ a.s.
+\item
+Now suppose that $T-S\ge0$ a.s., and construct intermediate variables $R_j=T\land(S+j), j=1,2,\ldots,N$.
+It follows that $R_j$ is a stopping time and $S\le R_1\le R_2\le\cdots\le R_N\le T$ a.s., with
+\[
+0\le R_1-S\le 1,\quad 0\le R_j-R_{j-1}\le 1,\forall j\quad 0\le T-R_N\le 1.
+\]
+Consider any $A\in\mathcal{F}_S$, and since $0\le R_1-S\le 1$ a.s.,
+\[
+\int_A(X_{S} - X_{R_1})\diff\mathbb{P}\ge0.
+\]
+By definition of stopping time $\sigma$-algebra, $A\cap\{S\le j\}\in\mathcal{F}_j$, which implies that
+\[
+A\cap\{S\le j\}\cap\{R_1\le j\}=A\cap\{R_1\le j\}\in\mathcal{F}_j\implies A\in\mathcal{F}_{R_1}.
+\]
+Considering that $0\le R_2-R_1\le 1$ a.s., 
+\[
+\int_A(X_{R_1} - X_{R_2})\diff\mathbb{P}\ge0.
+\]
+Similarly,
+\[
+\int_A(X_{R_{j-1}} - X_{R_j})\diff\mathbb{P}\ge0, j=2,\ldots,N,\quad
+\int_A(X_{R_{N}} - X_{T})\diff\mathbb{P}\ge0.
+\]
+Adding those integrals above, $\int_A(X_S-X_T)\diff\mathbb{P}\ge0,\forall A\in\mathcal{F}_S$, i.e., 
+\[
+\mathbb{E}[X_T\mid\mathcal{F}_S]\le X_S,\quad\text{a.s.}
+\]
+\end{itemize}
+\end{proof}
+
+
+\begin{remark}
+We can assume the uniform integrability of $\{X_n\}$ and the conclusion still holds, without assuming that $T,S$ are bounded.
+% how to prove?
+\end{remark}
+
+\section{Thursday}
+\subsection{Doob's Maximal Inequality}
+
+\begin{theorem}[Doob's Maximal Inequality]\label{The:max:in}
+Let $\{X_n\}$ be a super-martingale. Choose some $N>0$ % any N?
+, then for any $\lambda>0$,
+\begin{enumerate}
+\item
+$\lambda\cdot\mathbb{P}\bigg(
+\sup\limits_{k\le N}X_k\ge\lambda
+\bigg)\le \mathbb{E}[X_0] - \mathbb{E}\left[X_N\cdot 1\left\{\sup\limits_{k\le N}X_k<\lambda\right\}\right]$;
+\item
+$\lambda\cdot\mathbb{P}\bigg(
+\inf\limits_{k\le N}X_k\le-\lambda
+\bigg)\le \mathbb{E}\left[(-X_N)\cdot 1\left\{\inf\limits_{k\le N}X_k\le-\lambda\right\}\right]$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\begin{enumerate}
+\item
+Define a stopping time $R$:
+\[
+R(\omega) = \inf\{k\ge0:~X_k(\omega)\ge\lambda\},\quad\forall\omega\in\Omega.
+\]
+Take $T=R\land N$, which is a bounded stopping time. 
+Apply the Optional Sampling Theorem~\ref{The:sampling},
+\begin{align*}
+\mathbb{E}[X_0]&\ge \mathbb{E}\bigg[
+\mathbb{E}[X_T\mid\mathcal{F}_0]
+\bigg]=\mathbb{E}[X_T]\\
+&=\int 1\bigg\{
+\sup\limits_{k\le N}X_k\ge\lambda
+\bigg\}X_T\diff\mathbb{P}+\int 1\bigg\{
+\sup\limits_{k\le N}X_k<\lambda
+\bigg\}X_T\diff\mathbb{P}\\
+&\ge
+\lambda\cdot\mathbb{P}\bigg(
+\sup\limits_{k\le N}X_k\ge\lambda
+\bigg)+\int 1\bigg\{
+\sup\limits_{k\le N}X_k<\lambda
+\bigg\}X_N\diff\mathbb{P}
+\end{align*}
+where the first inequality is because that $X_0\ge\mathbb{E}[X_T\mid\mathcal{F}_0]$ a.s.;
+and the last inequality is because that 
+conditioned on the event $\bigg\{
+\sup\limits_{k\le N}X_k<\lambda
+\bigg\}$, 
+$X_T\equiv X_N$.
+%
+%$X_T\ge\mathbb{E}[X_N\mid\mathcal{F}_T]$.
+%(How to show the measurability of $\bigg\{
+%\sup\limits_{k\le N}X_k<\lambda
+%\bigg\}$?)
+Thus the desired result holds.
+\item
+Let $Y_n=-X_n$, and $\{Y_n\}$ is a sub-martingale.
+Define the stopping time
+\[
+R(\omega) = \inf\{k\ge0:~Y_k(\omega)\ge\lambda\},\quad\forall\omega\in\Omega.
+\]
+Take $T=R\land N$, which is a bounded stopping time. 
+Apply the Optional Sampling Theorem~\ref{The:sampling},
+\begin{align*}
+\mathbb{E}[Y_N]\ge\mathbb{E}[Y_T]\ge \lambda\mathbb{P}\bigg(
+\sup\limits_{k\le N}Y_k\ge\lambda
+\bigg)+\mathbb{E}\bigg[
+Y_N1\bigg(
+\sup\limits_{k\le N}Y_k<\lambda
+\bigg)
+\bigg]
+\end{align*}
+It follows that
+\begin{align*}
+\lambda\cdot\mathbb{P}\bigg(
+\inf\limits_{k\le N}X_k\le-\lambda
+\bigg)
+&=
+\lambda\cdot\mathbb{P}\bigg(
+\sup\limits_{k\le N}Y_k\ge\lambda
+\bigg)\le \mathbb{E}[Y_N] - \mathbb{E}\bigg[
+Y_N1\bigg(
+\sup\limits_{k\le N}Y_k<\lambda
+\bigg)
+\bigg]\\
+&=\mathbb{E}\bigg[
+(-X_N)1\bigg(
+\inf\limits_{k\le N}X_k\le-\lambda
+\bigg)
+\bigg].
+\end{align*}
+
+\end{enumerate}
+\end{proof}
+
+\begin{remark}
+Summing up these two results in Theorem~\ref{The:max:in}, we imply
+\begin{align*}\lambda\cdot\mathbb{P}
+\bigg(
+\sup\limits_{k\le N}|X_k|\ge\lambda
+\bigg)
+&\le
+ \mathbb{E}[X_0] - \mathbb{E}\left[X_N\cdot 1\left\{\sup\limits_{k\le N}X_k<\lambda\right\}\right]
+ -\mathbb{E}\left[X_N\cdot 1\left\{\inf\limits_{k\le N}X_k\le-\lambda\right\}\right]\\
+ &\le \mathbb{E}[X_0] + 2\mathbb{E}[X_N^-],
+\end{align*}
+where $X^-\triangleq\max(-X,0)$.
+\end{remark}
+
+\begin{theorem}
+Let $\{X_n\}$ be a martingale. Choose some $N>0$ and let $X_N\in\mathcal{L}^2$, i.e., $\mathbb{E}[X_N^2]<\infty$. Then for any $\lambda>0$,
+\[
+\mathbb{P}\bigg(
+\sup\limits_{k\le N}|X_k|>\lambda
+\bigg)\le\frac{1}{\lambda^2}\mathbb{E}[X_N^2].
+\]
+\end{theorem}
+
+\begin{proof}
+We can show that $\{X_n^2\}$ is a sub-martingale by applying Jensen's inequality:
+\[
+\mathbb{E}[X_{n+1}^2\mid\mathcal{F}_n]\ge \left(
+\mathbb{E}[X_{n+1}\mid\mathcal{F}_n]
+\right)^2=X_n^2.
+\]
+As a result, $\mathbb{E}[X_k^2]\le\mathbb{E}[X_N^2]<\infty, \forall k\le N$, i.e., $\{-X_k^2\}_{k\le N}$ is a super-martingale.
+Apply the second part in Theorem~\ref{The:max:in} completes the proof:
+\begin{align*}
+\lambda^2\cdot\mathbb{P}\bigg(
+\inf\limits_{k\le N}(-X_k^2)\le-\lambda^2
+\bigg)
+&=\lambda^2\cdot\mathbb{P}\bigg(
+\sup\limits_{k\le N}|X_k|\ge\lambda
+\bigg)\\
+&\le 
+\mathbb{E}\left[X_N^2\cdot 1\left\{\inf\limits_{k\le N}(-X_k^2)\le-\lambda^2\right\}\right]\\
+&\le \mathbb{E}[X_N^2].
+\end{align*}
+
+
+\end{proof}
+
+\begin{theorem}[Doob's $L^p$-inequality]
+\begin{enumerate}
+\item
+Suppose that $\{X_n\}$ is a sub-martingale, then for any $p>1$,
+\[
+\mathbb{E}\bigg[
+\left(
+\sup\limits_{k\le n}X_k^+
+\right)^p
+\bigg]\le \left(
+\frac{p}{p-1}
+\right)^p\mathbb{E}[(X_n^+)^p].
+\]
+\item
+Suppose that $\{X_n\}$ is a martingale, then for any $p>1$,
+\[
+\mathbb{E}\bigg[
+\sup\limits_{k\le n}|X_k|^p
+\bigg]\le \left(
+\frac{p}{p-1}
+\right)^p\mathbb{E}[|X_n|^p].
+\]
+\end{enumerate}
+\end{theorem}
+
+
+\begin{proof}
+\begin{enumerate}
+\item
+W.l.o.g., assume that $\{X_n\}$ is non-negative, and we may replace $X_n^+$ by $X_n$.
+Consider a continuous increasing function $\phi:\mathbb{R}_+\to[0,+\infty)$ with $\phi(0)=0$, and we evaluate the expectation for $\phi(Z)$, where $Z$ is a given random variable:
+\begin{subequations}
+\begin{align}
+\mathbb{E}[\phi(Z)]
+&=\int_{\Omega}\phi(Z(\omega))\diff\mathbb{P}(\omega)\nonumber\\
+&=\int_{\Omega}\int_0^{Z(\omega)}\diff\phi(y)\diff\mathbb{P}(\omega)\nonumber\\
+&=\int_{\Omega}\int_{[0,\infty)}1\{y\le Z(\omega)\}\diff\phi(y)\diff\mathbb{P}(\omega)\nonumber\\
+&=\int_{[0,\infty)}\int_{\Omega}1\{y\le Z(\omega)\}\diff\mathbb{P}(\omega)\diff\phi(y)\label{Eq:4:3:a}\\
+&=\int_{[0,\infty)}\mathbb{P}(Z\ge y)\diff\phi(y)\nonumber
+\end{align}
+where (\ref{Eq:4:3:a}) is by the Fubini's theorem.
+
+Take $\phi(y)\equiv y^p$ and define $X_n^*=\sup_{k\le n}X_n$\footnote{called the running maximal of $\{X_n\}$} for notation simplifcation.
+As a result,
+using a little bit calculus gives
+\begin{align}
+\mathbb{E}[(X_n^*)^p]&=\int_{[0,\infty)}\mathbb{P}(X_n^*\ge \lambda)\diff\lambda^p\nonumber\\
+&\le 
+\int_{[0,\infty)}\frac{1}{\lambda}\mathbb{E}\left[
+|X_n|1\left\{
+\sup\limits_{k\le n}|X_k|\ge\lambda
+\right\}
+\right]\diff\lambda^p\label{Eq:4:3:b}\\
+&=\int_0^\infty\frac{1}{\lambda}\int_{\Omega}
+X_n(\omega)1\left\{
+X_n^*(\omega)\ge\lambda
+\right\}\diff\mathbb{P}(\omega)\diff\lambda^p\label{Eq:4:3:c}\\
+&=\int_{\Omega}X_n(\omega)\int_0^\infty\frac{1}{\lambda}1\left\{
+X_n^*(\omega)\ge\lambda
+\right\}\diff\lambda^p\diff\mathbb{P}(\omega)\label{Eq:4:3:d}\\
+&=\int_{\Omega}X_n(\omega)\int_0^{X_n^*(\omega)}p\lambda^{p-2}\diff\lambda\diff\mathbb{P}(\omega)\nonumber\\
+&=\int_{\Omega}X_n(\omega)\frac{p}{p-1}\left[X_n^*(\omega)\right]^{p-1}\diff\mathbb{P}(\omega)\nonumber\\
+&\le\frac{p}{p-1}\left(
+\mathbb{E}[(X_n)^p]
+\right)^{1/p}\left(
+\mathbb{E}[(X_n^*)^{(p-1)q}]
+\right)^{1/q},\quad\text{with $1/q = 1-1/p$}\label{Eq:4:3:e}\\
+&=\frac{p}{p-1}\left(
+\mathbb{E}[(X_n)^p]
+\right)^{1/p}\left(
+\mathbb{E}[(X_n^*)^{p}]
+\right)^{(p-1)/p}\label{Eq:4:3:f}
+\end{align}
+where (\ref{Eq:4:3:b}) is by the Doob's maximal inequality;
+(\ref{Eq:4:3:c}) is by the assumption that $X_n\ge0$;
+(\ref{Eq:4:3:d}) is by Fubini's theorem;
+(\ref{Eq:4:3:e}) is by Holder's inequality.
+If dividing both sides in (\ref{Eq:4:3:f}) by $\left(
+\mathbb{E}[(X_n^*)^{p}]
+\right)^{(p-1)/p}$, we get the desired result.
+\end{subequations}
+\item
+The second inequality follows by applying the first and replacing $\{X_n\}$ with $\{|X_n|\}$.
+\end{enumerate}
+\end{proof}
+
+
+\begin{example}
+Let $\{X_n\}$ be a non-negative sub-martingale. Then we can apply the similar proceed to show the following upper bound holds:
+\[
+\mathbb{E}\bigg[
+\sup_{k\le n}X_k
+\bigg]
+\le
+\frac{e}{e-1}\bigg(
+1+\sup\limits_{k\le n}\mathbb{E}[X_k\log^+X_k]
+\bigg),
+\]
+where $\log^+X\triangleq(\log X)1\{X\ge1\}$.
+
+Tale $\phi(y)=(y-1)^+$, then
+\begin{subequations}
+\begin{align}
+\mathbb{E}[(X_n^*-1)^+]
+&=\int_0^\infty\mathbb{P}(X_n^*\ge\lambda)\diff\phi(\lambda)\nonumber\\
+&\le \int_0^\infty\frac{1}{\lambda} \mathbb{E}[X_n1\{X_n^*\ge\lambda\}]\diff\phi(\lambda)\label{Eq:4:4:a}\\
+&=\int_{\Omega}X_n\int_0^{X_n^*}\frac{1}{\lambda}\diff\phi(\lambda)\diff\mathbb{P}\label{Eq:4:4:b}\\
+&=\int_{\Omega}X_n\int_0^{X_n^*}\frac{1}{\lambda}1\{\lambda\ge1\}\diff\lambda\diff\mathbb{P}\nonumber\\
+&=\int_{\Omega}X_n1\{X_n^*\ge1\}\log X_n^*\diff\mathbb{P}\nonumber\\
+&=\mathbb{E}[X_n\log^+X_n^*].\nonumber
+\end{align}
+where (\ref{Eq:4:4:a}) is by the Doob's maximal inequality, and (\ref{Eq:4:4:b}) is by Fubini's theorem.
+As a result,
+\[
+\mathbb{E}[X_n^*]-1\le \mathbb{E}[(X_n^*-1)^+]\le \mathbb{E}[X_n\log^+X_n^*].
+\]
+We can use a bit calculus to show that 
+\begin{equation}
+a\log^+b\le a\log^+a+\frac{b}{e},
+\end{equation}
+which implies that
+\[
+\mathbb{E}[X_n^*]-1\le \mathbb{E}[X_n\log^+X_n]+\frac{1}{e}\mathbb{E}[X_n^*].
+\]
+The proof is complete.
+\end{subequations}
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

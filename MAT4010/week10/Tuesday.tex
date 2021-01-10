@@ -1,0 +1,666 @@
+
+\chapter{Week10}
+
+\section{Tuesday}\index{week7_Tuesday_lecture}
+
+Recall the property 3) in proposition~\ref{pro:9:1}, in which we show that when $\{X_u\}_u$ is a simple process, $\left\{\int_0^tX_u\diff B_u\right\}_t$ is a square integrable, almost surely continuous martingale.
+In this lecture, we first review some basic ideas about square integrability.
+\subsection{Square Integrable Process}
+\begin{definition}[Square Integrable Martingales]
+\begin{enumerate}
+\item
+A stochastic process $\{X_t\}_{t\ge0}$ is said to be square integrable if 
+$\mathbb{E}[X_t^2]<\infty,\forall t\ge0$.
+\item
+Let $\mathcal{U}^2$ be the class of square integrable, right-continuous, with left limit exist martingales.
+\item
+Let $\mathcal{U}_c^2$ be the class of square integrable, almost surely continuous martingales.
+\end{enumerate}
+\end{definition}
+In particular, we denote $\mathcal{L}^2$ as the set of square integrable random variables.
+\begin{definition}[Norm on $\mathcal{U}^2$]
+For given $T>0$, define a norm $\|\cdot\|$ on $\mathcal{U}^2$:
+\[
+\|X\|\triangleq \left(
+\mathbb{E}[X_T^2]
+\right)^{1/2},\quad \{X_t\}_{t\ge0}\in\mathcal{U}^2.
+\]
+\end{definition}
+
+\begin{theorem}[Completeness of Square Integrable Martingales]
+With respect to the norm $\|\cdot\|$, 
+\begin{enumerate}
+\item
+$\mathcal{U}^2$ is a complete metric space;
+\item
+$\mathcal{U}_c^2$ is a closed subspace of $\mathcal{U}^2$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+\begin{enumerate}
+\item
+It is easy to see that $(\mathcal{U}^2,\|\cdot\|)$ is a metric space.
+To show the completeness, it suffices to show that for any Cauchy sequence $\{X_t^{(n)}\}_{t\ge0}\in \mathcal{U}^2$ where $n=1,2,\ldots$, there exists a process $\{X_t\}_{t\ge0}\in\mathcal{U}^2$ such that 
+\[
+\|X^{(n)}-X\|\to0,\quad \text{as }n\to\infty.
+\]
+We first give a construction on such $\{X_t\}_{t\ge0}$:
+\begin{itemize}
+\item
+Since $\{X^{(n)}\}_n$ is a Cauchy sequence, for any $\varepsilon>0$, there exists $N$ such that as long as $m,n>N$,
+\[
+\|X^{(m)}-X^{(n)}\|<\varepsilon.
+\]
+Since $\{X^{(m)}_t-X^{(n)}_t\}_{t\ge0}$ is a martingale, by convexity of quadratic function,
+$\{(X^{(m)}_t-X^{(n)}_t)^2\}_{t\ge0}$ is a sub-martingale, which implies
+\[
+\forall t\le T,\quad
+\mathbb{E}[(X^{(m)}_t-X^{(n)}_t)^2]\le \mathbb{E}[(X^{(m)}_T-X^{(n)}_T)^2]=\|X^{(m)}-X^{(n)}\|^2<\varepsilon^2.
+\]
+This means that for fixed $t\le T$, $\{X_t^{(n)}\}_{n}$ is a Cauchy sequence in $\mathcal{L}^2$, with the metric defined as $\|X\|_{\mathcal{L}^2}\triangleq\left(\mathbb{E}[X^2]\right)^{1/2}$.
+By the completeness of $\mathcal{L}^2$, there exists a random variable $X_t\in\mathcal{L}^2$ such that $X_t^{(n)}\xrightarrow{L^2}X_t$ as $n\to\infty$.
+\end{itemize}
+Next, we show that $\{X_t\}_{t\ge0}\in\mathcal{U}^2$:
+\begin{enumerate}
+\item
+In order to show $\{X_t\}_{t\ge0}$ is $\{\mathcal{F}_t\}$-adapted, we need the almost sure convergence of some process into $\{X_t\}$, as the definition of almost sure convergence is based on sample-path. The details are given as follows.
+The $L^2$ convergence implies $X_t^{(n)}\xrightarrow{P}X_t$, and thus there exist s a subsequence $\{X_t^{(n_k)}\}_k$ such that \[X_t^{(n_k)}\xrightarrow{a.s.}X_t \quad\text{as $k\to\infty$}.\]
+Then define the sample-path-based set
+\[
+\Lambda=\bigg\{
+\omega\in\Omega:~\lim_{k\to\infty}X_t^{(n_k)}(\omega)=X_t(\omega)
+\bigg\}.
+\]
+Re-define $X_t(\omega)=0$ for $\omega\in\Lambda^c$.
+Note that $\Lambda^c\in\mathcal{F}_t$ since we assume $\{\mathcal{F}_t\}$ satisfies the usual condition~(see Definition~\ref{def:5:4}).
+It follows that for $a<0$,
+\[
+\bigg\{
+\omega\in\Omega:~X_t(\omega)\le a
+\bigg\}=\bigcap_j\bigcup_m\bigcup_{k>m}\bigg\{
+\omega\in\Omega:~X_t^{(n_k)}(\omega)<a+\frac{1}{j}
+\bigg\}\in\mathcal{F}_t.
+\]
+For $a\ge0$, since $\Lambda^c\in\mathcal{F}_t$,
+\[
+\bigg\{
+\omega\in\Omega:~X_t(\omega)\le a
+\bigg\}=\Lambda^c\bigcup\left[\bigcap_j\bigcup_m\bigcup_{k>m}\bigg\{
+\omega\in\Omega:~X_t^{(n_k)}(\omega)<a+\frac{1}{j}
+\bigg\}\right]\in\mathcal{F}_t.
+\]
+\item
+The integrability of $X_t$ is because $X_t\in\mathcal{L}^2$.
+Then we show $\{X_t\}_{t\ge0}$ satisfies the martingale property, i.e, for fixed $0\le s<t$, we need to show $\int_AX_t\diff\mathbb{P}=\int_AX_s\diff\mathbb{P},~\forall A\in\mathcal{F}_s$.
+Direct calculation, together with the martingability of $\{X_t^{(n)}\}_{t\ge0}$ gives
+\[
+\int_AX_t\diff\mathbb{P}-\int_AX_s\diff\mathbb{P}=\int_A(X_t-X_t^{(n)})\diff\mathbb{P}-\int_A(X_s-X_s^{(n)})\diff\mathbb{P},\quad\forall n.
+\]
+By the $L^2$ convergence of $X_t^{(n)}$,
+\[
+\int_A|X_t-X_t^{(n)}|\diff\mathbb{P}\le \mathbb{E}[|X_t-X_t^{(n)}|]\le \left(\mathbb{E}[(X_t-X_t^{(n)})^2]\right)^{1/2}\to0,\quad n\to\infty.
+\]
+Similarly, $\int_A|X_t-X_t^{(n)}|\diff\mathbb{P}\to0$. The martingability of $\{X_t\}_{t\ge0}$ follows since
+\begin{align*}
+\left|
+\int_AX_t\diff\mathbb{P}-\int_AX_s\diff\mathbb{P}
+\right|&=\lim_{n\to\infty}\left|
+\int_A(X_t-X_t^{(n)})\diff\mathbb{P}-\int_A(X_s-X_s^{(n)})\diff\mathbb{P}
+\right|\\
+&\le \lim_{n\to\infty}\int_A|X_t-X_t^{(n)}|\diff\mathbb{P}+\int_A|X_t-X_t^{(n)}|\diff\mathbb{P}=0.
+\end{align*}
+\item
+To make $\{X_t\}_{t\ge0}$ right-continuous with left limit exists, apply part 1) in Theorem~\ref{The:con:mart}.
+\end{enumerate}
+\item
+Consider a sequence $\{X_t^{(n)}\}_t\in\mathcal{U}_c^2$ for $n=1,2,\ldots$.
+By result in part 1), there exists $\{X_t\}_t\in\mathcal{U}^2$ as a limt.
+It suffices to show that $\{X_t\}_t\in\mathcal{U}_c^2$.
+In order to show the continuity result, we first construct the (almost sure) uniform convergence of some sequence in $\mathcal{U}_c^2$ with the limit $\{X_t\}_t$.
+\begin{itemize}
+\item
+Note that $\{X_t^{(n)}-X_t\}_{t}$ is a martingale for all $n$, then by Doob's inequality,
+\[
+\mathbb{P}\left(
+\sup_{t\le T}|X_t^{(n)}-X_t|>\varepsilon
+\right)\le\frac{1}{\varepsilon^2}\mathbb{E}\left[
+(X_T^{(n)}-X_T)^2
+\right]\to0,\quad\text{as }n\to\infty.
+\]
+Since $\sup_{t\le T}|X_t^{(n)}-X_t|\xrightarrow{P}0$, there exists a subsequence $\{\sup_{t\le T}|X_t^{(n_k)}-X_t|\}_k$ that converges to $0$ almost surely.
+Define 
+\begin{align*}
+W_1&=\bigcap_k\bigg\{
+\omega\in\Omega:~X_t^{(n_k)}(\omega)\text{ is continuous}
+\bigg\}\\
+% why intersection is still probability one?
+W_2&=\bigg\{
+\omega\in\Omega:~\lim_{k\to\infty}\sup_{t\le T}|X_t^{(n_k)}-X_t|=0
+\bigg\}\\
+W&=W_1\cap W_2\implies \mathbb{P}(W)=1.
+\end{align*}
+Take $\omega\in W$, then for any $\varepsilon>0$, there exists $N>0$ such that as long as $k>N$ and $t\le T$,
+\[
+|X_t^{(n_k)}(\omega)-X_t(\omega)|\le \sup_{t\le T}|X_t^{(n_k)}(\omega)-X_t(\omega)|<\frac{\varepsilon}{3}.
+\]
+In other words, $X_t^{(n_k)}(\omega)$ uniformly converges to $X_t(\omega)$ for $\omega\in W$.
+\end{itemize}
+The continuity of $X_t^{(n_k)}(\omega)$ (and therefore uniform continuity) implies there exists $\delta$ such that as long as $h<\delta$,
+\[
+|X_{t+h}^{(n_k)}(\omega)-X_{t}^{(n_k)}(\omega)|<\frac{\varepsilon}{3},\quad\forall t\le T.
+\]
+Hence we conclude the continuity of $X_t(\omega)$ for $\omega\in W$:
+\begin{align*}
+|X_{t+h}(\omega)-X_t(\omega)|&\le |X_{t+h}(\omega)-X_{t+h}^{(n_k)}(\omega)|
++|X_{t+h}^{(n_k)}(\omega)-X_{t}^{(n_k)}(\omega)|\\&+|X_{t}^{(n_k)}(\omega)-X_t(\omega)|<\varepsilon.
+\end{align*}
+The proof is completed.
+
+
+\end{enumerate}
+\end{proof}
+\section{Thursday}
+
+
+\subsection{Introduction to Ito Integral}
+By the conclusion in Section~\ref{sec:9:2:1}, for any process $\{X_t\}_{t\ge0}\in\mathcal{L}^2$,
+when fixing $T>0$, there exists a sequence of simple processes $\{X_t^{(n)}\}_{t\ge0}, n=1,2,\ldots$ such that
+\begin{equation}\label{Eq:10:2}
+\lim_{n\to\infty}\mathbb{E}\left[
+\int_0^T(X_t^{(n)}-X_t)^2\diff t
+\right]=0.
+\end{equation}
+The Ito integral for a simple process $\{\tilde{X}_t\}_{t\ge0}$ is well-defined as in (\ref{Eq:9:3}):
+\[
+\int_0^T\tilde{X}_t(\omega)\diff B_t(\omega) = \sum_{k=0}^{n-1}\tilde{X}_{t_k}(\omega)\cdot[B_{t_{k+1}}(\omega) -B_{t_k}(\omega)] + \tilde{X}_{t_n}(\omega)\cdot[B_{T}(\omega) -B_{t_n}(\omega)]
+\]
+Denote $I_t(\tilde{X})\triangleq \{\int_0^t\tilde{X}_s(\omega)\diff B_s(\omega)\}_{\omega\in\Omega}$.
+
+\begin{theorem}\label{The:10:2}
+Given a process  $\{X_t\}_{t\ge0}\in\mathcal{L}^2$ and fixing $T>0$,
+there exists an \emph{unique} process $\{Z_t\}_{t\ge0}\in\mathcal{U}_c^2$ such that 
+\begin{equation}\label{Eq:10:2:2}
+\lim_{n\to\infty}\mathbb{E}\left[
+(I_t(X^{(n)})-Z_t)^2
+\right]=0,\quad\forall t\in[0,T].
+\end{equation}
+\end{theorem}
+
+\begin{remark}
+The process $\{Z_t\}_{t\ge0}$ is unique in the following sense:
+if there is another sequence of simple process, $\{\tilde{X}_t^{(n)}\}_{t\ge0}$, approximating $\{X_t\}_{t\ge0}$, and there exists $\{\tilde{Z}_t\}_{t\ge0}\in\mathcal{U}_c^2$ such that 
+\[
+\lim_{n\to\infty}\mathbb{E}\left[
+(I_t(\tilde{X}^{(n)})-\tilde{Z}_t)^2
+\right]=0,\quad\forall t\in[0,T],
+\]
+then
+\[
+\mathbb{P}\bigg(
+\mbox{$Z_t=\tilde{Z}_t$ for all $t\in[0,T]$}
+\bigg)=1.
+\]
+\end{remark}
+\begin{proof}
+The existence of $\{Z_t\}_{t\ge0}$ can be argued if we show $\{I_t(X^{(n)})\}_{t\ge0}, n=1,2,\ldots$ is a Cauchy sequence:
+\begin{itemize}
+\item
+We first show that $I_T(X^{(n)}), n=1,2,\ldots$ is Cauchy (with respect to $L^2$ measure):
+\begin{subequations}
+\begin{align}
+\mathbb{E}\left[
+(I_T(X^{(j)}) - I_T(X^{(k)}))^2
+\right]&=\mathbb{E}\left[
+\left(\int_0^TX^{(j)}_t\diff B_t - \int_0^TX^{(k)}_t\diff B_t\right)^2
+\right]\\
+&=\mathbb{E}\left[
+\int_0^T(X^{(j)}_t-X^{(k)}_t)^2\diff t
+\right]\label{Eq:10:3:b}\\
+&=\mathbb{E}\left[
+\int_0^T(X^{(j)}_t-X_t+X_t-X^{(k)}_t)^2\diff t
+\right]\label{Eq:10:3:c}\\
+&\le 2\mathbb{E}\left[
+\int_0^T(X^{(j)}_t-X_t)^2\diff t
+\right]+2\mathbb{E}\left[
+\int_0^T(X_t-X^{(k)}_t)^2\diff t
+\right]\label{Eq:10:3:d}
+\end{align}
+where (\eqref{Eq:10:3:b}) is by the linearity and isometry property in Proposition~\ref{pro:9:1};
+(\eqref{Eq:10:3:d}) is by the inequality $(a+b)^2\le 2a^2+2b^2$.
+\end{subequations}
+
+Recall (\eqref{Eq:10:2}), i.e., for any $\varepsilon>0$, there exists $N$ such that as long as $j,k>N$,
+\[
+\mathbb{E}\left[
+\int_0^T(X^{(j)}_t-X_t)^2\diff t
+\right]<\frac{\varepsilon}{4},\quad
+\mathbb{E}\left[
+\int_0^T(X^{(k)}_t-X_t)^2\diff t
+\right]<\frac{\varepsilon}{4}.
+\]
+Thus $\mathbb{E}\left[
+(I_T(X^{(j)}) - I_T(X^{(k)}))^2
+\right]<\varepsilon$ for large $j,k$.
+\item
+Then we show that $I_t(X^{(n)}), n=1,2,\ldots$ is Cauchy for $t<T$.
+Since $\{I_t(X^{(j)})\}_{t\ge0}$ and $\{I_t(X^{(k)})\}_{t\ge0}$ are martingales, together with the convexity of quadratic function, we can assert that $\{(I_t(X^{(j)}) - I_t(X^{(k)}))^2\}_{t\ge0}$ is a sub-martingale, which means for large $j,k$,
+\[
+\mathbb{E}\left[
+(I_t(X^{(j)}) - I_t(X^{(k)}))^2
+\right]\le \mathbb{E}\left[
+(I_T(X^{(j)}) - I_T(X^{(k)}))^2
+\right]<\varepsilon,\forall t<T.
+\]
+\end{itemize}
+By part 3) in Proposition~\ref{pro:9:1}, the process $\{I_t(X^{(n)})\}_{t\ge0}\in\mathcal{U}_c^2$ for each $n$.
+By the Cauchy property for $\{I_t(X^{(n)})\}_{t\ge0}, n=1,2,\ldots$ and the closedness of $\mathcal{U}_c^2$ with respect to the norm $\|X\|=(\mathbb{E}[X_{\color{red}T}^2])^{1/2}$, there exists a limit $\{Z_t\}_{t\ge0}\in\mathcal{U}_c^2$ such that
+\[
+\lim_{n\to\infty}\mathbb{E}\left[
+(I_T(X^{(n)})-Z_T)^2
+\right]=0.
+\]
+We can further show (\eqref{Eq:10:2:2}) holds by the sub-martingability of $\{(I_t(X^{(n)})-Z_t)^2\}_{t\ge0}$.
+
+Now we begin to show the uniqueness of $\{Z_t\}_{t\ge0}$.
+Suppose there is another simple process $\{\tilde{X}_t^{(n)}\}_{t\ge0}$ approximating $\{X_t\}_{t\ge0}$, and we have $\{\tilde{Z}_t\}_{t\ge0}$ such that $\lim_{n\to\infty}\mathbb{E}\left[
+(I_t(\tilde{X}_t^{(n)})-\tilde{Z}_t)^2
+\right]=0,\forall t\in[0,T]$.
+Observe that $Z_T-\tilde{Z}_T\in\mathcal{L}^2$. By doob's inequality,
+\[
+\forall\varepsilon,\quad
+\mathbb{P}\left(
+\sup_{t\le T}|Z_t - \tilde{Z}_t|>\varepsilon
+\right)\le \frac{1}{\varepsilon^2}\mathbb{E}[(Z_T - \tilde{Z}_T)^2].
+\]
+This suggests that in order to show that $\{\tilde{Z}_t\}_{t\ge0}$ is a version of $\{Z_t\}_{t\ge0}$,
+we can start with bounding their $L^2$ distance:
+\begin{align*}
+\mathbb{E}[(Z_T - \tilde{Z}_T)^2]&=\mathbb{E}[(Z_T - I_T({X}_t^{(n)}) + I_T({X}_t^{(n)})-I_T(\tilde{X}_t^{(n)})+I_T(\tilde{X}_t^{(n)})-\tilde{Z}_T)^2]\\
+&\le 3\mathbb{E}\left[(Z_T - I_T({X}_t^{(n)}))^2\right]+3\mathbb{E}\left[(I_T({X}_t^{(n)})-I_T(\tilde{X}_t^{(n)}))^2\right]\\&+3\mathbb{E}\left[(I_T(\tilde{X}_t^{(n)})-\tilde{Z}_T)^2\right]
+\end{align*}
+where the inequality is by applying $(\sum_{i=1}^na_i)^2\le n\sum_{i=1}^na_i^2$.
+The first and last term vanishes as $n\to\infty$.
+Moreover, the second term can be upper bounded as
+\begin{align*}
+\mathbb{E}\left[(I_T({X}_t^{(n)})-I_T(\tilde{X}_t^{(n)}))^2\right]
+&=\mathbb{E}\left[(\int_0^T({X}_t^{(n)}-\tilde{X}_t^{(n)})\diff B_t)^2\right]\\
+&=\mathbb{E}\left[\int_0^T({X}_t^{(n)}-\tilde{X}_t^{(n)})^2\diff t\right]\\
+&\le 2\mathbb{E}\left[\int_0^T({X}_t^{(n)}-X_t)^2\diff t\right]
++2\mathbb{E}\left[\int_0^T(\tilde{X}_t^{(n)}-X_t)^2\diff t\right]
+\end{align*}
+and thus $\mathbb{E}\left[(I_T({X}_t^{(n)})-I_T(\tilde{X}_t^{(n)}))^2\right]\to0$ as $n\to\infty$.
+Put things together, we can assert that
+\[
+\mathbb{E}[(Z_T - \tilde{Z}_T)^2]=0\implies
+\mathbb{P}\left(
+\sup_{t\le T}|Z_t - \tilde{Z}_t|>\varepsilon
+\right)=0,\forall\varepsilon>0.
+\]
+Define $\Lambda=\{\omega:~Z_t(\omega)-\tilde{Z}_t(\omega)\ne0\text{ for some }t\in[0,T]\}$, then
+\[
+\Lambda\subseteq\bigcup_{n=1}^\infty\left(
+\sup_{t\le T}|Z_t - \tilde{Z}_t|>\frac{1}{n}
+\right),
+\]
+which implies $\mathbb{P}(\Lambda)=0$, i.e., 
+\[
+\mathbb{P}\bigg(
+\mbox{$Z_t=\tilde{Z}_t$ for all $t\in[0,T]$}
+\bigg)=\mathbb{P}(\Lambda^c)=1.
+\]
+\end{proof}
+
+
+
+
+
+
+
+
+
+\begin{definition}[Ito Integral for Square Integrable Process]
+For any process $\{X_t\}_{t\ge0}\in\mathcal{L}^2$, define the Ito integral
+\begin{equation}
+I_t(X)=Z_t,\quad t\in[0,T],
+\end{equation}
+where $\{Z_t\}_{t\ge0}$ is defined in Theorem~\ref{The:10:2}.
+\end{definition}
+
+\begin{proposition}
+We find the Ito integral
+\[
+\int_0^TB_t\diff B_t=\frac{1}{2}\left[
+B_T^2-T
+\right].
+\]
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+Before the computation, we need to show $\{B_t\}_{t\ge0}$ satisfies the assumption for Ito integral, i.e., $\{B_t\}_{t\ge0}\in\mathcal{L}^2$, which is trivial.
+\item
+Firstly, we need to figure out the simple process $\{B_t^{(n)}\}_{t\ge0}$ that approximating the argument in the integral, say $\{B_t\}_{t\ge0}$.
+Define $\Pi^{(n)}=\{0,t_1^{(n)},t_2^{(n)},\ldots,T\}$ the partition on $[0,T]$, and  construct
+\[
+B_t^{(n)}=B_{t_j^{(n)}},\quad\forall t\in[t_j^{(n)},t_{j+1}^{(n)}).
+\]
+As a consequence,
+\begin{align*}
+\mathbb{E}\left[
+\int_0^T(B_t^{(n)}-B_t)^2\diff t
+\right]&=
+\mathbb{E}\left[\sum_j
+\int_{t_j^{(n)}}^{t_{j+1}^{(n)}}(B_t^{(n)}-B_t)^2\diff t
+\right]=\sum_i\int_{t_j^{(n)}}^{t_{j+1}^{(n)}}\mathbb{E}\left[
+(B_t^{(n)}-B_t)^2
+\right]\diff t\\
+&=\sum_j\int_{t_j^{(n)}}^{t_{j+1}^{(n)}}\mathbb{E}\left[
+(B_{t_j^{(n)}}-B_t)^2
+\right]\diff t=\sum_j\int_{t_j^{(n)}}^{t_{j+1}^{(n)}}(t-t_j^{(n)})\diff t\\
+&=\frac{1}{2}\sum_j(t_{j+1}^{(n)}-t_j^{(n)})^2\le \frac{1}{2}\|\Pi^{(n)}\|\sum_j(t_{j+1}^{(n)}-t_j^{(n)})
+=\frac{1}{2}\|\Pi^{(n)}\| T,
+\end{align*}
+which indicates that as long as we construct $\{B_t^{(n)}\}_{t\ge0}$ such that $\|\Pi^{(n)}\|\to0$, 
+$\mathbb{E}\left[
+\int_0^T(B_t^{(n)}-B_t)^2\diff t
+\right]\to0$ as $n\to\infty$.
+\item
+The Ito integral of the simple process $\{B_t^{(n)}\}_{t\ge0}$ is 
+\[
+I_T(B^{(n)})=\sum_jB_{t_j^{(n)}}(B_{t_{j+1}^{(n)}}-B_{t_j^{(n)}})
+\]
+We will show this term converges to $\frac{1}{2}[B_T^2-T]$ in $L^2$.
+Observe that
+\begin{align*}
+B_{t_j^{(n)}}(B_{t_{j+1}^{(n)}}-B_{t_j^{(n)}})=
+\frac{1}{2}\left[
+B_{t_{j+1}^{(n)}}^2-B_{t_j^{(n)}}^2-\left(
+B_{t_{j+1}^{(n)}}-B_{t_j^{(n)}}
+\right)^2
+\right]
+\end{align*}
+which implies
+\begin{align*}
+I_T(B^{(n)})&=\frac{1}{2}\left[
+\sum_j(B_{t_{j+1}^{(n)}}^2-B_{t_j^{(n)}}^2)-\sum_j\left(
+B_{t_{j+1}^{(n)}}-B_{t_j^{(n)}}
+\right)^2
+\right]\\
+&=\frac{1}{2}\left[
+(B_T^2-B_0^2)-Q(\Pi^{(n)})
+\right]=\frac{1}{2}\left[
+B_T^2-Q(\Pi^{(n)})
+\right]
+\end{align*}
+where $Q(\Pi^{(n)})$ is the quadratic variation of Brownian motion $\{B_t\}_{t\ge0}$ over the partition $\Pi^{(n)}$.
+Recall that $Q(\Pi^{(n)})\xrightarrow{L^2}T$, which implies $I_T(B^{(n)})\xrightarrow{L^2}\frac{1}{2}\left[
+B_T^2-T
+\right]$.
+\end{enumerate}
+So we conclude that
+\[
+I_T(B)\triangleq \int_0^TB_t\diff B_t=\frac{1}{2}\left[
+B_T^2-T
+\right].
+\]
+\end{proof}
+
+\subsection{Properties of Ito Integral}
+
+\begin{proposition}
+For any $\{X_t\}_{t\ge0}\in\mathcal{L}^2$, the Ito integral $\int_0^TX_t\diff B_t$ has the following properties:
+\begin{enumerate}
+\item
+Linearity: let $\{X_t\}_{t\ge0},\{Y_t\}_{t\ge0}\in\mathcal{L}^2$, for any $\alpha,\beta$,
+\[
+\int_0^T(\alpha X_t + \beta Y_t)\diff B_t = \alpha \int_0^TX_t\diff B_t+\beta \int_0^TY_t\diff B_t.
+\]
+\item
+Ito isometry: for any $0\le s<t<T$,
+\[
+\mathbb{E}\left[
+\left(
+\int_s^tX_u\diff B_u
+\right)^2\middle|\mathcal{F}_s
+\right]=\mathbb{E}\left[
+\int_s^tX_u^2\diff u
+\middle|\mathcal{F}_s
+\right].
+\]
+\item
+$\{I_t(X)\}_{t\ge0}\in\mathcal{U}_c^2$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The linearity property is trivial to show, and the third property comes from Theorem~\ref{The:10:2}.
+It suffices to show the second propperty.
+Let $\{X_t^{(n)}\}_{t\ge0}, n=1,2,\ldots$ be the sequence of simple processes approximating $\{X_t\}_{t\ge0}$, and $A\in\mathcal{F}_S$.
+It follows that
+\begin{align*}
+\mathbb{E}\left[
+\left(
+\int_s^tX_u\diff B_u
+\right)^21_A
+\right]&=\mathbb{E}\left[
+\left(
+I_t(X)-I_s(X)
+\right)^21_A
+\right]\\
+&=\mathbb{E}\left[
+\left(
+I_t(X)-I_t(X^{(n)})+I_t(X^{(n)})-I_s(X^{(n)})+I_s(X^{(n)})-I_s(X)
+\right)^21_A
+\right]\\
+&=\underbrace{\mathbb{E}\left[
+\left(
+I_t(X)-I_t(X^{(n)})
+\right)^21_A
+\right]}_{(a)}+
+\underbrace{\mathbb{E}\left[
+\left(
+I_t(X^{(n)})-I_s(X^{(n)})
+\right)^21_A
+\right]}_{(b)}
+\\&+
+\underbrace{\mathbb{E}\left[
+\left(
+I_s(X^{(n)})-I_s(X)
+\right)^21_A
+\right]}_{(c)}\\
+&+\underbrace{2\mathbb{E}\left[
+\left(
+I_t(X)-I_t(X^{(n)})
+\right)\left(
+I_t(X^{(n)})-I_s(X^{(n)})
+\right)1_A
+\right]}_{(d)}\\
+&+\underbrace{2\mathbb{E}\left[
+\left(
+I_t(X)-I_t(X^{(n)})
+\right)\left(
+I_s(X^{(n)})-I_s(X)
+\right)1_A
+\right]}_{(e)}\\
+&+\underbrace{2\mathbb{E}\left[
+\left(
+I_t(X^{(n)})-I_s(X^{(n)})
+\right)\left(
+I_s(X^{(n)})-I_s(X)
+\right)1_A
+\right]}_{(f)}
+\end{align*}
+It is easy to show that $(a),(c)$ vanishes as $n\to\infty$:
+\[
+\mathbb{E}\left[
+\left(
+I_t(X)-I_t(X^{(n)})
+\right)^21_A
+\right]\le 
+\mathbb{E}\left[
+\left(
+I_t(X)-I_t(X^{(n)})
+\right)^2
+\right]\to0.
+\]
+It is also easy to show that $(d),(e),(f)$ vanishes as $n\to\infty$. For instance,
+\begin{align*}
+&\mathbb{E}\left[
+\left(
+I_t(X)-I_t(X^{(n)})
+\right)\left(
+I_t(X^{(n)})-I_s(X^{(n)})
+\right)1_A
+\right]
+\le \mathbb{E}\left[
+\left|
+I_t(X)-I_t(X^{(n)})
+\right|\left|
+I_t(X^{(n)})-I_s(X^{(n)})
+\right|
+\right]\\
+\le& \left(
+ \mathbb{E}\left[
+(
+I_t(X)-I_t(X^{(n)})
+)^2
+\right]
+\right)^{1/2}
+\left(
+ \mathbb{E}\left[
+(
+I_t(X^{(n)})-I_s(X^{(n)})
+)^2
+\right]
+\right)^{1/2}\to0,
+\end{align*}
+as $ \mathbb{E}\left[
+(
+I_t(X)-I_t(X^{(n)})
+)^2
+\right]\to0$ as $n\to\infty$.
+
+It remains to show that the term (b) in fact converges to $\mathbb{E}\left[
+\left(\int_s^tX_u^2\diff u\right)
+1_A
+\right]$ as $n\to\infty$:
+\begin{align*}
+\mathbb{E}\left[
+\left(
+I_t(X^{(n)})-I_s(X^{(n)})
+\right)^21_A
+\right]=\mathbb{E}\left[
+\left(
+\int_s^tX_u^{(n)}\diff B_u
+\right)^21_A
+\right]=\mathbb{E}\left[
+\left(
+\int_s^t(X_u^{(n)})^2\diff u
+\right)1_A
+\right],
+\end{align*}
+and
+\begin{align*}
+&\left|
+\mathbb{E}\left[
+\left(
+\int_s^t(X_u^{(n)})^2\diff u
+\right)1_A
+\right]
+-
+\mathbb{E}\left[
+\left(
+\int_s^t(X_u)^2\diff u
+\right)1_A
+\right]
+\right|\\
+=&\left|
+\mathbb{E}\left[
+\left(
+\int_s^t(X_u^{(n)}+X_u)(X_u^{(n)}-X_u)\diff u
+\right)1_A
+\right]
+\right|\\
+\le&\left|
+\mathbb{E}\left[
+\left(
+\int_s^t|X_u^{(n)}+X_u||X_u^{(n)}-X_u|\diff u
+\right)
+\right]
+\right|\\
+\le&\mathbb{E}\left[
+\int_s^t(X_u^{(n)}+X_u)^2\diff u
+\right]^{1/2}\mathbb{E}\left[
+\int_s^t(X_u^{(n)}-X_u)^2\diff u
+\right]^{1/2}
+\end{align*}
+Note that the first term is bounded:
+\begin{align*}
+\mathbb{E}\left[
+\int_s^t(X_u^{(n)}+X_u)^2\diff u
+\right]&=
+\mathbb{E}\left[
+\int_s^t(X_u^{(n)}-X_u+2X_u)^2\diff u
+\right]\\
+&\le 2\mathbb{E}\left[
+\int_s^t(X_u^{(n)}-X_u)^2\diff u
+\right]+2\mathbb{E}\left[
+\int_s^t(2X_u)^2\diff u
+\right]<\infty.
+\end{align*}
+Together with the fact that the second term vanishes as $n\to\infty$, we assert that
+\[
+\left|
+\mathbb{E}\left[
+\left(
+\int_s^t(X_u^{(n)})^2\diff u
+\right)1_A
+\right]
+-
+\mathbb{E}\left[
+\left(
+\int_s^t(X_u)^2\diff u
+\right)1_A
+\right]
+\right|\to0.
+\]
+Or equivalently,
+\begin{align*}
+\lim_{n\to\infty}\mathbb{E}\left[
+\left(
+I_t(X^{(n)})-I_s(X^{(n)})
+\right)^21_A
+\right]=\lim_{n\to\infty}\mathbb{E}\left[
+\left(
+\int_s^t(X_u^{(n)})^2\diff u
+\right)1_A
+\right]=\mathbb{E}\left[
+\left(
+\int_s^t(X_u)^2\diff u
+\right)1_A
+\right].
+\end{align*}
+The proof is completed.
+
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

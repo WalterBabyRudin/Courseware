@@ -1,0 +1,587 @@
+
+\chapter{Week12}
+
+\section{Tuesday}\index{week7_Tuesday_lecture}
+\subsection{Ito's Formula}
+In this lecture, we will study the Ito's formula, which is very useful for evaluating Ito's integrals.
+The following elementary identity will be used frequently:
+\begin{equation}\label{Eq:12:1}
+X[t_{j+1}]^2 - X[t_{j}]^2 = (X[t_{j+1}] - X[t_{j}])^2 + 2X[t_{j}](X[t_{j+1}] - X[t_{j}])
+\end{equation}
+Now we show how to compute the Ito integral for $X_t^2$ based on this identity:
+\begin{example}
+Suppose that $\{X_t\}_{t\ge0}\in\mathcal{U}_c^2$, and $\Pi=\{t_0<t_1<\cdots<t\}$ is a partition on the interval $[0,t]$. Then take the summation on \eqref{Eq:12:1} both sides yields
+\[
+X_t^2 - X_0^2 = 2\sum_jX[t_{j}](X[t_{j+1}] - X[t_{j}]) + \sum_j(X[t_{j+1}] - X[t_{j}])^2.
+\]
+Taking the limit both sides as $\|\Pi\|\to0$, we have
+\[
+X_t^2-X_0^2 = 2\int_0^tX_s\diff X_s + \langle X\rangle_t.
+\]
+It is the Ito's formula applied to $X_t^2$.
+\end{example}
+
+\begin{theorem}\label{The:12:1}
+Let $\{B_t\}_{t\ge0}$ be a Brownian motion and $f\in\mathcal{C}^2(\mathbb{R})$.
+Then
+\[
+f(B_t) = f(0) + \int_0^tf'(B_u)\diff B_u + \frac{1}{2}\int_0^tf''(B_u)\diff u,
+\]
+almost surely for any $t\ge0$.
+\end{theorem}
+\begin{proof}
+Let $\Pi=\{t_0<t_1<\cdots<t_n=t\}$ be a partition on $[0,t]$, then $f(B_t)$ admits the expansion
+\begin{equation}\label{Eq:12:2}
+f(B_t) = f(0) + \sum_{j=0}^{n-1}[f(B[t_{j+1}])- f(B[t_j])].
+\end{equation}
+By Taylor expansion on the RHS, there exists $\theta_{t_j}(\omega)\in[B[t_j](\omega), B[t_{j+1}](\omega)]$ such that
+\begin{equation}\label{Eq:12:3}
+f(B[t_{j+1}])- f(B[t_j]) = f'(B[t_j])(B[t_{j+1}] - B[t_{j}]) + \frac{1}{2}f''(\theta_{t_j})\cdot(B[t_{j+1}] - B[t_{j}])^2.
+\end{equation}
+Substituting (\eqref{Eq:12:3}) into (\ref{Eq:12:2}) yields
+\[
+f(B_t) - f(0) = \sum_jf'(B[t_j])(B[t_{j+1}] - B[t_{j}]) + \frac{1}{2}\sum_jf''(\theta_{t_j})\cdot(B[t_{j+1}] - B[t_{j}])^2.
+\]
+As $\|\Pi\|\to0$, the term $\sum_jf'(B[t_j])(B[t_{j+1}] - B[t_{j}])\to \int_0^tf'(B_u)\diff B_u$ in probability.
+Then we begin to compute the limit for the second term on RHS.
+\begin{itemize}
+\item
+We first consider the case where $\theta_{t_j}(\omega)\equiv B_{t_j}$.
+\begin{align*}
+&\mathbb{E}\left[
+\sum_jf''(B[t_{j}])\cdot(B[t_{j+1}] - B[t_{j}])^2
+-
+\sum_jf''(B[t_{j}])\cdot(t_{j+1}-t_{j})
+\right]^2\\
+=&
+\mathbb{E}\left[
+\sum_jf''(B[t_{j}])\cdot\left((B[t_{j+1}] - B[t_{j}])^2
+-(t_{j+1}-t_{j})\right)
+\right]^2\\
+=&\sum_j\mathbb{E}\left[
+f''(B[t_{j}])\cdot\left((B[t_{j+1}] - B[t_{j}])^2
+-(t_{j+1}-t_{j})\right)
+\right]^2\\
+&\quad + 2\sum_{j<k}\mathbb{E}\bigg[
+f''(B[t_{j}])\cdot\left((B[t_{j+1}] - B[t_{j}])^2
+-(t_{j+1}-t_{j})\right)
+\bigg]\\
+&\qquad\qquad \times\bigg[
+f''(B[t_{k}])\cdot\left((B[t_{k+1}] - B[t_{k}])^2
+-(t_{k+1}-t_{k})\right)
+\bigg]
+\end{align*}
+The second term vanishes because for any $j<k$, 
+\begin{align*}
+&\mathbb{E}\bigg[
+f''(B[t_{j}])\cdot\left((B[t_{j+1}] - B[t_{j}])^2
+-(t_{j+1}-t_{j})\right)
+\bigg]\\&\qquad\qquad\times\bigg[
+f''(B[t_{k}])\cdot\left((B[t_{k+1}] - B[t_{k}])^2
+-(t_{k+1}-t_{k})\right)
+\bigg]\\
+=&\mathbb{E}\mathbb{E}\bigg[
+f''(B[t_{j}])\cdot\left((B[t_{j+1}] - B[t_{j}])^2
+-(t_{j+1}-t_{j})\right)\bigg|\mathcal{F}_{t_j}
+\bigg]\\&\qquad\qquad\times\bigg[
+f''(B[t_{k}])\cdot\left((B[t_{k+1}] - B[t_{k}])^2
+-(t_{k+1}-t_{k})\right)
+\bigg]\\
+=&\mathbb{E}f''(B[t_{j}])\mathbb{E}\bigg[
+\left((B[t_{j+1}] - B[t_{j}])^2
+-(t_{j+1}-t_{j})\right)\bigg|\mathcal{F}_{t_j}
+\bigg]\\&\qquad\qquad\times\bigg[
+f''(B[t_{k}])\cdot\left((B[t_{k+1}] - B[t_{k}])^2
+-(t_{k+1}-t_{k})\right)
+\bigg]=0,
+\end{align*}
+where the first equality is by tower property and the last equality is because $\{B_t^2-t\}_{t\ge0}$ is a martingale.
+To simplify the first term, observe that 
+\begin{align*}
+&\mathbb{E}\left[
+f''(B[t_{j}])\cdot\left((B[t_{j+1}] - B[t_{j}])^2
+-(t_{j+1}-t_{j})\right)
+\right]^2\\
+=&\mathbb{E}\left[
+f''(B[t_{j}])\cdot\mathbb{E}\left((B[t_{j+1}] - B[t_{j}])^2
+-(t_{j+1}-t_{j})\middle|\mathcal{F}_{t_j}\right)
+\right]^2\\
+=&\mathbb{E}\left[
+f''(B[t_{j}])\cdot2(t_{j+1} - t_j)^2
+\right]^2=2(t_{j+1} - t_j)^2\mathbb{E}\left[
+f''(B[t_{j}])\right]^2
+\end{align*}
+It follows that
+\begin{align*}
+&\sum_j\mathbb{E}\left[
+f''(B[t_{j}])\cdot\left((B[t_{j+1}] - B[t_{j}])^2
+-(t_{j+1}-t_{j})\right)
+\right]^2\\
+=&2\sum_j(t_{j+1} - t_j)^2\mathbb{E}\left[
+f''(B[t_{j}])\right]^2\\
+\le&2\|\Pi\|\sum_j(t_{j+1} - t_j)\mathbb{E}\left[
+f''(B[t_{j}])\right]^2=2t\|\Pi\|\mathbb{E}\left[
+f''(B[t_{j}])\right]^2.
+\end{align*}
+\begin{itemize}
+\item[(a)]
+Suppose that $f''$ is bounded, i.e., $|f''(x)|\le K$ for any $x\in\mathbb{R}$, then as $\|\Pi\|\to0$,
+\[
+\sum_j\mathbb{E}\left[
+f''(B[t_{j}])\cdot\left((B[t_{j+1}] - B[t_{j}])^2
+-(t_{j+1}-t_{j})\right)
+\right]^2\le 2t\|\Pi\|K^2\to0,
+\]
+which means that $\sum_jf''(B[t_{j}])\cdot(B[t_{j+1}] - B[t_{j}])^2
+\xrightarrow{L^2}
+\sum_jf''(B[t_{j}])\cdot(t_{j+1}-t_{j})$ and therefore in probability.
+Also, by the Lebesgue integration knowledge, since $f''$ is continuous and $B_t$ is almost surely continuous, the term $\sum_jf''(B[t_{j}])\cdot(t_{j+1}-t_{j})$ converges to $\int_0^tf''(B_u)\diff u$ almost surely.
+As a result, \[\sum_jf''(B[t_{j}])\cdot(B[t_{j+1}] - B[t_{j}])^2
+\xrightarrow{P}\int_0^tf''(B_u)\diff u.\]
+\item[(b)]
+Now consider the case where $f''$ is unbounded, then for any $K$, we wish to show that 
+\[
+\sum_jf''(B[t_{j}])\cdot\left[(B[t_{j+1}] - B[t_{j}])^2
+-(t_{j+1}-t_{j})
+\right]
+\xrightarrow{P}
+0.
+\]
+We apply the truncation technique so that
+\begin{align*}
+&f''(B[t_{j}])\cdot\left[(B[t_{j+1}] - B[t_{j}])^2
+-(t_{j+1}-t_{j})
+\right]\\=&
+f''(B[t_{j}])1\{|f''(B[t_{j}])|\le K\}\cdot\left[(B[t_{j+1}] - B[t_{j}])^2
+-(t_{j+1}-t_{j})
+\right]\\
+&\quad  + f''(B[t_{j}])1\{|f''(B[t_{j}])|> K\}\cdot\left[(B[t_{j+1}] - B[t_{j}])^2
+-(t_{j+1}-t_{j})
+\right]
+\end{align*}
+By applying the result in the part (a), as $\|\Pi\|\to0$, 
+\[
+\sum_jf''(B[t_{j}])1\{|f''(B[t_{j}])|\le K\}\cdot\left[(B[t_{j+1}] - B[t_{j}])^2
+-(t_{j+1}-t_{j})
+\right]\to0.
+\]
+The remainder term can be upper bounded as the following:
+\begin{align*}
+&\bigg|
+\sum_jf''(B[t_{j}])1\{|f''(B[t_{j}])|> K\}\cdot\left[(B[t_{j+1}] - B[t_{j}])^2
+-(t_{j+1}-t_{j})
+\right]
+\bigg|\\
+\le&\max_j\bigg|
+f''(B[t_{j}])1\{|f''(B[t_{j}])|> K\}
+\bigg|\cdot\sum_j\bigg|
+(B[t_{j+1}] - B[t_{j}])^2
+-(t_{j+1}-t_{j})
+\bigg|\\
+\le&\max_{0\le u\le t}\bigg|
+f''(B[t_{j}])1\{|f''(B[t_{j}])|> K\}
+\bigg|\cdot\left[
+\sum_j(B[t_{j+1}] - B[t_{j}])^2+t
+\right]
+\end{align*}
+Applying Theorem~\ref{The:7:8} gives $\sum_j(B[t_{j+1}] - B[t_{j}])^2\to t$ in probability.
+By the continuity of $f''$ and $B_t$ on the interval $[0,t]$, 
+\[
+\max_{0\le u\le t}\bigg|
+f''(B[t_{j}])1\{|f''(B[t_{j}])|> K\}
+\bigg|\to0,\qquad\text{as }K\to\infty.
+\]
+Hence,
+\[
+\sum_jf''(B[t_{j}])1\{|f''(B[t_{j}])|\le K\}\left[(B[t_{j+1}] - B[t_{j}])^2
+-(t_{j+1}-t_{j})
+\right]\xrightarrow{P}0,\quad\text{as }\|\Pi\|\to0.
+\]
+As a result, 
+\[\sum_jf''(B[t_{j}])\cdot(B[t_{j+1}] - B[t_{j}])^2\xrightarrow{P}
+\sum_jf''(B[t_{j}])\cdot(t_{j+1}-t_{j})\xrightarrow{P}\int_0^tf''(B_u)\diff u.
+\]
+\end{itemize}
+\item
+Now consider the case where $\theta_{t_j}\ne B_{t_j}$. 
+It remains to show that $\sum_jf''(\theta[t_j])(B[t_{j+1}] - B[t_j])^2$ converges to $\int_0^tf''(B_u)\diff u$ in probability:
+\begin{align*}
+&\bigg|
+\sum_jf''(\theta[t_j])(B[t_{j+1}] - B[t_j])^2-\sum_jf''(B[t_j])(B[t_{j+1}] - B[t_j])^2
+\bigg|\\
+=&
+\bigg|
+\sum_j[f''(\theta[t_j]) - f''(B[t_j])](B[t_{j+1}] - B[t_j])^2
+\bigg|\\
+\le&\max_{j}\left|
+f''(\theta[t_j]) - f''(B[t_j])
+\right|\cdot \sum_j(B[t_{j+1}] - B[t_j])^2
+\end{align*}
+By Theorem~\ref{The:7:8} we can see that $\sum_j(B[t_{j+1}] - B[t_j])^2\xrightarrow{P}t$.
+For almost all $\omega\in\Omega$, by the continuity and thus uniform continuity of $f''(B_t)$, 
+\[
+\max_{j}\left|
+f''(\theta[t_j]) - f''(B[t_j])
+\right|\to0.
+\]
+Hence, 
+\[
+\sum_jf''(\theta[t_j])(B[t_{j+1}] - B[t_j])^2\xrightarrow{P}\sum_jf''(B[t_j])(B[t_{j+1}] - B[t_j])^2
+\xrightarrow{P}\int_0^tf''(B_u)\diff u.
+\]
+
+\end{itemize}
+\end{proof}
+
+
+\begin{definition}[Ito Processes]
+An Ito process is a stochastic process $X_{\bullet}$ on $(\Omega,\mathcal{F},\mathbb{F},\mathbb{P})$ of the form 
+\begin{equation}\label{Eq:12:4}
+X_t = X_0 + \int_0^t\mu[u]\diff u + \int_0^t\sigma[u]\diff B[u],\quad 0\le t\le T,
+\end{equation}
+where $X_0$ is a $\mathcal{F}_0$-measurable random variable; $\{\mu_t\}_{t\ge0}$ is $\{\mathcal{F}_t\}$-adapted so that 
+\[
+\mathbb{P}\bigg[
+\int_0^t|\mu_u|\diff u<\infty,\quad\text{for all }t\ge0
+\bigg]=1;
+\]
+and $\{\sigma_t\}_{t\ge0}$ is $\{\mathcal{F}_t\}$-adapted so that 
+\[
+\mathbb{P}\bigg[
+\int_0^t\sigma_u^2\diff u<\infty,\quad\text{for all }t\ge0
+\bigg]=1.
+\]
+Sometimes we also write (\eqref{Eq:12:4}) as the stochastic differential form
+\[
+\diff X_t = \mu_t\diff t + \sigma_t\diff B_t.
+\]
+\end{definition}
+
+Now we are ready to show the main result of this lecture:
+\begin{theorem}[Ito Formula for $1$-dimension]
+Let $\{X_t\}_{t\ge0}$ be an Ito process with stochastic differential 
+\[
+\diff X_t= \mu_t\diff t + \sigma_t\diff B_t.
+\]
+Let $f\in\mathcal{C}^2(\mathbb{R})$, then $f(X_t)$ is again an Ito process, with
+the following equality holds almost surely:
+\[
+f(X_t) = f(X_0) + \int_0^tf'(X_u)\diff X_u + \frac{1}{2}\int_0^tf''(X_u)(\diff X_u)^2.
+\]
+In particular, $(\diff X_t)^2$ can be computed according to the rules
+\[
+(\diff t)^2=(\diff t)(\diff B_t)=(\diff B_t)(\diff t)=0,\quad (\diff B_t)^2=\diff t.
+\]
+So we further have the representation
+\[
+f(X_t) = f(X_0) + \int_0^tf'(X_u)\mu_u\diff u + \frac{1}{2}\int_0^tf''(X_u)\sigma_u^2\diff u 
++\int_0^tf'(X_u)\sigma_u\diff B_u,\quad\forall t\ge0
+\]
+\end{theorem}
+
+\begin{remark}
+The Ito process $\{f(X_t)\}_{t\ge0}$ has the stochastic differential form
+\[
+\diff f(X_t)=\bigg[
+f'(X_t)\mu_t+\frac{1}{2}f''(X_t)\sigma_t^2
+\bigg]\diff t + f'(X_t)\sigma_t\diff B_t.
+\]
+\end{remark}
+
+The proof follows the similar idea as stated in Theorem~\ref{The:12:1}. Here we only provide a sketrch of the proof:
+\begin{proof}[Outline of Proof]
+Let $\Pi=\{t_0<t_1<\cdots<t_n=t\}$ be a partition on $[0,t]$, then $f(X_t)$ admits the expansion
+\begin{equation}\label{Eq:12:5}
+\begin{aligned}
+f(X_t)&=f(X_0) + \sum_j\bigg[
+f(X[t_{j+1}]) - f(X[t_j])
+\bigg]\\
+&=f(X_0) + \sum_j\bigg[
+f'(X[t_j])(X[t_{j+1}] - X[t_j]) + \frac{1}{2}f''(\theta[t_j])(X[t_{j+1}] - X[t_j])^2
+\bigg]
+\end{aligned}
+\end{equation}
+\begin{enumerate}
+\item[(a)]
+First consider the case where $\{\mu_t\}$ and $\{\sigma_t\}$ are simple processes, then
+\[
+X[t_{j+1}] - X[t_j] = \mu[t_j](t_{j+1} - t_{j}) + \sigma[t_j](B[t_{j+1}] - B[t_{j}]) 
+\]
+Substituting this into (\eqref{Eq:12:5}) gives
+\begin{align*}
+f(X_t)&=f(X_0) + \sum_jf'(X[t_j])\mu[t_j](t_{j+1} - t_{j}) + \sum_jf'(X[t_j])\sigma[t_j](B[t_{j+1}] - B[t_{j}])\\
+&\quad + \frac{1}{2}\sum_jf''(\theta[t_j])(X[t_{j+1}] - X[t_j])^2.
+\end{align*}
+Assume that $\theta[t_j]=X[t_j]$, then we first show $\sum_jf''(X[t_j])(X[t_{j+1}] - X[t_j])^2\xrightarrow{P}\sum_jf''(X[t_j])\sigma[t_j]^2(t_{j+1}-t_j)$, and then show that 
+\[
+\sum_jf''(X[t_j])\sigma[t_j]^2(t_{j+1}-t_j)\xrightarrow{a.s.}\frac{1}{2}\int_0^tf''(X_u)\sigma_u^2\diff u.
+\]
+For the case where $\theta[t_j]\ne X[t_j]$, we will show that
+\[
+\bigg|
+\sum_jf''(\theta[t_j])(X[t_{j+1}] - X[t_j])^2
+-
+\sum_jf''(X[t_j])(X[t_{j+1}] - X[t_j])^2
+\bigg|\xrightarrow{a.s.}0.
+\]
+\item[(b)]
+For general processes $\{\mu_t\}_{t\ge0}$ and $\{\sigma_t\}_{t\ge0}$, we will use the approximation of simple processes.
+\end{enumerate}
+\end{proof}
+
+\begin{example}
+Let $\{X_t\}_{t\ge0}$ be the drifted Brownian motion:
+\[
+X_t=\mu t + B_t,\quad \mu\in\mathbb{R}.
+\]
+Then we apply the Ito's formula to compute the stochastic differential form of $X^2$:
+\begin{itemize}
+\item
+Take $f(x)=x^2$ and $f'(x)=2x, f''(x)=2$. Hence,
+\begin{align*}
+\diff f(X_t)&=\diff X_t^2\\
+&=(2\mu X_t + 1)\diff t + 2X_t\diff B_t.
+\end{align*}
+\end{itemize}
+\end{example}
+
+The Ito's formula can also be generalized into multiple processes:
+\begin{theorem}[Ito's Formula]\label{The:12:3}
+Let $\{X_t^{(1)}\}_{t\ge0},\ldots, \{X_t^{(d)}\}_{t\ge0}$ be continuous semi-martingales, and $f\in\mathcal{C}^2(\mathbb{R})$, then
+\begin{align*}
+f(X_t^{(1)},\ldots, X_t^{(d)})&=f(X_0^{(1)},\ldots, X_0^{(d)})\\
+&\quad + \sum_{j=1}^d\int_0^t\frac{\partial f}{\partial X_j}(X_u^{(1)},\ldots, X_u^{(d)})\diff X_u^{(j)}\\
+&\quad + \frac{1}{2}\sum_{j,k=1}^d\int_0^t\frac{\partial^2 f}{\partial X_j\partial X_k}(X_u^{(1)},\ldots, X_u^{(d)})\diff\inp{X^{(j)}}{X^{(k)}}_u
+\end{align*}
+In particular, $\diff\inp{B_i}{B_j}=1(i=j)\diff t$ and $\diff\inp{B_i}{t}=\diff\inp{t}{B_i}=0$.
+\end{theorem}
+Recall that in discrete case, any real-valued process is a semi-martingale, while it is not true for continuous case. We define the semi-martingale for continuous case as the following:
+\begin{definition}[Semi-martingale]
+We say $X_{\bullet}$ is a semi-martingale if it admits the decomposition
+\[
+X_t = A_t + M_t,
+\]
+where $M_{\bullet}$ is a continuous local martingale, and $A_{\bullet}$ is an adapted process of finite variations:
+\[
+|A|(t)\equiv\sup_{\delta>0, t_0=0}\sup_{t_n - t_{n-1}\ge\delta}
+\sum_{n=1}^\infty1(t_n\le t)|A[t_n] - A[t_{n-1}]|<\infty,\quad\forall t\ge0.
+\]
+\end{definition}
+
+\begin{remark}
+Suppose that $X^{(j)}$ admits the decomposition $X^{(j)}_t=A_t^{(j)} + M_t^{(j)}$, then
+\begin{align*}
+\sum_{j=1}^d\int_0^t\frac{\partial f}{\partial X_j}(X_u^{(1)},\ldots, X_u^{(d)})\diff X_u^{(j)}
+&=\sum_{j=1}^d\int_0^t\frac{\partial f}{\partial X_j}(X_u^{(1)},\ldots, X_u^{(d)})\diff M_u^{(j)}\\
+&\quad + \sum_{j=1}^d\int_0^t\frac{\partial f}{\partial X_j}(X_u^{(1)},\ldots, X_u^{(d)})\diff A_u^{(j)}
+\end{align*}
+Moreover, we can show that $\inp{X^{(j)}}{X^{(k)}} = \inp{M^{(j)}}{M^{(k)}}$.
+Then the process $\{f(X_t^{(1)},\ldots, X_t^{(d)})\}_{t\ge0}$ also admits the semi-martingale decomposition:
+\[
+f(X_t^{(1)},\ldots, X_t^{(d)}) = A_t^f + M_t^f,
+\]
+where
+\begin{align*}
+M_t^f &= f(X_0^{(1)},\ldots, X_0^{(d)}) + \sum_{j=1}^d\int_0^t\frac{\partial f}{\partial X_j}(X_u^{(1)},\ldots, X_u^{(d)})\diff M_u^{(j)},\\
+A_t^f&=\sum_{j=1}^d\int_0^t\frac{\partial f}{\partial X_j}(X_u^{(1)},\ldots, X_u^{(d)})\diff A_u^{(j)}\\
+&\quad + \frac{1}{2}\sum_{j,k=1}^d\int_0^t\frac{\partial^2 f}{\partial X_j\partial X_k}(X_u^{(1)},\ldots, X_u^{(d)})\diff\inp{M^{(j)}}{M^{(k)}}_u
+\end{align*}
+\end{remark}
+
+\begin{example}
+We can also apply Theorem~\ref{The:12:3} to obtain an ``integration by parts'' formula.
+Suppose that $X_{\bullet}$ and $Y_{\bullet}$ are semi-martingales, then by direct computation with $f(X_t,Y_t)= X_tY_t$,
+\[
+X_tY_t - X_0Y_0 = \int_0^tX_s\diff Y_s + \int_0^tY_s\diff X_s + \inp{X}{Y}_t
+\]
+Suppose that $X_t$ and $Y_t$ admits the semi-martingale decomposition
+\[
+X_t = M_t + A_t,\quad Y_t = N_t + W_t,
+\]
+then $XY$ also admits the semi-martingale decomposition
+\[
+X_tY_t = \left[X_0Y_0 + \int_0^tX_s\diff N_s + \int_0^tY_s\diff M_s\right]
++\left[
+\int_0^tX_s\diff W_s + \int_0^tY_s\diff A_s + \inp{M}{N}_t
+\right]
+\]
+\end{example}
+
+\subsection{Applications of Ito's Formula}
+
+Here we presents some examples for how to use Ito's formula.
+
+\begin{example}
+We aim to sovle the following stochastic differential equation with $X_t=M_t+A_t$ being a continuous semi-martingale;
+\begin{equation}
+\diff Z_t = Z_t\diff X_t,\quad  Z_0=1.
+\end{equation}
+This equation is called the stochastic exponential of $X$,
+which can be re-written as the integral form:
+\begin{equation}\label{Eq:12:7}
+Z_t = 1 + \int_0^tZ_u\diff X_u,
+\end{equation}
+where the integration refers to the Ito's integral.
+We guess the solution should be $Z_t=\exp(X_t + V_t)$, with $V_t$ to be determined.
+Applying Ito's formula on $Z_t$ with $f(\zeta)=\exp(\zeta)$ $(\zeta=X+V)$ gives
+\begin{align*}
+Z_t &= 1 + \int_0^tZ_u\diff(X_u+V_u) +\frac{1}{2}\int_0^tZ_u\diff\langle X+V\rangle_u\\
+&=1 + \int_0^tZ_u\diff X_u +  \int_0^tZ_u\diff V_u +\frac{1}{2}\int_0^tZ_u\diff\langle M+V\rangle_u
+\end{align*}
+In order to satisfy (\eqref{Eq:12:7}), we take $V_t=-\frac{1}{2}\langle M\rangle_t$. As a result, $\exp\left(
+X_t - \frac{1}{2}\langle M\rangle_t
+\right)$ is the solution to (\eqref{Eq:12:7}), which is called the stochastic exponential.
+\end{example}
+
+
+\begin{example}[Levy's characterization of Brownian Motion]
+Levy states that the quadratic variational process of a continuous local martingale will characterize the Brownian motion uniquely:
+\begin{theorem}[Levy's Theorem]
+Consider the filtered probability space $(\Omega, \mathcal{F},\mathbb{F},\mathbb{P})$ satisfying the usual condition. Let $\{M_t\}_{t\ge0}$ be a stochastic process on this filtered probability space, with $M_0=0$ almost surely.
+Then the process $\{M_t\}_{t\ge0}$ is a Brownian motion if and only if:
+\begin{enumerate}
+\item
+$\{M_t\}_{t\ge0}$ is a continuous local martingale with respect to $\mathbb{F}$;
+\item
+The quadratic variation $\langle M\rangle_t=t$ almost surely.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+In order to show the sufficiency, we construct $Z_t^{(\zeta)}=\exp\left(
+\zeta M_t - \frac{\zeta^2}{2}t
+\right)$.
+By Ito's formula on $Z_t^{(\zeta)}$ and $f(x)=e^x$, for $0\le s<t$, we have
+\[
+\diff Z_t^{(\zeta)}=\zeta Z_t^{(\zeta)}\diff M_t.
+\]
+It indicates that $Z_t^{(\zeta)}$ is a martingale, by the uniqueness of semi-martingale decomposition. Re-arranging the term $\mathbb{E}[Z_t^{(\zeta)}\mid\mathcal{F}_s]=Z_s^{(\zeta)}$ yields
+\[
+\mathbb{E}[\exp(\zeta(M_t - M_s))\mid\mathcal{F}_s] = \exp\left(
+\frac{\zeta^2}{2}(t-s)
+\right),
+\]
+which, together with the uniqueness of characterization function, explains that $M_t$ is a Brownian motion.
+\end{proof}
+
+\end{example}
+
+A third application indicates that when a continuous local martingale is applied time-change, it is a Brownian motion:
+\begin{theorem}
+Consider a stochastic process $\{M_t\}_{t\ge0}$ on $(\Omega, \mathcal{F},\mathbb{F},\mathbb{P})$,
+where $\{M_t\}_{t\ge0}$ is a continuous local martingale with initial value equal to $0$ and $\langle M\rangle_\infty=\infty$.
+Let $\tau_t=\inf\{u:~\langle M\rangle_u>t\}$.
+Then for $\forall t\ge0$, $\tau_t$ is a stopping time, and $B_t\equiv M_{\tau_t}$ is a $\mathcal{F}_{\tau_t}$-Brownian motion with $M_t=B_{\langle M\rangle_t}$.
+\end{theorem}
+\begin{proof}[Proof Outline]
+We call the increasing sequence of stopping time $\{\tau_t\}_{t\ge0}$ the time-change.
+Since $\langle M\rangle_\infty=\infty$ almost surely, we can assert that each $\tau_t$ is finite almost surely.
+By the continuity of $\{M_t\}_{t\ge0}$, we have $\langle M\rangle_{\tau_t}=t$.
+Applying the optional samping theorem on $\{M_{u\land\tau_t}\}_{u\ge0}$ gives
+\[
+\mathbb{E}[M_{\tau_t}\mid\mathcal{F}_{\tau_u}]=M_{\tau_u},
+\]
+which implies that $B_t$ is a $\mathcal{F}_{\tau_t}$-local martingale. 
+%%%
+Applying the optional samping theorem on $\{M_{u\land\tau_t}^2 - \langle M\rangle_{u\land\tau_t}\}_{u\ge0}$ gives
+\[
+\mathbb{E}[
+M_{\tau_t}^2 -  \langle M\rangle_{\tau_t}\mid\mathcal{F}_{\tau_u}
+]
+=
+M_{\tau_u}^2 -  \langle M\rangle_{\tau_u}.
+\]
+This implies that $\{B_t^2-t\}$ is a $\mathcal{F}_{\tau_t}$-local martingale. 
+%% why it is necessary?
+By Levy's characterization, together with the continuity of $B_t$, we conclude that $\{B_t\}_{t\ge0}$ is a $\mathcal{F}_{\tau_t}$-Brownian motion.
+\end{proof}
+
+\begin{example}
+Consider a probability space $(\Omega, \mathcal{F},\mathbb{F},\mathbb{P})$. Let $T>0$ and $Q$ be a probability measure on $(\Omega,\mathcal{F}_{T})$ that is absolutely continuous with respect to $\mathbb{P}$. Denote $\zeta = \left.\frac{\diff Q}{\diff\mathbb{P}}\right|_{\mathcal{F}_{T}}$.
+Then for any $\mathcal{F}_T$-measurable bounded random variable $X$, we have
+\[
+\int_{\Omega}X(\omega)\diff Q(\omega) = \int_{\Omega} X(\omega)\zeta(\omega)\diff\mathbb{P}(\omega).
+\]
+Or equivalently, $\mathbb{E}_{X\sim Q}[X] = \mathbb{E}_{X\sim \mathbb{P}}[\zeta X]$.
+
+Conversely, let $T>0$ and $\{Z_t\}_{t\ge0}$ be a continuous martingale on $(\Omega, \mathcal{F},\mathbb{F},\mathbb{P})$ with $Z_0\equiv1$ and $Z_t(\omega)>0,\forall (t,\omega)\in[0,T]\times\Omega$.
+Define a probability measure $Q$ on $(\Omega,\mathcal{F}_T,\mathbb{P})$ to be $Q(A)=\mathbb{E}[Z_T1_A], A\in\mathcal{F}_T$. Then we have $\left.\frac{\diff Q}{\diff\mathbb{P}}\right|_{\mathcal{F}_{T}}=Z_T$. Because $\{Z_t\}_{t\ge0}$ is a martingale, then for any $t\le T$, we have 
+\[
+\left.\frac{\diff Q}{\diff\mathbb{P}}\right|_{\mathcal{F}_{t}}=Z_t.
+\]
+\end{example}
+
+\begin{theorem}[Girsanov]
+Let $M_{\bullet}$ be a continuous local martingale on $(\Omega, \mathcal{F},\mathbb{F},\mathbb{P})$ with $0\le t\le T$, and $Z_{\bullet}$ be a continuous martingale, strictly positive, and initial value equal to $1$.
+Then the process $X_t\equiv M_t - \int_0^tZ_u\diff\inp{M}{Z}_u$ is a continuous local martingale on $(\Omega, \mathcal{F},\mathbb{F},\mathbb{Q})$.
+\end{theorem}
+\begin{proof}[Proof Outline]
+By the technique of localization, we assume that $M,Z,\frac{1}{Z}$ are all bounded.
+It suffices to show that $X$ is a martingale w.r.t. the probability measure $Q$, i.e., for any $0\le u<t\le T$, $\mathbb{E}^{\mathbb{Q}}[1_A(X_t - X_u)]=0,\forall A\in\mathcal{F}_u$.
+By definition,
+\[
+\mathbb{E}^{\mathbb{Q}}[1_A(X_t - X_u)]=\mathbb{E}^{\mathbb{P}}[1_A(Z_tX_t - Z_uX_u)].
+\]
+It remains to show that $\{Z_tX_t\}$ is a martingale w.r.t. the probability measure $\mathbb{P}$.
+Applying the integration by parts gives
+\begin{align*}
+Z_tX_t&=Z_0X_0+\int_0^tZ_s\diff X_s + \int_0^tX_s\diff Z_s + \inp{X}{Z}_t\\
+&=Z_0X_0+\int_0^tZ_s\left(\diff M_s - \frac{1}{Z_s}\diff \inp{M}{Z}_s\right) + \int_0^tX_s\diff Z_s + \inp{X}{Z}_t\\
+&=Z_0X_0 + \int_0^tZ_s\diff M_s + \int_0^tX_s\diff Z_s.
+\end{align*}
+By the uniqueness of semi-martingale decomposition, we can see that $\{Z_tX_t\}$ is a martingale.
+\end{proof}
+
+\paragraph{Motivation for Martingale Representation Theorem}
+The last application we will discuss is the martingale representation theorem. 
+Previously we noticed that if the stochastic process $\{f_t\}_{t\ge0}\in\mathcal{L}^2$, i.e., is square-integrable, then the process $X_t=X_0+\int_0^tf_s\diff B_s$ is always a martingale w.r.t. $\mathcal{F}_t$.\footnote{This can be shown either by directly applying definition or by the uniqueness of semi-martingale decomposition.}
+The martingale representation theorem states that the converse is also true: any $\mathcal{F}_t$-martingale can be represented as an Ito's integral.
+\begin{theorem}[Martingale Representation Theorem]\label{The:12:7}
+Let $B_{\bullet}$ be a standard Brownian motion on a complete probability space $(\Omega, \mathcal{F},\mathbb{P})$, and $\mathbb{F}^0\equiv\{\mathcal{F}_t^0\}_{t\ge0}$ be the natural filtration generated by $B_{\bullet}$, with $\mathcal{F}_\infty^0=\sigma\left(
+\cup_{t\ge0}\mathcal{F}_t^0
+\right)$. Let $\mathcal{F}_\infty,\mathcal{F}$ be the completion of $\mathcal{F}_\infty^0,\mathcal{F}^0$, respectively, and denote $\mathbb{F}\equiv \{\mathcal{F}_t\}_{t\ge0}$.
+Then consider a square-integrable martingale $M_{\bullet}$ on the filtered probability space $(\Omega, \mathcal{F},\mathbb{F},\mathbb{P})$.
+There exists a stocastic process $\{f_t\}_{t\ge0}\in\mathcal{L}^2$ so that
+\[
+M_t = \mathbb{E}[M_0] + \int_0^tf_u\diff B_u.
+\]
+\end{theorem}
+This theorem relies on an important auxiliary result:
+\begin{quotation}
+Let $\zeta\in L^2(\Omega,\mathcal{F}_T,\mathbb{P})$, then there exists $f_{\bullet}\in\mathcal{L}^2$ so that 
+\[
+\zeta = \mathbb{E}[\zeta] + \int_0^Tf_t\diff B_t.
+\]
+\end{quotation}
+\begin{proof}[Proof for Theorem~\ref{The:12:7}]
+Assume the claim is true, then for the martingale $M_{\bullet}$ with $M_T\in L^2(\Omega,\mathcal{F}_T,\mathbb{P})$, there exists $\{f_t\}\in\mathcal{L}^2$ so that 
+\[
+M_T = \mathbb{E}[M_T]  + \int_0^Tf_t\diff B_t = \mathbb{E}[M_0] + \int_0^Tf_t\diff B_t.
+\]
+Hence for any $t\in[0,T]$, by the martingability of $M_{\bullet}$, 
+\[
+M_t=\mathbb{E}[M_T\mid\mathcal{F}_t]=\mathbb{E}[M_0] + \int_0^tf_u\diff B_u.
+\]
+\end{proof}
+
+This key auxiliary result can be shown by applying Ito's formula:
+\begin{proof}[Proof on the Claim]
+Let $T>0$ and define the stochastic exponential martingale for any $f\in\mathcal{L}^2([0,T])$:
+\[
+\mathcal{E}[f]_t=\exp\left\{
+\int_0^tf(u)\diff B_u - \frac{1}{2}\int_0^tf^2(u)\diff u
+\right\},\quad t\in[0,T].
+\]
+Then we can show that $\ell\equiv\text{span}\{\mathcal{E}[f]_t:~f\in\mathcal{L}^2([0,T])\}$ is dense in the space $L^2(\Omega,\mathcal{F}_T,\mathbb{P})$.
+It remains to verify this claim when $\zeta=\mathbb{E}[f]_t$ for some $f\in \mathcal{L}^2([0,T])$.
+Directly applying Ito's formula gives
+\[
+\diff\mathcal{E}[f]_t=f(t)\mathcal{E}[f]_t\diff B_t\implies
+\mathbb{E}[f]_t = 1 + \int_0^Tf(t)\mathcal{E}[f]_t\diff B_t.
+\]
+\end{proof}
+
+
+
+
+
+
