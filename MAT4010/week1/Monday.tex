@@ -1,258 +1,191 @@
 
 \chapter{Week1}
 
-\section{Tuesday}\index{Tuesday_lecture}
-\subsection{Difference between ODE and SDE}
-We first discuss the difference between deterministic differential equations and stochastic ones by considering several real-life problems.
-\paragraph{Problem 1: Population Growth Model}
-Consider the first-order ODE
-\[
-\left\{
-\begin{aligned}
-\frac{\diff N(t)}{\diff t} &= a(t)N(t)\\
-N(0)&=N_0
-\end{aligned}
-\right.
-\]
-where $N(t)$ denotes the \emph{size} of the population at time $t$; $a(t)$ is the given (deterministic) function describing the \emph{rate} of growth of population at time $t$;
-and $N_0$ is a given constant.
+\section{Monday}\index{Monday_lecture}
 
-If $a(t)$ is not completely known, e.g.,
-\[
-a(t) = r(t)\cdot\mbox{noise},
-\mbox{ or }
-r(t)+\mbox{noise},
-\]
-with $r(t)$ being a deterministic function of $t$, and the ``noise'' term models something random.
-The question arises: How to \textit{rigorously} describe the ``noise'' term and solve it?
+\subsection{Metric Space}
 
-\paragraph{Problem 2: Electric Circuit}
-Let $Q(t)$ denote the charge at time $t$ in an electrical circuit, which admits the following ODE:
-\[
-\left\{
-\begin{aligned}
-LQ''(t)+RQ'(t)+\frac{1}{C}Q(t)&=F(t),\\
-Q(0)=Q_0,\quad Q'(0)&=Q_0'
-\end{aligned}
-\right.
-\]
-where $L$ denotes the inductance, $R$ denotes the resistance, $C$ denotes the {capacity}, and 
-$F(t)$ denotes the potential source.
-
-Now consider the scenario where $F(t)$ is not completely known, e.g.,
-\[
-F(t)=G(t)+\mbox{noise}
-\]
-where $G(t)$ is deterministic. 
-The question is how to solve the problem.
-
-\begin{remark}
-The differential equations above involving non-deterministic coefficients are called the \emph{stochastic differential equations}~(SDEs).
-Clearly, the solution to an SDE should involve the randomness.
-\end{remark}
-
-
-\subsection{Applications of SDE}
-Now we discuss some applications of SDE shown in the finance area.
-\paragraph{Problem 3: Optimal Stopping Problem} Suppose someone holds an asset 
-(e.g., stock, house). 
-He plans to sell it at some future time. 
-Denote $X(t)$ as the price of the asset at time $t$, satisfying the following dynamics:
-\[
-\frac{\diff X(t)}{\diff t}=rX(t)+\alpha X(t)\cdot\mbox{noise}
-\]
-where $r,\alpha$ are given constants. 
-The goal of this person is to maximize the expected selling price:
-\[
-\begin{array}{ll}
-\sup\limits_{\tau\ge0}
-&
-\mathbb{E}[X(\tau)]
-\end{array}
-\]
-where the optimal solution $\tau^*$ is the optimal stopping time.
-
-\paragraph{Problem 4: Portfolio Selection Problem}
-Suppose a person is interested in two types of assets:
+\begin{definition}[Metric Space]
+A metric space is a pair $(X,\textsf{d})$,
+where $X$ is a set and $\textsf{d}$ is a metric on $X$,
+i.e., a function defined on $X\times X$ such that for any $x,y,z\in X$,
 \begin{itemize}
 \item
-A risk-free asset which generates a deterministic return $\rho$, whose price $X_1(t)$ follows a deterministic dynamics
-\[
-\frac{\diff X_1(t)}{\diff t}=\rho X_1(t),
-\]
+$\textsf{d}$ is real-valued, non-negative, and finite;
 \item
-A risky asset whose price $X_2(t)$ satisfies the following SDE:
-\[
-\frac{\diff X_2(t)}{\diff t}=\mu X_2(t)+\sigma X_2(t)\cdot\mbox{noise}
-\]
-where $\mu,\sigma>0$ are given constants.
+$\textsf{d}(x,y)=0$ if and only if $x=y$;
+\item
+$\textsf{d}(x,y)=\textsf{d}(y,x)$;
+\item
+$\textsf{d}(x,y)\le \textsf{d}(x,z) + \textsf{d}(z,y)$.
 \end{itemize}
-The policy of the investment is as follows.
-The wealth at time $t$ is denoted as $v(t)$. 
-This person decides to invest the fraction $u(t)$ of his wealth into the risky asset, with the remaining $1-u(t)$ part to be invested into the safe asset. 
-Suppose that the utility function for this person is $U(\cdot)$, and his goal is to maximize the expected total wealth at the terminal time $T$:
-\[
-\max_{u(t),0\le t\le T}\mathbb{E}[U(v^u(T))]
-\]
-where the decision variable is the portfolio function $u(t)$ along whole horizon $[0,T]$.
-
-
-%If we impose no-shot selling constant, we further require
-%\[
-%0\le u(t)\le 1,\forall t\in[0,T]
-%\]
-
-\paragraph{Problem 5: Option Pricing Problem}
-The financial derivates are products in the market whose value depends on the underlying asset.
-The European call option is a typical financial derivative.
-Suppose that the underlying asset is stock $A$, whose price at time $t$ is $X(t)$.
-Then the call option gives the option holder the right (not the obligation) to buy one unit of stock A at a specified price (strike price) $K$ at maturity date $T$.
-The task is to inference the fair price of the option at the current time.
-The formula for the price of the option is the following:
-\[
-c_0 = \mathbb{E}[
-(X(T) - K)^+
-]
-\]
-which is the famous Black-Sholes-Merton Formula.
-
-%Suppose at time $0$, a person in the long position in an European call option has the right to buy the asset at a specified price $K$ at some future time $t$. How much the person should pay to the short position for the option? We can model this problem by Black-Sholes Formula.
-
-\subsection{Reviewing for Probability Space}
-Firstly, we review some basic concepts in real analysis.
-\begin{definition}[$\sigma$-Algebra]
-A set $\mathcal{F}$ containing subsets of $\Omega$ is called a $\sigma$-algebra if:
-\begin{enumerate}
-\item
-$\Omega\in\mathcal{F}$;
-\item
-$\mathcal{F}$ is closed under complement, i.e., 
-$A\in\mathcal{F}$ implies $\Omega\setminus A\in\mathcal{F}$;
-\item
-$\mathcal{F}$ is closed under countably union operation, i.e.,
-$A_i\in\mathcal{F},i\ge1$ implies $\cup_{i=1}^\infty A_i\in\mathcal{F}$.
-\end{enumerate}
 \end{definition}
 
-\begin{definition}[Probability Measure]
-A function $\mathbb{P}:\mathcal{F}\to\mathbb{R}$ is called a \emph{probability measure} on $(\Omega,\mathcal{F})$ if
+\begin{definition}[Subspace]
+A subspace $(Y, \tilde{\textsf{d}})$ of $(X,d)$ is obtained if we take $Y\subseteq X$ and restrict $\textsf{d}$ into $Y\times Y$, denoted as
+\[
+\tilde{\textsf{d}}=\textsf{d}\mid_{Y\times Y}.
+\]
+The metric $\tilde{\textsf{d}}$ is called the metric induced on $Y$ by $\textsf{d}$.
+\end{definition}
+
+\begin{example}
+Examples about metric space:
 \begin{itemize}
 \item
-$\mathbb{P}(\Omega)=1$;
+Real line $\mathbb{R}$:
+a set of all real numbers with the usual metric $\textsf{d}(x,y)=|x-y|$;
 \item
-$\mathbb{P}(A)\ge0,\forall A\in\mathcal{F}$;
-\item
-$\mathbb{P}$ is $\sigma$-additive, i.e., when $A_i\in\mathcal{F},i\ge1$ and $A_i\cap A_j=\emptyset,\forall i\ne j$, 
+Euclidean space $\mathbb{R}^2$:
+the metric space $\mathbb{R}^2$ is obtained by defining the metric
 \[
-\mathbb{P}\bigg(
-\bigcup_{i=1}^\infty A_i
-\bigg)
-=
-\sum_{i=1}^\infty\mathbb{P}(A_i).
+d(x,y) = \sqrt{(x_1-y_1)^2 + (x_2-y_2)^2},\quad
+x=(x_1,x_2), y=(y_1,y_2).
 \]
-\end{itemize}
-where $\mathbb{P}(A)$ is called the \emph{probability of the event} $A$.
-\end{definition}
-
-
-\begin{definition}[Probability Space]
-A probability space is a triplet $(\Omega,\mathcal{F},\mathbb{P})$ defined as follows:
-\begin{enumerate}
 \item
-$\Omega$ denotes the \emph{sample space}, 
-and a point $\omega\in\Omega$ is called a sample point;
+More generally, the Euclidean space $\mathbb{R}^n$, unitary space $\mathbb{C}^n$, and complex plane $\mathbb{C}$ are metric spaces.
 \item
-$\mathcal{F}$ is a $\sigma$-algebra of $\Omega$, 
-which is a collection of subsets in $\Omega$.
-The element $A\in\mathcal{F}$ is called an ``event''; and
-\item
-$\mathbb{P}$ is a probability measure defined in the space $(\Omega,\mathcal{F})$.
-\end{enumerate}
-\end{definition}
-
-\begin{definition}[Almost Surely True]
-A statement $S$ is said to be \emph{almost surely~(a.s.) true} or \emph{true with probability 1}, if
-\begin{itemize}
-\item
-$\mathfrak{B}:=\{w: S(w)\mbox{ is true}\}\in\mathcal{F}$
-\item
-$\mathbb{P}(F)=1$.
-\end{itemize}
-\end{definition}
-\begin{definition}[Topological Space]
-A \emph{topological space} $(X,\mathcal{T})$ consists of a (non-empty) set $X$, and a family of subsets of $X$ (``open sets'' $\mathcal{T}$) such that
-\begin{enumerate}
-\item
-$\emptyset,X\in\mathcal{T}$
-\item
-$U,V\in\mathcal{T}$ implies $U\bigcap V\in \mathcal{T}$
-\item
-If $U_\alpha\in\mathcal{T}$ for all $\alpha\in\mathcal{A}$, then $\bigcup_{\alpha\in\mathcal{A}}U_\alpha\in\mathcal{T}$.
-\end{enumerate}
-When $A\in\mathcal{T}$, $A$ is called the open subset of $X$. The $\mathcal{T}$ is called a \emph{topology} on $X$.
-\end{definition}
-
-
-
-
-
-\begin{definition}[Borel $\sigma$-Algebra]
-Consider a topological space $\Omega$, with $\mathcal{U}$ being the topology of $\Omega$.
-The \emph{Borel $\sigma$-Algebra} $\mathcal{B}(\Omega)$ on $\Omega$ is defined to be 
-the \textit{minimal} $\sigma$-algebra containing $\mathcal{U}$:
+Sequence space $\ell^\infty$: As a set $X$, we take the set of all bounded sequences of complex numbers, i.e.,
 \[
-\mathcal{B}(\Omega)\triangleq \sigma(\mathcal{U}).
+X\ni x=(x_1,x_2, \ldots):=(x_i)
 \]
-Any element $B\in\mathcal{B}(\Omega)$ is called the \emph{Borel set}.
-\end{definition}
-
-\begin{definition}[$\mathcal{F}$-Measurable / Random Variable]
-\begin{enumerate}
-\item
-A function $f:(\Omega,\mathcal{F})\to(\mathbb{R}^n,\mathcal{B}(\mathbb{R}^n))$ is called \emph{$\mathcal{F}$-measurable} if
+such that for all $i$, $|\xi_i|\le C_x$, where $C_x$ is a real number which may be dependent on $x$ but does not depend on $i$.
+We choose the metric
 \[
-f^{-1}(\bm B)=\{w\mid f(w)\in\mathcal{B}\}\in\mathcal{F},
+\textsf{d}(x,y)=\sup_{i\in\mathbb{N}}|x_i-y_i|,
 \]
-\mbox{for any $\bm B\in\mathcal{B}(\mathbb{R}^n)$.}
+with $x=(x_i), y=(y_i).$
 \item
-A random variable $X$ is a function $X:(\Omega,\mathcal{F})\to(\mathbb{R}^n,\mathcal{B}(\mathbb{R}^n))$ and is $\mathcal{F}$-measurable.
-\end{enumerate}
-\end{definition}
-
-\begin{definition}[Generated $\sigma$-Algebra]
-Suppose $X$ is a random variable on $(\Omega,\mathcal{F},\mathbb{P})$. 
-Then the $\sigma$-algebra generated by $X$, say $\mathcal{H}_X$ is defined to be 
-the \emph{minimal $\sigma$-algebra} on $\Omega$ to make $X$ measurable.
-\end{definition}
-\begin{proposition}
-$
-\mathcal{H}_X = \{X^{-1}(\bm B):~\bm B\in\mathcal{B}(\mathbb{R}^n)\}.
-$
-\end{proposition}
-
+Function space $\mathcal{C}[a,b]$:
+The set of all real-valued functions $x,y,\ldots$,
+which are functions of an independent variable $t$,
+and are defined and continuous on $\mathcal{J}=[a,b]$.
+We choose the metric
+\[
+\textsf{d}(x,y) = \max_{t\in\mathcal{J}}|x(t) - y(t)|.
+\]
+\item
+Space $\mathcal{B}(A)$ of bounded functions:
+each element $x\in\mathcal{B}(A)$ is a function defined and bounded on a set $A$.
+The metric is defined by 
+\[
+\textsf{d}(x,y)=\sup_{A}|x(t)-y(t)|.
+\]
 \begin{proof}
-Since $X$ is $\mathcal{H}_X$-measurable, for any $\bm B\in\mathcal{B}(\mathbb{R}^n)$, $X^{-1}(\bm B)\in\mathcal{H}_X$. Thus $\mathcal{H}_X \supseteq \{X^{-1}(\bm B):~\bm B\in\mathcal{B}(\mathbb{R}^n)\}$.
-It suffices to show that $\{X^{-1}(\bm B):~\bm B\in\mathcal{B}(\mathbb{R}^n)\}$ is a $\sigma$-algebra to finish the proof, which is true since $\mathcal{B}(\mathbb{R}^n)=\sigma(\mathcal{U})$, with $\mathcal{U}$ being the topology of $\mathbb{R}^n$.
-
-
-
+It's eash to see that $\textsf{d}(x,y)$ is real-valued, finite, non-negative,and $\textsf{d}(x,y)=\textsf{d}(y,x)$.
+As for the second condition, when $d(x,y)=0$,
+\[
+x(t)-y(t)=0,\quad \forall t\in A,
+\]
+so that $x=y$.
+As for the last condition, for all $t\in A$,
+\begin{align*}
+|x(t) - y(t)|
+&\le
+|x(t) - z(t)| + |z(t)-y(t)|\\
+&\le
+\sup_{t\in A}|x(t) - z(t)| + \sup_{t\in A}|z(t)-y(t)|
+\end{align*}
+This indicates that $|x(t) - y(t)|\le \textsf{d}(x,z)+\textsf{d}(z,y)$ for all $t\in A$. Taking the supremum on $A$ both sides gives the desired result.
 \end{proof}
+\item
+Space $\ell^p$: 
+Let $p\ge 1$ be a fixed number.
+By definition, each element in $\ell^p$ is a sequence $x=(x_i)=(x_1,x_2,\ldots)$ of numbers such that 
+\[
+\sum_{i\ge1}|x_i|^p<\infty.
+\]
+The metric is defined by
+\[
+\textsf{d}(x,y)=\left(
+\sum_i|x_i-y_i|^p
+\right)^{1/p}.
+\]
+When $p=2$, $\textsf{d}$ reduces into the $2$-norm.
+Then $\ell^2$ is called the Hilbert space.
+\end{itemize}
+\end{example}
 
-
-
-
-
-
-%\begin{remark}
-%In other words, the $\sigma$-algebra generated by $X$ is the \emph{minimal $\sigma$-algebra} on $\Omega$ containing $X^{-1}(U)$, where $U\subseteq\mathbb{R}^n$ is any open set:
-%\[
-%\mathcal{H}_X = \{X^{-1}(B):~B\in\mathcal{B}(\mathbb{R}^n)\}.
-%\]
-%\end{remark}
-
-
-
-
+\begin{proposition}
+The space $\ell^p$ is a metric space.
+\end{proposition}
+We proof this result by four intermediate steps:
+\begin{itemize}
+\item
+An auxiliary inequality.
+\item
+the 
+Holder inequality.
+\item
+the Minkowski inequality.
+\item
+the triangle inequality.
+\end{itemize}
+\begin{proof}
+\begin{itemize}
+\item
+Let $p>1$ and define $q$ by $1/p+1/q=1$.
+Let $\alpha$ and $\beta$ be any non-negative numbers, then we have 
+\[
+\alpha\beta \le \frac{\alpha^p}{p}+\frac{\beta^q}{q}.
+\]
+The condition $1/p+1/q=1$ implies $1/(p-1)=q-1$, then
+\[
+u=t^{p-1}\implies t=u^{q-1}.
+\]
+It follows that
+\begin{align*}
+\alpha\beta&\le 
+\int_0^{\alpha}t^{p-1}\diff t + \int_0^{\beta}u^{q-1}\diff u
+\\
+&=\frac{\alpha^p}{p}+\frac{\beta^q}{q}.
+\end{align*}
+\item
+Take any non-zero $x=(x_i)\in\ell^p$ and $y=(y_i)\in\ell^q$, we have the Holder inequality:
+\[
+\sum_{i\ge1}|x_iy_i|\le 
+\left(
+\sum_{i\ge1}|x_i|^p
+\right)^{1/p}
+\left(
+\sum_{i\ge1}|y_i|^q
+\right)^{1/q}.
+\]
+Let $(\tilde{x}_i)$ and $(\tilde{y})$ be such that 
+\[
+\sum|\tilde{x}_i|^p=1, \sum|\tilde{y}_i|^q=1.
+\]
+By applying the Auxiliary inequality,
+\[
+|\tilde{x}_i\tilde{y}_i|\le \frac{1}{p}|\tilde{x}_i|^p + \frac{1}{q}|\tilde{y}_i|^q.
+\]
+Therefore, 
+\[
+\sum_i|\tilde{x}_i\tilde{y}_i|\le \frac{1}{p}+\frac{1}{q}=1.
+\]
+Now take any non-zero $x=(x_i)\in\ell^p$ and $y=(y_i)\in\ell^q$. Set
+\[
+\tilde{x}_i=\frac{x_i}{\left(
+\sum_i|x_i|^p
+\right)^{1/p}},\quad
+\tilde{y}_i=\frac{y_i}{\left(
+\sum_i|y_i|^q
+\right)^{1/q}}
+\]
+It follows that 
+\[
+\sum_i\left|
+\frac{x_i}{\left(
+\sum_i|x_i|^p
+\right)^{1/p}}
+\frac{y_i}{\left(
+\sum_i|y_i|^q
+\right)^{1/q}}
+\right|\le 1.
+\]
+The desired result follows.
+\end{itemize}
+\end{proof}
 
 
 

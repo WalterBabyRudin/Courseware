@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.12.25)  10 JAN 2021 17:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.12.25)  11 JAN 2021 16:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2216,7 +2216,7 @@ LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <14.4> not available
 LaTeX Font Info:    Font shape `T1/pplx/bx/it' in size <14.4> not available
 (Font)              Font shape `T1/pplx/b/it' tried instead on input line 26.
 
-<zh-hans_logo.png, id=45, 383.4325pt x 65.24374pt>
+<zh-hans_logo.png, id=37, 383.4325pt x 65.24374pt>
 File: zh-hans_logo.png Graphic file (type png)
  <use zh-hans_logo.png>
 Package pdftex.def Info: zh-hans_logo.png used on input line 26.
@@ -2329,11 +2329,34 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 (./week1/Monday.tex
 Chapter 1.
-LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/pplx/b/n' tried instead on input line 17.
+Package mdframed Info: mdframed works in twoside mode on input line 8.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 8.
+LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <10> not available
+(Font)              Font shape `T1/pplx/b/n' tried instead on input line 8.
+LaTeX Font Info:    Try loading font information for OMS+cmss on input line 14.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+LaTeX Font Info:    No file OMScmss.fd. on input line 14.
 
+LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
+(Font)              using `OMS/cmsy/m/n' instead
+(Font)              for symbol `textbullet' on input line 14.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 22.
+LaTeX Font Info:    Font shape `U/msa/m/n' will be
+(Font)              scaled to size 5.21004pt on input line 22.
+LaTeX Font Info:    Font shape `U/msb/m/n' will be
+(Font)              scaled to size 5.21004pt on input line 22.
+Package mdframed Info: mdframed works in twoside mode on input line 24.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 24.
+Package mdframed Info: mdframed works in twoside mode on input line 32.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 32.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -2350,14 +2373,14 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [2]
-LaTeX Font Info:    Try loading font information for OMS+pplx on input line 79.
-
-LaTeX Font Info:    No file OMSpplx.fd. on input line 79.
+LaTeX Font Info:    Try loading font information for OMS+pplx on input line 115
+.
+LaTeX Font Info:    No file OMSpplx.fd. on input line 115.
 
 
 LaTeX Font Warning: Font shape `OMS/pplx/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbullet' on input line 79.
+(Font)              for symbol `textbullet' on input line 115.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -2365,88 +2388,13 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [3]
-Package mdframed Info: mdframed works in twoside mode on input line 123.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 123.
-LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <10> not available
-(Font)              Font shape `T1/pplx/b/n' tried instead on input line 123.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 135.
-LaTeX Font Info:    Font shape `U/msa/m/n' will be
-(Font)              scaled to size 5.21004pt on input line 135.
-LaTeX Font Info:    Font shape `U/msb/m/n' will be
-(Font)              scaled to size 5.21004pt on input line 135.
-Package mdframed Info: mdframed works in twoside mode on input line 137.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 137.
-LaTeX Font Info:    Try loading font information for OMS+cmss on input line 141
-.
-LaTeX Font Info:    No file OMScmss.fd. on input line 141.
-
-
-LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
-(Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbullet' on input line 141.
-
-Package mdframed Info: mdframed works in twoside mode on input line 158.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 158.
-Package mdframed Info: mdframed works in twoside mode on input line 173.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 173.
-(/usr/local/texlive/2017/texmf-dist/tex/latex/microtype/mt-euf.cfg
-File: mt-euf.cfg 2006/07/03 v1.1 microtype config. file: AMS Euler Fraktur (RS)
-
-)
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
+ [3])
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [4]
-Package mdframed Info: Not enough space on this page on input line 181.
-Package mdframed Info: mdframed works in twoside mode on input line 182.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 182.
-Package mdframed Info: mdframed works in twoside mode on input line 199.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 199.
-Package mdframed Info: mdframed works in twoside mode on input line 209.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 209.
-Package mdframed Info: mdframed works in twoside mode on input line 222.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 222.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [5]
-Package mdframed Info: Not enough space on this page on input line 226.
-)
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [6]
 No file main.ind.
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 113.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 113.
@@ -2454,32 +2402,30 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 113.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 113.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 113.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: D21B888A94F642DEB519F7A4B4700C21;428.
+(rerunfilecheck)             Checksum: 37446DA9DB1FBBA72B8245584815732C;253.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 47598 strings out of 492995
- 990484 string characters out of 6132703
- 1371807 words of memory out of 5000000
- 50019 multiletter control sequences out of 15000+600000
- 91972 words of font info for 285 fonts, out of 8000000 for 9000
+ 47473 strings out of 492995
+ 988529 string characters out of 6132703
+ 1379737 words of memory out of 5000000
+ 49969 multiletter control sequences out of 15000+600000
+ 88416 words of font info for 245 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 71i,9n,98p,10504b,638s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 71i,9n,98p,10504b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/tex
 live/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texl
 ive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texli
 ve/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive
 /2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/
-2017/texmf-dist/fonts/type1/public/amsfonts/euler/eufm10.pfb></usr/local/texliv
-e/2017/texmf-dist/fonts/type1/public/mathpazo/fplmbb.pfb></usr/local/texlive/20
-17/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></usr/local/texlive/2017/te
-xmf-dist/fonts/type1/public/mathpazo/fplmri.pfb></usr/local/texlive/2017/texmf-
-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2017/te
-xmf-dist/fonts/type1/public/cm-super/sfsi1095.pfb></usr/local/texlive/2017/texm
+2017/texmf-dist/fonts/type1/public/mathpazo/fplmbb.pfb></usr/local/texlive/2017
+/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb></usr/local/texlive/2017/texm
+f-dist/fonts/type1/public/mathpazo/fplmri.pfb></usr/local/texlive/2017/texmf-di
+st/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2017/texm
 f-dist/fonts/type1/public/cm-super/sfss1000.pfb></usr/local/texlive/2017/texmf-
 dist/fonts/type1/public/cm-super/sfss1095.pfb></usr/local/texlive/2017/texmf-di
 st/fonts/type1/public/cm-super/sfsx1000.pfb></usr/local/texlive/2017/texmf-dist
@@ -2493,10 +2439,10 @@ e1/public/cm-super/sfsx2488.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1
 latino/uplbi8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/palatino
 /uplr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplri8
 a.pfb>
-Output written on main.pdf (16 pages, 289346 bytes).
+Output written on main.pdf (14 pages, 242510 bytes).
 PDF statistics:
- 249 PDF objects out of 1000 (max. 8388607)
- 199 compressed objects within 2 object streams
- 45 named destinations out of 1000 (max. 500000)
- 63050 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 200 PDF objects out of 1000 (max. 8388607)
+ 156 compressed objects within 2 object streams
+ 25 named destinations out of 1000 (max. 500000)
+ 62010 words of extra memory for PDF output out of 74296 (max. 10000000)
 
